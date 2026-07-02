@@ -1,0 +1,75 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/r.class
+  Last modified May 24, 2026; size 283 bytes
+  SHA-256 checksum f6832e75239747a3704b01324d1f63bdc59e83cb0556cbc895ad158d8ae99276
+public final class r implements a.b
+  minor version: 3
+  major version: 45
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #4                          // r
+  super_class: #2                         // java/lang/Object
+  interfaces: 1, fields: 2, methods: 2, attributes: 0
+Constant pool:
+   #1 = Class              #22            // a/b
+   #2 = Class              #24            // java/lang/Object
+   #3 = Class              #25            // q
+   #4 = Class              #26            // r
+   #5 = Fieldref           #4.#11         // r.a:I
+   #6 = Fieldref           #4.#12         // r.b:Lq;
+   #7 = Methodref          #2.#9          // java/lang/Object."<init>":()V
+   #8 = Methodref          #3.#10         // q.a:(ILa/c;I)I
+   #9 = NameAndType        #17:#13        // "<init>":()V
+  #10 = NameAndType        #21:#14        // a:(ILa/c;I)I
+  #11 = NameAndType        #21:#19        // a:I
+  #12 = NameAndType        #23:#20        // b:Lq;
+  #13 = Utf8               ()V
+  #14 = Utf8               (ILa/c;I)I
+  #15 = Utf8               (La/c;I)I
+  #16 = Utf8               (Lq;I)V
+  #17 = Utf8               <init>
+  #18 = Utf8               Code
+  #19 = Utf8               I
+  #20 = Utf8               Lq;
+  #21 = Utf8               a
+  #22 = Utf8               a/b
+  #23 = Utf8               b
+  #24 = Utf8               java/lang/Object
+  #25 = Utf8               q
+  #26 = Utf8               r
+{
+  private int a;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private q b;
+    descriptor: Lq;
+    flags: (0x0002) ACC_PRIVATE
+
+  public r(q, int);
+    descriptor: (Lq;I)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=3
+         0: aload_0
+         1: invokespecial #7                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #6                  // Field b:Lq;
+         9: aload_0
+        10: iload_2
+        11: putfield      #5                  // Field a:I
+        14: return
+
+  public final int a(a.c, int);
+    descriptor: (La/c;I)I
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=4, locals=3, args_size=3
+         0: aload_0
+         1: getfield      #6                  // Field b:Lq;
+         4: aload_0
+         5: getfield      #5                  // Field a:I
+         8: aload_1
+         9: iload_2
+        10: invokevirtual #8                  // Method q.a:(ILa/c;I)I
+        13: ireturn
+}

@@ -1,0 +1,17 @@
+original,decoded,kind,note
+modules/mod/original/mod_0.mid,,original,Original file from JAR path data/mod/mod_0.mid
+modules/mod/original/mod_1.mid,,original,Original file from JAR path data/mod/mod_1.mid
+modules/mod/original/mod_2.mid,,original,Original file from JAR path data/mod/mod_2.mid
+modules/mod/original/mod_3.mid,,original,Original file from JAR path data/mod/mod_3.mid
+modules/mod/original/mod_4.mid,,original,Original file from JAR path data/mod/mod_4.mid
+modules/mod/original/mod_5.mid,,original,Original file from JAR path data/mod/mod_5.mid
+modules/mod/original/mod_6.mid,,original,Original file from JAR path data/mod/mod_6.mid
+modules/mod/original/modInfo.mid,,original,Original file from JAR path data/mod/modInfo.mid
+modules/mod/original/modInfo.mid,modules/mod/decoded/data__mod__modInfo.mid.json,mod_info,Decoded JSON generated from the original binary format.
+modules/mod/original/mod_0.mid,modules/mod/decoded/data__mod__mod_0.mid.json,mod_tile_rects,Decoded JSON generated from the original binary format.
+modules/mod/original/mod_1.mid,modules/mod/decoded/data__mod__mod_1.mid.json,mod_tile_rects,Decoded JSON generated from the original binary format.
+modules/mod/original/mod_2.mid,modules/mod/decoded/data__mod__mod_2.mid.json,mod_tile_rects,Decoded JSON generated from the original binary format.
+modules/mod/original/mod_3.mid,modules/mod/decoded/data__mod__mod_3.mid.json,mod_tile_rects,Decoded JSON generated from the original binary format.
+modules/mod/original/mod_4.mid,modules/mod/decoded/data__mod__mod_4.mid.json,mod_tile_rects,Decoded JSON generated from the original binary format.
+modules/mod/original/mod_5.mid,modules/mod/decoded/data__mod__mod_5.mid.json,mod_tile_rects,Decoded JSON generated from the original binary format.
+modules/mod/original/mod_6.mid,modules/mod/decoded/data__mod__mod_6.mid.json,mod_tile_rects,Decoded JSON generated from the original binary format.

@@ -1,0 +1,1915 @@
+{
+  "format": "string_matrix",
+  "rows": [
+    [
+      "Không"
+    ],
+    [
+      "Tạm dừng"
+    ],
+    [
+      "Xác nhận"
+    ],
+    [
+      "Quay lại"
+    ],
+    [
+      "Có"
+    ],
+    [
+      "Không"
+    ],
+    [
+      "Bạn có muốn thoát không?"
+    ],
+    [
+      "Chú ý"
+    ],
+    [
+      "Bạn có muốn bật nhạc không?"
+    ],
+    [
+      "Tắt nhạc có thể tăng tốc độ chơi"
+    ],
+    [
+      "Nhiên Dực Bức"
+    ],
+    [
+      "Bom tinh nghịch"
+    ],
+    [
+      "Nhiên Liệp Sư"
+    ],
+    [
+      "Hắc Thán Báo"
+    ],
+    [
+      "Hỏa Diễm Hồ"
+    ],
+    [
+      "Viêm Ma"
+    ],
+    [
+      "Long bảo bối"
+    ],
+    [
+      "Phệ Hỏa Thú"
+    ],
+    [
+      "Bạo Long Thú"
+    ],
+    [
+      "Ly Ngưu Ngưu"
+    ],
+    [
+      "Ly Ngưu Thản Khắc"
+    ],
+    [
+      "Nhiệt Bạo Phong Tốc Khuyển"
+    ],
+    [
+      "Tuyệt Đối Linh Độ Khuyển"
+    ],
+    [
+      "Hỏa Diễm Tường Vân Khuyển"
+    ],
+    [
+      "Tà Vân Khuyển Thần"
+    ],
+    [
+      "Hỏa Phượng Hoàng"
+    ],
+    [
+      "Diệp Tán Oa"
+    ],
+    [
+      "Thụ Tán Oa"
+    ],
+    [
+      "Long Oa"
+    ],
+    [
+      "Tiên Nhân Cầu Bảo Bảo"
+    ],
+    [
+      "Tiên Nhân Chưởng Thú"
+    ],
+    [
+      "Thiết Tý Phách Vương Thụ"
+    ],
+    [
+      "Khẩu Đại Thảo"
+    ],
+    [
+      "Khốc Tị Mộc Linh"
+    ],
+    [
+      "La Phục Thảo"
+    ],
+    [
+      "La phục Oa Oa"
+    ],
+    [
+      "Tây Quan Tiểu Hương Trư"
+    ],
+    [
+      "Trư Lộc Điệp"
+    ],
+    [
+      "Cương Tán Ma Cô"
+    ],
+    [
+      "Uy Qua Đệ Đệ"
+    ],
+    [
+      "Thảo Diệp Cô"
+    ],
+    [
+      "Linh Quang Lộc"
+    ],
+    [
+      "Kim Chỉ Ốc"
+    ],
+    [
+      "Mèo YeDoon"
+    ],
+    [
+      "Thỏ Di Lặc Bunny"
+    ],
+    [
+      "Toản Địa Khâu Dẫn"
+    ],
+    [
+      "Toái nham Khâu Dẫn"
+    ],
+    [
+      "Nham Nham Quy"
+    ],
+    [
+      "Kiếm Giáp Hạn Quy"
+    ],
+    [
+      "Bạch Châm Bảo Bảo"
+    ],
+    [
+      "Hắc Châm Yển Bảo Bảo"
+    ],
+    [
+      "Nham Sơn Long"
+    ],
+    [
+      "Zombie Nham Sơn Long"
+    ],
+    [
+      "Thổ Lang Chu Chu"
+    ],
+    [
+      "Độc Lang Chu"
+    ],
+    [
+      "Sừng tê giác bạo long"
+    ],
+    [
+      "Khủng giác bạo long"
+    ],
+    [
+      "Chiến Thần Đà"
+    ],
+    [
+      "Tuyết Cầu Bảo Bảo"
+    ],
+    [
+      "Người tuyết"
+    ],
+    [
+      "Tuyết Sơn Cự Linh"
+    ],
+    [
+      "Thủy thủ chim cánh cụt"
+    ],
+    [
+      "Bá tước chim cánh cụt"
+    ],
+    [
+      "Võ thần chim cánh cụt"
+    ],
+    [
+      "Lục Hành Điểu"
+    ],
+    [
+      "Cá Miệng Rộng"
+    ],
+    [
+      "Mực Ma"
+    ],
+    [
+      "Cá Đèn Lồng"
+    ],
+    [
+      "Thủy Thượng Phiêu"
+    ],
+    [
+      "Phi Thứ Hải Mã"
+    ],
+    [
+      "Tấn Cá Kiếm"
+    ],
+    [
+      "Cốt Cá Kiếm"
+    ],
+    [
+      "Độc Giác Kim Ngư"
+    ],
+    [
+      "Tương Quân Giải"
+    ],
+    [
+      "Lôi Quang Hầu"
+    ],
+    [
+      "Lôi Vân Miêu"
+    ],
+    [
+      "Điện Nhãn Miêu"
+    ],
+    [
+      "Thân Sĩ Miêu"
+    ],
+    [
+      "Điện Miêu"
+    ],
+    [
+      "Thiểm Điện Miêu"
+    ],
+    [
+      "Phù Du Điện Long"
+    ],
+    [
+      "Phù Du Quỷ Long"
+    ],
+    [
+      "Chuột Điện"
+    ],
+    [
+      "Chuột Lôi Điện"
+    ],
+    [
+      "Dị Tiểu Hiệp"
+    ],
+    [
+      "Lôi Kỳ Lân"
+    ],
+    [
+      "Độc Ba Lợi"
+    ],
+    [
+      "Kịch Độc Quái"
+    ],
+    [
+      "Kịch Độc Khủng Thú"
+    ],
+    [
+      "Đan nhãn thú"
+    ],
+    [
+      "Độc nhãn quái"
+    ],
+    [
+      "Độc nhãn cự thần"
+    ],
+    [
+      "Túi quỷ"
+    ],
+    [
+      "Thi Đại Quỷ"
+    ],
+    [
+      "Kính ma"
+    ],
+    [
+      "Phá kính tà linh"
+    ],
+    [
+      "Hư không hành giả"
+    ],
+    [
+      "Minh vương Long"
+    ],
+    [
+      "Lắc lắc"
+    ],
+    [
+      "Chim xanh"
+    ],
+    [
+      "Tai tước"
+    ],
+    [
+      "Hải âu"
+    ],
+    [
+      "Dực thần"
+    ],
+    [
+      "Hồng nhạn"
+    ],
+    [
+      "Phi Dực Thú"
+    ],
+    [
+      "Đậu ưng"
+    ],
+    [
+      "Liệt ưng"
+    ],
+    [
+      "Quáng thạch dực long"
+    ],
+    [
+      "Tà ma dực long"
+    ],
+    [
+      "Tinh Vân Hạc"
+    ],
+    [
+      "Bắt được"
+    ],
+    [
+      "Tiến hóa"
+    ],
+    [
+      "Dị hoá"
+    ],
+    [
+      "Trứng"
+    ],
+    [
+      "Nhiệm vụ"
+    ],
+    [
+      "Ban đầu"
+    ],
+    [
+      "Hỏa hệ"
+    ],
+    [
+      "Hỏa trảo"
+    ],
+    [
+      "Dương viêm"
+    ],
+    [
+      "Diễm kích"
+    ],
+    [
+      "Hỏa Vân triệu"
+    ],
+    [
+      "Thiên Hỏa tế"
+    ],
+    [
+      "Viêm lôi phá"
+    ],
+    [
+      "Hỏa diễm đao"
+    ],
+    [
+      "Chước nhiệt chi xúc"
+    ],
+    [
+      "Liệt diễm phong bạo"
+    ],
+    [
+      "Vĩnh hằng hỏa ảnh"
+    ],
+    [
+      "Diệp Toàn"
+    ],
+    [
+      "Quang phản"
+    ],
+    [
+      "Đằng Phược"
+    ],
+    [
+      "Thảo Chủng"
+    ],
+    [
+      "Đằng chi bích lũy"
+    ],
+    [
+      "Thảo nguyện thuật"
+    ],
+    [
+      "Châm Diệp Trảm"
+    ],
+    [
+      "Diệp chi ân huệ"
+    ],
+    [
+      "Đằng mạn triền nhiễu"
+    ],
+    [
+      "Quang hợp hiệu ứng"
+    ],
+    [
+      "Hất bụi"
+    ],
+    [
+      "Thổ thuẫn"
+    ],
+    [
+      "Bão cát"
+    ],
+    [
+      "Nham băng"
+    ],
+    [
+      "Người bảo vệ Địa Giới"
+    ],
+    [
+      "Thạch phu thuật"
+    ],
+    [
+      "Nham bạo"
+    ],
+    [
+      "Hàng rào cát đá"
+    ],
+    [
+      "Bão cát"
+    ],
+    [
+      "Thổ Chi Loạn Vũ"
+    ],
+    [
+      "Bong bóng"
+    ],
+    [
+      "Băng lao"
+    ],
+    [
+      "Tuyết ảnh"
+    ],
+    [
+      "Thủy trụ"
+    ],
+    [
+      "Thuật cầu nguyện"
+    ],
+    [
+      "Thủy bích"
+    ],
+    [
+      "Bạo Phong Tuyết"
+    ],
+    [
+      "Lá chắn gió tuyết"
+    ],
+    [
+      "Băng Phong Hãm Tịnh"
+    ],
+    [
+      "Ray lạnh"
+    ],
+    [
+      "Điện giật"
+    ],
+    [
+      "Lôi thiểm"
+    ],
+    [
+      "Nạp điện"
+    ],
+    [
+      "Sóng điện từ"
+    ],
+    [
+      "Đoạt mệnh cao áp"
+    ],
+    [
+      "Điện năng chuyển đổi"
+    ],
+    [
+      "Tia lửa điện"
+    ],
+    [
+      "Chùm sấm sét"
+    ],
+    [
+      "Điện quang thạch hỏa"
+    ],
+    [
+      "Cảm ứng điện từ"
+    ],
+    [
+      "Ảnh thứ"
+    ],
+    [
+      "Chú oán"
+    ],
+    [
+      "Quỷ độc"
+    ],
+    [
+      "Cơn ác mộng"
+    ],
+    [
+      "Mị ảnh"
+    ],
+    [
+      "Hỗn loạn"
+    ],
+    [
+      "Độc ảnh thứ"
+    ],
+    [
+      "Chú Phược Quỷ Lao"
+    ],
+    [
+      "Quỷ độc tín ngưỡng"
+    ],
+    [
+      "Lời nguyền cuối cùng"
+    ],
+    [
+      "Phong nhận"
+    ],
+    [
+      "Phong áp"
+    ],
+    [
+      "Thuận phong"
+    ],
+    [
+      "Long quyển"
+    ],
+    [
+      "Nghịch Phong Đoạt"
+    ],
+    [
+      "Vũ Liệt Thuật"
+    ],
+    [
+      "Yến Hồi Thiểm"
+    ],
+    [
+      "Phong Chi Tuyền Qua"
+    ],
+    [
+      "Phong Chi Tí Hữu"
+    ],
+    [
+      "Phi Yến Hoàn Sào"
+    ],
+    [
+      "Liệt Hỏa Chương"
+    ],
+    [
+      "Mộc Quỳ Chương"
+    ],
+    [
+      "Đại Địa Chương"
+    ],
+    [
+      "Thủy Lam Chương"
+    ],
+    [
+      "Hòa Phong Chương"
+    ],
+    [
+      "U Linh Chương"
+    ],
+    [
+      "Lôi Điện Chương"
+    ],
+    [
+      "Hoàng Kim Chương"
+    ],
+    [
+      "Gia tăng tầm nhìn trong bóng tối."
+    ],
+    [
+      "Có khả năng loại bỏ những cây cối chướng ngại trên đường đi."
+    ],
+    [
+      "Có khả năng phá tan đá gây chướng ngại trên đường đi."
+    ],
+    [
+      "Có thể đi vào vùng thủy vực."
+    ],
+    [
+      "Gia tăng khả năng phòng ngự 5%"
+    ],
+    [
+      "Có thể dùng bùa chú làm cho hạt giống sinh trưởng."
+    ],
+    [
+      "Gia tăng tỷ lệ thương tổn 5%"
+    ],
+    [
+      "Mang theo tất cả sủng vật tuy không tham chiến cũng có thể lấy được giá trị kinh nghiệm."
+    ],
+    [
+      "Sau khi chiến đấu chỉ số sinh mạng sẽ được khôi phục nhất định."
+    ],
+    [
+      "Gia tăng thuộc tính của rừng cây."
+    ],
+    [
+      "Gia tăng thuộc tính khu nham thạch."
+    ],
+    [
+      "Gia tăng thuộc tính của Thuỷ vực."
+    ],
+    [
+      "Cải thiện tốc độ chiến đấu của bản thân."
+    ],
+    [
+      "Mỗi hiệp thuộc tính Gia tăng 1%, cao nhất 20%."
+    ],
+    [
+      "Duy trì liên tục tính hiệu quả có thể làm sự ảnh hưởng bất lợi của thời hạn được giảm một nửa."
+    ],
+    [
+      "Không thể cường hóa."
+    ],
+    [
+      "Đạo tràng đạt được."
+    ],
+    [
+      "Thu thập 60 loại sủng vật."
+    ],
+    [
+      "Mạn Đà La Thạch"
+    ],
+    [
+      "Hồng Sắc Hải Loa"
+    ],
+    [
+      "Quy Xác Toái Phiến"
+    ],
+    [
+      "Ô Nha Uế"
+    ],
+    [
+      "Viễn Cổ Long Cốt"
+    ],
+    [
+      "Mật Phong Sào"
+    ],
+    [
+      "Ký Cư Giải Xác"
+    ],
+    [
+      "Linh Trùng Thi Hài"
+    ],
+    [
+      "Hấp Huyết Đằng Mạn"
+    ],
+    [
+      "Cá Thờn Bơn"
+    ],
+    [
+      "Cảm Lãm Chi Diệp"
+    ],
+    [
+      "Sủng vật lôi đạt"
+    ],
+    [
+      "Tinh Nguyên Thạch"
+    ],
+    [
+      "Thiên Giới Tinh Thạch"
+    ],
+    [
+      "Thiên Địa Thần Thạch"
+    ],
+    [
+      "Hồn Tinh Thạch"
+    ],
+    [
+      "Quỷ Thần Tinh Thạch"
+    ],
+    [
+      "Hỏa Diễm Kết Tinh"
+    ],
+    [
+      "Thực Vật Kết Tinh"
+    ],
+    [
+      "Đại Địa Kết Tinh"
+    ],
+    [
+      "Thủy Kết Tinh"
+    ],
+    [
+      "Lôi Chi Tinh Hoa"
+    ],
+    [
+      "U Linh Tinh Hoa"
+    ],
+    [
+      "Phong Chi Tinh Hoa"
+    ],
+    [
+      "Sủng vật hiện tại trị số sinh mạng thấp hơn 30%, gia tăng lực công kích 100%;"
+    ],
+    [
+      "Sủng vật gia tăng lực công kích 10%;"
+    ],
+    [
+      "Sủng vật Gia tăng khả năng phòng ngự 15%;"
+    ],
+    [
+      "Gia tăng sức đối kháng 20%;"
+    ],
+    [
+      "Sủng vật gia tăng tỉ số bạo kích 10%;"
+    ],
+    [
+      "Sau khi chiến đấu sủng vật lấy được giá trị kinh nghiệm 20%;"
+    ],
+    [
+      "Mang theo đạo cụ sủng vật tuy không tham chiến cũng có thể đạt được giá trị kinh nghiệm tương ứng;"
+    ],
+    [
+      "Giao tranh bắt đầu;"
+    ],
+    [
+      "Sủng vật công kích là cách tốt nhất để khôi phục lại một phần trị số sinh mạng;"
+    ],
+    [
+      "Sủng vật công kích nhất định trúng mục tiêu;"
+    ],
+    [
+      "Bất luận đối thủ đã bị thương thế nào, trị số sinh mạng cũng sẽ không thấp hơn 10 điểm (bắt được dùng);"
+    ],
+    [
+      "Gia tăng tỷ lệ bắt được sủng vật 20%;"
+    ],
+    [
+      "Tài liệu liên quan đến tiến hóa;"
+    ],
+    [
+      "Tài liệu liên quan tiến hóa bậc cao;"
+    ],
+    [
+      "Tài liệu liên quan đến tiến hóa bậc cao hiếm có;"
+    ],
+    [
+      "Tài liệu liên quan đến dị hoá;"
+    ],
+    [
+      "Tài liệu liên quan đến dị hóa bậc cao hiếm có;"
+    ],
+    [
+      "Tài liệu cường hóa Liệt Hỏa Chương;"
+    ],
+    [
+      "Tài liệu cường hóa Mộc Quỳ Chương;"
+    ],
+    [
+      "Tài liệu cường hóa Đại Địa Chương;"
+    ],
+    [
+      "Tài liệu cường hóa Thủy Lam Chương;"
+    ],
+    [
+      "Tài liệu cường hóa Lôi Điện Chương;"
+    ],
+    [
+      "Tài liệu cường hóa U Linh Chương;"
+    ],
+    [
+      "Tài liệu cường hóa Hòa Phong Chương;"
+    ],
+    [
+      "Tất Trung Cầu"
+    ],
+    [
+      "Phong ấn cầu"
+    ],
+    [
+      "Cao cấp cầu"
+    ],
+    [
+      "Đại sư cầu"
+    ],
+    [
+      "Bánh Sandwich"
+    ],
+    [
+      "Chocolate"
+    ],
+    [
+      "Năng lượng Thạch"
+    ],
+    [
+      "Tụ Năng Thạch"
+    ],
+    [
+      "Khôi phục tề"
+    ],
+    [
+      "Siêu năng tề"
+    ],
+    [
+      "Vạn năng dược"
+    ],
+    [
+      "Sinh mệnh thạch"
+    ],
+    [
+      "Linh Hồn Thạch"
+    ],
+    [
+      "Hưng phấn cô"
+    ],
+    [
+      "Tiểu thiết chuy"
+    ],
+    [
+      "Hiển ảnh tề"
+    ],
+    [
+      "Gia tốc dược"
+    ],
+    [
+      "Bất luận là sủng vật hoang dã nào thì xác suất bắt được là 100%."
+    ],
+    [
+      "Cầu thông thường có được nhiều sủng vật;"
+    ],
+    [
+      "Cầu may mắn bắt được sủng vật hiếm;"
+    ],
+    [
+      "Chỉ một số ít sủng vật cần phải có cầu cao cấp mới bắt được;"
+    ],
+    [
+      "Khôi phục một phần trị số sinh mạng sủng vật;"
+    ],
+    [
+      "Khôi phục toàn bộ trị số sinh mạng sủng vật;"
+    ],
+    [
+      "Khôi phục một phần giá trị kỹ năng của sủng vật;"
+    ],
+    [
+      "Khôi phục toàn bộ giá trị kỹ năng của sủng vật;"
+    ],
+    [
+      "Khôi phục một phần trị số sinh mạng cùng giá trị kỹ năng;"
+    ],
+    [
+      "Khôi phục toàn bộ trị số sinh mạng cùng giá trị kỹ năng;"
+    ],
+    [
+      "Loại bỏ bớt sủng vật;"
+    ],
+    [
+      "Khi sủng vật sống lại, trị số sinh mạng cùng kỹ năng sẽ được khôi phục;"
+    ],
+    [
+      "Sủng vật sống lại, khôi phục toàn bộ trị số sinh mạng cùng kỹ năng;"
+    ],
+    [
+      "Mức độ hưng phấn của sủng vật đạt tới điểm cực đại;"
+    ],
+    [
+      "Khảo cổ học, có thể sử dụng 50 lần;"
+    ],
+    [
+      "Khám phá cuộc sống;"
+    ],
+    [
+      "Lập tức cho ấp trứng, không cần chờ đợi, sẽ nhanh chóng được thấy sủng vật mới."
+    ],
+    [
+      "Trứng sủng vật"
+    ],
+    [
+      "Dây cương cưỡi sủng 1"
+    ],
+    [
+      "Dây cương cưỡi sủng 2"
+    ],
+    [
+      "Dây cương cưỡi sủng 3"
+    ],
+    [
+      "Dây cương cưỡi sủng 4"
+    ],
+    [
+      "Trang sách tương ứng của sủng vật"
+    ],
+    [
+      "Huy hiệu của các hình minh họa"
+    ],
+    [
+      "Viễn cổ chú thạch mẫn"
+    ],
+    [
+      "Đối với những trận chiến đặc biệt thì số lượng thành công trứng nở là:"
+    ],
+    [
+      "Có thể gia tăng tốc độ di chuyển (Nhấn nút 9 để quay về);"
+    ],
+    [
+      "Vừa gia tăng tốc độ lại không sợ chạm trán kẻ thù;"
+    ],
+    [
+      "Muốn lên Thiên Giới phải sử dụng tàu không gian (vào địa đồ nhấn nút 9);"
+    ],
+    [
+      "Có thể phá tan chướng ngại vật mà không gặp kẻ địch (vào địa đồ nhấn nút 9 mở rang);"
+    ],
+    [
+      "Nhấn nút 5 để tra xét thông tin của sủng vật;"
+    ],
+    [
+      "Nhấn nút 5 tra xét những huy hiệu đã đạt được;"
+    ],
+    [
+      "Có thể thay đổi thuộc tính sủng vật, giảm công, mệnh, tăng mẫn;"
+    ],
+    [
+      "Gieo Hạt"
+    ],
+    [
+      "Mê Muội"
+    ],
+    [
+      "Quấn Quanh"
+    ],
+    [
+      "Thực Loại"
+    ],
+    [
+      "Mục"
+    ],
+    [
+      "Chậm Chạp"
+    ],
+    [
+      "Nhụt Chí"
+    ],
+    [
+      "Phòng Ngự"
+    ],
+    [
+      "Quỷ Mị"
+    ],
+    [
+      "Hỗn Loạn"
+    ],
+    [
+      "Tê Liệt"
+    ],
+    [
+      "Mỗi hiệp giảm bớt X điểm trị số sinh mạng, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Gia tăng tốc độ công kích đối thủ có thể sử dụng đạo cụ, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Gia tăng tốc độ, sủng vật không thể thay thế, bạn cũng không thể trốn chạy, không thể sử dụng đạo cụ, ...duy trì liên tục Y hiệp."
+    ],
+    [
+      "Sau Y hiệp đã bị X đả thương, nếu tử vong thì hiệu quả Thực Loại biến mất."
+    ],
+    [
+      "Hiệu quả giảm chỉ duy trì liên tục Y hiệp."
+    ],
+    [
+      "Giá trị tạm thời giảm xuống, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Tỉ suất thương tổn giảm xuống, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Giá trị phòng ngự giảm xuống, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Lợi dụng sự công kích của đối thủ mới có thể chính mình công kích được đối phương."
+    ],
+    [
+      "Không thể thay đổi sủng vật của mình, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Mỗi lần hành động lại mất không ít thời gian chờ đợi."
+    ],
+    [
+      "Súc Lực"
+    ],
+    [
+      "Phá Phủ"
+    ],
+    [
+      "Kinh Cức"
+    ],
+    [
+      "Khôi phục"
+    ],
+    [
+      "Phòng ngự"
+    ],
+    [
+      "Vô hình"
+    ],
+    [
+      "Kiên nhẫn"
+    ],
+    [
+      "Linh Xảo"
+    ],
+    [
+      "Điện áp"
+    ],
+    [
+      "Hỏa Thạch"
+    ],
+    [
+      "Man Lực"
+    ],
+    [
+      "Thâu Thủ"
+    ],
+    [
+      "Gia Tốc"
+    ],
+    [
+      "Thạch Hóa"
+    ],
+    [
+      "Thạch Phu"
+    ],
+    [
+      "Sự chuyển hướng không công kích, nhưng cải thiện khả năng phòng ngự, những đợt công kích tiếp theo sẽ làm gia tăng thương tổn."
+    ],
+    [
+      "Gia tăng thương tổn, khả năng phòng ngự giảm, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Khả năng phòng ngự tự gia tăng, công kích ngược lại đối thủ tạo thành thương tổn, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Mỗi hiệp khôi phục trị số sinh mạng nhất định, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Gia tăng giá trị phòng ngự, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Công kích của đối thủ sẽ có một phần tỷ lệ dội ngược lại chính mình, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Cơ hội tiếp xúc để công kích kẻ thù tỷ lệ chỉ là một nửa, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Gia tăng giá trị Linh Xảo, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Gia tăng tiêu hao giá trị kỹ năng, làm gia tăng thương tổn, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Gia tăng giá trị Linh Xảo, phòng ngự giá trị giảm xuống, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Lực lượng giá trị Gia tăng, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Trạng thái thuận lợi của đối thủ sẽ được chuyển qua cho bạn, duy trì liên tục Y hiệp."
+    ],
+    [
+      "Mỗi hiệp công kích 2 lần, duy trì liên tục Y hiệp, lần thứ hai không cần lựa chọn kỹ năng, lặp lại kỹ năng lần trước đó, hơn nữa không cần thiết hao tổn kỹ năng."
+    ],
+    [
+      "Giải phóng các trạng thái dị thường, mỗi hiệp khôi phục 20% hạn mức cao nhất của trị số sinh mạng, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Giải phóng các trạng thái dị thường, sẽ có 3 hiệp miễn dịch ở những nơi có trạng thái dị thường."
+    ],
+    [
+      "Chìa khóa"
+    ],
+    [
+      "Có thể mở hoàng kim bảo rương;"
+    ],
+    [
+      "Hỏa hệ"
+    ],
+    [
+      "Mộc hệ"
+    ],
+    [
+      "Thổ hệ"
+    ],
+    [
+      "Thủy hệ"
+    ],
+    [
+      "Điện hệ"
+    ],
+    [
+      "Quỷ hệ"
+    ],
+    [
+      "Phong hệ"
+    ],
+    [
+      "Viễn cổ chú thạch công"
+    ],
+    [
+      "Viễn cổ chú thạch mệnh"
+    ],
+    [
+      "Có thể thay đổi thuộc tính sủng vật, giảm xuống mệnh, mẫn, Gia tăng công;"
+    ],
+    [
+      "Có thể thay đổi thuộc tính sủng vật, giảm xuống công, mẫn, Gia tăng mệnh;"
+    ],
+    [
+      "Nhấn nút 5 khóa để tiếp tục"
+    ],
+    [
+      "Nhấn nút 0 khóa để tiếp tục"
+    ],
+    [
+      "Miêu tả trận chiến"
+    ],
+    [
+      "Miêu tả quá trình bắt được"
+    ],
+    [
+      "Miêu tả đạo cụ"
+    ],
+    [
+      "Miêu tả sủng vật"
+    ],
+    [
+      "Miêu tả Thương Điếm"
+    ],
+    [
+      "Miêu tả cuộc chạy trốn"
+    ],
+    [
+      "Khu vực thần thánh"
+    ],
+    [
+      "Thôn trang bị hủy"
+    ],
+    [
+      "Phượng Chi Thủ Hộ Hương"
+    ],
+    [
+      "Đường nhỏ phía Đông"
+    ],
+    [
+      "Đường nhỏ phía Nam"
+    ],
+    [
+      "Truy Ức Chi Sâm"
+    ],
+    [
+      "Rừng rậm sương mù"
+    ],
+    [
+      "Bến tàu phía nam"
+    ],
+    [
+      "Cầu nhỏ bên suối"
+    ],
+    [
+      "Đường vòng Bích Thủy"
+    ],
+    [
+      "Trung tâm Bích Thủy"
+    ],
+    [
+      "Bích Thủy Đạp Sa"
+    ],
+    [
+      "Bích Thủy Đinh Châu"
+    ],
+    [
+      "Bích Thủy Quan Hà"
+    ],
+    [
+      "Suối nhỏ Bích Thủy"
+    ],
+    [
+      "Đường nhỏ Thủy Mộc"
+    ],
+    [
+      "Quặng mỏ Nguyên Mộc"
+    ],
+    [
+      "Đường nhỏ Mộc Thủy"
+    ],
+    [
+      "Di Vong Chi Sâm"
+    ],
+    [
+      "Đường nhỏ phía Bắc"
+    ],
+    [
+      "Trung tâm Nguyên Mộc"
+    ],
+    [
+      "Đường nhỏ phía Tây"
+    ],
+    [
+      "Bình nguyên phía Tây"
+    ],
+    [
+      "Bến tàu phía Đông"
+    ],
+    [
+      "Đấu trường Lục Hành Điểu"
+    ],
+    [
+      "Bến tàu phía Tây"
+    ],
+    [
+      "Di tích phía Tây"
+    ],
+    [
+      "Mỏ quặng phía Đông 1"
+    ],
+    [
+      "Mỏ quặng phía Đông 2"
+    ],
+    [
+      "Mỏ quặng phía Đông 3"
+    ],
+    [
+      "Trung tâm Niêm Thổ"
+    ],
+    [
+      "Khu chợ phía Nam"
+    ],
+    [
+      "Niêm Thổ Bình Sa"
+    ],
+    [
+      "Căn cứ Phi Không Đĩnh"
+    ],
+    [
+      "Phía đông Niêm Thổ"
+    ],
+    [
+      "Lối vào di tích"
+    ],
+    [
+      "Đường nhỏ Thổ Thạch"
+    ],
+    [
+      "Mỏ quặng phía Bắc"
+    ],
+    [
+      "Nam Hắc Thạch Thành"
+    ],
+    [
+      "Cửa Hắc Thạch Thành"
+    ],
+    [
+      "Hắc Thạch Mã Đầu"
+    ],
+    [
+      "Cứ điểm Thánh Điện"
+    ],
+    [
+      "Lối vào địa lao"
+    ],
+    [
+      "Hắc Thạch Đông Thành"
+    ],
+    [
+      "Địa lao Hắc Thạch"
+    ],
+    [
+      "Thần Điện Mã Đầu"
+    ],
+    [
+      "Hắc Long Thần Điện"
+    ],
+    [
+      "Bạch Long Thánh Điện"
+    ],
+    [
+      "Ánh nắng chan hòa"
+    ],
+    [
+      "Vĩnh Hằng Kinh Phiên"
+    ],
+    [
+      "Khiết Bạch Môn Phi"
+    ],
+    [
+      "Phiêu Phi Vũ Linh"
+    ],
+    [
+      "Dây may mắn"
+    ],
+    [
+      "Thời gian bình yên"
+    ],
+    [
+      "Tia nắng ban mai"
+    ],
+    [
+      "Tội ác được tha thứ"
+    ],
+    [
+      "Chòm Sao Ân Diệu"
+    ],
+    [
+      "Ôn Nhu Sơ Vân"
+    ],
+    [
+      "Khu vui chơi"
+    ],
+    [
+      "Không gian minh tưởng"
+    ],
+    [
+      "Thử tạo bộ lạc"
+    ],
+    [
+      "Bộ lạc thất bại phẩm"
+    ],
+    [
+      "Thử tạo Vũ lâm"
+    ],
+    [
+      "Thử tạo khu vực săn bắn"
+    ],
+    [
+      "Vũ lâm Thất bại phẩm"
+    ],
+    [
+      "Khu vực săn bắn"
+    ],
+    [
+      "Nguyên Thủy Ngự Tọa"
+    ],
+    [
+      "Bích Thủy Đạo Quán"
+    ],
+    [
+      "Nguyên Mộc Đạo Quán"
+    ],
+    [
+      "Niêm Thổ Đạo Quán Thượng"
+    ],
+    [
+      "Niêm Thổ Đạo Quán Hạ"
+    ],
+    [
+      "Hắc Thạch Đạo Quán Thượng"
+    ],
+    [
+      "Hắc Thạch Đạo Quán Hạ"
+    ],
+    [
+      "Hắc Long Thần Điện Đạo Quán"
+    ],
+    [
+      "Thiên Giới Đạo Quán"
+    ],
+    [
+      "Tương Quân Giải"
+    ],
+    [
+      "Lôi Kỳ Lân 1"
+    ],
+    [
+      "Lôi Kỳ Lân 2"
+    ],
+    [
+      "Lôi Kỳ Lân 3"
+    ],
+    [
+      "Lôi Kỳ Lân 4"
+    ],
+    [
+      "Tinh Vân Hạc 1"
+    ],
+    [
+      "Tinh Vân Hạc 2"
+    ],
+    [
+      "Tinh Vân Hạc 3"
+    ],
+    [
+      "Minh vương Long"
+    ],
+    [
+      "Cửu Sắc Lộc 1"
+    ],
+    [
+      "Cửu Sắc Lộc 2"
+    ],
+    [
+      "Cửu Sắc Lộc 3"
+    ],
+    [
+      "Chiến Thần Đà"
+    ],
+    [
+      "Hỏa Phượng Hoàng 1"
+    ],
+    [
+      "Hỏa Phượng Hoàng 2"
+    ],
+    [
+      "Ngục giam"
+    ],
+    [
+      "Đồ Thư Quán"
+    ],
+    [
+      "Khí cầu"
+    ],
+    [
+      "Thánh Điện"
+    ],
+    [
+      "Nhân vật chính"
+    ],
+    [
+      "Ngôi nhà nhỏ đầu thôn"
+    ],
+    [
+      "Thương Điếm nhỏ"
+    ],
+    [
+      "Phòng nhỏ bến tàu"
+    ],
+    [
+      "Bích Thủy Thương Điếm"
+    ],
+    [
+      "Cư dân Bích Thủy 1"
+    ],
+    [
+      "Cư dân Bích Thủy 2"
+    ],
+    [
+      "Cư dân Bích Thủy 3"
+    ],
+    [
+      "Nguyên Mộc Thương Điếm"
+    ],
+    [
+      "Dinh thự Trưởng thôn"
+    ],
+    [
+      "Hắc Long nơi dùng chân"
+    ],
+    [
+      "Hang nhỏ Bích Thủy"
+    ],
+    [
+      "Cư dân Nguyên Mộc"
+    ],
+    [
+      "Niêm Thổ dã ngoại Thương Điếm"
+    ],
+    [
+      "Niêm Thổ Thương Điếm"
+    ],
+    [
+      "Cư dân Niêm Thổ 1"
+    ],
+    [
+      "Cư dân Niêm Thổ 2"
+    ],
+    [
+      "Cư dân Niêm Thổ 3"
+    ],
+    [
+      "Cư dân Niêm Thổ 4"
+    ],
+    [
+      "Phòng nhỏ Hắc Thạch"
+    ],
+    [
+      "Phòng nhỏ bến tàu"
+    ],
+    [
+      "Hắc Thạch Thương Điếm 1"
+    ],
+    [
+      "Hắc Thạch Thương Điếm 2"
+    ],
+    [
+      "Cư dân Hắc Thạch"
+    ],
+    [
+      "Thiên Không Thương Điếm"
+    ],
+    [
+      "Chơi mới"
+    ],
+    [
+      "Chơi tiếp"
+    ],
+    [
+      "Tùy chọn"
+    ],
+    [
+      "Trợ giúp"
+    ],
+    [
+      "Giới thiệu"
+    ],
+    [
+      "Thoát"
+    ],
+    [
+      "Tị quái hàn"
+    ],
+    [
+      "Trong thời gian ngắn không gặp kẻ địch"
+    ],
+    [
+      "Truyền Tống Thạch"
+    ],
+    [
+      "Có thể tại Đại Địa Đồ gian truyền tống"
+    ],
+    [
+      "Tổng cộng gửi %s tin nhắn, đã thanh toán %s, bạn có muốn tiếp tục gửi không?"
+    ],
+    [
+      "Đang gửi tin nhắn……"
+    ],
+    [
+      "Tin nhắn gửi đi thành công (đã lưu trữ trò chơi)"
+    ],
+    [
+      "Tin nhắn chưa gửi được"
+    ],
+    [
+      "Thôn Làng Thơ Ấu"
+    ],
+    [
+      "Bích Thủy"
+    ],
+    [
+      "Đạo Quán"
+    ],
+    [
+      "Mê cung thần thú"
+    ],
+    [
+      "Nguyên Mộc"
+    ],
+    [
+      "Niêm Thổ"
+    ],
+    [
+      "Thiên Không"
+    ],
+    [
+      "Hắc Thạch"
+    ],
+    [
+      "Con đường Lục Hành Điểu"
+    ],
+    [
+      "Hắc Long Thần Điện"
+    ],
+    [
+      "Viễn Cổ"
+    ],
+    [
+      "Mê cung cuối cùng"
+    ],
+    [
+      "Thương tổn thấp."
+    ],
+    [
+      "Thương tổn thấp tăng thêm hiệu quả đốt cháy, mỗi hiệp sẽ giảm bớt trị số sinh mạng nhất định, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp, cũng có 10% xác suất lâm vào trạng thái Mê Muội 2 hiệp."
+    ],
+    [
+      "Thương tổn thấp, nếu đối phương đang cháy thì sẽ gia tăng được thương tổn trên người đối phương."
+    ],
+    [
+      "Tăng khả năng phòng ngự 30%, vòng chiến đấu tiếp theo sẽ gia tăng thương tổn."
+    ],
+    [
+      "Khả năng phòng ngự giảm xuống 50%, Gia tăng tỷ lệ thương tổn 50%, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Tỷ lệ thương tổn gia tăng khá cao."
+    ],
+    [
+      "Thương tổn thấp làm tăng hiệu quả đốt cháy, mỗi hiệp giảm bớt được trị số sinh mạng nhất định, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn cao, cũng có 20% xác suất lâm vào trạng thái Mê Muội 2 hiệp."
+    ],
+    [
+      "Thương tổn cao, nếu kẻ địch đang cháy thì tỷ lệ thương tổn trên người sẽ gia tăng."
+    ],
+    [
+      "Thương tổn thấp."
+    ],
+    [
+      "Thương tổn thấp, có thể khôi phục trị số sinh mạng nhất định."
+    ],
+    [
+      "Thương tổn thấp, cũng đem Quấn Quanh 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp, kẻ địch rơi vào trạng thái Thực Loại, sau 2 hiệp tạo thành thương tổn tương đối cao."
+    ],
+    [
+      "Gia tăng khả năng phòng ngự 30% thương tổn cũng dội ngược trở lại, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Mỗi hiệp khôi phục trị số sinh mạng nhất định, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Tỷ lệ thương tổn gia tăng khá cao."
+    ],
+    [
+      "Thương tổn ở mức độ trung bình, cũng có thể khôi phục trị số sinh mạng nhất định."
+    ],
+    [
+      "Thương tổn tương đối cao, cũng đem Quấn Quanh 3 hiệp."
+    ],
+    [
+      "Thương tổn tương đối cao, kẻ địch rơi vào trạng thái Thực Loại, sau 2 hiệp tạo thành Thương tổn cao."
+    ],
+    [
+      "Thương tổn thấp."
+    ],
+    [
+      "Thương tổn thấp, có khả năng tự gia tăng phòng ngự 10%(có thể chất chồng)."
+    ],
+    [
+      "Thương tổn thấp cũng có 25% xác suất lâm vào trạng thái Mê Muội 2 hiệp."
+    ],
+    [
+      "Thương tổn thấp, kẻ địch rơi vào trạng thái Mê Muội, tạo thành thương tổn cực lớn."
+    ],
+    [
+      "Giải phóng những vùng có trạng thái dị thường, mỗi hiệp khôi phục trị số sinh mạng nhất định, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Giải phóng những vùng có trạng thái dị thường, 3 hiệp có khả năng miễn dịch ở những nơi có trạng thái dị thường."
+    ],
+    [
+      "Thương tổn ở mức độ trung bình."
+    ],
+    [
+      "Thương tổn thấp, khả năng tự gia tăng phòng ngự 10%(có thể chất chồng)."
+    ],
+    [
+      "Thương tổn ở mức độ trung bình cũng có 25% xác suất lâm vào trạng thái Mê Muội 2 hiệp."
+    ],
+    [
+      "Thương tổn tương đối cao, kẻ địch rơi vào trạng thái Mê Muội, Gia tăng tỷ lệ thương tổn."
+    ],
+    [
+      "Thương tổn thấp."
+    ],
+    [
+      "Thương tổn thấp cũng làm giảm tỉ lệ đánh trúng mục tiêu, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp cũng làm giảm hiệu quả công kích kẻ địch 10% Linh Xảo, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp cũng làm giảm hiệu quả công kích kẻ địch 10% thương tổn, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "30% xác suất bắn ngược thương tổn, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "50% xác suất gây thương tổn cho kẻ địch bị giảm phân nửa, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Tỷ lệ thương tổn gia tăng khá cao."
+    ],
+    [
+      "Thương tổn thấp cũng làm giảm tỉ lệ đánh trúng mục tiêu, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn tương đối cao cũng làm giảm hiệu quả công kích kẻ địch 10% Linh Xảo, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn tương đối cao cũng làm giảm hiệu quả công kích kẻ địch 10% thương tổn, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp."
+    ],
+    [
+      "Thương tổn thấp cũng làm giảm 10% xác suất làm kẻ địch Tê Liệt 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp, khả năng tự Linh Xảo gia tăng 5%."
+    ],
+    [
+      "Thương tổn thấp cũng có thể làm giảm mặt lợi ích của bản thân đối với kẻ địch."
+    ],
+    [
+      "Số lần tiêu hao kỹ năng tăng gấp bội, Gia tăng tỷ lệ thương tổn 30%, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Linh Xảo gia tăng 50%, phòng ngự giảm xuống 50%, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Tỷ lệ thương tổn gia tăng khá cao."
+    ],
+    [
+      "Thương tổn ở mức độ trung bình cũng giảm 10% xác suất làm kẻ địch Tê Liệt 3 hiệp."
+    ],
+    [
+      "Thương tổn ở mức độ trung bình, Linh Xảo gia tăng 5%."
+    ],
+    [
+      "Thương tổn cao cũng có thể làm giảm mặt lợi ích của bản thân đối với kẻ địch."
+    ],
+    [
+      "Thương tổn thấp."
+    ],
+    [
+      "Thương tổn thấp cũng làm giảm hiệu quả công kích kẻ địch 20% phòng ngự, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp cũng có một ít xác suất khôi phục giá trị sinh mệnh."
+    ],
+    [
+      "Thương tổn nhất định, giá trị sinh mệnh kẻ địch càng thấp càng thương tổn cao."
+    ],
+    [
+      "40% xác suất lực công kích của kẻ địch bị dội ngược trở lại, duy trì liên tục 4 hiệp."
+    ],
+    [
+      "Không bị khống chế, có thể tự do hành động."
+    ],
+    [
+      "Tỷ lệ thương tổn gia tăng khá cao."
+    ],
+    [
+      "Thương tổn ở mức độ trung bình cũng làm giảm hiệu quả công kích kẻ địch 20% phòng ngự, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp cũng có một ít xác suất khôi phục giá trị sinh mệnh."
+    ],
+    [
+      "Xuất hiện thương tổn, giá trị sinh mạng của kẻ địch càng thấp, thương tổn càng cao."
+    ],
+    [
+      "Thương tổn thấp."
+    ],
+    [
+      "Thương tổn thấp cũng làm giảm hiệu quả công kích kẻ địch 5% Linh Xảo, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn thấp, lực lượng tự gia tăng 5%, duy trì liên tục 2 hiệp."
+    ],
+    [
+      "Thương tổn thấp, có 5% xác suất tiếp tục công kích lần nữa."
+    ],
+    [
+      "Sử dụng Thâu Thủ đối với kẻ địch để lấy tất cả những trạng thái có lợi sang mình, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Mỗi hiệp công kích hai lần, duy trì liên tục 2 hiệp."
+    ],
+    [
+      "Tỷ lệ thương tổn gia tăng khá cao."
+    ],
+    [
+      "Thương tổn ở mức độ trung bình cũng làm giảm hiệu quả công kích kẻ địch 5% nhanh nhẹn, duy trì liên tục 3 hiệp."
+    ],
+    [
+      "Thương tổn ở mức độ trung bình, lực lượng tự gia tăng 55, duy trì liên tục 2 hiệp."
+    ],
+    [
+      "Thương tổn tương đối cao, có 8% xác suất tiếp tục công kích lần nữa."
+    ],
+    [
+      "Toàn bộ sủng vật vương quốc Liệt Hỏa là những loại mới, 100 loài sủng vật mới đang chờ bạn thu thập, những điều vĩ đại trên thế giới đang chờ bạn khám phá, những âm mưu, những câu đó kinh điển đang chờ bạn giải đáp."
+    ],
+    [
+      "100% sủng vật bắt được, bất luận là gì cũng không thể đào thoát."
+    ],
+    [
+      "Đạt ngay 10000 kim tiền."
+    ],
+    [
+      "Trong hành trang của bạn sủng vật liên tiếp thăng 5 cấp (giới hạn tối đa là 50 cấp)."
+    ],
+    [
+      "Đạt ngay 10 huy hiệu."
+    ],
+    [
+      "Cần %s đồng. Bạn có muốn gửi đi không?"
+    ],
+    [
+      "Trong chiến đấu việc tiếp tế lúc nào cũng cần thiết"
+    ],
+    [
+      "Có thể xem xét sử dụng những sủng vật nào."
+    ],
+    [
+      "Có thể xem xét sử dụng tất cả đạo cụ."
+    ],
+    [
+      "Sủng vật và các huy hiệu của cuộc hành trình được ghi chép tại đây."
+    ],
+    [
+      "Nếu như bạn quên cần phải làm gì có thể tra xét tại đây"
+    ],
+    [
+      "Bạn cần thường xuyên lưu trữ trò chơi."
+    ],
+    [
+      "Nơi này là liên minh huấn luyện sư sủng vật. Bạn có được sủng vật mới đã đạt đến %s, được ban thưởng 1 huy hiệu. Khi bạn có được số chủng loại sủng vật đạt tới %s, có thể đến đây đổi 1 huy hiệu."
+    ],
+    [
+      "Nơi này là liên minh huấn luyện sư sủng vật. Chủng loại sủng vật của bạn đã đạt đến 50 loài, được ban thưởng 1 huy hiệu. Sau khi số loài mới mà bạn thu thập đạt tới 100 loài, sẽ được ban thưởng biểu tượng huấn luyện sư sủng vật cao nhất, vinh dự nhận Hoàng Kim Chương!"
+    ],
+    [
+      "Nơi này là liên minh huấn luyện sư sủng vật. Số sủng vật mới của bạn thu thập đã đạt 100 loài ... chúc mừng bạn trở thành Huấn luyện sư xuất sắc! Đây là Hoàng Kim Chương chúng tôi xin trao cho bạn, nó có thể giúp bạn mang theo tất cả sủng vật dù không tham chiến cũng lấy được điểm kinh nghiệm. Bạn hãy sử dụng huy hiệu này và trở thành huấn luyện sư mạnh hơn nữa, trợ giúp nhiều người hơn nữa!"
+    ],
+    [
+      "Nơi này là liên minh huấn luyện sư sủng vật. Số sủng vật mới bạn thu thập chưa đạt tới %s, vui lòng thu thập thêm."
+    ],
+    [
+      "Mọi thứ với bạn vẫn tốt chứ, Huấn luyện sư xuất sắc, chúc bạn có một hành trình vui vẻ tại Vương Quốc Sủng Vật."
+    ],
+    [
+      "Bến tàu phía nam"
+    ],
+    [
+      "Bến tàu phía Đông"
+    ],
+    [
+      "Bến tàu phía Tây"
+    ],
+    [
+      "Hắc Thạch Mã Đầu"
+    ],
+    [
+      "Thần Điện Mã Đầu"
+    ],
+    [
+      "Hắc Thạch Thành"
+    ],
+    [
+      "Hắc Long Thần Điện"
+    ],
+    [
+      "Niêm Thổ Thành"
+    ],
+    [
+      "Hắc Long Thần Điện"
+    ],
+    [
+      "Nguyên Mộc Thành"
+    ],
+    [
+      "Hắc Long Thần Điện"
+    ],
+    [
+      "Bắc Bích Thủy Thành"
+    ],
+    [
+      "Hắc Long Thần Điện"
+    ],
+    [
+      "Bắc Bích Thủy Thành"
+    ],
+    [
+      "Nguyên Mộc Thành"
+    ],
+    [
+      "Niêm Thổ Thành"
+    ],
+    [
+      "Hắc Thạch Thành"
+    ],
+    [
+      "(Khởi động lại trò chơi bạn không phải trả thêm tiền)"
+    ],
+    [
+      "Trận chiến đặc biệt: Đánh bại 30 cấp hay 40 cấp hay nhiều hơn."
+    ],
+    [
+      "..."
+    ]
+  ],
+  "bytes_consumed": 39856,
+  "bytes_total": 39856
+}

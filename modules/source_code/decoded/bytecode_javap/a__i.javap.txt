@@ -1,0 +1,616 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/a/i.class
+  Last modified May 24, 2026; size 2420 bytes
+  SHA-256 checksum bd089099d6b0e19d56d95fbc75eaa771d1595c465d43bdf45d42a441af3c86c9
+public final class a.i
+  minor version: 3
+  major version: 45
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #8                          // a/i
+  super_class: #10                        // java/lang/Object
+  interfaces: 0, fields: 9, methods: 13, attributes: 0
+Constant pool:
+    #1 = String             #74           //
+    #2 = String             #97           // Level must be non-negative
+    #3 = String             #98           // Level too high
+    #4 = String             #102          // Stack overflow
+    #5 = String             #103          // Stack underflow
+    #6 = Class              #109          // a/a
+    #7 = Class              #110          // a/c
+    #8 = Class              #111          // a/i
+    #9 = Class              #112          // a/j
+   #10 = Class              #123          // java/lang/Object
+   #11 = Class              #124          // java/lang/RuntimeException
+   #12 = Class              #125          // java/lang/System
+   #13 = Class              #126          // java/util/Vector
+   #14 = Fieldref           #7.#56        // a/c.b:La/d;
+   #15 = Fieldref           #7.#61        // a/c.d:I
+   #16 = Fieldref           #7.#63        // a/c.e:I
+   #17 = Fieldref           #7.#66        // a/c.f:I
+   #18 = Fieldref           #7.#68        // a/c.g:Z
+   #19 = Fieldref           #7.#69        // a/c.h:Z
+   #20 = Fieldref           #8.#50        // a/i.a:La/h;
+   #21 = Fieldref           #8.#59        // a/i.c:Ljava/lang/String;
+   #22 = Fieldref           #8.#62        // a/i.d:Ljava/util/Vector;
+   #23 = Fieldref           #8.#64        // a/i.e:[Ljava/lang/Object;
+   #24 = Fieldref           #8.#66        // a/i.f:I
+   #25 = Fieldref           #8.#67        // a/i.g:La/g;
+   #26 = Fieldref           #8.#70        // a/i.h:[La/c;
+   #27 = Fieldref           #8.#71        // a/i.i:I
+   #28 = Fieldref           #9.#51        // a/j.a:La/i;
+   #29 = Fieldref           #9.#55        // a/j.b:I
+   #30 = Fieldref           #9.#58        // a/j.c:Ljava/lang/Object;
+   #31 = Methodref          #6.#49        // a/a.a:(ZLjava/lang/String;)V
+   #32 = Methodref          #7.#46        // a/c."<init>":(La/i;)V
+   #33 = Methodref          #8.#48        // a/i.a:(II)V
+   #34 = Methodref          #8.#53        // a/i.b:()La/c;
+   #35 = Methodref          #8.#54        // a/i.b:(II)V
+   #36 = Methodref          #8.#57        // a/i.c:()Z
+   #37 = Methodref          #8.#60        // a/i.d:(I)V
+   #38 = Methodref          #10.#45       // java/lang/Object."<init>":()V
+   #39 = Methodref          #11.#47       // java/lang/RuntimeException."<init>":(Ljava/lang/String;)V
+   #40 = Methodref          #12.#52       // java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+   #41 = Methodref          #13.#45       // java/util/Vector."<init>":()V
+   #42 = Methodref          #13.#65       // java/util/Vector.elementAt:(I)Ljava/lang/Object;
+   #43 = Methodref          #13.#72       // java/util/Vector.removeElementAt:(I)V
+   #44 = Methodref          #13.#73       // java/util/Vector.size:()I
+   #45 = NameAndType        #90:#77       // "<init>":()V
+   #46 = NameAndType        #90:#86       // "<init>":(La/i;)V
+   #47 = NameAndType        #90:#88       // "<init>":(Ljava/lang/String;)V
+   #48 = NameAndType        #108:#82      // a:(II)V
+   #49 = NameAndType        #108:#89      // a:(ZLjava/lang/String;)V
+   #50 = NameAndType        #108:#95      // a:La/h;
+   #51 = NameAndType        #108:#96      // a:La/i;
+   #52 = NameAndType        #113:#87      // arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+   #53 = NameAndType        #114:#76      // b:()La/c;
+   #54 = NameAndType        #114:#82      // b:(II)V
+   #55 = NameAndType        #114:#92      // b:I
+   #56 = NameAndType        #114:#93      // b:La/d;
+   #57 = NameAndType        #115:#78      // c:()Z
+   #58 = NameAndType        #115:#99      // c:Ljava/lang/Object;
+   #59 = NameAndType        #115:#100     // c:Ljava/lang/String;
+   #60 = NameAndType        #116:#81      // d:(I)V
+   #61 = NameAndType        #116:#92      // d:I
+   #62 = NameAndType        #116:#101     // d:Ljava/util/Vector;
+   #63 = NameAndType        #117:#92      // e:I
+   #64 = NameAndType        #117:#107     // e:[Ljava/lang/Object;
+   #65 = NameAndType        #118:#80      // elementAt:(I)Ljava/lang/Object;
+   #66 = NameAndType        #119:#92      // f:I
+   #67 = NameAndType        #120:#94      // g:La/g;
+   #68 = NameAndType        #120:#105     // g:Z
+   #69 = NameAndType        #121:#105     // h:Z
+   #70 = NameAndType        #121:#106     // h:[La/c;
+   #71 = NameAndType        #122:#92      // i:I
+   #72 = NameAndType        #127:#81      // removeElementAt:(I)V
+   #73 = NameAndType        #128:#75      // size:()I
+   #74 = Utf8
+   #75 = Utf8               ()I
+   #76 = Utf8               ()La/c;
+   #77 = Utf8               ()V
+   #78 = Utf8               ()Z
+   #79 = Utf8               (I)La/c;
+   #80 = Utf8               (I)Ljava/lang/Object;
+   #81 = Utf8               (I)V
+   #82 = Utf8               (II)V
+   #83 = Utf8               (III)V
+   #84 = Utf8               (La/d;IIIZZ)La/c;
+   #85 = Utf8               (La/g;La/h;)V
+   #86 = Utf8               (La/i;)V
+   #87 = Utf8               (Ljava/lang/Object;ILjava/lang/Object;II)V
+   #88 = Utf8               (Ljava/lang/String;)V
+   #89 = Utf8               (ZLjava/lang/String;)V
+   #90 = Utf8               <init>
+   #91 = Utf8               Code
+   #92 = Utf8               I
+   #93 = Utf8               La/d;
+   #94 = Utf8               La/g;
+   #95 = Utf8               La/h;
+   #96 = Utf8               La/i;
+   #97 = Utf8               Level must be non-negative
+   #98 = Utf8               Level too high
+   #99 = Utf8               Ljava/lang/Object;
+  #100 = Utf8               Ljava/lang/String;
+  #101 = Utf8               Ljava/util/Vector;
+  #102 = Utf8               Stack overflow
+  #103 = Utf8               Stack underflow
+  #104 = Utf8               StackMap
+  #105 = Utf8               Z
+  #106 = Utf8               [La/c;
+  #107 = Utf8               [Ljava/lang/Object;
+  #108 = Utf8               a
+  #109 = Utf8               a/a
+  #110 = Utf8               a/c
+  #111 = Utf8               a/i
+  #112 = Utf8               a/j
+  #113 = Utf8               arraycopy
+  #114 = Utf8               b
+  #115 = Utf8               c
+  #116 = Utf8               d
+  #117 = Utf8               e
+  #118 = Utf8               elementAt
+  #119 = Utf8               f
+  #120 = Utf8               g
+  #121 = Utf8               h
+  #122 = Utf8               i
+  #123 = Utf8               java/lang/Object
+  #124 = Utf8               java/lang/RuntimeException
+  #125 = Utf8               java/lang/System
+  #126 = Utf8               java/util/Vector
+  #127 = Utf8               removeElementAt
+  #128 = Utf8               size
+{
+  public a.h a;
+    descriptor: La/h;
+    flags: (0x0001) ACC_PUBLIC
+
+  public a.i b;
+    descriptor: La/i;
+    flags: (0x0001) ACC_PUBLIC
+
+  public java.lang.String c;
+    descriptor: Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+
+  public java.util.Vector d;
+    descriptor: Ljava/util/Vector;
+    flags: (0x0001) ACC_PUBLIC
+
+  public java.lang.Object[] e;
+    descriptor: [Ljava/lang/Object;
+    flags: (0x0001) ACC_PUBLIC
+
+  public int f;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  private a.c[] h;
+    descriptor: [La/c;
+    flags: (0x0002) ACC_PRIVATE
+
+  private int i;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  public a.g g;
+    descriptor: La/g;
+    flags: (0x0001) ACC_PUBLIC
+
+  public a.i();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #38                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: ldc           #1                  // String
+         7: putfield      #21                 // Field c:Ljava/lang/String;
+        10: return
+
+  public a.i(a.g, a.h);
+    descriptor: (La/g;La/h;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=3, args_size=3
+         0: aload_0
+         1: invokespecial #38                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: ldc           #1                  // String
+         7: putfield      #21                 // Field c:Ljava/lang/String;
+        10: aload_0
+        11: aload_1
+        12: putfield      #25                 // Field g:La/g;
+        15: aload_0
+        16: aload_2
+        17: putfield      #20                 // Field a:La/h;
+        20: aload_0
+        21: bipush        10
+        23: anewarray     #10                 // class java/lang/Object
+        26: putfield      #23                 // Field e:[Ljava/lang/Object;
+        29: aload_0
+        30: bipush        10
+        32: anewarray     #7                  // class a/c
+        35: putfield      #26                 // Field h:[La/c;
+        38: aload_0
+        39: new           #13                 // class java/util/Vector
+        42: dup
+        43: invokespecial #41                 // Method java/util/Vector."<init>":()V
+        46: putfield      #22                 // Field d:Ljava/util/Vector;
+        49: return
+
+  public final a.c a(a.d, int, int, int, boolean, boolean);
+    descriptor: (La/d;IIIZZ)La/c;
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=8, args_size=7
+         0: aload_0
+         1: aload_0
+         2: getfield      #27                 // Field i:I
+         5: iconst_1
+         6: iadd
+         7: invokespecial #37                 // Method d:(I)V
+        10: aload_0
+        11: invokevirtual #34                 // Method b:()La/c;
+        14: dup
+        15: astore        7
+        17: iload_2
+        18: putfield      #15                 // Field a/c.d:I
+        21: aload         7
+        23: iload_3
+        24: putfield      #16                 // Field a/c.e:I
+        27: aload         7
+        29: iload         4
+        31: putfield      #17                 // Field a/c.f:I
+        34: aload         7
+        36: iload         5
+        38: putfield      #18                 // Field a/c.g:Z
+        41: aload         7
+        43: iload         6
+        45: putfield      #19                 // Field a/c.h:Z
+        48: aload         7
+        50: aload_1
+        51: putfield      #14                 // Field a/c.b:La/d;
+        54: aload         7
+        56: areturn
+
+  public final void a();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=1, args_size=1
+         0: aload_0
+         1: invokevirtual #36                 // Method c:()Z
+         4: ifeq          17
+         7: new           #11                 // class java/lang/RuntimeException
+        10: dup
+        11: ldc           #5                  // String Stack underflow
+        13: invokespecial #39                 // Method java/lang/RuntimeException."<init>":(Ljava/lang/String;)V
+        16: athrow
+        17: aload_0
+        18: aload_0
+        19: getfield      #27                 // Field i:I
+        22: iconst_1
+        23: isub
+        24: invokespecial #37                 // Method d:(I)V
+        27: return
+        StackMap: length = 0xB (unknown attribute)
+         00 01 00 11 00 01 07 00 08 00 00
+
+  private void d(int);
+    descriptor: (I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=5, locals=5, args_size=2
+         0: iload_1
+         1: aload_0
+         2: getfield      #27                 // Field i:I
+         5: if_icmple     78
+         8: aload_0
+         9: astore_2
+        10: iload_1
+        11: bipush        100
+        13: if_icmple     26
+        16: new           #11                 // class java/lang/RuntimeException
+        19: dup
+        20: ldc           #4                  // String Stack overflow
+        22: invokespecial #39                 // Method java/lang/RuntimeException."<init>":(Ljava/lang/String;)V
+        25: athrow
+        26: aload_2
+        27: getfield      #26                 // Field h:[La/c;
+        30: arraylength
+        31: dup
+        32: istore        4
+        34: istore_3
+        35: goto          42
+        38: iload_3
+        39: iconst_1
+        40: ishl
+        41: istore_3
+        42: iload_3
+        43: iload_1
+        44: if_icmple     38
+        47: iload_3
+        48: iload         4
+        50: if_icmple     75
+        53: iload_3
+        54: anewarray     #7                  // class a/c
+        57: astore_3
+        58: aload_2
+        59: getfield      #26                 // Field h:[La/c;
+        62: iconst_0
+        63: aload_3
+        64: iconst_0
+        65: iload         4
+        67: invokestatic  #40                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+        70: aload_2
+        71: aload_3
+        72: putfield      #26                 // Field h:[La/c;
+        75: goto          89
+        78: aload_0
+        79: iload_1
+        80: aload_0
+        81: getfield      #27                 // Field i:I
+        84: iconst_1
+        85: isub
+        86: invokespecial #33                 // Method a:(II)V
+        89: aload_0
+        90: iload_1
+        91: putfield      #27                 // Field i:I
+        94: return
+        StackMap: length = 0x4B (unknown attribute)
+         00 06 00 1A 00 03 07 00 08 01 07 00 08 00 00 00
+         26 00 05 07 00 08 01 07 00 08 01 01 00 00 00 2A
+         00 05 07 00 08 01 07 00 08 01 01 00 00 00 4B 00
+         02 07 00 08 01 00 00 00 4E 00 02 07 00 08 01 00
+         00 00 59 00 02 07 00 08 01 00 00
+
+  private void a(int, int);
+    descriptor: (II)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=3, args_size=3
+         0: goto          25
+         3: aload_0
+         4: getfield      #26                 // Field h:[La/c;
+         7: iload_1
+         8: aaload
+         9: ifnull        22
+        12: aload_0
+        13: getfield      #26                 // Field h:[La/c;
+        16: iload_1
+        17: aaload
+        18: aconst_null
+        19: putfield      #14                 // Field a/c.b:La/d;
+        22: iinc          1, 1
+        25: iload_1
+        26: iload_2
+        27: if_icmple     3
+        30: return
+        StackMap: length = 0x23 (unknown attribute)
+         00 03 00 03 00 03 07 00 08 01 01 00 00 00 16 00
+         03 07 00 08 01 01 00 00 00 19 00 03 07 00 08 01
+         01 00 00
+
+  public final void a(int);
+    descriptor: (I)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=5, locals=5, args_size=2
+         0: aload_0
+         1: getfield      #24                 // Field f:I
+         4: iload_1
+         5: if_icmpge     79
+         8: aload_0
+         9: astore_2
+        10: iload_1
+        11: sipush        1000
+        14: if_icmple     27
+        17: new           #11                 // class java/lang/RuntimeException
+        20: dup
+        21: ldc           #4                  // String Stack overflow
+        23: invokespecial #39                 // Method java/lang/RuntimeException."<init>":(Ljava/lang/String;)V
+        26: athrow
+        27: aload_2
+        28: getfield      #23                 // Field e:[Ljava/lang/Object;
+        31: arraylength
+        32: dup
+        33: istore        4
+        35: istore_3
+        36: goto          43
+        39: iload_3
+        40: iconst_1
+        41: ishl
+        42: istore_3
+        43: iload_3
+        44: iload_1
+        45: if_icmple     39
+        48: iload_3
+        49: iload         4
+        51: if_icmple     76
+        54: iload_3
+        55: anewarray     #10                 // class java/lang/Object
+        58: astore_3
+        59: aload_2
+        60: getfield      #23                 // Field e:[Ljava/lang/Object;
+        63: iconst_0
+        64: aload_3
+        65: iconst_0
+        66: iload         4
+        68: invokestatic  #40                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+        71: aload_2
+        72: aload_3
+        73: putfield      #23                 // Field e:[Ljava/lang/Object;
+        76: goto          90
+        79: aload_0
+        80: iload_1
+        81: aload_0
+        82: getfield      #24                 // Field f:I
+        85: iconst_1
+        86: isub
+        87: invokespecial #35                 // Method b:(II)V
+        90: aload_0
+        91: iload_1
+        92: putfield      #24                 // Field f:I
+        95: return
+        StackMap: length = 0x4B (unknown attribute)
+         00 06 00 1B 00 03 07 00 08 01 07 00 08 00 00 00
+         27 00 05 07 00 08 01 07 00 08 01 01 00 00 00 2B
+         00 05 07 00 08 01 07 00 08 01 01 00 00 00 4C 00
+         02 07 00 08 01 00 00 00 4F 00 02 07 00 08 01 00
+         00 00 5A 00 02 07 00 08 01 00 00
+
+  public final void a(int, int, int);
+    descriptor: (III)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=5, locals=4, args_size=4
+         0: iload_3
+         1: ifle          23
+         4: iload_1
+         5: iload_2
+         6: if_icmpeq     23
+         9: aload_0
+        10: getfield      #23                 // Field e:[Ljava/lang/Object;
+        13: iload_1
+        14: aload_0
+        15: getfield      #23                 // Field e:[Ljava/lang/Object;
+        18: iload_2
+        19: iload_3
+        20: invokestatic  #40                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+        23: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 17 00 00 00 00
+
+  private void b(int, int);
+    descriptor: (II)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=3, args_size=3
+         0: goto          13
+         3: aload_0
+         4: getfield      #23                 // Field e:[Ljava/lang/Object;
+         7: iload_1
+         8: aconst_null
+         9: aastore
+        10: iinc          1, 1
+        13: iload_1
+        14: iload_2
+        15: if_icmple     3
+        18: return
+        StackMap: length = 0x18 (unknown attribute)
+         00 02 00 03 00 03 07 00 08 01 01 00 00 00 0D 00
+         03 07 00 08 01 01 00 00
+
+  public final void b(int);
+    descriptor: (I)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=4, args_size=2
+         0: aload_0
+         1: getfield      #22                 // Field d:Ljava/util/Vector;
+         4: invokevirtual #44                 // Method java/util/Vector.size:()I
+         7: istore_2
+         8: goto          58
+        11: aload_0
+        12: getfield      #22                 // Field d:Ljava/util/Vector;
+        15: iload_2
+        16: invokevirtual #42                 // Method java/util/Vector.elementAt:(I)Ljava/lang/Object;
+        19: checkcast     #9                  // class a/j
+        22: dup
+        23: astore_3
+        24: getfield      #29                 // Field a/j.b:I
+        27: iload_1
+        28: if_icmpge     32
+        31: return
+        32: aload_3
+        33: aload_0
+        34: getfield      #23                 // Field e:[Ljava/lang/Object;
+        37: aload_3
+        38: getfield      #29                 // Field a/j.b:I
+        41: aaload
+        42: putfield      #30                 // Field a/j.c:Ljava/lang/Object;
+        45: aload_3
+        46: aconst_null
+        47: putfield      #28                 // Field a/j.a:La/i;
+        50: aload_0
+        51: getfield      #22                 // Field d:Ljava/util/Vector;
+        54: iload_2
+        55: invokevirtual #43                 // Method java/util/Vector.removeElementAt:(I)V
+        58: iinc          2, -1
+        61: iload_2
+        62: ifge          11
+        65: return
+        StackMap: length = 0x26 (unknown attribute)
+         00 03 00 0B 00 03 07 00 08 01 01 00 00 00 20 00
+         04 07 00 08 01 01 07 00 09 00 00 00 3A 00 03 07
+         00 08 01 01 00 00
+
+  public final a.c b();
+    descriptor: ()La/c;
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=2, args_size=1
+         0: aload_0
+         1: invokevirtual #36                 // Method c:()Z
+         4: ifeq          9
+         7: aconst_null
+         8: areturn
+         9: aload_0
+        10: getfield      #26                 // Field h:[La/c;
+        13: aload_0
+        14: getfield      #27                 // Field i:I
+        17: iconst_1
+        18: isub
+        19: aaload
+        20: dup
+        21: astore_1
+        22: ifnonnull     46
+        25: new           #7                  // class a/c
+        28: dup
+        29: aload_0
+        30: invokespecial #32                 // Method a/c."<init>":(La/i;)V
+        33: astore_1
+        34: aload_0
+        35: getfield      #26                 // Field h:[La/c;
+        38: aload_0
+        39: getfield      #27                 // Field i:I
+        42: iconst_1
+        43: isub
+        44: aload_1
+        45: aastore
+        46: aload_1
+        47: areturn
+        StackMap: length = 0x15 (unknown attribute)
+         00 02 00 09 00 01 07 00 08 00 00 00 2E 00 02 00
+         07 00 07 00 00
+
+  public final a.c c(int);
+    descriptor: (I)La/c;
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: iload_1
+         1: iflt          8
+         4: iconst_1
+         5: goto          9
+         8: iconst_0
+         9: ldc           #2                  // String Level must be non-negative
+        11: invokestatic  #31                 // Method a/a.a:(ZLjava/lang/String;)V
+        14: aload_0
+        15: getfield      #27                 // Field i:I
+        18: iload_1
+        19: isub
+        20: iconst_1
+        21: isub
+        22: dup
+        23: istore_1
+        24: iflt          31
+        27: iconst_1
+        28: goto          32
+        31: iconst_0
+        32: ldc           #3                  // String Level too high
+        34: invokestatic  #31                 // Method a/a.a:(ZLjava/lang/String;)V
+        37: aload_0
+        38: getfield      #26                 // Field h:[La/c;
+        41: iload_1
+        42: aaload
+        43: areturn
+        StackMap: length = 0x2C (unknown attribute)
+         00 04 00 08 00 02 07 00 08 01 00 00 00 09 00 02
+         07 00 08 01 00 01 01 00 1F 00 02 07 00 08 01 00
+         00 00 20 00 02 07 00 08 01 00 01 01
+
+  public final boolean c();
+    descriptor: ()Z
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #27                 // Field i:I
+         4: ifne          9
+         7: iconst_1
+         8: ireturn
+         9: iconst_0
+        10: ireturn
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 09 00 00 00 00
+}

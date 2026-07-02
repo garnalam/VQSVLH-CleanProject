@@ -1,0 +1,58 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/lavax/wireless/messaging/MessageConnection.class
+  Last modified May 24, 2026; size 429 bytes
+  SHA-256 checksum 5995d7063067629a0968a27d614a4e0e76e29508fdc17cae56139c042e90c500
+  Compiled from "MessageConnection.java"
+public class lavax.wireless.messaging.MessageConnection
+  minor version: 3
+  major version: 45
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // lavax/wireless/messaging/MessageConnection
+  super_class: #4                         // java/lang/Object
+  interfaces: 0, fields: 0, methods: 2, attributes: 1
+Constant pool:
+   #1 = Utf8               lavax/wireless/messaging/MessageConnection
+   #2 = Class              #1             // lavax/wireless/messaging/MessageConnection
+   #3 = Utf8               java/lang/Object
+   #4 = Class              #3             // java/lang/Object
+   #5 = Utf8               SourceFile
+   #6 = Utf8               MessageConnection.java
+   #7 = Utf8               send
+   #8 = Utf8               (Ljavax/wireless/messaging/Message;)V
+   #9 = Utf8               Exceptions
+  #10 = Utf8               java/lang/Exception
+  #11 = Class              #10            // java/lang/Exception
+  #12 = Long               800l
+  #14 = Utf8               java/lang/Thread
+  #15 = Class              #14            // java/lang/Thread
+  #16 = Utf8               sleep
+  #17 = Utf8               (J)V
+  #18 = NameAndType        #16:#17        // sleep:(J)V
+  #19 = Methodref          #15.#18        // java/lang/Thread.sleep:(J)V
+  #20 = Utf8               Code
+  #21 = Utf8               <init>
+  #22 = Utf8               ()V
+  #23 = NameAndType        #21:#22        // "<init>":()V
+  #24 = Methodref          #4.#23         // java/lang/Object."<init>":()V
+  #25 = Utf8               (Ljavax/wireless/messaging/Message;)V 2
+{
+  public static void send(javax.wireless.messaging.Message) throws java.lang.Exception;
+    descriptor: (Ljavax/wireless/messaging/Message;)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: ldc2_w        #12                 // long 800l
+         3: invokestatic  #19                 // Method java/lang/Thread.sleep:(J)V
+         6: return
+    Exceptions:
+      throws java.lang.Exception
+
+  public lavax.wireless.messaging.MessageConnection();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #24                 // Method java/lang/Object."<init>":()V
+         4: return
+}
+SourceFile: "MessageConnection.java"

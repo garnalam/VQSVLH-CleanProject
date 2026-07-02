@@ -1,0 +1,2332 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/an.class
+  Last modified May 24, 2026; size 9390 bytes
+  SHA-256 checksum 09218e38f7f12167b1c821be53f3bf671c478cccb562f09a41ba6e4b89488b53
+public abstract class an extends ap implements c,x
+  minor version: 0
+  major version: 47
+  flags: (0x0421) ACC_PUBLIC, ACC_SUPER, ACC_ABSTRACT
+  this_class: #2                          // an
+  super_class: #4                         // ap
+  interfaces: 2, fields: 30, methods: 49, attributes: 0
+Constant pool:
+    #1 = Utf8               an
+    #2 = Class              #1            // an
+    #3 = Utf8               ap
+    #4 = Class              #3            // ap
+    #5 = Utf8               c
+    #6 = Class              #5            // c
+    #7 = Utf8               x
+    #8 = Class              #7            // x
+    #9 = Utf8               <init>
+   #10 = Utf8               ()V
+   #11 = Utf8               this
+   #12 = NameAndType        #9:#10        // "<init>":()V
+   #13 = Methodref          #4.#12        // ap."<init>":()V
+   #14 = Utf8               n
+   #15 = Utf8               Lag;
+   #16 = NameAndType        #14:#15       // n:Lag;
+   #17 = Fieldref           #2.#16        // an.n:Lag;
+   #18 = Utf8               java/lang/String
+   #19 = Class              #18           // java/lang/String
+   #20 = Utf8               01
+   #21 = String             #20           // 01
+   #22 = Utf8               02
+   #23 = String             #22           // 02
+   #24 = Utf8               03
+   #25 = String             #24           // 03
+   #26 = Utf8               04
+   #27 = String             #26           // 04
+   #28 = Utf8               05
+   #29 = String             #28           // 05
+   #30 = Utf8               r
+   #31 = Utf8               [Ljava/lang/String;
+   #32 = NameAndType        #30:#31       // r:[Ljava/lang/String;
+   #33 = Fieldref           #2.#32        // an.r:[Ljava/lang/String;
+   #34 = Utf8               [B
+   #35 = Class              #34           // "[B"
+   #36 = Utf8               s
+   #37 = Utf8               [[B
+   #38 = NameAndType        #36:#37       // s:[[B
+   #39 = Fieldref           #2.#38        // an.s:[[B
+   #40 = Class              #31           // "[Ljava/lang/String;"
+   #41 = Utf8               K�ch ho?t
+   #42 = String             #41           // K�ch ho?t
+   #43 = Utf8               B?n mu?n kh�m ph� b� m?t c?a v??ng qu?c s?ng v?t, d?n d?t th� y�u chi?n ??u, ti?n h�a, ?p tr?ng? Ch? c?n 1 tin nh?n 15000? ?? k�ch ho?t tr� ch?i, ch? nh?n tin 1 l?n cho t?t c? c�c l??t ch?i. B?n c� mu?n nh?n tin kh�ng?
+   #44 = String             #43           // B?n mu?n kh�m ph� b� m?t c?a v??ng qu?c s?ng v?t, d?n d?t th� y�u chi?n ??u, ti?n h�a, ?p tr?ng? Ch? c?n 1 tin nh?n 15000? ?? k�ch ho?t tr� ch?i, ch? nh?n tin 1 l?n cho t?t c? c�c l??t ch?i. B?n c� mu?n nh?n tin kh�ng?
+   #45 = Utf8               T?t tr�ng c?u
+   #46 = String             #45           // T?t tr�ng c?u
+   #47 = Utf8               Ch? c?n nh?n 1 tin nh?n 10000?, b?n s? s? h?u 1 t?t tr�ng c?u, t? l? 100% b?t ???c s?ng v?t? B?n c� mu?n nh?n tin kh�ng?
+   #48 = String             #47           // Ch? c?n nh?n 1 tin nh?n 10000?, b?n s? s? h?u 1 t?t tr�ng c?u, t? l? 100% b?t ???c s?ng v?t? B?n c� mu?n nh?n tin kh�ng?
+   #49 = Utf8               Mua s?m kim ti?n
+   #50 = String             #49           // Mua s?m kim ti?n
+   #51 = Utf8               Ki?m ti?n v?t v?, v?t ph?m ??t ??? Ch? c?n nh?n 1 tin nh?n 10000? b?n s? ??t ???c 10000 kim ti?n. B?n c� mu?n nh?n tin kh�ng?
+   #52 = String             #51           // Ki?m ti?n v?t v?, v?t ph?m ??t ??? Ch? c?n nh?n 1 tin nh?n 10000? b?n s? ??t ???c 10000 kim ti?n. B?n c� mu?n nh?n tin kh�ng?
+   #53 = Utf8               Mua ??ng c?p
+   #54 = String             #53           // Mua ??ng c?p
+   #55 = Utf8               Th?ng c?p ch?m ch?p, k? ??ch l?i qu� m?nh? Ch? c?n 1 tin nh?n 10000?, t?t c? s?ng v?t trong ba l� c?a b?n ??u ???c th?ng l�n 5 c?p. B?n c� mu?n nh?n tin kh�ng?
+   #56 = String             #55           // Th?ng c?p ch?m ch?p, k? ??ch l?i qu� m?nh? Ch? c?n 1 tin nh?n 10000?, t?t c? s?ng v?t trong ba l� c?a b?n ??u ???c th?ng l�n 5 c?p. B?n c� mu?n nh?n tin kh�ng?
+   #57 = Utf8               Mua s?m huy hi?u
+   #58 = String             #57           // Mua s?m huy hi?u
+   #59 = Utf8               Ki?m huy hi?u kh� kh?n? Ch? c?n 1 tin nh?n 10000?, b?n s? ??t ???c 10 huy hi?u. B?n c� mu?n nh?n tin kh�ng?
+   #60 = String             #59           // Ki?m huy hi?u kh� kh?n? Ch? c?n 1 tin nh?n 10000?, b?n s? ??t ???c 10 huy hi?u. B?n c� mu?n nh?n tin kh�ng?
+   #61 = Utf8               t
+   #62 = Utf8               [[Ljava/lang/String;
+   #63 = NameAndType        #61:#62       // t:[[Ljava/lang/String;
+   #64 = Fieldref           #2.#63        // an.t:[[Ljava/lang/String;
+   #65 = Utf8               Lan;
+   #66 = Utf8               b
+   #67 = Utf8               (Ljavax/microedition/lcdui/Graphics;)V
+   #68 = Utf8               v1
+   #69 = Utf8               d
+   #70 = Utf8               ()Z
+   #71 = Utf8               f
+   #72 = Utf8               a
+   #73 = Utf8               (B)V
+   #74 = Utf8               i1
+   #75 = Utf8               g
+   #76 = Utf8               Z
+   #77 = NameAndType        #75:#76       // g:Z
+   #78 = Fieldref           #2.#77        // an.g:Z
+   #79 = Utf8               i
+   #80 = Utf8               Ljava/util/Timer;
+   #81 = NameAndType        #79:#80       // i:Ljava/util/Timer;
+   #82 = Fieldref           #2.#81        // an.i:Ljava/util/Timer;
+   #83 = Utf8               j
+   #84 = Utf8               Ljava/util/TimerTask;
+   #85 = NameAndType        #83:#84       // j:Ljava/util/TimerTask;
+   #86 = Fieldref           #2.#85        // an.j:Ljava/util/TimerTask;
+   #87 = Utf8               java/util/Timer
+   #88 = Class              #87           // java/util/Timer
+   #89 = Methodref          #88.#12       // java/util/Timer."<init>":()V
+   #90 = Utf8               as
+   #91 = Class              #90           // as
+   #92 = Methodref          #91.#12       // as."<init>":()V
+   #93 = Long               10l
+   #95 = Long               200l
+   #97 = Utf8               schedule
+   #98 = Utf8               (Ljava/util/TimerTask;JJ)V
+   #99 = NameAndType        #97:#98       // schedule:(Ljava/util/TimerTask;JJ)V
+  #100 = Methodref          #88.#99       // java/util/Timer.schedule:(Ljava/util/TimerTask;JJ)V
+  #101 = Utf8               java/util/TimerTask
+  #102 = Class              #101          // java/util/TimerTask
+  #103 = Utf8               cancel
+  #104 = NameAndType        #103:#70      // cancel:()Z
+  #105 = Methodref          #102.#104     // java/util/TimerTask.cancel:()Z
+  #106 = NameAndType        #103:#10      // cancel:()V
+  #107 = Methodref          #88.#106      // java/util/Timer.cancel:()V
+  #108 = Utf8               java/lang/System
+  #109 = Class              #108          // java/lang/System
+  #110 = Utf8               gc
+  #111 = NameAndType        #110:#10      // gc:()V
+  #112 = Methodref          #109.#111     // java/lang/System.gc:()V
+  #113 = Utf8               k
+  #114 = NameAndType        #113:#76      // k:Z
+  #115 = Fieldref           #2.#114       // an.k:Z
+  #116 = Utf8               u
+  #117 = Utf8               v
+  #118 = Utf8               (SS)V
+  #119 = Utf8               i0
+  #120 = Utf8               S
+  #121 = NameAndType        #72:#120      // a:S
+  #122 = Fieldref           #2.#121       // an.a:S
+  #123 = NameAndType        #66:#120      // b:S
+  #124 = Fieldref           #2.#123       // an.b:S
+  #125 = Utf8               w
+  #126 = Utf8               ()S
+  #127 = Utf8               y
+  #128 = Utf8               z
+  #129 = Utf8               A
+  #130 = Utf8               I
+  #131 = NameAndType        #5:#130       // c:I
+  #132 = Fieldref           #2.#131       // an.c:I
+  #133 = Utf8               B
+  #134 = Utf8               ()I
+  #135 = Utf8               e
+  #136 = Utf8               (I)V
+  #137 = NameAndType        #71:#130      // f:I
+  #138 = Fieldref           #2.#137       // an.f:I
+  #139 = Utf8               C
+  #140 = Utf8               D
+  #141 = Utf8               ()Ljavax/microedition/lcdui/Font;
+  #142 = Utf8               Ljavax/microedition/lcdui/Font;
+  #143 = NameAndType        #69:#142      // d:Ljavax/microedition/lcdui/Font;
+  #144 = Fieldref           #2.#143       // an.d:Ljavax/microedition/lcdui/Font;
+  #145 = Utf8               javax/microedition/lcdui/Font
+  #146 = Class              #145          // javax/microedition/lcdui/Font
+  #147 = Utf8               getFont
+  #148 = Utf8               (III)Ljavax/microedition/lcdui/Font;
+  #149 = NameAndType        #147:#148     // getFont:(III)Ljavax/microedition/lcdui/Font;
+  #150 = Methodref          #146.#149     // javax/microedition/lcdui/Font.getFont:(III)Ljavax/microedition/lcdui/Font;
+  #151 = Utf8               E
+  #152 = NameAndType        #135:#142     // e:Ljavax/microedition/lcdui/Font;
+  #153 = Fieldref           #2.#152       // an.e:Ljavax/microedition/lcdui/Font;
+  #154 = Utf8               F
+  #155 = Utf8               S?ng
+  #156 = String             #155          // S?ng
+  #157 = Utf8               stringWidth
+  #158 = Utf8               (Ljava/lang/String;)I
+  #159 = NameAndType        #157:#158     // stringWidth:(Ljava/lang/String;)I
+  #160 = Methodref          #146.#159     // javax/microedition/lcdui/Font.stringWidth:(Ljava/lang/String;)I
+  #161 = Utf8               G
+  #162 = Utf8               getHeight
+  #163 = NameAndType        #162:#134     // getHeight:()I
+  #164 = Methodref          #146.#163     // javax/microedition/lcdui/Font.getHeight:()I
+  #165 = Utf8               (I)Ljava/lang/String;
+  #166 = Utf8
+  #167 = String             #166          //
+  #168 = Utf8               aq
+  #169 = Class              #168          // aq
+  #170 = NameAndType        #69:#31       // d:[Ljava/lang/String;
+  #171 = Fieldref           #169.#170     // aq.d:[Ljava/lang/String;
+  #172 = Utf8               (I[I)Ljava/lang/String;
+  #173 = NameAndType        #71:#165      // f:(I)Ljava/lang/String;
+  #174 = Methodref          #2.#173       // an.f:(I)Ljava/lang/String;
+  #175 = Utf8               %s
+  #176 = String             #175          // %s
+  #177 = Utf8               indexOf
+  #178 = Utf8               (Ljava/lang/String;I)I
+  #179 = NameAndType        #177:#178     // indexOf:(Ljava/lang/String;I)I
+  #180 = Methodref          #19.#179      // java/lang/String.indexOf:(Ljava/lang/String;I)I
+  #181 = Utf8               java/lang/StringBuffer
+  #182 = Class              #181          // java/lang/StringBuffer
+  #183 = Methodref          #182.#12      // java/lang/StringBuffer."<init>":()V
+  #184 = Utf8               append
+  #185 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #186 = NameAndType        #184:#185     // append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #187 = Methodref          #182.#186     // java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #188 = Utf8               substring
+  #189 = Utf8               (II)Ljava/lang/String;
+  #190 = NameAndType        #188:#189     // substring:(II)Ljava/lang/String;
+  #191 = Methodref          #19.#190      // java/lang/String.substring:(II)Ljava/lang/String;
+  #192 = Utf8               (I)Ljava/lang/StringBuffer;
+  #193 = NameAndType        #184:#192     // append:(I)Ljava/lang/StringBuffer;
+  #194 = Methodref          #182.#193     // java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+  #195 = Utf8               toString
+  #196 = Utf8               ()Ljava/lang/String;
+  #197 = NameAndType        #195:#196     // toString:()Ljava/lang/String;
+  #198 = Methodref          #182.#197     // java/lang/StringBuffer.toString:()Ljava/lang/String;
+  #199 = NameAndType        #188:#165     // substring:(I)Ljava/lang/String;
+  #200 = Methodref          #19.#199      // java/lang/String.substring:(I)Ljava/lang/String;
+  #201 = Utf8               [I
+  #202 = Utf8               i2
+  #203 = Utf8               i4
+  #204 = Utf8               i5
+  #205 = Utf8               v3
+  #206 = Utf8               Ljava/lang/String;
+  #207 = Utf8               (Ljava/lang/String;[I)Ljava/lang/String;
+  #208 = Utf8               v0
+  #209 = Utf8               equals
+  #210 = Utf8               (Ljava/lang/Object;)Z
+  #211 = NameAndType        #209:#210     // equals:(Ljava/lang/Object;)Z
+  #212 = Methodref          #19.#211      // java/lang/String.equals:(Ljava/lang/Object;)Z
+  #213 = Utf8               (I[Ljava/lang/String;)Ljava/lang/String;
+  #214 = Utf8               (Ljavax/microedition/lcdui/Graphics;Ljavax/microedition/lcdui/Image;Ljava/lang/String;IIII)V
+  #215 = Utf8               v2
+  #216 = Utf8               i3
+  #217 = Utf8               i6
+  #218 = Utf8               length
+  #219 = NameAndType        #218:#134     // length:()I
+  #220 = Methodref          #19.#219      // java/lang/String.length:()I
+  #221 = Utf8               charAt
+  #222 = Utf8               (I)C
+  #223 = NameAndType        #221:#222     // charAt:(I)C
+  #224 = Methodref          #19.#223      // java/lang/String.charAt:(I)C
+  #225 = Utf8               java/lang/Character
+  #226 = Class              #225          // java/lang/Character
+  #227 = Utf8               isDigit
+  #228 = Utf8               (C)Z
+  #229 = NameAndType        #227:#228     // isDigit:(C)Z
+  #230 = Methodref          #226.#229     // java/lang/Character.isDigit:(C)Z
+  #231 = Utf8               javax/microedition/lcdui/Graphics
+  #232 = Class              #231          // javax/microedition/lcdui/Graphics
+  #233 = Utf8               drawRegion
+  #234 = Utf8               (Ljavax/microedition/lcdui/Image;IIIIIIII)V
+  #235 = NameAndType        #233:#234     // drawRegion:(Ljavax/microedition/lcdui/Image;IIIIIIII)V
+  #236 = Methodref          #232.#235     // javax/microedition/lcdui/Graphics.drawRegion:(Ljavax/microedition/lcdui/Image;IIIIIIII)V
+  #237 = Utf8               Ljavax/microedition/lcdui/Graphics;
+  #238 = Utf8               Ljavax/microedition/lcdui/Image;
+  #239 = Utf8               i7
+  #240 = Utf8               i8
+  #241 = Utf8               H
+  #242 = Utf8               U
+  #243 = NameAndType        #242:#133     // U:B
+  #244 = Fieldref           #2.#243       // an.U:B
+  #245 = Utf8               l
+  #246 = Utf8               m
+  #247 = Utf8               h
+  #248 = NameAndType        #247:#37      // h:[[B
+  #249 = Fieldref           #2.#248       // an.h:[[B
+  #250 = Utf8               J
+  #251 = Utf8               (II)Z
+  #252 = Utf8               (II)V
+  #253 = Utf8               K
+  #254 = Utf8               ()B
+  #255 = Utf8               (Z)V
+  #256 = NameAndType        #245:#133     // l:B
+  #257 = Fieldref           #2.#256       // an.l:B
+  #258 = Utf8               p
+  #259 = NameAndType        #258:#133     // p:B
+  #260 = Fieldref           #2.#259       // an.p:B
+  #261 = NameAndType        #246:#34      // m:[B
+  #262 = Fieldref           #2.#261       // an.m:[B
+  #263 = Utf8               o
+  #264 = NameAndType        #263:#133     // o:B
+  #265 = Fieldref           #2.#264       // an.o:B
+  #266 = Utf8               out
+  #267 = Utf8               Ljava/io/PrintStream;
+  #268 = NameAndType        #266:#267     // out:Ljava/io/PrintStream;
+  #269 = Fieldref           #109.#268     // java/lang/System.out:Ljava/io/PrintStream;
+  #270 = Utf8                curNum =
+  #271 = String             #270          //  curNum =
+  #272 = Utf8               (Ljava/lang/String;)V
+  #273 = NameAndType        #9:#272       // "<init>":(Ljava/lang/String;)V
+  #274 = Methodref          #182.#273     // java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+  #275 = Utf8                tolNum =
+  #276 = String             #275          //  tolNum =
+  #277 = Utf8               q
+  #278 = NameAndType        #277:#133     // q:B
+  #279 = Fieldref           #2.#278       // an.q:B
+  #280 = Utf8               java/io/PrintStream
+  #281 = Class              #280          // java/io/PrintStream
+  #282 = Utf8               println
+  #283 = NameAndType        #282:#272     // println:(Ljava/lang/String;)V
+  #284 = Methodref          #281.#283     // java/io/PrintStream.println:(Ljava/lang/String;)V
+  #285 = Utf8               X
+  #286 = NameAndType        #285:#76      // X:Z
+  #287 = Fieldref           #2.#286       // an.X:Z
+  #288 = Utf8               game/g
+  #289 = Class              #288          // game/g
+  #290 = Utf8               ()Lgame/g;
+  #291 = NameAndType        #263:#290     // o:()Lgame/g;
+  #292 = Methodref          #289.#291     // game/g.o:()Lgame/g;
+  #293 = NameAndType        #36:#136      // s:(I)V
+  #294 = Methodref          #289.#293     // game/g.s:(I)V
+  #295 = Utf8               (IIB)Z
+  #296 = NameAndType        #5:#295       // c:(IIB)Z
+  #297 = Methodref          #289.#296     // game/g.c:(IIB)Z
+  #298 = NameAndType        #116:#136     // u:(I)V
+  #299 = Methodref          #289.#298     // game/g.u:(I)V
+  #300 = Utf8               game/c
+  #301 = Class              #300          // game/c
+  #302 = Utf8               ()Lgame/c;
+  #303 = NameAndType        #72:#302      // a:()Lgame/c;
+  #304 = Methodref          #301.#303     // game/c.a:()Lgame/c;
+  #305 = NameAndType        #66:#37       // b:[[B
+  #306 = Fieldref           #301.#305     // game/c.b:[[B
+  #307 = Utf8               game/k
+  #308 = Class              #307          // game/k
+  #309 = Utf8               (II)I
+  #310 = NameAndType        #72:#309      // a:(II)I
+  #311 = Methodref          #308.#310     // game/k.a:(II)I
+  #312 = Utf8               [Lp;
+  #313 = NameAndType        #72:#312      // a:[Lp;
+  #314 = Fieldref           #301.#313     // game/c.a:[Lp;
+  #315 = Class              #258          // p
+  #316 = NameAndType        #72:#73       // a:(B)V
+  #317 = Methodref          #315.#316     // p.a:(B)V
+  #318 = NameAndType        #161:#133     // G:B
+  #319 = Fieldref           #308.#318     // game/k.G:B
+  #320 = Utf8               Ljava/util/Vector;
+  #321 = NameAndType        #154:#320     // F:Ljava/util/Vector;
+  #322 = Fieldref           #308.#321     // game/k.F:Ljava/util/Vector;
+  #323 = Utf8               java/util/Vector
+  #324 = Class              #323          // java/util/Vector
+  #325 = Methodref          #324.#12      // java/util/Vector."<init>":()V
+  #326 = NameAndType        #151:#320     // E:Ljava/util/Vector;
+  #327 = Fieldref           #308.#326     // game/k.E:Ljava/util/Vector;
+  #328 = Utf8               removeAllElements
+  #329 = NameAndType        #328:#10      // removeAllElements:()V
+  #330 = Methodref          #324.#329     // java/util/Vector.removeAllElements:()V
+  #331 = NameAndType        #129:#130     // A:I
+  #332 = Fieldref           #289.#331     // game/g.A:I
+  #333 = Utf8               [Lgame/b;
+  #334 = NameAndType        #128:#333     // z:[Lgame/b;
+  #335 = Fieldref           #289.#334     // game/g.z:[Lgame/b;
+  #336 = Utf8               game/b
+  #337 = Class              #336          // game/b
+  #338 = NameAndType        #36:#134      // s:()I
+  #339 = Methodref          #337.#338     // game/b.s:()I
+  #340 = NameAndType        #250:#10      // J:()V
+  #341 = Methodref          #337.#340     // game/b.J:()V
+  #342 = NameAndType        #7:#10        // x:()V
+  #343 = Methodref          #337.#342     // game/b.x:()V
+  #344 = NameAndType        #247:#136     // h:(I)V
+  #345 = Methodref          #337.#344     // game/b.h:(I)V
+  #346 = NameAndType        #130:#10      // I:()V
+  #347 = Methodref          #337.#346     // game/b.I:()V
+  #348 = NameAndType        #151:#134     // E:()I
+  #349 = Methodref          #337.#348     // game/b.E:()I
+  #350 = Utf8               addElement
+  #351 = Utf8               (Ljava/lang/Object;)V
+  #352 = NameAndType        #350:#351     // addElement:(Ljava/lang/Object;)V
+  #353 = Methodref          #324.#352     // java/util/Vector.addElement:(Ljava/lang/Object;)V
+  #354 = Utf8               size
+  #355 = NameAndType        #354:#134     // size:()I
+  #356 = Methodref          #324.#355     // java/util/Vector.size:()I
+  #357 = NameAndType        #69:#73       // d:(B)V
+  #358 = Methodref          #2.#357       // an.d:(B)V
+  #359 = Utf8               ag
+  #360 = Class              #359          // ag
+  #361 = Utf8               (Lx;)V
+  #362 = NameAndType        #9:#361       // "<init>":(Lx;)V
+  #363 = Methodref          #360.#362     // ag."<init>":(Lx;)V
+  #364 = Utf8               sms://
+  #365 = String             #364          // sms://
+  #366 = NameAndType        #72:#272      // a:(Ljava/lang/String;)V
+  #367 = Methodref          #360.#366     // ag.a:(Ljava/lang/String;)V
+  #368 = NameAndType        #72:#136      // a:(I)V
+  #369 = Methodref          #2.#368       // an.a:(I)V
+  #370 = Utf8               java/lang/ClassNotFoundException
+  #371 = Class              #370          // java/lang/ClassNotFoundException
+  #372 = Utf8               (B)Z
+  #373 = Utf8               Lgame/h;
+  #374 = NameAndType        #120:#373     // S:Lgame/h;
+  #375 = Fieldref           #2.#374       // an.S:Lgame/h;
+  #376 = Utf8               game/h
+  #377 = Class              #376          // game/h
+  #378 = Utf8               aK
+  #379 = NameAndType        #378:#10      // aK:()V
+  #380 = Methodref          #377.#379     // game/h.aK:()V
+  #381 = Utf8
+  #382 = String             #381          //
+  #383 = NameAndType        #72:#172      // a:(I[I)Ljava/lang/String;
+  #384 = Methodref          #2.#383       // an.a:(I[I)Ljava/lang/String;
+  #385 = NameAndType        #69:#272      // d:(Ljava/lang/String;)V
+  #386 = Methodref          #377.#385     // game/h.d:(Ljava/lang/String;)V
+  #387 = Utf8               M
+  #388 = NameAndType        #387:#70      // M:()Z
+  #389 = Methodref          #2.#388       // an.M:()Z
+  #390 = Utf8               T
+  #391 = NameAndType        #390:#76      // T:Z
+  #392 = Fieldref           #2.#391       // an.T:Z
+  #393 = Utf8               aL
+  #394 = NameAndType        #393:#10      // aL:()V
+  #395 = Methodref          #377.#394     // game/h.aL:()V
+  #396 = Utf8               L
+  #397 = Utf8               N
+  #398 = Utf8               O
+  #399 = NameAndType        #72:#70       // a:()Z
+  #400 = Methodref          #2.#399       // an.a:()Z
+  #401 = NameAndType        #75:#136      // g:(I)V
+  #402 = Methodref          #2.#401       // an.g:(I)V
+  #403 = NameAndType        #66:#255      // b:(Z)V
+  #404 = Methodref          #2.#403       // an.b:(Z)V
+  #405 = Utf8               <clinit>
+  #406 = Utf8               V
+  #407 = NameAndType        #406:#133     // V:B
+  #408 = Fieldref           #2.#407       // an.V:B
+  #409 = Class              #37           // "[[B"
+  #410 = Utf8               P
+  #411 = Utf8               Q
+  #412 = Utf8               R
+  #413 = Utf8               Lab;
+  #414 = Utf8               W
+  #415 = Utf8               Lq;
+  #416 = Utf8               Code
+  #417 = Utf8               LocalVariableTable
+  #418 = Utf8               MethodParameters
+{
+  private static short a;
+    descriptor: S
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static short b;
+    descriptor: S
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static int c;
+    descriptor: I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static javax.microedition.lcdui.Font d;
+    descriptor: Ljavax/microedition/lcdui/Font;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static javax.microedition.lcdui.Font e;
+    descriptor: Ljavax/microedition/lcdui/Font;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static int f;
+    descriptor: I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  public byte P;
+    descriptor: B
+    flags: (0x0001) ACC_PUBLIC
+
+  public byte Q;
+    descriptor: B
+    flags: (0x0001) ACC_PUBLIC
+
+  public ab R;
+    descriptor: Lab;
+    flags: (0x0001) ACC_PUBLIC
+
+  public game.h S;
+    descriptor: Lgame/h;
+    flags: (0x0001) ACC_PUBLIC
+
+  private static boolean g;
+    descriptor: Z
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  public static boolean T;
+    descriptor: Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static byte U;
+    descriptor: B
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static byte V;
+    descriptor: B
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  private static byte[][] h;
+    descriptor: [[B
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static java.util.Timer i;
+    descriptor: Ljava/util/Timer;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static java.util.TimerTask j;
+    descriptor: Ljava/util/TimerTask;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static boolean k;
+    descriptor: Z
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  public static boolean W;
+    descriptor: Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static boolean X;
+    descriptor: Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  private byte l;
+    descriptor: B
+    flags: (0x0002) ACC_PRIVATE
+
+  private static byte[] m;
+    descriptor: [B
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private ag n;
+    descriptor: Lag;
+    flags: (0x0002) ACC_PRIVATE
+
+  private byte o;
+    descriptor: B
+    flags: (0x0002) ACC_PRIVATE
+
+  private byte p;
+    descriptor: B
+    flags: (0x0002) ACC_PRIVATE
+
+  private byte q;
+    descriptor: B
+    flags: (0x0002) ACC_PRIVATE
+
+  private java.lang.String[] r;
+    descriptor: [Ljava/lang/String;
+    flags: (0x0002) ACC_PRIVATE
+
+  private byte[][] s;
+    descriptor: [[B
+    flags: (0x0002) ACC_PRIVATE
+
+  private java.lang.String[][] t;
+    descriptor: [[Ljava/lang/String;
+    flags: (0x0002) ACC_PRIVATE
+
+  private q u;
+    descriptor: Lq;
+    flags: (0x0002) ACC_PRIVATE
+
+  public an();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=8, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #13                 // Method ap."<init>":()V
+         4: aload_0
+         5: aconst_null
+         6: putfield      #17                 // Field n:Lag;
+         9: aload_0
+        10: iconst_5
+        11: anewarray     #19                 // class java/lang/String
+        14: dup
+        15: iconst_0
+        16: ldc           #21                 // String 01
+        18: aastore
+        19: dup
+        20: iconst_1
+        21: ldc           #23                 // String 02
+        23: aastore
+        24: dup
+        25: iconst_2
+        26: ldc           #25                 // String 03
+        28: aastore
+        29: dup
+        30: iconst_3
+        31: ldc           #27                 // String 04
+        33: aastore
+        34: dup
+        35: iconst_4
+        36: ldc           #29                 // String 05
+        38: aastore
+        39: putfield      #33                 // Field r:[Ljava/lang/String;
+        42: aload_0
+        43: iconst_5
+        44: anewarray     #35                 // class "[B"
+        47: dup
+        48: iconst_0
+        49: iconst_3
+        50: newarray       byte
+        52: dup
+        53: iconst_0
+        54: iconst_4
+        55: bastore
+        56: dup
+        57: iconst_1
+        58: iconst_1
+        59: bastore
+        60: dup
+        61: iconst_2
+        62: iconst_0
+        63: bastore
+        64: aastore
+        65: dup
+        66: iconst_1
+        67: iconst_3
+        68: newarray       byte
+        70: dup
+        71: iconst_0
+        72: iconst_2
+        73: bastore
+        74: dup
+        75: iconst_1
+        76: iconst_1
+        77: bastore
+        78: dup
+        79: iconst_2
+        80: iconst_1
+        81: bastore
+        82: aastore
+        83: dup
+        84: iconst_2
+        85: iconst_3
+        86: newarray       byte
+        88: dup
+        89: iconst_0
+        90: iconst_2
+        91: bastore
+        92: dup
+        93: iconst_1
+        94: iconst_1
+        95: bastore
+        96: dup
+        97: iconst_2
+        98: iconst_2
+        99: bastore
+       100: aastore
+       101: dup
+       102: iconst_3
+       103: iconst_3
+       104: newarray       byte
+       106: dup
+       107: iconst_0
+       108: iconst_2
+       109: bastore
+       110: dup
+       111: iconst_1
+       112: iconst_1
+       113: bastore
+       114: dup
+       115: iconst_2
+       116: iconst_3
+       117: bastore
+       118: aastore
+       119: dup
+       120: iconst_4
+       121: iconst_3
+       122: newarray       byte
+       124: dup
+       125: iconst_0
+       126: iconst_2
+       127: bastore
+       128: dup
+       129: iconst_1
+       130: iconst_1
+       131: bastore
+       132: dup
+       133: iconst_2
+       134: iconst_4
+       135: bastore
+       136: aastore
+       137: putfield      #39                 // Field s:[[B
+       140: aload_0
+       141: iconst_5
+       142: anewarray     #40                 // class "[Ljava/lang/String;"
+       145: dup
+       146: iconst_0
+       147: iconst_2
+       148: anewarray     #19                 // class java/lang/String
+       151: dup
+       152: iconst_0
+       153: ldc           #42                 // String K�ch ho?t
+       155: aastore
+       156: dup
+       157: iconst_1
+       158: ldc           #44                 // String B?n mu?n kh�m ph� b� m?t c?a v??ng qu?c s?ng v?t, d?n d?t th� y�u chi?n ??u, ti?n h�a, ?p tr?ng? Ch? c?n 1 tin nh?n 15000? ?? k�ch ho?t tr� ch?i, ch? nh?n tin 1 l?n cho t?t c? c�c l??t ch?i. B?n c� mu?n nh?n tin kh�ng?
+       160: aastore
+       161: aastore
+       162: dup
+       163: iconst_1
+       164: iconst_2
+       165: anewarray     #19                 // class java/lang/String
+       168: dup
+       169: iconst_0
+       170: ldc           #46                 // String T?t tr�ng c?u
+       172: aastore
+       173: dup
+       174: iconst_1
+       175: ldc           #48                 // String Ch? c?n nh?n 1 tin nh?n 10000?, b?n s? s? h?u 1 t?t tr�ng c?u, t? l? 100% b?t ???c s?ng v?t? B?n c� mu?n nh?n tin kh�ng?
+       177: aastore
+       178: aastore
+       179: dup
+       180: iconst_2
+       181: iconst_2
+       182: anewarray     #19                 // class java/lang/String
+       185: dup
+       186: iconst_0
+       187: ldc           #50                 // String Mua s?m kim ti?n
+       189: aastore
+       190: dup
+       191: iconst_1
+       192: ldc           #52                 // String Ki?m ti?n v?t v?, v?t ph?m ??t ??? Ch? c?n nh?n 1 tin nh?n 10000? b?n s? ??t ???c 10000 kim ti?n. B?n c� mu?n nh?n tin kh�ng?
+       194: aastore
+       195: aastore
+       196: dup
+       197: iconst_3
+       198: iconst_2
+       199: anewarray     #19                 // class java/lang/String
+       202: dup
+       203: iconst_0
+       204: ldc           #54                 // String Mua ??ng c?p
+       206: aastore
+       207: dup
+       208: iconst_1
+       209: ldc           #56                 // String Th?ng c?p ch?m ch?p, k? ??ch l?i qu� m?nh? Ch? c?n 1 tin nh?n 10000?, t?t c? s?ng v?t trong ba l� c?a b?n ??u ???c th?ng l�n 5 c?p. B?n c� mu?n nh?n tin kh�ng?
+       211: aastore
+       212: aastore
+       213: dup
+       214: iconst_4
+       215: iconst_2
+       216: anewarray     #19                 // class java/lang/String
+       219: dup
+       220: iconst_0
+       221: ldc           #58                 // String Mua s?m huy hi?u
+       223: aastore
+       224: dup
+       225: iconst_1
+       226: ldc           #60                 // String Ki?m huy hi?u kh� kh?n? Ch? c?n 1 tin nh?n 10000?, b?n s? ??t ???c 10 huy hi?u. B?n c� mu?n nh?n tin kh�ng?
+       228: aastore
+       229: aastore
+       230: putfield      #64                 // Field t:[[Ljava/lang/String;
+       233: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     234     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public abstract void b();
+    descriptor: ()V
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public abstract void b(javax.microedition.lcdui.Graphics);
+    descriptor: (Ljavax/microedition/lcdui/Graphics;)V
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    MethodParameters:
+      Name                           Flags
+      this
+      v1
+
+  public abstract boolean d();
+    descriptor: ()Z
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public abstract void f();
+    descriptor: ()V
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public abstract void a(byte);
+    descriptor: (B)V
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    MethodParameters:
+      Name                           Flags
+      this
+      i1
+
+  public final void s();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=6, locals=1, args_size=1
+         0: getstatic     #78                 // Field g:Z
+         3: ifeq          7
+         6: return
+         7: getstatic     #82                 // Field i:Ljava/util/Timer;
+        10: ifnull        19
+        13: getstatic     #86                 // Field j:Ljava/util/TimerTask;
+        16: ifnonnull     39
+        19: new           #88                 // class java/util/Timer
+        22: dup
+        23: invokespecial #89                 // Method java/util/Timer."<init>":()V
+        26: putstatic     #82                 // Field i:Ljava/util/Timer;
+        29: new           #91                 // class as
+        32: dup
+        33: invokespecial #92                 // Method as."<init>":()V
+        36: putstatic     #86                 // Field j:Ljava/util/TimerTask;
+        39: getstatic     #82                 // Field i:Ljava/util/Timer;
+        42: getstatic     #86                 // Field j:Ljava/util/TimerTask;
+        45: ldc2_w        #93                 // long 10l
+        48: ldc2_w        #95                 // long 200l
+        51: invokevirtual #100                // Method java/util/Timer.schedule:(Ljava/util/TimerTask;JJ)V
+        54: iconst_1
+        55: putstatic     #78                 // Field g:Z
+        58: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      59     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  protected static void t();
+    descriptor: ()V
+    flags: (0x000c) ACC_PROTECTED, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #86                 // Field j:Ljava/util/TimerTask;
+         3: ifnull        17
+         6: getstatic     #86                 // Field j:Ljava/util/TimerTask;
+         9: invokevirtual #105                // Method java/util/TimerTask.cancel:()Z
+        12: pop
+        13: aconst_null
+        14: putstatic     #86                 // Field j:Ljava/util/TimerTask;
+        17: getstatic     #82                 // Field i:Ljava/util/Timer;
+        20: ifnull        36
+        23: getstatic     #82                 // Field i:Ljava/util/Timer;
+        26: invokevirtual #107                // Method java/util/Timer.cancel:()V
+        29: aconst_null
+        30: putstatic     #82                 // Field i:Ljava/util/Timer;
+        33: invokestatic  #112                // Method java/lang/System.gc:()V
+        36: iconst_0
+        37: putstatic     #78                 // Field g:Z
+        40: iconst_1
+        41: putstatic     #115                // Field k:Z
+        44: return
+
+  public static void u();
+    descriptor: ()V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: iconst_0
+         1: putstatic     #115                // Field k:Z
+         4: return
+
+  public static boolean v();
+    descriptor: ()Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #115                // Field k:Z
+         3: ireturn
+
+  public static void a(short, short);
+    descriptor: (SS)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=2, args_size=2
+         0: iload_0
+         1: putstatic     #122                // Field a:S
+         4: iload_1
+         5: putstatic     #124                // Field b:S
+         8: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0    i0   S
+            0       9     1    i1   S
+    MethodParameters:
+      Name                           Flags
+      i0
+      i1
+
+  public static short w();
+    descriptor: ()S
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #122                // Field a:S
+         3: ireturn
+
+  public static short x();
+    descriptor: ()S
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #124                // Field b:S
+         3: ireturn
+
+  public static short y();
+    descriptor: ()S
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #122                // Field a:S
+         3: iconst_2
+         4: idiv
+         5: i2s
+         6: ireturn
+
+  public static short z();
+    descriptor: ()S
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #124                // Field b:S
+         3: iconst_2
+         4: idiv
+         5: i2s
+         6: ireturn
+
+  public static void A();
+    descriptor: ()V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: bipush        66
+         2: putstatic     #132                // Field c:I
+         5: return
+
+  public static int B();
+    descriptor: ()I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #132                // Field c:I
+         3: ireturn
+
+  public static void e(int);
+    descriptor: (I)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: iload_0
+         1: putstatic     #138                // Field f:I
+         4: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0    i0   I
+    MethodParameters:
+      Name                           Flags
+      i0
+
+  public static int C();
+    descriptor: ()I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #138                // Field f:I
+         3: ireturn
+
+  public static javax.microedition.lcdui.Font D();
+    descriptor: ()Ljavax/microedition/lcdui/Font;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=0, args_size=0
+         0: getstatic     #144                // Field d:Ljavax/microedition/lcdui/Font;
+         3: ifnonnull     16
+         6: iconst_0
+         7: iconst_0
+         8: bipush        8
+        10: invokestatic  #150                // Method javax/microedition/lcdui/Font.getFont:(III)Ljavax/microedition/lcdui/Font;
+        13: putstatic     #144                // Field d:Ljavax/microedition/lcdui/Font;
+        16: getstatic     #144                // Field d:Ljavax/microedition/lcdui/Font;
+        19: areturn
+
+  public static javax.microedition.lcdui.Font E();
+    descriptor: ()Ljavax/microedition/lcdui/Font;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=0, args_size=0
+         0: getstatic     #153                // Field e:Ljavax/microedition/lcdui/Font;
+         3: ifnonnull     16
+         6: iconst_0
+         7: iconst_0
+         8: bipush        16
+        10: invokestatic  #150                // Method javax/microedition/lcdui/Font.getFont:(III)Ljavax/microedition/lcdui/Font;
+        13: putstatic     #153                // Field e:Ljavax/microedition/lcdui/Font;
+        16: getstatic     #153                // Field e:Ljavax/microedition/lcdui/Font;
+        19: areturn
+
+  public static int F();
+    descriptor: ()I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #144                // Field d:Ljavax/microedition/lcdui/Font;
+         3: ifnonnull     9
+         6: bipush        18
+         8: ireturn
+         9: getstatic     #144                // Field d:Ljavax/microedition/lcdui/Font;
+        12: ldc           #156                // String S?ng
+        14: invokevirtual #160                // Method javax/microedition/lcdui/Font.stringWidth:(Ljava/lang/String;)I
+        17: ireturn
+
+  public static int G();
+    descriptor: ()I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #144                // Field d:Ljavax/microedition/lcdui/Font;
+         3: invokevirtual #164                // Method javax/microedition/lcdui/Font.getHeight:()I
+         6: ireturn
+
+  public static java.lang.String f(int);
+    descriptor: (I)Ljava/lang/String;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: iload_0
+         1: ifne          7
+         4: ldc           #167                // String
+         6: areturn
+         7: getstatic     #171                // Field aq.d:[Ljava/lang/String;
+        10: iload_0
+        11: aaload
+        12: areturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      13     0    i0   I
+    MethodParameters:
+      Name                           Flags
+      i0
+
+  public static java.lang.String a(int, int[]);
+    descriptor: (I[I)Ljava/lang/String;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=6, args_size=2
+         0: iload_0
+         1: ifne          7
+         4: ldc           #167                // String
+         6: areturn
+         7: iconst_0
+         8: istore_2
+         9: ldc           #167                // String
+        11: astore_3
+        12: iload_0
+        13: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+        16: ldc           #176                // String %s
+        18: iconst_0
+        19: invokevirtual #180                // Method java/lang/String.indexOf:(Ljava/lang/String;I)I
+        22: dup
+        23: istore        4
+        25: iconst_m1
+        26: if_icmpne     34
+        29: iload_0
+        30: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+        33: areturn
+        34: iconst_0
+        35: istore        5
+        37: iload         4
+        39: iconst_m1
+        40: if_icmpeq     103
+        43: new           #182                // class java/lang/StringBuffer
+        46: dup
+        47: invokespecial #183                // Method java/lang/StringBuffer."<init>":()V
+        50: aload_3
+        51: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        54: iload_0
+        55: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+        58: iload         5
+        60: iload         4
+        62: invokevirtual #191                // Method java/lang/String.substring:(II)Ljava/lang/String;
+        65: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        68: aload_1
+        69: iload_2
+        70: iaload
+        71: invokevirtual #194                // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        74: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        77: astore_3
+        78: iinc          2, 1
+        81: iload         4
+        83: iconst_2
+        84: iadd
+        85: istore        5
+        87: iload_0
+        88: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+        91: ldc           #176                // String %s
+        93: iload         5
+        95: invokevirtual #180                // Method java/lang/String.indexOf:(Ljava/lang/String;I)I
+        98: istore        4
+       100: goto          37
+       103: new           #182                // class java/lang/StringBuffer
+       106: dup
+       107: invokespecial #183                // Method java/lang/StringBuffer."<init>":()V
+       110: aload_3
+       111: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       114: iload_0
+       115: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       118: iload         5
+       120: invokevirtual #200                // Method java/lang/String.substring:(I)Ljava/lang/String;
+       123: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       126: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       129: areturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     130     0    i0   I
+            0     130     1    v1   [I
+            0     130     2    i2   I
+            0     130     4    i4   I
+            0     130     5    i5   I
+            0     130     3    v3   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      i0
+      v1
+
+  public static java.lang.String a(java.lang.String, int[]);
+    descriptor: (Ljava/lang/String;[I)Ljava/lang/String;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=6, args_size=2
+         0: aload_0
+         1: ldc           #167                // String
+         3: invokevirtual #212                // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+         6: ifeq          12
+         9: ldc           #167                // String
+        11: areturn
+        12: iconst_0
+        13: istore_2
+        14: ldc           #167                // String
+        16: astore_3
+        17: aload_0
+        18: ldc           #176                // String %s
+        20: iconst_0
+        21: invokevirtual #180                // Method java/lang/String.indexOf:(Ljava/lang/String;I)I
+        24: dup
+        25: istore        4
+        27: iconst_m1
+        28: if_icmpne     33
+        31: aload_0
+        32: areturn
+        33: iconst_0
+        34: istore        5
+        36: iload         4
+        38: iconst_m1
+        39: if_icmpeq     96
+        42: new           #182                // class java/lang/StringBuffer
+        45: dup
+        46: invokespecial #183                // Method java/lang/StringBuffer."<init>":()V
+        49: aload_3
+        50: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        53: aload_0
+        54: iload         5
+        56: iload         4
+        58: invokevirtual #191                // Method java/lang/String.substring:(II)Ljava/lang/String;
+        61: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        64: aload_1
+        65: iload_2
+        66: iaload
+        67: invokevirtual #194                // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        70: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        73: astore_3
+        74: iinc          2, 1
+        77: iload         4
+        79: iconst_2
+        80: iadd
+        81: istore        5
+        83: aload_0
+        84: ldc           #176                // String %s
+        86: iload         5
+        88: invokevirtual #180                // Method java/lang/String.indexOf:(Ljava/lang/String;I)I
+        91: istore        4
+        93: goto          36
+        96: new           #182                // class java/lang/StringBuffer
+        99: dup
+       100: invokespecial #183                // Method java/lang/StringBuffer."<init>":()V
+       103: aload_3
+       104: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       107: aload_0
+       108: iload         5
+       110: invokevirtual #200                // Method java/lang/String.substring:(I)Ljava/lang/String;
+       113: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       116: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       119: areturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     120     0    v0   Ljava/lang/String;
+            0     120     1    v1   [I
+            0     120     2    i2   I
+            0     120     4    i4   I
+            0     120     5    i5   I
+            0     120     3    v3   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      v0
+      v1
+
+  public static java.lang.String a(int, java.lang.String[]);
+    descriptor: (I[Ljava/lang/String;)Ljava/lang/String;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=6, args_size=2
+         0: iload_0
+         1: ifne          7
+         4: ldc           #167                // String
+         6: areturn
+         7: iconst_0
+         8: istore_2
+         9: ldc           #167                // String
+        11: astore_3
+        12: iload_0
+        13: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+        16: ldc           #176                // String %s
+        18: iconst_0
+        19: invokevirtual #180                // Method java/lang/String.indexOf:(Ljava/lang/String;I)I
+        22: dup
+        23: istore        4
+        25: iconst_m1
+        26: if_icmpne     34
+        29: iload_0
+        30: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+        33: areturn
+        34: iconst_0
+        35: istore        5
+        37: iload         4
+        39: iconst_m1
+        40: if_icmpeq     103
+        43: new           #182                // class java/lang/StringBuffer
+        46: dup
+        47: invokespecial #183                // Method java/lang/StringBuffer."<init>":()V
+        50: aload_3
+        51: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        54: iload_0
+        55: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+        58: iload         5
+        60: iload         4
+        62: invokevirtual #191                // Method java/lang/String.substring:(II)Ljava/lang/String;
+        65: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        68: aload_1
+        69: iload_2
+        70: aaload
+        71: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        74: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        77: astore_3
+        78: iinc          2, 1
+        81: iload         4
+        83: iconst_2
+        84: iadd
+        85: istore        5
+        87: iload_0
+        88: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+        91: ldc           #176                // String %s
+        93: iload         5
+        95: invokevirtual #180                // Method java/lang/String.indexOf:(Ljava/lang/String;I)I
+        98: istore        4
+       100: goto          37
+       103: new           #182                // class java/lang/StringBuffer
+       106: dup
+       107: invokespecial #183                // Method java/lang/StringBuffer."<init>":()V
+       110: aload_3
+       111: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       114: iload_0
+       115: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       118: iload         5
+       120: invokevirtual #200                // Method java/lang/String.substring:(I)Ljava/lang/String;
+       123: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       126: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       129: areturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     130     0    i0   I
+            0     130     1    v1   [Ljava/lang/String;
+            0     130     2    i2   I
+            0     130     4    i4   I
+            0     130     5    i5   I
+            0     130     3    v3   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      i0
+      v1
+
+  public static void a(javax.microedition.lcdui.Graphics, javax.microedition.lcdui.Image, java.lang.String, int, int, int, int);
+    descriptor: (Ljavax/microedition/lcdui/Graphics;Ljavax/microedition/lcdui/Image;Ljava/lang/String;IIII)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=11, locals=9, args_size=7
+         0: iconst_0
+         1: istore        7
+         3: iload         7
+         5: aload_2
+         6: invokevirtual #220                // Method java/lang/String.length:()I
+         9: if_icmpge     123
+        12: aload_2
+        13: iload         7
+        15: invokevirtual #224                // Method java/lang/String.charAt:(I)C
+        18: dup
+        19: istore        8
+        21: invokestatic  #230                // Method java/lang/Character.isDigit:(C)Z
+        24: ifeq          38
+        27: iload         8
+        29: bipush        48
+        31: isub
+        32: i2c
+        33: istore        8
+        35: goto          79
+        38: iload         8
+        40: lookupswitch  { // 2
+
+                      43: 75
+
+                      45: 68
+                 default: 79
+            }
+        68: bipush        10
+        70: istore        8
+        72: goto          79
+        75: bipush        10
+        77: istore        8
+        79: aload_0
+        80: aload_1
+        81: iload         8
+        83: iload         5
+        85: imul
+        86: iconst_0
+        87: iload         5
+        89: iload         6
+        91: iconst_0
+        92: iload_3
+        93: aload_2
+        94: invokevirtual #220                // Method java/lang/String.length:()I
+        97: iconst_1
+        98: isub
+        99: iload         7
+       101: iconst_1
+       102: ishl
+       103: isub
+       104: iload         5
+       106: imul
+       107: iconst_1
+       108: ishr
+       109: isub
+       110: iload         4
+       112: bipush        20
+       114: invokevirtual #236                // Method javax/microedition/lcdui/Graphics.drawRegion:(Ljavax/microedition/lcdui/Image;IIIIIIII)V
+       117: iinc          7, 1
+       120: goto          3
+       123: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     124     0    v0   Ljavax/microedition/lcdui/Graphics;
+            0     124     1    v1   Ljavax/microedition/lcdui/Image;
+            0     124     2    v2   Ljava/lang/String;
+            0     124     3    i3   I
+            0     124     4    i4   I
+            0     124     5    i5   I
+            0     124     6    i6   I
+            0     124     7    i7   I
+            0     124     8    i8   I
+    MethodParameters:
+      Name                           Flags
+      v0
+      v1
+      v2
+      i3
+      i4
+      i5
+      i6
+
+  public static boolean H();
+    descriptor: ()Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #244                // Field U:B
+         3: iconst_m1
+         4: if_icmpeq     9
+         7: iconst_1
+         8: ireturn
+         9: iconst_0
+        10: ireturn
+
+  public void l();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       1     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public void m();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       1     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public static boolean I();
+    descriptor: ()Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #244                // Field U:B
+         3: iconst_m1
+         4: if_icmpne     9
+         7: iconst_1
+         8: ireturn
+         9: getstatic     #249                // Field h:[[B
+        12: getstatic     #244                // Field U:B
+        15: aaload
+        16: iconst_0
+        17: baload
+        18: iconst_1
+        19: if_icmpne     24
+        22: iconst_1
+        23: ireturn
+        24: iconst_0
+        25: ireturn
+
+  public static boolean J();
+    descriptor: ()Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #244                // Field U:B
+         3: iconst_m1
+         4: if_icmpne     9
+         7: iconst_1
+         8: ireturn
+         9: getstatic     #249                // Field h:[[B
+        12: getstatic     #244                // Field U:B
+        15: aaload
+        16: iconst_0
+        17: baload
+        18: iconst_2
+        19: if_icmpne     24
+        22: iconst_1
+        23: ireturn
+        24: iconst_0
+        25: ireturn
+
+  public static boolean b(int, int);
+    descriptor: (II)Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=2
+         0: getstatic     #244                // Field U:B
+         3: iconst_m1
+         4: if_icmpne     9
+         7: iconst_0
+         8: ireturn
+         9: iload_1
+        10: getstatic     #249                // Field h:[[B
+        13: getstatic     #244                // Field U:B
+        16: aaload
+        17: iconst_2
+        18: baload
+        19: if_icmpeq     24
+        22: iconst_1
+        23: ireturn
+        24: getstatic     #249                // Field h:[[B
+        27: getstatic     #244                // Field U:B
+        30: aaload
+        31: iconst_1
+        32: baload
+        33: iconst_m1
+        34: if_icmpne     39
+        37: iconst_1
+        38: ireturn
+        39: getstatic     #249                // Field h:[[B
+        42: getstatic     #244                // Field U:B
+        45: aaload
+        46: iconst_1
+        47: baload
+        48: iload_0
+        49: if_icmpne     54
+        52: iconst_1
+        53: ireturn
+        54: iconst_0
+        55: ireturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      56     0    i0   I
+            0      56     1    i1   I
+    MethodParameters:
+      Name                           Flags
+      i0
+      i1
+
+  public static void c(int, int);
+    descriptor: (II)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=2
+         0: getstatic     #244                // Field U:B
+         3: iconst_m1
+         4: if_icmpne     8
+         7: return
+         8: iload_1
+         9: iconst_m1
+        10: if_icmpne     23
+        13: getstatic     #249                // Field h:[[B
+        16: getstatic     #244                // Field U:B
+        19: aaload
+        20: iconst_2
+        21: iconst_0
+        22: bastore
+        23: getstatic     #249                // Field h:[[B
+        26: getstatic     #244                // Field U:B
+        29: aaload
+        30: iload_0
+        31: iload_1
+        32: i2b
+        33: bastore
+        34: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      35     0    i0   I
+            0      35     1    i1   I
+    MethodParameters:
+      Name                           Flags
+      i0
+      i1
+
+  public static byte K();
+    descriptor: ()B
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #244                // Field U:B
+         3: iconst_m1
+         4: if_icmpne     9
+         7: iconst_m1
+         8: ireturn
+         9: getstatic     #249                // Field h:[[B
+        12: getstatic     #244                // Field U:B
+        15: aaload
+        16: iconst_1
+        17: baload
+        18: ireturn
+
+  public final void b(boolean);
+    descriptor: (Z)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=4, locals=4, args_size=2
+         0: aload_0
+         1: getfield      #257                // Field l:B
+         4: iconst_4
+         5: if_icmpne     532
+         8: iload_1
+         9: ifeq          527
+        12: aload_0
+        13: dup
+        14: astore_2
+        15: dup
+        16: getfield      #260                // Field p:B
+        19: iconst_1
+        20: iadd
+        21: i2b
+        22: putfield      #260                // Field p:B
+        25: getstatic     #262                // Field m:[B
+        28: aload_2
+        29: getfield      #265                // Field o:B
+        32: dup2
+        33: baload
+        34: iconst_1
+        35: iadd
+        36: i2b
+        37: bastore
+        38: getstatic     #269                // Field java/lang/System.out:Ljava/io/PrintStream;
+        41: new           #182                // class java/lang/StringBuffer
+        44: dup
+        45: ldc_w         #271                // String  curNum =
+        48: invokespecial #274                // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+        51: aload_2
+        52: getfield      #260                // Field p:B
+        55: invokevirtual #194                // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        58: ldc_w         #276                // String  tolNum =
+        61: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        64: aload_2
+        65: getfield      #279                // Field q:B
+        68: invokevirtual #194                // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        71: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        74: invokevirtual #284                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        77: aload_2
+        78: getfield      #260                // Field p:B
+        81: aload_2
+        82: getfield      #279                // Field q:B
+        85: if_icmplt     521
+        88: aload_2
+        89: getfield      #265                // Field o:B
+        92: tableswitch   { // 0 to 4
+
+                       0: 128
+
+                       1: 210
+
+                       2: 223
+
+                       3: 235
+
+                       4: 513
+                 default: 521
+            }
+       128: iconst_1
+       129: putstatic     #287                // Field X:Z
+       132: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       135: sipush        2000
+       138: invokevirtual #294                // Method game/g.s:(I)V
+       141: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       144: iconst_1
+       145: iconst_5
+       146: iconst_0
+       147: invokevirtual #297                // Method game/g.c:(IIB)Z
+       150: pop
+       151: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       154: iconst_4
+       155: iconst_5
+       156: iconst_0
+       157: invokevirtual #297                // Method game/g.c:(IIB)Z
+       160: pop
+       161: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       164: bipush        11
+       166: iconst_2
+       167: iconst_0
+       168: invokevirtual #297                // Method game/g.c:(IIB)Z
+       171: pop
+       172: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       175: iconst_5
+       176: invokevirtual #299                // Method game/g.u:(I)V
+       179: invokestatic  #304                // Method game/c.a:()Lgame/c;
+       182: getfield      #306                // Field game/c.b:[[B
+       185: bipush        9
+       187: iconst_0
+       188: invokestatic  #311                // Method game/k.a:(II)I
+       191: aaload
+       192: iconst_5
+       193: iconst_3
+       194: bastore
+       195: invokestatic  #304                // Method game/c.a:()Lgame/c;
+       198: getfield      #314                // Field game/c.a:[Lp;
+       201: iconst_5
+       202: aaload
+       203: iconst_3
+       204: invokevirtual #317                // Method p.a:(B)V
+       207: goto          521
+       210: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       213: iconst_0
+       214: iconst_1
+       215: iconst_0
+       216: invokevirtual #297                // Method game/g.c:(IIB)Z
+       219: pop
+       220: goto          521
+       223: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       226: sipush        10000
+       229: invokevirtual #294                // Method game/g.s:(I)V
+       232: goto          521
+       235: iconst_0
+       236: putstatic     #319                // Field game/k.G:B
+       239: getstatic     #322                // Field game/k.F:Ljava/util/Vector;
+       242: ifnonnull     255
+       245: new           #324                // class java/util/Vector
+       248: dup
+       249: invokespecial #325                // Method java/util/Vector."<init>":()V
+       252: putstatic     #322                // Field game/k.F:Ljava/util/Vector;
+       255: getstatic     #327                // Field game/k.E:Ljava/util/Vector;
+       258: ifnonnull     271
+       261: new           #324                // class java/util/Vector
+       264: dup
+       265: invokespecial #325                // Method java/util/Vector."<init>":()V
+       268: putstatic     #327                // Field game/k.E:Ljava/util/Vector;
+       271: getstatic     #322                // Field game/k.F:Ljava/util/Vector;
+       274: invokevirtual #330                // Method java/util/Vector.removeAllElements:()V
+       277: getstatic     #327                // Field game/k.E:Ljava/util/Vector;
+       280: invokevirtual #330                // Method java/util/Vector.removeAllElements:()V
+       283: iconst_0
+       284: istore_3
+       285: iload_3
+       286: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       289: getfield      #332                // Field game/g.A:I
+       292: if_icmpge     490
+       295: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       298: getfield      #335                // Field game/g.z:[Lgame/b;
+       301: iload_3
+       302: aaload
+       303: invokevirtual #339                // Method game/b.s:()I
+       306: bipush        50
+       308: if_icmpne     325
+       311: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       314: getfield      #335                // Field game/g.z:[Lgame/b;
+       317: iload_3
+       318: aaload
+       319: invokevirtual #341                // Method game/b.J:()V
+       322: goto          484
+       325: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       328: getfield      #335                // Field game/g.z:[Lgame/b;
+       331: iload_3
+       332: aaload
+       333: invokevirtual #343                // Method game/b.x:()V
+       336: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       339: getfield      #335                // Field game/g.z:[Lgame/b;
+       342: iload_3
+       343: aaload
+       344: invokevirtual #339                // Method game/b.s:()I
+       347: iconst_5
+       348: iadd
+       349: bipush        50
+       351: if_icmplt     382
+       354: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       357: getfield      #335                // Field game/g.z:[Lgame/b;
+       360: iload_3
+       361: aaload
+       362: bipush        50
+       364: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       367: getfield      #335                // Field game/g.z:[Lgame/b;
+       370: iload_3
+       371: aaload
+       372: invokevirtual #339                // Method game/b.s:()I
+       375: isub
+       376: invokevirtual #345                // Method game/b.h:(I)V
+       379: goto          394
+       382: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       385: getfield      #335                // Field game/g.z:[Lgame/b;
+       388: iload_3
+       389: aaload
+       390: iconst_5
+       391: invokevirtual #345                // Method game/b.h:(I)V
+       394: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       397: getfield      #335                // Field game/g.z:[Lgame/b;
+       400: iload_3
+       401: aaload
+       402: invokevirtual #347                // Method game/b.I:()V
+       405: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       408: getfield      #335                // Field game/g.z:[Lgame/b;
+       411: iload_3
+       412: aaload
+       413: invokevirtual #349                // Method game/b.E:()I
+       416: iconst_5
+       417: if_icmpge     484
+       420: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       423: getfield      #335                // Field game/g.z:[Lgame/b;
+       426: iload_3
+       427: aaload
+       428: invokevirtual #349                // Method game/b.E:()I
+       431: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       434: getfield      #335                // Field game/g.z:[Lgame/b;
+       437: iload_3
+       438: aaload
+       439: invokevirtual #339                // Method game/b.s:()I
+       442: bipush        10
+       444: idiv
+       445: iconst_1
+       446: iadd
+       447: if_icmpge     484
+       450: getstatic     #327                // Field game/k.E:Ljava/util/Vector;
+       453: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       456: getfield      #335                // Field game/g.z:[Lgame/b;
+       459: iload_3
+       460: aaload
+       461: invokevirtual #353                // Method java/util/Vector.addElement:(Ljava/lang/Object;)V
+       464: getstatic     #322                // Field game/k.F:Ljava/util/Vector;
+       467: new           #182                // class java/lang/StringBuffer
+       470: dup
+       471: invokespecial #183                // Method java/lang/StringBuffer."<init>":()V
+       474: iload_3
+       475: invokevirtual #194                // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+       478: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       481: invokevirtual #353                // Method java/util/Vector.addElement:(Ljava/lang/Object;)V
+       484: iinc          3, 1
+       487: goto          285
+       490: getstatic     #327                // Field game/k.E:Ljava/util/Vector;
+       493: invokevirtual #356                // Method java/util/Vector.size:()I
+       496: ifgt          506
+       499: iconst_2
+       500: putstatic     #319                // Field game/k.G:B
+       503: goto          521
+       506: iconst_1
+       507: putstatic     #319                // Field game/k.G:B
+       510: goto          521
+       513: invokestatic  #292                // Method game/g.o:()Lgame/g;
+       516: bipush        10
+       518: invokevirtual #299                // Method game/g.u:(I)V
+       521: aload_2
+       522: iconst_2
+       523: invokevirtual #358                // Method d:(B)V
+       526: return
+       527: aload_0
+       528: iconst_3
+       529: invokevirtual #358                // Method d:(B)V
+       532: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     533     0  this   Lan;
+            0     533     1    i1   Z
+            0     533     3    i2   I
+            0     533     2    v1   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+      i1
+
+  private boolean a();
+    descriptor: ()Z
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #17                 // Field n:Lag;
+         4: ifnonnull     35
+         7: aload_0
+         8: new           #360                // class ag
+        11: dup
+        12: aload_0
+        13: invokespecial #363                // Method ag."<init>":(Lx;)V
+        16: putfield      #17                 // Field n:Lag;
+        19: aload_0
+        20: getfield      #17                 // Field n:Lag;
+        23: ldc_w         #365                // String sms://
+        26: invokevirtual #367                // Method ag.a:(Ljava/lang/String;)V
+        29: goto          35
+        32: pop
+        33: iconst_0
+        34: ireturn
+        35: aload_0
+        36: getfield      #265                // Field o:B
+        39: tableswitch   { // 0 to 4
+
+                       0: 72
+
+                       1: 83
+
+                       2: 94
+
+                       3: 105
+
+                       4: 116
+                 default: 124
+            }
+        72: aload_0
+        73: aload_0
+        74: getfield      #265                // Field o:B
+        77: invokespecial #369                // Method a:(I)V
+        80: goto          124
+        83: aload_0
+        84: aload_0
+        85: getfield      #265                // Field o:B
+        88: invokespecial #369                // Method a:(I)V
+        91: goto          124
+        94: aload_0
+        95: aload_0
+        96: getfield      #265                // Field o:B
+        99: invokespecial #369                // Method a:(I)V
+       102: goto          124
+       105: aload_0
+       106: aload_0
+       107: getfield      #265                // Field o:B
+       110: invokespecial #369                // Method a:(I)V
+       113: goto          124
+       116: aload_0
+       117: aload_0
+       118: getfield      #265                // Field o:B
+       121: invokespecial #369                // Method a:(I)V
+       124: iconst_1
+       125: ireturn
+      Exception table:
+         from    to  target type
+             7    29    32   Class java/lang/ClassNotFoundException
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     126     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public final boolean c(byte);
+    descriptor: (B)Z
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #265                // Field o:B
+         5: iload_1
+         6: tableswitch   { // 0 to 4
+
+                       0: 40
+
+                       1: 48
+
+                       2: 56
+
+                       3: 64
+
+                       4: 72
+                 default: 77
+            }
+        40: aload_0
+        41: iconst_1
+        42: putfield      #279                // Field q:B
+        45: goto          77
+        48: aload_0
+        49: iconst_1
+        50: putfield      #279                // Field q:B
+        53: goto          77
+        56: aload_0
+        57: iconst_1
+        58: putfield      #279                // Field q:B
+        61: goto          77
+        64: aload_0
+        65: iconst_1
+        66: putfield      #279                // Field q:B
+        69: goto          77
+        72: aload_0
+        73: iconst_1
+        74: putfield      #279                // Field q:B
+        77: aload_0
+        78: iconst_0
+        79: putfield      #260                // Field p:B
+        82: iconst_1
+        83: ireturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      84     0  this   Lan;
+            0      84     1    i1   B
+    MethodParameters:
+      Name                           Flags
+      this
+      i1
+
+  public final void d(byte);
+    descriptor: (B)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=7, locals=2, args_size=2
+         0: iload_1
+         1: iconst_5
+         2: if_icmpeq     16
+         5: iload_1
+         6: ifeq          16
+         9: aload_0
+        10: getfield      #375                // Field S:Lgame/h;
+        13: invokevirtual #380                // Method game/h.aK:()V
+        16: iload_1
+        17: tableswitch   { // 1 to 5
+
+                       1: 52
+
+                       2: 174
+
+                       3: 286
+
+                       4: 130
+
+                       5: 330
+                 default: 341
+            }
+        52: getstatic     #269                // Field java/lang/System.out:Ljava/io/PrintStream;
+        55: new           #182                // class java/lang/StringBuffer
+        58: dup
+        59: ldc_w         #382                // String
+        62: invokespecial #274                // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+        65: sipush        513
+        68: iconst_2
+        69: newarray       int
+        71: dup
+        72: iconst_0
+        73: aload_0
+        74: getfield      #279                // Field q:B
+        77: iastore
+        78: dup
+        79: iconst_1
+        80: aload_0
+        81: getfield      #260                // Field p:B
+        84: iastore
+        85: invokestatic  #384                // Method a:(I[I)Ljava/lang/String;
+        88: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        91: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        94: invokevirtual #284                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        97: aload_0
+        98: getfield      #375                // Field S:Lgame/h;
+       101: sipush        513
+       104: iconst_2
+       105: newarray       int
+       107: dup
+       108: iconst_0
+       109: aload_0
+       110: getfield      #279                // Field q:B
+       113: iastore
+       114: dup
+       115: iconst_1
+       116: aload_0
+       117: getfield      #260                // Field p:B
+       120: iastore
+       121: invokestatic  #384                // Method a:(I[I)Ljava/lang/String;
+       124: invokevirtual #386                // Method game/h.d:(Ljava/lang/String;)V
+       127: goto          341
+       130: getstatic     #269                // Field java/lang/System.out:Ljava/io/PrintStream;
+       133: new           #182                // class java/lang/StringBuffer
+       136: dup
+       137: ldc_w         #382                // String
+       140: invokespecial #274                // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       143: sipush        514
+       146: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       149: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       152: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       155: invokevirtual #284                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       158: aload_0
+       159: getfield      #375                // Field S:Lgame/h;
+       162: sipush        514
+       165: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       168: invokevirtual #386                // Method game/h.d:(Ljava/lang/String;)V
+       171: goto          341
+       174: aload_0
+       175: invokevirtual #389                // Method M:()Z
+       178: ifeq          242
+       181: aload_0
+       182: getfield      #265                // Field o:B
+       185: ifne          226
+       188: aload_0
+       189: getfield      #375                // Field S:Lgame/h;
+       192: new           #182                // class java/lang/StringBuffer
+       195: dup
+       196: invokespecial #183                // Method java/lang/StringBuffer."<init>":()V
+       199: sipush        515
+       202: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       205: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       208: sipush        633
+       211: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       214: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       217: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       220: invokevirtual #386                // Method game/h.d:(Ljava/lang/String;)V
+       223: goto          341
+       226: aload_0
+       227: getfield      #375                // Field S:Lgame/h;
+       230: sipush        515
+       233: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       236: invokevirtual #386                // Method game/h.d:(Ljava/lang/String;)V
+       239: goto          341
+       242: aload_0
+       243: getfield      #375                // Field S:Lgame/h;
+       246: sipush        516
+       249: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       252: invokevirtual #386                // Method game/h.d:(Ljava/lang/String;)V
+       255: getstatic     #269                // Field java/lang/System.out:Ljava/io/PrintStream;
+       258: new           #182                // class java/lang/StringBuffer
+       261: dup
+       262: ldc_w         #382                // String
+       265: invokespecial #274                // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       268: sipush        516
+       271: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       274: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       277: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       280: invokevirtual #284                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       283: goto          341
+       286: getstatic     #269                // Field java/lang/System.out:Ljava/io/PrintStream;
+       289: new           #182                // class java/lang/StringBuffer
+       292: dup
+       293: ldc_w         #382                // String
+       296: invokespecial #274                // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       299: sipush        516
+       302: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       305: invokevirtual #187                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       308: invokevirtual #198                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       311: invokevirtual #284                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       314: aload_0
+       315: getfield      #375                // Field S:Lgame/h;
+       318: sipush        516
+       321: invokestatic  #174                // Method f:(I)Ljava/lang/String;
+       324: invokevirtual #386                // Method game/h.d:(Ljava/lang/String;)V
+       327: goto          341
+       330: iconst_0
+       331: putstatic     #392                // Field T:Z
+       334: aload_0
+       335: getfield      #375                // Field S:Lgame/h;
+       338: invokevirtual #395                // Method game/h.aL:()V
+       341: aload_0
+       342: iload_1
+       343: putfield      #257                // Field l:B
+       346: iload_1
+       347: iconst_5
+       348: if_icmpne     358
+       351: aload_0
+       352: iconst_0
+       353: istore_1
+       354: astore_0
+       355: goto          0
+       358: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     359     0  this   Lan;
+            0     359     1    i1   B
+    MethodParameters:
+      Name                           Flags
+      this
+      i1
+
+  public final int L();
+    descriptor: ()I
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #265                // Field o:B
+         4: ireturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public final boolean M();
+    descriptor: ()Z
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #260                // Field p:B
+         4: aload_0
+         5: getfield      #279                // Field q:B
+         8: if_icmplt     13
+        11: iconst_1
+        12: ireturn
+        13: iconst_0
+        14: ireturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      15     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public final byte N();
+    descriptor: ()B
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #257                // Field l:B
+         4: ireturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public final byte O();
+    descriptor: ()B
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #279                // Field q:B
+         4: ireturn
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lan;
+    MethodParameters:
+      Name                           Flags
+      this
+
+  public final void g(int);
+    descriptor: (I)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: iconst_1
+         1: putstatic     #392                // Field T:Z
+         4: iload_1
+         5: iconst_1
+         6: if_icmpne     27
+         9: aload_0
+        10: iconst_4
+        11: invokevirtual #358                // Method d:(B)V
+        14: aload_0
+        15: invokespecial #400                // Method a:()Z
+        18: ifne          37
+        21: aload_0
+        22: iconst_3
+        23: invokevirtual #358                // Method d:(B)V
+        26: return
+        27: iload_1
+        28: iconst_2
+        29: if_icmpne     37
+        32: aload_0
+        33: iconst_5
+        34: invokevirtual #358                // Method d:(B)V
+        37: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      38     0  this   Lan;
+            0      38     1    i1   I
+    MethodParameters:
+      Name                           Flags
+      this
+      i1
+
+  public final void h(int);
+    descriptor: (I)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #257                // Field l:B
+         4: tableswitch   { // 1 to 4
+
+                       1: 36
+
+                       2: 57
+
+                       3: 42
+
+                       4: 57
+                 default: 57
+            }
+        36: aload_0
+        37: iload_1
+        38: invokevirtual #402                // Method g:(I)V
+        41: return
+        42: iload_1
+        43: iconst_1
+        44: if_icmpeq     52
+        47: iload_1
+        48: iconst_2
+        49: if_icmpne     57
+        52: aload_0
+        53: iconst_5
+        54: invokevirtual #358                // Method d:(B)V
+        57: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      58     0  this   Lan;
+            0      58     1    i1   I
+    MethodParameters:
+      Name                           Flags
+      this
+      i1
+
+  private void a(int);
+    descriptor: (I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iconst_1
+         2: invokevirtual #404                // Method b:(Z)V
+         5: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lan;
+            0       6     1    i1   I
+    MethodParameters:
+      Name                           Flags
+      this
+      i1
+
+  public final void a(boolean);
+    descriptor: (Z)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: invokevirtual #404                // Method b:(Z)V
+         5: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lan;
+            0       6     1    i1   Z
+    MethodParameters:
+      Name                           Flags
+      this
+      i1
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=4, locals=0, args_size=0
+         0: iconst_0
+         1: putstatic     #78                 // Field g:Z
+         4: iconst_0
+         5: putstatic     #392                // Field T:Z
+         8: iconst_m1
+         9: putstatic     #244                // Field U:B
+        12: iconst_0
+        13: putstatic     #408                // Field V:B
+        16: bipush        7
+        18: iconst_3
+        19: multianewarray #409,  2           // class "[[B"
+        23: putstatic     #249                // Field h:[[B
+        26: iconst_0
+        27: putstatic     #115                // Field k:Z
+        30: iconst_1
+        31: putstatic     #287                // Field X:Z
+        34: iconst_5
+        35: newarray       byte
+        37: dup
+        38: iconst_0
+        39: iconst_0
+        40: bastore
+        41: dup
+        42: iconst_1
+        43: iconst_0
+        44: bastore
+        45: dup
+        46: iconst_2
+        47: iconst_0
+        48: bastore
+        49: dup
+        50: iconst_3
+        51: iconst_0
+        52: bastore
+        53: dup
+        54: iconst_4
+        55: iconst_0
+        56: bastore
+        57: putstatic     #262                // Field m:[B
+        60: return
+}

@@ -1,0 +1,3 @@
+original,decoded,kind,note
+modules/source_code/original/**/*.class,modules/source_code/decoded/decompiled_source_cfr/**/*.java,java_decompiled_source,CFR decompiled Java source from obfuscated class files.
+modules/source_code/original/**/*.class,modules/source_code/decoded/bytecode_javap/*.txt,javap_verbose_bytecode,Verbose bytecode disassembly for cross-checking decompiler output.

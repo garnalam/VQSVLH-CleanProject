@@ -1,0 +1,81 @@
+original,decoded,kind,note
+modules/ui/original/answer.ui,,original,Original file from JAR path data/ui/answer.ui
+modules/ui/original/badge.ui,,original,Original file from JAR path data/ui/badge.ui
+modules/ui/original/bag.ui,,original,Original file from JAR path data/ui/bag.ui
+modules/ui/original/battle.ui,,original,Original file from JAR path data/ui/battle.ui
+modules/ui/original/bodyShop.ui,,original,Original file from JAR path data/ui/bodyShop.ui
+modules/ui/original/choice.ui,,original,Original file from JAR path data/ui/choice.ui
+modules/ui/original/choiceskill.ui,,original,Original file from JAR path data/ui/choiceskill.ui
+modules/ui/original/dialog.ui,,original,Original file from JAR path data/ui/dialog.ui
+modules/ui/original/evolve.ui,,original,Original file from JAR path data/ui/evolve.ui
+modules/ui/original/gamemenu.ui,,original,Original file from JAR path data/ui/gamemenu.ui
+modules/ui/original/gamesystem.ui,,original,Original file from JAR path data/ui/gamesystem.ui
+modules/ui/original/help.ui,,original,Original file from JAR path data/ui/help.ui
+modules/ui/original/help1.ui,,original,Original file from JAR path data/ui/help1.ui
+modules/ui/original/levelUp.ui,,original,Original file from JAR path data/ui/levelUp.ui
+modules/ui/original/msgconfirm.ui,,original,Original file from JAR path data/ui/msgconfirm.ui
+modules/ui/original/msgRecover.ui,,original,Original file from JAR path data/ui/msgRecover.ui
+modules/ui/original/msgtip.ui,,original,Original file from JAR path data/ui/msgtip.ui
+modules/ui/original/msgwarm.ui,,original,Original file from JAR path data/ui/msgwarm.ui
+modules/ui/original/msgyn.ui,,original,Original file from JAR path data/ui/msgyn.ui
+modules/ui/original/npcEnemy.ui,,original,Original file from JAR path data/ui/npcEnemy.ui
+modules/ui/original/openbox.ui,,original,Original file from JAR path data/ui/openbox.ui
+modules/ui/original/option.ui,,original,Original file from JAR path data/ui/option.ui
+modules/ui/original/petmap.ui,,original,Original file from JAR path data/ui/petmap.ui
+modules/ui/original/petsetting.ui,,original,Original file from JAR path data/ui/petsetting.ui
+modules/ui/original/petstate.ui,,original,Original file from JAR path data/ui/petstate.ui
+modules/ui/original/record.ui,,original,Original file from JAR path data/ui/record.ui
+modules/ui/original/ride.ui,,original,Original file from JAR path data/ui/ride.ui
+modules/ui/original/shop.ui,,original,Original file from JAR path data/ui/shop.ui
+modules/ui/original/shopbuy.ui,,original,Original file from JAR path data/ui/shopbuy.ui
+modules/ui/original/shopsale.ui,,original,Original file from JAR path data/ui/shopsale.ui
+modules/ui/original/skill.ui,,original,Original file from JAR path data/ui/skill.ui
+modules/ui/original/smsInfo.ui,,original,Original file from JAR path data/ui/smsInfo.ui
+modules/ui/original/smsTip.ui,,original,Original file from JAR path data/ui/smsTip.ui
+modules/ui/original/task.ui,,original,Original file from JAR path data/ui/task.ui
+modules/ui/original/taskOption.ui,,original,Original file from JAR path data/ui/taskOption.ui
+modules/ui/original/taskTip.ui,,original,Original file from JAR path data/ui/taskTip.ui
+modules/ui/original/transmit.ui,,original,Original file from JAR path data/ui/transmit.ui
+modules/ui/original/wharf1.ui,,original,Original file from JAR path data/ui/wharf1.ui
+modules/ui/original/wharf2.ui,,original,Original file from JAR path data/ui/wharf2.ui
+modules/ui/original/world.ui,,original,Original file from JAR path data/ui/world.ui
+modules/ui/original/answer.ui,modules/ui/decoded/data__ui__answer.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/badge.ui,modules/ui/decoded/data__ui__badge.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/bag.ui,modules/ui/decoded/data__ui__bag.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/battle.ui,modules/ui/decoded/data__ui__battle.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/bodyShop.ui,modules/ui/decoded/data__ui__bodyShop.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/choice.ui,modules/ui/decoded/data__ui__choice.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/choiceskill.ui,modules/ui/decoded/data__ui__choiceskill.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/dialog.ui,modules/ui/decoded/data__ui__dialog.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/evolve.ui,modules/ui/decoded/data__ui__evolve.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/gamemenu.ui,modules/ui/decoded/data__ui__gamemenu.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/gamesystem.ui,modules/ui/decoded/data__ui__gamesystem.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/help.ui,modules/ui/decoded/data__ui__help.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/help1.ui,modules/ui/decoded/data__ui__help1.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/levelUp.ui,modules/ui/decoded/data__ui__levelUp.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/msgconfirm.ui,modules/ui/decoded/data__ui__msgconfirm.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/msgRecover.ui,modules/ui/decoded/data__ui__msgRecover.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/msgtip.ui,modules/ui/decoded/data__ui__msgtip.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/msgwarm.ui,modules/ui/decoded/data__ui__msgwarm.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/msgyn.ui,modules/ui/decoded/data__ui__msgyn.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/npcEnemy.ui,modules/ui/decoded/data__ui__npcEnemy.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/openbox.ui,modules/ui/decoded/data__ui__openbox.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/option.ui,modules/ui/decoded/data__ui__option.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/petmap.ui,modules/ui/decoded/data__ui__petmap.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/petsetting.ui,modules/ui/decoded/data__ui__petsetting.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/petstate.ui,modules/ui/decoded/data__ui__petstate.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/record.ui,modules/ui/decoded/data__ui__record.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/ride.ui,modules/ui/decoded/data__ui__ride.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/shop.ui,modules/ui/decoded/data__ui__shop.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/shopbuy.ui,modules/ui/decoded/data__ui__shopbuy.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/shopsale.ui,modules/ui/decoded/data__ui__shopsale.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/skill.ui,modules/ui/decoded/data__ui__skill.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/smsInfo.ui,modules/ui/decoded/data__ui__smsInfo.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/smsTip.ui,modules/ui/decoded/data__ui__smsTip.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/task.ui,modules/ui/decoded/data__ui__task.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/taskOption.ui,modules/ui/decoded/data__ui__taskOption.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/taskTip.ui,modules/ui/decoded/data__ui__taskTip.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/transmit.ui,modules/ui/decoded/data__ui__transmit.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/wharf1.ui,modules/ui/decoded/data__ui__wharf1.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/wharf2.ui,modules/ui/decoded/data__ui__wharf2.ui.json,ui_layout,Decoded JSON generated from the original binary format.
+modules/ui/original/world.ui,modules/ui/decoded/data__ui__world.ui.json,ui_layout,Decoded JSON generated from the original binary format.

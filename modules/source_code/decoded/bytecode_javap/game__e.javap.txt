@@ -1,0 +1,520 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/game/e.class
+  Last modified May 24, 2026; size 2233 bytes
+  SHA-256 checksum 298c1efecc7d1002bdae6ed670d178602152fa56e094430123065113cda9c0bc
+public final class game.e extends javax.microedition.lcdui.Canvas implements java.lang.Runnable
+  minor version: 0
+  major version: 47
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #5                          // game/e
+  super_class: #11                        // javax/microedition/lcdui/Canvas
+  interfaces: 1, fields: 9, methods: 11, attributes: 0
+Constant pool:
+    #1 = Class              #119          // ae
+    #2 = Class              #120          // an
+    #3 = Class              #121          // ap
+    #4 = Class              #130          // game/GameMIDLet
+    #5 = Class              #131          // game/e
+    #6 = Class              #132          // game/i
+    #7 = Class              #139          // java/lang/InterruptedException
+    #8 = Class              #140          // java/lang/Runnable
+    #9 = Class              #141          // java/lang/System
+   #10 = Class              #142          // java/lang/Thread
+   #11 = Class              #143          // javax/microedition/lcdui/Canvas
+   #12 = Fieldref           #2.#55        // an.T:Z
+   #13 = Fieldref           #5.#59        // game/e.a:Lgame/e;
+   #14 = Fieldref           #5.#62        // game/e.b:Lgame/e;
+   #15 = Fieldref           #5.#65        // game/e.c:Lgame/GameMIDLet;
+   #16 = Fieldref           #5.#68        // game/e.d:Lap;
+   #17 = Fieldref           #5.#71        // game/e.e:Lgame/i;
+   #18 = Fieldref           #5.#72        // game/e.f:J
+   #19 = Fieldref           #5.#74        // game/e.g:J
+   #20 = Fieldref           #5.#77        // game/e.h:J
+   #21 = Fieldref           #5.#79        // game/e.i:I
+   #22 = Methodref          #1.#57        // ae.a:(IIIII)Z
+   #23 = Methodref          #2.#53        // an.A:()V
+   #24 = Methodref          #2.#54        // an.B:()I
+   #25 = Methodref          #2.#58        // an.a:(SS)V
+   #26 = Methodref          #3.#64        // ap.c:(Z)V
+   #27 = Methodref          #4.#69        // game/GameMIDLet.destroyApp:(Z)V
+   #28 = Methodref          #5.#51        // game/e."<init>":(Lgame/GameMIDLet;)V
+   #29 = Methodref          #5.#75        // game/e.getHeight:()I
+   #30 = Methodref          #5.#76        // game/e.getWidth:()I
+   #31 = Methodref          #5.#81        // game/e.keyPressed:(I)V
+   #32 = Methodref          #5.#82        // game/e.keyReleased:(I)V
+   #33 = Methodref          #5.#83        // game/e.repaint:()V
+   #34 = Methodref          #5.#84        // game/e.serviceRepaints:()V
+   #35 = Methodref          #5.#85        // game/e.setFullScreenMode:(Z)V
+   #36 = Methodref          #6.#56        // game/i.a:()Lgame/i;
+   #37 = Methodref          #6.#60        // game/i.b:()V
+   #38 = Methodref          #6.#61        // game/i.b:(Ljavax/microedition/lcdui/Graphics;)V
+   #39 = Methodref          #6.#63        // game/i.c:()V
+   #40 = Methodref          #6.#67        // game/i.d:(II)V
+   #41 = Methodref          #6.#70        // game/i.e:()B
+   #42 = Methodref          #6.#73        // game/i.g:()V
+   #43 = Methodref          #6.#78        // game/i.i:(I)V
+   #44 = Methodref          #6.#80        // game/i.j:(I)V
+   #45 = Methodref          #9.#66        // java/lang/System.currentTimeMillis:()J
+   #46 = Methodref          #10.#52       // java/lang/Thread."<init>":(Ljava/lang/Runnable;)V
+   #47 = Methodref          #10.#86       // java/lang/Thread.sleep:(J)V
+   #48 = Methodref          #10.#87       // java/lang/Thread.start:()V
+   #49 = Methodref          #11.#50       // javax/microedition/lcdui/Canvas."<init>":()V
+   #50 = NameAndType        #105:#93      // "<init>":()V
+   #51 = NameAndType        #105:#99      // "<init>":(Lgame/GameMIDLet;)V
+   #52 = NameAndType        #105:#100     // "<init>":(Ljava/lang/Runnable;)V
+   #53 = NameAndType        #106:#93      // A:()V
+   #54 = NameAndType        #107:#89      // B:()I
+   #55 = NameAndType        #116:#117     // T:Z
+   #56 = NameAndType        #118:#92      // a:()Lgame/i;
+   #57 = NameAndType        #118:#96      // a:(IIIII)Z
+   #58 = NameAndType        #118:#102     // a:(SS)V
+   #59 = NameAndType        #118:#113     // a:Lgame/e;
+   #60 = NameAndType        #122:#93      // b:()V
+   #61 = NameAndType        #122:#101     // b:(Ljavax/microedition/lcdui/Graphics;)V
+   #62 = NameAndType        #122:#113     // b:Lgame/e;
+   #63 = NameAndType        #123:#93      // c:()V
+   #64 = NameAndType        #123:#103     // c:(Z)V
+   #65 = NameAndType        #123:#112     // c:Lgame/GameMIDLet;
+   #66 = NameAndType        #124:#90      // currentTimeMillis:()J
+   #67 = NameAndType        #125:#95      // d:(II)V
+   #68 = NameAndType        #125:#111     // d:Lap;
+   #69 = NameAndType        #126:#103     // destroyApp:(Z)V
+   #70 = NameAndType        #127:#88      // e:()B
+   #71 = NameAndType        #127:#114     // e:Lgame/i;
+   #72 = NameAndType        #128:#110     // f:J
+   #73 = NameAndType        #129:#93      // g:()V
+   #74 = NameAndType        #129:#110     // g:J
+   #75 = NameAndType        #133:#89      // getHeight:()I
+   #76 = NameAndType        #134:#89      // getWidth:()I
+   #77 = NameAndType        #135:#110     // h:J
+   #78 = NameAndType        #137:#94      // i:(I)V
+   #79 = NameAndType        #137:#109     // i:I
+   #80 = NameAndType        #138:#94      // j:(I)V
+   #81 = NameAndType        #144:#94      // keyPressed:(I)V
+   #82 = NameAndType        #145:#94      // keyReleased:(I)V
+   #83 = NameAndType        #149:#93      // repaint:()V
+   #84 = NameAndType        #151:#93      // serviceRepaints:()V
+   #85 = NameAndType        #152:#103     // setFullScreenMode:(Z)V
+   #86 = NameAndType        #153:#97      // sleep:(J)V
+   #87 = NameAndType        #154:#93      // start:()V
+   #88 = Utf8               ()B
+   #89 = Utf8               ()I
+   #90 = Utf8               ()J
+   #91 = Utf8               ()Lgame/e;
+   #92 = Utf8               ()Lgame/i;
+   #93 = Utf8               ()V
+   #94 = Utf8               (I)V
+   #95 = Utf8               (II)V
+   #96 = Utf8               (IIIII)Z
+   #97 = Utf8               (J)V
+   #98 = Utf8               (Lgame/GameMIDLet;)Lgame/e;
+   #99 = Utf8               (Lgame/GameMIDLet;)V
+  #100 = Utf8               (Ljava/lang/Runnable;)V
+  #101 = Utf8               (Ljavax/microedition/lcdui/Graphics;)V
+  #102 = Utf8               (SS)V
+  #103 = Utf8               (Z)V
+  #104 = Utf8               <clinit>
+  #105 = Utf8               <init>
+  #106 = Utf8               A
+  #107 = Utf8               B
+  #108 = Utf8               Code
+  #109 = Utf8               I
+  #110 = Utf8               J
+  #111 = Utf8               Lap;
+  #112 = Utf8               Lgame/GameMIDLet;
+  #113 = Utf8               Lgame/e;
+  #114 = Utf8               Lgame/i;
+  #115 = Utf8               StackMap
+  #116 = Utf8               T
+  #117 = Utf8               Z
+  #118 = Utf8               a
+  #119 = Utf8               ae
+  #120 = Utf8               an
+  #121 = Utf8               ap
+  #122 = Utf8               b
+  #123 = Utf8               c
+  #124 = Utf8               currentTimeMillis
+  #125 = Utf8               d
+  #126 = Utf8               destroyApp
+  #127 = Utf8               e
+  #128 = Utf8               f
+  #129 = Utf8               g
+  #130 = Utf8               game/GameMIDLet
+  #131 = Utf8               game/e
+  #132 = Utf8               game/i
+  #133 = Utf8               getHeight
+  #134 = Utf8               getWidth
+  #135 = Utf8               h
+  #136 = Utf8               hideNotify
+  #137 = Utf8               i
+  #138 = Utf8               j
+  #139 = Utf8               java/lang/InterruptedException
+  #140 = Utf8               java/lang/Runnable
+  #141 = Utf8               java/lang/System
+  #142 = Utf8               java/lang/Thread
+  #143 = Utf8               javax/microedition/lcdui/Canvas
+  #144 = Utf8               keyPressed
+  #145 = Utf8               keyReleased
+  #146 = Utf8               paint
+  #147 = Utf8               pointerPressed
+  #148 = Utf8               pointerReleased
+  #149 = Utf8               repaint
+  #150 = Utf8               run
+  #151 = Utf8               serviceRepaints
+  #152 = Utf8               setFullScreenMode
+  #153 = Utf8               sleep
+  #154 = Utf8               start
+{
+  private static game.e b;
+    descriptor: Lgame/e;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static game.GameMIDLet c;
+    descriptor: Lgame/GameMIDLet;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static ap d;
+    descriptor: Lap;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private game.i e;
+    descriptor: Lgame/i;
+    flags: (0x0002) ACC_PRIVATE
+
+  public static game.e a;
+    descriptor: Lgame/e;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  private long f;
+    descriptor: J
+    flags: (0x0002) ACC_PRIVATE
+
+  private long g;
+    descriptor: J
+    flags: (0x0002) ACC_PRIVATE
+
+  private long h;
+    descriptor: J
+    flags: (0x0002) ACC_PRIVATE
+
+  private int i;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  public static game.e a(game.GameMIDLet);
+    descriptor: (Lgame/GameMIDLet;)Lgame/e;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: getstatic     #14                 // Field b:Lgame/e;
+         3: ifnonnull     17
+         6: new           #5                  // class game/e
+         9: dup
+        10: aload_0
+        11: invokespecial #28                 // Method "<init>":(Lgame/GameMIDLet;)V
+        14: putstatic     #14                 // Field b:Lgame/e;
+        17: getstatic     #14                 // Field b:Lgame/e;
+        20: areturn
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 11 00 00 00 00
+
+  public static game.e a();
+    descriptor: ()Lgame/e;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #14                 // Field b:Lgame/e;
+         3: areturn
+
+  private game.e(game.GameMIDLet);
+    descriptor: (Lgame/GameMIDLet;)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #49                 // Method javax/microedition/lcdui/Canvas."<init>":()V
+         4: aload_0
+         5: lconst_0
+         6: putfield      #18                 // Field f:J
+         9: aload_0
+        10: lconst_0
+        11: putfield      #19                 // Field g:J
+        14: aload_0
+        15: lconst_0
+        16: putfield      #20                 // Field h:J
+        19: aload_0
+        20: iconst_0
+        21: putfield      #21                 // Field i:I
+        24: aload_0
+        25: putstatic     #13                 // Field a:Lgame/e;
+        28: aload_0
+        29: iconst_1
+        30: invokevirtual #35                 // Method setFullScreenMode:(Z)V
+        33: aload_1
+        34: putstatic     #15                 // Field c:Lgame/GameMIDLet;
+        37: invokestatic  #23                 // Method an.A:()V
+        40: aload_0
+        41: invokevirtual #30                 // Method getWidth:()I
+        44: i2s
+        45: aload_0
+        46: invokevirtual #29                 // Method getHeight:()I
+        49: i2s
+        50: invokestatic  #25                 // Method an.a:(SS)V
+        53: aload_0
+        54: invokestatic  #36                 // Method game/i.a:()Lgame/i;
+        57: putfield      #17                 // Field e:Lgame/i;
+        60: aload_0
+        61: getfield      #17                 // Field e:Lgame/i;
+        64: invokevirtual #39                 // Method game/i.c:()V
+        67: aload_0
+        68: getfield      #17                 // Field e:Lgame/i;
+        71: astore_1
+        72: getstatic     #16                 // Field d:Lap;
+        75: ifnull        89
+        78: getstatic     #16                 // Field d:Lap;
+        81: iconst_0
+        82: invokevirtual #26                 // Method ap.c:(Z)V
+        85: aconst_null
+        86: putstatic     #16                 // Field d:Lap;
+        89: aload_1
+        90: ifnull        102
+        93: aload_1
+        94: iconst_1
+        95: invokevirtual #26                 // Method ap.c:(Z)V
+        98: aload_1
+        99: putstatic     #16                 // Field d:Lap;
+       102: new           #10                 // class java/lang/Thread
+       105: dup
+       106: aload_0
+       107: invokespecial #46                 // Method java/lang/Thread."<init>":(Ljava/lang/Runnable;)V
+       110: invokevirtual #48                 // Method java/lang/Thread.start:()V
+       113: return
+        StackMap: length = 0x17 (unknown attribute)
+         00 02 00 59 00 02 07 00 05 07 00 06 00 00 00 66
+         00 01 07 00 05 00 00
+
+  protected final void hideNotify();
+    descriptor: ()V
+    flags: (0x0014) ACC_PROTECTED, ACC_FINAL
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #12                 // Field an.T:Z
+         3: ifne          24
+         6: aload_0
+         7: getfield      #17                 // Field e:Lgame/i;
+        10: invokevirtual #41                 // Method game/i.e:()B
+        13: iconst_1
+        14: if_icmple     24
+        17: aload_0
+        18: getfield      #17                 // Field e:Lgame/i;
+        21: invokevirtual #42                 // Method game/i.g:()V
+        24: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 18 00 00 00 00
+
+  protected final void paint(javax.microedition.lcdui.Graphics);
+    descriptor: (Ljavax/microedition/lcdui/Graphics;)V
+    flags: (0x0014) ACC_PROTECTED, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #17                 // Field e:Lgame/i;
+         4: invokevirtual #41                 // Method game/i.e:()B
+         7: iconst_1
+         8: if_icmple     19
+        11: aload_0
+        12: getfield      #17                 // Field e:Lgame/i;
+        15: aload_1
+        16: invokevirtual #38                 // Method game/i.b:(Ljavax/microedition/lcdui/Graphics;)V
+        19: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 13 00 00 00 00
+
+  public final void run();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=5, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #17                 // Field e:Lgame/i;
+         4: invokevirtual #41                 // Method game/i.e:()B
+         7: iconst_1
+         8: if_icmple     92
+        11: aload_0
+        12: invokestatic  #45                 // Method java/lang/System.currentTimeMillis:()J
+        15: putfield      #18                 // Field f:J
+        18: aload_0
+        19: getfield      #17                 // Field e:Lgame/i;
+        22: invokevirtual #37                 // Method game/i.b:()V
+        25: aload_0
+        26: invokevirtual #33                 // Method repaint:()V
+        29: aload_0
+        30: invokevirtual #34                 // Method serviceRepaints:()V
+        33: aload_0
+        34: invokestatic  #45                 // Method java/lang/System.currentTimeMillis:()J
+        37: putfield      #19                 // Field g:J
+        40: aload_0
+        41: aload_0
+        42: getfield      #19                 // Field g:J
+        45: aload_0
+        46: getfield      #18                 // Field f:J
+        49: lsub
+        50: putfield      #20                 // Field h:J
+        53: aload_0
+        54: getfield      #20                 // Field h:J
+        57: invokestatic  #24                 // Method an.B:()I
+        60: i2l
+        61: lcmp
+        62: ifle          73
+        65: aload_0
+        66: invokestatic  #24                 // Method an.B:()I
+        69: i2l
+        70: putfield      #20                 // Field h:J
+        73: invokestatic  #24                 // Method an.B:()I
+        76: i2l
+        77: aload_0
+        78: getfield      #20                 // Field h:J
+        81: lsub
+        82: invokestatic  #47                 // Method java/lang/Thread.sleep:(J)V
+        85: goto          0
+        88: pop
+        89: goto          0
+        92: getstatic     #15                 // Field c:Lgame/GameMIDLet;
+        95: iconst_1
+        96: invokevirtual #27                 // Method game/GameMIDLet.destroyApp:(Z)V
+        99: return
+      Exception table:
+         from    to  target type
+            73    85    88   Class java/lang/InterruptedException
+        StackMap: length = 0x26 (unknown attribute)
+         00 04 00 00 00 01 07 00 05 00 00 00 49 00 01 07
+         00 05 00 00 00 58 00 01 07 00 05 00 01 07 00 07
+         00 5C 00 00 00 00
+
+  protected final void keyPressed(int);
+    descriptor: (I)V
+    flags: (0x0014) ACC_PROTECTED, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #17                 // Field e:Lgame/i;
+         4: ifnull        15
+         7: aload_0
+         8: getfield      #17                 // Field e:Lgame/i;
+        11: iload_1
+        12: invokevirtual #43                 // Method game/i.i:(I)V
+        15: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 0F 00 00 00 00
+
+  protected final void keyReleased(int);
+    descriptor: (I)V
+    flags: (0x0014) ACC_PROTECTED, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #17                 // Field e:Lgame/i;
+         4: ifnull        15
+         7: aload_0
+         8: getfield      #17                 // Field e:Lgame/i;
+        11: iload_1
+        12: invokevirtual #44                 // Method game/i.j:(I)V
+        15: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 0F 00 00 00 00
+
+  protected final void pointerPressed(int, int);
+    descriptor: (II)V
+    flags: (0x0014) ACC_PROTECTED, ACC_FINAL
+    Code:
+      stack=5, locals=3, args_size=3
+         0: aload_0
+         1: iconst_0
+         2: putfield      #21                 // Field i:I
+         5: aload_0
+         6: getfield      #17                 // Field e:Lgame/i;
+         9: invokevirtual #41                 // Method game/i.e:()B
+        12: bipush        13
+        14: if_icmpne     66
+        17: iload_1
+        18: iload_2
+        19: bipush        38
+        21: sipush        225
+        24: bipush        50
+        26: invokestatic  #22                 // Method ae.a:(IIIII)Z
+        29: ifeq          41
+        32: aload_0
+        33: bipush        -6
+        35: putfield      #21                 // Field i:I
+        38: goto          111
+        41: iload_1
+        42: iload_2
+        43: sipush        150
+        46: sipush        225
+        49: bipush        50
+        51: invokestatic  #22                 // Method ae.a:(IIIII)Z
+        54: ifeq          111
+        57: aload_0
+        58: bipush        -7
+        60: putfield      #21                 // Field i:I
+        63: goto          111
+        66: iload_1
+        67: iload_2
+        68: iconst_0
+        69: sipush        280
+        72: bipush        40
+        74: invokestatic  #22                 // Method ae.a:(IIIII)Z
+        77: ifeq          89
+        80: aload_0
+        81: bipush        -6
+        83: putfield      #21                 // Field i:I
+        86: goto          111
+        89: iload_1
+        90: iload_2
+        91: sipush        200
+        94: sipush        280
+        97: bipush        40
+        99: invokestatic  #22                 // Method ae.a:(IIIII)Z
+       102: ifeq          111
+       105: aload_0
+       106: bipush        -7
+       108: putfield      #21                 // Field i:I
+       111: aload_0
+       112: aload_0
+       113: getfield      #21                 // Field i:I
+       116: invokevirtual #31                 // Method keyPressed:(I)V
+       119: return
+        StackMap: length = 0x2C (unknown attribute)
+         00 04 00 29 00 03 07 00 05 01 01 00 00 00 42 00
+         03 07 00 05 01 01 00 00 00 59 00 03 07 00 05 01
+         01 00 00 00 6F 00 01 07 00 05 00 00
+
+  protected final void pointerReleased(int, int);
+    descriptor: (II)V
+    flags: (0x0014) ACC_PROTECTED, ACC_FINAL
+    Code:
+      stack=3, locals=3, args_size=3
+         0: aload_0
+         1: aload_0
+         2: getfield      #21                 // Field i:I
+         5: invokevirtual #32                 // Method keyReleased:(I)V
+         8: aload_0
+         9: getfield      #17                 // Field e:Lgame/i;
+        12: ifnull        24
+        15: aload_0
+        16: getfield      #17                 // Field e:Lgame/i;
+        19: iload_1
+        20: iload_2
+        21: invokevirtual #40                 // Method game/i.d:(II)V
+        24: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 18 00 00 00 00
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: aconst_null
+         1: putstatic     #14                 // Field b:Lgame/e;
+         4: return
+}

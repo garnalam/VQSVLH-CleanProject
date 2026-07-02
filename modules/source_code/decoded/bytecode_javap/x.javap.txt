@@ -1,0 +1,22 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/x.class
+  Last modified May 24, 2026; size 72 bytes
+  SHA-256 checksum 5fb04b5b03c6db533076c439f9889c024db6e07ee822b65b2a02ec77956dc470
+public interface x
+  minor version: 3
+  major version: 45
+  flags: (0x0601) ACC_PUBLIC, ACC_INTERFACE, ACC_ABSTRACT
+  this_class: #2                          // x
+  super_class: #1                         // java/lang/Object
+  interfaces: 0, fields: 0, methods: 1, attributes: 0
+Constant pool:
+  #1 = Class              #5              // java/lang/Object
+  #2 = Class              #6              // x
+  #3 = Utf8               (Z)V
+  #4 = Utf8               b
+  #5 = Utf8               java/lang/Object
+  #6 = Utf8               x
+{
+  public abstract void b(boolean);
+    descriptor: (Z)V
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+}

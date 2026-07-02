@@ -1,0 +1,1017 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/a/h.class
+  Last modified May 24, 2026; size 3669 bytes
+  SHA-256 checksum 79cc530f6629851003a505b4a2eddf21361d879aa3fc9225c086f0449c069a52
+public class a.h
+  minor version: 3
+  major version: 45
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #7                          // a/h
+  super_class: #11                        // java/lang/Object
+  interfaces: 0, fields: 6, methods: 20, attributes: 0
+Constant pool:
+    #1 = String             #118          // invalid key to \'next\'
+    #2 = String             #127          // table index is nil
+    #3 = Class              #101          // "[Ljava/lang/Object;"
+    #4 = Class              #103          // a/a
+    #5 = Class              #104          // a/b
+    #6 = Class              #105          // a/g
+    #7 = Class              #106          // a/h
+    #8 = Class              #119          // java/lang/ArrayIndexOutOfBoundsException
+    #9 = Class              #120          // java/lang/Boolean
+   #10 = Class              #121          // java/lang/Integer
+   #11 = Class              #122          // java/lang/Object
+   #12 = Class              #123          // java/lang/String
+   #13 = Class              #124          // java/lang/System
+   #14 = Class              #125          // java/lang/ref/Reference
+   #15 = Class              #126          // java/lang/ref/WeakReference
+   #16 = Fieldref           #7.#58        // a/h.a:[Ljava/lang/Object;
+   #17 = Fieldref           #7.#61        // a/h.b:[Ljava/lang/Object;
+   #18 = Fieldref           #7.#64        // a/h.c:[I
+   #19 = Fieldref           #7.#67        // a/h.d:I
+   #20 = Fieldref           #7.#69        // a/h.e:Z
+   #21 = Fieldref           #7.#72        // a/h.f:Z
+   #22 = Methodref          #4.#55        // a/a.a:(ZLjava/lang/String;)V
+   #23 = Methodref          #6.#50        // a/g.a:(I)Ljava/lang/Integer;
+   #24 = Methodref          #7.#48        // a/h."<init>":()V
+   #25 = Methodref          #7.#51        // a/h.a:(ILjava/lang/Object;)V
+   #26 = Methodref          #7.#52        // a/h.a:(Ljava/lang/Object;)Ljava/lang/Object;
+   #27 = Methodref          #7.#53        // a/h.a:(Ljava/lang/Object;I)I
+   #28 = Methodref          #7.#54        // a/h.a:(Ljava/lang/Object;Ljava/lang/Object;)V
+   #29 = Methodref          #7.#56        // a/h.a:(ZZ)V
+   #30 = Methodref          #7.#57        // a/h.a:([Ljava/lang/Object;Z)V
+   #31 = Methodref          #7.#59        // a/h.b:(I)I
+   #32 = Methodref          #7.#60        // a/h.b:(Ljava/lang/Object;I)I
+   #33 = Methodref          #7.#62        // a/h.c:(I)Ljava/lang/Object;
+   #34 = Methodref          #7.#63        // a/h.c:(Ljava/lang/Object;)I
+   #35 = Methodref          #7.#65        // a/h.d:(I)Ljava/lang/Object;
+   #36 = Methodref          #7.#66        // a/h.d:(Ljava/lang/Object;)Ljava/lang/Object;
+   #37 = Methodref          #7.#68        // a/h.e:(Ljava/lang/Object;)Ljava/lang/Object;
+   #38 = Methodref          #7.#71        // a/h.f:(Ljava/lang/Object;)Z
+   #39 = Methodref          #7.#73        // a/h.g:(Ljava/lang/Object;)V
+   #40 = Methodref          #10.#75       // java/lang/Integer.hashCode:()I
+   #41 = Methodref          #10.#77       // java/lang/Integer.intValue:()I
+   #42 = Methodref          #11.#48       // java/lang/Object."<init>":()V
+   #43 = Methodref          #11.#70       // java/lang/Object.equals:(Ljava/lang/Object;)Z
+   #44 = Methodref          #11.#75       // java/lang/Object.hashCode:()I
+   #45 = Methodref          #13.#76       // java/lang/System.identityHashCode:(Ljava/lang/Object;)I
+   #46 = Methodref          #14.#74       // java/lang/ref/Reference.get:()Ljava/lang/Object;
+   #47 = Methodref          #15.#49       // java/lang/ref/WeakReference."<init>":(Ljava/lang/Object;)V
+   #48 = NameAndType        #95:#80       // "<init>":()V
+   #49 = NameAndType        #95:#88       // "<init>":(Ljava/lang/Object;)V
+   #50 = NameAndType        #102:#83      // a:(I)Ljava/lang/Integer;
+   #51 = NameAndType        #102:#85      // a:(ILjava/lang/Object;)V
+   #52 = NameAndType        #102:#87      // a:(Ljava/lang/Object;)Ljava/lang/Object;
+   #53 = NameAndType        #102:#90      // a:(Ljava/lang/Object;I)I
+   #54 = NameAndType        #102:#91      // a:(Ljava/lang/Object;Ljava/lang/Object;)V
+   #55 = NameAndType        #102:#92      // a:(ZLjava/lang/String;)V
+   #56 = NameAndType        #102:#93      // a:(ZZ)V
+   #57 = NameAndType        #102:#94      // a:([Ljava/lang/Object;Z)V
+   #58 = NameAndType        #102:#101     // a:[Ljava/lang/Object;
+   #59 = NameAndType        #107:#82      // b:(I)I
+   #60 = NameAndType        #107:#90      // b:(Ljava/lang/Object;I)I
+   #61 = NameAndType        #107:#101     // b:[Ljava/lang/Object;
+   #62 = NameAndType        #108:#84      // c:(I)Ljava/lang/Object;
+   #63 = NameAndType        #108:#86      // c:(Ljava/lang/Object;)I
+   #64 = NameAndType        #108:#100     // c:[I
+   #65 = NameAndType        #109:#84      // d:(I)Ljava/lang/Object;
+   #66 = NameAndType        #109:#87      // d:(Ljava/lang/Object;)Ljava/lang/Object;
+   #67 = NameAndType        #109:#97      // d:I
+   #68 = NameAndType        #110:#87      // e:(Ljava/lang/Object;)Ljava/lang/Object;
+   #69 = NameAndType        #110:#99      // e:Z
+   #70 = NameAndType        #111:#89      // equals:(Ljava/lang/Object;)Z
+   #71 = NameAndType        #112:#89      // f:(Ljava/lang/Object;)Z
+   #72 = NameAndType        #112:#99      // f:Z
+   #73 = NameAndType        #113:#88      // g:(Ljava/lang/Object;)V
+   #74 = NameAndType        #114:#79      // get:()Ljava/lang/Object;
+   #75 = NameAndType        #115:#78      // hashCode:()I
+   #76 = NameAndType        #116:#86      // identityHashCode:(Ljava/lang/Object;)I
+   #77 = NameAndType        #117:#78      // intValue:()I
+   #78 = Utf8               ()I
+   #79 = Utf8               ()Ljava/lang/Object;
+   #80 = Utf8               ()V
+   #81 = Utf8               (B)V
+   #82 = Utf8               (I)I
+   #83 = Utf8               (I)Ljava/lang/Integer;
+   #84 = Utf8               (I)Ljava/lang/Object;
+   #85 = Utf8               (ILjava/lang/Object;)V
+   #86 = Utf8               (Ljava/lang/Object;)I
+   #87 = Utf8               (Ljava/lang/Object;)Ljava/lang/Object;
+   #88 = Utf8               (Ljava/lang/Object;)V
+   #89 = Utf8               (Ljava/lang/Object;)Z
+   #90 = Utf8               (Ljava/lang/Object;I)I
+   #91 = Utf8               (Ljava/lang/Object;Ljava/lang/Object;)V
+   #92 = Utf8               (ZLjava/lang/String;)V
+   #93 = Utf8               (ZZ)V
+   #94 = Utf8               ([Ljava/lang/Object;Z)V
+   #95 = Utf8               <init>
+   #96 = Utf8               Code
+   #97 = Utf8               I
+   #98 = Utf8               StackMap
+   #99 = Utf8               Z
+  #100 = Utf8               [I
+  #101 = Utf8               [Ljava/lang/Object;
+  #102 = Utf8               a
+  #103 = Utf8               a/a
+  #104 = Utf8               a/b
+  #105 = Utf8               a/g
+  #106 = Utf8               a/h
+  #107 = Utf8               b
+  #108 = Utf8               c
+  #109 = Utf8               d
+  #110 = Utf8               e
+  #111 = Utf8               equals
+  #112 = Utf8               f
+  #113 = Utf8               g
+  #114 = Utf8               get
+  #115 = Utf8               hashCode
+  #116 = Utf8               identityHashCode
+  #117 = Utf8               intValue
+  #118 = Utf8               invalid key to \'next\'
+  #119 = Utf8               java/lang/ArrayIndexOutOfBoundsException
+  #120 = Utf8               java/lang/Boolean
+  #121 = Utf8               java/lang/Integer
+  #122 = Utf8               java/lang/Object
+  #123 = Utf8               java/lang/String
+  #124 = Utf8               java/lang/System
+  #125 = Utf8               java/lang/ref/Reference
+  #126 = Utf8               java/lang/ref/WeakReference
+  #127 = Utf8               table index is nil
+{
+  private java.lang.Object[] a;
+    descriptor: [Ljava/lang/Object;
+    flags: (0x0002) ACC_PRIVATE
+
+  private java.lang.Object[] b;
+    descriptor: [Ljava/lang/Object;
+    flags: (0x0002) ACC_PRIVATE
+
+  private int[] c;
+    descriptor: [I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int d;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private boolean e;
+    descriptor: Z
+    flags: (0x0002) ACC_PRIVATE
+
+  private boolean f;
+    descriptor: Z
+    flags: (0x0002) ACC_PRIVATE
+
+  public void a(java.lang.Object, java.lang.Object);
+    descriptor: (Ljava/lang/Object;Ljava/lang/Object;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=5, args_size=3
+         0: aload_1
+         1: invokestatic  #39                 // Method g:(Ljava/lang/Object;)V
+         4: aload_0
+         5: aload_1
+         6: invokespecial #34                 // Method c:(Ljava/lang/Object;)I
+         9: istore_3
+        10: aload_0
+        11: aload_1
+        12: iload_3
+        13: invokespecial #27                 // Method a:(Ljava/lang/Object;I)I
+        16: dup
+        17: istore        4
+        19: ifge          30
+        22: aload_0
+        23: aload_1
+        24: iload_3
+        25: invokespecial #32                 // Method b:(Ljava/lang/Object;I)I
+        28: istore        4
+        30: aload_0
+        31: iload         4
+        33: aload_2
+        34: astore_3
+        35: istore_2
+        36: dup
+        37: astore_1
+        38: getfield      #21                 // Field f:Z
+        41: ifeq          49
+        44: aload_3
+        45: invokestatic  #37                 // Method e:(Ljava/lang/Object;)Ljava/lang/Object;
+        48: astore_3
+        49: aload_1
+        50: getfield      #17                 // Field b:[Ljava/lang/Object;
+        53: iload_2
+        54: aload_3
+        55: aastore
+        56: return
+        StackMap: length = 0x1F (unknown attribute)
+         00 02 00 1E 00 05 07 00 07 00 07 00 0B 00 01 00
+         00 00 31 00 04 00 07 00 07 01 07 00 0B 00 00
+
+  public java.lang.Object a(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=3, args_size=2
+         0: aload_1
+         1: invokestatic  #39                 // Method g:(Ljava/lang/Object;)V
+         4: aload_0
+         5: aload_1
+         6: invokespecial #34                 // Method c:(Ljava/lang/Object;)I
+         9: istore_2
+        10: aload_0
+        11: aload_1
+        12: iload_2
+        13: invokespecial #27                 // Method a:(Ljava/lang/Object;I)I
+        16: dup
+        17: istore_1
+        18: iflt          27
+        21: aload_0
+        22: iload_1
+        23: invokespecial #35                 // Method d:(I)Ljava/lang/Object;
+        26: areturn
+        27: aconst_null
+        28: areturn
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 1B 00 00 00 00
+
+  public java.lang.Object a(int);
+    descriptor: (I)Ljava/lang/Object;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: invokestatic  #23                 // Method a/g.a:(I)Ljava/lang/Integer;
+         5: invokevirtual #26                 // Method a:(Ljava/lang/Object;)Ljava/lang/Object;
+         8: areturn
+
+  public java.lang.Object b(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=4, locals=4, args_size=2
+         0: iconst_0
+         1: istore_2
+         2: aload_1
+         3: ifnull        35
+         6: aload_0
+         7: aload_1
+         8: invokespecial #34                 // Method c:(Ljava/lang/Object;)I
+        11: istore_3
+        12: iconst_1
+        13: aload_0
+        14: aload_1
+        15: iload_3
+        16: invokespecial #27                 // Method a:(Ljava/lang/Object;I)I
+        19: iadd
+        20: dup
+        21: istore_2
+        22: ifle          29
+        25: iconst_1
+        26: goto          30
+        29: iconst_0
+        30: ldc           #1                  // String invalid key to \'next\'
+        32: invokestatic  #22                 // Method a/a.a:(ZLjava/lang/String;)V
+        35: iload_2
+        36: aload_0
+        37: getfield      #16                 // Field a:[Ljava/lang/Object;
+        40: arraylength
+        41: if_icmpne     46
+        44: aconst_null
+        45: areturn
+        46: aload_0
+        47: iload_2
+        48: invokespecial #33                 // Method c:(I)Ljava/lang/Object;
+        51: dup
+        52: astore_3
+        53: ifnull        66
+        56: aload_0
+        57: iload_2
+        58: invokespecial #35                 // Method d:(I)Ljava/lang/Object;
+        61: ifnull        66
+        64: aload_3
+        65: areturn
+        66: iinc          2, 1
+        69: goto          35
+        StackMap: length = 0x3A (unknown attribute)
+         00 05 00 1D 00 03 07 00 07 00 01 00 00 00 1E 00
+         03 07 00 07 00 01 00 01 01 00 23 00 03 07 00 07
+         00 01 00 00 00 2E 00 03 07 00 07 00 01 00 00 00
+         42 00 03 07 00 07 00 01 00 00
+
+  public int a();
+    descriptor: ()I
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=5, args_size=1
+         0: aload_0
+         1: getfield      #16                 // Field a:[Ljava/lang/Object;
+         4: arraylength
+         5: istore_1
+         6: iconst_0
+         7: istore_2
+         8: goto          43
+        11: iload_1
+        12: iload_2
+        13: iadd
+        14: iconst_1
+        15: iadd
+        16: iconst_1
+        17: ishr
+        18: dup
+        19: istore_3
+        20: invokestatic  #23                 // Method a/g.a:(I)Ljava/lang/Integer;
+        23: astore        4
+        25: aload_0
+        26: aload         4
+        28: invokevirtual #26                 // Method a:(Ljava/lang/Object;)Ljava/lang/Object;
+        31: ifnonnull     41
+        34: iload_3
+        35: iconst_1
+        36: isub
+        37: istore_1
+        38: goto          43
+        41: iload_3
+        42: istore_2
+        43: iload_2
+        44: iload_1
+        45: if_icmplt     11
+        48: iload_2
+        49: ireturn
+        StackMap: length = 0x24 (unknown attribute)
+         00 03 00 0B 00 03 07 00 07 01 01 00 00 00 29 00
+         04 07 00 07 01 00 01 00 00 00 2B 00 03 07 00 07
+         01 01 00 00
+
+  private static int b(int);
+    descriptor: (I)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: iload_0
+         1: iconst_4
+         2: if_icmpge     7
+         5: iconst_4
+         6: ireturn
+         7: iinc          0, -1
+        10: iload_0
+        11: iload_0
+        12: iconst_1
+        13: ishr
+        14: ior
+        15: dup
+        16: dup
+        17: istore_0
+        18: iconst_2
+        19: ishr
+        20: ior
+        21: dup
+        22: dup
+        23: istore_0
+        24: iconst_4
+        25: ishr
+        26: ior
+        27: dup
+        28: dup
+        29: istore_0
+        30: bipush        8
+        32: ishr
+        33: ior
+        34: dup
+        35: dup
+        36: istore_0
+        37: bipush        16
+        39: ishr
+        40: ior
+        41: iconst_1
+        42: iadd
+        43: ireturn
+        StackMap: length = 0x9 (unknown attribute)
+         00 01 00 07 00 01 01 00 00
+
+  private a.h();
+    descriptor: ()V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0
+         1: invokespecial #42                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: astore_1
+         6: iconst_4
+         7: invokestatic  #31                 // Method b:(I)I
+        10: istore_2
+        11: aload_1
+        12: iload_2
+        13: anewarray     #11                 // class java/lang/Object
+        16: putfield      #16                 // Field a:[Ljava/lang/Object;
+        19: aload_1
+        20: iload_2
+        21: anewarray     #11                 // class java/lang/Object
+        24: putfield      #17                 // Field b:[Ljava/lang/Object;
+        27: aload_1
+        28: iload_2
+        29: newarray       int
+        31: putfield      #18                 // Field c:[I
+        34: aload_1
+        35: iload_2
+        36: putfield      #19                 // Field d:I
+        39: return
+
+  public a.h(byte);
+    descriptor: (B)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #24                 // Method "<init>":()V
+         4: return
+
+  private int c(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)I
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=3, args_size=2
+         0: aload_0
+         1: getfield      #16                 // Field a:[Ljava/lang/Object;
+         4: arraylength
+         5: istore_2
+         6: aload_1
+         7: dup
+         8: astore_1
+         9: instanceof    #10                 // class java/lang/Integer
+        12: ifeq          41
+        15: aload_1
+        16: checkcast     #10                 // class java/lang/Integer
+        19: dup
+        20: astore_1
+        21: checkcast     #10                 // class java/lang/Integer
+        24: invokevirtual #41                 // Method java/lang/Integer.intValue:()I
+        27: ifne          34
+        30: iconst_0
+        31: goto          59
+        34: aload_1
+        35: invokevirtual #40                 // Method java/lang/Integer.hashCode:()I
+        38: goto          59
+        41: aload_1
+        42: instanceof    #12                 // class java/lang/String
+        45: ifeq          55
+        48: aload_1
+        49: invokevirtual #44                 // Method java/lang/Object.hashCode:()I
+        52: goto          59
+        55: aload_1
+        56: invokestatic  #45                 // Method java/lang/System.identityHashCode:(Ljava/lang/Object;)I
+        59: iload_2
+        60: iconst_1
+        61: isub
+        62: iand
+        63: ireturn
+        StackMap: length = 0x2D (unknown attribute)
+         00 04 00 22 00 03 00 07 00 0A 01 00 00 00 29 00
+         03 00 07 00 0B 01 00 00 00 37 00 03 00 07 00 0B
+         01 00 00 00 3B 00 03 00 00 01 00 01 01
+
+  private static java.lang.Object d(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokestatic  #38                 // Method f:(Ljava/lang/Object;)Z
+         4: ifne          9
+         7: aload_0
+         8: areturn
+         9: aload_0
+        10: checkcast     #15                 // class java/lang/ref/WeakReference
+        13: invokevirtual #46                 // Method java/lang/ref/Reference.get:()Ljava/lang/Object;
+        16: areturn
+        StackMap: length = 0xB (unknown attribute)
+         00 01 00 09 00 01 07 00 0B 00 00
+
+  private static java.lang.Object e(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: aload_0
+         1: invokestatic  #38                 // Method f:(Ljava/lang/Object;)Z
+         4: ifne          9
+         7: aload_0
+         8: areturn
+         9: new           #15                 // class java/lang/ref/WeakReference
+        12: dup
+        13: aload_0
+        14: invokespecial #47                 // Method java/lang/ref/WeakReference."<init>":(Ljava/lang/Object;)V
+        17: areturn
+        StackMap: length = 0xB (unknown attribute)
+         00 01 00 09 00 01 07 00 0B 00 00
+
+  private static boolean f(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: ifnull        32
+         4: aload_0
+         5: instanceof    #12                 // class java/lang/String
+         8: ifne          32
+        11: aload_0
+        12: instanceof    #10                 // class java/lang/Integer
+        15: ifne          32
+        18: aload_0
+        19: instanceof    #9                  // class java/lang/Boolean
+        22: ifne          32
+        25: aload_0
+        26: instanceof    #5                  // class a/b
+        29: ifeq          34
+        32: iconst_0
+        33: ireturn
+        34: iconst_1
+        35: ireturn
+        StackMap: length = 0xE (unknown attribute)
+         00 02 00 20 00 00 00 00 00 22 00 00 00 00
+
+  private java.lang.Object c(int);
+    descriptor: (I)Ljava/lang/Object;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #16                 // Field a:[Ljava/lang/Object;
+         4: iload_1
+         5: aaload
+         6: astore_1
+         7: aload_0
+         8: getfield      #20                 // Field e:Z
+        11: ifeq          19
+        14: aload_1
+        15: invokestatic  #36                 // Method d:(Ljava/lang/Object;)Ljava/lang/Object;
+        18: areturn
+        19: aload_1
+        20: areturn
+        StackMap: length = 0xC (unknown attribute)
+         00 01 00 13 00 02 00 07 00 0B 00 00
+
+  private void a(int, java.lang.Object);
+    descriptor: (ILjava/lang/Object;)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=3, args_size=3
+         0: aload_0
+         1: getfield      #20                 // Field e:Z
+         4: ifeq          12
+         7: aload_2
+         8: invokestatic  #37                 // Method e:(Ljava/lang/Object;)Ljava/lang/Object;
+        11: astore_2
+        12: aload_0
+        13: getfield      #16                 // Field a:[Ljava/lang/Object;
+        16: iload_1
+        17: aload_2
+        18: aastore
+        19: return
+        StackMap: length = 0xF (unknown attribute)
+         00 01 00 0C 00 03 07 00 07 01 07 00 0B 00 00
+
+  private java.lang.Object d(int);
+    descriptor: (I)Ljava/lang/Object;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #17                 // Field b:[Ljava/lang/Object;
+         4: iload_1
+         5: aaload
+         6: astore_1
+         7: aload_0
+         8: getfield      #21                 // Field f:Z
+        11: ifeq          19
+        14: aload_1
+        15: invokestatic  #36                 // Method d:(Ljava/lang/Object;)Ljava/lang/Object;
+        18: areturn
+        19: aload_1
+        20: areturn
+        StackMap: length = 0xC (unknown attribute)
+         00 01 00 13 00 02 00 07 00 0B 00 00
+
+  private int a(java.lang.Object, int);
+    descriptor: (Ljava/lang/Object;I)I
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=4, args_size=3
+         0: aload_0
+         1: iload_2
+         2: invokespecial #33                 // Method c:(I)Ljava/lang/Object;
+         5: dup
+         6: astore_3
+         7: ifnonnull     12
+        10: iconst_m1
+        11: ireturn
+        12: aload_1
+        13: instanceof    #10                 // class java/lang/Integer
+        16: ifeq          72
+        19: aload_1
+        20: checkcast     #10                 // class java/lang/Integer
+        23: invokevirtual #41                 // Method java/lang/Integer.intValue:()I
+        26: istore_1
+        27: aload_3
+        28: instanceof    #10                 // class java/lang/Integer
+        31: ifeq          49
+        34: aload_3
+        35: checkcast     #10                 // class java/lang/Integer
+        38: invokevirtual #41                 // Method java/lang/Integer.intValue:()I
+        41: istore_3
+        42: iload_1
+        43: iload_3
+        44: if_icmpne     49
+        47: iload_2
+        48: ireturn
+        49: aload_0
+        50: getfield      #18                 // Field c:[I
+        53: iload_2
+        54: iaload
+        55: dup
+        56: istore_2
+        57: iconst_m1
+        58: if_icmpne     63
+        61: iconst_m1
+        62: ireturn
+        63: aload_0
+        64: iload_2
+        65: invokespecial #33                 // Method c:(I)Ljava/lang/Object;
+        68: astore_3
+        69: goto          27
+        72: aload_1
+        73: instanceof    #12                 // class java/lang/String
+        76: ifeq          112
+        79: aload_1
+        80: aload_3
+        81: invokevirtual #43                 // Method java/lang/Object.equals:(Ljava/lang/Object;)Z
+        84: ifeq          89
+        87: iload_2
+        88: ireturn
+        89: aload_0
+        90: getfield      #18                 // Field c:[I
+        93: iload_2
+        94: iaload
+        95: dup
+        96: istore_2
+        97: iconst_m1
+        98: if_icmpne     103
+       101: iconst_m1
+       102: ireturn
+       103: aload_0
+       104: iload_2
+       105: invokespecial #33                 // Method c:(I)Ljava/lang/Object;
+       108: astore_3
+       109: goto          79
+       112: aload_1
+       113: aload_3
+       114: if_acmpne     119
+       117: iload_2
+       118: ireturn
+       119: aload_0
+       120: getfield      #18                 // Field c:[I
+       123: iload_2
+       124: iaload
+       125: dup
+       126: istore_2
+       127: iconst_m1
+       128: if_icmpne     133
+       131: iconst_m1
+       132: ireturn
+       133: aload_0
+       134: iload_2
+       135: invokespecial #33                 // Method c:(I)Ljava/lang/Object;
+       138: astore_3
+       139: goto          112
+        StackMap: length = 0x9A (unknown attribute)
+         00 0B 00 0C 00 04 07 00 07 07 00 0B 01 07 00 0B
+         00 00 00 1B 00 04 07 00 07 01 01 07 00 0B 00 00
+         00 31 00 03 07 00 07 01 01 00 00 00 3F 00 03 07
+         00 07 01 01 00 00 00 48 00 04 07 00 07 07 00 0B
+         01 07 00 0B 00 00 00 4F 00 04 07 00 07 07 00 0B
+         01 07 00 0B 00 00 00 59 00 03 07 00 07 07 00 0B
+         01 00 00 00 67 00 03 07 00 07 07 00 0B 01 00 00
+         00 70 00 04 07 00 07 07 00 0B 01 07 00 0B 00 00
+         00 77 00 03 07 00 07 07 00 0B 01 00 00 00 85 00
+         03 07 00 07 07 00 0B 01 00 00
+
+  private int b(java.lang.Object, int);
+    descriptor: (Ljava/lang/Object;I)I
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=4, locals=10, args_size=3
+         0: aload_0
+         1: iload_2
+         2: invokespecial #33                 // Method c:(I)Ljava/lang/Object;
+         5: dup
+         6: astore_3
+         7: ifnonnull     25
+        10: aload_0
+        11: iload_2
+        12: aload_1
+        13: invokespecial #25                 // Method a:(ILjava/lang/Object;)V
+        16: aload_0
+        17: getfield      #18                 // Field c:[I
+        20: iload_2
+        21: iconst_m1
+        22: iastore
+        23: iload_2
+        24: ireturn
+        25: aload_0
+        26: aload_0
+        27: dup
+        28: getfield      #19                 // Field d:I
+        31: iconst_1
+        32: isub
+        33: dup_x1
+        34: putfield      #19                 // Field d:I
+        37: invokespecial #33                 // Method c:(I)Ljava/lang/Object;
+        40: ifnonnull     25
+        43: goto          228
+        46: pop
+        47: aload_0
+        48: dup
+        49: astore_2
+        50: getfield      #20                 // Field e:Z
+        53: istore_3
+        54: aload_2
+        55: getfield      #21                 // Field f:Z
+        58: istore        4
+        60: aload_2
+        61: iconst_0
+        62: iconst_0
+        63: invokevirtual #29                 // Method a:(ZZ)V
+        66: aload_2
+        67: getfield      #16                 // Field a:[Ljava/lang/Object;
+        70: astore        5
+        72: aload_2
+        73: getfield      #17                 // Field b:[Ljava/lang/Object;
+        76: astore        6
+        78: aload         5
+        80: arraylength
+        81: istore        7
+        83: iconst_0
+        84: istore        8
+        86: iload         7
+        88: istore        9
+        90: goto          116
+        93: aload_2
+        94: getfield      #16                 // Field a:[Ljava/lang/Object;
+        97: iload         9
+        99: aaload
+       100: ifnull        116
+       103: aload_2
+       104: getfield      #17                 // Field b:[Ljava/lang/Object;
+       107: iload         9
+       109: aaload
+       110: ifnull        116
+       113: iinc          8, 1
+       116: iload         9
+       118: iinc          9, -1
+       121: ifgt          93
+       124: iconst_2
+       125: iload         8
+       127: invokestatic  #31                 // Method b:(I)I
+       130: imul
+       131: istore        8
+       133: aload_2
+       134: iload         8
+       136: anewarray     #11                 // class java/lang/Object
+       139: putfield      #16                 // Field a:[Ljava/lang/Object;
+       142: aload_2
+       143: iload         8
+       145: anewarray     #11                 // class java/lang/Object
+       148: putfield      #17                 // Field b:[Ljava/lang/Object;
+       151: aload_2
+       152: iload         8
+       154: newarray       int
+       156: putfield      #18                 // Field c:[I
+       159: aload_2
+       160: iload         8
+       162: putfield      #19                 // Field d:I
+       165: iload         7
+       167: istore        9
+       169: goto          202
+       172: aload         5
+       174: iload         9
+       176: aaload
+       177: dup
+       178: astore        7
+       180: ifnull        202
+       183: aload         6
+       185: iload         9
+       187: aaload
+       188: dup
+       189: astore        8
+       191: ifnull        202
+       194: aload_2
+       195: aload         7
+       197: aload         8
+       199: invokevirtual #28                 // Method a:(Ljava/lang/Object;Ljava/lang/Object;)V
+       202: iload         9
+       204: iinc          9, -1
+       207: ifgt          172
+       210: aload_2
+       211: iload_3
+       212: iload         4
+       214: invokevirtual #29                 // Method a:(ZZ)V
+       217: aload_0
+       218: aload_1
+       219: invokespecial #34                 // Method c:(Ljava/lang/Object;)I
+       222: istore_2
+       223: aload_0
+       224: astore_0
+       225: goto          0
+       228: aload_0
+       229: aload_3
+       230: invokespecial #34                 // Method c:(Ljava/lang/Object;)I
+       233: dup
+       234: istore_3
+       235: iload_2
+       236: if_icmpne     275
+       239: aload_0
+       240: aload_0
+       241: getfield      #19                 // Field d:I
+       244: aload_1
+       245: invokespecial #25                 // Method a:(ILjava/lang/Object;)V
+       248: aload_0
+       249: getfield      #18                 // Field c:[I
+       252: aload_0
+       253: getfield      #19                 // Field d:I
+       256: aload_0
+       257: getfield      #18                 // Field c:[I
+       260: iload_2
+       261: iaload
+       262: iastore
+       263: aload_0
+       264: getfield      #18                 // Field c:[I
+       267: iload_2
+       268: aload_0
+       269: getfield      #19                 // Field d:I
+       272: dup_x2
+       273: iastore
+       274: ireturn
+       275: aload_0
+       276: getfield      #16                 // Field a:[Ljava/lang/Object;
+       279: aload_0
+       280: getfield      #19                 // Field d:I
+       283: aload_0
+       284: getfield      #16                 // Field a:[Ljava/lang/Object;
+       287: iload_2
+       288: aaload
+       289: aastore
+       290: aload_0
+       291: getfield      #17                 // Field b:[Ljava/lang/Object;
+       294: aload_0
+       295: getfield      #19                 // Field d:I
+       298: aload_0
+       299: getfield      #17                 // Field b:[Ljava/lang/Object;
+       302: iload_2
+       303: aaload
+       304: aastore
+       305: aload_0
+       306: getfield      #18                 // Field c:[I
+       309: aload_0
+       310: getfield      #19                 // Field d:I
+       313: aload_0
+       314: getfield      #18                 // Field c:[I
+       317: iload_2
+       318: iaload
+       319: iastore
+       320: aload_0
+       321: iload_2
+       322: aload_1
+       323: invokespecial #25                 // Method a:(ILjava/lang/Object;)V
+       326: aload_0
+       327: getfield      #18                 // Field c:[I
+       330: iload_2
+       331: iconst_m1
+       332: iastore
+       333: iload_3
+       334: istore_1
+       335: aload_0
+       336: getfield      #18                 // Field c:[I
+       339: iload_1
+       340: iaload
+       341: dup
+       342: istore_3
+       343: iload_2
+       344: if_icmpne     360
+       347: aload_0
+       348: getfield      #18                 // Field c:[I
+       351: iload_1
+       352: aload_0
+       353: getfield      #19                 // Field d:I
+       356: iastore
+       357: goto          365
+       360: iload_3
+       361: istore_1
+       362: goto          335
+       365: iload_2
+       366: ireturn
+      Exception table:
+         from    to  target type
+            25    43    46   Class java/lang/ArrayIndexOutOfBoundsException
+        StackMap: length = 0xD4 (unknown attribute)
+         00 0C 00 00 00 03 07 00 07 07 00 0B 01 00 00 00
+         19 00 04 07 00 07 07 00 0B 01 07 00 0B 00 00 00
+         2E 00 02 07 00 07 07 00 0B 00 01 07 00 08 00 5D
+         00 0A 07 00 07 07 00 0B 07 00 07 01 01 07 00 03
+         07 00 03 01 01 01 00 00 00 74 00 0A 07 00 07 07
+         00 0B 07 00 07 01 01 07 00 03 07 00 03 01 01 01
+         00 00 00 AC 00 0A 07 00 07 07 00 0B 07 00 07 01
+         01 07 00 03 07 00 03 00 00 01 00 00 00 CA 00 0A
+         07 00 07 07 00 0B 07 00 07 01 01 07 00 03 07 00
+         03 00 00 01 00 00 00 E4 00 04 07 00 07 07 00 0B
+         01 07 00 0B 00 00 01 13 00 04 07 00 07 07 00 0B
+         01 01 00 00 01 4F 00 03 07 00 07 01 01 00 00 01
+         68 00 04 07 00 07 00 01 01 00 00 01 6D 00 03 00
+         00 01 00 00
+
+  private static void g(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: ifnull        8
+         4: iconst_1
+         5: goto          9
+         8: iconst_0
+         9: ldc           #2                  // String table index is nil
+        11: invokestatic  #22                 // Method a/a.a:(ZLjava/lang/String;)V
+        14: return
+        StackMap: length = 0xF (unknown attribute)
+         00 02 00 08 00 00 00 00 00 09 00 00 00 01 01
+
+  public void a(boolean, boolean);
+    descriptor: (ZZ)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=3, args_size=3
+         0: iload_1
+         1: aload_0
+         2: getfield      #20                 // Field e:Z
+         5: if_icmpeq     22
+         8: aload_0
+         9: aload_0
+        10: getfield      #16                 // Field a:[Ljava/lang/Object;
+        13: iload_1
+        14: invokespecial #30                 // Method a:([Ljava/lang/Object;Z)V
+        17: aload_0
+        18: iload_1
+        19: putfield      #20                 // Field e:Z
+        22: iload_2
+        23: aload_0
+        24: getfield      #21                 // Field f:Z
+        27: if_icmpeq     44
+        30: aload_0
+        31: aload_0
+        32: getfield      #17                 // Field b:[Ljava/lang/Object;
+        35: iload_2
+        36: invokespecial #30                 // Method a:([Ljava/lang/Object;Z)V
+        39: aload_0
+        40: iload_2
+        41: putfield      #21                 // Field f:Z
+        44: return
+        StackMap: length = 0x13 (unknown attribute)
+         00 02 00 16 00 03 07 00 07 00 01 00 00 00 2C 00
+         00 00 00
+
+  private void a(java.lang.Object[], boolean);
+    descriptor: ([Ljava/lang/Object;Z)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=5, args_size=3
+         0: aload_1
+         1: arraylength
+         2: iconst_1
+         3: isub
+         4: istore_3
+         5: goto          36
+         8: aload_1
+         9: iload_3
+        10: aaload
+        11: astore        4
+        13: aload_1
+        14: iload_3
+        15: iload_2
+        16: ifeq          27
+        19: aload         4
+        21: invokestatic  #37                 // Method e:(Ljava/lang/Object;)Ljava/lang/Object;
+        24: goto          32
+        27: aload         4
+        29: invokestatic  #36                 // Method d:(Ljava/lang/Object;)Ljava/lang/Object;
+        32: aastore
+        33: iinc          3, -1
+        36: iload_3
+        37: ifge          8
+        40: return
+        StackMap: length = 0x40 (unknown attribute)
+         00 04 00 08 00 04 00 07 00 03 01 01 00 00 00 1B
+         00 05 00 07 00 03 01 01 07 00 0B 00 02 07 00 03
+         01 00 20 00 04 00 07 00 03 01 01 00 03 07 00 03
+         01 07 00 0B 00 24 00 04 00 07 00 03 01 01 00 00
+
+}

@@ -1,0 +1,565 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/aa.class
+  Last modified May 24, 2026; size 1679 bytes
+  SHA-256 checksum 543dad536e51b243eadd442be292612bae27712a696c412484a9256890107304
+public final class aa
+  minor version: 0
+  major version: 47
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #7                          // aa
+  super_class: #9                         // java/lang/Object
+  interfaces: 0, fields: 3, methods: 6, attributes: 0
+Constant pool:
+   #1 = String             #63            // /data/spr/spr_
+   #2 = String             #74            // _all(r)
+   #3 = Class              #69            // "[B"
+   #4 = Class              #70            // "[I"
+   #5 = Class              #72            // "[S"
+   #6 = Class              #73            // "[[S"
+   #7 = Class              #76            // aa
+   #8 = Class              #77            // ae
+   #9 = Class              #84            // java/lang/Object
+  #10 = Class              #85            // java/lang/StringBuffer
+  #11 = Class              #86            // o
+  #12 = Fieldref           #7.#39         // aa.a:[Lo;
+  #13 = Fieldref           #7.#43         // aa.b:[S
+  #14 = Fieldref           #7.#45         // aa.c:[[S
+  #15 = Fieldref           #11.#38        // o.a:I
+  #16 = Fieldref           #11.#43        // o.b:[S
+  #17 = Fieldref           #11.#45        // o.c:[[S
+  #18 = Fieldref           #11.#46        // o.d:[[S
+  #19 = Fieldref           #11.#47        // o.e:[[S
+  #20 = Fieldref           #11.#48        // o.f:[[S
+  #21 = Methodref          #7.#36         // aa.a:([SI)[[S
+  #22 = Methodref          #7.#44         // aa.c:(I)Z
+  #23 = Methodref          #8.#34         // ae.a:([BLjava/lang/String;)V
+  #24 = Methodref          #8.#35         // ae.a:([B[I)[S
+  #25 = Methodref          #8.#37         // ae.a:([S[S)[S
+  #26 = Methodref          #8.#42         // ae.b:([B[I)[[S
+  #27 = Methodref          #10.#33        // java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+  #28 = Methodref          #10.#40        // java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+  #29 = Methodref          #10.#41        // java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #30 = Methodref          #10.#49        // java/lang/StringBuffer.toString:()Ljava/lang/String;
+  #31 = Methodref          #11.#32        // o."<init>":()V
+  #32 = NameAndType        #65:#51        // "<init>":()V
+  #33 = NameAndType        #65:#57        // "<init>":(Ljava/lang/String;)V
+  #34 = NameAndType        #75:#58        // a:([BLjava/lang/String;)V
+  #35 = NameAndType        #75:#59        // a:([B[I)[S
+  #36 = NameAndType        #75:#61        // a:([SI)[[S
+  #37 = NameAndType        #75:#62        // a:([S[S)[S
+  #38 = NameAndType        #75:#67        // a:I
+  #39 = NameAndType        #75:#71        // a:[Lo;
+  #40 = NameAndType        #78:#52        // append:(I)Ljava/lang/StringBuffer;
+  #41 = NameAndType        #78:#56        // append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #42 = NameAndType        #79:#60        // b:([B[I)[[S
+  #43 = NameAndType        #79:#72        // b:[S
+  #44 = NameAndType        #80:#55        // c:(I)Z
+  #45 = NameAndType        #80:#73        // c:[[S
+  #46 = NameAndType        #81:#73        // d:[[S
+  #47 = NameAndType        #82:#73        // e:[[S
+  #48 = NameAndType        #83:#73        // f:[[S
+  #49 = NameAndType        #87:#50        // toString:()Ljava/lang/String;
+  #50 = Utf8               ()Ljava/lang/String;
+  #51 = Utf8               ()V
+  #52 = Utf8               (I)Ljava/lang/StringBuffer;
+  #53 = Utf8               (I)Lo;
+  #54 = Utf8               (I)V
+  #55 = Utf8               (I)Z
+  #56 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #57 = Utf8               (Ljava/lang/String;)V
+  #58 = Utf8               ([BLjava/lang/String;)V
+  #59 = Utf8               ([B[I)[S
+  #60 = Utf8               ([B[I)[[S
+  #61 = Utf8               ([SI)[[S
+  #62 = Utf8               ([S[S)[S
+  #63 = Utf8               /data/spr/spr_
+  #64 = Utf8               <clinit>
+  #65 = Utf8               <init>
+  #66 = Utf8               Code
+  #67 = Utf8               I
+  #68 = Utf8               StackMap
+  #69 = Utf8               [B
+  #70 = Utf8               [I
+  #71 = Utf8               [Lo;
+  #72 = Utf8               [S
+  #73 = Utf8               [[S
+  #74 = Utf8               _all(r)
+  #75 = Utf8               a
+  #76 = Utf8               aa
+  #77 = Utf8               ae
+  #78 = Utf8               append
+  #79 = Utf8               b
+  #80 = Utf8               c
+  #81 = Utf8               d
+  #82 = Utf8               e
+  #83 = Utf8               f
+  #84 = Utf8               java/lang/Object
+  #85 = Utf8               java/lang/StringBuffer
+  #86 = Utf8               o
+  #87 = Utf8               toString
+{
+  private static o[] a;
+    descriptor: [Lo;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static short[] b;
+    descriptor: [S
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static short[][] c;
+    descriptor: [[S
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  public static void a();
+    descriptor: ()V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: sipush        1000
+         3: anewarray     #11                 // class o
+         6: putstatic     #12                 // Field a:[Lo;
+         9: return
+
+  public static o a(int);
+    descriptor: (I)Lo;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=5, locals=6, args_size=1
+         0: getstatic     #12                 // Field a:[Lo;
+         3: iload_0
+         4: aaload
+         5: ifnonnull     305
+         8: getstatic     #12                 // Field a:[Lo;
+        11: iload_0
+        12: new           #11                 // class o
+        15: dup
+        16: invokespecial #31                 // Method o."<init>":()V
+        19: aastore
+        20: sipush        20000
+        23: newarray       byte
+        25: astore_1
+        26: iconst_1
+        27: newarray       int
+        29: dup
+        30: iconst_0
+        31: iconst_0
+        32: iastore
+        33: astore_2
+        34: iconst_5
+        35: iconst_4
+        36: multianewarray #6,  2             // class "[[S"
+        40: astore_3
+        41: aload_1
+        42: new           #10                 // class java/lang/StringBuffer
+        45: dup
+        46: ldc           #1                  // String /data/spr/spr_
+        48: invokespecial #27                 // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+        51: iload_0
+        52: invokevirtual #28                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        55: ldc           #2                  // String _all(r)
+        57: invokevirtual #29                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        60: invokevirtual #30                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        63: invokestatic  #23                 // Method ae.a:([BLjava/lang/String;)V
+        66: getstatic     #12                 // Field a:[Lo;
+        69: iload_0
+        70: aaload
+        71: aload_1
+        72: aload_2
+        73: invokestatic  #24                 // Method ae.a:([B[I)[S
+        76: putfield      #16                 // Field o.b:[S
+        79: iload_0
+        80: bipush        86
+        82: if_icmplt     229
+        85: iload_0
+        86: sipush        185
+        89: if_icmpgt     229
+        92: getstatic     #12                 // Field a:[Lo;
+        95: iload_0
+        96: aaload
+        97: aload_1
+        98: aload_2
+        99: invokestatic  #26                 // Method ae.b:([B[I)[[S
+       102: putfield      #19                 // Field o.e:[[S
+       105: iconst_0
+       106: istore        4
+       108: iload         4
+       110: aload_3
+       111: arraylength
+       112: if_icmpge     193
+       115: iconst_0
+       116: istore        5
+       118: iload         5
+       120: iconst_4
+       121: if_icmpge     187
+       124: iload         5
+       126: iconst_1
+       127: if_icmpne     161
+       130: aload_3
+       131: iload         4
+       133: aaload
+       134: iload         5
+       136: getstatic     #12                 // Field a:[Lo;
+       139: iload_0
+       140: aaload
+       141: getfield      #19                 // Field o.e:[[S
+       144: iconst_0
+       145: aaload
+       146: iload         5
+       148: saload
+       149: getstatic     #13                 // Field b:[S
+       152: iload         4
+       154: saload
+       155: iadd
+       156: i2s
+       157: sastore
+       158: goto          181
+       161: aload_3
+       162: iload         4
+       164: aaload
+       165: iload         5
+       167: getstatic     #12                 // Field a:[Lo;
+       170: iload_0
+       171: aaload
+       172: getfield      #19                 // Field o.e:[[S
+       175: iconst_0
+       176: aaload
+       177: iload         5
+       179: saload
+       180: sastore
+       181: iinc          5, 1
+       184: goto          118
+       187: iinc          4, 1
+       190: goto          108
+       193: getstatic     #12                 // Field a:[Lo;
+       196: iload_0
+       197: aaload
+       198: aload_3
+       199: putfield      #19                 // Field o.e:[[S
+       202: getstatic     #12                 // Field a:[Lo;
+       205: iload_0
+       206: aaload
+       207: aload_1
+       208: aload_2
+       209: invokestatic  #26                 // Method ae.b:([B[I)[[S
+       212: putfield      #20                 // Field o.f:[[S
+       215: getstatic     #12                 // Field a:[Lo;
+       218: iload_0
+       219: aaload
+       220: getstatic     #14                 // Field c:[[S
+       223: putfield      #20                 // Field o.f:[[S
+       226: goto          255
+       229: getstatic     #12                 // Field a:[Lo;
+       232: iload_0
+       233: aaload
+       234: aload_1
+       235: aload_2
+       236: invokestatic  #26                 // Method ae.b:([B[I)[[S
+       239: putfield      #19                 // Field o.e:[[S
+       242: getstatic     #12                 // Field a:[Lo;
+       245: iload_0
+       246: aaload
+       247: aload_1
+       248: aload_2
+       249: invokestatic  #26                 // Method ae.b:([B[I)[[S
+       252: putfield      #20                 // Field o.f:[[S
+       255: getstatic     #12                 // Field a:[Lo;
+       258: iload_0
+       259: aaload
+       260: aload_1
+       261: aload_2
+       262: invokestatic  #24                 // Method ae.a:([B[I)[S
+       265: getstatic     #12                 // Field a:[Lo;
+       268: iload_0
+       269: aaload
+       270: getfield      #19                 // Field o.e:[[S
+       273: arraylength
+       274: invokestatic  #21                 // Method a:([SI)[[S
+       277: putfield      #18                 // Field o.d:[[S
+       280: getstatic     #12                 // Field a:[Lo;
+       283: iload_0
+       284: aaload
+       285: aload_1
+       286: aload_2
+       287: invokestatic  #24                 // Method ae.a:([B[I)[S
+       290: getstatic     #12                 // Field a:[Lo;
+       293: iload_0
+       294: aaload
+       295: getfield      #19                 // Field o.e:[[S
+       298: arraylength
+       299: invokestatic  #21                 // Method a:([SI)[[S
+       302: putfield      #17                 // Field o.c:[[S
+       305: getstatic     #12                 // Field a:[Lo;
+       308: iload_0
+       309: aaload
+       310: dup
+       311: getfield      #15                 // Field o.a:I
+       314: iconst_1
+       315: iadd
+       316: putfield      #15                 // Field o.a:I
+       319: getstatic     #12                 // Field a:[Lo;
+       322: iload_0
+       323: aaload
+       324: areturn
+        StackMap: length = 0x8B (unknown attribute)
+         00 09 00 6C 00 05 01 07 00 03 07 00 04 07 00 06
+         01 00 00 00 76 00 06 01 07 00 03 07 00 04 07 00
+         06 01 01 00 00 00 A1 00 06 01 07 00 03 07 00 04
+         07 00 06 01 01 00 00 00 B5 00 06 01 07 00 03 07
+         00 04 07 00 06 01 01 00 00 00 BB 00 05 01 07 00
+         03 07 00 04 07 00 06 01 00 00 00 C1 00 04 01 07
+         00 03 07 00 04 07 00 06 00 00 00 E5 00 03 01 07
+         00 03 07 00 04 00 00 00 FF 00 03 01 07 00 03 07
+         00 04 00 00 01 31 00 01 01 00 00
+
+  private static short[][] a(short[], int);
+    descriptor: ([SI)[[S
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=9, locals=3, args_size=2
+         0: aload_0
+         1: ifnonnull     6
+         4: aconst_null
+         5: areturn
+         6: iload_1
+         7: anewarray     #5                  // class "[S"
+        10: astore_1
+        11: iconst_0
+        12: istore_2
+        13: iload_2
+        14: aload_0
+        15: arraylength
+        16: iconst_5
+        17: idiv
+        18: if_icmpge     87
+        21: aload_1
+        22: aload_0
+        23: iload_2
+        24: iconst_5
+        25: imul
+        26: saload
+        27: aload_1
+        28: aload_0
+        29: iload_2
+        30: iconst_5
+        31: imul
+        32: saload
+        33: aaload
+        34: iconst_4
+        35: newarray       short
+        37: dup
+        38: iconst_0
+        39: aload_0
+        40: iload_2
+        41: iconst_5
+        42: imul
+        43: iconst_1
+        44: iadd
+        45: saload
+        46: sastore
+        47: dup
+        48: iconst_1
+        49: aload_0
+        50: iload_2
+        51: iconst_5
+        52: imul
+        53: iconst_2
+        54: iadd
+        55: saload
+        56: sastore
+        57: dup
+        58: iconst_2
+        59: aload_0
+        60: iload_2
+        61: iconst_5
+        62: imul
+        63: iconst_3
+        64: iadd
+        65: saload
+        66: sastore
+        67: dup
+        68: iconst_3
+        69: aload_0
+        70: iload_2
+        71: iconst_5
+        72: imul
+        73: iconst_4
+        74: iadd
+        75: saload
+        76: sastore
+        77: invokestatic  #25                 // Method ae.a:([S[S)[S
+        80: aastore
+        81: iinc          2, 1
+        84: goto          13
+        87: aload_1
+        88: areturn
+        StackMap: length = 0x23 (unknown attribute)
+         00 03 00 06 00 02 07 00 05 01 00 00 00 0D 00 03
+         07 00 05 07 00 06 01 00 00 00 57 00 02 00 07 00
+         06 00 00
+
+  public static void b(int);
+    descriptor: (I)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: getstatic     #12                 // Field a:[Lo;
+         3: iload_0
+         4: aaload
+         5: dup
+         6: getfield      #15                 // Field o.a:I
+         9: iconst_1
+        10: isub
+        11: putfield      #15                 // Field o.a:I
+        14: getstatic     #12                 // Field a:[Lo;
+        17: iload_0
+        18: aaload
+        19: getfield      #15                 // Field o.a:I
+        22: ifgt          39
+        25: getstatic     #12                 // Field a:[Lo;
+        28: iload_0
+        29: aaload
+        30: iconst_0
+        31: putfield      #15                 // Field o.a:I
+        34: iload_0
+        35: invokestatic  #22                 // Method c:(I)Z
+        38: pop
+        39: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 27 00 00 00 00
+
+  public static boolean c(int);
+    descriptor: (I)Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: getstatic     #12                 // Field a:[Lo;
+         3: iload_0
+         4: aaload
+         5: ifnull        25
+         8: getstatic     #12                 // Field a:[Lo;
+        11: iload_0
+        12: aaload
+        13: iconst_0
+        14: putfield      #15                 // Field o.a:I
+        17: getstatic     #12                 // Field a:[Lo;
+        20: iload_0
+        21: aconst_null
+        22: aastore
+        23: iconst_1
+        24: ireturn
+        25: iconst_0
+        26: ireturn
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 19 00 00 00 00
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=7, locals=0, args_size=0
+         0: iconst_5
+         1: newarray       short
+         3: dup
+         4: iconst_0
+         5: iconst_0
+         6: sastore
+         7: dup
+         8: iconst_1
+         9: bipush        10
+        11: sastore
+        12: dup
+        13: iconst_2
+        14: iconst_3
+        15: sastore
+        16: dup
+        17: iconst_3
+        18: bipush        7
+        20: sastore
+        21: dup
+        22: iconst_4
+        23: bipush        -10
+        25: sastore
+        26: putstatic     #13                 // Field b:[S
+        29: iconst_3
+        30: anewarray     #5                  // class "[S"
+        33: dup
+        34: iconst_0
+        35: iconst_2
+        36: newarray       short
+        38: dup
+        39: iconst_0
+        40: iconst_2
+        41: sastore
+        42: dup
+        43: iconst_1
+        44: iconst_0
+        45: sastore
+        46: aastore
+        47: dup
+        48: iconst_1
+        49: bipush        10
+        51: newarray       short
+        53: dup
+        54: iconst_0
+        55: iconst_1
+        56: sastore
+        57: dup
+        58: iconst_1
+        59: iconst_0
+        60: sastore
+        61: dup
+        62: iconst_2
+        63: iconst_1
+        64: sastore
+        65: dup
+        66: iconst_3
+        67: iconst_1
+        68: sastore
+        69: dup
+        70: iconst_4
+        71: iconst_1
+        72: sastore
+        73: dup
+        74: iconst_5
+        75: iconst_2
+        76: sastore
+        77: dup
+        78: bipush        6
+        80: iconst_1
+        81: sastore
+        82: dup
+        83: bipush        7
+        85: iconst_3
+        86: sastore
+        87: dup
+        88: bipush        8
+        90: iconst_1
+        91: sastore
+        92: dup
+        93: bipush        9
+        95: iconst_2
+        96: sastore
+        97: aastore
+        98: dup
+        99: iconst_2
+       100: iconst_4
+       101: newarray       short
+       103: dup
+       104: iconst_0
+       105: iconst_5
+       106: sastore
+       107: dup
+       108: iconst_1
+       109: iconst_0
+       110: sastore
+       111: dup
+       112: iconst_2
+       113: iconst_5
+       114: sastore
+       115: dup
+       116: iconst_3
+       117: iconst_4
+       118: sastore
+       119: aastore
+       120: putstatic     #14                 // Field c:[[S
+       123: return
+}

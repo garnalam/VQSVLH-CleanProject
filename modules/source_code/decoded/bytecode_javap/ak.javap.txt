@@ -1,0 +1,93 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/ak.class
+  Last modified May 24, 2026; size 291 bytes
+  SHA-256 checksum f906df87c7a7b2bf05ceefd4fdf659c085d95ebb51b6693b91df33ab7305856c
+public final class ak
+  minor version: 0
+  major version: 47
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #1                          // ak
+  super_class: #2                         // java/lang/Object
+  interfaces: 0, fields: 4, methods: 2, attributes: 0
+Constant pool:
+   #1 = Class              #19            // ak
+   #2 = Class              #23            // java/lang/Object
+   #3 = Fieldref           #1.#9          // ak.a:I
+   #4 = Fieldref           #1.#10         // ak.b:I
+   #5 = Fieldref           #1.#11         // ak.c:I
+   #6 = Fieldref           #1.#12         // ak.d:I
+   #7 = Methodref          #2.#8          // java/lang/Object."<init>":()V
+   #8 = NameAndType        #15:#13        // "<init>":()V
+   #9 = NameAndType        #18:#17        // a:I
+  #10 = NameAndType        #20:#17        // b:I
+  #11 = NameAndType        #21:#17        // c:I
+  #12 = NameAndType        #22:#17        // d:I
+  #13 = Utf8               ()V
+  #14 = Utf8               (IIII)V
+  #15 = Utf8               <init>
+  #16 = Utf8               Code
+  #17 = Utf8               I
+  #18 = Utf8               a
+  #19 = Utf8               ak
+  #20 = Utf8               b
+  #21 = Utf8               c
+  #22 = Utf8               d
+  #23 = Utf8               java/lang/Object
+{
+  public int a;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public int b;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public int c;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public int d;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public ak();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #7                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: iconst_0
+         6: putfield      #3                  // Field a:I
+         9: aload_0
+        10: iconst_0
+        11: putfield      #4                  // Field b:I
+        14: aload_0
+        15: iconst_0
+        16: putfield      #5                  // Field c:I
+        19: aload_0
+        20: iconst_0
+        21: putfield      #6                  // Field d:I
+        24: return
+
+  public ak(int, int, int, int);
+    descriptor: (IIII)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=5, args_size=5
+         0: aload_0
+         1: invokespecial #7                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: iload_1
+         6: putfield      #3                  // Field a:I
+         9: aload_0
+        10: iload_2
+        11: putfield      #4                  // Field b:I
+        14: aload_0
+        15: iload_3
+        16: putfield      #5                  // Field c:I
+        19: aload_0
+        20: iload         4
+        22: putfield      #6                  // Field d:I
+        25: return
+}

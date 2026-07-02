@@ -1,0 +1,185 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/am.class
+  Last modified May 24, 2026; size 854 bytes
+  SHA-256 checksum ed1ae5e081e42db563e049220202336d847b1badd0f13549541ac971b7bf33df
+public final class am
+  minor version: 0
+  major version: 47
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #5                          // am
+  super_class: #6                         // java/lang/Object
+  interfaces: 0, fields: 3, methods: 4, attributes: 0
+Constant pool:
+   #1 = Integer            50000
+   #2 = String             #31            // /data/img/
+   #3 = String             #44            // img_
+   #4 = Class              #39            // ae
+   #5 = Class              #40            // am
+   #6 = Class              #45            // java/lang/Object
+   #7 = Class              #46            // java/lang/StringBuffer
+   #8 = Class              #47            // javax/microedition/lcdui/Image
+   #9 = Fieldref           #5.#17         // am.a:[Ljavax/microedition/lcdui/Image;
+  #10 = Fieldref           #5.#20         // am.b:[B
+  #11 = Fieldref           #5.#21         // am.c:I
+  #12 = Methodref          #4.#19         // ae.b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+  #13 = Methodref          #7.#16         // java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+  #14 = Methodref          #7.#18         // java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+  #15 = Methodref          #7.#22         // java/lang/StringBuffer.toString:()Ljava/lang/String;
+  #16 = NameAndType        #32:#29        // "<init>":(Ljava/lang/String;)V
+  #17 = NameAndType        #38:#37        // a:[Ljavax/microedition/lcdui/Image;
+  #18 = NameAndType        #41:#25        // append:(I)Ljava/lang/StringBuffer;
+  #19 = NameAndType        #42:#30        // b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+  #20 = NameAndType        #42:#36        // b:[B
+  #21 = NameAndType        #43:#34        // c:I
+  #22 = NameAndType        #48:#23        // toString:()Ljava/lang/String;
+  #23 = Utf8               ()Ljava/lang/String;
+  #24 = Utf8               ()V
+  #25 = Utf8               (I)Ljava/lang/StringBuffer;
+  #26 = Utf8               (I)Ljavax/microedition/lcdui/Image;
+  #27 = Utf8               (I)V
+  #28 = Utf8               (I)Z
+  #29 = Utf8               (Ljava/lang/String;)V
+  #30 = Utf8               (Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+  #31 = Utf8               /data/img/
+  #32 = Utf8               <init>
+  #33 = Utf8               Code
+  #34 = Utf8               I
+  #35 = Utf8               StackMap
+  #36 = Utf8               [B
+  #37 = Utf8               [Ljavax/microedition/lcdui/Image;
+  #38 = Utf8               a
+  #39 = Utf8               ae
+  #40 = Utf8               am
+  #41 = Utf8               append
+  #42 = Utf8               b
+  #43 = Utf8               c
+  #44 = Utf8               img_
+  #45 = Utf8               java/lang/Object
+  #46 = Utf8               java/lang/StringBuffer
+  #47 = Utf8               javax/microedition/lcdui/Image
+  #48 = Utf8               toString
+{
+  private static javax.microedition.lcdui.Image[] a;
+    descriptor: [Ljavax/microedition/lcdui/Image;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static byte[] b;
+    descriptor: [B
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static int c;
+    descriptor: I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  public static void a();
+    descriptor: ()V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: ldc           #1                  // int 50000
+         2: dup
+         3: putstatic     #11                 // Field c:I
+         6: anewarray     #8                  // class javax/microedition/lcdui/Image
+         9: putstatic     #9                  // Field a:[Ljavax/microedition/lcdui/Image;
+        12: getstatic     #11                 // Field c:I
+        15: newarray       byte
+        17: putstatic     #10                 // Field b:[B
+        20: return
+
+  public static javax.microedition.lcdui.Image a(int);
+    descriptor: (I)Ljavax/microedition/lcdui/Image;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=6, locals=1, args_size=1
+         0: getstatic     #9                  // Field a:[Ljavax/microedition/lcdui/Image;
+         3: iload_0
+         4: aaload
+         5: ifnonnull     34
+         8: getstatic     #9                  // Field a:[Ljavax/microedition/lcdui/Image;
+        11: iload_0
+        12: ldc           #2                  // String /data/img/
+        14: new           #7                  // class java/lang/StringBuffer
+        17: dup
+        18: ldc           #3                  // String img_
+        20: invokespecial #13                 // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+        23: iload_0
+        24: invokevirtual #14                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        27: invokevirtual #15                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        30: invokestatic  #12                 // Method ae.b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+        33: aastore
+        34: getstatic     #10                 // Field b:[B
+        37: iload_0
+        38: dup2
+        39: baload
+        40: iconst_1
+        41: iadd
+        42: i2b
+        43: bastore
+        44: getstatic     #9                  // Field a:[Ljavax/microedition/lcdui/Image;
+        47: iload_0
+        48: aaload
+        49: areturn
+        StackMap: length = 0x9 (unknown attribute)
+         00 01 00 22 00 01 01 00 00
+
+  public static void b(int);
+    descriptor: (I)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: getstatic     #10                 // Field b:[B
+         3: iload_0
+         4: dup2
+         5: baload
+         6: iconst_1
+         7: isub
+         8: i2b
+         9: bastore
+        10: getstatic     #10                 // Field b:[B
+        13: iload_0
+        14: baload
+        15: ifgt          24
+        18: getstatic     #10                 // Field b:[B
+        21: iload_0
+        22: iconst_0
+        23: bastore
+        24: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 18 00 00 00 00
+
+  public static boolean c(int);
+    descriptor: (I)Z
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: iload_0
+         1: iconst_m1
+         2: if_icmpne     7
+         5: iconst_1
+         6: ireturn
+         7: getstatic     #10                 // Field b:[B
+        10: iload_0
+        11: dup2
+        12: baload
+        13: iconst_1
+        14: isub
+        15: i2b
+        16: bastore
+        17: getstatic     #10                 // Field b:[B
+        20: iload_0
+        21: baload
+        22: ifgt          39
+        25: getstatic     #10                 // Field b:[B
+        28: iload_0
+        29: iconst_0
+        30: bastore
+        31: getstatic     #9                  // Field a:[Ljavax/microedition/lcdui/Image;
+        34: iload_0
+        35: aconst_null
+        36: aastore
+        37: iconst_1
+        38: ireturn
+        39: iconst_0
+        40: ireturn
+        StackMap: length = 0xF (unknown attribute)
+         00 02 00 07 00 01 01 00 00 00 27 00 00 00 00
+}

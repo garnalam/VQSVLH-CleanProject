@@ -1,0 +1,486 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/aq.class
+  Last modified May 24, 2026; size 2470 bytes
+  SHA-256 checksum b62a611def8d315599505a946714c05f32ce70f91dcd030781de7af7b7454341
+public final class aq
+  minor version: 0
+  major version: 47
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #16                         // aq
+  super_class: #22                        // java/lang/Object
+  interfaces: 0, fields: 6, methods: 6, attributes: 0
+Constant pool:
+    #1 = String             #88           //
+    #2 = String             #107          // /data/mod/modInfo.mid
+    #3 = String             #108          // /data/script/chs.mid
+    #4 = String             #109          // /data/script/db.mid
+    #5 = String             #110          // /data/script/npcDialog.mid
+    #6 = String             #111          // /data/script/sprite.mid
+    #7 = String             #112          // /data/tex/
+    #8 = String             #132          // bk
+    #9 = String             #153          // tex_
+   #10 = Class              #118          // "[I"
+   #11 = Class              #120          // "[S"
+   #12 = Class              #122          // "[[Ljava/lang/String;"
+   #13 = Class              #123          // "[[S"
+   #14 = Class              #126          // ae
+   #15 = Class              #127          // aj
+   #16 = Class              #129          // aq
+   #17 = Class              #139          // game/k
+   #18 = Class              #141          // java/io/DataInputStream
+   #19 = Class              #142          // java/io/IOException
+   #20 = Class              #143          // java/io/InputStream
+   #21 = Class              #144          // java/lang/Exception
+   #22 = Class              #145          // java/lang/Object
+   #23 = Class              #146          // java/lang/String
+   #24 = Class              #147          // java/lang/StringBuffer
+   #25 = Class              #148          // java/lang/System
+   #26 = Fieldref           #16.#66       // aq.a:[[S
+   #27 = Fieldref           #16.#73       // aq.b:[[S
+   #28 = Fieldref           #16.#76       // aq.c:[[[S
+   #29 = Fieldref           #16.#78       // aq.d:[Ljava/lang/String;
+   #30 = Fieldref           #16.#80       // aq.e:[[I
+   #31 = Fieldref           #16.#81       // aq.f:Ljavax/microedition/lcdui/Image;
+   #32 = Fieldref           #17.#61       // game/k.N:[Ljava/lang/String;
+   #33 = Methodref          #14.#62       // ae.a:(Ljava/io/InputStream;)[[S
+   #34 = Methodref          #14.#63       // ae.a:(Ljava/lang/String;)Ljava/io/InputStream;
+   #35 = Methodref          #14.#65       // ae.a:(Ljavax/microedition/lcdui/Image;)[I
+   #36 = Methodref          #14.#72       // ae.b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+   #37 = Methodref          #14.#74       // ae.c:(Ljava/io/InputStream;)[[Ljava/lang/String;
+   #38 = Methodref          #15.#63       // aj.a:(Ljava/lang/String;)Ljava/io/InputStream;
+   #39 = Methodref          #16.#64       // aq.a:(Ljava/lang/String;)V
+   #40 = Methodref          #16.#70       // aq.b:()V
+   #41 = Methodref          #16.#71       // aq.b:(Ljava/lang/String;)V
+   #42 = Methodref          #16.#75       // aq.c:(Ljava/lang/String;)V
+   #43 = Methodref          #18.#59       // java/io/DataInputStream."<init>":(Ljava/io/InputStream;)V
+   #44 = Methodref          #18.#77       // java/io/DataInputStream.close:()V
+   #45 = Methodref          #18.#85       // java/io/DataInputStream.readByte:()B
+   #46 = Methodref          #18.#86       // java/io/DataInputStream.readShort:()S
+   #47 = Methodref          #19.#84       // java/io/IOException.printStackTrace:()V
+   #48 = Methodref          #20.#77       // java/io/InputStream.close:()V
+   #49 = Methodref          #22.#82       // java/lang/Object.getClass:()Ljava/lang/Class;
+   #50 = Methodref          #24.#58       // java/lang/StringBuffer."<init>":()V
+   #51 = Methodref          #24.#60       // java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+   #52 = Methodref          #24.#67       // java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+   #53 = Methodref          #24.#68       // java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+   #54 = Methodref          #24.#79       // java/lang/StringBuffer.delete:(II)Ljava/lang/StringBuffer;
+   #55 = Methodref          #24.#83       // java/lang/StringBuffer.length:()I
+   #56 = Methodref          #24.#87       // java/lang/StringBuffer.toString:()Ljava/lang/String;
+   #57 = Methodref          #25.#69       // java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+   #58 = NameAndType        #113:#94      // "<init>":()V
+   #59 = NameAndType        #113:#98      // "<init>":(Ljava/io/InputStream;)V
+   #60 = NameAndType        #113:#104     // "<init>":(Ljava/lang/String;)V
+   #61 = NameAndType        #116:#119     // N:[Ljava/lang/String;
+   #62 = NameAndType        #125:#100     // a:(Ljava/io/InputStream;)[[S
+   #63 = NameAndType        #125:#102     // a:(Ljava/lang/String;)Ljava/io/InputStream;
+   #64 = NameAndType        #125:#104     // a:(Ljava/lang/String;)V
+   #65 = NameAndType        #125:#106     // a:(Ljavax/microedition/lcdui/Image;)[I
+   #66 = NameAndType        #125:#123     // a:[[S
+   #67 = NameAndType        #128:#96      // append:(I)Ljava/lang/StringBuffer;
+   #68 = NameAndType        #128:#103     // append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+   #69 = NameAndType        #130:#101     // arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+   #70 = NameAndType        #131:#94      // b:()V
+   #71 = NameAndType        #131:#104     // b:(Ljava/lang/String;)V
+   #72 = NameAndType        #131:#105     // b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+   #73 = NameAndType        #131:#123     // b:[[S
+   #74 = NameAndType        #133:#99      // c:(Ljava/io/InputStream;)[[Ljava/lang/String;
+   #75 = NameAndType        #133:#104     // c:(Ljava/lang/String;)V
+   #76 = NameAndType        #133:#124     // c:[[[S
+   #77 = NameAndType        #134:#94      // close:()V
+   #78 = NameAndType        #135:#119     // d:[Ljava/lang/String;
+   #79 = NameAndType        #136:#97      // delete:(II)Ljava/lang/StringBuffer;
+   #80 = NameAndType        #137:#121     // e:[[I
+   #81 = NameAndType        #138:#115     // f:Ljavax/microedition/lcdui/Image;
+   #82 = NameAndType        #140:#91      // getClass:()Ljava/lang/Class;
+   #83 = NameAndType        #149:#90      // length:()I
+   #84 = NameAndType        #150:#94      // printStackTrace:()V
+   #85 = NameAndType        #151:#89      // readByte:()B
+   #86 = NameAndType        #152:#93      // readShort:()S
+   #87 = NameAndType        #154:#92      // toString:()Ljava/lang/String;
+   #88 = Utf8
+   #89 = Utf8               ()B
+   #90 = Utf8               ()I
+   #91 = Utf8               ()Ljava/lang/Class;
+   #92 = Utf8               ()Ljava/lang/String;
+   #93 = Utf8               ()S
+   #94 = Utf8               ()V
+   #95 = Utf8               (BSB)S
+   #96 = Utf8               (I)Ljava/lang/StringBuffer;
+   #97 = Utf8               (II)Ljava/lang/StringBuffer;
+   #98 = Utf8               (Ljava/io/InputStream;)V
+   #99 = Utf8               (Ljava/io/InputStream;)[[Ljava/lang/String;
+  #100 = Utf8               (Ljava/io/InputStream;)[[S
+  #101 = Utf8               (Ljava/lang/Object;ILjava/lang/Object;II)V
+  #102 = Utf8               (Ljava/lang/String;)Ljava/io/InputStream;
+  #103 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #104 = Utf8               (Ljava/lang/String;)V
+  #105 = Utf8               (Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+  #106 = Utf8               (Ljavax/microedition/lcdui/Image;)[I
+  #107 = Utf8               /data/mod/modInfo.mid
+  #108 = Utf8               /data/script/chs.mid
+  #109 = Utf8               /data/script/db.mid
+  #110 = Utf8               /data/script/npcDialog.mid
+  #111 = Utf8               /data/script/sprite.mid
+  #112 = Utf8               /data/tex/
+  #113 = Utf8               <init>
+  #114 = Utf8               Code
+  #115 = Utf8               Ljavax/microedition/lcdui/Image;
+  #116 = Utf8               N
+  #117 = Utf8               StackMap
+  #118 = Utf8               [I
+  #119 = Utf8               [Ljava/lang/String;
+  #120 = Utf8               [S
+  #121 = Utf8               [[I
+  #122 = Utf8               [[Ljava/lang/String;
+  #123 = Utf8               [[S
+  #124 = Utf8               [[[S
+  #125 = Utf8               a
+  #126 = Utf8               ae
+  #127 = Utf8               aj
+  #128 = Utf8               append
+  #129 = Utf8               aq
+  #130 = Utf8               arraycopy
+  #131 = Utf8               b
+  #132 = Utf8               bk
+  #133 = Utf8               c
+  #134 = Utf8               close
+  #135 = Utf8               d
+  #136 = Utf8               delete
+  #137 = Utf8               e
+  #138 = Utf8               f
+  #139 = Utf8               game/k
+  #140 = Utf8               getClass
+  #141 = Utf8               java/io/DataInputStream
+  #142 = Utf8               java/io/IOException
+  #143 = Utf8               java/io/InputStream
+  #144 = Utf8               java/lang/Exception
+  #145 = Utf8               java/lang/Object
+  #146 = Utf8               java/lang/String
+  #147 = Utf8               java/lang/StringBuffer
+  #148 = Utf8               java/lang/System
+  #149 = Utf8               length
+  #150 = Utf8               printStackTrace
+  #151 = Utf8               readByte
+  #152 = Utf8               readShort
+  #153 = Utf8               tex_
+  #154 = Utf8               toString
+{
+  public static short[][] a;
+    descriptor: [[S
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static short[][] b;
+    descriptor: [[S
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static short[][][] c;
+    descriptor: [[[S
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static java.lang.String[] d;
+    descriptor: [Ljava/lang/String;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static int[][] e;
+    descriptor: [[I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static javax.microedition.lcdui.Image f;
+    descriptor: Ljavax/microedition/lcdui/Image;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+  public static void a();
+    descriptor: ()V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=7, args_size=0
+         0: ldc           #6                  // String /data/script/sprite.mid
+         2: astore_0
+         3: aload_0
+         4: invokestatic  #34                 // Method ae.a:(Ljava/lang/String;)Ljava/io/InputStream;
+         7: dup
+         8: astore_0
+         9: invokestatic  #33                 // Method ae.a:(Ljava/io/InputStream;)[[S
+        12: putstatic     #26                 // Field a:[[S
+        15: aload_0
+        16: invokevirtual #48                 // Method java/io/InputStream.close:()V
+        19: goto          23
+        22: pop
+        23: ldc           #2                  // String /data/mod/modInfo.mid
+        25: astore_0
+        26: ldc           #1                  // String
+        28: invokevirtual #49                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+        31: pop
+        32: aload_0
+        33: invokestatic  #38                 // Method aj.a:(Ljava/lang/String;)Ljava/io/InputStream;
+        36: astore_0
+        37: new           #18                 // class java/io/DataInputStream
+        40: dup
+        41: aload_0
+        42: invokespecial #43                 // Method java/io/DataInputStream."<init>":(Ljava/io/InputStream;)V
+        45: dup
+        46: astore_1
+        47: invokevirtual #45                 // Method java/io/DataInputStream.readByte:()B
+        50: dup
+        51: istore_2
+        52: anewarray     #11                 // class "[S"
+        55: putstatic     #27                 // Field b:[[S
+        58: iconst_0
+        59: istore_3
+        60: iload_3
+        61: iload_2
+        62: if_icmpge     118
+        65: aload_1
+        66: invokevirtual #45                 // Method java/io/DataInputStream.readByte:()B
+        69: istore        4
+        71: getstatic     #27                 // Field b:[[S
+        74: iload_3
+        75: iload         4
+        77: newarray       short
+        79: aastore
+        80: iconst_0
+        81: istore        5
+        83: iload         5
+        85: iload         4
+        87: if_icmpge     112
+        90: aload_1
+        91: invokevirtual #46                 // Method java/io/DataInputStream.readShort:()S
+        94: istore        6
+        96: getstatic     #27                 // Field b:[[S
+        99: iload_3
+       100: aaload
+       101: iload         5
+       103: iload         6
+       105: sastore
+       106: iinc          5, 1
+       109: goto          83
+       112: iinc          3, 1
+       115: goto          60
+       118: aload_1
+       119: invokevirtual #44                 // Method java/io/DataInputStream.close:()V
+       122: aload_0
+       123: invokevirtual #48                 // Method java/io/InputStream.close:()V
+       126: goto          132
+       129: invokevirtual #47                 // Method java/io/IOException.printStackTrace:()V
+       132: ldc           #3                  // String /data/script/chs.mid
+       134: invokestatic  #42                 // Method c:(Ljava/lang/String;)V
+       137: ldc           #5                  // String /data/script/npcDialog.mid
+       139: invokestatic  #39                 // Method a:(Ljava/lang/String;)V
+       142: invokestatic  #40                 // Method b:()V
+       145: ldc           #4                  // String /data/script/db.mid
+       147: invokestatic  #41                 // Method b:(Ljava/lang/String;)V
+       150: ldc           #7                  // String /data/tex/
+       152: ldc           #8                  // String bk
+       154: invokestatic  #36                 // Method ae.b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+       157: putstatic     #31                 // Field f:Ljavax/microedition/lcdui/Image;
+       160: return
+      Exception table:
+         from    to  target type
+             3    22    22   Class java/lang/Exception
+            26   129   129   Class java/io/IOException
+        StackMap: length = 0x58 (unknown attribute)
+         00 08 00 16 00 00 00 01 07 00 15 00 17 00 00 00
+         00 00 3C 00 04 07 00 14 07 00 12 01 01 00 00 00
+         53 00 06 07 00 14 07 00 12 01 01 01 01 00 00 00
+         70 00 04 07 00 14 07 00 12 01 01 00 00 00 76 00
+         02 07 00 14 07 00 12 00 00 00 81 00 00 00 01 07
+         00 13 00 84 00 00 00 00
+
+  private static void a(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=6, locals=3, args_size=1
+         0: aload_0
+         1: invokestatic  #34                 // Method ae.a:(Ljava/lang/String;)Ljava/io/InputStream;
+         4: dup
+         5: astore_0
+         6: invokestatic  #37                 // Method ae.c:(Ljava/io/InputStream;)[[Ljava/lang/String;
+         9: dup
+        10: astore_1
+        11: arraylength
+        12: anewarray     #23                 // class java/lang/String
+        15: putstatic     #32                 // Field game/k.N:[Ljava/lang/String;
+        18: iconst_0
+        19: istore_2
+        20: iload_2
+        21: aload_1
+        22: arraylength
+        23: if_icmpge     47
+        26: aload_1
+        27: iload_2
+        28: aaload
+        29: iconst_0
+        30: getstatic     #32                 // Field game/k.N:[Ljava/lang/String;
+        33: iload_2
+        34: aload_1
+        35: iload_2
+        36: aaload
+        37: arraylength
+        38: invokestatic  #57                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+        41: iinc          2, 1
+        44: goto          20
+        47: aload_0
+        48: invokevirtual #48                 // Method java/io/InputStream.close:()V
+        51: return
+        52: invokevirtual #47                 // Method java/io/IOException.printStackTrace:()V
+        55: return
+      Exception table:
+         from    to  target type
+             0    51    52   Class java/io/IOException
+        StackMap: length = 0x21 (unknown attribute)
+         00 03 00 14 00 03 07 00 14 07 00 0C 01 00 00 00
+         2F 00 01 07 00 14 00 00 00 34 00 00 00 01 07 00
+         13
+
+  public static short a(byte, short, byte);
+    descriptor: (BSB)S
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=3, args_size=3
+         0: getstatic     #28                 // Field c:[[[S
+         3: iload_0
+         4: aaload
+         5: iload_1
+         6: aaload
+         7: iload_2
+         8: saload
+         9: ireturn
+
+  private static void b(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=1
+         0: aload_0
+         1: invokestatic  #34                 // Method ae.a:(Ljava/lang/String;)Ljava/io/InputStream;
+         4: astore_0
+         5: bipush        9
+         7: anewarray     #13                 // class "[[S"
+        10: putstatic     #28                 // Field c:[[[S
+        13: iconst_0
+        14: istore_1
+        15: iload_1
+        16: bipush        9
+        18: if_icmpge     36
+        21: getstatic     #28                 // Field c:[[[S
+        24: iload_1
+        25: aload_0
+        26: invokestatic  #33                 // Method ae.a:(Ljava/io/InputStream;)[[S
+        29: aastore
+        30: iinc          1, 1
+        33: goto          15
+        36: aload_0
+        37: invokevirtual #48                 // Method java/io/InputStream.close:()V
+        40: return
+        41: pop
+        42: return
+      Exception table:
+         from    to  target type
+             0    40    41   Class java/io/IOException
+        StackMap: length = 0x1E (unknown attribute)
+         00 03 00 0F 00 02 07 00 14 01 00 00 00 24 00 01
+         07 00 14 00 00 00 29 00 00 00 01 07 00 13
+
+  private static void c(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=5, args_size=1
+         0: aload_0
+         1: invokestatic  #34                 // Method ae.a:(Ljava/lang/String;)Ljava/io/InputStream;
+         4: dup
+         5: astore_0
+         6: invokestatic  #37                 // Method ae.c:(Ljava/io/InputStream;)[[Ljava/lang/String;
+         9: dup
+        10: astore_1
+        11: arraylength
+        12: anewarray     #23                 // class java/lang/String
+        15: putstatic     #29                 // Field d:[Ljava/lang/String;
+        18: new           #24                 // class java/lang/StringBuffer
+        21: dup
+        22: invokespecial #50                 // Method java/lang/StringBuffer."<init>":()V
+        25: astore_2
+        26: iconst_0
+        27: istore_3
+        28: iload_3
+        29: aload_1
+        30: arraylength
+        31: if_icmpge     88
+        34: aload_2
+        35: iconst_0
+        36: aload_2
+        37: invokevirtual #55                 // Method java/lang/StringBuffer.length:()I
+        40: invokevirtual #54                 // Method java/lang/StringBuffer.delete:(II)Ljava/lang/StringBuffer;
+        43: pop
+        44: iconst_0
+        45: istore        4
+        47: iload         4
+        49: aload_1
+        50: iload_3
+        51: aaload
+        52: arraylength
+        53: if_icmpge     73
+        56: aload_2
+        57: aload_1
+        58: iload_3
+        59: aaload
+        60: iload         4
+        62: aaload
+        63: invokevirtual #53                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        66: pop
+        67: iinc          4, 1
+        70: goto          47
+        73: getstatic     #29                 // Field d:[Ljava/lang/String;
+        76: iload_3
+        77: aload_2
+        78: invokevirtual #56                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        81: aastore
+        82: iinc          3, 1
+        85: goto          28
+        88: aload_0
+        89: invokevirtual #48                 // Method java/io/InputStream.close:()V
+        92: return
+        93: pop
+        94: return
+      Exception table:
+         from    to  target type
+             0    92    93   Class java/io/IOException
+        StackMap: length = 0x45 (unknown attribute)
+         00 05 00 1C 00 04 07 00 14 07 00 0C 07 00 18 01
+         00 00 00 2F 00 05 07 00 14 07 00 0C 07 00 18 01
+         01 00 00 00 49 00 04 07 00 14 07 00 0C 07 00 18
+         01 00 00 00 58 00 01 07 00 14 00 00 00 5D 00 00
+         00 01 07 00 13
+
+  private static void b();
+    descriptor: ()V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=6, locals=1, args_size=0
+         0: iconst_4
+         1: anewarray     #10                 // class "[I"
+         4: putstatic     #30                 // Field e:[[I
+         7: iconst_0
+         8: istore_0
+         9: iload_0
+        10: iconst_4
+        11: if_icmpge     49
+        14: getstatic     #30                 // Field e:[[I
+        17: iload_0
+        18: ldc           #7                  // String /data/tex/
+        20: new           #24                 // class java/lang/StringBuffer
+        23: dup
+        24: ldc           #9                  // String tex_
+        26: invokespecial #51                 // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+        29: iload_0
+        30: invokevirtual #52                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        33: invokevirtual #56                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        36: invokestatic  #36                 // Method ae.b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+        39: invokestatic  #35                 // Method ae.a:(Ljavax/microedition/lcdui/Image;)[I
+        42: aastore
+        43: iinc          0, 1
+        46: goto          9
+        49: return
+        StackMap: length = 0xF (unknown attribute)
+         00 02 00 09 00 01 01 00 00 00 31 00 00 00 00
+}

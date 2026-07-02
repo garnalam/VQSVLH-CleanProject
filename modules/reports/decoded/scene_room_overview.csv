@@ -1,0 +1,114 @@
+scene_id,room_index,world_key,room_name,actor_count,event_group_count,string_pool_count,declared_block_size
+0,0,0,Bản đồ trống,40,3,169,6129
+0,1,1,Phá hủy thôn trang,31,1,16,1134
+1,0,256,Thủy Mộc Thôn,58,12,206,16303
+1,1,257,Bắt được Thủy Mộc Thôn,51,3,18,2077
+1,2,258,Theo chỉ dẫn địa đồ tiếp theo là Thủy Mộc Thôn,30,5,36,3349
+1,3,259,Thủy Mộc Thôn hạ 2,63,9,341,15734
+1,4,260,Đi thông bến tàu Thủy Mộc Thôn,54,1,10,2771
+1,5,261,Bến tàu Thủy Mộc Thôn,30,0,0,964
+1,6,262,Đi thông Bích Thủy,28,2,8,1510
+10,0,2560,Tương Quân Giải,12,4,32,2493
+10,1,2561,Lôi Kỳ Lân 1,15,4,11,954
+10,2,2562,Lôi Kỳ Lân 2,17,3,0,662
+10,3,2563,Lôi Kỳ Lân 3,19,4,0,794
+10,4,2564,Lôi Kỳ Lân 4,13,6,30,2431
+10,5,2565,Tinh Vân Hạc 1,8,2,3,623
+10,6,2566,Tinh Vân Hạc 2,16,0,0,373
+10,7,2567,Tinh Vân Hạc 3,15,2,26,1433
+10,8,2568,Minh Vương Long,14,4,45,2506
+10,9,2569,Cửu Sắc Lộc Nhất,21,2,10,596
+10,10,2570,Cửu Sắc Lộc Nhị,12,1,5,357
+10,11,2571,Cửu Sắc Lộc 3,2,2,36,2290
+10,12,2572,Chiến Thần Đà,38,5,46,4362
+10,13,2573,Hỏa Phượng Hoàng 1,10,3,51,1863
+10,14,2574,Hỏa Phượng Hoàng 2,16,2,84,3808
+11,0,2816,Ngục giam,15,3,81,6947
+11,1,2817,Đồ Thư Quán,15,3,36,4275
+11,2,2818,Khí cầu,30,4,120,8480
+11,3,2819,Bạch Long Thành,26,10,251,19617
+11,4,2820,Nhân vật chính,12,0,0,568
+11,5,2821,Ngôi nhà nhỏ trong thôn,10,0,0,557
+11,6,2822,Thương Điếm Thôn,13,0,0,627
+11,7,2823,Mã Đầu Thôn,9,0,0,544
+11,8,2824,Bích Thủy Thương Điếm,16,2,72,3554
+11,9,2825,Trụ sở bí mật,12,5,97,8080
+11,10,2826,Dân cư Bích Thủy 2,8,1,17,1841
+11,11,2827,Dân cư Bích Thủy 3,11,2,36,2869
+11,12,2828,Nguyên Mộc Thương Điếm,14,1,29,2116
+11,13,2829,Nguyên Mộc Thôn Trường Nhất,14,3,128,7251
+11,14,2830,Bích Thủy Trưởng thôn,9,1,71,2518
+11,15,2831,Vô dụng,8,0,0,719
+11,16,2832,Nguyên Mộc Mã Đầu,8,0,0,739
+11,17,2833,Niêm Thổ dã ngoại Thương Điếm,15,0,0,941
+11,18,2834,Niêm Thổ Thương Điếm,14,0,0,933
+11,19,2835,Cư dân Niêm Thổ Thành 1,9,1,13,1661
+11,20,2836,Cư dân Niêm Thổ Thành 2,8,0,0,830
+11,21,2837,Cư dân Niêm Thổ Thành 3,10,2,19,2289
+11,22,2838,Cư dân Niêm Thổ Thành 4,10,2,27,2972
+11,23,2839,Hắc Thạch Tiểu Ốc,6,0,0,800
+11,24,2840,Hắc Thạch Mã Đầu,8,0,0,840
+11,25,2841,Hắc Thạch Thương Điếm 1,13,0,0,990
+11,26,2842,Hắc Thạch Thương Điếm 2,14,0,0,1042
+11,27,2843,Cư dân Hắc Thạch,10,0,0,944
+11,28,2844,Thiên Không Thương Điếm,14,0,0,1073
+12,0,3072,Gian phòng 0,15,0,0,352
+2,0,512,Bích Thủy Thành Thượng,40,4,98,4396
+2,1,513,Bích Thủy Thành,108,12,421,23776
+2,2,514,Một khu Bích Thủy Thành Hạ,38,3,37,3880
+2,3,515,Bích Thủy Thành Hữu Nhất,60,1,26,3402
+2,4,516,Một khu Bích Thủy Thành Hữu Thượng,35,2,18,2437
+2,5,517,Bích Thủy Thành Hữu Hạ,29,3,27,2565
+2,6,518,Đi Vãng Sơn Động,32,4,20,2716
+2,7,519,Sơn Động đi Vãng Nguyên Mộc,54,4,26,3401
+3,0,768,Đi Vãng Sơn Động,27,1,7,845
+3,1,769,Thụ Thung Mê Cung,58,2,19,2157
+3,2,770,Nguyên Mộc Thành Thượng,29,1,7,1124
+3,3,771,Nguyên Mộc Thành Nhất,71,15,147,13541
+3,4,772,Nguyên Mộc Thành Tả Nhất,23,1,7,1296
+3,5,773,Nguyên Mộc Thành Tả Nhị Phân Chi,19,3,27,2005
+3,6,774,Nguyên Mộc Thành Mã Đầu,47,4,73,5789
+3,7,775,Khiêu chiến thi đấu Lục Hành Điểu,53,3,63,5788
+4,0,1024,Niêm Thổ Mã Đầu,13,2,31,1687
+4,1,1025,Xuy Phong Phế Khư,48,1,6,1557
+4,2,1026,Niêm Thổ Sơn Động 1,15,5,50,4196
+4,3,1027,Niêm Thổ Sơn Động 2,27,3,15,1460
+4,4,1028,Niêm Thổ Sơn Động 3,40,5,23,1915
+4,5,1029,Niêm Thổ Thành,58,20,274,16708
+4,6,1030,Niêm Thổ Thành Hạ Nhất,13,1,5,1028
+4,7,1031,Niêm Thổ Thành Hạ Nhị,13,1,19,2011
+4,8,1032,Căn cứ Phi Không Đĩnh,15,2,131,9268
+4,9,1033,Niêm Thổ Thành Hữu Nhất,7,1,5,1229
+4,10,1034,Niêm Thổ Thành Hữu Nhị đi qua khu di tích Thần Thú,2,2,6,1211
+4,11,1035,Niêm Thổ Thành Hữu Thượng đến Thông Sơn Động,12,3,11,1588
+4,12,1036,Sơn động đến Hắc Thạch,17,2,31,2553
+5,0,1280,Hắc Thạch đi qua Sơn Động,13,1,6,506
+5,1,1281,Vào cửa thành Hắc Thạch,46,1,19,2086
+5,2,1282,Hắc Thạch Thành Mã Đầu,13,0,0,650
+5,3,1283,Hắc Thạch Thành Nhất,67,5,70,7571
+5,4,1284,Vào cửa Địa lao,27,1,5,1520
+5,5,1285,Hắc Thạch Thành Nhị,20,3,32,4543
+5,6,1286,Địa lao Hắc Thạch,17,7,126,6878
+6,0,1536,Hắc Long Thần Điện Mã Đầu,6,1,4,577
+6,1,1537,Hắc Long Thần Điện,21,2,28,1632
+7,0,1792,Bạch Long Thần Điện,31,2,49,3769
+7,1,1793,Đi qua Bạch Long Thành,10,2,6,466
+7,2,1794,Bạch Long Thành,77,9,180,8851
+7,3,1795,Bạch Long Thành Tả Nhất,26,4,107,7349
+7,4,1796,Bạch Long Thành Tả đi qua Lôi Kỳ Lân,31,1,5,1178
+7,5,1797,Bạch Long Thành Tả Hạ,18,1,5,886
+7,6,1798,Khí cầu rơi vỡ tan xuống Bạch Long Thành Tả,26,6,78,5346
+7,7,1799,Bạch Long Thành Hữu Nhất,18,0,0,790
+7,8,1800,Bạch Long Thành Hữu Thượng,14,3,15,1620
+7,9,1801,Bạch Long Thành Hữu đi qua Tinh Vân Hạc,25,2,20,2494
+7,10,1802,Bạch Long Thành Hữu Nhị,17,3,32,3720
+7,11,1803,Bạch Long Thành Hữu Hạ,13,3,11,1209
+7,12,1804,Bạch Long Thành Hữu đi qua Minh Vương Long,28,2,10,1562
+9,0,2304,Bích Thủy Đạo Quán,32,6,57,5242
+9,1,2305,Nguyên Mộc Đạo Quán,32,7,82,8718
+9,2,2306,Niêm Thổ Đạo Quán Thượng,11,2,18,1492
+9,3,2307,Niêm Thổ Đạo Quán Hạ,8,3,16,1312
+9,4,2308,Hắc Thạch Đạo Quán Thượng,14,4,33,2220
+9,5,2309,Hắc Thạch Đạo Quán Hạ,34,4,40,3654
+9,6,2310,Hắc Long Đạo Quán,14,3,22,2199
+9,7,2311,Thiên Giới Đạo Quán,17,5,37,2815

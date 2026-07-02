@@ -1,0 +1,316 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/aj.class
+  Last modified May 24, 2026; size 1882 bytes
+  SHA-256 checksum 046b1a755d346575dd9306bbe7eafbaf4679e2a3d725a3901c1a3f70a3579d65
+public class aj extends java.io.DataInputStream
+  minor version: 3
+  major version: 45
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #7                          // aj
+  super_class: #8                         // java/io/DataInputStream
+  interfaces: 0, fields: 3, methods: 4, attributes: 0
+Constant pool:
+    #1 = String             #87           // aj
+    #2 = String             #89           // auto close1:
+    #3 = String             #90           // auto close2:
+    #4 = String             #95           // close error
+    #5 = String             #96           // current size:
+    #6 = String             #113          // new size:
+    #7 = Class              #87           // aj
+    #8 = Class              #101          // java/io/DataInputStream
+    #9 = Class              #102          // java/io/InputStream
+   #10 = Class              #103          // java/io/PrintStream
+   #11 = Class              #104          // java/lang/Class
+   #12 = Class              #105          // java/lang/ClassNotFoundException
+   #13 = Class              #106          // java/lang/Exception
+   #14 = Class              #107          // java/lang/NoClassDefFoundError
+   #15 = Class              #108          // java/lang/String
+   #16 = Class              #109          // java/lang/StringBuffer
+   #17 = Class              #110          // java/lang/System
+   #18 = Class              #111          // java/lang/Throwable
+   #19 = Class              #112          // java/util/Vector
+   #20 = Fieldref           #7.#47        // aj.a:Ljava/lang/String;
+   #21 = Fieldref           #7.#52        // aj.b:Ljava/util/Vector;
+   #22 = Fieldref           #7.#53        // aj.c:Ljava/lang/Class;
+   #23 = Fieldref           #17.#59       // java/lang/System.out:Ljava/io/PrintStream;
+   #24 = Methodref          #7.#45        // aj."<init>":(Ljava/io/InputStream;Ljava/lang/String;)V
+   #25 = Methodref          #7.#54        // aj.close:()V
+   #26 = Methodref          #8.#44        // java/io/DataInputStream."<init>":(Ljava/io/InputStream;)V
+   #27 = Methodref          #8.#51        // java/io/DataInputStream.available:()I
+   #28 = Methodref          #8.#54        // java/io/DataInputStream.close:()V
+   #29 = Methodref          #10.#60       // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #30 = Methodref          #11.#56       // java/lang/Class.forName:(Ljava/lang/String;)Ljava/lang/Class;
+   #31 = Methodref          #11.#58       // java/lang/Class.getResourceAsStream:(Ljava/lang/String;)Ljava/io/InputStream;
+   #32 = Methodref          #14.#46       // java/lang/NoClassDefFoundError."<init>":(Ljava/lang/String;)V
+   #33 = Methodref          #16.#46       // java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+   #34 = Methodref          #16.#49       // java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+   #35 = Methodref          #16.#50       // java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+   #36 = Methodref          #16.#63       // java/lang/StringBuffer.toString:()Ljava/lang/String;
+   #37 = Methodref          #18.#57       // java/lang/Throwable.getMessage:()Ljava/lang/String;
+   #38 = Methodref          #19.#43       // java/util/Vector."<init>":()V
+   #39 = Methodref          #19.#48       // java/util/Vector.addElement:(Ljava/lang/Object;)V
+   #40 = Methodref          #19.#55       // java/util/Vector.elementAt:(I)Ljava/lang/Object;
+   #41 = Methodref          #19.#61       // java/util/Vector.removeElement:(Ljava/lang/Object;)Z
+   #42 = Methodref          #19.#62       // java/util/Vector.size:()I
+   #43 = NameAndType        #78:#66       // "<init>":()V
+   #44 = NameAndType        #78:#69       // "<init>":(Ljava/io/InputStream;)V
+   #45 = NameAndType        #78:#70       // "<init>":(Ljava/io/InputStream;Ljava/lang/String;)V
+   #46 = NameAndType        #78:#76       // "<init>":(Ljava/lang/String;)V
+   #47 = NameAndType        #85:#82       // a:Ljava/lang/String;
+   #48 = NameAndType        #86:#71       // addElement:(Ljava/lang/Object;)V
+   #49 = NameAndType        #88:#68       // append:(I)Ljava/lang/StringBuffer;
+   #50 = NameAndType        #88:#75       // append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+   #51 = NameAndType        #91:#64       // available:()I
+   #52 = NameAndType        #92:#83       // b:Ljava/util/Vector;
+   #53 = NameAndType        #93:#81       // c:Ljava/lang/Class;
+   #54 = NameAndType        #94:#66       // close:()V
+   #55 = NameAndType        #97:#67       // elementAt:(I)Ljava/lang/Object;
+   #56 = NameAndType        #98:#74       // forName:(Ljava/lang/String;)Ljava/lang/Class;
+   #57 = NameAndType        #99:#65       // getMessage:()Ljava/lang/String;
+   #58 = NameAndType        #100:#73      // getResourceAsStream:(Ljava/lang/String;)Ljava/io/InputStream;
+   #59 = NameAndType        #114:#80      // out:Ljava/io/PrintStream;
+   #60 = NameAndType        #115:#76      // println:(Ljava/lang/String;)V
+   #61 = NameAndType        #116:#72      // removeElement:(Ljava/lang/Object;)Z
+   #62 = NameAndType        #117:#64      // size:()I
+   #63 = NameAndType        #118:#65      // toString:()Ljava/lang/String;
+   #64 = Utf8               ()I
+   #65 = Utf8               ()Ljava/lang/String;
+   #66 = Utf8               ()V
+   #67 = Utf8               (I)Ljava/lang/Object;
+   #68 = Utf8               (I)Ljava/lang/StringBuffer;
+   #69 = Utf8               (Ljava/io/InputStream;)V
+   #70 = Utf8               (Ljava/io/InputStream;Ljava/lang/String;)V
+   #71 = Utf8               (Ljava/lang/Object;)V
+   #72 = Utf8               (Ljava/lang/Object;)Z
+   #73 = Utf8               (Ljava/lang/String;)Ljava/io/InputStream;
+   #74 = Utf8               (Ljava/lang/String;)Ljava/lang/Class;
+   #75 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuffer;
+   #76 = Utf8               (Ljava/lang/String;)V
+   #77 = Utf8               <clinit>
+   #78 = Utf8               <init>
+   #79 = Utf8               Code
+   #80 = Utf8               Ljava/io/PrintStream;
+   #81 = Utf8               Ljava/lang/Class;
+   #82 = Utf8               Ljava/lang/String;
+   #83 = Utf8               Ljava/util/Vector;
+   #84 = Utf8               StackMap
+   #85 = Utf8               a
+   #86 = Utf8               addElement
+   #87 = Utf8               aj
+   #88 = Utf8               append
+   #89 = Utf8               auto close1:
+   #90 = Utf8               auto close2:
+   #91 = Utf8               available
+   #92 = Utf8               b
+   #93 = Utf8               c
+   #94 = Utf8               close
+   #95 = Utf8               close error
+   #96 = Utf8               current size:
+   #97 = Utf8               elementAt
+   #98 = Utf8               forName
+   #99 = Utf8               getMessage
+  #100 = Utf8               getResourceAsStream
+  #101 = Utf8               java/io/DataInputStream
+  #102 = Utf8               java/io/InputStream
+  #103 = Utf8               java/io/PrintStream
+  #104 = Utf8               java/lang/Class
+  #105 = Utf8               java/lang/ClassNotFoundException
+  #106 = Utf8               java/lang/Exception
+  #107 = Utf8               java/lang/NoClassDefFoundError
+  #108 = Utf8               java/lang/String
+  #109 = Utf8               java/lang/StringBuffer
+  #110 = Utf8               java/lang/System
+  #111 = Utf8               java/lang/Throwable
+  #112 = Utf8               java/util/Vector
+  #113 = Utf8               new size:
+  #114 = Utf8               out
+  #115 = Utf8               println
+  #116 = Utf8               removeElement
+  #117 = Utf8               size
+  #118 = Utf8               toString
+{
+  private java.lang.String a;
+    descriptor: Ljava/lang/String;
+    flags: (0x0002) ACC_PRIVATE
+
+  private static java.util.Vector b;
+    descriptor: Ljava/util/Vector;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static java.lang.Class c;
+    descriptor: Ljava/lang/Class;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: new           #19                 // class java/util/Vector
+         3: dup
+         4: invokespecial #38                 // Method java/util/Vector."<init>":()V
+         7: putstatic     #21                 // Field b:Ljava/util/Vector;
+        10: return
+
+  private aj(java.io.InputStream, java.lang.String);
+    descriptor: (Ljava/io/InputStream;Ljava/lang/String;)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=3, args_size=3
+         0: aload_0
+         1: aload_1
+         2: invokespecial #26                 // Method java/io/DataInputStream."<init>":(Ljava/io/InputStream;)V
+         5: aload_0
+         6: aload_2
+         7: putfield      #20                 // Field a:Ljava/lang/String;
+        10: return
+
+  public static java.io.InputStream a(java.lang.String);
+    descriptor: (Ljava/lang/String;)Ljava/io/InputStream;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=3, args_size=1
+         0: getstatic     #22                 // Field c:Ljava/lang/Class;
+         3: dup
+         4: ifnonnull     32
+         7: pop
+         8: ldc           #1                  // String aj
+        10: invokestatic  #30                 // Method java/lang/Class.forName:(Ljava/lang/String;)Ljava/lang/Class;
+        13: dup
+        14: putstatic     #22                 // Field c:Ljava/lang/Class;
+        17: goto          32
+        20: new           #14                 // class java/lang/NoClassDefFoundError
+        23: dup_x1
+        24: swap
+        25: invokevirtual #37                 // Method java/lang/Throwable.getMessage:()Ljava/lang/String;
+        28: invokespecial #32                 // Method java/lang/NoClassDefFoundError."<init>":(Ljava/lang/String;)V
+        31: athrow
+        32: aload_0
+        33: invokevirtual #31                 // Method java/lang/Class.getResourceAsStream:(Ljava/lang/String;)Ljava/io/InputStream;
+        36: dup
+        37: astore_1
+        38: ifnull        250
+        41: new           #7                  // class aj
+        44: dup
+        45: aload_1
+        46: aload_0
+        47: invokespecial #24                 // Method "<init>":(Ljava/io/InputStream;Ljava/lang/String;)V
+        50: astore_1
+        51: getstatic     #21                 // Field b:Ljava/util/Vector;
+        54: aload_1
+        55: invokevirtual #39                 // Method java/util/Vector.addElement:(Ljava/lang/Object;)V
+        58: getstatic     #21                 // Field b:Ljava/util/Vector;
+        61: invokevirtual #42                 // Method java/util/Vector.size:()I
+        64: bipush        10
+        66: if_icmple     250
+        69: getstatic     #23                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        72: new           #16                 // class java/lang/StringBuffer
+        75: dup
+        76: ldc           #5                  // String current size:
+        78: invokespecial #33                 // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+        81: getstatic     #21                 // Field b:Ljava/util/Vector;
+        84: invokevirtual #42                 // Method java/util/Vector.size:()I
+        87: invokevirtual #34                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        90: invokevirtual #36                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        93: invokevirtual #29                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        96: iconst_0
+        97: istore_0
+        98: goto          158
+       101: getstatic     #21                 // Field b:Ljava/util/Vector;
+       104: iload_0
+       105: invokevirtual #40                 // Method java/util/Vector.elementAt:(I)Ljava/lang/Object;
+       108: checkcast     #7                  // class aj
+       111: astore_2
+       112: aload_2
+       113: invokevirtual #27                 // Method java/io/DataInputStream.available:()I
+       116: ifne          155
+       119: getstatic     #23                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       122: new           #16                 // class java/lang/StringBuffer
+       125: dup
+       126: ldc           #2                  // String auto close1:
+       128: invokespecial #33                 // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       131: aload_2
+       132: getfield      #20                 // Field a:Ljava/lang/String;
+       135: invokevirtual #35                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       138: invokevirtual #36                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       141: invokevirtual #29                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       144: aload_2
+       145: invokevirtual #25                 // Method close:()V
+       148: iinc          0, -1
+       151: goto          155
+       154: pop
+       155: iinc          0, 1
+       158: iload_0
+       159: getstatic     #21                 // Field b:Ljava/util/Vector;
+       162: invokevirtual #42                 // Method java/util/Vector.size:()I
+       165: if_icmplt     101
+       168: getstatic     #23                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       171: new           #16                 // class java/lang/StringBuffer
+       174: dup
+       175: ldc           #6                  // String new size:
+       177: invokespecial #33                 // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       180: getstatic     #21                 // Field b:Ljava/util/Vector;
+       183: invokevirtual #42                 // Method java/util/Vector.size:()I
+       186: invokevirtual #34                 // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+       189: invokevirtual #36                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       192: invokevirtual #29                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       195: getstatic     #21                 // Field b:Ljava/util/Vector;
+       198: invokevirtual #42                 // Method java/util/Vector.size:()I
+       201: bipush        10
+       203: if_icmple     250
+       206: getstatic     #21                 // Field b:Ljava/util/Vector;
+       209: iconst_0
+       210: invokevirtual #40                 // Method java/util/Vector.elementAt:(I)Ljava/lang/Object;
+       213: checkcast     #7                  // class aj
+       216: astore_0
+       217: getstatic     #23                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       220: new           #16                 // class java/lang/StringBuffer
+       223: dup
+       224: ldc           #3                  // String auto close2:
+       226: invokespecial #33                 // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       229: aload_0
+       230: getfield      #20                 // Field a:Ljava/lang/String;
+       233: invokevirtual #35                 // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       236: invokevirtual #36                 // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       239: invokevirtual #29                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       242: aload_0
+       243: invokevirtual #25                 // Method close:()V
+       246: goto          250
+       249: pop
+       250: aload_1
+       251: areturn
+      Exception table:
+         from    to  target type
+             8    13    20   Class java/lang/ClassNotFoundException
+           112   151   154   Class java/lang/Exception
+           217   246   249   Class java/lang/Exception
+        StackMap: length = 0x59 (unknown attribute)
+         00 08 00 14 00 00 00 01 07 00 0C 00 20 00 01 07
+         00 0F 00 01 07 00 0B 00 65 00 02 01 07 00 07 00
+         00 00 9A 00 02 01 07 00 07 00 01 07 00 0D 00 9B
+         00 02 01 07 00 07 00 00 00 9E 00 02 01 07 00 07
+         00 00 00 F9 00 02 00 07 00 07 00 01 07 00 0D 00
+         FA 00 02 00 07 00 09 00 00
+
+  public void close();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #21                 // Field b:Ljava/util/Vector;
+         3: aload_0
+         4: invokevirtual #41                 // Method java/util/Vector.removeElement:(Ljava/lang/Object;)Z
+         7: pop
+         8: aload_0
+         9: invokespecial #28                 // Method java/io/DataInputStream.close:()V
+        12: return
+        13: pop
+        14: getstatic     #23                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        17: ldc           #4                  // String close error
+        19: invokevirtual #29                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        22: return
+      Exception table:
+         from    to  target type
+             8    12    13   Class java/lang/Exception
+        StackMap: length = 0xB (unknown attribute)
+         00 01 00 0D 00 00 00 01 07 00 0D
+}

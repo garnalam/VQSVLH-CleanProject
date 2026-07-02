@@ -1,0 +1,69 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/o.class
+  Last modified May 24, 2026; size 219 bytes
+  SHA-256 checksum c120f2985d17266c68cb0db115657fd3ed5ce04510d80a46209a9a3a0f960d52
+public final class o
+  minor version: 0
+  major version: 47
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #2                          // o
+  super_class: #1                         // java/lang/Object
+  interfaces: 0, fields: 7, methods: 1, attributes: 0
+Constant pool:
+   #1 = Class              #19            // java/lang/Object
+   #2 = Class              #20            // o
+   #3 = Methodref          #1.#4          // java/lang/Object."<init>":()V
+   #4 = NameAndType        #6:#5          // "<init>":()V
+   #5 = Utf8               ()V
+   #6 = Utf8               <init>
+   #7 = Utf8               Code
+   #8 = Utf8               I
+   #9 = Utf8               Z
+  #10 = Utf8               [S
+  #11 = Utf8               [[S
+  #12 = Utf8               a
+  #13 = Utf8               b
+  #14 = Utf8               c
+  #15 = Utf8               d
+  #16 = Utf8               e
+  #17 = Utf8               f
+  #18 = Utf8               g
+  #19 = Utf8               java/lang/Object
+  #20 = Utf8               o
+{
+  public int a;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public short[] b;
+    descriptor: [S
+    flags: (0x0001) ACC_PUBLIC
+
+  public short[][] c;
+    descriptor: [[S
+    flags: (0x0001) ACC_PUBLIC
+
+  public short[][] d;
+    descriptor: [[S
+    flags: (0x0001) ACC_PUBLIC
+
+  public short[][] e;
+    descriptor: [[S
+    flags: (0x0001) ACC_PUBLIC
+
+  public short[][] f;
+    descriptor: [[S
+    flags: (0x0001) ACC_PUBLIC
+
+  public boolean g;
+    descriptor: Z
+    flags: (0x0001) ACC_PUBLIC
+
+  public o();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #3                  // Method java/lang/Object."<init>":()V
+         4: return
+}

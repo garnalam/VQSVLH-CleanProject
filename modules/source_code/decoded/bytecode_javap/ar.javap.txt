@@ -1,0 +1,639 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/ar.class
+  Last modified May 24, 2026; size 2649 bytes
+  SHA-256 checksum a1946c590909f120ee27b660bc2511f38d314ba1402beaab952a4a6dc7080fd6
+public final class ar
+  minor version: 0
+  major version: 47
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #2                          // ar
+  super_class: #9                         // java/lang/Object
+  interfaces: 0, fields: 6, methods: 9, attributes: 0
+Constant pool:
+    #1 = Class              #112          // "[B"
+    #2 = Class              #115          // ar
+    #3 = Class              #129          // java/io/ByteArrayInputStream
+    #4 = Class              #130          // java/io/ByteArrayOutputStream
+    #5 = Class              #131          // java/io/DataInputStream
+    #6 = Class              #132          // java/io/DataOutputStream
+    #7 = Class              #133          // java/io/OutputStream
+    #8 = Class              #134          // java/lang/Exception
+    #9 = Class              #135          // java/lang/Object
+   #10 = Class              #136          // java/lang/System
+   #11 = Class              #137          // java/lang/Throwable
+   #12 = Class              #138          // javax/microedition/rms/RecordStore
+   #13 = Fieldref           #2.#57        // ar.a:Z
+   #14 = Fieldref           #2.#62        // ar.b:[B
+   #15 = Fieldref           #2.#64        // ar.c:Ljava/lang/String;
+   #16 = Fieldref           #2.#67        // ar.d:Ljavax/microedition/rms/RecordStore;
+   #17 = Fieldref           #2.#70        // ar.e:I
+   #18 = Fieldref           #2.#71        // ar.f:I
+   #19 = Methodref          #2.#55        // ar.a:(I)V
+   #20 = Methodref          #2.#56        // ar.a:(I[BIII)[B
+   #21 = Methodref          #2.#61        // ar.b:()V
+   #22 = Methodref          #2.#63        // ar.c:()I
+   #23 = Methodref          #2.#66        // ar.d:()V
+   #24 = Methodref          #3.#54        // java/io/ByteArrayInputStream."<init>":([B)V
+   #25 = Methodref          #4.#51        // java/io/ByteArrayOutputStream."<init>":()V
+   #26 = Methodref          #4.#82        // java/io/ByteArrayOutputStream.size:()I
+   #27 = Methodref          #4.#83        // java/io/ByteArrayOutputStream.toByteArray:()[B
+   #28 = Methodref          #5.#52        // java/io/DataInputStream."<init>":(Ljava/io/InputStream;)V
+   #29 = Methodref          #5.#60        // java/io/DataInputStream.available:()I
+   #30 = Methodref          #5.#77        // java/io/DataInputStream.read:([B)I
+   #31 = Methodref          #5.#78        // java/io/DataInputStream.readByte:()B
+   #32 = Methodref          #5.#79        // java/io/DataInputStream.readInt:()I
+   #33 = Methodref          #5.#80        // java/io/DataInputStream.readShort:()S
+   #34 = Methodref          #6.#53        // java/io/DataOutputStream."<init>":(Ljava/io/OutputStream;)V
+   #35 = Methodref          #6.#72        // java/io/DataOutputStream.flush:()V
+   #36 = Methodref          #6.#85        // java/io/DataOutputStream.writeByte:(I)V
+   #37 = Methodref          #6.#86        // java/io/DataOutputStream.writeInt:(I)V
+   #38 = Methodref          #7.#84        // java/io/OutputStream.write:([B)V
+   #39 = Methodref          #8.#76        // java/lang/Exception.printStackTrace:()V
+   #40 = Methodref          #9.#51        // java/lang/Object."<init>":()V
+   #41 = Methodref          #10.#59       // java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+   #42 = Methodref          #11.#76       // java/lang/Throwable.printStackTrace:()V
+   #43 = Methodref          #12.#58       // javax/microedition/rms/RecordStore.addRecord:([BII)I
+   #44 = Methodref          #12.#65       // javax/microedition/rms/RecordStore.closeRecordStore:()V
+   #45 = Methodref          #12.#68       // javax/microedition/rms/RecordStore.deleteRecord:(I)V
+   #46 = Methodref          #12.#69       // javax/microedition/rms/RecordStore.deleteRecordStore:(Ljava/lang/String;)V
+   #47 = Methodref          #12.#73       // javax/microedition/rms/RecordStore.getNumRecords:()I
+   #48 = Methodref          #12.#74       // javax/microedition/rms/RecordStore.getRecord:(I)[B
+   #49 = Methodref          #12.#75       // javax/microedition/rms/RecordStore.openRecordStore:(Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+   #50 = Methodref          #12.#81       // javax/microedition/rms/RecordStore.setRecord:(I[BII)V
+   #51 = NameAndType        #105:#90      // "<init>":()V
+   #52 = NameAndType        #105:#97      // "<init>":(Ljava/io/InputStream;)V
+   #53 = NameAndType        #105:#98      // "<init>":(Ljava/io/OutputStream;)V
+   #54 = NameAndType        #105:#103     // "<init>":([B)V
+   #55 = NameAndType        #113:#92      // a:(I)V
+   #56 = NameAndType        #113:#95      // a:(I[BIII)[B
+   #57 = NameAndType        #113:#111     // a:Z
+   #58 = NameAndType        #114:#104     // addRecord:([BII)I
+   #59 = NameAndType        #116:#99      // arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+   #60 = NameAndType        #117:#88      // available:()I
+   #61 = NameAndType        #118:#90      // b:()V
+   #62 = NameAndType        #118:#112     // b:[B
+   #63 = NameAndType        #119:#88      // c:()I
+   #64 = NameAndType        #119:#108     // c:Ljava/lang/String;
+   #65 = NameAndType        #120:#90      // closeRecordStore:()V
+   #66 = NameAndType        #121:#90      // d:()V
+   #67 = NameAndType        #121:#109     // d:Ljavax/microedition/rms/RecordStore;
+   #68 = NameAndType        #122:#92      // deleteRecord:(I)V
+   #69 = NameAndType        #123:#100     // deleteRecordStore:(Ljava/lang/String;)V
+   #70 = NameAndType        #124:#107     // e:I
+   #71 = NameAndType        #125:#107     // f:I
+   #72 = NameAndType        #126:#90      // flush:()V
+   #73 = NameAndType        #127:#88      // getNumRecords:()I
+   #74 = NameAndType        #128:#93      // getRecord:(I)[B
+   #75 = NameAndType        #139:#101     // openRecordStore:(Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+   #76 = NameAndType        #140:#90      // printStackTrace:()V
+   #77 = NameAndType        #141:#102     // read:([B)I
+   #78 = NameAndType        #142:#87      // readByte:()B
+   #79 = NameAndType        #143:#88      // readInt:()I
+   #80 = NameAndType        #144:#89      // readShort:()S
+   #81 = NameAndType        #145:#94      // setRecord:(I[BII)V
+   #82 = NameAndType        #146:#88      // size:()I
+   #83 = NameAndType        #147:#91      // toByteArray:()[B
+   #84 = NameAndType        #148:#103     // write:([B)V
+   #85 = NameAndType        #149:#92      // writeByte:(I)V
+   #86 = NameAndType        #150:#92      // writeInt:(I)V
+   #87 = Utf8               ()B
+   #88 = Utf8               ()I
+   #89 = Utf8               ()S
+   #90 = Utf8               ()V
+   #91 = Utf8               ()[B
+   #92 = Utf8               (I)V
+   #93 = Utf8               (I)[B
+   #94 = Utf8               (I[BII)V
+   #95 = Utf8               (I[BIII)[B
+   #96 = Utf8               (Ljava/io/ByteArrayOutputStream;)V
+   #97 = Utf8               (Ljava/io/InputStream;)V
+   #98 = Utf8               (Ljava/io/OutputStream;)V
+   #99 = Utf8               (Ljava/lang/Object;ILjava/lang/Object;II)V
+  #100 = Utf8               (Ljava/lang/String;)V
+  #101 = Utf8               (Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+  #102 = Utf8               ([B)I
+  #103 = Utf8               ([B)V
+  #104 = Utf8               ([BII)I
+  #105 = Utf8               <init>
+  #106 = Utf8               Code
+  #107 = Utf8               I
+  #108 = Utf8               Ljava/lang/String;
+  #109 = Utf8               Ljavax/microedition/rms/RecordStore;
+  #110 = Utf8               StackMap
+  #111 = Utf8               Z
+  #112 = Utf8               [B
+  #113 = Utf8               a
+  #114 = Utf8               addRecord
+  #115 = Utf8               ar
+  #116 = Utf8               arraycopy
+  #117 = Utf8               available
+  #118 = Utf8               b
+  #119 = Utf8               c
+  #120 = Utf8               closeRecordStore
+  #121 = Utf8               d
+  #122 = Utf8               deleteRecord
+  #123 = Utf8               deleteRecordStore
+  #124 = Utf8               e
+  #125 = Utf8               f
+  #126 = Utf8               flush
+  #127 = Utf8               getNumRecords
+  #128 = Utf8               getRecord
+  #129 = Utf8               java/io/ByteArrayInputStream
+  #130 = Utf8               java/io/ByteArrayOutputStream
+  #131 = Utf8               java/io/DataInputStream
+  #132 = Utf8               java/io/DataOutputStream
+  #133 = Utf8               java/io/OutputStream
+  #134 = Utf8               java/lang/Exception
+  #135 = Utf8               java/lang/Object
+  #136 = Utf8               java/lang/System
+  #137 = Utf8               java/lang/Throwable
+  #138 = Utf8               javax/microedition/rms/RecordStore
+  #139 = Utf8               openRecordStore
+  #140 = Utf8               printStackTrace
+  #141 = Utf8               read
+  #142 = Utf8               readByte
+  #143 = Utf8               readInt
+  #144 = Utf8               readShort
+  #145 = Utf8               setRecord
+  #146 = Utf8               size
+  #147 = Utf8               toByteArray
+  #148 = Utf8               write
+  #149 = Utf8               writeByte
+  #150 = Utf8               writeInt
+{
+  private java.lang.String c;
+    descriptor: Ljava/lang/String;
+    flags: (0x0002) ACC_PRIVATE
+
+  private javax.microedition.rms.RecordStore d;
+    descriptor: Ljavax/microedition/rms/RecordStore;
+    flags: (0x0002) ACC_PRIVATE
+
+  private int e;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int f;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  public boolean a;
+    descriptor: Z
+    flags: (0x0001) ACC_PUBLIC
+
+  public byte[] b;
+    descriptor: [B
+    flags: (0x0001) ACC_PUBLIC
+
+  public ar(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #40                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: iconst_1
+         6: putfield      #18                 // Field f:I
+         9: aload_0
+        10: aload_1
+        11: putfield      #15                 // Field c:Ljava/lang/String;
+        14: aload_0
+        15: invokespecial #22                 // Method c:()I
+        18: ifne          27
+        21: aload_0
+        22: iconst_1
+        23: invokespecial #19                 // Method a:(I)V
+        26: return
+        27: aload_0
+        28: invokespecial #22                 // Method c:()I
+        31: iconst_1
+        32: if_icmpeq     44
+        35: aload_0
+        36: invokevirtual #21                 // Method b:()V
+        39: aload_0
+        40: iconst_1
+        41: invokespecial #19                 // Method a:(I)V
+        44: return
+        StackMap: length = 0x11 (unknown attribute)
+         00 02 00 1B 00 01 07 00 02 00 00 00 2C 00 00 00
+         00
+
+  private void a(int);
+    descriptor: (I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=6, locals=6, args_size=2
+         0: iconst_1
+         1: newarray       byte
+         3: dup
+         4: iconst_0
+         5: iconst_0
+         6: bastore
+         7: astore_1
+         8: iconst_0
+         9: istore_2
+        10: iload_2
+        11: ifgt          44
+        14: aload_0
+        15: aload_1
+        16: aload_1
+        17: arraylength
+        18: istore        5
+        20: astore        4
+        22: dup
+        23: dup
+        24: astore_3
+        25: getfield      #18                 // Field f:I
+        28: aload         4
+        30: iconst_0
+        31: iload         5
+        33: iconst_1
+        34: invokespecial #20                 // Method a:(I[BIII)[B
+        37: pop
+        38: iinc          2, 1
+        41: goto          10
+        44: return
+        45: pop
+        46: return
+      Exception table:
+         from    to  target type
+             0    44    45   Class java/lang/Exception
+        StackMap: length = 0x1E (unknown attribute)
+         00 03 00 0A 00 03 07 00 02 07 00 01 01 00 00 00
+         2C 00 00 00 00 00 2D 00 00 00 01 07 00 08
+
+  private int c();
+    descriptor: ()I
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=6, locals=1, args_size=1
+         0: aload_0
+         1: aload_0
+         2: getfield      #18                 // Field f:I
+         5: aconst_null
+         6: iconst_0
+         7: iconst_0
+         8: iconst_0
+         9: invokespecial #20                 // Method a:(I[BIII)[B
+        12: pop
+        13: aload_0
+        14: getfield      #17                 // Field e:I
+        17: ireturn
+
+  public final byte[] a();
+    descriptor: ()[B
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=6, locals=3, args_size=1
+         0: aload_0
+         1: aconst_null
+         2: putfield      #14                 // Field b:[B
+         5: aload_0
+         6: iconst_1
+         7: aconst_null
+         8: iconst_0
+         9: iconst_0
+        10: iconst_3
+        11: invokespecial #20                 // Method a:(I[BIII)[B
+        14: dup
+        15: astore_1
+        16: ifnull        123
+        19: aload_1
+        20: arraylength
+        21: iconst_3
+        22: if_icmplt     123
+        25: aload_1
+        26: iconst_1
+        27: baload
+        28: bipush        44
+        30: if_icmpne     123
+        33: aload_1
+        34: iconst_2
+        35: baload
+        36: bipush        79
+        38: if_icmpne     123
+        41: new           #3                  // class java/io/ByteArrayInputStream
+        44: dup
+        45: aload_1
+        46: invokespecial #24                 // Method java/io/ByteArrayInputStream."<init>":([B)V
+        49: astore_2
+        50: new           #5                  // class java/io/DataInputStream
+        53: dup
+        54: aload_2
+        55: invokespecial #28                 // Method java/io/DataInputStream."<init>":(Ljava/io/InputStream;)V
+        58: dup
+        59: astore_1
+        60: invokevirtual #31                 // Method java/io/DataInputStream.readByte:()B
+        63: pop
+        64: aload_1
+        65: invokevirtual #33                 // Method java/io/DataInputStream.readShort:()S
+        68: pop
+        69: aload_1
+        70: invokevirtual #32                 // Method java/io/DataInputStream.readInt:()I
+        73: dup
+        74: istore_2
+        75: newarray       byte
+        77: astore_2
+        78: aload_1
+        79: aload_2
+        80: invokevirtual #30                 // Method java/io/DataInputStream.read:([B)I
+        83: pop
+        84: aload_1
+        85: invokevirtual #29                 // Method java/io/DataInputStream.available:()I
+        88: ifle          110
+        91: aload_0
+        92: aload_1
+        93: invokevirtual #29                 // Method java/io/DataInputStream.available:()I
+        96: newarray       byte
+        98: putfield      #14                 // Field b:[B
+       101: aload_1
+       102: aload_0
+       103: getfield      #14                 // Field b:[B
+       106: invokevirtual #30                 // Method java/io/DataInputStream.read:([B)I
+       109: pop
+       110: aload_0
+       111: invokespecial #23                 // Method d:()V
+       114: aload_2
+       115: areturn
+       116: dup
+       117: astore_2
+       118: invokevirtual #42                 // Method java/lang/Throwable.printStackTrace:()V
+       121: aconst_null
+       122: areturn
+       123: aload_1
+       124: arraylength
+       125: iconst_1
+       126: isub
+       127: newarray       byte
+       129: astore_2
+       130: aload_1
+       131: iconst_1
+       132: aload_2
+       133: iconst_0
+       134: aload_2
+       135: arraylength
+       136: invokestatic  #41                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+       139: aload_0
+       140: invokespecial #23                 // Method d:()V
+       143: aload_2
+       144: areturn
+      Exception table:
+         from    to  target type
+            41   116   116   Class java/lang/Exception
+        StackMap: length = 0x24 (unknown attribute)
+         00 03 00 6E 00 03 07 00 02 00 07 00 01 00 00 00
+         74 00 00 00 01 07 00 08 00 7B 00 02 07 00 02 07
+         00 01 00 00
+
+  public final void a(java.io.ByteArrayOutputStream);
+    descriptor: (Ljava/io/ByteArrayOutputStream;)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=6, locals=3, args_size=2
+         0: aload_1
+         1: invokevirtual #27                 // Method java/io/ByteArrayOutputStream.toByteArray:()[B
+         4: astore_2
+         5: aload_0
+         6: getfield      #13                 // Field a:Z
+         9: ifne          53
+        12: aload_2
+        13: arraylength
+        14: iconst_1
+        15: iadd
+        16: newarray       byte
+        18: astore_1
+        19: aload_2
+        20: iconst_0
+        21: aload_1
+        22: iconst_1
+        23: aload_2
+        24: arraylength
+        25: invokestatic  #41                 // Method java/lang/System.arraycopy:(Ljava/lang/Object;ILjava/lang/Object;II)V
+        28: aload_1
+        29: iconst_0
+        30: iconst_1
+        31: bastore
+        32: aload_1
+        33: arraylength
+        34: istore_2
+        35: aload_0
+        36: aload_0
+        37: getfield      #18                 // Field f:I
+        40: aload_1
+        41: iconst_0
+        42: iload_2
+        43: iconst_4
+        44: invokespecial #20                 // Method a:(I[BIII)[B
+        47: pop
+        48: aload_0
+        49: invokespecial #23                 // Method d:()V
+        52: return
+        53: aload_0
+        54: aload_2
+        55: putfield      #14                 // Field b:[B
+        58: return
+        StackMap: length = 0xF (unknown attribute)
+         00 01 00 35 00 03 07 00 02 00 07 00 01 00 00
+
+  private void d();
+    descriptor: ()V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=6, locals=1, args_size=1
+         0: aload_0
+         1: iconst_0
+         2: aconst_null
+         3: iconst_0
+         4: iconst_0
+         5: bipush        6
+         7: invokespecial #20                 // Method a:(I[BIII)[B
+        10: pop
+        11: return
+
+  public final void b();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=6, locals=1, args_size=1
+         0: aload_0
+         1: iconst_0
+         2: aconst_null
+         3: iconst_0
+         4: iconst_0
+         5: bipush        7
+         7: invokespecial #20                 // Method a:(I[BIII)[B
+        10: pop
+        11: return
+
+  private byte[] a(int, byte[], int, int, int);
+    descriptor: (I[BIII)[B
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=5, locals=6, args_size=6
+         0: iload         5
+         2: bipush        7
+         4: if_icmpeq     14
+         7: iload         5
+         9: bipush        6
+        11: if_icmpne     49
+        14: aload_0
+        15: getfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+        18: ifnull        33
+        21: aload_0
+        22: getfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+        25: invokevirtual #44                 // Method javax/microedition/rms/RecordStore.closeRecordStore:()V
+        28: aload_0
+        29: aconst_null
+        30: putfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+        33: iload         5
+        35: bipush        7
+        37: if_icmpne     47
+        40: aload_0
+        41: getfield      #15                 // Field c:Ljava/lang/String;
+        44: invokestatic  #46                 // Method javax/microedition/rms/RecordStore.deleteRecordStore:(Ljava/lang/String;)V
+        47: aconst_null
+        48: areturn
+        49: aload_0
+        50: getfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+        53: ifnonnull     68
+        56: aload_0
+        57: aload_0
+        58: getfield      #15                 // Field c:Ljava/lang/String;
+        61: iconst_1
+        62: invokestatic  #49                 // Method javax/microedition/rms/RecordStore.openRecordStore:(Ljava/lang/String;Z)Ljavax/microedition/rms/RecordStore;
+        65: putfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+        68: iload         5
+        70: tableswitch   { // 0 to 4
+
+                       0: 104
+
+                       1: 118
+
+                       2: 133
+
+                       3: 144
+
+                       4: 153
+                 default: 165
+            }
+       104: aload_0
+       105: aload_0
+       106: getfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+       109: invokevirtual #47                 // Method javax/microedition/rms/RecordStore.getNumRecords:()I
+       112: putfield      #17                 // Field e:I
+       115: goto          171
+       118: aload_0
+       119: getfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+       122: aload_2
+       123: iconst_0
+       124: iload         4
+       126: invokevirtual #43                 // Method javax/microedition/rms/RecordStore.addRecord:([BII)I
+       129: pop
+       130: goto          171
+       133: aload_0
+       134: getfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+       137: iload_1
+       138: invokevirtual #45                 // Method javax/microedition/rms/RecordStore.deleteRecord:(I)V
+       141: goto          171
+       144: aload_0
+       145: getfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+       148: iload_1
+       149: invokevirtual #48                 // Method javax/microedition/rms/RecordStore.getRecord:(I)[B
+       152: areturn
+       153: aload_0
+       154: getfield      #16                 // Field d:Ljavax/microedition/rms/RecordStore;
+       157: iload_1
+       158: aload_2
+       159: iconst_0
+       160: iload         4
+       162: invokevirtual #50                 // Method javax/microedition/rms/RecordStore.setRecord:(I[BII)V
+       165: goto          171
+       168: invokevirtual #39                 // Method java/lang/Exception.printStackTrace:()V
+       171: aconst_null
+       172: areturn
+      Exception table:
+         from    to  target type
+             0    48   168   Class java/lang/Exception
+            49   152   168   Class java/lang/Exception
+           153   165   168   Class java/lang/Exception
+        StackMap: length = 0x94 (unknown attribute)
+         00 0D 00 0E 00 06 07 00 02 00 00 00 00 01 00 00
+         00 21 00 06 07 00 02 00 00 00 00 01 00 00 00 2F
+         00 00 00 00 00 31 00 06 07 00 02 01 07 00 01 00
+         01 01 00 00 00 44 00 06 07 00 02 01 07 00 01 00
+         01 01 00 00 00 68 00 01 07 00 02 00 00 00 76 00
+         05 07 00 02 00 07 00 01 00 01 00 00 00 85 00 02
+         07 00 02 01 00 00 00 90 00 02 07 00 02 01 00 00
+         00 99 00 05 07 00 02 01 07 00 01 00 01 00 00 00
+         A5 00 00 00 00 00 A8 00 00 00 01 07 00 08 00 AB
+         00 00 00 00
+
+  public final void a(byte[]);
+    descriptor: ([B)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=6, locals=4, args_size=2
+         0: aload_0
+         1: getfield      #14                 // Field b:[B
+         4: ifnonnull     8
+         7: return
+         8: new           #4                  // class java/io/ByteArrayOutputStream
+        11: dup
+        12: invokespecial #25                 // Method java/io/ByteArrayOutputStream."<init>":()V
+        15: astore_2
+        16: new           #6                  // class java/io/DataOutputStream
+        19: dup
+        20: aload_2
+        21: invokespecial #34                 // Method java/io/DataOutputStream."<init>":(Ljava/io/OutputStream;)V
+        24: dup
+        25: astore_3
+        26: iconst_1
+        27: invokevirtual #36                 // Method java/io/DataOutputStream.writeByte:(I)V
+        30: aload_3
+        31: bipush        44
+        33: invokevirtual #36                 // Method java/io/DataOutputStream.writeByte:(I)V
+        36: aload_3
+        37: bipush        79
+        39: invokevirtual #36                 // Method java/io/DataOutputStream.writeByte:(I)V
+        42: aload_3
+        43: aload_0
+        44: getfield      #14                 // Field b:[B
+        47: arraylength
+        48: invokevirtual #37                 // Method java/io/DataOutputStream.writeInt:(I)V
+        51: aload_3
+        52: aload_0
+        53: getfield      #14                 // Field b:[B
+        56: invokevirtual #38                 // Method java/io/OutputStream.write:([B)V
+        59: aload_3
+        60: aload_1
+        61: invokevirtual #38                 // Method java/io/OutputStream.write:([B)V
+        64: aload_3
+        65: invokevirtual #35                 // Method java/io/DataOutputStream.flush:()V
+        68: aload_0
+        69: aconst_null
+        70: putfield      #14                 // Field b:[B
+        73: aload_0
+        74: aload_0
+        75: getfield      #18                 // Field f:I
+        78: aload_2
+        79: invokevirtual #27                 // Method java/io/ByteArrayOutputStream.toByteArray:()[B
+        82: iconst_0
+        83: aload_2
+        84: invokevirtual #26                 // Method java/io/ByteArrayOutputStream.size:()I
+        87: iconst_4
+        88: invokespecial #20                 // Method a:(I[BIII)[B
+        91: pop
+        92: aload_0
+        93: invokespecial #23                 // Method d:()V
+        96: return
+        97: dup
+        98: astore_2
+        99: invokevirtual #42                 // Method java/lang/Throwable.printStackTrace:()V
+       102: return
+      Exception table:
+         from    to  target type
+             8    97    97   Class java/lang/Exception
+        StackMap: length = 0x17 (unknown attribute)
+         00 02 00 08 00 02 07 00 02 07 00 01 00 00 00 61
+         00 00 00 01 07 00 08
+}

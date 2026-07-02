@@ -1,0 +1,552 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/a/c.class
+  Last modified May 24, 2026; size 1961 bytes
+  SHA-256 checksum bf12aedd86ea50b2a4be68087dbb82b1ae9500b1322c78b013c58949c643f8b5
+public final class a.c
+  minor version: 3
+  major version: 45
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #1                          // a/c
+  super_class: #7                         // java/lang/Object
+  interfaces: 0, fields: 9, methods: 16, attributes: 0
+Constant pool:
+    #1 = Class              #86           // a/c
+    #2 = Class              #87           // a/d
+    #3 = Class              #88           // a/f
+    #4 = Class              #89           // a/i
+    #5 = Class              #90           // a/j
+    #6 = Class              #101          // java/lang/Math
+    #7 = Class              #102          // java/lang/Object
+    #8 = Class              #103          // java/util/Vector
+    #9 = Fieldref           #1.#45        // a/c.a:La/i;
+   #10 = Fieldref           #1.#48        // a/c.b:La/d;
+   #11 = Fieldref           #1.#50        // a/c.c:I
+   #12 = Fieldref           #1.#51        // a/c.d:I
+   #13 = Fieldref           #1.#57        // a/c.f:I
+   #14 = Fieldref           #2.#44        // a/d.a:La/f;
+   #15 = Fieldref           #3.#51        // a/f.d:I
+   #16 = Fieldref           #3.#54        // a/f.e:Z
+   #17 = Fieldref           #3.#58        // a/f.g:I
+   #18 = Fieldref           #4.#52        // a/i.d:Ljava/util/Vector;
+   #19 = Fieldref           #4.#55        // a/i.e:[Ljava/lang/Object;
+   #20 = Fieldref           #4.#57        // a/i.f:I
+   #21 = Fieldref           #5.#45        // a/j.a:La/i;
+   #22 = Fieldref           #5.#47        // a/j.b:I
+   #23 = Methodref          #1.#39        // a/c.a:()I
+   #24 = Methodref          #1.#41        // a/c.a:(II)V
+   #25 = Methodref          #1.#42        // a/c.a:(III)V
+   #26 = Methodref          #1.#43        // a/c.a:(ILjava/lang/Object;)V
+   #27 = Methodref          #1.#49        // a/c.c:(I)V
+   #28 = Methodref          #1.#53        // a/c.e:()Z
+   #29 = Methodref          #4.#40        // a/i.a:(I)V
+   #30 = Methodref          #4.#42        // a/i.a:(III)V
+   #31 = Methodref          #4.#46        // a/i.b:(I)V
+   #32 = Methodref          #5.#38        // a/j."<init>":()V
+   #33 = Methodref          #6.#60        // java/lang/Math.min:(II)I
+   #34 = Methodref          #7.#38        // java/lang/Object."<init>":()V
+   #35 = Methodref          #8.#56        // java/util/Vector.elementAt:(I)Ljava/lang/Object;
+   #36 = Methodref          #8.#59        // java/util/Vector.insertElementAt:(Ljava/lang/Object;I)V
+   #37 = Methodref          #8.#61        // java/util/Vector.size:()I
+   #38 = NameAndType        #75:#63       // "<init>":()V
+   #39 = NameAndType        #85:#62       // a:()I
+   #40 = NameAndType        #85:#67       // a:(I)V
+   #41 = NameAndType        #85:#69       // a:(II)V
+   #42 = NameAndType        #85:#70       // a:(III)V
+   #43 = NameAndType        #85:#71       // a:(ILjava/lang/Object;)V
+   #44 = NameAndType        #85:#79       // a:La/f;
+   #45 = NameAndType        #85:#80       // a:La/i;
+   #46 = NameAndType        #91:#67       // b:(I)V
+   #47 = NameAndType        #91:#77       // b:I
+   #48 = NameAndType        #91:#78       // b:La/d;
+   #49 = NameAndType        #92:#67       // c:(I)V
+   #50 = NameAndType        #92:#77       // c:I
+   #51 = NameAndType        #93:#77       // d:I
+   #52 = NameAndType        #93:#81       // d:Ljava/util/Vector;
+   #53 = NameAndType        #94:#64       // e:()Z
+   #54 = NameAndType        #94:#83       // e:Z
+   #55 = NameAndType        #94:#84       // e:[Ljava/lang/Object;
+   #56 = NameAndType        #95:#66       // elementAt:(I)Ljava/lang/Object;
+   #57 = NameAndType        #96:#77       // f:I
+   #58 = NameAndType        #97:#77       // g:I
+   #59 = NameAndType        #100:#74      // insertElementAt:(Ljava/lang/Object;I)V
+   #60 = NameAndType        #104:#68      // min:(II)I
+   #61 = NameAndType        #105:#62      // size:()I
+   #62 = Utf8               ()I
+   #63 = Utf8               ()V
+   #64 = Utf8               ()Z
+   #65 = Utf8               (I)La/j;
+   #66 = Utf8               (I)Ljava/lang/Object;
+   #67 = Utf8               (I)V
+   #68 = Utf8               (II)I
+   #69 = Utf8               (II)V
+   #70 = Utf8               (III)V
+   #71 = Utf8               (ILjava/lang/Object;)V
+   #72 = Utf8               (La/i;)V
+   #73 = Utf8               (Ljava/lang/Object;)I
+   #74 = Utf8               (Ljava/lang/Object;I)V
+   #75 = Utf8               <init>
+   #76 = Utf8               Code
+   #77 = Utf8               I
+   #78 = Utf8               La/d;
+   #79 = Utf8               La/f;
+   #80 = Utf8               La/i;
+   #81 = Utf8               Ljava/util/Vector;
+   #82 = Utf8               StackMap
+   #83 = Utf8               Z
+   #84 = Utf8               [Ljava/lang/Object;
+   #85 = Utf8               a
+   #86 = Utf8               a/c
+   #87 = Utf8               a/d
+   #88 = Utf8               a/f
+   #89 = Utf8               a/i
+   #90 = Utf8               a/j
+   #91 = Utf8               b
+   #92 = Utf8               c
+   #93 = Utf8               d
+   #94 = Utf8               e
+   #95 = Utf8               elementAt
+   #96 = Utf8               f
+   #97 = Utf8               g
+   #98 = Utf8               h
+   #99 = Utf8               i
+  #100 = Utf8               insertElementAt
+  #101 = Utf8               java/lang/Math
+  #102 = Utf8               java/lang/Object
+  #103 = Utf8               java/util/Vector
+  #104 = Utf8               min
+  #105 = Utf8               size
+{
+  public a.i a;
+    descriptor: La/i;
+    flags: (0x0001) ACC_PUBLIC
+
+  public a.d b;
+    descriptor: La/d;
+    flags: (0x0001) ACC_PUBLIC
+
+  public int c;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public int d;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  int e;
+    descriptor: I
+    flags: (0x0000)
+
+  public int f;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  boolean g;
+    descriptor: Z
+    flags: (0x0000)
+
+  public boolean h;
+    descriptor: Z
+    flags: (0x0001) ACC_PUBLIC
+
+  boolean i;
+    descriptor: Z
+    flags: (0x0000)
+
+  public a.c(a.i);
+    descriptor: (La/i;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #34                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #9                  // Field a:La/i;
+         9: return
+
+  public final void a(int, java.lang.Object);
+    descriptor: (ILjava/lang/Object;)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=3, args_size=3
+         0: aload_0
+         1: getfield      #9                  // Field a:La/i;
+         4: getfield      #19                 // Field a/i.e:[Ljava/lang/Object;
+         7: aload_0
+         8: getfield      #12                 // Field d:I
+        11: iload_1
+        12: iadd
+        13: aload_2
+        14: aastore
+        15: return
+
+  public final java.lang.Object a(int);
+    descriptor: (I)Ljava/lang/Object;
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #9                  // Field a:La/i;
+         4: getfield      #19                 // Field a/i.e:[Ljava/lang/Object;
+         7: aload_0
+         8: getfield      #12                 // Field d:I
+        11: iload_1
+        12: iadd
+        13: aaload
+        14: areturn
+
+  public final int a(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)I
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=3, args_size=2
+         0: aload_0
+         1: invokevirtual #23                 // Method a:()I
+         4: istore_2
+         5: aload_0
+         6: iload_2
+         7: iconst_1
+         8: iadd
+         9: invokevirtual #27                 // Method c:(I)V
+        12: aload_0
+        13: iload_2
+        14: aload_1
+        15: invokevirtual #26                 // Method a:(ILjava/lang/Object;)V
+        18: iconst_1
+        19: ireturn
+
+  public final void a(int, int, int);
+    descriptor: (III)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=4, locals=4, args_size=4
+         0: aload_0
+         1: getfield      #9                  // Field a:La/i;
+         4: aload_0
+         5: getfield      #12                 // Field d:I
+         8: iload_1
+         9: iadd
+        10: aload_0
+        11: getfield      #12                 // Field d:I
+        14: iload_2
+        15: iadd
+        16: iload_3
+        17: invokevirtual #30                 // Method a/i.a:(III)V
+        20: return
+
+  public final void a(int, int);
+    descriptor: (II)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=3, args_size=3
+         0: goto          21
+         3: aload_0
+         4: getfield      #9                  // Field a:La/i;
+         7: getfield      #19                 // Field a/i.e:[Ljava/lang/Object;
+        10: aload_0
+        11: getfield      #12                 // Field d:I
+        14: iload_1
+        15: iadd
+        16: aconst_null
+        17: aastore
+        18: iinc          1, 1
+        21: iload_1
+        22: iload_2
+        23: if_icmple     3
+        26: return
+        StackMap: length = 0x18 (unknown attribute)
+         00 02 00 03 00 03 07 00 01 01 01 00 00 00 15 00
+         03 07 00 01 01 01 00 00
+
+  public final void b(int);
+    descriptor: (I)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=4, locals=2, args_size=2
+         0: aload_0
+         1: invokevirtual #23                 // Method a:()I
+         4: iload_1
+         5: if_icmpge     13
+         8: aload_0
+         9: iload_1
+        10: invokevirtual #27                 // Method c:(I)V
+        13: aload_0
+        14: iload_1
+        15: aload_0
+        16: invokevirtual #23                 // Method a:()I
+        19: iconst_1
+        20: isub
+        21: invokevirtual #24                 // Method a:(II)V
+        24: return
+        StackMap: length = 0xC (unknown attribute)
+         00 01 00 0D 00 02 07 00 01 01 00 00
+
+  public final void c(int);
+    descriptor: (I)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #9                  // Field a:La/i;
+         4: aload_0
+         5: getfield      #12                 // Field d:I
+         8: iload_1
+         9: iadd
+        10: invokevirtual #29                 // Method a/i.a:(I)V
+        13: return
+
+  public final void d(int);
+    descriptor: (I)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #9                  // Field a:La/i;
+         4: aload_0
+         5: getfield      #12                 // Field d:I
+         8: iload_1
+         9: iadd
+        10: invokevirtual #31                 // Method a/i.b:(I)V
+        13: return
+
+  public final a.j e(int);
+    descriptor: (I)La/j;
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=4, locals=5, args_size=2
+         0: aload_0
+         1: getfield      #9                  // Field a:La/i;
+         4: aload_0
+         5: getfield      #12                 // Field d:I
+         8: iload_1
+         9: iadd
+        10: istore_2
+        11: dup
+        12: astore_1
+        13: getfield      #18                 // Field a/i.d:Ljava/util/Vector;
+        16: invokevirtual #37                 // Method java/util/Vector.size:()I
+        19: istore_3
+        20: goto          56
+        23: aload_1
+        24: getfield      #18                 // Field a/i.d:Ljava/util/Vector;
+        27: iload_3
+        28: invokevirtual #35                 // Method java/util/Vector.elementAt:(I)Ljava/lang/Object;
+        31: checkcast     #5                  // class a/j
+        34: dup
+        35: astore        4
+        37: getfield      #22                 // Field a/j.b:I
+        40: iload_2
+        41: if_icmpne     47
+        44: aload         4
+        46: areturn
+        47: aload         4
+        49: getfield      #22                 // Field a/j.b:I
+        52: iload_2
+        53: if_icmplt     63
+        56: iinc          3, -1
+        59: iload_3
+        60: ifge          23
+        63: new           #5                  // class a/j
+        66: dup
+        67: invokespecial #32                 // Method a/j."<init>":()V
+        70: dup
+        71: astore        4
+        73: aload_1
+        74: putfield      #21                 // Field a/j.a:La/i;
+        77: aload         4
+        79: iload_2
+        80: putfield      #22                 // Field a/j.b:I
+        83: aload_1
+        84: getfield      #18                 // Field a/i.d:Ljava/util/Vector;
+        87: aload         4
+        89: iload_3
+        90: iconst_1
+        91: iadd
+        92: invokevirtual #36                 // Method java/util/Vector.insertElementAt:(Ljava/lang/Object;I)V
+        95: aload         4
+        97: areturn
+        StackMap: length = 0x35 (unknown attribute)
+         00 04 00 17 00 04 00 07 00 04 01 01 00 00 00 2F
+         00 05 00 07 00 04 01 01 07 00 05 00 00 00 38 00
+         04 00 07 00 04 01 01 00 00 00 3F 00 04 00 07 00
+         04 01 01 00 00
+
+  public final int a();
+    descriptor: ()I
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #9                  // Field a:La/i;
+         4: getfield      #20                 // Field a/i.f:I
+         7: aload_0
+         8: getfield      #12                 // Field d:I
+        11: isub
+        12: ireturn
+
+  public final void b();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=4, locals=2, args_size=1
+         0: aload_0
+         1: invokevirtual #28                 // Method e:()Z
+         4: ifeq          96
+         7: aload_0
+         8: iconst_0
+         9: putfield      #11                 // Field c:I
+        12: aload_0
+        13: getfield      #10                 // Field b:La/d;
+        16: getfield      #14                 // Field a/d.a:La/f;
+        19: getfield      #16                 // Field a/f.e:Z
+        22: ifeq          82
+        25: aload_0
+        26: dup
+        27: getfield      #12                 // Field d:I
+        30: aload_0
+        31: getfield      #13                 // Field f:I
+        34: iadd
+        35: putfield      #12                 // Field d:I
+        38: aload_0
+        39: aload_0
+        40: getfield      #10                 // Field b:La/d;
+        43: getfield      #14                 // Field a/d.a:La/f;
+        46: getfield      #17                 // Field a/f.g:I
+        49: invokevirtual #27                 // Method c:(I)V
+        52: aload_0
+        53: getfield      #13                 // Field f:I
+        56: aload_0
+        57: getfield      #10                 // Field b:La/d;
+        60: getfield      #14                 // Field a/d.a:La/f;
+        63: getfield      #15                 // Field a/f.d:I
+        66: invokestatic  #33                 // Method java/lang/Math.min:(II)I
+        69: istore_1
+        70: aload_0
+        71: aload_0
+        72: getfield      #13                 // Field f:I
+        75: ineg
+        76: iconst_0
+        77: iload_1
+        78: invokevirtual #25                 // Method a:(III)V
+        81: return
+        82: aload_0
+        83: aload_0
+        84: getfield      #10                 // Field b:La/d;
+        87: getfield      #14                 // Field a/d.a:La/f;
+        90: getfield      #17                 // Field a/f.g:I
+        93: invokevirtual #27                 // Method c:(I)V
+        96: return
+        StackMap: length = 0x11 (unknown attribute)
+         00 02 00 52 00 01 07 00 01 00 00 00 60 00 00 00
+         00
+
+  public final void c();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokevirtual #28                 // Method e:()Z
+         4: ifeq          21
+         7: aload_0
+         8: aload_0
+         9: getfield      #10                 // Field b:La/d;
+        12: getfield      #14                 // Field a/d.a:La/f;
+        15: getfield      #17                 // Field a/f.g:I
+        18: invokevirtual #27                 // Method c:(I)V
+        21: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 15 00 00 00 00
+
+  public final void b(int, int);
+    descriptor: (II)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=4, locals=5, args_size=3
+         0: aload_0
+         1: getfield      #10                 // Field b:La/d;
+         4: getfield      #14                 // Field a/d.a:La/f;
+         7: getfield      #15                 // Field a/f.d:I
+        10: istore_3
+        11: aload_0
+        12: getfield      #13                 // Field f:I
+        15: iload_3
+        16: isub
+        17: dup
+        18: istore        4
+        20: ifge          26
+        23: iconst_0
+        24: istore        4
+        26: iload_2
+        27: iconst_m1
+        28: if_icmpne     41
+        31: iload         4
+        33: istore_2
+        34: aload_0
+        35: iload_1
+        36: iload_2
+        37: iadd
+        38: invokevirtual #27                 // Method c:(I)V
+        41: iload         4
+        43: iload_2
+        44: if_icmple     50
+        47: iload_2
+        48: istore        4
+        50: aload_0
+        51: aload_0
+        52: getfield      #13                 // Field f:I
+        55: ineg
+        56: iload_3
+        57: iadd
+        58: iload_1
+        59: iload         4
+        61: invokevirtual #25                 // Method a:(III)V
+        64: iload_2
+        65: iload         4
+        67: isub
+        68: ifle          84
+        71: aload_0
+        72: iload_1
+        73: iload         4
+        75: iadd
+        76: iload_1
+        77: iload_2
+        78: iadd
+        79: iconst_1
+        80: isub
+        81: invokevirtual #24                 // Method a:(II)V
+        84: return
+        StackMap: length = 0x2F (unknown attribute)
+         00 04 00 1A 00 05 07 00 01 01 01 01 01 00 00 00
+         29 00 05 07 00 01 01 01 01 01 00 00 00 32 00 05
+         07 00 01 01 01 01 01 00 00 00 54 00 00 00 00
+
+  public final boolean d();
+    descriptor: ()Z
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokevirtual #28                 // Method e:()Z
+         4: ifeq          9
+         7: iconst_0
+         8: ireturn
+         9: iconst_1
+        10: ireturn
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 09 00 00 00 00
+
+  public final boolean e();
+    descriptor: ()Z
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #10                 // Field b:La/d;
+         4: ifnull        9
+         7: iconst_1
+         8: ireturn
+         9: iconst_0
+        10: ireturn
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 09 00 00 00 00
+}

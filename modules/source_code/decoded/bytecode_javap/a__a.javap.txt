@@ -1,0 +1,1822 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/a/a.class
+  Last modified May 24, 2026; size 8306 bytes
+  SHA-256 checksum 085f2ba3b23e8cd73659f5e9cc87e86d7dd7c73a7cb93d4fe4bae09dd5969917
+public final class a.a implements a.b
+  minor version: 3
+  major version: 45
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #49                         // a/a
+  super_class: #64                        // java/lang/Object
+  interfaces: 1, fields: 5, methods: 11, attributes: 0
+Constant pool:
+    #1 = String             #233          // \t
+    #2 = String             #276          // Argument 2 must be a number
+    #3 = String             #278          // Expected number
+    #4 = String             #290          // No closure found at this level:
+    #5 = String             #291          // Not enough arguments
+    #6 = String             #297          // _a
+    #7 = String             #298          // _c
+    #8 = String             #299          // _cn
+    #9 = String             #300          // _co
+   #10 = String             #301          // _o
+   #11 = String             #302          // _r
+   #12 = String             #303          // _s
+   #13 = String             #304          // _sp
+   #14 = String             #305          // _ss
+   #15 = String             #306          // _t
+   #16 = String             #317          // base out of range
+   #17 = String             #318          // boolean
+   #18 = String             #325          // error
+   #19 = String             #326          // expected a function or a number
+   #20 = String             #327          // expected a table
+   #21 = String             #329          // false
+   #22 = String             #331          // function
+   #23 = String             #332          // function 0x
+   #24 = String             #339          // getfenv
+   #25 = String             #359          // javax.microedition.io.Connector
+   #26 = String             #366          // level must be non-negative
+   #27 = String             #367          // nc
+   #28 = String             #369          // next
+   #29 = String             #371          // nil
+   #30 = String             #372          // number
+   #31 = String             #375          // pcall
+   #32 = String             #376          // print
+   #33 = String             #379          // rawequal
+   #34 = String             #380          // rp
+   #35 = String             #381          // select
+   #36 = String             #385          // setfenv
+   #37 = String             #386          // string
+   #38 = String             #388          // table
+   #39 = String             #389          // table 0x
+   #40 = String             #390          // text
+   #41 = String             #391          // thread
+   #42 = String             #394          // tonumber
+   #43 = String             #395          // tostring
+   #44 = String             #396          // true
+   #45 = String             #397          // type
+   #46 = String             #398          // unpack
+   #47 = String             #399          // userdata
+   #48 = Class              #296          // "[Ljava/lang/String;"
+   #49 = Class              #308          // a/a
+   #50 = Class              #309          // a/b
+   #51 = Class              #310          // a/c
+   #52 = Class              #311          // a/d
+   #53 = Class              #312          // a/g
+   #54 = Class              #313          // a/h
+   #55 = Class              #314          // a/i
+   #56 = Class              #343          // java/io/PrintStream
+   #57 = Class              #344          // java/lang/Boolean
+   #58 = Class              #345          // java/lang/Class
+   #59 = Class              #346          // java/lang/ClassNotFoundException
+   #60 = Class              #347          // java/lang/Exception
+   #61 = Class              #348          // java/lang/Integer
+   #62 = Class              #349          // java/lang/NoClassDefFoundError
+   #63 = Class              #350          // java/lang/NumberFormatException
+   #64 = Class              #351          // java/lang/Object
+   #65 = Class              #352          // java/lang/Runtime
+   #66 = Class              #353          // java/lang/RuntimeException
+   #67 = Class              #354          // java/lang/String
+   #68 = Class              #355          // java/lang/StringBuffer
+   #69 = Class              #356          // java/lang/System
+   #70 = Class              #357          // java/lang/Throwable
+   #71 = Class              #358          // java/util/Random
+   #72 = Class              #360          // javax/microedition/io/Connection
+   #73 = Class              #361          // javax/microedition/io/Connector
+   #74 = Class              #362          // javax/wireless/messaging/Message
+   #75 = Class              #363          // javax/wireless/messaging/MessageConnection
+   #76 = Class              #364          // javax/wireless/messaging/TextMessage
+   #77 = Long               -10l
+   #79 = Long               10l
+   #81 = Long               2147483647l
+   #83 = Fieldref           #49.#182      // a/a.a:Ljava/lang/Object;
+   #84 = Fieldref           #49.#192      // a/a.b:I
+   #85 = Fieldref           #49.#199      // a/a.c:[La/a;
+   #86 = Fieldref           #49.#203      // a/a.d:J
+   #87 = Fieldref           #49.#205      // a/a.e:Ljava/lang/Class;
+   #88 = Fieldref           #51.#181      // a/c.a:La/i;
+   #89 = Fieldref           #51.#193      // a/c.b:La/d;
+   #90 = Fieldref           #52.#194      // a/d.b:La/h;
+   #91 = Fieldref           #53.#181      // a/g.a:La/i;
+   #92 = Fieldref           #53.#195      // a/g.b:Ljava/io/PrintStream;
+   #93 = Fieldref           #55.#180      // a/i.a:La/h;
+   #94 = Fieldref           #55.#206      // a/i.e:[Ljava/lang/Object;
+   #95 = Fieldref           #55.#207      // a/i.f:I
+   #96 = Fieldref           #55.#209      // a/i.g:La/g;
+   #97 = Fieldref           #57.#165      // java/lang/Boolean.FALSE:Ljava/lang/Boolean;
+   #98 = Fieldref           #57.#166      // java/lang/Boolean.TRUE:Ljava/lang/Boolean;
+   #99 = Methodref          #49.#163      // a/a."<init>":(I)V
+  #100 = Methodref          #49.#176      // a/a.a:(Ljava/lang/String;)V
+  #101 = Methodref          #49.#177      // a/a.a:(Ljava/lang/String;I)Ljava/lang/Integer;
+  #102 = Methodref          #49.#178      // a/a.a:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #103 = Methodref          #49.#179      // a/a.a:(ZLjava/lang/String;)V
+  #104 = Methodref          #49.#187      // a/a.b:(La/c;I)I
+  #105 = Methodref          #49.#189      // a/a.b:(Ljava/lang/Object;)Ljava/lang/Integer;
+  #106 = Methodref          #51.#169      // a/c.a:(I)Ljava/lang/Object;
+  #107 = Methodref          #51.#171      // a/c.a:(ILjava/lang/Object;)V
+  #108 = Methodref          #51.#173      // a/c.a:(Ljava/lang/Object;)I
+  #109 = Methodref          #51.#197      // a/c.c:(I)V
+  #110 = Methodref          #51.#204      // a/c.e:()Z
+  #111 = Methodref          #53.#168      // a/g.a:(I)Ljava/lang/Integer;
+  #112 = Methodref          #53.#172      // a/g.a:(La/i;I)I
+  #113 = Methodref          #53.#188      // a/g.b:(La/i;I)I
+  #114 = Methodref          #53.#191      // a/g.b:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+  #115 = Methodref          #53.#198      // a/g.c:(Ljava/lang/Object;Ljava/lang/Object;)Z
+  #116 = Methodref          #54.#167      // a/h.a:()I
+  #117 = Methodref          #54.#174      // a/h.a:(Ljava/lang/Object;)Ljava/lang/Object;
+  #118 = Methodref          #54.#175      // a/h.a:(Ljava/lang/Object;Ljava/lang/Object;)V
+  #119 = Methodref          #54.#190      // a/h.b:(Ljava/lang/Object;)Ljava/lang/Object;
+  #120 = Methodref          #55.#170      // a/i.a:(I)V
+  #121 = Methodref          #55.#196      // a/i.c:(I)La/c;
+  #122 = Methodref          #56.#225      // java/io/PrintStream.println:(Ljava/lang/String;)V
+  #123 = Methodref          #58.#208      // java/lang/Class.forName:(Ljava/lang/String;)Ljava/lang/Class;
+  #124 = Methodref          #61.#163      // java/lang/Integer."<init>":(I)V
+  #125 = Methodref          #61.#218      // java/lang/Integer.intValue:()I
+  #126 = Methodref          #61.#223      // java/lang/Integer.parseInt:(Ljava/lang/String;I)I
+  #127 = Methodref          #61.#231      // java/lang/Integer.toString:()Ljava/lang/String;
+  #128 = Methodref          #61.#232      // java/lang/Integer.valueOf:(Ljava/lang/String;)Ljava/lang/Integer;
+  #129 = Methodref          #62.#164      // java/lang/NoClassDefFoundError."<init>":(Ljava/lang/String;)V
+  #130 = Methodref          #64.#162      // java/lang/Object."<init>":()V
+  #131 = Methodref          #64.#211      // java/lang/Object.getClass:()Ljava/lang/Class;
+  #132 = Methodref          #64.#231      // java/lang/Object.toString:()Ljava/lang/String;
+  #133 = Methodref          #65.#214      // java/lang/Runtime.getRuntime:()Ljava/lang/Runtime;
+  #134 = Methodref          #66.#164      // java/lang/RuntimeException."<init>":(Ljava/lang/String;)V
+  #135 = Methodref          #67.#200      // java/lang/String.charAt:(I)C
+  #136 = Methodref          #67.#216      // java/lang/String.indexOf:(Ljava/lang/String;)I
+  #137 = Methodref          #67.#217      // java/lang/String.indexOf:(Ljava/lang/String;I)I
+  #138 = Methodref          #67.#219      // java/lang/String.length:()I
+  #139 = Methodref          #67.#229      // java/lang/String.substring:(II)Ljava/lang/String;
+  #140 = Methodref          #67.#230      // java/lang/String.toLowerCase:()Ljava/lang/String;
+  #141 = Methodref          #68.#162      // java/lang/StringBuffer."<init>":()V
+  #142 = Methodref          #68.#164      // java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+  #143 = Methodref          #68.#183      // java/lang/StringBuffer.append:(C)Ljava/lang/StringBuffer;
+  #144 = Methodref          #68.#184      // java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+  #145 = Methodref          #68.#185      // java/lang/StringBuffer.append:(Ljava/lang/Object;)Ljava/lang/StringBuffer;
+  #146 = Methodref          #68.#186      // java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #147 = Methodref          #68.#231      // java/lang/StringBuffer.toString:()Ljava/lang/String;
+  #148 = Methodref          #69.#202      // java/lang/System.currentTimeMillis:()J
+  #149 = Methodref          #69.#213      // java/lang/System.getProperty:(Ljava/lang/String;)Ljava/lang/String;
+  #150 = Methodref          #69.#215      // java/lang/System.identityHashCode:(Ljava/lang/Object;)I
+  #151 = Methodref          #70.#212      // java/lang/Throwable.getMessage:()Ljava/lang/String;
+  #152 = Methodref          #70.#224      // java/lang/Throwable.printStackTrace:()V
+  #153 = Methodref          #71.#162      // java/util/Random."<init>":()V
+  #154 = Methodref          #71.#221      // java/util/Random.nextInt:()I
+  #155 = Methodref          #73.#222      // javax/microedition/io/Connector.open:(Ljava/lang/String;)Ljavax/microedition/io/Connection;
+  #156 = InterfaceMethodref #72.#201      // javax/microedition/io/Connection.close:()V
+  #157 = InterfaceMethodref #74.#210      // javax/wireless/messaging/Message.getAddress:()Ljava/lang/String;
+  #158 = InterfaceMethodref #74.#227      // javax/wireless/messaging/Message.setAddress:(Ljava/lang/String;)V
+  #159 = InterfaceMethodref #75.#220      // javax/wireless/messaging/MessageConnection.newMessage:(Ljava/lang/String;)Ljavax/wireless/messaging/Message;
+  #160 = InterfaceMethodref #75.#226      // javax/wireless/messaging/MessageConnection.send:(Ljavax/wireless/messaging/Message;)V
+  #161 = InterfaceMethodref #76.#228      // javax/wireless/messaging/TextMessage.setPayloadText:(Ljava/lang/String;)V
+  #162 = NameAndType        #275:#239     // "<init>":()V
+  #163 = NameAndType        #275:#247     // "<init>":(I)V
+  #164 = NameAndType        #275:#268     // "<init>":(Ljava/lang/String;)V
+  #165 = NameAndType        #279:#287     // FALSE:Ljava/lang/Boolean;
+  #166 = NameAndType        #293:#287     // TRUE:Ljava/lang/Boolean;
+  #167 = NameAndType        #307:#234     // a:()I
+  #168 = NameAndType        #307:#244     // a:(I)Ljava/lang/Integer;
+  #169 = NameAndType        #307:#245     // a:(I)Ljava/lang/Object;
+  #170 = NameAndType        #307:#247     // a:(I)V
+  #171 = NameAndType        #307:#249     // a:(ILjava/lang/Object;)V
+  #172 = NameAndType        #307:#252     // a:(La/i;I)I
+  #173 = NameAndType        #307:#253     // a:(Ljava/lang/Object;)I
+  #174 = NameAndType        #307:#255     // a:(Ljava/lang/Object;)Ljava/lang/Object;
+  #175 = NameAndType        #307:#259     // a:(Ljava/lang/Object;Ljava/lang/Object;)V
+  #176 = NameAndType        #307:#268     // a:(Ljava/lang/String;)V
+  #177 = NameAndType        #307:#270     // a:(Ljava/lang/String;I)Ljava/lang/Integer;
+  #178 = NameAndType        #307:#271     // a:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #179 = NameAndType        #307:#273     // a:(ZLjava/lang/String;)V
+  #180 = NameAndType        #307:#284     // a:La/h;
+  #181 = NameAndType        #307:#285     // a:La/i;
+  #182 = NameAndType        #307:#289     // a:Ljava/lang/Object;
+  #183 = NameAndType        #315:#241     // append:(C)Ljava/lang/StringBuffer;
+  #184 = NameAndType        #315:#246     // append:(I)Ljava/lang/StringBuffer;
+  #185 = NameAndType        #315:#257     // append:(Ljava/lang/Object;)Ljava/lang/StringBuffer;
+  #186 = NameAndType        #315:#265     // append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #187 = NameAndType        #316:#250     // b:(La/c;I)I
+  #188 = NameAndType        #316:#252     // b:(La/i;I)I
+  #189 = NameAndType        #316:#254     // b:(Ljava/lang/Object;)Ljava/lang/Integer;
+  #190 = NameAndType        #316:#255     // b:(Ljava/lang/Object;)Ljava/lang/Object;
+  #191 = NameAndType        #316:#258     // b:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+  #192 = NameAndType        #316:#280     // b:I
+  #193 = NameAndType        #316:#282     // b:La/d;
+  #194 = NameAndType        #316:#284     // b:La/h;
+  #195 = NameAndType        #316:#286     // b:Ljava/io/PrintStream;
+  #196 = NameAndType        #319:#243     // c:(I)La/c;
+  #197 = NameAndType        #319:#247     // c:(I)V
+  #198 = NameAndType        #319:#260     // c:(Ljava/lang/Object;Ljava/lang/Object;)Z
+  #199 = NameAndType        #319:#294     // c:[La/a;
+  #200 = NameAndType        #320:#242     // charAt:(I)C
+  #201 = NameAndType        #321:#239     // close:()V
+  #202 = NameAndType        #322:#235     // currentTimeMillis:()J
+  #203 = NameAndType        #323:#281     // d:J
+  #204 = NameAndType        #324:#240     // e:()Z
+  #205 = NameAndType        #324:#288     // e:Ljava/lang/Class;
+  #206 = NameAndType        #324:#295     // e:[Ljava/lang/Object;
+  #207 = NameAndType        #328:#280     // f:I
+  #208 = NameAndType        #330:#262     // forName:(Ljava/lang/String;)Ljava/lang/Class;
+  #209 = NameAndType        #333:#283     // g:La/g;
+  #210 = NameAndType        #334:#238     // getAddress:()Ljava/lang/String;
+  #211 = NameAndType        #335:#236     // getClass:()Ljava/lang/Class;
+  #212 = NameAndType        #336:#238     // getMessage:()Ljava/lang/String;
+  #213 = NameAndType        #337:#264     // getProperty:(Ljava/lang/String;)Ljava/lang/String;
+  #214 = NameAndType        #338:#237     // getRuntime:()Ljava/lang/Runtime;
+  #215 = NameAndType        #340:#253     // identityHashCode:(Ljava/lang/Object;)I
+  #216 = NameAndType        #341:#261     // indexOf:(Ljava/lang/String;)I
+  #217 = NameAndType        #341:#269     // indexOf:(Ljava/lang/String;I)I
+  #218 = NameAndType        #342:#234     // intValue:()I
+  #219 = NameAndType        #365:#234     // length:()I
+  #220 = NameAndType        #368:#267     // newMessage:(Ljava/lang/String;)Ljavax/wireless/messaging/Message;
+  #221 = NameAndType        #370:#234     // nextInt:()I
+  #222 = NameAndType        #373:#266     // open:(Ljava/lang/String;)Ljavax/microedition/io/Connection;
+  #223 = NameAndType        #374:#269     // parseInt:(Ljava/lang/String;I)I
+  #224 = NameAndType        #377:#239     // printStackTrace:()V
+  #225 = NameAndType        #378:#268     // println:(Ljava/lang/String;)V
+  #226 = NameAndType        #382:#272     // send:(Ljavax/wireless/messaging/Message;)V
+  #227 = NameAndType        #383:#268     // setAddress:(Ljava/lang/String;)V
+  #228 = NameAndType        #384:#268     // setPayloadText:(Ljava/lang/String;)V
+  #229 = NameAndType        #387:#248     // substring:(II)Ljava/lang/String;
+  #230 = NameAndType        #392:#238     // toLowerCase:()Ljava/lang/String;
+  #231 = NameAndType        #393:#238     // toString:()Ljava/lang/String;
+  #232 = NameAndType        #400:#263     // valueOf:(Ljava/lang/String;)Ljava/lang/Integer;
+  #233 = Utf8               \t
+  #234 = Utf8               ()I
+  #235 = Utf8               ()J
+  #236 = Utf8               ()Ljava/lang/Class;
+  #237 = Utf8               ()Ljava/lang/Runtime;
+  #238 = Utf8               ()Ljava/lang/String;
+  #239 = Utf8               ()V
+  #240 = Utf8               ()Z
+  #241 = Utf8               (C)Ljava/lang/StringBuffer;
+  #242 = Utf8               (I)C
+  #243 = Utf8               (I)La/c;
+  #244 = Utf8               (I)Ljava/lang/Integer;
+  #245 = Utf8               (I)Ljava/lang/Object;
+  #246 = Utf8               (I)Ljava/lang/StringBuffer;
+  #247 = Utf8               (I)V
+  #248 = Utf8               (II)Ljava/lang/String;
+  #249 = Utf8               (ILjava/lang/Object;)V
+  #250 = Utf8               (La/c;I)I
+  #251 = Utf8               (La/g;)V
+  #252 = Utf8               (La/i;I)I
+  #253 = Utf8               (Ljava/lang/Object;)I
+  #254 = Utf8               (Ljava/lang/Object;)Ljava/lang/Integer;
+  #255 = Utf8               (Ljava/lang/Object;)Ljava/lang/Object;
+  #256 = Utf8               (Ljava/lang/Object;)Ljava/lang/String;
+  #257 = Utf8               (Ljava/lang/Object;)Ljava/lang/StringBuffer;
+  #258 = Utf8               (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+  #259 = Utf8               (Ljava/lang/Object;Ljava/lang/Object;)V
+  #260 = Utf8               (Ljava/lang/Object;Ljava/lang/Object;)Z
+  #261 = Utf8               (Ljava/lang/String;)I
+  #262 = Utf8               (Ljava/lang/String;)Ljava/lang/Class;
+  #263 = Utf8               (Ljava/lang/String;)Ljava/lang/Integer;
+  #264 = Utf8               (Ljava/lang/String;)Ljava/lang/String;
+  #265 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuffer;
+  #266 = Utf8               (Ljava/lang/String;)Ljavax/microedition/io/Connection;
+  #267 = Utf8               (Ljava/lang/String;)Ljavax/wireless/messaging/Message;
+  #268 = Utf8               (Ljava/lang/String;)V
+  #269 = Utf8               (Ljava/lang/String;I)I
+  #270 = Utf8               (Ljava/lang/String;I)Ljava/lang/Integer;
+  #271 = Utf8               (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #272 = Utf8               (Ljavax/wireless/messaging/Message;)V
+  #273 = Utf8               (ZLjava/lang/String;)V
+  #274 = Utf8               <clinit>
+  #275 = Utf8               <init>
+  #276 = Utf8               Argument 2 must be a number
+  #277 = Utf8               Code
+  #278 = Utf8               Expected number
+  #279 = Utf8               FALSE
+  #280 = Utf8               I
+  #281 = Utf8               J
+  #282 = Utf8               La/d;
+  #283 = Utf8               La/g;
+  #284 = Utf8               La/h;
+  #285 = Utf8               La/i;
+  #286 = Utf8               Ljava/io/PrintStream;
+  #287 = Utf8               Ljava/lang/Boolean;
+  #288 = Utf8               Ljava/lang/Class;
+  #289 = Utf8               Ljava/lang/Object;
+  #290 = Utf8               No closure found at this level:
+  #291 = Utf8               Not enough arguments
+  #292 = Utf8               StackMap
+  #293 = Utf8               TRUE
+  #294 = Utf8               [La/a;
+  #295 = Utf8               [Ljava/lang/Object;
+  #296 = Utf8               [Ljava/lang/String;
+  #297 = Utf8               _a
+  #298 = Utf8               _c
+  #299 = Utf8               _cn
+  #300 = Utf8               _co
+  #301 = Utf8               _o
+  #302 = Utf8               _r
+  #303 = Utf8               _s
+  #304 = Utf8               _sp
+  #305 = Utf8               _ss
+  #306 = Utf8               _t
+  #307 = Utf8               a
+  #308 = Utf8               a/a
+  #309 = Utf8               a/b
+  #310 = Utf8               a/c
+  #311 = Utf8               a/d
+  #312 = Utf8               a/g
+  #313 = Utf8               a/h
+  #314 = Utf8               a/i
+  #315 = Utf8               append
+  #316 = Utf8               b
+  #317 = Utf8               base out of range
+  #318 = Utf8               boolean
+  #319 = Utf8               c
+  #320 = Utf8               charAt
+  #321 = Utf8               close
+  #322 = Utf8               currentTimeMillis
+  #323 = Utf8               d
+  #324 = Utf8               e
+  #325 = Utf8               error
+  #326 = Utf8               expected a function or a number
+  #327 = Utf8               expected a table
+  #328 = Utf8               f
+  #329 = Utf8               false
+  #330 = Utf8               forName
+  #331 = Utf8               function
+  #332 = Utf8               function 0x
+  #333 = Utf8               g
+  #334 = Utf8               getAddress
+  #335 = Utf8               getClass
+  #336 = Utf8               getMessage
+  #337 = Utf8               getProperty
+  #338 = Utf8               getRuntime
+  #339 = Utf8               getfenv
+  #340 = Utf8               identityHashCode
+  #341 = Utf8               indexOf
+  #342 = Utf8               intValue
+  #343 = Utf8               java/io/PrintStream
+  #344 = Utf8               java/lang/Boolean
+  #345 = Utf8               java/lang/Class
+  #346 = Utf8               java/lang/ClassNotFoundException
+  #347 = Utf8               java/lang/Exception
+  #348 = Utf8               java/lang/Integer
+  #349 = Utf8               java/lang/NoClassDefFoundError
+  #350 = Utf8               java/lang/NumberFormatException
+  #351 = Utf8               java/lang/Object
+  #352 = Utf8               java/lang/Runtime
+  #353 = Utf8               java/lang/RuntimeException
+  #354 = Utf8               java/lang/String
+  #355 = Utf8               java/lang/StringBuffer
+  #356 = Utf8               java/lang/System
+  #357 = Utf8               java/lang/Throwable
+  #358 = Utf8               java/util/Random
+  #359 = Utf8               javax.microedition.io.Connector
+  #360 = Utf8               javax/microedition/io/Connection
+  #361 = Utf8               javax/microedition/io/Connector
+  #362 = Utf8               javax/wireless/messaging/Message
+  #363 = Utf8               javax/wireless/messaging/MessageConnection
+  #364 = Utf8               javax/wireless/messaging/TextMessage
+  #365 = Utf8               length
+  #366 = Utf8               level must be non-negative
+  #367 = Utf8               nc
+  #368 = Utf8               newMessage
+  #369 = Utf8               next
+  #370 = Utf8               nextInt
+  #371 = Utf8               nil
+  #372 = Utf8               number
+  #373 = Utf8               open
+  #374 = Utf8               parseInt
+  #375 = Utf8               pcall
+  #376 = Utf8               print
+  #377 = Utf8               printStackTrace
+  #378 = Utf8               println
+  #379 = Utf8               rawequal
+  #380 = Utf8               rp
+  #381 = Utf8               select
+  #382 = Utf8               send
+  #383 = Utf8               setAddress
+  #384 = Utf8               setPayloadText
+  #385 = Utf8               setfenv
+  #386 = Utf8               string
+  #387 = Utf8               substring
+  #388 = Utf8               table
+  #389 = Utf8               table 0x
+  #390 = Utf8               text
+  #391 = Utf8               thread
+  #392 = Utf8               toLowerCase
+  #393 = Utf8               toString
+  #394 = Utf8               tonumber
+  #395 = Utf8               tostring
+  #396 = Utf8               true
+  #397 = Utf8               type
+  #398 = Utf8               unpack
+  #399 = Utf8               userdata
+  #400 = Utf8               valueOf
+  #401 = Utf8               lavax/wireless/messaging/MessageConnection
+  #402 = Class              #401          // lavax/wireless/messaging/MessageConnection
+  #403 = Methodref          #402.#226     // lavax/wireless/messaging/MessageConnection.send:(Ljavax/wireless/messaging/Message;)V
+{
+  private static final java.lang.Object a;
+    descriptor: Ljava/lang/Object;
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private int b;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private static a.a[] c;
+    descriptor: [La/a;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static long d;
+    descriptor: J
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static java.lang.Class e;
+    descriptor: Ljava/lang/Class;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=3, locals=0, args_size=0
+         0: invokestatic  #133                // Method java/lang/Runtime.getRuntime:()Ljava/lang/Runtime;
+         3: pop
+         4: new           #61                 // class java/lang/Integer
+         7: dup
+         8: iconst_1
+         9: invokespecial #124                // Method java/lang/Integer."<init>":(I)V
+        12: putstatic     #83                 // Field a:Ljava/lang/Object;
+        15: return
+
+  private a.a(int);
+    descriptor: (I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #130                // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: iload_1
+         6: putfield      #84                 // Field b:I
+         9: return
+
+  public static void a(a.g);
+    descriptor: (La/g;)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=5, locals=3, args_size=1
+         0: bipush        23
+         2: anewarray     #67                 // class java/lang/String
+         5: dup
+         6: astore_1
+         7: iconst_0
+         8: ldc           #31                 // String pcall
+        10: aastore
+        11: aload_1
+        12: iconst_1
+        13: ldc           #32                 // String print
+        15: aastore
+        16: aload_1
+        17: iconst_2
+        18: ldc           #35                 // String select
+        20: aastore
+        21: aload_1
+        22: iconst_3
+        23: ldc           #45                 // String type
+        25: aastore
+        26: aload_1
+        27: iconst_4
+        28: ldc           #43                 // String tostring
+        30: aastore
+        31: aload_1
+        32: iconst_5
+        33: ldc           #42                 // String tonumber
+        35: aastore
+        36: aload_1
+        37: bipush        6
+        39: ldc           #18                 // String error
+        41: aastore
+        42: aload_1
+        43: bipush        7
+        45: ldc           #46                 // String unpack
+        47: aastore
+        48: aload_1
+        49: bipush        8
+        51: ldc           #28                 // String next
+        53: aastore
+        54: aload_1
+        55: bipush        9
+        57: ldc           #36                 // String setfenv
+        59: aastore
+        60: aload_1
+        61: bipush        10
+        63: ldc           #24                 // String getfenv
+        65: aastore
+        66: aload_1
+        67: bipush        11
+        69: ldc           #33                 // String rawequal
+        71: aastore
+        72: aload_1
+        73: bipush        12
+        75: ldc           #12                 // String _s
+        77: aastore
+        78: aload_1
+        79: bipush        13
+        81: ldc           #14                 // String _ss
+        83: aastore
+        84: aload_1
+        85: bipush        14
+        87: ldc           #15                 // String _t
+        89: aastore
+        90: aload_1
+        91: bipush        15
+        93: ldc           #6                  // String _a
+        95: aastore
+        96: aload_1
+        97: bipush        16
+        99: ldc           #34                 // String rp
+       101: aastore
+       102: aload_1
+       103: bipush        17
+       105: ldc           #8                  // String _cn
+       107: aastore
+       108: aload_1
+       109: bipush        18
+       111: ldc           #11                 // String _r
+       113: aastore
+       114: aload_1
+       115: bipush        19
+       117: ldc           #10                 // String _o
+       119: aastore
+       120: aload_1
+       121: bipush        20
+       123: ldc           #7                  // String _c
+       125: aastore
+       126: aload_1
+       127: bipush        21
+       129: ldc           #13                 // String _sp
+       131: aastore
+       132: aload_1
+       133: bipush        22
+       135: ldc           #27                 // String nc
+       137: aastore
+       138: getstatic     #85                 // Field c:[La/a;
+       141: ifnonnull     179
+       144: bipush        23
+       146: anewarray     #49                 // class a/a
+       149: putstatic     #85                 // Field c:[La/a;
+       152: iconst_0
+       153: istore_2
+       154: goto          173
+       157: getstatic     #85                 // Field c:[La/a;
+       160: iload_2
+       161: new           #49                 // class a/a
+       164: dup
+       165: iload_2
+       166: invokespecial #99                 // Method "<init>":(I)V
+       169: aastore
+       170: iinc          2, 1
+       173: iload_2
+       174: bipush        23
+       176: if_icmplt     157
+       179: iconst_0
+       180: istore_2
+       181: goto          205
+       184: aload_0
+       185: getfield      #91                 // Field a/g.a:La/i;
+       188: getfield      #93                 // Field a/i.a:La/h;
+       191: aload_1
+       192: iload_2
+       193: aaload
+       194: getstatic     #85                 // Field c:[La/a;
+       197: iload_2
+       198: aaload
+       199: invokevirtual #118                // Method a/h.a:(Ljava/lang/Object;Ljava/lang/Object;)V
+       202: iinc          2, 1
+       205: iload_2
+       206: bipush        23
+       208: if_icmplt     184
+       211: aload_0
+       212: getfield      #91                 // Field a/g.a:La/i;
+       215: getfield      #93                 // Field a/i.a:La/h;
+       218: ldc           #9                  // String _co
+       220: getstatic     #87                 // Field e:Ljava/lang/Class;
+       223: dup
+       224: ifnonnull     252
+       227: pop
+       228: ldc           #25                 // String javax.microedition.io.Connector
+       230: invokestatic  #123                // Method java/lang/Class.forName:(Ljava/lang/String;)Ljava/lang/Class;
+       233: dup
+       234: putstatic     #87                 // Field e:Ljava/lang/Class;
+       237: goto          252
+       240: new           #62                 // class java/lang/NoClassDefFoundError
+       243: dup_x1
+       244: swap
+       245: invokevirtual #151                // Method java/lang/Throwable.getMessage:()Ljava/lang/String;
+       248: invokespecial #129                // Method java/lang/NoClassDefFoundError."<init>":(Ljava/lang/String;)V
+       251: athrow
+       252: invokevirtual #118                // Method a/h.a:(Ljava/lang/Object;Ljava/lang/Object;)V
+       255: return
+      Exception table:
+         from    to  target type
+           228   233   240   Class java/lang/ClassNotFoundException
+        StackMap: length = 0x5A (unknown attribute)
+         00 07 00 9D 00 03 07 00 35 07 00 30 01 00 00 00
+         AD 00 03 07 00 35 07 00 30 01 00 00 00 B3 00 02
+         07 00 35 07 00 30 00 00 00 B8 00 03 07 00 35 07
+         00 30 01 00 00 00 CD 00 03 07 00 35 07 00 30 01
+         00 00 00 F0 00 00 00 01 07 00 3B 00 FC 00 00 00
+         03 07 00 36 07 00 43 07 00 3A
+
+  public final int a(a.c, int);
+    descriptor: (La/c;I)I
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=7, locals=12, args_size=3
+         0: aload_0
+         1: getfield      #84                 // Field b:I
+         4: tableswitch   { // 0 to 22
+
+                       0: 112
+
+                       1: 132
+
+                       2: 346
+
+                       3: 348
+
+                       4: 477
+
+                       5: 645
+
+                       6: 741
+
+                       7: 743
+
+                       8: 749
+
+                       9: 846
+
+                      10: 1016
+
+                      11: 1166
+
+                      12: 1223
+
+                      13: 1315
+
+                      14: 1356
+
+                      15: 1378
+
+                      16: 1418
+
+                      17: 1452
+
+                      18: 1467
+
+                      19: 1523
+
+                      20: 1549
+
+                      21: 1601
+
+                      22: 1634
+                 default: 1656
+            }
+       112: aload_1
+       113: dup
+       114: astore_1
+       115: getfield      #88                 // Field a/c.a:La/i;
+       118: getfield      #96                 // Field a/i.g:La/g;
+       121: aload_1
+       122: getfield      #88                 // Field a/c.a:La/i;
+       125: iload_2
+       126: iconst_1
+       127: isub
+       128: invokevirtual #113                // Method a/g.b:(La/i;I)I
+       131: ireturn
+       132: aload_1
+       133: dup
+       134: astore_1
+       135: getfield      #88                 // Field a/c.a:La/i;
+       138: getfield      #96                 // Field a/i.g:La/g;
+       141: dup
+       142: astore_3
+       143: getfield      #91                 // Field a/g.a:La/i;
+       146: getfield      #93                 // Field a/i.a:La/h;
+       149: aconst_null
+       150: astore        4
+       152: ldc           #43                 // String tostring
+       154: invokestatic  #114                // Method a/g.b:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+       157: astore        5
+       159: new           #68                 // class java/lang/StringBuffer
+       162: dup
+       163: invokespecial #141                // Method java/lang/StringBuffer."<init>":()V
+       166: astore        6
+       168: iconst_0
+       169: istore        7
+       171: goto          326
+       174: aload_3
+       175: aload         5
+       177: aload_1
+       178: iload         7
+       180: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       183: astore        9
+       185: astore        8
+       187: dup
+       188: astore        4
+       190: getfield      #91                 // Field a/g.a:La/i;
+       193: getfield      #95                 // Field a/i.f:I
+       196: istore        10
+       198: aload         4
+       200: getfield      #91                 // Field a/g.a:La/i;
+       203: iload         10
+       205: iconst_1
+       206: iadd
+       207: iconst_3
+       208: iadd
+       209: invokevirtual #120                // Method a/i.a:(I)V
+       212: aload         4
+       214: getfield      #91                 // Field a/g.a:La/i;
+       217: getfield      #94                 // Field a/i.e:[Ljava/lang/Object;
+       220: dup
+       221: astore        11
+       223: iload         10
+       225: aload         8
+       227: aastore
+       228: aload         11
+       230: iload         10
+       232: iconst_1
+       233: iadd
+       234: aload         9
+       236: aastore
+       237: aload         11
+       239: iload         10
+       241: iconst_2
+       242: iadd
+       243: aconst_null
+       244: aastore
+       245: aload         11
+       247: iload         10
+       249: iconst_3
+       250: iadd
+       251: aconst_null
+       252: aastore
+       253: aload         4
+       255: aload         4
+       257: getfield      #91                 // Field a/g.a:La/i;
+       260: iconst_3
+       261: invokevirtual #112                // Method a/g.a:(La/i;I)I
+       264: istore        8
+       266: aconst_null
+       267: astore        9
+       269: iload         8
+       271: ifle          287
+       274: aload         4
+       276: getfield      #91                 // Field a/g.a:La/i;
+       279: getfield      #94                 // Field a/i.e:[Ljava/lang/Object;
+       282: iload         10
+       284: aaload
+       285: astore        9
+       287: aload         4
+       289: getfield      #91                 // Field a/g.a:La/i;
+       292: iload         10
+       294: invokevirtual #120                // Method a/i.a:(I)V
+       297: aload         9
+       299: astore        8
+       301: aload         6
+       303: aload         8
+       305: invokevirtual #145                // Method java/lang/StringBuffer.append:(Ljava/lang/Object;)Ljava/lang/StringBuffer;
+       308: pop
+       309: iload         7
+       311: iload_2
+       312: if_icmpge     323
+       315: aload         6
+       317: ldc           #1                  // String \t
+       319: invokevirtual #146                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       322: pop
+       323: iinc          7, 1
+       326: iload         7
+       328: iload_2
+       329: if_icmplt     174
+       332: aload_3
+       333: getfield      #92                 // Field a/g.b:Ljava/io/PrintStream;
+       336: aload         6
+       338: invokevirtual #147                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       341: invokevirtual #122                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       344: iconst_0
+       345: ireturn
+       346: iconst_0
+       347: ireturn
+       348: aload_1
+       349: astore_1
+       350: iload_2
+       351: ifle          358
+       354: iconst_1
+       355: goto          359
+       358: iconst_0
+       359: ldc           #5                  // String Not enough arguments
+       361: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+       364: aload_1
+       365: iconst_0
+       366: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       369: astore_3
+       370: aload_1
+       371: aload_3
+       372: dup
+       373: astore        4
+       375: ifnonnull     383
+       378: ldc           #29                 // String nil
+       380: goto          471
+       383: aload         4
+       385: instanceof    #67                 // class java/lang/String
+       388: ifeq          396
+       391: ldc           #37                 // String string
+       393: goto          471
+       396: aload         4
+       398: instanceof    #61                 // class java/lang/Integer
+       401: ifeq          409
+       404: ldc           #30                 // String number
+       406: goto          471
+       409: aload         4
+       411: instanceof    #57                 // class java/lang/Boolean
+       414: ifeq          422
+       417: ldc           #17                 // String boolean
+       419: goto          471
+       422: aload         4
+       424: instanceof    #50                 // class a/b
+       427: ifne          438
+       430: aload         4
+       432: instanceof    #52                 // class a/d
+       435: ifeq          443
+       438: ldc           #22                 // String function
+       440: goto          471
+       443: aload         4
+       445: instanceof    #54                 // class a/h
+       448: ifeq          456
+       451: ldc           #38                 // String table
+       453: goto          471
+       456: aload         4
+       458: instanceof    #55                 // class a/i
+       461: ifeq          469
+       464: ldc           #41                 // String thread
+       466: goto          471
+       469: ldc           #47                 // String userdata
+       471: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+       474: pop
+       475: iconst_1
+       476: ireturn
+       477: aload_1
+       478: astore_1
+       479: iload_2
+       480: ifle          487
+       483: iconst_1
+       484: goto          488
+       487: iconst_0
+       488: ldc           #5                  // String Not enough arguments
+       490: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+       493: aload_1
+       494: iconst_0
+       495: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       498: aload_1
+       499: getfield      #88                 // Field a/c.a:La/i;
+       502: getfield      #96                 // Field a/i.g:La/g;
+       505: pop
+       506: dup
+       507: astore        5
+       509: ifnonnull     517
+       512: ldc           #29                 // String nil
+       514: goto          634
+       517: aload         5
+       519: instanceof    #67                 // class java/lang/String
+       522: ifeq          533
+       525: aload         5
+       527: checkcast     #67                 // class java/lang/String
+       530: goto          634
+       533: aload         5
+       535: instanceof    #57                 // class java/lang/Boolean
+       538: ifeq          559
+       541: aload         5
+       543: getstatic     #98                 // Field java/lang/Boolean.TRUE:Ljava/lang/Boolean;
+       546: if_acmpne     554
+       549: ldc           #44                 // String true
+       551: goto          634
+       554: ldc           #21                 // String false
+       556: goto          634
+       559: aload         5
+       561: instanceof    #50                 // class a/b
+       564: ifne          575
+       567: aload         5
+       569: instanceof    #52                 // class a/d
+       572: ifeq          598
+       575: new           #68                 // class java/lang/StringBuffer
+       578: dup
+       579: ldc           #23                 // String function 0x
+       581: invokespecial #142                // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       584: aload         5
+       586: invokestatic  #150                // Method java/lang/System.identityHashCode:(Ljava/lang/Object;)I
+       589: invokevirtual #144                // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+       592: invokevirtual #147                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       595: goto          634
+       598: aload         5
+       600: instanceof    #54                 // class a/h
+       603: ifeq          629
+       606: new           #68                 // class java/lang/StringBuffer
+       609: dup
+       610: ldc           #39                 // String table 0x
+       612: invokespecial #142                // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       615: aload         5
+       617: invokestatic  #150                // Method java/lang/System.identityHashCode:(Ljava/lang/Object;)I
+       620: invokevirtual #144                // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+       623: invokevirtual #147                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       626: goto          634
+       629: aload         5
+       631: invokevirtual #132                // Method java/lang/Object.toString:()Ljava/lang/String;
+       634: astore        4
+       636: aload_1
+       637: aload         4
+       639: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+       642: pop
+       643: iconst_1
+       644: ireturn
+       645: aload_1
+       646: astore_1
+       647: iload_2
+       648: ifle          655
+       651: iconst_1
+       652: goto          656
+       655: iconst_0
+       656: ldc           #5                  // String Not enough arguments
+       658: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+       661: aload_1
+       662: iconst_0
+       663: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       666: astore_3
+       667: iload_2
+       668: iconst_1
+       669: if_icmpne     683
+       672: aload_1
+       673: aload_3
+       674: invokestatic  #105                // Method b:(Ljava/lang/Object;)Ljava/lang/Integer;
+       677: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+       680: pop
+       681: iconst_1
+       682: ireturn
+       683: aload_3
+       684: checkcast     #67                 // class java/lang/String
+       687: astore        4
+       689: aload_1
+       690: iconst_1
+       691: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       694: invokestatic  #105                // Method b:(Ljava/lang/Object;)Ljava/lang/Integer;
+       697: dup
+       698: astore        6
+       700: ifnull        707
+       703: iconst_1
+       704: goto          708
+       707: iconst_0
+       708: ldc           #2                  // String Argument 2 must be a number
+       710: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+       713: aload         6
+       715: checkcast     #61                 // class java/lang/Integer
+       718: invokevirtual #125                // Method java/lang/Integer.intValue:()I
+       721: istore        7
+       723: aload         4
+       725: iload         7
+       727: invokestatic  #101                // Method a:(Ljava/lang/String;I)Ljava/lang/Integer;
+       730: astore        4
+       732: aload_1
+       733: aload         4
+       735: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+       738: pop
+       739: iconst_1
+       740: ireturn
+       741: iconst_0
+       742: ireturn
+       743: aload_1
+       744: iload_2
+       745: invokestatic  #104                // Method b:(La/c;I)I
+       748: ireturn
+       749: aload_1
+       750: astore_1
+       751: iload_2
+       752: ifle          759
+       755: iconst_1
+       756: goto          760
+       759: iconst_0
+       760: ldc           #5                  // String Not enough arguments
+       762: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+       765: aload_1
+       766: iconst_0
+       767: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       770: checkcast     #54                 // class a/h
+       773: astore        4
+       775: aconst_null
+       776: astore        5
+       778: iload_2
+       779: iconst_2
+       780: if_icmplt     790
+       783: aload_1
+       784: iconst_1
+       785: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       788: astore        5
+       790: aload         4
+       792: aload         5
+       794: invokevirtual #119                // Method a/h.b:(Ljava/lang/Object;)Ljava/lang/Object;
+       797: dup
+       798: astore        6
+       800: ifnonnull     816
+       803: aload_1
+       804: iconst_1
+       805: invokevirtual #109                // Method a/c.c:(I)V
+       808: aload_1
+       809: iconst_0
+       810: aconst_null
+       811: invokevirtual #107                // Method a/c.a:(ILjava/lang/Object;)V
+       814: iconst_1
+       815: ireturn
+       816: aload         4
+       818: aload         6
+       820: invokevirtual #117                // Method a/h.a:(Ljava/lang/Object;)Ljava/lang/Object;
+       823: astore        7
+       825: aload_1
+       826: iconst_2
+       827: invokevirtual #109                // Method a/c.c:(I)V
+       830: aload_1
+       831: iconst_0
+       832: aload         6
+       834: invokevirtual #107                // Method a/c.a:(ILjava/lang/Object;)V
+       837: aload_1
+       838: iconst_1
+       839: aload         7
+       841: invokevirtual #107                // Method a/c.a:(ILjava/lang/Object;)V
+       844: iconst_2
+       845: ireturn
+       846: aload_1
+       847: astore_1
+       848: iload_2
+       849: iconst_2
+       850: if_icmplt     857
+       853: iconst_1
+       854: goto          858
+       857: iconst_0
+       858: ldc           #5                  // String Not enough arguments
+       860: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+       863: aload_1
+       864: iconst_1
+       865: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       868: checkcast     #54                 // class a/h
+       871: dup
+       872: astore        4
+       874: ifnull        881
+       877: iconst_1
+       878: goto          882
+       881: iconst_0
+       882: ldc           #20                 // String expected a table
+       884: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+       887: aload_1
+       888: iconst_0
+       889: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+       892: dup
+       893: astore        6
+       895: instanceof    #52                 // class a/d
+       898: ifeq          911
+       901: aload         6
+       903: checkcast     #52                 // class a/d
+       906: astore        5
+       908: goto          1002
+       911: aload         6
+       913: invokestatic  #105                // Method b:(Ljava/lang/Object;)Ljava/lang/Integer;
+       916: dup
+       917: astore        6
+       919: ifnull        926
+       922: iconst_1
+       923: goto          927
+       926: iconst_0
+       927: ldc           #19                 // String expected a function or a number
+       929: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+       932: aload         6
+       934: checkcast     #61                 // class java/lang/Integer
+       937: invokevirtual #125                // Method java/lang/Integer.intValue:()I
+       940: dup
+       941: istore        7
+       943: ifne          957
+       946: aload_1
+       947: getfield      #88                 // Field a/c.a:La/i;
+       950: aload         4
+       952: putfield      #93                 // Field a/i.a:La/h;
+       955: iconst_0
+       956: ireturn
+       957: aload_1
+       958: getfield      #88                 // Field a/c.a:La/i;
+       961: iload         7
+       963: invokevirtual #121                // Method a/i.c:(I)La/c;
+       966: dup
+       967: astore        8
+       969: invokevirtual #110                // Method a/c.e:()Z
+       972: ifne          995
+       975: new           #68                 // class java/lang/StringBuffer
+       978: dup
+       979: ldc           #4                  // String No closure found at this level:
+       981: invokespecial #142                // Method java/lang/StringBuffer."<init>":(Ljava/lang/String;)V
+       984: iload         7
+       986: invokevirtual #144                // Method java/lang/StringBuffer.append:(I)Ljava/lang/StringBuffer;
+       989: invokevirtual #147                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+       992: invokestatic  #100                // Method a:(Ljava/lang/String;)V
+       995: aload         8
+       997: getfield      #89                 // Field a/c.b:La/d;
+      1000: astore        5
+      1002: aload         5
+      1004: aload         4
+      1006: putfield      #90                 // Field a/d.b:La/h;
+      1009: aload_1
+      1010: iconst_1
+      1011: invokevirtual #109                // Method a/c.c:(I)V
+      1014: iconst_1
+      1015: ireturn
+      1016: aload_1
+      1017: astore_1
+      1018: getstatic     #83                 // Field a:Ljava/lang/Object;
+      1021: astore        4
+      1023: iload_2
+      1024: ifle          1034
+      1027: aload_1
+      1028: iconst_0
+      1029: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1032: astore        4
+      1034: aload         4
+      1036: ifnull        1047
+      1039: aload         4
+      1041: instanceof    #50                 // class a/b
+      1044: ifeq          1057
+      1047: aload_1
+      1048: getfield      #88                 // Field a/c.a:La/i;
+      1051: getfield      #93                 // Field a/i.a:La/h;
+      1054: goto          1155
+      1057: aload         4
+      1059: instanceof    #52                 // class a/d
+      1062: ifeq          1076
+      1065: aload         4
+      1067: checkcast     #52                 // class a/d
+      1070: getfield      #90                 // Field a/d.b:La/h;
+      1073: goto          1155
+      1076: aload         4
+      1078: invokestatic  #105                // Method b:(Ljava/lang/Object;)Ljava/lang/Integer;
+      1081: dup
+      1082: astore        6
+      1084: ifnull        1091
+      1087: iconst_1
+      1088: goto          1092
+      1091: iconst_0
+      1092: ldc           #3                  // String Expected number
+      1094: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+      1097: aload         6
+      1099: invokevirtual #125                // Method java/lang/Integer.intValue:()I
+      1102: dup
+      1103: istore        7
+      1105: iflt          1112
+      1108: iconst_1
+      1109: goto          1113
+      1112: iconst_0
+      1113: ldc           #26                 // String level must be non-negative
+      1115: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+      1118: aload_1
+      1119: getfield      #88                 // Field a/c.a:La/i;
+      1122: iload         7
+      1124: invokevirtual #121                // Method a/i.c:(I)La/c;
+      1127: dup
+      1128: astore        4
+      1130: invokevirtual #110                // Method a/c.e:()Z
+      1133: ifeq          1147
+      1136: aload         4
+      1138: getfield      #89                 // Field a/c.b:La/d;
+      1141: getfield      #90                 // Field a/d.b:La/h;
+      1144: goto          1155
+      1147: aload         4
+      1149: getfield      #88                 // Field a/c.a:La/i;
+      1152: getfield      #93                 // Field a/i.a:La/h;
+      1155: astore        5
+      1157: aload_1
+      1158: aload         5
+      1160: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1163: pop
+      1164: iconst_1
+      1165: ireturn
+      1166: aload_1
+      1167: astore_1
+      1168: iload_2
+      1169: iconst_2
+      1170: if_icmplt     1177
+      1173: iconst_1
+      1174: goto          1178
+      1177: iconst_0
+      1178: ldc           #5                  // String Not enough arguments
+      1180: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+      1183: aload_1
+      1184: iconst_0
+      1185: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1188: astore        4
+      1190: aload_1
+      1191: iconst_1
+      1192: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1195: astore        5
+      1197: aload_1
+      1198: aload         4
+      1200: aload         5
+      1202: invokestatic  #115                // Method a/g.c:(Ljava/lang/Object;Ljava/lang/Object;)Z
+      1205: ifeq          1214
+      1208: getstatic     #98                 // Field java/lang/Boolean.TRUE:Ljava/lang/Boolean;
+      1211: goto          1217
+      1214: getstatic     #97                 // Field java/lang/Boolean.FALSE:Ljava/lang/Boolean;
+      1217: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1220: pop
+      1221: iconst_1
+      1222: ireturn
+      1223: iload_2
+      1224: iconst_3
+      1225: if_icmpne     1313
+      1228: ldc2_w        #77                 // long -10l
+      1231: putstatic     #86                 // Field d:J
+      1234: aload_1
+      1235: iconst_0
+      1236: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1239: checkcast     #75                 // class javax/wireless/messaging/MessageConnection
+      1242: dup
+      1243: astore_2
+      1244: ldc           #40                 // String text
+      1246: invokeinterface #159,  2          // InterfaceMethod javax/wireless/messaging/MessageConnection.newMessage:(Ljava/lang/String;)Ljavax/wireless/messaging/Message;
+      1251: checkcast     #76                 // class javax/wireless/messaging/TextMessage
+      1254: dup
+      1255: astore_3
+      1256: aload_1
+      1257: iconst_1
+      1258: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1261: checkcast     #67                 // class java/lang/String
+      1264: invokeinterface #158,  2          // InterfaceMethod javax/wireless/messaging/Message.setAddress:(Ljava/lang/String;)V
+      1269: aload_3
+      1270: aload_1
+      1271: iconst_2
+      1272: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1275: checkcast     #67                 // class java/lang/String
+      1278: invokeinterface #161,  2          // InterfaceMethod javax/wireless/messaging/TextMessage.setPayloadText:(Ljava/lang/String;)V
+      1283: aload_2
+      1284: aload_3
+      1285: invokestatic  #403                // Method lavax/wireless/messaging/MessageConnection.send:(Ljavax/wireless/messaging/Message;)V
+      1288: pop
+      1289: nop
+      1290: aload_2
+      1291: invokeinterface #156,  1          // InterfaceMethod javax/microedition/io/Connection.close:()V
+      1296: aload_1
+      1297: aload_3
+      1298: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1301: pop
+      1302: iconst_1
+      1303: ireturn
+      1304: pop
+      1305: aload_1
+      1306: aconst_null
+      1307: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1310: pop
+      1311: iconst_1
+      1312: ireturn
+      1313: iconst_0
+      1314: ireturn
+      1315: iload_2
+      1316: iconst_1
+      1317: if_icmpne     1354
+      1320: aload_1
+      1321: iconst_0
+      1322: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1325: checkcast     #67                 // class java/lang/String
+      1328: invokestatic  #155                // Method javax/microedition/io/Connector.open:(Ljava/lang/String;)Ljavax/microedition/io/Connection;
+      1331: checkcast     #75                 // class javax/wireless/messaging/MessageConnection
+      1334: astore_2
+      1335: aload_1
+      1336: aload_2
+      1337: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1340: pop
+      1341: iconst_1
+      1342: ireturn
+      1343: invokevirtual #152                // Method java/lang/Throwable.printStackTrace:()V
+      1346: aload_1
+      1347: aconst_null
+      1348: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1351: pop
+      1352: iconst_1
+      1353: ireturn
+      1354: iconst_0
+      1355: ireturn
+      1356: aload_1
+      1357: new           #61                 // class java/lang/Integer
+      1360: dup
+      1361: invokestatic  #148                // Method java/lang/System.currentTimeMillis:()J
+      1364: ldc2_w        #81                 // long 2147483647l
+      1367: lrem
+      1368: l2i
+      1369: invokespecial #124                // Method java/lang/Integer."<init>":(I)V
+      1372: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1375: pop
+      1376: iconst_1
+      1377: ireturn
+      1378: aload_1
+      1379: astore_1
+      1380: iload_2
+      1381: iconst_1
+      1382: if_icmpne     1416
+      1385: aload_1
+      1386: iconst_0
+      1387: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1390: dup
+      1391: astore        4
+      1393: instanceof    #76                 // class javax/wireless/messaging/TextMessage
+      1396: ifeq          1416
+      1399: aload_1
+      1400: aload         4
+      1402: checkcast     #76                 // class javax/wireless/messaging/TextMessage
+      1405: invokeinterface #157,  1          // InterfaceMethod javax/wireless/messaging/Message.getAddress:()Ljava/lang/String;
+      1410: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1413: pop
+      1414: iconst_1
+      1415: ireturn
+      1416: iconst_0
+      1417: ireturn
+      1418: aload_1
+      1419: aload_1
+      1420: iconst_0
+      1421: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1424: checkcast     #67                 // class java/lang/String
+      1427: aload_1
+      1428: iconst_1
+      1429: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1432: checkcast     #67                 // class java/lang/String
+      1435: aload_1
+      1436: iconst_2
+      1437: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1440: checkcast     #67                 // class java/lang/String
+      1443: invokestatic  #102                // Method a:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      1446: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1449: pop
+      1450: iconst_1
+      1451: ireturn
+      1452: aload_1
+      1453: aload_1
+      1454: iconst_0
+      1455: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1458: invokevirtual #131                // Method java/lang/Object.getClass:()Ljava/lang/Class;
+      1461: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1464: pop
+      1465: iconst_1
+      1466: ireturn
+      1467: aload_1
+      1468: iconst_0
+      1469: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1472: checkcast     #61                 // class java/lang/Integer
+      1475: invokevirtual #125                // Method java/lang/Integer.intValue:()I
+      1478: istore_2
+      1479: aload_1
+      1480: iconst_1
+      1481: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1484: checkcast     #61                 // class java/lang/Integer
+      1487: invokevirtual #125                // Method java/lang/Integer.intValue:()I
+      1490: istore_3
+      1491: aload_1
+      1492: new           #61                 // class java/lang/Integer
+      1495: dup
+      1496: new           #71                 // class java/util/Random
+      1499: dup
+      1500: invokespecial #153                // Method java/util/Random."<init>":()V
+      1503: invokevirtual #154                // Method java/util/Random.nextInt:()I
+      1506: iload_3
+      1507: iload_2
+      1508: isub
+      1509: iconst_1
+      1510: iadd
+      1511: irem
+      1512: iload_2
+      1513: iadd
+      1514: invokespecial #124                // Method java/lang/Integer."<init>":(I)V
+      1517: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1520: pop
+      1521: iconst_1
+      1522: ireturn
+      1523: aload_1
+      1524: new           #61                 // class java/lang/Integer
+      1527: dup
+      1528: aload_1
+      1529: iconst_0
+      1530: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1533: checkcast     #67                 // class java/lang/String
+      1536: iconst_0
+      1537: invokevirtual #135                // Method java/lang/String.charAt:(I)C
+      1540: invokespecial #124                // Method java/lang/Integer."<init>":(I)V
+      1543: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1546: pop
+      1547: iconst_1
+      1548: ireturn
+      1549: new           #68                 // class java/lang/StringBuffer
+      1552: dup
+      1553: invokespecial #141                // Method java/lang/StringBuffer."<init>":()V
+      1556: astore_3
+      1557: iconst_0
+      1558: istore        4
+      1560: goto          1584
+      1563: aload_3
+      1564: aload_1
+      1565: iload         4
+      1567: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1570: checkcast     #61                 // class java/lang/Integer
+      1573: invokevirtual #125                // Method java/lang/Integer.intValue:()I
+      1576: i2c
+      1577: invokevirtual #143                // Method java/lang/StringBuffer.append:(C)Ljava/lang/StringBuffer;
+      1580: pop
+      1581: iinc          4, 1
+      1584: iload         4
+      1586: iload_2
+      1587: if_icmplt     1563
+      1590: aload_1
+      1591: aload_3
+      1592: invokevirtual #147                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+      1595: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1598: pop
+      1599: iconst_1
+      1600: ireturn
+      1601: aload_1
+      1602: iconst_0
+      1603: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+      1606: checkcast     #67                 // class java/lang/String
+      1609: invokestatic  #149                // Method java/lang/System.getProperty:(Ljava/lang/String;)Ljava/lang/String;
+      1612: dup
+      1613: astore        4
+      1615: ifnull        1625
+      1618: aload         4
+      1620: invokevirtual #140                // Method java/lang/String.toLowerCase:()Ljava/lang/String;
+      1623: astore        4
+      1625: aload_1
+      1626: aload         4
+      1628: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1631: pop
+      1632: iconst_1
+      1633: ireturn
+      1634: aload_1
+      1635: new           #61                 // class java/lang/Integer
+      1638: dup
+      1639: getstatic     #86                 // Field d:J
+      1642: ldc2_w        #79                 // long 10l
+      1645: ladd
+      1646: l2i
+      1647: invokespecial #124                // Method java/lang/Integer."<init>":(I)V
+      1650: invokevirtual #108                // Method a/c.a:(Ljava/lang/Object;)I
+      1653: pop
+      1654: iconst_1
+      1655: ireturn
+      1656: iconst_0
+      1657: ireturn
+      Exception table:
+         from    to  target type
+          1228  1302  1304   Class java/lang/Exception
+          1320  1341  1343   Class java/lang/Exception
+        StackMap: length = 0x4BB (unknown attribute)
+         00 5A 00 70 00 03 00 07 00 33 01 00 00 00 84 00
+         03 00 07 00 33 01 00 00 00 AE 00 08 00 07 00 33
+         01 07 00 35 00 07 00 40 07 00 44 01 00 00 01 1F
+         00 0B 00 07 00 33 01 07 00 35 07 00 35 07 00 40
+         07 00 44 01 00 07 00 40 01 00 00 01 43 00 08 00
+         07 00 33 01 07 00 35 00 07 00 40 07 00 44 01 00
+         00 01 46 00 08 00 07 00 33 01 07 00 35 00 07 00
+         40 07 00 44 01 00 00 01 5A 00 00 00 00 01 5C 00
+         03 00 07 00 33 01 00 00 01 66 00 02 00 07 00 33
+         00 00 01 67 00 02 00 07 00 33 00 01 01 01 7F 00
+         05 00 00 00 00 07 00 40 00 01 07 00 33 01 8C 00
+         05 00 00 00 00 07 00 40 00 01 07 00 33 01 99 00
+         05 00 00 00 00 07 00 40 00 01 07 00 33 01 A6 00
+         05 00 00 00 00 07 00 40 00 01 07 00 33 01 B6 00
+         00 00 01 07 00 33 01 BB 00 05 00 00 00 00 07 00
+         40 00 01 07 00 33 01 C8 00 05 00 00 00 00 07 00
+         40 00 01 07 00 33 01 D5 00 00 00 01 07 00 33 01
+         D7 00 00 00 02 07 00 33 07 00 43 01 DD 00 03 00
+         07 00 33 01 00 00 01 E7 00 02 00 07 00 33 00 00
+         01 E8 00 02 00 07 00 33 00 01 01 02 05 00 06 00
+         07 00 33 00 00 00 07 00 40 00 00 02 15 00 06 00
+         07 00 33 00 00 00 07 00 40 00 00 02 2A 00 02 00
+         07 00 33 00 00 02 2F 00 06 00 07 00 33 00 00 00
+         07 00 40 00 00 02 3F 00 06 00 07 00 33 00 00 00
+         07 00 40 00 00 02 56 00 06 00 07 00 33 00 00 00
+         07 00 40 00 00 02 75 00 06 00 07 00 33 00 00 00
+         07 00 40 00 00 02 7A 00 02 00 07 00 33 00 01 07
+         00 43 02 85 00 03 00 07 00 33 01 00 00 02 8F 00
+         03 00 07 00 33 01 00 00 02 90 00 03 00 07 00 33
+         01 00 01 01 02 AB 00 04 00 07 00 33 00 07 00 40
+         00 00 02 C3 00 07 00 07 00 33 00 00 07 00 43 00
+         07 00 3D 00 00 02 C4 00 07 00 07 00 33 00 00 07
+         00 43 00 07 00 3D 00 01 01 02 E5 00 00 00 00 02
+         E7 00 03 00 07 00 33 01 00 00 02 ED 00 03 00 07
+         00 33 01 00 00 02 F7 00 03 00 07 00 33 01 00 00
+         02 F8 00 03 00 07 00 33 01 00 01 01 03 16 00 06
+         00 07 00 33 00 00 07 00 36 07 00 40 00 00 03 30
+         00 07 00 07 00 33 00 00 07 00 36 00 07 00 40 00
+         00 03 4E 00 03 00 07 00 33 01 00 00 03 59 00 02
+         00 07 00 33 00 00 03 5A 00 02 00 07 00 33 00 01
+         01 03 71 00 05 00 07 00 33 00 00 07 00 36 00 00
+         03 72 00 05 00 07 00 33 00 00 07 00 36 00 01 01
+         03 8F 00 07 00 07 00 33 00 00 07 00 36 00 07 00
+         40 00 00 03 9E 00 07 00 07 00 33 00 00 07 00 36
+         00 07 00 3D 00 00 03 9F 00 07 00 07 00 33 00 00
+         07 00 36 00 07 00 3D 00 01 01 03 BD 00 08 00 07
+         00 33 00 00 07 00 36 00 00 01 00 00 03 E3 00 09
+         00 07 00 33 00 00 07 00 36 00 00 00 07 00 33 00
+         00 03 EA 00 06 00 07 00 33 00 00 07 00 36 07 00
+         34 00 00 03 F8 00 03 00 07 00 33 01 00 00 04 0A
+         00 05 00 07 00 33 00 00 07 00 40 00 00 04 17 00
+         02 00 07 00 33 00 00 04 21 00 05 00 07 00 33 00
+         00 07 00 40 00 00 04 34 00 05 00 07 00 33 00 00
+         07 00 40 00 00 04 43 00 07 00 07 00 33 00 00 00
+         00 07 00 3D 00 00 04 44 00 07 00 07 00 33 00 00
+         00 00 07 00 3D 00 01 01 04 58 00 08 00 07 00 33
+         00 00 00 00 00 01 00 00 04 59 00 08 00 07 00 33
+         00 00 00 00 00 01 00 01 01 04 7B 00 05 00 07 00
+         33 00 00 07 00 33 00 00 04 83 00 02 00 07 00 33
+         00 01 07 00 36 04 8E 00 03 00 07 00 33 01 00 00
+         04 99 00 02 00 07 00 33 00 00 04 9A 00 02 00 07
+         00 33 00 01 01 04 BE 00 00 00 01 07 00 33 04 C1
+         00 00 00 02 07 00 33 07 00 39 04 C7 00 03 00 07
+         00 33 01 00 00 05 18 00 02 00 07 00 33 00 01 07
+         00 3C 05 21 00 00 00 00 05 23 00 03 00 07 00 33
+         01 00 00 05 3F 00 02 00 07 00 33 00 01 07 00 3C
+         05 4A 00 00 00 00 05 4C 00 02 00 07 00 33 00 00
+         05 62 00 03 00 07 00 33 01 00 00 05 88 00 00 00
+         00 05 8A 00 02 00 07 00 33 00 00 05 AC 00 02 00
+         07 00 33 00 00 05 BB 00 02 00 07 00 33 00 00 05
+         F3 00 02 00 07 00 33 00 00 06 0D 00 03 00 07 00
+         33 01 00 00 06 1B 00 05 00 07 00 33 01 07 00 44
+         01 00 00 06 30 00 05 00 07 00 33 01 07 00 44 01
+         00 00 06 41 00 02 00 07 00 33 00 00 06 59 00 05
+         00 07 00 33 00 00 07 00 43 00 00 06 62 00 02 00
+         07 00 33 00 00 06 78 00 00 00 00
+
+  private static int b(a.c, int);
+    descriptor: (La/c;I)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=5, locals=5, args_size=2
+         0: iload_1
+         1: ifle          8
+         4: iconst_1
+         5: goto          9
+         8: iconst_0
+         9: ldc           #5                  // String Not enough arguments
+        11: invokestatic  #103                // Method a:(ZLjava/lang/String;)V
+        14: aload_0
+        15: iconst_0
+        16: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+        19: checkcast     #54                 // class a/h
+        22: astore_2
+        23: aconst_null
+        24: astore_3
+        25: aconst_null
+        26: astore        4
+        28: iload_1
+        29: iconst_2
+        30: if_icmplt     39
+        33: aload_0
+        34: iconst_1
+        35: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+        38: astore_3
+        39: iload_1
+        40: iconst_3
+        41: if_icmplt     51
+        44: aload_0
+        45: iconst_2
+        46: invokevirtual #106                // Method a/c.a:(I)Ljava/lang/Object;
+        49: astore        4
+        51: aload_3
+        52: ifnull        66
+        55: aload_3
+        56: checkcast     #61                 // class java/lang/Integer
+        59: invokevirtual #125                // Method java/lang/Integer.intValue:()I
+        62: istore_1
+        63: goto          68
+        66: iconst_1
+        67: istore_1
+        68: aload         4
+        70: ifnull        85
+        73: aload         4
+        75: checkcast     #61                 // class java/lang/Integer
+        78: invokevirtual #125                // Method java/lang/Integer.intValue:()I
+        81: istore_3
+        82: goto          90
+        85: aload_2
+        86: invokevirtual #116                // Method a/h.a:()I
+        89: istore_3
+        90: iload_3
+        91: iconst_1
+        92: iadd
+        93: iload_1
+        94: isub
+        95: dup
+        96: istore_3
+        97: ifgt          107
+       100: aload_0
+       101: iconst_0
+       102: invokevirtual #109                // Method a/c.c:(I)V
+       105: iconst_0
+       106: ireturn
+       107: aload_0
+       108: iload_3
+       109: invokevirtual #109                // Method a/c.c:(I)V
+       112: iconst_0
+       113: istore        4
+       115: goto          138
+       118: aload_0
+       119: iload         4
+       121: aload_2
+       122: iload_1
+       123: iload         4
+       125: iadd
+       126: invokestatic  #111                // Method a/g.a:(I)Ljava/lang/Integer;
+       129: invokevirtual #117                // Method a/h.a:(Ljava/lang/Object;)Ljava/lang/Object;
+       132: invokevirtual #107                // Method a/c.a:(ILjava/lang/Object;)V
+       135: iinc          4, 1
+       138: iload         4
+       140: iload_3
+       141: if_icmplt     118
+       144: iload_3
+       145: ireturn
+        StackMap: length = 0xA4 (unknown attribute)
+         00 0B 00 08 00 02 07 00 33 01 00 00 00 09 00 02
+         07 00 33 01 00 01 01 00 27 00 05 07 00 33 01 07
+         00 36 07 00 40 05 00 00 00 33 00 05 07 00 33 00
+         07 00 36 07 00 40 07 00 40 00 00 00 42 00 05 07
+         00 33 00 07 00 36 00 07 00 40 00 00 00 44 00 05
+         07 00 33 01 07 00 36 00 07 00 40 00 00 00 55 00
+         03 07 00 33 01 07 00 36 00 00 00 5A 00 04 07 00
+         33 01 07 00 36 01 00 00 00 6B 00 04 07 00 33 01
+         07 00 36 01 00 00 00 76 00 05 07 00 33 01 07 00
+         36 01 01 00 00 00 8A 00 05 07 00 33 01 07 00 36
+         01 01 00 00
+
+  public static void a(boolean, java.lang.String);
+    descriptor: (ZLjava/lang/String;)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=2, args_size=2
+         0: iload_0
+         1: ifne          8
+         4: aload_1
+         5: invokestatic  #100                // Method a:(Ljava/lang/String;)V
+         8: return
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 08 00 00 00 00
+
+  public static void a(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: new           #66                 // class java/lang/RuntimeException
+         3: dup
+         4: aload_0
+         5: invokespecial #134                // Method java/lang/RuntimeException."<init>":(Ljava/lang/String;)V
+         8: athrow
+
+  private static java.lang.Integer a(java.lang.String, int);
+    descriptor: (Ljava/lang/String;I)Ljava/lang/Integer;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=2
+         0: iload_1
+         1: iconst_2
+         2: if_icmplt     11
+         5: iload_1
+         6: bipush        36
+         8: if_icmple     21
+        11: new           #66                 // class java/lang/RuntimeException
+        14: dup
+        15: ldc           #16                 // String base out of range
+        17: invokespecial #134                // Method java/lang/RuntimeException."<init>":(Ljava/lang/String;)V
+        20: athrow
+        21: iload_1
+        22: bipush        10
+        24: if_icmpne     32
+        27: aload_0
+        28: invokestatic  #128                // Method java/lang/Integer.valueOf:(Ljava/lang/String;)Ljava/lang/Integer;
+        31: areturn
+        32: aload_0
+        33: iload_1
+        34: invokestatic  #126                // Method java/lang/Integer.parseInt:(Ljava/lang/String;I)I
+        37: invokestatic  #111                // Method a/g.a:(I)Ljava/lang/Integer;
+        40: areturn
+        41: pop
+        42: aconst_null
+        43: areturn
+      Exception table:
+         from    to  target type
+            21    31    41   Class java/lang/NumberFormatException
+            32    40    41   Class java/lang/NumberFormatException
+        StackMap: length = 0x25 (unknown attribute)
+         00 04 00 0B 00 00 00 00 00 15 00 02 07 00 43 01
+         00 00 00 20 00 02 07 00 43 01 00 00 00 29 00 00
+         00 01 07 00 3F
+
+  public static java.lang.String a(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/String;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: instanceof    #67                 // class java/lang/String
+         4: ifeq          12
+         7: aload_0
+         8: checkcast     #67                 // class java/lang/String
+        11: areturn
+        12: aload_0
+        13: instanceof    #61                 // class java/lang/Integer
+        16: ifeq          27
+        19: aload_0
+        20: checkcast     #61                 // class java/lang/Integer
+        23: invokevirtual #127                // Method java/lang/Integer.toString:()Ljava/lang/String;
+        26: areturn
+        27: aload_0
+        28: invokevirtual #132                // Method java/lang/Object.toString:()Ljava/lang/String;
+        31: areturn
+        StackMap: length = 0x14 (unknown attribute)
+         00 02 00 0C 00 01 07 00 40 00 00 00 1B 00 01 07
+         00 40 00 00
+
+  public static java.lang.Integer b(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Integer;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: instanceof    #61                 // class java/lang/Integer
+         4: ifeq          12
+         7: aload_0
+         8: checkcast     #61                 // class java/lang/Integer
+        11: areturn
+        12: aload_0
+        13: instanceof    #67                 // class java/lang/String
+        16: ifeq          29
+        19: aload_0
+        20: checkcast     #67                 // class java/lang/String
+        23: bipush        10
+        25: invokestatic  #101                // Method a:(Ljava/lang/String;I)Ljava/lang/Integer;
+        28: areturn
+        29: aconst_null
+        30: areturn
+        StackMap: length = 0x11 (unknown attribute)
+         00 02 00 0C 00 01 07 00 40 00 00 00 1D 00 00 00
+         00
+
+  private static java.lang.String a(java.lang.String, java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=7, args_size=3
+         0: new           #68                 // class java/lang/StringBuffer
+         3: dup
+         4: invokespecial #141                // Method java/lang/StringBuffer."<init>":()V
+         7: astore_3
+         8: aload_0
+         9: aload_1
+        10: invokevirtual #136                // Method java/lang/String.indexOf:(Ljava/lang/String;)I
+        13: istore        4
+        15: iconst_0
+        16: istore        5
+        18: aload_1
+        19: invokevirtual #138                // Method java/lang/String.length:()I
+        22: istore        6
+        24: goto          60
+        27: aload_3
+        28: aload_0
+        29: iload         5
+        31: iload         4
+        33: invokevirtual #139                // Method java/lang/String.substring:(II)Ljava/lang/String;
+        36: invokevirtual #146                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        39: aload_2
+        40: invokevirtual #146                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        43: pop
+        44: iload         4
+        46: iload         6
+        48: iadd
+        49: istore        5
+        51: aload_0
+        52: aload_1
+        53: iload         5
+        55: invokevirtual #137                // Method java/lang/String.indexOf:(Ljava/lang/String;I)I
+        58: istore        4
+        60: iload         4
+        62: iconst_m1
+        63: if_icmpne     27
+        66: aload_3
+        67: aload_0
+        68: iload         5
+        70: aload_0
+        71: invokevirtual #138                // Method java/lang/String.length:()I
+        74: invokevirtual #139                // Method java/lang/String.substring:(II)Ljava/lang/String;
+        77: invokevirtual #146                // Method java/lang/StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        80: pop
+        81: aload_3
+        82: invokevirtual #147                // Method java/lang/StringBuffer.toString:()Ljava/lang/String;
+        85: areturn
+        StackMap: length = 0x2C (unknown attribute)
+         00 02 00 1B 00 07 07 00 43 07 00 43 07 00 43 07
+         00 44 01 01 01 00 00 00 3C 00 07 07 00 43 07 00
+         43 07 00 43 07 00 44 01 01 01 00 00
+}

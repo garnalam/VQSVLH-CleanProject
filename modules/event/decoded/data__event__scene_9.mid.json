@@ -1,0 +1,8427 @@
+{
+  "format": "event_scene",
+  "scene_id": 9,
+  "block_count": 8,
+  "block_sizes": [
+    5242,
+    8718,
+    1492,
+    1312,
+    2220,
+    3654,
+    2199,
+    2815
+  ],
+  "rooms": [
+    {
+      "room_index": 0,
+      "block_size": 5242,
+      "room_start": 18,
+      "room_name": "Bích Thủy Đạo Quán",
+      "string_pool_count": 57,
+      "string_pool": [
+        "27,28,29",
+        "0,0,0",
+        "",
+        "Quy tắc Đạo quán: Cần phải chiến thắng tất cả những người trong đạo quán, nếu trên đường thất bại, bạn sẽ phải quay lại điểm xuất phát là lối vào.",
+        "Đánh bại tất cả để cứu quán chủ.",
+        "Larry",
+        "Đứng lại!",
+        "Binh lính Hắc Long",
+        "Đừng vội đắc ý!",
+        "27",
+        "0",
+        "PasiLi",
+        "Kẻ nào?!",
+        "Binh lính Hắc Long",
+        "Kẻ sau cùng kia là ai? ...",
+        "28",
+        "0",
+        "Aida",
+        "Tự tiện xông vào phải chăng là muốn chết?",
+        "57,61",
+        "9,9",
+        "2,2",
+        "Binh lính Hắc Long",
+        "Ngươi ...",
+        "29",
+        "0",
+        "Quán chủ Bích Thủy",
+        "Coi bộ ngươi đã chuẩn bị xong.",
+        "50,52,55",
+        "10,11,11",
+        "2,2,3",
+        "Neil",
+        "Ta đi trước cứu trưởng thôn, sau khi trở về hãy nói cho ta chuyện của Yafei.",
+        "Thủy Lam Chương: Có thể tiến vào Thuỷ vực.",
+        "Alulun",
+        "Chúng ta sẽ giúp ngươi ngăn chặn Hắc Long Quân, ngươi cứ tiến về hướng nam để cứu trưởng thôn đi.",
+        "Neil",
+        "Tốt!",
+        "Hướng về phía nam giải cứu trưởng thôn!",
+        "Quán chủ Bích Thủy",
+        "Ngươi là...?",
+        "Neil",
+        "Ta tới cứu mọi người!",
+        "Neil gỡ bỏ dây trói cho mọi người và thuật lại sự tình đã trải qua.",
+        "Quán chủ Bích Thủy",
+        "Ra là vậy. Còn Yafei ...",
+        "Quán chủ Bích Thủy",
+        "Nàng có thể là người của Thiên Giới... Trước mắt đừng nhiều lời, cứ đánh bại ta đi đã!",
+        "Quán chủ Bích Thủy",
+        "Đây là ải cuối cùng, cũng là mấu chốt để cứu trưởng thôn. Hiện ông ấy đang bị nhốt tại Phía Nam Bích Thủy Thành trong một căn phòng nhỏ, theo cách thông thường không thể nào qua được, phải sử dụng Thủy Lam Chương.",
+        "Neil",
+        "Thủy Lam Chương?! Một trong 8 huy hiệu của thế giới sao?!",
+        "Quán chủ Bích Thủy",
+        "Chính nó. Trên thế giới có 8 huy hiệu. Mỗi loại lại có một tính năng riêng. Nếu tập hợp đủ có thể đến bất kỳ ngóc ngách nào trên thế giới. Điều kiện có được nó chính là đánh bại quán chủ của các đạo quán nơi đang coi giữ nó.",
+        "Neil",
+        "Ta hiểu! Ta muốn có Thủy Lam Chương! muốn biết thân thế thực sự của Yafei.",
+        "#ffffff Neil làm sao để cứu Bích Thủy Thành? Yafei liệu có đúng là Sophie mà Neil ngày đêm mong nhớ? Nàng liệu có đúng là người của Thiên Giới? Cặp thanh mai trúc mã liệu có thể gặp lại nhau?"
+      ],
+      "unknown_ab": 23,
+      "unknown_skip": 1,
+      "actor_count": 32,
+      "actors": [
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            9,
+            117,
+            132,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            23,
+            104,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            41,
+            105,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            56,
+            104,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            72,
+            105,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            88,
+            103,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            8,
+            83,
+            145,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            152,
+            104,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            4,
+            76,
+            160,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            169,
+            104,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            185,
+            104,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            200,
+            105,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            191,
+            2,
+            216,
+            105,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            12,
+            157,
+            128,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            13,
+            180,
+            144,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            245,
+            0,
+            194,
+            433,
+            1,
+            10,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            246,
+            0,
+            142,
+            357,
+            1,
+            9,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            246,
+            0,
+            97,
+            268,
+            1,
+            9,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            245,
+            0,
+            183,
+            224,
+            1,
+            10,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 3,
+          "param_len": 12,
+          "values": [
+            3,
+            243,
+            0,
+            42,
+            129,
+            1,
+            0,
+            1,
+            10,
+            2,
+            25,
+            1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            81,
+            0,
+            153,
+            47,
+            1,
+            17,
+            1,
+            0,
+            0,
+            0,
+            18,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            33,
+            0,
+            120,
+            59,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            20,
+            1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            54,
+            0,
+            105,
+            32,
+            1,
+            17,
+            1,
+            0,
+            0,
+            0,
+            19,
+            2
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            120,
+            475,
+            1,
+            1,
+            2,
+            2,
+            1,
+            29
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            22,
+            0,
+            77,
+            52,
+            1,
+            17,
+            1,
+            0,
+            0,
+            0,
+            17,
+            3
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            14,
+            137,
+            89,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            7,
+            115,
+            107,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            30,
+            0,
+            189,
+            336,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            4
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            30,
+            0,
+            49,
+            284,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            5
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            31,
+            0,
+            118,
+            105,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            6
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            17,
+            55,
+            158,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            261,
+            3,
+            46,
+            478,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Kane",
+        "Quán chủ Bích Thủy",
+        "Millie",
+        "Eliza",
+        "Larry",
+        "PasiLi",
+        "Aida"
+      ],
+      "event_group_count": 6,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 9,
+          "room_index": 0,
+          "world_key": 2304,
+          "record_count": 6,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                2,
+                1,
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 56,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "27,28,29"
+                },
+                {
+                  "string_index": 1,
+                  "text": "0,0,0"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                -1
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": ""
+                },
+                {
+                  "string_index": 3,
+                  "text": "Quy tắc Đạo quán: Cần phải chiến thắng tất cả những người trong đạo quán, nếu trên đường thất bại, bạn sẽ phải quay lại điểm xuất phát là lối vào."
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 4,
+                  "text": "Đánh bại tất cả để cứu quán chủ."
+                }
+              ]
+            },
+            {
+              "opcode": 23,
+              "total_arg_count": 3,
+              "short_args": [
+                2,
+                1,
+                3
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 9,
+          "room_index": 0,
+          "world_key": 2304,
+          "record_count": 11,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                9,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                160,
+                320,
+                80,
+                32
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 5,
+                  "text": "Larry"
+                },
+                {
+                  "string_index": 6,
+                  "text": "Đứng lại!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                27
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 37,
+              "total_arg_count": 3,
+              "short_args": [
+                56,
+                8,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                11,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 7,
+                  "text": "Binh lính Hắc Long"
+                },
+                {
+                  "string_index": 8,
+                  "text": "Đừng vội đắc ý!"
+                }
+              ]
+            },
+            {
+              "opcode": 56,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 9,
+                  "text": "27"
+                },
+                {
+                  "string_index": 10,
+                  "text": "0"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 9,
+          "room_index": 0,
+          "world_key": 2304,
+          "record_count": 11,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                9,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                288,
+                80,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 11,
+                  "text": "PasiLi"
+                },
+                {
+                  "string_index": 12,
+                  "text": "Kẻ nào?!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                28
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 37,
+              "total_arg_count": 3,
+              "short_args": [
+                51,
+                9,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                11,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 13,
+                  "text": "Binh lính Hắc Long"
+                },
+                {
+                  "string_index": 14,
+                  "text": "Kẻ sau cùng kia là ai? ..."
+                }
+              ]
+            },
+            {
+              "opcode": 56,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 15,
+                  "text": "28"
+                },
+                {
+                  "string_index": 16,
+                  "text": "0"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 3,
+          "scene_id": 9,
+          "room_index": 0,
+          "world_key": 2304,
+          "record_count": 11,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                9,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                94,
+                98,
+                48,
+                32
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 17,
+                  "text": "Aida"
+                },
+                {
+                  "string_index": 18,
+                  "text": "Tự tiện xông vào phải chăng là muốn chết?"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                29
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 19,
+                  "text": "57,61"
+                },
+                {
+                  "string_index": 20,
+                  "text": "9,9"
+                },
+                {
+                  "string_index": 21,
+                  "text": "2,2"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                11,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 22,
+                  "text": "Binh lính Hắc Long"
+                },
+                {
+                  "string_index": 23,
+                  "text": "Ngươi ..."
+                }
+              ]
+            },
+            {
+              "opcode": 56,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 24,
+                  "text": "29"
+                },
+                {
+                  "string_index": 25,
+                  "text": "0"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 4,
+          "scene_id": 9,
+          "room_index": 0,
+          "world_key": 2304,
+          "record_count": 15,
+          "records": [
+            {
+              "opcode": 86,
+              "total_arg_count": 3,
+              "short_args": [
+                9,
+                0,
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 16,
+              "total_arg_count": 1,
+              "short_args": [
+                21
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 26,
+                  "text": "Quán chủ Bích Thủy"
+                },
+                {
+                  "string_index": 27,
+                  "text": "Coi bộ ngươi đã chuẩn bị xong."
+                }
+              ]
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 28,
+                  "text": "50,52,55"
+                },
+                {
+                  "string_index": 29,
+                  "text": "10,11,11"
+                },
+                {
+                  "string_index": 30,
+                  "text": "2,2,3"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                15,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 31,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 32,
+                  "text": "Ta đi trước cứu trưởng thôn, sau khi trở về hãy nói cho ta chuyện của Yafei."
+                }
+              ]
+            },
+            {
+              "opcode": 53,
+              "total_arg_count": 3,
+              "short_args": [
+                3,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 33,
+                  "text": "Thủy Lam Chương: Có thể tiến vào Thuỷ vực."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 34,
+                  "text": "Alulun"
+                },
+                {
+                  "string_index": 35,
+                  "text": "Chúng ta sẽ giúp ngươi ngăn chặn Hắc Long Quân, ngươi cứ tiến về hướng nam để cứu trưởng thôn đi."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 36,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 37,
+                  "text": "Tốt!"
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 38,
+                  "text": "Hướng về phía nam giải cứu trưởng thôn!"
+                }
+              ]
+            },
+            {
+              "opcode": 23,
+              "total_arg_count": 3,
+              "short_args": [
+                2,
+                1,
+                4
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 23,
+              "total_arg_count": 3,
+              "short_args": [
+                2,
+                1,
+                11
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 5,
+          "scene_id": 9,
+          "room_index": 0,
+          "world_key": 2304,
+          "record_count": 18,
+          "records": [
+            {
+              "opcode": 16,
+              "total_arg_count": 1,
+              "short_args": [
+                21
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 39,
+                  "text": "Quán chủ Bích Thủy"
+                },
+                {
+                  "string_index": 40,
+                  "text": "Ngươi là...?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 41,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 42,
+                  "text": "Ta tới cứu mọi người!"
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 43,
+                  "text": "Neil gỡ bỏ dây trói cho mọi người và thuật lại sự tình đã trải qua."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 44,
+                  "text": "Quán chủ Bích Thủy"
+                },
+                {
+                  "string_index": 45,
+                  "text": "Ra là vậy. Còn Yafei ..."
+                }
+              ]
+            },
+            {
+              "opcode": 5,
+              "total_arg_count": 5,
+              "short_args": [
+                0,
+                0,
+                7,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 46,
+                  "text": "Quán chủ Bích Thủy"
+                },
+                {
+                  "string_index": 47,
+                  "text": "Nàng có thể là người của Thiên Giới... Trước mắt đừng nhiều lời, cứ đánh bại ta đi đã!"
+                }
+              ]
+            },
+            {
+              "opcode": 5,
+              "total_arg_count": 5,
+              "short_args": [
+                0,
+                0,
+                7,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 48,
+                  "text": "Quán chủ Bích Thủy"
+                },
+                {
+                  "string_index": 49,
+                  "text": "Đây là ải cuối cùng, cũng là mấu chốt để cứu trưởng thôn. Hiện ông ấy đang bị nhốt tại Phía Nam Bích Thủy Thành trong một căn phòng nhỏ, theo cách thông thường không thể nào qua được, phải sử dụng Thủy Lam Chương."
+                }
+              ]
+            },
+            {
+              "opcode": 5,
+              "total_arg_count": 5,
+              "short_args": [
+                0,
+                0,
+                7,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 50,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 51,
+                  "text": "Thủy Lam Chương?! Một trong 8 huy hiệu của thế giới sao?!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 52,
+                  "text": "Quán chủ Bích Thủy"
+                },
+                {
+                  "string_index": 53,
+                  "text": "Chính nó. Trên thế giới có 8 huy hiệu. Mỗi loại lại có một tính năng riêng. Nếu tập hợp đủ có thể đến bất kỳ ngóc ngách nào trên thế giới. Điều kiện có được nó chính là đánh bại quán chủ của các đạo quán nơi đang coi giữ nó."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 54,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 55,
+                  "text": "Ta hiểu! Ta muốn có Thủy Lam Chương! muốn biết thân thế thực sự của Yafei."
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 48,
+              "total_arg_count": 7,
+              "short_args": [
+                10,
+                20,
+                90,
+                200,
+                100,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 56,
+                  "text": "#ffffff Neil làm sao để cứu Bích Thủy Thành? Yafei liệu có đúng là Sophie mà Neil ngày đêm mong nhớ? Nàng liệu có đúng là người của Thiên Giới? Cặp thanh mai trúc mã liệu có thể gặp lại nhau?"
+                }
+              ]
+            },
+            {
+              "opcode": 65,
+              "total_arg_count": 2,
+              "short_args": [
+                17,
+                18
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 5242,
+      "declared_block_size": 5242
+    },
+    {
+      "room_index": 1,
+      "block_size": 8718,
+      "room_start": 5260,
+      "room_name": "Nguyên Mộc Đạo Quán",
+      "string_pool_count": 82,
+      "string_pool": [
+        "Neil",
+        "Quả nhiên ...",
+        "Neil",
+        "(bên kia có một tiểu cô nương, qua hỏi xem sao.)",
+        "Hướng về phía tiểu cô nương hỏi thăm tin tức.",
+        "Kela",
+        "Vị đại hiệp, đạo quán giờ không còn ai đâu.",
+        "Neil",
+        "Chuyện gì đã xảy ra vậy?",
+        "Kela",
+        "Tất cả chiến đội sủng vật Hoàng Gia đột nhiên bị triệu tập đến dinh thự trưởng thôn, sau đó không một ai trở về. Ngay sau đó Hắc Long Quân tiến đến sát hại mọi người.",
+        "Neil",
+        "(xem ra Hắc Long Quân đã chia làm hai hướng muốn đồng thời khống chế Bích Thủy cùng Nguyên Mộc.) Mục đích của bọn họ phải chăng là Hắc Bảo Châu?",
+        "Kela",
+        "Ca ca làm sao biết? Đúng là bọn họ có tra xét tung tích của Hắc Bảo Châu, nhưng thực sự mọi người cũng không biết. Ca ca là huấn luyện sư sủng vật à? Ca sẽ cứu Nguyên Mộc Thành chứ!",
+        "Neil",
+        "Ừ, ta đến dinh thự trưởng thôn xem sao.",
+        "Kela",
+        "Bên ngoài dinh rất nhiều người canh gác. Ca không thể vào ban ngày được đâu. Trong thư viện có một bí đạo liên thông đến tầng hầm ngầm của dinh thự, ca có thể đi theo hướng đó. Đồ Thư Quán hiện tại phía đông Đạo Quán.",
+        "Neil",
+        "Ta cám ơn!",
+        "Đến Đồ Thư Quán.",
+        "Theo mật thất trong Đồ Thư Quán lẻn vào dinh thự trưởng thôn.",
+        "Neil",
+        "Quán chủ, thực xin lỗi, không thể giúp mọi người.",
+        "Quán chủ Đạo Quán",
+        "Không, cậu đã giúp rất nhiều rồi. Ta đã liên lạc với Arnold, sau đó không lâu, chúng ta nhất định phản kích ra ngoài, đuổi Hắc Long Quân khỏi Nguyên Mộc Thành.",
+        "Neil",
+        "Không nên cho ta biết kế hoạch tác chiến. Hiện ta tuân theo chỉ thị của nàng ấy. Nếu nàng có hỏi ta sẽ khó xử.",
+        "Quán chủ Đạo Quán",
+        "Cậu đối với kẻ địch cũng rất giữ chữ tín. Thật đáng phục.",
+        "Neil",
+        "Tuy biết rõ nàng đã thay đổi, nhưng...",
+        "Quán chủ Đạo Quán",
+        "Tuy ta không biết chuyện trước kia giữa hai người, nhưng...cô bé kia không hề lạnh lùng như vẻ bề ngoài vô tình đâu.",
+        "Neil",
+        "Ngài và Bích Thủy Thành trưởng thôn đều nói rất giống nhau.",
+        "Quán chủ Đạo Quán",
+        "Chúng ta đều là những người đã từng trải, sống từng này tuổi gặp không ít người, chúng ta đương nhiên sẽ thấy điều người trẻ không thể thấy.",
+        "Neil",
+        "...",
+        "Quán chủ Đạo Quán",
+        "Thôi, bỏ qua chuyện này, theo quy tắc của Đạo Quán, hãy tới khiêu chiến ta đi!",
+        "17,30,9",
+        "20,21,21",
+        "3,3,4",
+        "Quán chủ Đạo Quán",
+        "Ta trao cho cậu Mộc Quỳ Chương, phần thưởng cho sự chiến thắng.",
+        "Quán chủ Đạo Quán",
+        "Có được thứ này có thể loại bỏ các cây nhỏ vướng đường của cậu nhưng không nên chặt bỏ cây. Mặt khác nó cũng chỉ có tác dụng với một số ít loại thôi.",
+        "Neil",
+        "Ra vậy. Ta thấy rất nhiều vùng bị cây bao kín. Cái này có thể giúp ta thông qua một cách dễ dàng.",
+        "Quán chủ Đạo Quán",
+        "Chính là ý đó. Bởi sẽ có nhiều sủng vật mạnh ẩn hiện, mọi người sợ trẻ nhỏ và những khách lữ hành có thể bị nguy hiểm do đó đã trồng nhiều cây ở xung quanh.",
+        "Neil",
+        "Nếu quả đúng như Ngài nói ta lại cảm thấy rất có hứng thú với lũ sủng vật đó. Với một huấn luyện sư sủng vật mà nói cái này chính là cầu còn không được.",
+        "Quán chủ Đạo Quán",
+        "Ha ha, ta biết là cậu sẽ nói vậy. Hãy đến Bình nguyên phía Tây thám hiểm một chuyến đi.",
+        "Mộc Quỳ Chương: Có thể chặt cây, đặc biệt cây cối chướng ngại vật trên đường (Ấn nút 5 khi đứng trước các cây cối cần loại bỏ).",
+        "Đến phía tây thành nơi giao với bình nguyên bắt sủng vật!",
+        "Olden",
+        "Đến",
+        "Olden",
+        "Không tệ lắm",
+        "McCanQi",
+        "Hoan nghênh đã tới khiêu chiến!",
+        "16,29",
+        "19,20",
+        "2,2",
+        "McCanQi",
+        "Có thể đến cửa tiếp theo!",
+        "ChiNiya",
+        "Cảm tạ đã cứu chúng ta, nhưng ta vẫn muốn thử xem thực lực của cậu đến đâu.",
+        "54,27",
+        "20,20",
+        "3,3",
+        "ChiNiya",
+        "Không hổ là anh hùng của Bích Thủy Thành.",
+        "17,19,20,23",
+        "1,0,2,0",
+        "Neil",
+        "Quy tắc của Đạo quán ở đây cũng giống Bích Thủy Đạo Quán. Chiến thắng tất cả mọi người cho đến quán chủ, nếu như trên đường thất bại, thì sẽ quay trở lại điểm xuất phát, tức lối vào."
+      ],
+      "unknown_ab": 24,
+      "unknown_skip": 0,
+      "actor_count": 32,
+      "actors": [
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            95,
+            74,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            115,
+            74,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            137,
+            74,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            157,
+            74,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            120,
+            253,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            135,
+            253,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            94,
+            129,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            114,
+            129,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            136,
+            129,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            0,
+            158,
+            129,
+            1,
+            7,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            1,
+            80,
+            37,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            1,
+            86,
+            61,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            1,
+            199,
+            284,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            1,
+            230,
+            306,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            0,
+            42,
+            42,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            0,
+            20,
+            59,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            209,
+            0,
+            201,
+            303,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            35,
+            0,
+            127,
+            41,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            118,
+            7
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            0,
+            54,
+            61,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            117,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            13,
+            0,
+            200,
+            142,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            8
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            53,
+            2,
+            129,
+            212,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            116,
+            9
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            138,
+            322,
+            1,
+            1,
+            2,
+            3,
+            3,
+            11
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            51,
+            0,
+            -71,
+            200,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            81,
+            0,
+            55,
+            144,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            115,
+            10
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            54,
+            0,
+            27,
+            102,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            114,
+            11
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            1,
+            232,
+            36,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            1,
+            234,
+            82,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            1,
+            26,
+            305,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            0,
+            68,
+            98,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            200,
+            0,
+            187,
+            100,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            209,
+            0,
+            55,
+            302,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            209,
+            0,
+            72,
+            112,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Kane",
+        "Quán chủ Bích Thủy",
+        "Millie",
+        "Eliza",
+        "Larry",
+        "PasiLi",
+        "Aida",
+        "Nguyên Mộc Quán Chủ",
+        "ChiNiya",
+        "McCanQi",
+        "Olden",
+        "Kela"
+      ],
+      "event_group_count": 7,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 9,
+          "room_index": 1,
+          "world_key": 2305,
+          "record_count": 7,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                3,
+                3,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                80,
+                288,
+                80,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                15
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Quả nhiên ..."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 3,
+                  "text": "(bên kia có một tiểu cô nương, qua hỏi xem sao.)"
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 4,
+                  "text": "Hướng về phía tiểu cô nương hỏi thăm tin tức."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 9,
+          "room_index": 1,
+          "world_key": 2305,
+          "record_count": 14,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                9,
+                1,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 16,
+              "total_arg_count": 1,
+              "short_args": [
+                24
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 5,
+                  "text": "Kela"
+                },
+                {
+                  "string_index": 6,
+                  "text": "Vị đại hiệp, đạo quán giờ không còn ai đâu."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 7,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 8,
+                  "text": "Chuyện gì đã xảy ra vậy?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 9,
+                  "text": "Kela"
+                },
+                {
+                  "string_index": 10,
+                  "text": "Tất cả chiến đội sủng vật Hoàng Gia đột nhiên bị triệu tập đến dinh thự trưởng thôn, sau đó không một ai trở về. Ngay sau đó Hắc Long Quân tiến đến sát hại mọi người."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 11,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 12,
+                  "text": "(xem ra Hắc Long Quân đã chia làm hai hướng muốn đồng thời khống chế Bích Thủy cùng Nguyên Mộc.) Mục đích của bọn họ phải chăng là Hắc Bảo Châu?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 13,
+                  "text": "Kela"
+                },
+                {
+                  "string_index": 14,
+                  "text": "Ca ca làm sao biết? Đúng là bọn họ có tra xét tung tích của Hắc Bảo Châu, nhưng thực sự mọi người cũng không biết. Ca ca là huấn luyện sư sủng vật à? Ca sẽ cứu Nguyên Mộc Thành chứ!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 15,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 16,
+                  "text": "Ừ, ta đến dinh thự trưởng thôn xem sao."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 17,
+                  "text": "Kela"
+                },
+                {
+                  "string_index": 18,
+                  "text": "Bên ngoài dinh rất nhiều người canh gác. Ca không thể vào ban ngày được đâu. Trong thư viện có một bí đạo liên thông đến tầng hầm ngầm của dinh thự, ca có thể đi theo hướng đó. Đồ Thư Quán hiện tại phía đông Đạo Quán."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 19,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 20,
+                  "text": "Ta cám ơn!"
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 21,
+                  "text": "Đến Đồ Thư Quán."
+                }
+              ]
+            },
+            {
+              "opcode": 23,
+              "total_arg_count": 3,
+              "short_args": [
+                3,
+                3,
+                10
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 45,
+              "total_arg_count": 2,
+              "short_args": [
+                13
+              ],
+              "string_args": [
+                {
+                  "string_index": 22,
+                  "text": "Theo mật thất trong Đồ Thư Quán lẻn vào dinh thự trưởng thôn."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 9,
+          "room_index": 1,
+          "world_key": 2305,
+          "record_count": 29,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                9,
+                1,
+                6
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                160,
+                0,
+                16,
+                64
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 23,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 24,
+                  "text": "Quán chủ, thực xin lỗi, không thể giúp mọi người."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 25,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 26,
+                  "text": "Không, cậu đã giúp rất nhiều rồi. Ta đã liên lạc với Arnold, sau đó không lâu, chúng ta nhất định phản kích ra ngoài, đuổi Hắc Long Quân khỏi Nguyên Mộc Thành."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 27,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 28,
+                  "text": "Không nên cho ta biết kế hoạch tác chiến. Hiện ta tuân theo chỉ thị của nàng ấy. Nếu nàng có hỏi ta sẽ khó xử."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 29,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 30,
+                  "text": "Cậu đối với kẻ địch cũng rất giữ chữ tín. Thật đáng phục."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 31,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 32,
+                  "text": "Tuy biết rõ nàng đã thay đổi, nhưng..."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 33,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 34,
+                  "text": "Tuy ta không biết chuyện trước kia giữa hai người, nhưng...cô bé kia không hề lạnh lùng như vẻ bề ngoài vô tình đâu."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 35,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 36,
+                  "text": "Ngài và Bích Thủy Thành trưởng thôn đều nói rất giống nhau."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 37,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 38,
+                  "text": "Chúng ta đều là những người đã từng trải, sống từng này tuổi gặp không ít người, chúng ta đương nhiên sẽ thấy điều người trẻ không thể thấy."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 39,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 40,
+                  "text": "..."
+                }
+              ]
+            },
+            {
+              "opcode": 5,
+              "total_arg_count": 5,
+              "short_args": [
+                1,
+                17,
+                10,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                15
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 41,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 42,
+                  "text": "Thôi, bỏ qua chuyện này, theo quy tắc của Đạo Quán, hãy tới khiêu chiến ta đi!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                17
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 43,
+                  "text": "17,30,9"
+                },
+                {
+                  "string_index": 44,
+                  "text": "20,21,21"
+                },
+                {
+                  "string_index": 45,
+                  "text": "3,3,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                19,
+                29,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 46,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 47,
+                  "text": "Ta trao cho cậu Mộc Quỳ Chương, phần thưởng cho sự chiến thắng."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 48,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 49,
+                  "text": "Có được thứ này có thể loại bỏ các cây nhỏ vướng đường của cậu nhưng không nên chặt bỏ cây. Mặt khác nó cũng chỉ có tác dụng với một số ít loại thôi."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 50,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 51,
+                  "text": "Ra vậy. Ta thấy rất nhiều vùng bị cây bao kín. Cái này có thể giúp ta thông qua một cách dễ dàng."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 52,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 53,
+                  "text": "Chính là ý đó. Bởi sẽ có nhiều sủng vật mạnh ẩn hiện, mọi người sợ trẻ nhỏ và những khách lữ hành có thể bị nguy hiểm do đó đã trồng nhiều cây ở xung quanh."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 54,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 55,
+                  "text": "Nếu quả đúng như Ngài nói ta lại cảm thấy rất có hứng thú với lũ sủng vật đó. Với một huấn luyện sư sủng vật mà nói cái này chính là cầu còn không được."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 56,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 57,
+                  "text": "Ha ha, ta biết là cậu sẽ nói vậy. Hãy đến Bình nguyên phía Tây thám hiểm một chuyến đi."
+                }
+              ]
+            },
+            {
+              "opcode": 53,
+              "total_arg_count": 3,
+              "short_args": [
+                1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 58,
+                  "text": "Mộc Quỳ Chương: Có thể chặt cây, đặc biệt cây cối chướng ngại vật trên đường (Ấn nút 5 khi đứng trước các cây cối cần loại bỏ)."
+                }
+              ]
+            },
+            {
+              "opcode": 17,
+              "total_arg_count": 3,
+              "short_args": [
+                0,
+                0,
+                1
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 45,
+              "total_arg_count": 2,
+              "short_args": [
+                17
+              ],
+              "string_args": [
+                {
+                  "string_index": 59,
+                  "text": "Đến phía tây thành nơi giao với bình nguyên bắt sủng vật!"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 3,
+          "scene_id": 9,
+          "room_index": 1,
+          "world_key": 2305,
+          "record_count": 10,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                3,
+                3,
+                11
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                16,
+                160,
+                64,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 60,
+                  "text": "Olden"
+                },
+                {
+                  "string_index": 61,
+                  "text": "Đến"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                23
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 37,
+              "total_arg_count": 3,
+              "short_args": [
+                24,
+                19,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                10,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 62,
+                  "text": "Olden"
+                },
+                {
+                  "string_index": 63,
+                  "text": "Không tệ lắm"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 4,
+          "scene_id": 9,
+          "room_index": 1,
+          "world_key": 2305,
+          "record_count": 10,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                3,
+                3,
+                11
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                100,
+                180,
+                96,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 64,
+                  "text": "McCanQi"
+                },
+                {
+                  "string_index": 65,
+                  "text": "Hoan nghênh đã tới khiêu chiến!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                20
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 66,
+                  "text": "16,29"
+                },
+                {
+                  "string_index": 67,
+                  "text": "19,20"
+                },
+                {
+                  "string_index": 68,
+                  "text": "2,2"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                10,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 69,
+                  "text": "McCanQi"
+                },
+                {
+                  "string_index": 70,
+                  "text": "Có thể đến cửa tiếp theo!"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 5,
+          "scene_id": 9,
+          "room_index": 1,
+          "world_key": 2305,
+          "record_count": 10,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                3,
+                3,
+                11
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                175,
+                160,
+                64,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 71,
+                  "text": "ChiNiya"
+                },
+                {
+                  "string_index": 72,
+                  "text": "Cảm tạ đã cứu chúng ta, nhưng ta vẫn muốn thử xem thực lực của cậu đến đâu."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                19
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 73,
+                  "text": "54,27"
+                },
+                {
+                  "string_index": 74,
+                  "text": "20,20"
+                },
+                {
+                  "string_index": 75,
+                  "text": "3,3"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                10,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 76,
+                  "text": "ChiNiya"
+                },
+                {
+                  "string_index": 77,
+                  "text": "Không hổ là anh hùng của Bích Thủy Thành."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 6,
+          "scene_id": 9,
+          "room_index": 1,
+          "world_key": 2305,
+          "record_count": 5,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                3,
+                3,
+                11
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 56,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                4
+              ],
+              "string_args": [
+                {
+                  "string_index": 78,
+                  "text": "17,19,20,23"
+                },
+                {
+                  "string_index": 79,
+                  "text": "1,0,2,0"
+                }
+              ]
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                80,
+                288,
+                80,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 80,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 81,
+                  "text": "Quy tắc của Đạo quán ở đây cũng giống Bích Thủy Đạo Quán. Chiến thắng tất cả mọi người cho đến quán chủ, nếu như trên đường thất bại, thì sẽ quay trở lại điểm xuất phát, tức lối vào."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 8718,
+      "declared_block_size": 8718
+    },
+    {
+      "room_index": 2,
+      "block_size": 1492,
+      "room_start": 13978,
+      "room_name": "Niêm Thổ Đạo Quán Thượng",
+      "string_pool_count": 18,
+      "string_pool": [
+        "Fanny",
+        "Đánh bại ta ngươi có thể gặp quán chủ.",
+        "20,7,40",
+        "28,29,29",
+        "3,3,3",
+        "TaliSi",
+        "Thắng được quán chủ mới hoàn thành cuộc thử thách.",
+        "9",
+        "0",
+        "1",
+        "Quán chủ Đạo Quán",
+        "Ở đâu ra tên tiểu tử thế này? Còn dám tới khiêu chiến với ta à?",
+        "21,41,45",
+        "29,30,30",
+        "3,4,4",
+        "Quán chủ Đạo Quán",
+        "Ta thua rồi, sống uổng phí nhiều năm như vậy ...",
+        "Hòa Phong Chương: Tăng thuộc tính cường hóa phòng ngự của tất cả sủng vật."
+      ],
+      "unknown_ab": 25,
+      "unknown_skip": 1,
+      "actor_count": 11,
+      "actors": [
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            335,
+            0,
+            97,
+            272,
+            1,
+            16,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            335,
+            0,
+            144,
+            272,
+            1,
+            16,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            335,
+            0,
+            97,
+            240,
+            1,
+            16,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            335,
+            0,
+            144,
+            240,
+            1,
+            16,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            121,
+            269,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 3,
+          "param_len": 12,
+          "values": [
+            3,
+            243,
+            0,
+            120,
+            221,
+            1,
+            0,
+            1,
+            10,
+            5,
+            32,
+            0
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            310,
+            0,
+            208,
+            288,
+            1,
+            1,
+            2,
+            9,
+            3,
+            0
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            121,
+            319,
+            1,
+            1,
+            2,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            32,
+            320,
+            1,
+            2,
+            2,
+            4,
+            5,
+            2
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            64,
+            0,
+            121,
+            96,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            119,
+            12
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            60,
+            0,
+            208,
+            174,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            117,
+            13
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Kane",
+        "Quán chủ Bích Thủy",
+        "Millie",
+        "Eliza",
+        "Larry",
+        "PasiLi",
+        "Aida",
+        "Nguyên Mộc Quán Chủ",
+        "ChiNiya",
+        "McCanQi",
+        "Olden",
+        "Kela",
+        "Niêm Thổ Quán Chủ",
+        "Fanny"
+      ],
+      "event_group_count": 2,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 9,
+          "room_index": 2,
+          "world_key": 2306,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                193,
+                177,
+                32,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Fanny"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Đánh bại ta ngươi có thể gặp quán chủ."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                10
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "20,7,40"
+                },
+                {
+                  "string_index": 3,
+                  "text": "28,29,29"
+                },
+                {
+                  "string_index": 4,
+                  "text": "3,3,3"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 5,
+                  "text": "TaliSi"
+                },
+                {
+                  "string_index": 6,
+                  "text": "Thắng được quán chủ mới hoàn thành cuộc thử thách."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 9,
+          "room_index": 2,
+          "world_key": 2306,
+          "record_count": 13,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                160,
+                63,
+                16,
+                64
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 7,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 7,
+                  "text": "9"
+                },
+                {
+                  "string_index": 8,
+                  "text": "0"
+                },
+                {
+                  "string_index": 9,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 10,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 11,
+                  "text": "Ở đâu ra tên tiểu tử thế này? Còn dám tới khiêu chiến với ta à?"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                9
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 12,
+                  "text": "21,41,45"
+                },
+                {
+                  "string_index": 13,
+                  "text": "29,30,30"
+                },
+                {
+                  "string_index": 14,
+                  "text": "3,4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                13,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 15,
+                  "text": "Quán chủ Đạo Quán"
+                },
+                {
+                  "string_index": 16,
+                  "text": "Ta thua rồi, sống uổng phí nhiều năm như vậy ..."
+                }
+              ]
+            },
+            {
+              "opcode": 53,
+              "total_arg_count": 3,
+              "short_args": [
+                4,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 17,
+                  "text": "Hòa Phong Chương: Tăng thuộc tính cường hóa phòng ngự của tất cả sủng vật."
+                }
+              ]
+            },
+            {
+              "opcode": 23,
+              "total_arg_count": 3,
+              "short_args": [
+                4,
+                0,
+                1
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 23,
+              "total_arg_count": 3,
+              "short_args": [
+                4,
+                5,
+                14
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 1492,
+      "declared_block_size": 1492
+    },
+    {
+      "room_index": 3,
+      "block_size": 1312,
+      "room_start": 15470,
+      "room_name": "Niêm Thổ Đạo Quán Hạ",
+      "string_pool_count": 16,
+      "string_pool": [
+        "Camille",
+        "Muốn qua được thử thách cần phải đánh bại được ta đã.",
+        "32,43",
+        "28,28",
+        "3,3",
+        "Camille",
+        "Quả nhiên rất mạnh! Chúc mừng đã vượt qua cuộc kiểm tra.",
+        "Jacklyn",
+        "Để ta cho ngươi biết cái gì mới là thực lực chân chính.",
+        "33,38",
+        "28,29",
+        "3,3",
+        "Jacklyn",
+        "Xem ra cần huấn luyện nhiều hơn!",
+        "Neil",
+        "Gì nhỉ! hỏng hết sao? ... xem ra khá đặc sắc."
+      ],
+      "unknown_ab": 26,
+      "unknown_skip": 0,
+      "actor_count": 8,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            209,
+            300,
+            1,
+            1,
+            2,
+            9,
+            2,
+            6
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            63,
+            0,
+            40,
+            174,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            121,
+            14
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            62,
+            2,
+            209,
+            194,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            120,
+            15
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            4,
+            137,
+            242,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            4,
+            40,
+            113,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            5,
+            24,
+            98,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            5,
+            217,
+            66,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            0,
+            24,
+            65,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Kane",
+        "Quán chủ Bích Thủy",
+        "Millie",
+        "Eliza",
+        "Larry",
+        "PasiLi",
+        "Aida",
+        "Nguyên Mộc Quán Chủ",
+        "ChiNiya",
+        "McCanQi",
+        "Olden",
+        "Kela",
+        "Niêm Thổ Quán Chủ",
+        "Fanny",
+        "Camille",
+        "Jacklyn"
+      ],
+      "event_group_count": 3,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 9,
+          "room_index": 3,
+          "world_key": 2307,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                16,
+                176,
+                48,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Camille"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Muốn qua được thử thách cần phải đánh bại được ta đã."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                1
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "32,43"
+                },
+                {
+                  "string_index": 3,
+                  "text": "28,28"
+                },
+                {
+                  "string_index": 4,
+                  "text": "3,3"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 5,
+                  "text": "Camille"
+                },
+                {
+                  "string_index": 6,
+                  "text": "Quả nhiên rất mạnh! Chúc mừng đã vượt qua cuộc kiểm tra."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 9,
+          "room_index": 3,
+          "world_key": 2307,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                191,
+                143,
+                48,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 7,
+                  "text": "Jacklyn"
+                },
+                {
+                  "string_index": 8,
+                  "text": "Để ta cho ngươi biết cái gì mới là thực lực chân chính."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 9,
+                  "text": "33,38"
+                },
+                {
+                  "string_index": 10,
+                  "text": "28,29"
+                },
+                {
+                  "string_index": 11,
+                  "text": "3,3"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 12,
+                  "text": "Jacklyn"
+                },
+                {
+                  "string_index": 13,
+                  "text": "Xem ra cần huấn luyện nhiều hơn!"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 9,
+          "room_index": 3,
+          "world_key": 2307,
+          "record_count": 3,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                96,
+                240,
+                32,
+                32
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 14,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 15,
+                  "text": "Gì nhỉ! hỏng hết sao? ... xem ra khá đặc sắc."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 1312,
+      "declared_block_size": 1312
+    },
+    {
+      "room_index": 4,
+      "block_size": 2220,
+      "room_start": 16782,
+      "room_name": "Hắc Thạch Đạo Quán Thượng",
+      "string_pool_count": 33,
+      "string_pool": [
+        "Quincy",
+        "Muốn đánh bại Hắc Thạch Đạo Quán cũng không phải là đơn giản.",
+        "3,2",
+        "35,35",
+        "3,3",
+        "Quincy",
+        "Trông ngươi tuổi còn trẻ mà đã lợi hại thế này, được",
+        "Sade",
+        "Có vẻ ngạo mạn nhỉ?!",
+        "11,13",
+        "35,36",
+        "3,4",
+        "Sade",
+        "Kẻ bại trận chẳng có gì để nói cả!",
+        "Raleigh",
+        "Không thử thì sao qua được, ha ha!",
+        "82,44",
+        "36,36",
+        "4,4",
+        "Raleigh",
+        "Đi mau đi!",
+        "3",
+        "0",
+        "1",
+        "Dbell",
+        "Đánh bại ta mới có thể qua được thử thách.",
+        "8,77,96,5",
+        "35,36,37,37",
+        "4,4,4,5",
+        "Dbell",
+        "Liệt Hỏa Chương có thể giúp ngươi xua tan hắc ám, chiếu sáng con đường phía trước.",
+        "Liệt Hỏa Chương: Gia tăng năng lực nhìn trong phạm vi rộng khi vào bóng tối.",
+        "Đến [Chính Điện] tìm Yafei."
+      ],
+      "unknown_ab": 27,
+      "unknown_skip": 0,
+      "actor_count": 14,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            113,
+            317,
+            1,
+            1,
+            2,
+            5,
+            3,
+            3
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            81,
+            0,
+            192,
+            80,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            119,
+            16
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            13,
+            0,
+            49,
+            224,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            122,
+            17
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            35,
+            0,
+            80,
+            61,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            18
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            69,
+            0,
+            121,
+            161,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            123,
+            19
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            0,
+            56,
+            144,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            0,
+            215,
+            161,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            0,
+            216,
+            271,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            1,
+            25,
+            290,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            4,
+            24,
+            306,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            4,
+            185,
+            308,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            5,
+            216,
+            179,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            5,
+            41,
+            147,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            5,
+            24,
+            177,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Kane",
+        "Quán chủ Bích Thủy",
+        "Millie",
+        "Eliza",
+        "Larry",
+        "PasiLi",
+        "Aida",
+        "Nguyên Mộc Quán Chủ",
+        "ChiNiya",
+        "McCanQi",
+        "Olden",
+        "Kela",
+        "Niêm Thổ Quán Chủ",
+        "Fanny",
+        "Camille",
+        "Jacklyn",
+        "Raleigh",
+        "Quincy",
+        "Hắc Thạch Quán Chủ",
+        "Sade"
+      ],
+      "event_group_count": 4,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 9,
+          "room_index": 4,
+          "world_key": 2308,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                15,
+                224,
+                64,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Quincy"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Muốn đánh bại Hắc Thạch Đạo Quán cũng không phải là đơn giản."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "3,2"
+                },
+                {
+                  "string_index": 3,
+                  "text": "35,35"
+                },
+                {
+                  "string_index": 4,
+                  "text": "3,3"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 5,
+                  "text": "Quincy"
+                },
+                {
+                  "string_index": 6,
+                  "text": "Trông ngươi tuổi còn trẻ mà đã lợi hại thế này, được"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 9,
+          "room_index": 4,
+          "world_key": 2308,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                96,
+                128,
+                16,
+                48
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 7,
+                  "text": "Sade"
+                },
+                {
+                  "string_index": 8,
+                  "text": "Có vẻ ngạo mạn nhỉ?!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                4
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 9,
+                  "text": "11,13"
+                },
+                {
+                  "string_index": 10,
+                  "text": "35,36"
+                },
+                {
+                  "string_index": 11,
+                  "text": "3,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 12,
+                  "text": "Sade"
+                },
+                {
+                  "string_index": 13,
+                  "text": "Kẻ bại trận chẳng có gì để nói cả!"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 9,
+          "room_index": 4,
+          "world_key": 2308,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                176,
+                96,
+                32,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 14,
+                  "text": "Raleigh"
+                },
+                {
+                  "string_index": 15,
+                  "text": "Không thử thì sao qua được, ha ha!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                1
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 16,
+                  "text": "82,44"
+                },
+                {
+                  "string_index": 17,
+                  "text": "36,36"
+                },
+                {
+                  "string_index": 18,
+                  "text": "4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 19,
+                  "text": "Raleigh"
+                },
+                {
+                  "string_index": 20,
+                  "text": "Đi mau đi!"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 3,
+          "scene_id": 9,
+          "room_index": 4,
+          "world_key": 2308,
+          "record_count": 12,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                96,
+                15,
+                16,
+                80
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 7,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 21,
+                  "text": "3"
+                },
+                {
+                  "string_index": 22,
+                  "text": "0"
+                },
+                {
+                  "string_index": 23,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 24,
+                  "text": "Dbell"
+                },
+                {
+                  "string_index": 25,
+                  "text": "Đánh bại ta mới có thể qua được thử thách."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                3
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                4
+              ],
+              "string_args": [
+                {
+                  "string_index": 26,
+                  "text": "8,77,96,5"
+                },
+                {
+                  "string_index": 27,
+                  "text": "35,36,37,37"
+                },
+                {
+                  "string_index": 28,
+                  "text": "4,4,4,5"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                12,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 29,
+                  "text": "Dbell"
+                },
+                {
+                  "string_index": 30,
+                  "text": "Liệt Hỏa Chương có thể giúp ngươi xua tan hắc ám, chiếu sáng con đường phía trước."
+                }
+              ]
+            },
+            {
+              "opcode": 53,
+              "total_arg_count": 3,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 31,
+                  "text": "Liệt Hỏa Chương: Gia tăng năng lực nhìn trong phạm vi rộng khi vào bóng tối."
+                }
+              ]
+            },
+            {
+              "opcode": 45,
+              "total_arg_count": 2,
+              "short_args": [
+                26
+              ],
+              "string_args": [
+                {
+                  "string_index": 32,
+                  "text": "Đến [Chính Điện] tìm Yafei."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 2220,
+      "declared_block_size": 2220
+    },
+    {
+      "room_index": 5,
+      "block_size": 3654,
+      "room_start": 19002,
+      "room_name": "Hắc Thạch Đạo Quán Hạ",
+      "string_pool_count": 40,
+      "string_pool": [
+        "Ed",
+        "Khá khen cho dũng khí của ngươi. Cho ngươi biết, thứ dũng khí đó chính là thực lực đặc biệt của ngươi!",
+        "4,36",
+        "36,36",
+        "3,3",
+        "Ed",
+        "Ngươi được thông qua.",
+        "Sadie",
+        "Chà chà, đến được đây quả không dễ dàng... nhưng sẽ chỉ dừng ở đây thôi.",
+        "12,90",
+        "36,37",
+        "4,4",
+        "Sadie",
+        "Hự, không nghĩ ta lại có thể thua. Thôi...",
+        "Walter",
+        "Oa a a a a a a!! !! !!",
+        "14,42,92",
+        "36,37,37",
+        "4,4,4",
+        "Walter",
+        "Đó đó ...",
+        "Quán chủ",
+        "Đã lâu không thấy con người xuất hiện, ta không nghĩ là thử thách lại thất bại nhanh đến thế. Trông ngươi quả là có thần thái khác người thường...",
+        "42,78,58,81",
+        "39,37,38,38",
+        "5,4,5,5",
+        "Quán chủ",
+        "Đại Địa Chương ...",
+        "Neil",
+        "Đại Địa Chương có thể phá nát cự thạch, vượt qua mọi chướng ngại vật trên đường.",
+        "Quán chủ",
+        "To gan thật! Dám tranh lời thoại của ta à!",
+        "Neil",
+        "Giọng này đúng là của những người thuộc Hắc Thạch Đạo Quán.",
+        "Quán chủ",
+        "Có chút thơ văn cũng tốt chứ sao. Nơi này ai cũng đều yêu văn chương cả! Ha ha",
+        "Neil",
+        "Oh, Ta sai rồi ...",
+        "Đại Địa Chương: Có thể phá hủy những tảng đá cản trở trên đường (Nhấn nút 5 khi đến trước tảng đá).",
+        "Đến [Địa lao Hắc Thạch] lấy Hắc Tinh Thạch."
+      ],
+      "unknown_ab": 28,
+      "unknown_skip": 0,
+      "actor_count": 34,
+      "actors": [
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            88,
+            271,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            88,
+            286,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            88,
+            303,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            88,
+            160,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            89,
+            144,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            169,
+            143,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            168,
+            159,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            25,
+            240,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            41,
+            240,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            55,
+            126,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            70,
+            127,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            184,
+            240,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            184,
+            256,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            186,
+            272,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            168,
+            272,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            153,
+            272,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            218,
+            79,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            217,
+            96,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            217,
+            113,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            217,
+            130,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            40,
+            320,
+            1,
+            1,
+            2,
+            5,
+            5,
+            9
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            33,
+            0,
+            127,
+            187,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            124,
+            20
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            13,
+            0,
+            32,
+            111,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            122,
+            21
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            81,
+            0,
+            64,
+            224,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            116,
+            22
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            69,
+            2,
+            210,
+            273,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            80,
+            23
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            5,
+            41,
+            36,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            4,
+            216,
+            66,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            4,
+            24,
+            35,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            5,
+            217,
+            160,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            4,
+            217,
+            159,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            2,
+            200,
+            33,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            1,
+            41,
+            83,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            10,
+            32,
+            48,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            278,
+            13,
+            219,
+            43,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Kane",
+        "Quán chủ Bích Thủy",
+        "Millie",
+        "Eliza",
+        "Larry",
+        "PasiLi",
+        "Aida",
+        "Nguyên Mộc Quán Chủ",
+        "ChiNiya",
+        "McCanQi",
+        "Olden",
+        "Kela",
+        "Niêm Thổ Quán Chủ",
+        "Fanny",
+        "Camille",
+        "Jacklyn",
+        "Raleigh",
+        "Quincy",
+        "Hắc Thạch Quán Chủ",
+        "Sade",
+        "Hắc Thạch Quán Chủ",
+        "Sadie",
+        "Ed",
+        "Walter"
+      ],
+      "event_group_count": 4,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 9,
+          "room_index": 5,
+          "world_key": 2309,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                48,
+                225,
+                32,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Ed"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Khá khen cho dũng khí của ngươi. Cho ngươi biết, thứ dũng khí đó chính là thực lực đặc biệt của ngươi!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                23
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "4,36"
+                },
+                {
+                  "string_index": 3,
+                  "text": "36,36"
+                },
+                {
+                  "string_index": 4,
+                  "text": "3,3"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 5,
+                  "text": "Ed"
+                },
+                {
+                  "string_index": 6,
+                  "text": "Ngươi được thông qua."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 9,
+          "room_index": 5,
+          "world_key": 2309,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                16,
+                112,
+                32,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 7,
+                  "text": "Sadie"
+                },
+                {
+                  "string_index": 8,
+                  "text": "Chà chà, đến được đây quả không dễ dàng... nhưng sẽ chỉ dừng ở đây thôi."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                22
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 9,
+                  "text": "12,90"
+                },
+                {
+                  "string_index": 10,
+                  "text": "36,37"
+                },
+                {
+                  "string_index": 11,
+                  "text": "4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 12,
+                  "text": "Sadie"
+                },
+                {
+                  "string_index": 13,
+                  "text": "Hự, không nghĩ ta lại có thể thua. Thôi..."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 9,
+          "room_index": 5,
+          "world_key": 2309,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                192,
+                224,
+                32,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 14,
+                  "text": "Walter"
+                },
+                {
+                  "string_index": 15,
+                  "text": "Oa a a a a a a!! !! !!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                24
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 16,
+                  "text": "14,42,92"
+                },
+                {
+                  "string_index": 17,
+                  "text": "36,37,37"
+                },
+                {
+                  "string_index": 18,
+                  "text": "4,4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 19,
+                  "text": "Walter"
+                },
+                {
+                  "string_index": 20,
+                  "text": "Đó đó ..."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 3,
+          "scene_id": 9,
+          "room_index": 5,
+          "world_key": 2309,
+          "record_count": 16,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                96,
+                208,
+                64,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 21,
+                  "text": "Quán chủ"
+                },
+                {
+                  "string_index": 22,
+                  "text": "Đã lâu không thấy con người xuất hiện, ta không nghĩ là thử thách lại thất bại nhanh đến thế. Trông ngươi quả là có thần thái khác người thường..."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                21
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                4
+              ],
+              "string_args": [
+                {
+                  "string_index": 23,
+                  "text": "42,78,58,81"
+                },
+                {
+                  "string_index": 24,
+                  "text": "39,37,38,38"
+                },
+                {
+                  "string_index": 25,
+                  "text": "5,4,5,5"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                16,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 26,
+                  "text": "Quán chủ"
+                },
+                {
+                  "string_index": 27,
+                  "text": "Đại Địa Chương ..."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 28,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 29,
+                  "text": "Đại Địa Chương có thể phá nát cự thạch, vượt qua mọi chướng ngại vật trên đường."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 30,
+                  "text": "Quán chủ"
+                },
+                {
+                  "string_index": 31,
+                  "text": "To gan thật! Dám tranh lời thoại của ta à!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 32,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 33,
+                  "text": "Giọng này đúng là của những người thuộc Hắc Thạch Đạo Quán."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 34,
+                  "text": "Quán chủ"
+                },
+                {
+                  "string_index": 35,
+                  "text": "Có chút thơ văn cũng tốt chứ sao. Nơi này ai cũng đều yêu văn chương cả! Ha ha"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 36,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 37,
+                  "text": "Oh, Ta sai rồi ..."
+                }
+              ]
+            },
+            {
+              "opcode": 53,
+              "total_arg_count": 3,
+              "short_args": [
+                2,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 38,
+                  "text": "Đại Địa Chương: Có thể phá hủy những tảng đá cản trở trên đường (Nhấn nút 5 khi đến trước tảng đá)."
+                }
+              ]
+            },
+            {
+              "opcode": 45,
+              "total_arg_count": 2,
+              "short_args": [
+                28
+              ],
+              "string_args": [
+                {
+                  "string_index": 39,
+                  "text": "Đến [Địa lao Hắc Thạch] lấy Hắc Tinh Thạch."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 3654,
+      "declared_block_size": 3654
+    },
+    {
+      "room_index": 6,
+      "block_size": 2199,
+      "room_start": 22656,
+      "room_name": "Hắc Long Đạo Quán",
+      "string_pool_count": 22,
+      "string_pool": [
+        "Thần Điện Thủ Vệ",
+        "Chúng ta là những vị thần canh giữ điện!",
+        "8,74,59",
+        "37,37,37",
+        "3,4,4",
+        "Abe",
+        "Ngươi thật không biết tôn ti, dám khinh thường à ...",
+        "Thần Điện Thủ Vệ",
+        "Kẻ nào dám xông vào Hắc Long Thần Điện!",
+        "73,5,84",
+        "37,38,38",
+        "4,4,4",
+        "Gaelle",
+        "Ngươi sẽ bỏ mạng tại đó thôi, ha ha!",
+        "Hắc Long Quán Chủ",
+        "Hừ, nếu như ngươi thực sự đánh bại lực lượng của ta, thì không chỉ có huy hiệu cho ngươi, Hắc Long Thần Điện cũng để ngươi định đoạt!",
+        "86,97,70,53,46",
+        "37,38,38,36,39",
+        "4,4,5,4,5",
+        "Hắc Long Quán Chủ",
+        "Cầm lấy đi!",
+        "Lôi Điện Chương: Mang theo tất cả sủng vật công kích có thuộc tính cường hóa."
+      ],
+      "unknown_ab": 30,
+      "unknown_skip": 0,
+      "actor_count": 14,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            89,
+            288,
+            1,
+            4,
+            0,
+            9,
+            6,
+            5
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            23,
+            276,
+            0,
+            4,
+            0,
+            9,
+            6,
+            6
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            41,
+            135,
+            1,
+            4,
+            0,
+            9,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            232,
+            143,
+            1,
+            4,
+            0,
+            9,
+            6,
+            9
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            250,
+            194,
+            1,
+            4,
+            2,
+            9,
+            6,
+            6
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            168,
+            192,
+            1,
+            4,
+            0,
+            9,
+            6,
+            0
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            103,
+            191,
+            1,
+            4,
+            0,
+            9,
+            6,
+            4
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            136,
+            97,
+            1,
+            4,
+            2,
+            9,
+            6,
+            2
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            136,
+            365,
+            1,
+            1,
+            2,
+            6,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            320,
+            0,
+            24,
+            194,
+            1,
+            4,
+            2,
+            9,
+            6,
+            3
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            0,
+            137,
+            18,
+            1,
+            1,
+            0,
+            6,
+            1,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            32,
+            0,
+            136,
+            55,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            125,
+            24
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            31,
+            0,
+            136,
+            192,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            125,
+            25
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            30,
+            0,
+            137,
+            287,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            125,
+            26
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Kane",
+        "Quán chủ Bích Thủy",
+        "Millie",
+        "Eliza",
+        "Larry",
+        "PasiLi",
+        "Aida",
+        "Nguyên Mộc Quán Chủ",
+        "ChiNiya",
+        "McCanQi",
+        "Olden",
+        "Kela",
+        "Niêm Thổ Quán Chủ",
+        "Fanny",
+        "Camille",
+        "Jacklyn",
+        "Raleigh",
+        "Quincy",
+        "Hắc Thạch Quán Chủ",
+        "Sade",
+        "Hắc Thạch Quán Chủ",
+        "Sadie",
+        "Ed",
+        "Walter",
+        "Hắc Long Quán Chủ",
+        "Gaelle",
+        "Thần Điện Thủ Vệ"
+      ],
+      "event_group_count": 3,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 9,
+          "room_index": 6,
+          "world_key": 2310,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                112,
+                320,
+                48,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Thần Điện Thủ Vệ"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Chúng ta là những vị thần canh giữ điện!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                13
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "8,74,59"
+                },
+                {
+                  "string_index": 3,
+                  "text": "37,37,37"
+                },
+                {
+                  "string_index": 4,
+                  "text": "3,4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 5,
+                  "text": "Abe"
+                },
+                {
+                  "string_index": 6,
+                  "text": "Ngươi thật không biết tôn ti, dám khinh thường à ..."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 9,
+          "room_index": 6,
+          "world_key": 2310,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                120,
+                160,
+                32,
+                64
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 7,
+                  "text": "Thần Điện Thủ Vệ"
+                },
+                {
+                  "string_index": 8,
+                  "text": "Kẻ nào dám xông vào Hắc Long Thần Điện!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                12
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 9,
+                  "text": "73,5,84"
+                },
+                {
+                  "string_index": 10,
+                  "text": "37,38,38"
+                },
+                {
+                  "string_index": 11,
+                  "text": "4,4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 12,
+                  "text": "Gaelle"
+                },
+                {
+                  "string_index": 13,
+                  "text": "Ngươi sẽ bỏ mạng tại đó thôi, ha ha!"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 9,
+          "room_index": 6,
+          "world_key": 2310,
+          "record_count": 10,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                80,
+                48,
+                96,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 14,
+                  "text": "Hắc Long Quán Chủ"
+                },
+                {
+                  "string_index": 15,
+                  "text": "Hừ, nếu như ngươi thực sự đánh bại lực lượng của ta, thì không chỉ có huy hiệu cho ngươi, Hắc Long Thần Điện cũng để ngươi định đoạt!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                11
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                5
+              ],
+              "string_args": [
+                {
+                  "string_index": 16,
+                  "text": "86,97,70,53,46"
+                },
+                {
+                  "string_index": 17,
+                  "text": "37,38,38,36,39"
+                },
+                {
+                  "string_index": 18,
+                  "text": "4,4,5,4,5"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                10,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 19,
+                  "text": "Hắc Long Quán Chủ"
+                },
+                {
+                  "string_index": 20,
+                  "text": "Cầm lấy đi!"
+                }
+              ]
+            },
+            {
+              "opcode": 53,
+              "total_arg_count": 3,
+              "short_args": [
+                6,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 21,
+                  "text": "Lôi Điện Chương: Mang theo tất cả sủng vật công kích có thuộc tính cường hóa."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 2199,
+      "declared_block_size": 2199
+    },
+    {
+      "room_index": 7,
+      "block_size": 2815,
+      "room_start": 24855,
+      "room_name": "Thiên Giới Đạo Quán",
+      "string_pool_count": 37,
+      "string_pool": [
+        "Phi",
+        "Chúng ta không hoan nghênh con người.",
+        "1,25",
+        "40,40",
+        "4,4",
+        "Phi",
+        "Con người luôn phách lối không biết lượng sức.",
+        "Joey",
+        "Hãy mau trở về đi!",
+        "26,67,84",
+        "40,41,41",
+        "4,4,4",
+        "Joey",
+        "Quả nhiên đánh không lại.",
+        "Yuri",
+        "Ta sẽ không để cho ngươi có được huy hiệu.",
+        "39,74,89,94",
+        "40,41,42,42",
+        "4,4,4,4",
+        "YaQila",
+        "Ta bất lực rồi ...",
+        "Burch",
+        "Con người đã tới thì hãy tìm Bạch Bảo Châu, hay còn e ngại chưa đủ?",
+        "18,30,33,58",
+        "41,41,42,42",
+        "4,5,5,5",
+        "Burch",
+        "Quán chủ ...",
+        "Quán chủ",
+        "Đã đến rồi hả. Ta cũng chờ khá lâu rồi.",
+        "64,53,85,96,73,13",
+        "41,41,42,42,43,43",
+        "5,5,5,5,5,5",
+        "Quán chủ",
+        "Cầm đi đi, Bạch Long đại nhân đang chờ ngươi.",
+        "U Linh Chương: có thể dùng thần chú làm cho hạt giống sinh trưởng (Nhấn nút 5).",
+        "Đến [Bạch Long Thánh Điện] gặp Tomas để xem hướng quay lại Địa Giới."
+      ],
+      "unknown_ab": 31,
+      "unknown_skip": 0,
+      "actor_count": 17,
+      "actors": [
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            302,
+            0,
+            327,
+            176,
+            0,
+            10,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            298,
+            0,
+            21,
+            303,
+            1,
+            10,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            302,
+            0,
+            81,
+            52,
+            1,
+            9,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            298,
+            0,
+            248,
+            116,
+            1,
+            10,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            302,
+            0,
+            206,
+            270,
+            1,
+            9,
+            2,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            160,
+            353,
+            1,
+            1,
+            2,
+            7,
+            2,
+            5
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            49,
+            0,
+            125,
+            158,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            58,
+            27
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            44,
+            0,
+            247,
+            268,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            54,
+            28
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            46,
+            0,
+            31,
+            42,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            50,
+            29
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            47,
+            0,
+            248,
+            51,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            55,
+            30
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            43,
+            1,
+            80,
+            339,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            74,
+            31
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            282,
+            13,
+            269,
+            300,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            282,
+            15,
+            126,
+            288,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            282,
+            11,
+            191,
+            94,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            282,
+            10,
+            4,
+            90,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            282,
+            13,
+            61,
+            99,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            282,
+            17,
+            5,
+            363,
+            1,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Kane",
+        "Quán chủ Bích Thủy",
+        "Millie",
+        "Eliza",
+        "Larry",
+        "PasiLi",
+        "Aida",
+        "Nguyên Mộc Quán Chủ",
+        "ChiNiya",
+        "McCanQi",
+        "Olden",
+        "Kela",
+        "Niêm Thổ Quán Chủ",
+        "Fanny",
+        "Camille",
+        "Jacklyn",
+        "Raleigh",
+        "Quincy",
+        "Hắc Thạch Quán Chủ",
+        "Sade",
+        "Hắc Thạch Quán Chủ",
+        "Sadie",
+        "Ed",
+        "Walter",
+        "Hắc Long Quán Chủ",
+        "Gaelle",
+        "Thần Điện Thủ Vệ",
+        "Quán chủ",
+        "Burch",
+        "Joey",
+        "Yuri",
+        "Phi"
+      ],
+      "event_group_count": 5,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 9,
+          "room_index": 7,
+          "world_key": 2311,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                96,
+                304,
+                16,
+                48
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Phi"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Chúng ta không hoan nghênh con người."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                10
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "1,25"
+                },
+                {
+                  "string_index": 3,
+                  "text": "40,40"
+                },
+                {
+                  "string_index": 4,
+                  "text": "4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 5,
+                  "text": "Phi"
+                },
+                {
+                  "string_index": 6,
+                  "text": "Con người luôn phách lối không biết lượng sức."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 9,
+          "room_index": 7,
+          "world_key": 2311,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                32,
+                64,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 7,
+                  "text": "Joey"
+                },
+                {
+                  "string_index": 8,
+                  "text": "Hãy mau trở về đi!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                8
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                3
+              ],
+              "string_args": [
+                {
+                  "string_index": 9,
+                  "text": "26,67,84"
+                },
+                {
+                  "string_index": 10,
+                  "text": "40,41,41"
+                },
+                {
+                  "string_index": 11,
+                  "text": "4,4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 12,
+                  "text": "Joey"
+                },
+                {
+                  "string_index": 13,
+                  "text": "Quả nhiên đánh không lại."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 9,
+          "room_index": 7,
+          "world_key": 2311,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                225,
+                17,
+                16,
+                64
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 14,
+                  "text": "Yuri"
+                },
+                {
+                  "string_index": 15,
+                  "text": "Ta sẽ không để cho ngươi có được huy hiệu."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                9
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                4
+              ],
+              "string_args": [
+                {
+                  "string_index": 16,
+                  "text": "39,74,89,94"
+                },
+                {
+                  "string_index": 17,
+                  "text": "40,41,42,42"
+                },
+                {
+                  "string_index": 18,
+                  "text": "4,4,4,4"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 19,
+                  "text": "YaQila"
+                },
+                {
+                  "string_index": 20,
+                  "text": "Ta bất lực rồi ..."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 3,
+          "scene_id": 9,
+          "room_index": 7,
+          "world_key": 2311,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                227,
+                225,
+                48,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 21,
+                  "text": "Burch"
+                },
+                {
+                  "string_index": 22,
+                  "text": "Con người đã tới thì hãy tìm Bạch Bảo Châu, hay còn e ngại chưa đủ?"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                7
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                4
+              ],
+              "string_args": [
+                {
+                  "string_index": 23,
+                  "text": "18,30,33,58"
+                },
+                {
+                  "string_index": 24,
+                  "text": "41,41,42,42"
+                },
+                {
+                  "string_index": 25,
+                  "text": "4,5,5,5"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                9,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 26,
+                  "text": "Burch"
+                },
+                {
+                  "string_index": 27,
+                  "text": "Quán chủ ..."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 4,
+          "scene_id": 9,
+          "room_index": 7,
+          "world_key": 2311,
+          "record_count": 11,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                80,
+                192,
+                96,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 28,
+                  "text": "Quán chủ"
+                },
+                {
+                  "string_index": 29,
+                  "text": "Đã đến rồi hả. Ta cũng chờ khá lâu rồi."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                6
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                6
+              ],
+              "string_args": [
+                {
+                  "string_index": 30,
+                  "text": "64,53,85,96,73,13"
+                },
+                {
+                  "string_index": 31,
+                  "text": "41,41,42,42,43,43"
+                },
+                {
+                  "string_index": 32,
+                  "text": "5,5,5,5,5,5"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                11,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 33,
+                  "text": "Quán chủ"
+                },
+                {
+                  "string_index": 34,
+                  "text": "Cầm đi đi, Bạch Long đại nhân đang chờ ngươi."
+                }
+              ]
+            },
+            {
+              "opcode": 53,
+              "total_arg_count": 3,
+              "short_args": [
+                5,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 35,
+                  "text": "U Linh Chương: có thể dùng thần chú làm cho hạt giống sinh trưởng (Nhấn nút 5)."
+                }
+              ]
+            },
+            {
+              "opcode": 45,
+              "total_arg_count": 2,
+              "short_args": [
+                41
+              ],
+              "string_args": [
+                {
+                  "string_index": 36,
+                  "text": "Đến [Bạch Long Thánh Điện] gặp Tomas để xem hướng quay lại Địa Giới."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 2815,
+      "declared_block_size": 2815
+    }
+  ]
+}

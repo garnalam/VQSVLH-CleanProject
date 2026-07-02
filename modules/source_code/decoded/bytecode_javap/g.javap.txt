@@ -1,0 +1,75 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/g.class
+  Last modified May 24, 2026; size 243 bytes
+  SHA-256 checksum 3b09e70cf46c1e1730885452ed84fe86b4bef5d6df7706737f640dec66c423cf
+final class g
+  minor version: 0
+  major version: 47
+  flags: (0x0030) ACC_FINAL, ACC_SUPER
+  this_class: #2                          // g
+  super_class: #3                         // java/lang/Object
+  interfaces: 0, fields: 4, methods: 1, attributes: 0
+Constant pool:
+   #1 = Class              #18            // "[[I"
+   #2 = Class              #23            // g
+   #3 = Class              #24            // java/lang/Object
+   #4 = Fieldref           #2.#10         // g.a:[[I
+   #5 = Fieldref           #2.#11         // g.b:I
+   #6 = Fieldref           #2.#12         // g.c:I
+   #7 = Fieldref           #2.#13         // g.d:I
+   #8 = Methodref          #3.#9          // java/lang/Object."<init>":()V
+   #9 = NameAndType        #15:#14        // "<init>":()V
+  #10 = NameAndType        #19:#18        // a:[[I
+  #11 = NameAndType        #20:#17        // b:I
+  #12 = NameAndType        #21:#17        // c:I
+  #13 = NameAndType        #22:#17        // d:I
+  #14 = Utf8               ()V
+  #15 = Utf8               <init>
+  #16 = Utf8               Code
+  #17 = Utf8               I
+  #18 = Utf8               [[I
+  #19 = Utf8               a
+  #20 = Utf8               b
+  #21 = Utf8               c
+  #22 = Utf8               d
+  #23 = Utf8               g
+  #24 = Utf8               java/lang/Object
+{
+  public int[][] a;
+    descriptor: [[I
+    flags: (0x0001) ACC_PUBLIC
+
+  public int b;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public int c;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public int d;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  g();
+    descriptor: ()V
+    flags: (0x0000)
+    Code:
+      stack=3, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #8                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: bipush        50
+         7: iconst_5
+         8: multianewarray #1,  2             // class "[[I"
+        12: putfield      #4                  // Field a:[[I
+        15: aload_0
+        16: iconst_0
+        17: putfield      #5                  // Field b:I
+        20: aload_0
+        21: iconst_0
+        22: putfield      #6                  // Field c:I
+        25: aload_0
+        26: iconst_0
+        27: putfield      #7                  // Field d:I
+        30: return
+}

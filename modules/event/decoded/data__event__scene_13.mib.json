@@ -1,0 +1,694 @@
+{
+  "format": "vm_bytecode_tree",
+  "signature": 27,
+  "header_rest": [
+    109,
+    97,
+    110,
+    81,
+    0,
+    1,
+    4,
+    4,
+    4,
+    4,
+    1
+  ],
+  "root": {
+    "name": "",
+    "line_defined": 0,
+    "last_line": 0,
+    "max_stack": 0,
+    "param_count": 0,
+    "flags": 2,
+    "vararg": true,
+    "upvalue_count": 2,
+    "instruction_count": 5,
+    "instructions_sample": [
+      36,
+      7,
+      5,
+      8405020,
+      8388638
+    ],
+    "constants": [
+      {
+        "type": "string",
+        "value": "rn"
+      }
+    ],
+    "child_count": 1,
+    "children": [
+      {
+        "name": "",
+        "line_defined": 1,
+        "last_line": 106,
+        "max_stack": 0,
+        "param_count": 0,
+        "flags": 0,
+        "vararg": false,
+        "upvalue_count": 11,
+        "instruction_count": 156,
+        "instructions_sample": [
+          36,
+          7,
+          3,
+          16484,
+          0,
+          16455,
+          32868,
+          32839,
+          -2147483626,
+          -2145124330,
+          49221,
+          8421468,
+          65669,
+          8421532,
+          8421400,
+          -2145222634,
+          81989,
+          98433,
+          114885,
+          8421596,
+          29491404,
+          147713,
+          16842901,
+          16793692,
+          163909,
+          180357,
+          196801,
+          213249,
+          196929,
+          229761,
+          246209,
+          246273,
+          262721,
+          279169,
+          75497628,
+          32860,
+          12877847,
+          -2145812458,
+          311365,
+          133,
+          327873,
+          344321,
+          25165980,
+          32860,
+          133,
+          8388800,
+          360705,
+          25198748,
+          16777280,
+          376965,
+          8388800,
+          393473,
+          409921,
+          33587356,
+          16777428,
+          8388884,
+          25231448,
+          -2147483626,
+          16386,
+          8388610,
+          426181,
+          8421596,
+          16645,
+          8421660,
+          38043735,
+          -2146271210,
+          442693,
+          33554816,
+          16810332,
+          41943296,
+          426309,
+          8421724,
+          41992525,
+          -1912520680,
+          -2146418666,
+          475461,
+          8421724,
+          46628887,
+          -2146484202,
+          33093
+        ],
+        "constants": [
+          {
+            "type": "string",
+            "value": "mh"
+          },
+          {
+            "type": "string",
+            "value": "s"
+          },
+          {
+            "type": "string",
+            "value": "st"
+          },
+          {
+            "type": "string",
+            "value": "gi"
+          },
+          {
+            "type": "string",
+            "value": "gs"
+          },
+          {
+            "type": "string",
+            "value": "as"
+          },
+          {
+            "type": "string",
+            "value": "Đang gửi tin nhắn thứ "
+          },
+          {
+            "type": "string",
+            "value": "gj"
+          },
+          {
+            "type": "int",
+            "value": 1
+          },
+          {
+            "type": "string",
+            "value": ", xin đợi..."
+          },
+          {
+            "type": "string",
+            "value": "_ss"
+          },
+          {
+            "type": "string",
+            "value": "_c"
+          },
+          {
+            "type": "int",
+            "value": 115
+          },
+          {
+            "type": "int",
+            "value": 109
+          },
+          {
+            "type": "int",
+            "value": 58
+          },
+          {
+            "type": "int",
+            "value": 47
+          },
+          {
+            "type": "int",
+            "value": 97
+          },
+          {
+            "type": "int",
+            "value": 98
+          },
+          {
+            "type": "nil",
+            "value": null
+          },
+          {
+            "type": "string",
+            "value": "_sp"
+          },
+          {
+            "type": "string",
+            "value": "oketqgfkvkqp0rncvhqto"
+          },
+          {
+            "type": "int",
+            "value": -2
+          },
+          {
+            "type": "int",
+            "value": 4
+          },
+          {
+            "type": "string",
+            "value": "rp"
+          },
+          {
+            "type": "string",
+            "value": "rsome"
+          },
+          {
+            "type": "string",
+            "value": ""
+          },
+          {
+            "type": "string",
+            "value": "_t"
+          },
+          {
+            "type": "string",
+            "value": "_a"
+          },
+          {
+            "type": "int",
+            "value": 300
+          },
+          {
+            "type": "string",
+            "value": "nc"
+          },
+          {
+            "type": "int",
+            "value": 0
+          },
+          {
+            "type": "int",
+            "value": 7
+          },
+          {
+            "type": "int",
+            "value": 8
+          },
+          {
+            "type": "int",
+            "value": 9
+          },
+          {
+            "type": "int",
+            "value": 3
+          },
+          {
+            "type": "int",
+            "value": 10
+          },
+          {
+            "type": "string",
+            "value": "gg"
+          },
+          {
+            "type": "string",
+            "value": "yc"
+          },
+          {
+            "type": "string",
+            "value": "n"
+          },
+          {
+            "type": "string",
+            "value": "Quay lại"
+          },
+          {
+            "type": "string",
+            "value": "m"
+          },
+          {
+            "type": "string",
+            "value": "Thoát"
+          },
+          {
+            "type": "string",
+            "value": "Cảm ơn bạn đã mua "
+          },
+          {
+            "type": "string",
+            "value": "ts"
+          },
+          {
+            "type": "string",
+            "value": ". Hãy lưu dữ liệu kịp thời để tránh bị mất. Chúc bạn chơi game vui vẻ"
+          },
+          {
+            "type": "string",
+            "value": "Xác nhận"
+          },
+          {
+            "type": "string",
+            "value": "aa"
+          },
+          {
+            "type": "string",
+            "value": "Gửi tin thứ "
+          },
+          {
+            "type": "string",
+            "value": " thất bại, nhấn \"Xác nhận\" để gửi lại, nhấn \"Trở về\" để quay lại trò chơi."
+          }
+        ],
+        "child_count": 3,
+        "children": [
+          {
+            "name": "",
+            "line_defined": 2,
+            "last_line": 9,
+            "max_stack": 0,
+            "param_count": 2,
+            "flags": 0,
+            "vararg": false,
+            "upvalue_count": 12,
+            "instruction_count": 17,
+            "instructions_sample": [
+              148,
+              193,
+              16641,
+              16777536,
+              16769,
+              -2147368672,
+              25166336,
+              33349,
+              49797,
+              115398,
+              16810652,
+              83903116,
+              16810588,
+              67256533,
+              2147320095,
+              16777438,
+              8388638
+            ],
+            "constants": [
+              {
+                "type": "string",
+                "value": ""
+              },
+              {
+                "type": "int",
+                "value": 1
+              },
+              {
+                "type": "string",
+                "value": "_c"
+              },
+              {
+                "type": "string",
+                "value": "_o"
+              }
+            ],
+            "child_count": 0,
+            "children": [],
+            "trailer": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "",
+            "line_defined": 13,
+            "last_line": 64,
+            "max_stack": 1,
+            "param_count": 0,
+            "flags": 0,
+            "vararg": false,
+            "upvalue_count": 9,
+            "instruction_count": 153,
+            "instructions_sample": [
+              5,
+              16453,
+              8388700,
+              32796,
+              32837,
+              49281,
+              65729,
+              25198684,
+              82049,
+              8388800,
+              82177,
+              -2147041120,
+              98689,
+              115141,
+              131585,
+              16810460,
+              50446741,
+              147909,
+              54690310,
+              16810460,
+              63094807,
+              -2147237866,
+              147909,
+              54723078,
+              16810460,
+              63127575,
+              -2147319786,
+              147909,
+              54755846,
+              16810460,
+              63160343,
+              -2147401706,
+              147909,
+              54788614,
+              16810460,
+              63193111,
+              -2147483626,
+              -2147467242,
+              58720707,
+              16777694,
+              2146992287,
+              98433,
+              114885,
+              256,
+              16810204,
+              16826517,
+              295109,
+              311557,
+              16777536,
+              328065,
+              25198876,
+              344385,
+              360833,
+              33587420,
+              16777492,
+              25166164,
+              42008600,
+              -2147467242,
+              33554691,
+              16777502,
+              295173,
+              311621,
+              16777600,
+              377281,
+              25198940,
+              393601,
+              410049,
+              33587484,
+              33554624,
+              16777492,
+              25166164,
+              42008600,
+              -2147467242,
+              33554691,
+              16777502,
+              98561,
+              426309,
+              33636629,
+              16842775,
+              -2147467242
+            ],
+            "constants": [
+              {
+                "type": "string",
+                "value": "_ss"
+              },
+              {
+                "type": "string",
+                "value": "_fc"
+              },
+              {
+                "type": "string",
+                "value": "_r"
+              },
+              {
+                "type": "int",
+                "value": 3
+              },
+              {
+                "type": "int",
+                "value": 8
+              },
+              {
+                "type": "int",
+                "value": 1
+              },
+              {
+                "type": "string",
+                "value": ""
+              },
+              {
+                "type": "string",
+                "value": "_cn"
+              },
+              {
+                "type": "string",
+                "value": "e"
+              },
+              {
+                "type": "string",
+                "value": "_o"
+              },
+              {
+                "type": "int",
+                "value": 7
+              },
+              {
+                "type": "int",
+                "value": 106
+              },
+              {
+                "type": "int",
+                "value": 10
+              },
+              {
+                "type": "int",
+                "value": 97
+              },
+              {
+                "type": "int",
+                "value": 17
+              },
+              {
+                "type": "int",
+                "value": 83
+              },
+              {
+                "type": "int",
+                "value": 22
+              },
+              {
+                "type": "int",
+                "value": 103
+              },
+              {
+                "type": "string",
+                "value": "rp"
+              },
+              {
+                "type": "string",
+                "value": "mh"
+              },
+              {
+                "type": "int",
+                "value": 5
+              },
+              {
+                "type": "string",
+                "value": "of{f~"
+              },
+              {
+                "type": "string",
+                "value": "a"
+              },
+              {
+                "type": "int",
+                "value": -3
+              },
+              {
+                "type": "string",
+                "value": "i^s^u"
+              },
+              {
+                "type": "string",
+                "value": "b"
+              },
+              {
+                "type": "string",
+                "value": "_co"
+              },
+              {
+                "type": "int",
+                "value": -2
+              },
+              {
+                "type": "string",
+                "value": "Amllcarmp"
+              },
+              {
+                "type": "string",
+                "value": "/"
+              },
+              {
+                "type": "int",
+                "value": 4
+              },
+              {
+                "type": "string",
+                "value": "gsq2w}qfmer2qmht"
+              },
+              {
+                "type": "string",
+                "value": "."
+              },
+              {
+                "type": "int",
+                "value": -5
+              },
+              {
+                "type": "string",
+                "value": "^jh)ijfd\\)hd_"
+              },
+              {
+                "type": "string",
+                "value": ":"
+              },
+              {
+                "type": "string",
+                "value": "_s"
+              },
+              {
+                "type": "string",
+                "value": "_fb"
+              }
+            ],
+            "child_count": 0,
+            "children": [],
+            "trailer": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "",
+            "line_defined": 66,
+            "last_line": 68,
+            "max_stack": 0,
+            "param_count": 2,
+            "flags": 0,
+            "vararg": false,
+            "upvalue_count": 4,
+            "instruction_count": 9,
+            "instructions_sample": [
+              133,
+              8388800,
+              16810140,
+              32855,
+              -2147483626,
+              16514,
+              8388738,
+              16777374,
+              8388638
+            ],
+            "constants": [
+              {
+                "type": "string",
+                "value": "tostring"
+              }
+            ],
+            "child_count": 0,
+            "children": [],
+            "trailer": [
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "trailer": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "trailer": [
+      0,
+      0,
+      0
+    ]
+  },
+  "bytes_consumed": 2371,
+  "bytes_total": 2371
+}

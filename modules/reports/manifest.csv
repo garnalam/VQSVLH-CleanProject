@@ -1,0 +1,2 @@
+original,decoded,kind,note
+,modules/reports/decoded/*,reports_and_tools,"Global reports, inventories, call graph, and decoding scripts."

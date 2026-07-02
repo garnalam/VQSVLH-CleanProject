@@ -1,0 +1,5481 @@
+﻿Classfile jar:file:///C:/Users/Dell/Documents/Codex/2026-07-02/re/work/S40-VuongQuoc-SungVat-LietHoa-240x320.jar!/b.class
+  Last modified May 24, 2026; size 16537 bytes
+  SHA-256 checksum 1602fc3cf1d3c7bf2af0178d9384288671e511a05d6a888079e6b5c5fcd4dd25
+public final class b
+  minor version: 0
+  major version: 47
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #18                         // b
+  super_class: #23                        // java/lang/Object
+  interfaces: 0, fields: 66, methods: 24, attributes: 0
+Constant pool:
+    #1 = Integer            -2013265920
+    #2 = Integer            -16777216
+    #3 = Integer            9115396
+    #4 = Integer            16777215
+    #5 = String             #303          // /data/tex/
+    #6 = String             #304          // /data/ui/menu1.ui
+    #7 = String             #305          // /data/ui/npcEnemy.ui
+    #8 = Class              #343          // "[I"
+    #9 = Class              #344          // "[Ljava/lang/String;"
+   #10 = Class              #346          // "[S"
+   #11 = Class              #347          // "[[I"
+   #12 = Class              #352          // ab
+   #13 = Class              #355          // ae
+   #14 = Class              #358          // ah
+   #15 = Class              #359          // ai
+   #16 = Class              #364          // an
+   #17 = Class              #365          // aq
+   #18 = Class              #367          // b
+   #19 = Class              #372          // e
+   #20 = Class              #377          // game/d
+   #21 = Class              #378          // game/h
+   #22 = Class              #379          // game/k
+   #23 = Class              #385          // java/lang/Object
+   #24 = Class              #386          // javax/microedition/lcdui/Graphics
+   #25 = Class              #387          // javax/microedition/lcdui/Image
+   #26 = Class              #389          // l
+   #27 = Class              #398          // t
+   #28 = Fieldref           #15.#195      // ai.a:B
+   #29 = Fieldref           #15.#218      // ai.b:B
+   #30 = Fieldref           #17.#228      // aq.c:[[[S
+   #31 = Fieldref           #18.#153      // b.A:[[S
+   #32 = Fieldref           #18.#154      // b.B:[[S
+   #33 = Fieldref           #18.#155      // b.C:I
+   #34 = Fieldref           #18.#156      // b.D:I
+   #35 = Fieldref           #18.#157      // b.E:I
+   #36 = Fieldref           #18.#158      // b.F:I
+   #37 = Fieldref           #18.#159      // b.G:I
+   #38 = Fieldref           #18.#160      // b.H:I
+   #39 = Fieldref           #18.#161      // b.I:I
+   #40 = Fieldref           #18.#162      // b.J:I
+   #41 = Fieldref           #18.#163      // b.K:I
+   #42 = Fieldref           #18.#164      // b.L:I
+   #43 = Fieldref           #18.#165      // b.M:I
+   #44 = Fieldref           #18.#166      // b.N:Ljavax/microedition/lcdui/Image;
+   #45 = Fieldref           #18.#167      // b.O:Le;
+   #46 = Fieldref           #18.#168      // b.P:I
+   #47 = Fieldref           #18.#169      // b.Q:I
+   #48 = Fieldref           #18.#170      // b.R:I
+   #49 = Fieldref           #18.#171      // b.S:I
+   #50 = Fieldref           #18.#172      // b.T:I
+   #51 = Fieldref           #18.#173      // b.U:I
+   #52 = Fieldref           #18.#174      // b.V:[I
+   #53 = Fieldref           #18.#175      // b.W:I
+   #54 = Fieldref           #18.#176      // b.X:[I
+   #55 = Fieldref           #18.#177      // b.Y:Lah;
+   #56 = Fieldref           #18.#178      // b.Z:I
+   #57 = Fieldref           #18.#196      // b.a:I
+   #58 = Fieldref           #18.#198      // b.aa:I
+   #59 = Fieldref           #18.#199      // b.ab:I
+   #60 = Fieldref           #18.#200      // b.ac:I
+   #61 = Fieldref           #18.#201      // b.ad:I
+   #62 = Fieldref           #18.#202      // b.ae:I
+   #63 = Fieldref           #18.#203      // b.af:I
+   #64 = Fieldref           #18.#204      // b.ag:I
+   #65 = Fieldref           #18.#205      // b.ah:[[I
+   #66 = Fieldref           #18.#206      // b.ai:B
+   #67 = Fieldref           #18.#207      // b.aj:[Ljavax/microedition/lcdui/Image;
+   #68 = Fieldref           #18.#208      // b.ak:[[I
+   #69 = Fieldref           #18.#209      // b.al:I
+   #70 = Fieldref           #18.#210      // b.am:I
+   #71 = Fieldref           #18.#211      // b.an:B
+   #72 = Fieldref           #18.#221      // b.b:Z
+   #73 = Fieldref           #18.#227      // b.c:Z
+   #74 = Fieldref           #18.#233      // b.d:B
+   #75 = Fieldref           #18.#238      // b.e:Lb;
+   #76 = Fieldref           #18.#239      // b.f:I
+   #77 = Fieldref           #18.#242      // b.g:I
+   #78 = Fieldref           #18.#245      // b.h:I
+   #79 = Fieldref           #18.#246      // b.i:I
+   #80 = Fieldref           #18.#247      // b.j:I
+   #81 = Fieldref           #18.#249      // b.k:I
+   #82 = Fieldref           #18.#250      // b.l:I
+   #83 = Fieldref           #18.#251      // b.m:I
+   #84 = Fieldref           #18.#252      // b.n:I
+   #85 = Fieldref           #18.#253      // b.o:[I
+   #86 = Fieldref           #18.#254      // b.p:[I
+   #87 = Fieldref           #18.#255      // b.q:[I
+   #88 = Fieldref           #18.#256      // b.r:I
+   #89 = Fieldref           #18.#257      // b.s:I
+   #90 = Fieldref           #18.#259      // b.t:I
+   #91 = Fieldref           #18.#260      // b.u:[[I
+   #92 = Fieldref           #18.#261      // b.v:[I
+   #93 = Fieldref           #18.#263      // b.w:I
+   #94 = Fieldref           #18.#265      // b.x:I
+   #95 = Fieldref           #18.#267      // b.y:Lab;
+   #96 = Fieldref           #18.#269      // b.z:Lgame/h;
+   #97 = Fieldref           #19.#197      // e.a:[I
+   #98 = Fieldref           #19.#219      // e.b:I
+   #99 = Fieldref           #19.#225      // e.c:I
+  #100 = Fieldref           #20.#226      // game/d.c:Ljavax/microedition/lcdui/Image;
+  #101 = Fieldref           #22.#220      // game/k.b:Lt;
+  #102 = Methodref          #12.#180      // ab.a:()Lab;
+  #103 = Methodref          #12.#189      // ab.a:(Ljava/lang/String;)V
+  #104 = Methodref          #12.#190      // ab.a:(Ljavax/microedition/lcdui/Graphics;)V
+  #105 = Methodref          #12.#222      // ab.c:()V
+  #106 = Methodref          #13.#179      // ae.a:()I
+  #107 = Methodref          #13.#186      // ae.a:(I)I
+  #108 = Methodref          #13.#188      // ae.a:(II)I
+  #109 = Methodref          #13.#214      // ae.b:(II)I
+  #110 = Methodref          #13.#217      // ae.b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+  #111 = Methodref          #14.#152      // ah."<init>":()V
+  #112 = Methodref          #14.#185      // ah.a:()V
+  #113 = Methodref          #14.#190      // ah.a:(Ljavax/microedition/lcdui/Graphics;)V
+  #114 = Methodref          #14.#194      // ah.a:([S)V
+  #115 = Methodref          #14.#224      // ah.c:(Z)V
+  #116 = Methodref          #14.#236      // ah.e:()Z
+  #117 = Methodref          #15.#181      // ai.a:()Lai;
+  #118 = Methodref          #15.#230      // ai.d:(B)V
+  #119 = Methodref          #15.#231      // ai.d:(I)V
+  #120 = Methodref          #15.#237      // ai.e:(I)V
+  #121 = Methodref          #16.#262      // an.w:()S
+  #122 = Methodref          #16.#264      // an.x:()S
+  #123 = Methodref          #16.#266      // an.y:()S
+  #124 = Methodref          #16.#268      // an.z:()S
+  #125 = Methodref          #18.#152      // b."<init>":()V
+  #126 = Methodref          #18.#187      // b.a:(I)V
+  #127 = Methodref          #18.#193      // b.a:([I[IIIB)[I
+  #128 = Methodref          #18.#213      // b.b:(I)V
+  #129 = Methodref          #18.#215      // b.b:(II)V
+  #130 = Methodref          #18.#223      // b.c:(I)V
+  #131 = Methodref          #18.#229      // b.d:()V
+  #132 = Methodref          #18.#232      // b.d:(Ljavax/microedition/lcdui/Graphics;)Z
+  #133 = Methodref          #19.#152      // e."<init>":()V
+  #134 = Methodref          #20.#182      // game/d.a:()Lgame/d;
+  #135 = Methodref          #20.#248      // game/d.k:()I
+  #136 = Methodref          #21.#183      // game/h.a:()Lgame/h;
+  #137 = Methodref          #21.#212      // game/h.at:()V
+  #138 = Methodref          #21.#215      // game/h.b:(II)V
+  #139 = Methodref          #22.#184      // game/k.a:()Lgame/k;
+  #140 = Methodref          #22.#191      // game/k.a:(Ljavax/microedition/lcdui/Graphics;IIII)V
+  #141 = Methodref          #23.#152      // java/lang/Object."<init>":()V
+  #142 = Methodref          #24.#234      // javax/microedition/lcdui/Graphics.drawImage:(Ljavax/microedition/lcdui/Image;III)V
+  #143 = Methodref          #24.#235      // javax/microedition/lcdui/Graphics.drawRGB:([IIIIIIIZ)V
+  #144 = Methodref          #24.#240      // javax/microedition/lcdui/Graphics.fillArc:(IIIIII)V
+  #145 = Methodref          #24.#241      // javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+  #146 = Methodref          #24.#258      // javax/microedition/lcdui/Graphics.setColor:(I)V
+  #147 = Methodref          #25.#243      // javax/microedition/lcdui/Image.getHeight:()I
+  #148 = Methodref          #25.#244      // javax/microedition/lcdui/Image.getWidth:()I
+  #149 = Methodref          #26.#192      // l.a:(Ljavax/microedition/lcdui/Image;Le;)Le;
+  #150 = Methodref          #26.#216      // l.b:(Le;I)Le;
+  #151 = Methodref          #27.#190      // t.a:(Ljavax/microedition/lcdui/Graphics;)V
+  #152 = NameAndType        #307:#278     // "<init>":()V
+  #153 = NameAndType        #308:#348     // A:[[S
+  #154 = NameAndType        #309:#348     // B:[[S
+  #155 = NameAndType        #310:#317     // C:I
+  #156 = NameAndType        #312:#317     // D:I
+  #157 = NameAndType        #313:#317     // E:I
+  #158 = NameAndType        #314:#317     // F:I
+  #159 = NameAndType        #315:#317     // G:I
+  #160 = NameAndType        #316:#317     // H:I
+  #161 = NameAndType        #317:#317     // I:I
+  #162 = NameAndType        #318:#317     // J:I
+  #163 = NameAndType        #319:#317     // K:I
+  #164 = NameAndType        #320:#317     // L:I
+  #165 = NameAndType        #328:#317     // M:I
+  #166 = NameAndType        #329:#326     // N:Ljavax/microedition/lcdui/Image;
+  #167 = NameAndType        #330:#324     // O:Le;
+  #168 = NameAndType        #331:#317     // P:I
+  #169 = NameAndType        #332:#317     // Q:I
+  #170 = NameAndType        #333:#317     // R:I
+  #171 = NameAndType        #334:#317     // S:I
+  #172 = NameAndType        #336:#317     // T:I
+  #173 = NameAndType        #337:#317     // U:I
+  #174 = NameAndType        #338:#343     // V:[I
+  #175 = NameAndType        #339:#317     // W:I
+  #176 = NameAndType        #340:#343     // X:[I
+  #177 = NameAndType        #341:#322     // Y:Lah;
+  #178 = NameAndType        #342:#317     // Z:I
+  #179 = NameAndType        #350:#270     // a:()I
+  #180 = NameAndType        #350:#271     // a:()Lab;
+  #181 = NameAndType        #350:#272     // a:()Lai;
+  #182 = NameAndType        #350:#274     // a:()Lgame/d;
+  #183 = NameAndType        #350:#275     // a:()Lgame/h;
+  #184 = NameAndType        #350:#276     // a:()Lgame/k;
+  #185 = NameAndType        #350:#278     // a:()V
+  #186 = NameAndType        #350:#281     // a:(I)I
+  #187 = NameAndType        #350:#282     // a:(I)V
+  #188 = NameAndType        #350:#284     // a:(II)I
+  #189 = NameAndType        #350:#291     // a:(Ljava/lang/String;)V
+  #190 = NameAndType        #350:#294     // a:(Ljavax/microedition/lcdui/Graphics;)V
+  #191 = NameAndType        #350:#296     // a:(Ljavax/microedition/lcdui/Graphics;IIII)V
+  #192 = NameAndType        #350:#298     // a:(Ljavax/microedition/lcdui/Image;Le;)Le;
+  #193 = NameAndType        #350:#301     // a:([I[IIIB)[I
+  #194 = NameAndType        #350:#302     // a:([S)V
+  #195 = NameAndType        #350:#309     // a:B
+  #196 = NameAndType        #350:#317     // a:I
+  #197 = NameAndType        #350:#343     // a:[I
+  #198 = NameAndType        #351:#317     // aa:I
+  #199 = NameAndType        #352:#317     // ab:I
+  #200 = NameAndType        #353:#317     // ac:I
+  #201 = NameAndType        #354:#317     // ad:I
+  #202 = NameAndType        #355:#317     // ae:I
+  #203 = NameAndType        #356:#317     // af:I
+  #204 = NameAndType        #357:#317     // ag:I
+  #205 = NameAndType        #358:#347     // ah:[[I
+  #206 = NameAndType        #359:#309     // ai:B
+  #207 = NameAndType        #360:#345     // aj:[Ljavax/microedition/lcdui/Image;
+  #208 = NameAndType        #361:#347     // ak:[[I
+  #209 = NameAndType        #362:#317     // al:I
+  #210 = NameAndType        #363:#317     // am:I
+  #211 = NameAndType        #364:#309     // an:B
+  #212 = NameAndType        #366:#278     // at:()V
+  #213 = NameAndType        #367:#282     // b:(I)V
+  #214 = NameAndType        #367:#284     // b:(II)I
+  #215 = NameAndType        #367:#285     // b:(II)V
+  #216 = NameAndType        #367:#290     // b:(Le;I)Le;
+  #217 = NameAndType        #367:#293     // b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+  #218 = NameAndType        #367:#309     // b:B
+  #219 = NameAndType        #367:#317     // b:I
+  #220 = NameAndType        #367:#327     // b:Lt;
+  #221 = NameAndType        #367:#342     // b:Z
+  #222 = NameAndType        #368:#278     // c:()V
+  #223 = NameAndType        #368:#282     // c:(I)V
+  #224 = NameAndType        #368:#299     // c:(Z)V
+  #225 = NameAndType        #368:#317     // c:I
+  #226 = NameAndType        #368:#326     // c:Ljavax/microedition/lcdui/Image;
+  #227 = NameAndType        #368:#342     // c:Z
+  #228 = NameAndType        #368:#349     // c:[[[S
+  #229 = NameAndType        #369:#278     // d:()V
+  #230 = NameAndType        #369:#280     // d:(B)V
+  #231 = NameAndType        #369:#282     // d:(I)V
+  #232 = NameAndType        #369:#295     // d:(Ljavax/microedition/lcdui/Graphics;)Z
+  #233 = NameAndType        #369:#309     // d:B
+  #234 = NameAndType        #370:#297     // drawImage:(Ljavax/microedition/lcdui/Image;III)V
+  #235 = NameAndType        #371:#300     // drawRGB:([IIIIIIIZ)V
+  #236 = NameAndType        #372:#279     // e:()Z
+  #237 = NameAndType        #372:#282     // e:(I)V
+  #238 = NameAndType        #372:#323     // e:Lb;
+  #239 = NameAndType        #373:#317     // f:I
+  #240 = NameAndType        #374:#289     // fillArc:(IIIIII)V
+  #241 = NameAndType        #375:#287     // fillRect:(IIII)V
+  #242 = NameAndType        #376:#317     // g:I
+  #243 = NameAndType        #380:#270     // getHeight:()I
+  #244 = NameAndType        #381:#270     // getWidth:()I
+  #245 = NameAndType        #382:#317     // h:I
+  #246 = NameAndType        #383:#317     // i:I
+  #247 = NameAndType        #384:#317     // j:I
+  #248 = NameAndType        #388:#270     // k:()I
+  #249 = NameAndType        #388:#317     // k:I
+  #250 = NameAndType        #389:#317     // l:I
+  #251 = NameAndType        #390:#317     // m:I
+  #252 = NameAndType        #391:#317     // n:I
+  #253 = NameAndType        #392:#343     // o:[I
+  #254 = NameAndType        #393:#343     // p:[I
+  #255 = NameAndType        #394:#343     // q:[I
+  #256 = NameAndType        #395:#317     // r:I
+  #257 = NameAndType        #396:#317     // s:I
+  #258 = NameAndType        #397:#282     // setColor:(I)V
+  #259 = NameAndType        #398:#317     // t:I
+  #260 = NameAndType        #399:#347     // u:[[I
+  #261 = NameAndType        #400:#343     // v:[I
+  #262 = NameAndType        #401:#277     // w:()S
+  #263 = NameAndType        #401:#317     // w:I
+  #264 = NameAndType        #402:#277     // x:()S
+  #265 = NameAndType        #402:#317     // x:I
+  #266 = NameAndType        #403:#277     // y:()S
+  #267 = NameAndType        #403:#321     // y:Lab;
+  #268 = NameAndType        #404:#277     // z:()S
+  #269 = NameAndType        #404:#325     // z:Lgame/h;
+  #270 = Utf8               ()I
+  #271 = Utf8               ()Lab;
+  #272 = Utf8               ()Lai;
+  #273 = Utf8               ()Lb;
+  #274 = Utf8               ()Lgame/d;
+  #275 = Utf8               ()Lgame/h;
+  #276 = Utf8               ()Lgame/k;
+  #277 = Utf8               ()S
+  #278 = Utf8               ()V
+  #279 = Utf8               ()Z
+  #280 = Utf8               (B)V
+  #281 = Utf8               (I)I
+  #282 = Utf8               (I)V
+  #283 = Utf8               (IBB[Ljava/lang/String;)V
+  #284 = Utf8               (II)I
+  #285 = Utf8               (II)V
+  #286 = Utf8               (III)V
+  #287 = Utf8               (IIII)V
+  #288 = Utf8               (IIIII)V
+  #289 = Utf8               (IIIIII)V
+  #290 = Utf8               (Le;I)Le;
+  #291 = Utf8               (Ljava/lang/String;)V
+  #292 = Utf8               (Ljava/lang/String;III)V
+  #293 = Utf8               (Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+  #294 = Utf8               (Ljavax/microedition/lcdui/Graphics;)V
+  #295 = Utf8               (Ljavax/microedition/lcdui/Graphics;)Z
+  #296 = Utf8               (Ljavax/microedition/lcdui/Graphics;IIII)V
+  #297 = Utf8               (Ljavax/microedition/lcdui/Image;III)V
+  #298 = Utf8               (Ljavax/microedition/lcdui/Image;Le;)Le;
+  #299 = Utf8               (Z)V
+  #300 = Utf8               ([IIIIIIIZ)V
+  #301 = Utf8               ([I[IIIB)[I
+  #302 = Utf8               ([S)V
+  #303 = Utf8               /data/tex/
+  #304 = Utf8               /data/ui/menu1.ui
+  #305 = Utf8               /data/ui/npcEnemy.ui
+  #306 = Utf8               <clinit>
+  #307 = Utf8               <init>
+  #308 = Utf8               A
+  #309 = Utf8               B
+  #310 = Utf8               C
+  #311 = Utf8               Code
+  #312 = Utf8               D
+  #313 = Utf8               E
+  #314 = Utf8               F
+  #315 = Utf8               G
+  #316 = Utf8               H
+  #317 = Utf8               I
+  #318 = Utf8               J
+  #319 = Utf8               K
+  #320 = Utf8               L
+  #321 = Utf8               Lab;
+  #322 = Utf8               Lah;
+  #323 = Utf8               Lb;
+  #324 = Utf8               Le;
+  #325 = Utf8               Lgame/h;
+  #326 = Utf8               Ljavax/microedition/lcdui/Image;
+  #327 = Utf8               Lt;
+  #328 = Utf8               M
+  #329 = Utf8               N
+  #330 = Utf8               O
+  #331 = Utf8               P
+  #332 = Utf8               Q
+  #333 = Utf8               R
+  #334 = Utf8               S
+  #335 = Utf8               StackMap
+  #336 = Utf8               T
+  #337 = Utf8               U
+  #338 = Utf8               V
+  #339 = Utf8               W
+  #340 = Utf8               X
+  #341 = Utf8               Y
+  #342 = Utf8               Z
+  #343 = Utf8               [I
+  #344 = Utf8               [Ljava/lang/String;
+  #345 = Utf8               [Ljavax/microedition/lcdui/Image;
+  #346 = Utf8               [S
+  #347 = Utf8               [[I
+  #348 = Utf8               [[S
+  #349 = Utf8               [[[S
+  #350 = Utf8               a
+  #351 = Utf8               aa
+  #352 = Utf8               ab
+  #353 = Utf8               ac
+  #354 = Utf8               ad
+  #355 = Utf8               ae
+  #356 = Utf8               af
+  #357 = Utf8               ag
+  #358 = Utf8               ah
+  #359 = Utf8               ai
+  #360 = Utf8               aj
+  #361 = Utf8               ak
+  #362 = Utf8               al
+  #363 = Utf8               am
+  #364 = Utf8               an
+  #365 = Utf8               aq
+  #366 = Utf8               at
+  #367 = Utf8               b
+  #368 = Utf8               c
+  #369 = Utf8               d
+  #370 = Utf8               drawImage
+  #371 = Utf8               drawRGB
+  #372 = Utf8               e
+  #373 = Utf8               f
+  #374 = Utf8               fillArc
+  #375 = Utf8               fillRect
+  #376 = Utf8               g
+  #377 = Utf8               game/d
+  #378 = Utf8               game/h
+  #379 = Utf8               game/k
+  #380 = Utf8               getHeight
+  #381 = Utf8               getWidth
+  #382 = Utf8               h
+  #383 = Utf8               i
+  #384 = Utf8               j
+  #385 = Utf8               java/lang/Object
+  #386 = Utf8               javax/microedition/lcdui/Graphics
+  #387 = Utf8               javax/microedition/lcdui/Image
+  #388 = Utf8               k
+  #389 = Utf8               l
+  #390 = Utf8               m
+  #391 = Utf8               n
+  #392 = Utf8               o
+  #393 = Utf8               p
+  #394 = Utf8               q
+  #395 = Utf8               r
+  #396 = Utf8               s
+  #397 = Utf8               setColor
+  #398 = Utf8               t
+  #399 = Utf8               u
+  #400 = Utf8               v
+  #401 = Utf8               w
+  #402 = Utf8               x
+  #403 = Utf8               y
+  #404 = Utf8               z
+{
+  private static b e;
+    descriptor: Lb;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  public int a;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  private int f;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int g;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int h;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  public boolean b;
+    descriptor: Z
+    flags: (0x0001) ACC_PUBLIC
+
+  public boolean c;
+    descriptor: Z
+    flags: (0x0001) ACC_PUBLIC
+
+  private int i;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int j;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int k;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int l;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int m;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int n;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int[] o;
+    descriptor: [I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int[] p;
+    descriptor: [I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int[] q;
+    descriptor: [I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int r;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int s;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int t;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int[][] u;
+    descriptor: [[I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int[] v;
+    descriptor: [I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int w;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int x;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private static ab y;
+    descriptor: Lab;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static game.h z;
+    descriptor: Lgame/h;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static short[][] A;
+    descriptor: [[S
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private short[][] B;
+    descriptor: [[S
+    flags: (0x0002) ACC_PRIVATE
+
+  private int C;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int D;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int E;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int F;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int G;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int H;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int I;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int J;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int K;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int L;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int M;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private javax.microedition.lcdui.Image N;
+    descriptor: Ljavax/microedition/lcdui/Image;
+    flags: (0x0002) ACC_PRIVATE
+
+  private e O;
+    descriptor: Le;
+    flags: (0x0002) ACC_PRIVATE
+
+  private int P;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int Q;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int R;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int S;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int T;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int U;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int[] V;
+    descriptor: [I
+    flags: (0x0002) ACC_PRIVATE
+
+  private static int W;
+    descriptor: I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private static int[] X;
+    descriptor: [I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+
+  private ah Y;
+    descriptor: Lah;
+    flags: (0x0002) ACC_PRIVATE
+
+  private int Z;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int aa;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  public byte d;
+    descriptor: B
+    flags: (0x0001) ACC_PUBLIC
+
+  private int ab;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int ac;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int ad;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int ae;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int af;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int ag;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private static final int[][] ah;
+    descriptor: [[I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private byte ai;
+    descriptor: B
+    flags: (0x0002) ACC_PRIVATE
+
+  private javax.microedition.lcdui.Image[] aj;
+    descriptor: [Ljavax/microedition/lcdui/Image;
+    flags: (0x0002) ACC_PRIVATE
+
+  private int[][] ak;
+    descriptor: [[I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int al;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private int am;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  private byte an;
+    descriptor: B
+    flags: (0x0002) ACC_PRIVATE
+
+  public b();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=8, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #141                // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: iconst_m1
+         6: putfield      #57                 // Field a:I
+         9: aload_0
+        10: iconst_m1
+        11: putfield      #76                 // Field f:I
+        14: aload_0
+        15: iconst_m1
+        16: putfield      #77                 // Field g:I
+        19: aload_0
+        20: iconst_m1
+        21: putfield      #78                 // Field h:I
+        24: aload_0
+        25: iconst_0
+        26: putfield      #81                 // Field k:I
+        29: aload_0
+        30: bipush        20
+        32: putfield      #82                 // Field l:I
+        35: aload_0
+        36: iconst_5
+        37: putfield      #83                 // Field m:I
+        40: aload_0
+        41: ldc           #1                  // int -2013265920
+        43: putfield      #84                 // Field n:I
+        46: aload_0
+        47: aconst_null
+        48: putfield      #85                 // Field o:[I
+        51: aload_0
+        52: aconst_null
+        53: putfield      #86                 // Field p:[I
+        56: aload_0
+        57: aconst_null
+        58: putfield      #87                 // Field q:[I
+        61: aload_0
+        62: bipush        16
+        64: putfield      #88                 // Field r:I
+        67: aload_0
+        68: iconst_4
+        69: putfield      #89                 // Field s:I
+        72: aload_0
+        73: iconst_0
+        74: putfield      #90                 // Field t:I
+        77: aload_0
+        78: bipush        20
+        80: putfield      #93                 // Field w:I
+        83: aload_0
+        84: iconst_3
+        85: anewarray     #10                 // class "[S"
+        88: dup
+        89: iconst_0
+        90: bipush        12
+        92: newarray       short
+        94: dup
+        95: iconst_0
+        96: bipush        -20
+        98: sastore
+        99: dup
+       100: iconst_1
+       101: bipush        20
+       103: sastore
+       104: dup
+       105: iconst_2
+       106: bipush        20
+       108: sastore
+       109: dup
+       110: iconst_3
+       111: bipush        -20
+       113: sastore
+       114: dup
+       115: iconst_4
+       116: bipush        -15
+       118: sastore
+       119: dup
+       120: iconst_5
+       121: bipush        15
+       123: sastore
+       124: dup
+       125: bipush        6
+       127: bipush        -15
+       129: sastore
+       130: dup
+       131: bipush        7
+       133: bipush        15
+       135: sastore
+       136: dup
+       137: bipush        8
+       139: bipush        -5
+       141: sastore
+       142: dup
+       143: bipush        9
+       145: iconst_5
+       146: sastore
+       147: dup
+       148: bipush        10
+       150: bipush        -5
+       152: sastore
+       153: dup
+       154: bipush        11
+       156: iconst_5
+       157: sastore
+       158: aastore
+       159: dup
+       160: iconst_1
+       161: iconst_4
+       162: newarray       short
+       164: dup
+       165: iconst_0
+       166: bipush        -5
+       168: sastore
+       169: dup
+       170: iconst_1
+       171: iconst_5
+       172: sastore
+       173: dup
+       174: iconst_2
+       175: iconst_5
+       176: sastore
+       177: dup
+       178: iconst_3
+       179: bipush        -5
+       181: sastore
+       182: aastore
+       183: dup
+       184: iconst_2
+       185: iconst_3
+       186: newarray       short
+       188: dup
+       189: iconst_0
+       190: bipush        -5
+       192: sastore
+       193: dup
+       194: iconst_1
+       195: bipush        10
+       197: sastore
+       198: dup
+       199: iconst_2
+       200: bipush        -5
+       202: sastore
+       203: aastore
+       204: putfield      #32                 // Field B:[[S
+       207: aload_0
+       208: iconst_0
+       209: putfield      #33                 // Field C:I
+       212: aload_0
+       213: iconst_0
+       214: putfield      #34                 // Field D:I
+       217: aload_0
+       218: iconst_0
+       219: putfield      #35                 // Field E:I
+       222: aload_0
+       223: iconst_0
+       224: putfield      #36                 // Field F:I
+       227: aload_0
+       228: iconst_0
+       229: putfield      #37                 // Field G:I
+       232: aload_0
+       233: iconst_0
+       234: putfield      #38                 // Field H:I
+       237: aload_0
+       238: iconst_0
+       239: putfield      #42                 // Field L:I
+       242: aload_0
+       243: iconst_0
+       244: putfield      #43                 // Field M:I
+       247: aload_0
+       248: aconst_null
+       249: putfield      #44                 // Field N:Ljavax/microedition/lcdui/Image;
+       252: aload_0
+       253: aconst_null
+       254: putfield      #45                 // Field O:Le;
+       257: aload_0
+       258: iconst_0
+       259: putfield      #48                 // Field R:I
+       262: aload_0
+       263: iconst_0
+       264: putfield      #49                 // Field S:I
+       267: aload_0
+       268: iconst_0
+       269: putfield      #50                 // Field T:I
+       272: aload_0
+       273: iconst_0
+       274: putfield      #51                 // Field U:I
+       277: aload_0
+       278: iconst_2
+       279: newarray       int
+       281: dup
+       282: iconst_0
+       283: ldc           #4                  // int 16777215
+       285: iastore
+       286: dup
+       287: iconst_1
+       288: ldc           #3                  // int 9115396
+       290: iastore
+       291: putfield      #52                 // Field V:[I
+       294: aload_0
+       295: iconst_0
+       296: putfield      #56                 // Field Z:I
+       299: aload_0
+       300: iconst_0
+       301: putfield      #58                 // Field aa:I
+       304: aload_0
+       305: iconst_m1
+       306: putfield      #74                 // Field d:B
+       309: aload_0
+       310: bipush        30
+       312: putfield      #66                 // Field ai:B
+       315: aload_0
+       316: iconst_0
+       317: putfield      #69                 // Field al:I
+       320: aload_0
+       321: iconst_0
+       322: putfield      #70                 // Field am:I
+       325: aload_0
+       326: iconst_0
+       327: putfield      #71                 // Field an:B
+       330: return
+
+  public static b a();
+    descriptor: ()Lb;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #75                 // Field e:Lb;
+         3: ifnonnull     16
+         6: new           #18                 // class b
+         9: dup
+        10: invokespecial #125                // Method "<init>":()V
+        13: putstatic     #75                 // Field e:Lb;
+        16: invokestatic  #102                // Method ab.a:()Lab;
+        19: putstatic     #95                 // Field y:Lab;
+        22: invokestatic  #136                // Method game/h.a:()Lgame/h;
+        25: putstatic     #96                 // Field z:Lgame/h;
+        28: getstatic     #75                 // Field e:Lb;
+        31: areturn
+        StackMap: length = 0x8 (unknown attribute)
+         00 01 00 10 00 00 00 00
+
+  public final void a(javax.microedition.lcdui.Graphics);
+    descriptor: (Ljavax/microedition/lcdui/Graphics;)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=10, locals=16, args_size=2
+         0: aload_0
+         1: getfield      #57                 // Field a:I
+         4: iconst_m1
+         5: if_icmpne     25
+         8: aload_0
+         9: getfield      #77                 // Field g:I
+        12: iconst_m1
+        13: if_icmpne     25
+        16: aload_0
+        17: getfield      #78                 // Field h:I
+        20: iconst_m1
+        21: if_icmpne     25
+        24: return
+        25: aload_0
+        26: getfield      #78                 // Field h:I
+        29: lookupswitch  { // 1
+
+                      18: 48
+                 default: 88
+            }
+        48: getstatic     #95                 // Field y:Lab;
+        51: aload_1
+        52: invokevirtual #104                // Method ab.a:(Ljavax/microedition/lcdui/Graphics;)V
+        55: aload_0
+        56: getfield      #79                 // Field i:I
+        59: aconst_null
+        60: arraylength
+        61: if_icmplt     88
+        64: aload_0
+        65: iconst_0
+        66: putfield      #79                 // Field i:I
+        69: aload_0
+        70: iconst_m1
+        71: putfield      #78                 // Field h:I
+        74: aload_0
+        75: iconst_1
+        76: putfield      #72                 // Field b:Z
+        79: getstatic     #95                 // Field y:Lab;
+        82: ldc           #6                  // String /data/ui/menu1.ui
+        84: invokevirtual #103                // Method ab.a:(Ljava/lang/String;)V
+        87: return
+        88: aload_0
+        89: getfield      #57                 // Field a:I
+        92: tableswitch   { // 0 to 20
+
+                       0: 192
+
+                       1: 192
+
+                       2: 192
+
+                       3: 513
+
+                       4: 1103
+
+                       5: 1139
+
+                       6: 1155
+
+                       7: 1646
+
+                       8: 1664
+
+                       9: 1728
+
+                      10: 1751
+
+                      11: 2824
+
+                      12: 2824
+
+                      13: 2824
+
+                      14: 1846
+
+                      15: 1846
+
+                      16: 2824
+
+                      17: 2051
+
+                      18: 2824
+
+                      19: 2109
+
+                      20: 2109
+                 default: 2824
+            }
+       192: aload_0
+       193: aload_0
+       194: aload_1
+       195: astore_3
+       196: dup
+       197: astore_2
+       198: getfield      #84                 // Field n:I
+       201: ldc           #4                  // int 16777215
+       203: iand
+       204: istore        4
+       206: iconst_0
+       207: istore        6
+       209: iconst_0
+       210: istore        5
+       212: aload_2
+       213: getfield      #57                 // Field a:I
+       216: ifne          228
+       219: aload_2
+       220: getfield      #84                 // Field n:I
+       223: istore        5
+       225: goto          355
+       228: aload_2
+       229: getfield      #57                 // Field a:I
+       232: iconst_1
+       233: if_icmpne     298
+       236: sipush        255
+       239: aload_2
+       240: getfield      #81                 // Field k:I
+       243: aload_2
+       244: getfield      #83                 // Field m:I
+       247: imul
+       248: isub
+       249: ifge          270
+       252: aload_2
+       253: dup
+       254: getfield      #81                 // Field k:I
+       257: iconst_1
+       258: isub
+       259: putfield      #81                 // Field k:I
+       262: aload_2
+       263: iconst_m1
+       264: putfield      #57                 // Field a:I
+       267: iconst_1
+       268: istore        6
+       270: sipush        255
+       273: aload_2
+       274: getfield      #81                 // Field k:I
+       277: aload_2
+       278: getfield      #83                 // Field m:I
+       281: imul
+       282: isub
+       283: bipush        24
+       285: ishl
+       286: istore        5
+       288: iload         4
+       290: iload         5
+       292: ior
+       293: istore        5
+       295: goto          355
+       298: aload_2
+       299: getfield      #57                 // Field a:I
+       302: iconst_2
+       303: if_icmpne     355
+       306: aload_2
+       307: getfield      #81                 // Field k:I
+       310: aload_2
+       311: getfield      #83                 // Field m:I
+       314: imul
+       315: sipush        255
+       318: if_icmple     334
+       321: aload_2
+       322: dup
+       323: getfield      #81                 // Field k:I
+       326: iconst_1
+       327: isub
+       328: putfield      #81                 // Field k:I
+       331: iconst_1
+       332: istore        6
+       334: aload_2
+       335: getfield      #81                 // Field k:I
+       338: aload_2
+       339: getfield      #83                 // Field m:I
+       342: imul
+       343: bipush        24
+       345: ishl
+       346: istore        5
+       348: iload         4
+       350: iload         5
+       352: ior
+       353: istore        5
+       355: aload_2
+       356: getfield      #93                 // Field w:I
+       359: istore        7
+       361: invokestatic  #122                // Method an.x:()S
+       364: iload         7
+       366: idiv
+       367: iconst_1
+       368: iadd
+       369: istore        8
+       371: invokestatic  #121                // Method an.w:()S
+       374: iload         8
+       376: imul
+       377: istore        4
+       379: aload_2
+       380: getfield      #85                 // Field o:[I
+       383: ifnull        396
+       386: aload_2
+       387: getfield      #85                 // Field o:[I
+       390: arraylength
+       391: iload         4
+       393: if_icmpeq     404
+       396: aload_2
+       397: iload         4
+       399: newarray       int
+       401: putfield      #85                 // Field o:[I
+       404: aload_2
+       405: getfield      #85                 // Field o:[I
+       408: iconst_0
+       409: iaload
+       410: iload         5
+       412: if_icmpeq     443
+       415: iconst_0
+       416: istore        9
+       418: iload         9
+       420: aload_2
+       421: getfield      #85                 // Field o:[I
+       424: arraylength
+       425: if_icmpge     443
+       428: aload_2
+       429: getfield      #85                 // Field o:[I
+       432: iload         9
+       434: iload         5
+       436: iastore
+       437: iinc          9, 1
+       440: goto          418
+       443: iconst_0
+       444: istore        9
+       446: iload         9
+       448: iload         7
+       450: if_icmpge     483
+       453: aload_3
+       454: aload_2
+       455: getfield      #85                 // Field o:[I
+       458: iconst_0
+       459: invokestatic  #121                // Method an.w:()S
+       462: iconst_0
+       463: iload         9
+       465: iload         8
+       467: imul
+       468: invokestatic  #121                // Method an.w:()S
+       471: iload         8
+       473: iconst_1
+       474: invokevirtual #143                // Method javax/microedition/lcdui/Graphics.drawRGB:([IIIIIIIZ)V
+       477: iinc          9, 1
+       480: goto          446
+       483: iload         6
+       485: ifeq          496
+       488: aload_2
+       489: invokespecial #131                // Method d:()V
+       492: iconst_1
+       493: goto          507
+       496: aload_2
+       497: dup
+       498: getfield      #81                 // Field k:I
+       501: iconst_1
+       502: iadd
+       503: putfield      #81                 // Field k:I
+       506: iconst_0
+       507: putfield      #72                 // Field b:Z
+       510: goto          2824
+       513: aload_0
+       514: aload_0
+       515: aload_1
+       516: astore_3
+       517: astore_2
+       518: invokestatic  #121                // Method an.w:()S
+       521: istore        4
+       523: invokestatic  #122                // Method an.x:()S
+       526: istore        5
+       528: aload_2
+       529: getfield      #84                 // Field n:I
+       532: ldc           #4                  // int 16777215
+       534: iand
+       535: istore        6
+       537: aload_2
+       538: getfield      #82                 // Field l:I
+       541: istore        7
+       543: sipush        255
+       546: iload         7
+       548: idiv
+       549: iconst_2
+       550: idiv
+       551: istore        8
+       553: iload         4
+       555: iconst_2
+       556: idiv
+       557: istore        4
+       559: iload         5
+       561: iconst_2
+       562: idiv
+       563: istore        9
+       565: iload         4
+       567: sipush        200
+       570: imul
+       571: bipush        120
+       573: idiv
+       574: dup
+       575: dup
+       576: istore        10
+       578: imul
+       579: istore        11
+       581: iconst_0
+       582: istore        12
+       584: aload_2
+       585: getfield      #87                 // Field q:[I
+       588: ifnonnull     599
+       591: aload_2
+       592: iload         10
+       594: newarray       int
+       596: putfield      #87                 // Field q:[I
+       599: iload         10
+       601: iload         7
+       603: iadd
+       604: aload_2
+       605: getfield      #81                 // Field k:I
+       608: iconst_1
+       609: ishl
+       610: isub
+       611: istore        13
+       613: aload_2
+       614: getfield      #81                 // Field k:I
+       617: ifgt          644
+       620: iconst_1
+       621: istore        12
+       623: iload         10
+       625: iload         7
+       627: iadd
+       628: aload_2
+       629: dup
+       630: getfield      #81                 // Field k:I
+       633: iconst_1
+       634: isub
+       635: dup_x1
+       636: putfield      #81                 // Field k:I
+       639: iconst_1
+       640: ishl
+       641: isub
+       642: istore        13
+       644: aload_2
+       645: getfield      #85                 // Field o:[I
+       648: ifnull        664
+       651: aload_2
+       652: getfield      #85                 // Field o:[I
+       655: arraylength
+       656: iload         4
+       658: iload         9
+       660: imul
+       661: if_icmpeq     675
+       664: aload_2
+       665: iload         4
+       667: iload         9
+       669: imul
+       670: newarray       int
+       672: putfield      #85                 // Field o:[I
+       675: aload_2
+       676: getfield      #86                 // Field p:[I
+       679: ifnull        695
+       682: aload_2
+       683: getfield      #86                 // Field p:[I
+       686: arraylength
+       687: iload         4
+       689: iload         9
+       691: imul
+       692: if_icmpeq     706
+       695: aload_2
+       696: iload         4
+       698: iload         9
+       700: imul
+       701: newarray       int
+       703: putfield      #86                 // Field p:[I
+       706: iconst_0
+       707: istore        14
+       709: iload         14
+       711: aload_2
+       712: getfield      #87                 // Field q:[I
+       715: arraylength
+       716: if_icmpge     785
+       719: iload         14
+       721: iload         13
+       723: isub
+       724: dup
+       725: istore        5
+       727: iload         7
+       729: if_icmple     740
+       732: sipush        255
+       735: istore        5
+       737: goto          764
+       740: iload         5
+       742: iload         7
+       744: ineg
+       745: if_icmpge     754
+       748: iconst_0
+       749: istore        5
+       751: goto          764
+       754: bipush        127
+       756: iload         5
+       758: iload         8
+       760: imul
+       761: iadd
+       762: istore        5
+       764: aload_2
+       765: getfield      #87                 // Field q:[I
+       768: iload         14
+       770: iload         6
+       772: iload         5
+       774: bipush        24
+       776: ishl
+       777: ior
+       778: iastore
+       779: iinc          14, 1
+       782: goto          709
+       785: iload         10
+       787: iconst_1
+       788: isub
+       789: istore        14
+       791: iload         13
+       793: iload         7
+       795: iadd
+       796: istore        5
+       798: iload         13
+       800: iload         7
+       802: isub
+       803: dup
+       804: istore        6
+       806: ifge          812
+       809: iconst_0
+       810: istore        6
+       812: iload         5
+       814: iload         11
+       816: imul
+       817: iload         14
+       819: idiv
+       820: istore        5
+       822: iload         6
+       824: iload         11
+       826: imul
+       827: iload         14
+       829: idiv
+       830: istore        6
+       832: iconst_0
+       833: istore        7
+       835: iload         7
+       837: iload         9
+       839: if_icmpge     953
+       842: iload         7
+       844: iload         7
+       846: imul
+       847: istore        10
+       849: iload         7
+       851: iload         4
+       853: imul
+       854: istore        13
+       856: iconst_0
+       857: istore        15
+       859: iload         15
+       861: iload         4
+       863: if_icmpge     947
+       866: iload         10
+       868: iload         15
+       870: iload         15
+       872: imul
+       873: iadd
+       874: dup
+       875: istore        8
+       877: iload         5
+       879: if_icmple     897
+       882: aload_2
+       883: getfield      #85                 // Field o:[I
+       886: iload         13
+       888: iload         15
+       890: iadd
+       891: ldc           #2                  // int -16777216
+       893: iastore
+       894: goto          941
+       897: iload         8
+       899: iload         6
+       901: if_icmpge     918
+       904: aload_2
+       905: getfield      #85                 // Field o:[I
+       908: iload         13
+       910: iload         15
+       912: iadd
+       913: iconst_0
+       914: iastore
+       915: goto          941
+       918: aload_2
+       919: getfield      #85                 // Field o:[I
+       922: iload         13
+       924: iload         15
+       926: iadd
+       927: aload_2
+       928: getfield      #87                 // Field q:[I
+       931: iload         14
+       933: iload         8
+       935: imul
+       936: iload         11
+       938: idiv
+       939: iaload
+       940: iastore
+       941: iinc          15, 1
+       944: goto          859
+       947: iinc          7, 1
+       950: goto          835
+       953: aload_2
+       954: getfield      #85                 // Field o:[I
+       957: ifnull        1072
+       960: aload_3
+       961: aload_2
+       962: getfield      #85                 // Field o:[I
+       965: iconst_0
+       966: iload         4
+       968: iload         4
+       970: iload         9
+       972: iload         4
+       974: iload         9
+       976: iconst_1
+       977: invokevirtual #143                // Method javax/microedition/lcdui/Graphics.drawRGB:([IIIIIIIZ)V
+       980: aload_3
+       981: aload_2
+       982: getfield      #85                 // Field o:[I
+       985: aload_2
+       986: getfield      #86                 // Field p:[I
+       989: iload         4
+       991: iload         9
+       993: iconst_2
+       994: invokestatic  #127                // Method a:([I[IIIB)[I
+       997: iconst_0
+       998: iload         4
+      1000: iconst_0
+      1001: iload         9
+      1003: iload         4
+      1005: iload         9
+      1007: iconst_1
+      1008: invokevirtual #143                // Method javax/microedition/lcdui/Graphics.drawRGB:([IIIIIIIZ)V
+      1011: aload_3
+      1012: aload_2
+      1013: getfield      #85                 // Field o:[I
+      1016: aload_2
+      1017: getfield      #86                 // Field p:[I
+      1020: iload         4
+      1022: iload         9
+      1024: iconst_3
+      1025: invokestatic  #127                // Method a:([I[IIIB)[I
+      1028: iconst_0
+      1029: iload         4
+      1031: iconst_0
+      1032: iconst_0
+      1033: iload         4
+      1035: iload         9
+      1037: iconst_1
+      1038: invokevirtual #143                // Method javax/microedition/lcdui/Graphics.drawRGB:([IIIIIIIZ)V
+      1041: aload_3
+      1042: aload_2
+      1043: getfield      #85                 // Field o:[I
+      1046: aload_2
+      1047: getfield      #86                 // Field p:[I
+      1050: iload         4
+      1052: iload         9
+      1054: iconst_1
+      1055: invokestatic  #127                // Method a:([I[IIIB)[I
+      1058: iconst_0
+      1059: iload         4
+      1061: iload         4
+      1063: iconst_0
+      1064: iload         4
+      1066: iload         9
+      1068: iconst_1
+      1069: invokevirtual #143                // Method javax/microedition/lcdui/Graphics.drawRGB:([IIIIIIIZ)V
+      1072: iload         12
+      1074: ifeq          1085
+      1077: aload_2
+      1078: invokespecial #131                // Method d:()V
+      1081: iconst_1
+      1082: goto          1097
+      1085: aload_2
+      1086: dup
+      1087: getfield      #81                 // Field k:I
+      1090: bipush        10
+      1092: isub
+      1093: putfield      #81                 // Field k:I
+      1096: iconst_0
+      1097: putfield      #72                 // Field b:Z
+      1100: goto          2824
+      1103: aload_0
+      1104: getfield      #72                 // Field b:Z
+      1107: ifeq          1130
+      1110: aload_0
+      1111: iconst_m1
+      1112: putfield      #57                 // Field a:I
+      1115: aload_1
+      1116: iconst_0
+      1117: iconst_0
+      1118: invokestatic  #121                // Method an.w:()S
+      1121: invokestatic  #122                // Method an.x:()S
+      1124: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1127: goto          2824
+      1130: aload_0
+      1131: aload_0
+      1132: aload_1
+      1133: invokespecial #132                // Method d:(Ljavax/microedition/lcdui/Graphics;)Z
+      1136: goto          2821
+      1139: aload_0
+      1140: getfield      #72                 // Field b:Z
+      1143: ifne          2824
+      1146: aload_0
+      1147: aload_0
+      1148: aload_1
+      1149: invokespecial #132                // Method d:(Ljavax/microedition/lcdui/Graphics;)Z
+      1152: goto          2821
+      1155: aload_0
+      1156: getfield      #72                 // Field b:Z
+      1159: ifeq          1182
+      1162: aload_0
+      1163: iconst_m1
+      1164: putfield      #57                 // Field a:I
+      1167: aload_1
+      1168: iconst_0
+      1169: iconst_0
+      1170: invokestatic  #121                // Method an.w:()S
+      1173: invokestatic  #122                // Method an.x:()S
+      1176: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1179: goto          2824
+      1182: aload_0
+      1183: aload_0
+      1184: aload_1
+      1185: astore_3
+      1186: dup
+      1187: astore_2
+      1188: getfield      #79                 // Field i:I
+      1191: bipush        10
+      1193: if_icmpge     1266
+      1196: aload_2
+      1197: getfield      #79                 // Field i:I
+      1200: iconst_3
+      1201: irem
+      1202: iconst_1
+      1203: if_icmpne     1227
+      1206: aload_3
+      1207: ldc           #4                  // int 16777215
+      1209: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      1212: aload_3
+      1213: iconst_0
+      1214: iconst_0
+      1215: invokestatic  #121                // Method an.w:()S
+      1218: invokestatic  #122                // Method an.x:()S
+      1221: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1224: goto          1253
+      1227: invokestatic  #139                // Method game/k.a:()Lgame/k;
+      1230: pop
+      1231: aload_3
+      1232: iconst_0
+      1233: iconst_0
+      1234: invokestatic  #121                // Method an.w:()S
+      1237: invokestatic  #122                // Method an.x:()S
+      1240: invokestatic  #140                // Method game/k.a:(Ljavax/microedition/lcdui/Graphics;IIII)V
+      1243: invokestatic  #139                // Method game/k.a:()Lgame/k;
+      1246: getfield      #101                // Field game/k.b:Lt;
+      1249: aload_3
+      1250: invokevirtual #151                // Method t.a:(Ljavax/microedition/lcdui/Graphics;)V
+      1253: aload_2
+      1254: dup
+      1255: getfield      #79                 // Field i:I
+      1258: iconst_1
+      1259: iadd
+      1260: putfield      #79                 // Field i:I
+      1263: goto          1639
+      1266: aload_2
+      1267: getfield      #79                 // Field i:I
+      1270: invokestatic  #121                // Method an.w:()S
+      1273: if_icmplt     1297
+      1276: aload_3
+      1277: iconst_0
+      1278: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      1281: aload_3
+      1282: iconst_0
+      1283: iconst_0
+      1284: invokestatic  #121                // Method an.w:()S
+      1287: invokestatic  #122                // Method an.x:()S
+      1290: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1293: iconst_1
+      1294: goto          1640
+      1297: aload_2
+      1298: getfield      #94                 // Field x:I
+      1301: tableswitch   { // 0 to 2
+
+                       0: 1328
+
+                       1: 1470
+
+                       2: 1556
+                 default: 1639
+            }
+      1328: aload_3
+      1329: iconst_0
+      1330: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      1333: aload_3
+      1334: iconst_0
+      1335: iconst_0
+      1336: aload_2
+      1337: getfield      #79                 // Field i:I
+      1340: invokestatic  #124                // Method an.z:()S
+      1343: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1346: iconst_1
+      1347: istore        4
+      1349: iload         4
+      1351: bipush        6
+      1353: if_icmpge     1387
+      1356: aload_3
+      1357: aload_2
+      1358: getfield      #79                 // Field i:I
+      1361: iload         4
+      1363: bipush        15
+      1365: imul
+      1366: iadd
+      1367: iconst_0
+      1368: bipush        15
+      1370: iload         4
+      1372: iconst_3
+      1373: imul
+      1374: isub
+      1375: invokestatic  #124                // Method an.z:()S
+      1378: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1381: iinc          4, 1
+      1384: goto          1349
+      1387: aload_3
+      1388: invokestatic  #121                // Method an.w:()S
+      1391: aload_2
+      1392: getfield      #79                 // Field i:I
+      1395: isub
+      1396: invokestatic  #124                // Method an.z:()S
+      1399: aload_2
+      1400: getfield      #79                 // Field i:I
+      1403: invokestatic  #124                // Method an.z:()S
+      1406: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1409: iconst_1
+      1410: istore        4
+      1412: iload         4
+      1414: bipush        6
+      1416: if_icmpge     1456
+      1419: aload_3
+      1420: invokestatic  #121                // Method an.w:()S
+      1423: aload_2
+      1424: getfield      #79                 // Field i:I
+      1427: isub
+      1428: iload         4
+      1430: bipush        15
+      1432: imul
+      1433: isub
+      1434: invokestatic  #124                // Method an.z:()S
+      1437: bipush        15
+      1439: iload         4
+      1441: iconst_3
+      1442: imul
+      1443: isub
+      1444: invokestatic  #124                // Method an.z:()S
+      1447: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1450: iinc          4, 1
+      1453: goto          1412
+      1456: aload_2
+      1457: dup
+      1458: getfield      #79                 // Field i:I
+      1461: bipush        15
+      1463: iadd
+      1464: putfield      #79                 // Field i:I
+      1467: goto          1639
+      1470: aload_3
+      1471: iconst_0
+      1472: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      1475: iconst_0
+      1476: istore        4
+      1478: iconst_0
+      1479: istore        5
+      1481: iload         5
+      1483: invokestatic  #122                // Method an.x:()S
+      1486: if_icmpge     1542
+      1489: iload         4
+      1491: ifeq          1513
+      1494: aload_3
+      1495: iconst_0
+      1496: iload         5
+      1498: aload_2
+      1499: getfield      #79                 // Field i:I
+      1502: bipush        10
+      1504: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1507: iconst_0
+      1508: istore        4
+      1510: goto          1536
+      1513: aload_3
+      1514: invokestatic  #121                // Method an.w:()S
+      1517: aload_2
+      1518: getfield      #79                 // Field i:I
+      1521: isub
+      1522: iload         5
+      1524: aload_2
+      1525: getfield      #79                 // Field i:I
+      1528: bipush        10
+      1530: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1533: iconst_1
+      1534: istore        4
+      1536: iinc          5, 10
+      1539: goto          1481
+      1542: aload_2
+      1543: dup
+      1544: getfield      #79                 // Field i:I
+      1547: bipush        15
+      1549: iadd
+      1550: putfield      #79                 // Field i:I
+      1553: goto          1639
+      1556: aload_3
+      1557: iconst_0
+      1558: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      1561: iconst_0
+      1562: istore        4
+      1564: iconst_0
+      1565: istore        5
+      1567: iload         5
+      1569: invokestatic  #121                // Method an.w:()S
+      1572: if_icmpge     1628
+      1575: iload         4
+      1577: ifeq          1599
+      1580: aload_3
+      1581: iload         5
+      1583: iconst_0
+      1584: bipush        10
+      1586: aload_2
+      1587: getfield      #79                 // Field i:I
+      1590: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1593: iconst_0
+      1594: istore        4
+      1596: goto          1622
+      1599: aload_3
+      1600: iload         5
+      1602: invokestatic  #122                // Method an.x:()S
+      1605: aload_2
+      1606: getfield      #79                 // Field i:I
+      1609: isub
+      1610: bipush        10
+      1612: aload_2
+      1613: getfield      #79                 // Field i:I
+      1616: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1619: iconst_1
+      1620: istore        4
+      1622: iinc          5, 10
+      1625: goto          1567
+      1628: aload_2
+      1629: dup
+      1630: getfield      #79                 // Field i:I
+      1633: bipush        15
+      1635: iadd
+      1636: putfield      #79                 // Field i:I
+      1639: iconst_0
+      1640: putfield      #72                 // Field b:Z
+      1643: goto          2824
+      1646: aload_0
+      1647: getfield      #55                 // Field Y:Lah;
+      1650: ifnull        2824
+      1653: aload_0
+      1654: getfield      #55                 // Field Y:Lah;
+      1657: aload_1
+      1658: invokevirtual #113                // Method ah.a:(Ljavax/microedition/lcdui/Graphics;)V
+      1661: goto          2824
+      1664: aload_0
+      1665: getfield      #79                 // Field i:I
+      1668: iconst_5
+      1669: if_icmplt     1686
+      1672: aload_1
+      1673: invokestatic  #134                // Method game/d.a:()Lgame/d;
+      1676: getfield      #100                // Field game/d.c:Ljavax/microedition/lcdui/Image;
+      1679: iconst_0
+      1680: iconst_0
+      1681: bipush        20
+      1683: invokevirtual #142                // Method javax/microedition/lcdui/Graphics.drawImage:(Ljavax/microedition/lcdui/Image;III)V
+      1686: getstatic     #95                 // Field y:Lab;
+      1689: aload_1
+      1690: invokevirtual #104                // Method ab.a:(Ljavax/microedition/lcdui/Graphics;)V
+      1693: aload_0
+      1694: getfield      #79                 // Field i:I
+      1697: getstatic     #31                 // Field A:[[S
+      1700: arraylength
+      1701: if_icmplt     2824
+      1704: aload_0
+      1705: iconst_0
+      1706: putfield      #79                 // Field i:I
+      1709: aload_0
+      1710: iconst_m1
+      1711: putfield      #57                 // Field a:I
+      1714: aload_0
+      1715: iconst_1
+      1716: putfield      #72                 // Field b:Z
+      1719: getstatic     #95                 // Field y:Lab;
+      1722: ldc           #7                  // String /data/ui/npcEnemy.ui
+      1724: invokevirtual #103                // Method ab.a:(Ljava/lang/String;)V
+      1727: return
+      1728: aload_1
+      1729: aload_0
+      1730: getfield      #84                 // Field n:I
+      1733: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      1736: aload_1
+      1737: iconst_0
+      1738: iconst_0
+      1739: invokestatic  #121                // Method an.w:()S
+      1742: invokestatic  #122                // Method an.x:()S
+      1745: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1748: goto          2824
+      1751: aload_0
+      1752: getfield      #79                 // Field i:I
+      1755: aload_0
+      1756: getfield      #42                 // Field L:I
+      1759: if_icmpgt     2824
+      1762: aload_0
+      1763: getfield      #79                 // Field i:I
+      1766: iconst_3
+      1767: irem
+      1768: aload_0
+      1769: getfield      #43                 // Field M:I
+      1772: iconst_1
+      1773: iadd
+      1774: idiv
+      1775: ifne          1799
+      1778: aload_1
+      1779: ldc           #4                  // int 16777215
+      1781: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      1784: aload_1
+      1785: iconst_0
+      1786: iconst_0
+      1787: invokestatic  #121                // Method an.w:()S
+      1790: invokestatic  #122                // Method an.x:()S
+      1793: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1796: goto          1833
+      1799: aload_0
+      1800: getfield      #79                 // Field i:I
+      1803: iconst_3
+      1804: irem
+      1805: aload_0
+      1806: getfield      #43                 // Field M:I
+      1809: iconst_1
+      1810: iadd
+      1811: idiv
+      1812: iconst_1
+      1813: if_icmpne     1833
+      1816: aload_1
+      1817: iconst_0
+      1818: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      1821: aload_1
+      1822: iconst_0
+      1823: iconst_0
+      1824: invokestatic  #121                // Method an.w:()S
+      1827: invokestatic  #122                // Method an.x:()S
+      1830: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      1833: aload_0
+      1834: dup
+      1835: getfield      #79                 // Field i:I
+      1838: iconst_1
+      1839: iadd
+      1840: putfield      #79                 // Field i:I
+      1843: goto          2824
+      1846: aload_0
+      1847: aload_0
+      1848: aload_1
+      1849: astore_3
+      1850: astore_2
+      1851: iconst_0
+      1852: istore        4
+      1854: iconst_0
+      1855: istore        5
+      1857: aload_2
+      1858: getfield      #57                 // Field a:I
+      1861: bipush        15
+      1863: if_icmpne     1897
+      1866: aload_2
+      1867: getfield      #81                 // Field k:I
+      1870: dup
+      1871: istore        5
+      1873: sipush        255
+      1876: if_icmplt     1931
+      1879: sipush        255
+      1882: istore        5
+      1884: aload_2
+      1885: sipush        255
+      1888: putfield      #81                 // Field k:I
+      1891: iconst_1
+      1892: istore        4
+      1894: goto          1931
+      1897: aload_2
+      1898: getfield      #57                 // Field a:I
+      1901: bipush        14
+      1903: if_icmpne     1931
+      1906: sipush        255
+      1909: aload_2
+      1910: getfield      #81                 // Field k:I
+      1913: isub
+      1914: dup
+      1915: istore        5
+      1917: ifgt          1931
+      1920: iconst_0
+      1921: istore        5
+      1923: aload_2
+      1924: iconst_m1
+      1925: putfield      #57                 // Field a:I
+      1928: iconst_1
+      1929: istore        4
+      1931: aload_2
+      1932: getfield      #45                 // Field O:Le;
+      1935: ifnull        2013
+      1938: aload_2
+      1939: aload_2
+      1940: getfield      #45                 // Field O:Le;
+      1943: iload         5
+      1945: invokestatic  #150                // Method l.b:(Le;I)Le;
+      1948: putfield      #45                 // Field O:Le;
+      1951: aload_3
+      1952: aload_2
+      1953: getfield      #45                 // Field O:Le;
+      1956: getfield      #97                 // Field e.a:[I
+      1959: iconst_0
+      1960: aload_2
+      1961: getfield      #45                 // Field O:Le;
+      1964: getfield      #98                 // Field e.b:I
+      1967: aload_2
+      1968: getfield      #46                 // Field P:I
+      1971: aload_2
+      1972: getfield      #45                 // Field O:Le;
+      1975: getfield      #98                 // Field e.b:I
+      1978: iconst_2
+      1979: idiv
+      1980: isub
+      1981: aload_2
+      1982: getfield      #47                 // Field Q:I
+      1985: aload_2
+      1986: getfield      #45                 // Field O:Le;
+      1989: getfield      #99                 // Field e.c:I
+      1992: iconst_2
+      1993: idiv
+      1994: isub
+      1995: aload_2
+      1996: getfield      #45                 // Field O:Le;
+      1999: getfield      #98                 // Field e.b:I
+      2002: aload_2
+      2003: getfield      #45                 // Field O:Le;
+      2006: getfield      #99                 // Field e.c:I
+      2009: iconst_1
+      2010: invokevirtual #143                // Method javax/microedition/lcdui/Graphics.drawRGB:([IIIIIIIZ)V
+      2013: iload         4
+      2015: ifeq          2031
+      2018: aload_2
+      2019: iconst_m1
+      2020: putfield      #57                 // Field a:I
+      2023: aload_2
+      2024: invokespecial #131                // Method d:()V
+      2027: iconst_1
+      2028: goto          2045
+      2031: aload_2
+      2032: dup
+      2033: getfield      #81                 // Field k:I
+      2036: aload_2
+      2037: getfield      #83                 // Field m:I
+      2040: iadd
+      2041: putfield      #81                 // Field k:I
+      2044: iconst_0
+      2045: putfield      #72                 // Field b:Z
+      2048: goto          2824
+      2051: aload_1
+      2052: aload_0
+      2053: getfield      #52                 // Field V:[I
+      2056: aload_0
+      2057: getfield      #84                 // Field n:I
+      2060: iaload
+      2061: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      2064: aload_1
+      2065: aload_0
+      2066: getfield      #50                 // Field T:I
+      2069: aload_0
+      2070: getfield      #51                 // Field U:I
+      2073: aload_0
+      2074: getfield      #48                 // Field R:I
+      2077: istore        5
+      2079: istore        4
+      2081: dup
+      2082: istore_3
+      2083: iload         5
+      2085: isub
+      2086: iload         4
+      2088: iload         5
+      2090: isub
+      2091: iload         5
+      2093: iconst_1
+      2094: ishl
+      2095: iload         5
+      2097: iconst_1
+      2098: ishl
+      2099: iconst_0
+      2100: sipush        360
+      2103: invokevirtual #144                // Method javax/microedition/lcdui/Graphics.fillArc:(IIIIII)V
+      2106: goto          2824
+      2109: aload_0
+      2110: aload_0
+      2111: aload_1
+      2112: astore_3
+      2113: astore_2
+      2114: aload_3
+      2115: aload_2
+      2116: getfield      #84                 // Field n:I
+      2119: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      2122: iconst_0
+      2123: istore        4
+      2125: iconst_0
+      2126: istore        5
+      2128: iload         5
+      2130: getstatic     #53                 // Field W:I
+      2133: if_icmpge     2762
+      2136: iconst_0
+      2137: istore        6
+      2139: iload         6
+      2141: getstatic     #54                 // Field X:[I
+      2144: iconst_1
+      2145: iaload
+      2146: if_icmpge     2756
+      2149: getstatic     #54                 // Field X:[I
+      2152: iconst_2
+      2153: iaload
+      2154: lookupswitch  { // 2
+
+                      -1: 2190
+
+                       1: 2180
+                 default: 2193
+            }
+      2180: getstatic     #54                 // Field X:[I
+      2183: iconst_0
+      2184: iaload
+      2185: istore        4
+      2187: goto          2193
+      2190: iconst_0
+      2191: istore        4
+      2193: getstatic     #54                 // Field X:[I
+      2196: iconst_3
+      2197: iaload
+      2198: tableswitch   { // 0 to 7
+
+                       0: 2244
+
+                       1: 2296
+
+                       2: 2354
+
+                       3: 2406
+
+                       4: 2461
+
+                       5: 2518
+
+                       6: 2578
+
+                       7: 2641
+                 default: 2704
+            }
+      2244: iload         4
+      2246: iload         6
+      2248: getstatic     #54                 // Field X:[I
+      2251: iconst_4
+      2252: iaload
+      2253: isub
+      2254: getstatic     #54                 // Field X:[I
+      2257: iconst_2
+      2258: iaload
+      2259: imul
+      2260: iadd
+      2261: dup
+      2262: istore        4
+      2264: ifge          2271
+      2267: iconst_0
+      2268: goto          2291
+      2271: iload         4
+      2273: getstatic     #54                 // Field X:[I
+      2276: iconst_0
+      2277: iaload
+      2278: if_icmple     2289
+      2281: getstatic     #54                 // Field X:[I
+      2284: iconst_0
+      2285: iaload
+      2286: goto          2291
+      2289: iload         4
+      2291: istore        4
+      2293: goto          2704
+      2296: iload         4
+      2298: getstatic     #54                 // Field X:[I
+      2301: iconst_1
+      2302: iaload
+      2303: iload         6
+      2305: isub
+      2306: getstatic     #54                 // Field X:[I
+      2309: iconst_4
+      2310: iaload
+      2311: isub
+      2312: getstatic     #54                 // Field X:[I
+      2315: iconst_2
+      2316: iaload
+      2317: imul
+      2318: iadd
+      2319: dup
+      2320: istore        4
+      2322: ifge          2329
+      2325: iconst_0
+      2326: goto          2349
+      2329: iload         4
+      2331: getstatic     #54                 // Field X:[I
+      2334: iconst_0
+      2335: iaload
+      2336: if_icmple     2347
+      2339: getstatic     #54                 // Field X:[I
+      2342: iconst_0
+      2343: iaload
+      2344: goto          2349
+      2347: iload         4
+      2349: istore        4
+      2351: goto          2704
+      2354: iload         4
+      2356: iload         5
+      2358: getstatic     #54                 // Field X:[I
+      2361: iconst_4
+      2362: iaload
+      2363: isub
+      2364: getstatic     #54                 // Field X:[I
+      2367: iconst_2
+      2368: iaload
+      2369: imul
+      2370: iadd
+      2371: dup
+      2372: istore        4
+      2374: ifge          2381
+      2377: iconst_0
+      2378: goto          2401
+      2381: iload         4
+      2383: getstatic     #54                 // Field X:[I
+      2386: iconst_0
+      2387: iaload
+      2388: if_icmple     2399
+      2391: getstatic     #54                 // Field X:[I
+      2394: iconst_0
+      2395: iaload
+      2396: goto          2401
+      2399: iload         4
+      2401: istore        4
+      2403: goto          2704
+      2406: iload         4
+      2408: bipush        8
+      2410: iload         5
+      2412: isub
+      2413: getstatic     #54                 // Field X:[I
+      2416: iconst_4
+      2417: iaload
+      2418: isub
+      2419: getstatic     #54                 // Field X:[I
+      2422: iconst_2
+      2423: iaload
+      2424: imul
+      2425: iadd
+      2426: dup
+      2427: istore        4
+      2429: ifge          2436
+      2432: iconst_0
+      2433: goto          2456
+      2436: iload         4
+      2438: getstatic     #54                 // Field X:[I
+      2441: iconst_0
+      2442: iaload
+      2443: if_icmple     2454
+      2446: getstatic     #54                 // Field X:[I
+      2449: iconst_0
+      2450: iaload
+      2451: goto          2456
+      2454: iload         4
+      2456: istore        4
+      2458: goto          2704
+      2461: iload         4
+      2463: iload         5
+      2465: iload         6
+      2467: iadd
+      2468: iconst_1
+      2469: ishr
+      2470: getstatic     #54                 // Field X:[I
+      2473: iconst_4
+      2474: iaload
+      2475: isub
+      2476: getstatic     #54                 // Field X:[I
+      2479: iconst_2
+      2480: iaload
+      2481: imul
+      2482: iadd
+      2483: dup
+      2484: istore        4
+      2486: ifge          2493
+      2489: iconst_0
+      2490: goto          2513
+      2493: iload         4
+      2495: getstatic     #54                 // Field X:[I
+      2498: iconst_0
+      2499: iaload
+      2500: if_icmple     2511
+      2503: getstatic     #54                 // Field X:[I
+      2506: iconst_0
+      2507: iaload
+      2508: goto          2513
+      2511: iload         4
+      2513: istore        4
+      2515: goto          2704
+      2518: iload         4
+      2520: bipush        8
+      2522: iload         5
+      2524: isub
+      2525: iload         6
+      2527: iadd
+      2528: iconst_1
+      2529: ishr
+      2530: getstatic     #54                 // Field X:[I
+      2533: iconst_4
+      2534: iaload
+      2535: isub
+      2536: getstatic     #54                 // Field X:[I
+      2539: iconst_2
+      2540: iaload
+      2541: imul
+      2542: iadd
+      2543: dup
+      2544: istore        4
+      2546: ifge          2553
+      2549: iconst_0
+      2550: goto          2573
+      2553: iload         4
+      2555: getstatic     #54                 // Field X:[I
+      2558: iconst_0
+      2559: iaload
+      2560: if_icmple     2571
+      2563: getstatic     #54                 // Field X:[I
+      2566: iconst_0
+      2567: iaload
+      2568: goto          2573
+      2571: iload         4
+      2573: istore        4
+      2575: goto          2704
+      2578: iload         4
+      2580: iload         5
+      2582: getstatic     #54                 // Field X:[I
+      2585: iconst_1
+      2586: iaload
+      2587: iadd
+      2588: iload         6
+      2590: isub
+      2591: iconst_1
+      2592: ishr
+      2593: getstatic     #54                 // Field X:[I
+      2596: iconst_4
+      2597: iaload
+      2598: isub
+      2599: getstatic     #54                 // Field X:[I
+      2602: iconst_2
+      2603: iaload
+      2604: imul
+      2605: iadd
+      2606: dup
+      2607: istore        4
+      2609: ifge          2616
+      2612: iconst_0
+      2613: goto          2636
+      2616: iload         4
+      2618: getstatic     #54                 // Field X:[I
+      2621: iconst_0
+      2622: iaload
+      2623: if_icmple     2634
+      2626: getstatic     #54                 // Field X:[I
+      2629: iconst_0
+      2630: iaload
+      2631: goto          2636
+      2634: iload         4
+      2636: istore        4
+      2638: goto          2704
+      2641: iload         4
+      2643: bipush        8
+      2645: iload         5
+      2647: isub
+      2648: getstatic     #54                 // Field X:[I
+      2651: iconst_1
+      2652: iaload
+      2653: iadd
+      2654: iload         6
+      2656: isub
+      2657: iconst_1
+      2658: ishr
+      2659: getstatic     #54                 // Field X:[I
+      2662: iconst_4
+      2663: iaload
+      2664: isub
+      2665: getstatic     #54                 // Field X:[I
+      2668: iconst_2
+      2669: iaload
+      2670: imul
+      2671: iadd
+      2672: dup
+      2673: istore        4
+      2675: ifge          2682
+      2678: iconst_0
+      2679: goto          2702
+      2682: iload         4
+      2684: getstatic     #54                 // Field X:[I
+      2687: iconst_0
+      2688: iaload
+      2689: if_icmple     2700
+      2692: getstatic     #54                 // Field X:[I
+      2695: iconst_0
+      2696: iaload
+      2697: goto          2702
+      2700: iload         4
+      2702: istore        4
+      2704: aload_3
+      2705: getstatic     #54                 // Field X:[I
+      2708: iconst_0
+      2709: iaload
+      2710: iload         5
+      2712: imul
+      2713: getstatic     #54                 // Field X:[I
+      2716: iconst_0
+      2717: iaload
+      2718: iload         4
+      2720: isub
+      2721: iconst_1
+      2722: ishr
+      2723: iadd
+      2724: getstatic     #54                 // Field X:[I
+      2727: iconst_0
+      2728: iaload
+      2729: iload         6
+      2731: imul
+      2732: getstatic     #54                 // Field X:[I
+      2735: iconst_0
+      2736: iaload
+      2737: iload         4
+      2739: isub
+      2740: iconst_1
+      2741: ishr
+      2742: iadd
+      2743: iload         4
+      2745: iload         4
+      2747: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      2750: iinc          6, 1
+      2753: goto          2139
+      2756: iinc          5, 1
+      2759: goto          2128
+      2762: getstatic     #54                 // Field X:[I
+      2765: iconst_4
+      2766: dup2
+      2767: iaload
+      2768: iconst_2
+      2769: iadd
+      2770: iastore
+      2771: getstatic     #54                 // Field X:[I
+      2774: iconst_4
+      2775: iaload
+      2776: bipush        40
+      2778: if_icmple     2820
+      2781: aload_2
+      2782: getfield      #57                 // Field a:I
+      2785: bipush        20
+      2787: if_icmpne     2795
+      2790: aload_2
+      2791: iconst_m1
+      2792: putfield      #57                 // Field a:I
+      2795: aload_2
+      2796: getfield      #57                 // Field a:I
+      2799: bipush        19
+      2801: if_icmpne     2816
+      2804: aload_3
+      2805: iconst_0
+      2806: iconst_0
+      2807: invokestatic  #121                // Method an.w:()S
+      2810: invokestatic  #122                // Method an.x:()S
+      2813: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      2816: iconst_1
+      2817: goto          2821
+      2820: iconst_0
+      2821: putfield      #72                 // Field b:Z
+      2824: aload_0
+      2825: getfield      #77                 // Field g:I
+      2828: lookupswitch  { // 2
+
+                      12: 2856
+
+                      13: 2942
+                 default: 3012
+            }
+      2856: aload_1
+      2857: iconst_0
+      2858: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      2861: aload_1
+      2862: iconst_0
+      2863: iconst_0
+      2864: aload_0
+      2865: getfield      #39                 // Field I:I
+      2868: aload_0
+      2869: getfield      #40                 // Field J:I
+      2872: aload_0
+      2873: getfield      #80                 // Field j:I
+      2876: aload_0
+      2877: getfield      #40                 // Field J:I
+      2880: imul
+      2881: aload_0
+      2882: getfield      #37                 // Field G:I
+      2885: idiv
+      2886: isub
+      2887: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      2890: aload_1
+      2891: iconst_0
+      2892: invokestatic  #122                // Method an.x:()S
+      2895: aload_0
+      2896: getfield      #41                 // Field K:I
+      2899: isub
+      2900: aload_0
+      2901: getfield      #80                 // Field j:I
+      2904: aload_0
+      2905: getfield      #41                 // Field K:I
+      2908: imul
+      2909: aload_0
+      2910: getfield      #37                 // Field G:I
+      2913: idiv
+      2914: iadd
+      2915: aload_0
+      2916: getfield      #39                 // Field I:I
+      2919: aload_0
+      2920: getfield      #41                 // Field K:I
+      2923: aload_0
+      2924: getfield      #80                 // Field j:I
+      2927: aload_0
+      2928: getfield      #41                 // Field K:I
+      2931: imul
+      2932: aload_0
+      2933: getfield      #37                 // Field G:I
+      2936: idiv
+      2937: isub
+      2938: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      2941: return
+      2942: aload_1
+      2943: iconst_0
+      2944: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+      2947: aload_1
+      2948: iconst_0
+      2949: iconst_0
+      2950: aload_0
+      2951: getfield      #39                 // Field I:I
+      2954: aload_0
+      2955: getfield      #80                 // Field j:I
+      2958: aload_0
+      2959: getfield      #40                 // Field J:I
+      2962: imul
+      2963: aload_0
+      2964: getfield      #37                 // Field G:I
+      2967: idiv
+      2968: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      2971: aload_1
+      2972: iconst_0
+      2973: invokestatic  #122                // Method an.x:()S
+      2976: aload_0
+      2977: getfield      #80                 // Field j:I
+      2980: aload_0
+      2981: getfield      #41                 // Field K:I
+      2984: imul
+      2985: aload_0
+      2986: getfield      #37                 // Field G:I
+      2989: idiv
+      2990: isub
+      2991: aload_0
+      2992: getfield      #39                 // Field I:I
+      2995: aload_0
+      2996: getfield      #80                 // Field j:I
+      2999: aload_0
+      3000: getfield      #41                 // Field K:I
+      3003: imul
+      3004: aload_0
+      3005: getfield      #37                 // Field G:I
+      3008: idiv
+      3009: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+      3012: return
+        StackMap: length = 0xB02 (unknown attribute)
+         00 81 00 19 00 02 07 00 12 07 00 18 00 00 00 30
+         00 02 07 00 12 07 00 18 00 00 00 58 00 02 07 00
+         12 07 00 18 00 00 00 C0 00 02 07 00 12 07 00 18
+         00 00 00 E4 00 07 07 00 12 07 00 18 07 00 12 07
+         00 18 01 01 01 00 01 07 00 12 01 0E 00 07 07 00
+         12 07 00 18 07 00 12 07 00 18 01 00 01 00 01 07
+         00 12 01 2A 00 07 07 00 12 07 00 18 07 00 12 07
+         00 18 01 01 01 00 01 07 00 12 01 4E 00 07 07 00
+         12 07 00 18 07 00 12 07 00 18 01 00 01 00 01 07
+         00 12 01 63 00 07 07 00 12 07 00 18 07 00 12 07
+         00 18 00 01 01 00 01 07 00 12 01 8C 00 09 07 00
+         12 07 00 18 07 00 12 07 00 18 01 01 01 01 01 00
+         01 07 00 12 01 94 00 09 07 00 12 07 00 18 07 00
+         12 07 00 18 00 01 01 01 01 00 01 07 00 12 01 A2
+         00 0A 07 00 12 07 00 18 07 00 12 07 00 18 00 01
+         01 01 01 01 00 01 07 00 12 01 BB 00 09 07 00 12
+         07 00 18 07 00 12 07 00 18 00 00 01 01 01 00 01
+         07 00 12 01 BE 00 0A 07 00 12 07 00 18 07 00 12
+         07 00 18 00 00 01 01 01 01 00 01 07 00 12 01 E3
+         00 07 07 00 12 07 00 18 07 00 12 00 00 00 01 00
+         01 07 00 12 01 F0 00 03 07 00 12 07 00 18 07 00
+         12 00 01 07 00 12 01 FB 00 02 07 00 12 07 00 18
+         00 02 07 00 12 01 02 01 00 02 07 00 12 07 00 18
+         00 00 02 57 00 0D 07 00 12 07 00 18 07 00 12 07
+         00 18 01 00 01 01 01 01 01 01 01 00 01 07 00 12
+         02 84 00 0E 07 00 12 07 00 18 07 00 12 07 00 18
+         01 00 01 01 01 01 01 01 01 01 00 01 07 00 12 02
+         98 00 0E 07 00 12 07 00 18 07 00 12 07 00 18 01
+         00 01 01 01 01 01 01 01 01 00 01 07 00 12 02 A3
+         00 0E 07 00 12 07 00 18 07 00 12 07 00 18 01 00
+         01 01 01 01 01 01 01 01 00 01 07 00 12 02 B7 00
+         0E 07 00 12 07 00 18 07 00 12 07 00 18 01 00 01
+         01 01 01 01 01 01 01 00 01 07 00 12 02 C2 00 0E
+         07 00 12 07 00 18 07 00 12 07 00 18 01 00 01 01
+         01 01 01 01 01 01 00 01 07 00 12 02 C5 00 0F 07
+         00 12 07 00 18 07 00 12 07 00 18 01 00 01 01 01
+         01 01 01 01 01 01 00 01 07 00 12 02 E4 00 0F 07
+         00 12 07 00 18 07 00 12 07 00 18 01 01 01 01 01
+         01 01 01 01 01 01 00 01 07 00 12 02 F2 00 0F 07
+         00 12 07 00 18 07 00 12 07 00 18 01 01 01 01 01
+         01 01 01 01 01 01 00 01 07 00 12 02 FC 00 0F 07
+         00 12 07 00 18 07 00 12 07 00 18 01 01 01 01 01
+         01 01 01 01 01 01 00 01 07 00 12 03 11 00 0E 07
+         00 12 07 00 18 07 00 12 07 00 18 01 00 00 01 00
+         01 01 01 01 01 00 01 07 00 12 03 2C 00 0F 07 00
+         12 07 00 18 07 00 12 07 00 18 01 01 01 00 00 01
+         00 01 01 00 01 00 01 07 00 12 03 43 00 0F 07 00
+         12 07 00 18 07 00 12 07 00 18 01 01 01 01 00 01
+         00 01 01 00 01 00 01 07 00 12 03 5B 00 10 07 00
+         12 07 00 18 07 00 12 07 00 18 01 01 01 01 00 01
+         01 01 01 01 01 01 00 01 07 00 12 03 81 00 10 07
+         00 12 07 00 18 07 00 12 07 00 18 01 01 01 01 01
+         01 01 01 01 01 01 01 00 01 07 00 12 03 96 00 10
+         07 00 12 07 00 18 07 00 12 07 00 18 01 01 01 01
+         01 01 01 01 01 01 01 01 00 01 07 00 12 03 AD 00
+         10 07 00 12 07 00 18 07 00 12 07 00 18 01 01 01
+         01 00 01 01 01 01 01 01 01 00 01 07 00 12 03 B3
+         00 0F 07 00 12 07 00 18 07 00 12 07 00 18 01 01
+         01 01 00 01 00 01 01 00 01 00 01 07 00 12 03 B9
+         00 0D 07 00 12 07 00 18 07 00 12 07 00 18 01 00
+         00 00 00 01 00 00 01 00 01 07 00 12 04 30 00 0D
+         07 00 12 07 00 18 07 00 12 00 00 00 00 00 00 00
+         00 00 01 00 01 07 00 12 04 3D 00 03 07 00 12 07
+         00 18 07 00 12 00 01 07 00 12 04 49 00 02 07 00
+         12 07 00 18 00 02 07 00 12 01 04 4F 00 02 07 00
+         12 07 00 18 00 00 04 6A 00 02 07 00 12 07 00 18
+         00 00 04 73 00 02 07 00 12 07 00 18 00 00 04 83
+         00 02 07 00 12 07 00 18 00 00 04 9E 00 02 07 00
+         12 07 00 18 00 00 04 CB 00 04 07 00 12 07 00 18
+         07 00 12 07 00 18 00 01 07 00 12 04 E5 00 03 07
+         00 12 07 00 18 07 00 12 00 01 07 00 12 04 F2 00
+         04 07 00 12 07 00 18 07 00 12 07 00 18 00 01 07
+         00 12 05 11 00 04 07 00 12 07 00 18 07 00 12 07
+         00 18 00 01 07 00 12 05 30 00 04 07 00 12 07 00
+         18 07 00 12 07 00 18 00 01 07 00 12 05 45 00 05
+         07 00 12 07 00 18 07 00 12 07 00 18 01 00 01 07
+         00 12 05 6B 00 04 07 00 12 07 00 18 07 00 12 07
+         00 18 00 01 07 00 12 05 84 00 05 07 00 12 07 00
+         18 07 00 12 07 00 18 01 00 01 07 00 12 05 B0 00
+         03 07 00 12 07 00 18 07 00 12 00 01 07 00 12 05
+         BE 00 04 07 00 12 07 00 18 07 00 12 07 00 18 00
+         01 07 00 12 05 C9 00 06 07 00 12 07 00 18 07 00
+         12 07 00 18 01 01 00 01 07 00 12 05 E9 00 06 07
+         00 12 07 00 18 07 00 12 07 00 18 00 01 00 01 07
+         00 12 06 00 00 06 07 00 12 07 00 18 07 00 12 07
+         00 18 01 01 00 01 07 00 12 06 06 00 03 07 00 12
+         07 00 18 07 00 12 00 01 07 00 12 06 14 00 04 07
+         00 12 07 00 18 07 00 12 07 00 18 00 01 07 00 12
+         06 1F 00 06 07 00 12 07 00 18 07 00 12 07 00 18
+         01 01 00 01 07 00 12 06 3F 00 06 07 00 12 07 00
+         18 07 00 12 07 00 18 00 01 00 01 07 00 12 06 56
+         00 06 07 00 12 07 00 18 07 00 12 07 00 18 01 01
+         00 01 07 00 12 06 5C 00 03 07 00 12 07 00 18 07
+         00 12 00 01 07 00 12 06 67 00 02 07 00 12 07 00
+         18 00 01 07 00 12 06 68 00 02 07 00 12 07 00 18
+         00 02 07 00 12 01 06 6E 00 02 07 00 12 07 00 18
+         00 00 06 80 00 02 07 00 12 07 00 18 00 00 06 96
+         00 02 07 00 12 07 00 18 00 00 06 C0 00 02 07 00
+         12 07 00 18 00 00 06 D7 00 02 07 00 12 07 00 18
+         00 00 07 07 00 02 07 00 12 07 00 18 00 00 07 29
+         00 02 07 00 12 07 00 18 00 00 07 36 00 02 07 00
+         12 07 00 18 00 00 07 69 00 06 07 00 12 07 00 18
+         07 00 12 07 00 18 01 01 00 01 07 00 12 07 8B 00
+         06 07 00 12 07 00 18 07 00 12 07 00 18 01 01 00
+         01 07 00 12 07 DD 00 05 07 00 12 07 00 18 07 00
+         12 00 01 00 01 07 00 12 07 EF 00 03 07 00 12 07
+         00 18 07 00 12 00 01 07 00 12 07 FD 00 02 07 00
+         12 07 00 18 00 02 07 00 12 01 08 03 00 02 07 00
+         12 07 00 18 00 00 08 3D 00 02 07 00 12 07 00 18
+         00 00 08 50 00 06 07 00 12 07 00 18 07 00 12 07
+         00 18 01 01 00 01 07 00 12 08 5B 00 07 07 00 12
+         07 00 18 07 00 12 07 00 18 01 01 01 00 01 07 00
+         12 08 84 00 07 07 00 12 07 00 18 07 00 12 07 00
+         18 00 01 01 00 01 07 00 12 08 8E 00 07 07 00 12
+         07 00 18 07 00 12 07 00 18 00 01 01 00 01 07 00
+         12 08 91 00 07 07 00 12 07 00 18 07 00 12 07 00
+         18 01 01 01 00 01 07 00 12 08 C4 00 07 07 00 12
+         07 00 18 07 00 12 07 00 18 01 01 01 00 01 07 00
+         12 08 DF 00 07 07 00 12 07 00 18 07 00 12 07 00
+         18 01 01 01 00 01 07 00 12 08 F1 00 07 07 00 12
+         07 00 18 07 00 12 07 00 18 01 01 01 00 01 07 00
+         12 08 F3 00 07 07 00 12 07 00 18 07 00 12 07 00
+         18 00 01 01 00 02 07 00 12 01 08 F8 00 07 07 00
+         12 07 00 18 07 00 12 07 00 18 01 01 01 00 01 07
+         00 12 09 19 00 07 07 00 12 07 00 18 07 00 12 07
+         00 18 01 01 01 00 01 07 00 12 09 2B 00 07 07 00
+         12 07 00 18 07 00 12 07 00 18 01 01 01 00 01 07
+         00 12 09 2D 00 07 07 00 12 07 00 18 07 00 12 07
+         00 18 00 01 01 00 02 07 00 12 01 09 32 00 07 07
+         00 12 07 00 18 07 00 12 07 00 18 01 01 01 00 01
+         07 00 12 09 4D 00 07 07 00 12 07 00 18 07 00 12
+         07 00 18 01 01 01 00 01 07 00 12 09 5F 00 07 07
+         00 12 07 00 18 07 00 12 07 00 18 01 01 01 00 01
+         07 00 12 09 61 00 07 07 00 12 07 00 18 07 00 12
+         07 00 18 00 01 01 00 02 07 00 12 01 09 66 00 07
+         07 00 12 07 00 18 07 00 12 07 00 18 01 01 01 00
+         01 07 00 12 09 84 00 07 07 00 12 07 00 18 07 00
+         12 07 00 18 01 01 01 00 01 07 00 12 09 96 00 07
+         07 00 12 07 00 18 07 00 12 07 00 18 01 01 01 00
+         01 07 00 12 09 98 00 07 07 00 12 07 00 18 07 00
+         12 07 00 18 00 01 01 00 02 07 00 12 01 09 9D 00
+         07 07 00 12 07 00 18 07 00 12 07 00 18 01 01 01
+         00 01 07 00 12 09 BD 00 07 07 00 12 07 00 18 07
+         00 12 07 00 18 01 01 01 00 01 07 00 12 09 CF 00
+         07 07 00 12 07 00 18 07 00 12 07 00 18 01 01 01
+         00 01 07 00 12 09 D1 00 07 07 00 12 07 00 18 07
+         00 12 07 00 18 00 01 01 00 02 07 00 12 01 09 D6
+         00 07 07 00 12 07 00 18 07 00 12 07 00 18 01 01
+         01 00 01 07 00 12 09 F9 00 07 07 00 12 07 00 18
+         07 00 12 07 00 18 01 01 01 00 01 07 00 12 0A 0B
+         00 07 07 00 12 07 00 18 07 00 12 07 00 18 01 01
+         01 00 01 07 00 12 0A 0D 00 07 07 00 12 07 00 18
+         07 00 12 07 00 18 00 01 01 00 02 07 00 12 01 0A
+         12 00 07 07 00 12 07 00 18 07 00 12 07 00 18 01
+         01 01 00 01 07 00 12 0A 38 00 07 07 00 12 07 00
+         18 07 00 12 07 00 18 01 01 01 00 01 07 00 12 0A
+         4A 00 07 07 00 12 07 00 18 07 00 12 07 00 18 01
+         01 01 00 01 07 00 12 0A 4C 00 07 07 00 12 07 00
+         18 07 00 12 07 00 18 00 01 01 00 02 07 00 12 01
+         0A 51 00 07 07 00 12 07 00 18 07 00 12 07 00 18
+         01 01 01 00 01 07 00 12 0A 7A 00 07 07 00 12 07
+         00 18 07 00 12 07 00 18 01 01 01 00 01 07 00 12
+         0A 8C 00 07 07 00 12 07 00 18 07 00 12 07 00 18
+         01 01 01 00 01 07 00 12 0A 8E 00 07 07 00 12 07
+         00 18 07 00 12 07 00 18 00 01 01 00 02 07 00 12
+         01 0A 90 00 07 07 00 12 07 00 18 07 00 12 07 00
+         18 01 01 01 00 01 07 00 12 0A C4 00 06 07 00 12
+         07 00 18 07 00 12 07 00 18 01 01 00 01 07 00 12
+         0A CA 00 04 07 00 12 07 00 18 07 00 12 07 00 18
+         00 01 07 00 12 0A EB 00 04 07 00 12 07 00 18 07
+         00 12 07 00 18 00 01 07 00 12 0B 00 00 02 07 00
+         12 07 00 18 00 01 07 00 12 0B 04 00 02 07 00 12
+         07 00 18 00 01 07 00 12 0B 05 00 02 07 00 12 07
+         00 18 00 02 07 00 12 01 0B 08 00 02 07 00 12 07
+         00 18 00 00 0B 28 00 02 07 00 12 07 00 18 00 00
+         0B 7E 00 02 07 00 12 07 00 18 00 00 0B C4 00 00
+         00 00
+
+  private void a(int);
+    descriptor: (I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=4, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #58                 // Field aa:I
+         5: aload_0
+         6: getfield      #57                 // Field a:I
+         9: lookupswitch  { // 2
+
+                       7: 36
+
+                       8: 513
+                 default: 526
+            }
+        36: getstatic     #30                 // Field aq.c:[[[S
+        39: iconst_0
+        40: aaload
+        41: invokestatic  #134                // Method game/d.a:()Lgame/d;
+        44: invokevirtual #135                // Method game/d.k:()I
+        47: aaload
+        48: bipush        17
+        50: saload
+        51: istore_1
+        52: aload_0
+        53: getfield      #58                 // Field aa:I
+        56: tableswitch   { // 0 to 3
+
+                       0: 88
+
+                       1: 214
+
+                       2: 317
+
+                       3: 421
+                 default: 512
+            }
+        88: bipush        17
+        90: newarray       short
+        92: dup
+        93: iconst_0
+        94: bipush        8
+        96: sastore
+        97: dup
+        98: iconst_1
+        99: bipush        118
+       101: sastore
+       102: dup
+       103: iconst_2
+       104: sipush        160
+       107: sastore
+       108: dup
+       109: iconst_3
+       110: iload_1
+       111: sastore
+       112: dup
+       113: iconst_4
+       114: iconst_0
+       115: sastore
+       116: dup
+       117: iconst_5
+       118: iconst_1
+       119: sastore
+       120: dup
+       121: bipush        6
+       123: iconst_0
+       124: sastore
+       125: dup
+       126: bipush        7
+       128: iconst_4
+       129: sastore
+       130: dup
+       131: bipush        8
+       133: iconst_0
+       134: sastore
+       135: dup
+       136: bipush        9
+       138: iconst_2
+       139: sastore
+       140: dup
+       141: bipush        10
+       143: iconst_1
+       144: sastore
+       145: dup
+       146: bipush        11
+       148: bipush        8
+       150: sastore
+       151: dup
+       152: bipush        12
+       154: iconst_0
+       155: sastore
+       156: dup
+       157: bipush        13
+       159: bipush        -16
+       161: sastore
+       162: dup
+       163: bipush        14
+       165: bipush        10
+       167: sastore
+       168: dup
+       169: bipush        15
+       171: iconst_0
+       172: sastore
+       173: dup
+       174: bipush        16
+       176: iconst_0
+       177: sastore
+       178: astore_1
+       179: aload_0
+       180: new           #14                 // class ah
+       183: dup
+       184: invokespecial #111                // Method ah."<init>":()V
+       187: putfield      #55                 // Field Y:Lah;
+       190: aload_0
+       191: getfield      #55                 // Field Y:Lah;
+       194: aload_1
+       195: invokevirtual #114                // Method ah.a:([S)V
+       198: aload_0
+       199: getfield      #55                 // Field Y:Lah;
+       202: iconst_1
+       203: invokevirtual #115                // Method ah.c:(Z)V
+       206: aload_0
+       207: getfield      #55                 // Field Y:Lah;
+       210: invokevirtual #112                // Method ah.a:()V
+       213: return
+       214: bipush        15
+       216: newarray       short
+       218: dup
+       219: iconst_0
+       220: bipush        17
+       222: sastore
+       223: dup
+       224: iconst_1
+       225: bipush        118
+       227: sastore
+       228: dup
+       229: iconst_2
+       230: sipush        160
+       233: sastore
+       234: dup
+       235: iconst_3
+       236: iload_1
+       237: sastore
+       238: dup
+       239: iconst_4
+       240: iconst_0
+       241: sastore
+       242: dup
+       243: iconst_5
+       244: iconst_1
+       245: sastore
+       246: dup
+       247: bipush        6
+       249: bipush        100
+       251: sastore
+       252: dup
+       253: bipush        7
+       255: sipush        255
+       258: sastore
+       259: dup
+       260: bipush        8
+       262: sipush        255
+       265: sastore
+       266: dup
+       267: bipush        9
+       269: sipush        255
+       272: sastore
+       273: dup
+       274: bipush        10
+       276: bipush        12
+       278: sastore
+       279: dup
+       280: bipush        11
+       282: iconst_0
+       283: sastore
+       284: dup
+       285: bipush        12
+       287: iconst_1
+       288: sastore
+       289: dup
+       290: bipush        13
+       292: iconst_1
+       293: sastore
+       294: dup
+       295: bipush        14
+       297: bipush        9
+       299: sastore
+       300: astore_1
+       301: aload_0
+       302: getfield      #55                 // Field Y:Lah;
+       305: aload_1
+       306: invokevirtual #114                // Method ah.a:([S)V
+       309: aload_0
+       310: getfield      #55                 // Field Y:Lah;
+       313: invokevirtual #112                // Method ah.a:()V
+       316: return
+       317: bipush        15
+       319: newarray       short
+       321: dup
+       322: iconst_0
+       323: bipush        17
+       325: sastore
+       326: dup
+       327: iconst_1
+       328: bipush        118
+       330: sastore
+       331: dup
+       332: iconst_2
+       333: sipush        160
+       336: sastore
+       337: dup
+       338: iconst_3
+       339: iload_1
+       340: sastore
+       341: dup
+       342: iconst_4
+       343: iconst_0
+       344: sastore
+       345: dup
+       346: iconst_5
+       347: iconst_1
+       348: sastore
+       349: dup
+       350: bipush        6
+       352: sipush        255
+       355: sastore
+       356: dup
+       357: bipush        7
+       359: sipush        255
+       362: sastore
+       363: dup
+       364: bipush        8
+       366: sipush        255
+       369: sastore
+       370: dup
+       371: bipush        9
+       373: sipush        255
+       376: sastore
+       377: dup
+       378: bipush        10
+       380: bipush        15
+       382: sastore
+       383: dup
+       384: bipush        11
+       386: iconst_0
+       387: sastore
+       388: dup
+       389: bipush        12
+       391: iconst_1
+       392: sastore
+       393: dup
+       394: bipush        13
+       396: iconst_1
+       397: sastore
+       398: dup
+       399: bipush        14
+       401: bipush        13
+       403: sastore
+       404: astore_1
+       405: aload_0
+       406: getfield      #55                 // Field Y:Lah;
+       409: aload_1
+       410: invokevirtual #114                // Method ah.a:([S)V
+       413: aload_0
+       414: getfield      #55                 // Field Y:Lah;
+       417: invokevirtual #112                // Method ah.a:()V
+       420: return
+       421: bipush        13
+       423: newarray       short
+       425: dup
+       426: iconst_0
+       427: bipush        9
+       429: sastore
+       430: dup
+       431: iconst_1
+       432: bipush        118
+       434: sastore
+       435: dup
+       436: iconst_2
+       437: sipush        160
+       440: sastore
+       441: dup
+       442: iconst_3
+       443: iload_1
+       444: sastore
+       445: dup
+       446: iconst_4
+       447: iconst_0
+       448: sastore
+       449: dup
+       450: iconst_5
+       451: iconst_1
+       452: sastore
+       453: dup
+       454: bipush        6
+       456: sipush        160
+       459: sastore
+       460: dup
+       461: bipush        7
+       463: sipush        255
+       466: sastore
+       467: dup
+       468: bipush        8
+       470: sipush        255
+       473: sastore
+       474: dup
+       475: bipush        9
+       477: sipush        255
+       480: sastore
+       481: dup
+       482: bipush        10
+       484: iconst_0
+       485: sastore
+       486: dup
+       487: bipush        11
+       489: iconst_4
+       490: sastore
+       491: dup
+       492: bipush        12
+       494: iconst_1
+       495: sastore
+       496: astore_1
+       497: aload_0
+       498: getfield      #55                 // Field Y:Lah;
+       501: aload_1
+       502: invokevirtual #114                // Method ah.a:([S)V
+       505: aload_0
+       506: getfield      #55                 // Field Y:Lah;
+       509: invokevirtual #112                // Method ah.a:()V
+       512: return
+       513: aload_0
+       514: getstatic     #31                 // Field A:[[S
+       517: aload_0
+       518: getfield      #79                 // Field i:I
+       521: aaload
+       522: arraylength
+       523: putfield      #56                 // Field Z:I
+       526: return
+        StackMap: length = 0x48 (unknown attribute)
+         00 08 00 24 00 01 07 00 12 00 00 00 58 00 02 07
+         00 12 01 00 00 00 D6 00 02 07 00 12 01 00 00 01
+         3D 00 02 07 00 12 01 00 00 01 A5 00 02 07 00 12
+         01 00 00 02 00 00 00 00 00 02 01 00 01 07 00 12
+         00 00 02 0E 00 00 00 00
+
+  public final void b();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=5, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #57                 // Field a:I
+         4: iconst_m1
+         5: if_icmpne     25
+         8: aload_0
+         9: getfield      #77                 // Field g:I
+        12: iconst_m1
+        13: if_icmpne     25
+        16: aload_0
+        17: getfield      #78                 // Field h:I
+        20: iconst_m1
+        21: if_icmpne     25
+        24: return
+        25: aload_0
+        26: getfield      #57                 // Field a:I
+        29: tableswitch   { // 7 to 17
+
+                       7: 170
+
+                       8: 88
+
+                       9: 663
+
+                      10: 432
+
+                      11: 237
+
+                      12: 663
+
+                      13: 663
+
+                      14: 663
+
+                      15: 663
+
+                      16: 663
+
+                      17: 461
+                 default: 663
+            }
+        88: aload_0
+        89: getfield      #58                 // Field aa:I
+        92: aload_0
+        93: getfield      #56                 // Field Z:I
+        96: if_icmpge     135
+        99: getstatic     #96                 // Field z:Lgame/h;
+       102: aload_0
+       103: getfield      #79                 // Field i:I
+       106: getstatic     #31                 // Field A:[[S
+       109: aload_0
+       110: getfield      #79                 // Field i:I
+       113: aaload
+       114: aload_0
+       115: getfield      #58                 // Field aa:I
+       118: saload
+       119: invokevirtual #138                // Method game/h.b:(II)V
+       122: aload_0
+       123: dup
+       124: getfield      #58                 // Field aa:I
+       127: iconst_1
+       128: iadd
+       129: putfield      #58                 // Field aa:I
+       132: goto          161
+       135: aload_0
+       136: dup
+       137: getfield      #79                 // Field i:I
+       140: iconst_1
+       141: iadd
+       142: putfield      #79                 // Field i:I
+       145: aload_0
+       146: getfield      #79                 // Field i:I
+       149: getstatic     #31                 // Field A:[[S
+       152: arraylength
+       153: if_icmpge     161
+       156: aload_0
+       157: iconst_0
+       158: invokespecial #126                // Method a:(I)V
+       161: getstatic     #95                 // Field y:Lab;
+       164: invokevirtual #105                // Method ab.c:()V
+       167: goto          663
+       170: aload_0
+       171: getfield      #55                 // Field Y:Lah;
+       174: ifnull        663
+       177: aload_0
+       178: getfield      #55                 // Field Y:Lah;
+       181: invokevirtual #116                // Method ah.e:()Z
+       184: ifne          663
+       187: aload_0
+       188: dup
+       189: getfield      #58                 // Field aa:I
+       192: iconst_1
+       193: iadd
+       194: putfield      #58                 // Field aa:I
+       197: aload_0
+       198: getfield      #58                 // Field aa:I
+       201: iconst_4
+       202: if_icmplt     226
+       205: aload_0
+       206: iconst_1
+       207: putfield      #72                 // Field b:Z
+       210: aload_0
+       211: iconst_m1
+       212: putfield      #57                 // Field a:I
+       215: aload_0
+       216: iconst_0
+       217: putfield      #79                 // Field i:I
+       220: aload_0
+       221: aconst_null
+       222: putfield      #55                 // Field Y:Lah;
+       225: return
+       226: aload_0
+       227: aload_0
+       228: getfield      #58                 // Field aa:I
+       231: invokespecial #126                // Method a:(I)V
+       234: goto          663
+       237: aload_0
+       238: getfield      #33                 // Field C:I
+       241: ifne          338
+       244: aload_0
+       245: getfield      #36                 // Field F:I
+       248: aload_0
+       249: getfield      #32                 // Field B:[[S
+       252: aload_0
+       253: getfield      #34                 // Field D:I
+       256: aaload
+       257: arraylength
+       258: aload_0
+       259: getfield      #35                 // Field E:I
+       262: imul
+       263: if_icmplt     294
+       266: aload_0
+       267: iconst_m1
+       268: putfield      #57                 // Field a:I
+       271: aload_0
+       272: iconst_1
+       273: putfield      #72                 // Field b:Z
+       276: aload_0
+       277: iconst_0
+       278: putfield      #36                 // Field F:I
+       281: invokestatic  #117                // Method ai.a:()Lai;
+       284: invokestatic  #117                // Method ai.a:()Lai;
+       287: getfield      #29                 // Field ai.b:B
+       290: putfield      #28                 // Field ai.a:B
+       293: return
+       294: invokestatic  #117                // Method ai.a:()Lai;
+       297: aload_0
+       298: getfield      #32                 // Field B:[[S
+       301: aload_0
+       302: getfield      #34                 // Field D:I
+       305: aaload
+       306: aload_0
+       307: getfield      #36                 // Field F:I
+       310: aload_0
+       311: getfield      #32                 // Field B:[[S
+       314: aload_0
+       315: getfield      #34                 // Field D:I
+       318: aaload
+       319: arraylength
+       320: irem
+       321: saload
+       322: invokevirtual #119                // Method ai.d:(I)V
+       325: aload_0
+       326: dup
+       327: getfield      #36                 // Field F:I
+       330: iconst_1
+       331: iadd
+       332: putfield      #36                 // Field F:I
+       335: goto          663
+       338: aload_0
+       339: getfield      #36                 // Field F:I
+       342: aload_0
+       343: getfield      #32                 // Field B:[[S
+       346: aload_0
+       347: getfield      #34                 // Field D:I
+       350: aaload
+       351: arraylength
+       352: aload_0
+       353: getfield      #35                 // Field E:I
+       356: imul
+       357: if_icmplt     388
+       360: aload_0
+       361: iconst_m1
+       362: putfield      #57                 // Field a:I
+       365: aload_0
+       366: iconst_1
+       367: putfield      #72                 // Field b:Z
+       370: aload_0
+       371: iconst_0
+       372: putfield      #36                 // Field F:I
+       375: invokestatic  #117                // Method ai.a:()Lai;
+       378: invokestatic  #117                // Method ai.a:()Lai;
+       381: getfield      #29                 // Field ai.b:B
+       384: putfield      #28                 // Field ai.a:B
+       387: return
+       388: invokestatic  #117                // Method ai.a:()Lai;
+       391: aload_0
+       392: getfield      #32                 // Field B:[[S
+       395: aload_0
+       396: getfield      #34                 // Field D:I
+       399: aaload
+       400: aload_0
+       401: getfield      #36                 // Field F:I
+       404: aload_0
+       405: getfield      #32                 // Field B:[[S
+       408: aload_0
+       409: getfield      #34                 // Field D:I
+       412: aaload
+       413: arraylength
+       414: irem
+       415: saload
+       416: invokevirtual #120                // Method ai.e:(I)V
+       419: aload_0
+       420: dup
+       421: getfield      #36                 // Field F:I
+       424: iconst_1
+       425: iadd
+       426: putfield      #36                 // Field F:I
+       429: goto          663
+       432: aload_0
+       433: getfield      #79                 // Field i:I
+       436: aload_0
+       437: getfield      #42                 // Field L:I
+       440: if_icmple     663
+       443: aload_0
+       444: iconst_1
+       445: putfield      #72                 // Field b:Z
+       448: aload_0
+       449: iconst_m1
+       450: putfield      #57                 // Field a:I
+       453: aload_0
+       454: iconst_0
+       455: putfield      #79                 // Field i:I
+       458: goto          663
+       461: aload_0
+       462: dup
+       463: getfield      #79                 // Field i:I
+       466: iconst_1
+       467: iadd
+       468: putfield      #79                 // Field i:I
+       471: aload_0
+       472: getfield      #49                 // Field S:I
+       475: ifne          549
+       478: invokestatic  #121                // Method an.w:()S
+       481: aload_0
+       482: getfield      #50                 // Field T:I
+       485: isub
+       486: invokestatic  #121                // Method an.w:()S
+       489: aload_0
+       490: getfield      #50                 // Field T:I
+       493: isub
+       494: imul
+       495: invokestatic  #122                // Method an.x:()S
+       498: aload_0
+       499: getfield      #51                 // Field U:I
+       502: isub
+       503: invokestatic  #122                // Method an.x:()S
+       506: aload_0
+       507: getfield      #51                 // Field U:I
+       510: isub
+       511: imul
+       512: iadd
+       513: aload_0
+       514: getfield      #48                 // Field R:I
+       517: aload_0
+       518: getfield      #48                 // Field R:I
+       521: imul
+       522: if_icmpge     535
+       525: aload_0
+       526: iconst_0
+       527: putfield      #79                 // Field i:I
+       530: aload_0
+       531: iconst_1
+       532: putfield      #72                 // Field b:Z
+       535: aload_0
+       536: dup
+       537: getfield      #48                 // Field R:I
+       540: bipush        10
+       542: iadd
+       543: putfield      #48                 // Field R:I
+       546: goto          663
+       549: aload_0
+       550: getfield      #49                 // Field S:I
+       553: iconst_1
+       554: if_icmpne     593
+       557: aload_0
+       558: dup
+       559: getfield      #48                 // Field R:I
+       562: bipush        10
+       564: isub
+       565: putfield      #48                 // Field R:I
+       568: aload_0
+       569: getfield      #48                 // Field R:I
+       572: ifgt          663
+       575: aload_0
+       576: iconst_0
+       577: putfield      #79                 // Field i:I
+       580: aload_0
+       581: iconst_m1
+       582: putfield      #57                 // Field a:I
+       585: aload_0
+       586: iconst_1
+       587: putfield      #72                 // Field b:Z
+       590: goto          663
+       593: aload_0
+       594: getfield      #79                 // Field i:I
+       597: bipush        10
+       599: if_icmpgt     616
+       602: aload_0
+       603: dup
+       604: getfield      #48                 // Field R:I
+       607: bipush        10
+       609: iadd
+       610: putfield      #48                 // Field R:I
+       613: goto          663
+       616: aload_0
+       617: getfield      #79                 // Field i:I
+       620: bipush        10
+       622: if_icmple     648
+       625: aload_0
+       626: getfield      #79                 // Field i:I
+       629: bipush        20
+       631: if_icmpgt     648
+       634: aload_0
+       635: dup
+       636: getfield      #48                 // Field R:I
+       639: bipush        10
+       641: isub
+       642: putfield      #48                 // Field R:I
+       645: goto          663
+       648: aload_0
+       649: iconst_0
+       650: putfield      #79                 // Field i:I
+       653: aload_0
+       654: iconst_1
+       655: putfield      #72                 // Field b:Z
+       658: aload_0
+       659: iconst_m1
+       660: putfield      #57                 // Field a:I
+       663: aload_0
+       664: getfield      #77                 // Field g:I
+       667: lookupswitch  { // 2
+
+                      12: 730
+
+                      13: 692
+                 default: 769
+            }
+       692: aload_0
+       693: dup
+       694: getfield      #80                 // Field j:I
+       697: aload_0
+       698: getfield      #38                 // Field H:I
+       701: iadd
+       702: putfield      #80                 // Field j:I
+       705: aload_0
+       706: getfield      #80                 // Field j:I
+       709: aload_0
+       710: getfield      #37                 // Field G:I
+       713: if_icmple     769
+       716: aload_0
+       717: aload_0
+       718: getfield      #37                 // Field G:I
+       721: putfield      #80                 // Field j:I
+       724: aload_0
+       725: iconst_1
+       726: putfield      #73                 // Field c:Z
+       729: return
+       730: aload_0
+       731: dup
+       732: getfield      #80                 // Field j:I
+       735: aload_0
+       736: getfield      #38                 // Field H:I
+       739: iadd
+       740: putfield      #80                 // Field j:I
+       743: aload_0
+       744: getfield      #80                 // Field j:I
+       747: aload_0
+       748: getfield      #37                 // Field G:I
+       751: if_icmple     769
+       754: aload_0
+       755: iconst_0
+       756: putfield      #80                 // Field j:I
+       759: aload_0
+       760: iconst_1
+       761: putfield      #73                 // Field c:Z
+       764: aload_0
+       765: iconst_m1
+       766: putfield      #77                 // Field g:I
+       769: return
+        StackMap: length = 0xBC (unknown attribute)
+         00 15 00 19 00 01 07 00 12 00 00 00 58 00 01 07
+         00 12 00 00 00 87 00 01 07 00 12 00 00 00 A1 00
+         01 07 00 12 00 00 00 AA 00 01 07 00 12 00 00 00
+         E2 00 01 07 00 12 00 00 00 ED 00 01 07 00 12 00
+         00 01 26 00 01 07 00 12 00 00 01 52 00 01 07 00
+         12 00 00 01 84 00 01 07 00 12 00 00 01 B0 00 01
+         07 00 12 00 00 01 CD 00 01 07 00 12 00 00 02 17
+         00 01 07 00 12 00 00 02 25 00 01 07 00 12 00 00
+         02 51 00 01 07 00 12 00 00 02 68 00 01 07 00 12
+         00 00 02 88 00 01 07 00 12 00 00 02 97 00 01 07
+         00 12 00 00 02 B4 00 01 07 00 12 00 00 02 DA 00
+         01 07 00 12 00 00 03 01 00 00 00 00
+
+  private boolean d(javax.microedition.lcdui.Graphics);
+    descriptor: (Ljavax/microedition/lcdui/Graphics;)Z
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=9, locals=24, args_size=2
+         0: aload_0
+         1: getfield      #84                 // Field n:I
+         4: ldc           #4                  // int 16777215
+         6: iand
+         7: istore_2
+         8: iconst_0
+         9: istore_3
+        10: aload_0
+        11: getfield      #89                 // Field s:I
+        14: istore        4
+        16: sipush        255
+        19: iload         4
+        21: iconst_1
+        22: ishl
+        23: iconst_1
+        24: iadd
+        25: idiv
+        26: istore        5
+        28: aload_0
+        29: getfield      #88                 // Field r:I
+        32: iconst_2
+        33: idiv
+        34: dup
+        35: istore        6
+        37: sipush        200
+        40: imul
+        41: bipush        120
+        43: idiv
+        44: dup
+        45: dup
+        46: istore        7
+        48: imul
+        49: istore        8
+        51: aload_0
+        52: getfield      #90                 // Field t:I
+        55: aload_0
+        56: getfield      #88                 // Field r:I
+        59: idiv
+        60: iconst_1
+        61: iadd
+        62: istore        10
+        64: invokestatic  #121                // Method an.w:()S
+        67: aload_0
+        68: getfield      #88                 // Field r:I
+        71: idiv
+        72: istore        11
+        74: invokestatic  #122                // Method an.x:()S
+        77: aload_0
+        78: getfield      #88                 // Field r:I
+        81: idiv
+        82: istore        12
+        84: iload         11
+        86: iconst_2
+        87: idiv
+        88: istore        13
+        90: iload         12
+        92: iconst_2
+        93: idiv
+        94: istore        14
+        96: iload         7
+        98: newarray       int
+       100: astore        15
+       102: aload_0
+       103: getfield      #91                 // Field u:[[I
+       106: ifnonnull     131
+       109: aload_0
+       110: iload         13
+       112: iload         13
+       114: imul
+       115: iload         14
+       117: iload         14
+       119: imul
+       120: iadd
+       121: iconst_0
+       122: invokestatic  #108                // Method ae.a:(II)I
+       125: anewarray     #8                  // class "[I"
+       128: putfield      #91                 // Field u:[[I
+       131: aload_0
+       132: getfield      #92                 // Field v:[I
+       135: ifnonnull     149
+       138: aload_0
+       139: aload_0
+       140: getfield      #91                 // Field u:[[I
+       143: arraylength
+       144: newarray       int
+       146: putfield      #92                 // Field v:[I
+       149: iload         10
+       151: aload_0
+       152: getfield      #91                 // Field u:[[I
+       155: arraylength
+       156: if_icmple     166
+       159: aload_0
+       160: getfield      #91                 // Field u:[[I
+       163: arraylength
+       164: istore        10
+       166: iconst_0
+       167: istore        16
+       169: iload         16
+       171: iload         10
+       173: if_icmpge     593
+       176: aload_0
+       177: getfield      #91                 // Field u:[[I
+       180: iload         16
+       182: aaload
+       183: ifnonnull     204
+       186: aload_0
+       187: getfield      #91                 // Field u:[[I
+       190: iload         16
+       192: aload_0
+       193: getfield      #88                 // Field r:I
+       196: aload_0
+       197: getfield      #88                 // Field r:I
+       200: imul
+       201: newarray       int
+       203: aastore
+       204: aload_0
+       205: getfield      #92                 // Field v:[I
+       208: iload         16
+       210: iaload
+       211: iload         7
+       213: iload         4
+       215: iadd
+       216: if_icmpge     587
+       219: iload         4
+       221: ineg
+       222: aload_0
+       223: getfield      #92                 // Field v:[I
+       226: iload         16
+       228: iaload
+       229: iadd
+       230: istore        9
+       232: iconst_0
+       233: istore        17
+       235: iload         17
+       237: aload         15
+       239: arraylength
+       240: if_icmpge     356
+       243: iload         17
+       245: iload         9
+       247: isub
+       248: dup
+       249: istore        18
+       251: iload         4
+       253: if_icmple     275
+       256: aload_0
+       257: getfield      #57                 // Field a:I
+       260: iconst_4
+       261: if_icmpne     268
+       264: iconst_0
+       265: goto          271
+       268: sipush        255
+       271: istore_3
+       272: goto          339
+       275: iload         18
+       277: iload         4
+       279: ineg
+       280: if_icmpge     302
+       283: aload_0
+       284: getfield      #57                 // Field a:I
+       287: iconst_4
+       288: if_icmpne     297
+       291: sipush        255
+       294: goto          298
+       297: iconst_0
+       298: istore_3
+       299: goto          339
+       302: aload_0
+       303: getfield      #57                 // Field a:I
+       306: iconst_4
+       307: if_icmpne     322
+       310: bipush        127
+       312: iload         18
+       314: iload         5
+       316: imul
+       317: isub
+       318: istore_3
+       319: goto          339
+       322: aload_0
+       323: getfield      #57                 // Field a:I
+       326: iconst_5
+       327: if_icmpne     339
+       330: bipush        127
+       332: iload         18
+       334: iload         5
+       336: imul
+       337: iadd
+       338: istore_3
+       339: aload         15
+       341: iload         17
+       343: iload_2
+       344: iload_3
+       345: bipush        24
+       347: ishl
+       348: ior
+       349: iastore
+       350: iinc          17, 1
+       353: goto          235
+       356: iload         7
+       358: iconst_1
+       359: isub
+       360: istore        17
+       362: iload         9
+       364: iload         4
+       366: iadd
+       367: istore        18
+       369: iload         9
+       371: iload         4
+       373: isub
+       374: dup
+       375: istore        9
+       377: ifge          383
+       380: iconst_0
+       381: istore        9
+       383: iload         18
+       385: iload         8
+       387: imul
+       388: iload         17
+       390: idiv
+       391: istore        19
+       393: iload         9
+       395: iload         8
+       397: imul
+       398: iload         17
+       400: idiv
+       401: istore        20
+       403: iconst_0
+       404: istore        9
+       406: iload         9
+       408: aload_0
+       409: getfield      #88                 // Field r:I
+       412: if_icmpge     576
+       415: iload         9
+       417: iload         6
+       419: isub
+       420: iload         9
+       422: iload         6
+       424: isub
+       425: imul
+       426: istore        18
+       428: iload         9
+       430: aload_0
+       431: getfield      #88                 // Field r:I
+       434: imul
+       435: istore        21
+       437: iconst_0
+       438: istore        23
+       440: iload         23
+       442: aload_0
+       443: getfield      #88                 // Field r:I
+       446: if_icmpge     570
+       449: iload         18
+       451: iload         23
+       453: iload         6
+       455: isub
+       456: iload         23
+       458: iload         6
+       460: isub
+       461: imul
+       462: iadd
+       463: dup
+       464: istore        17
+       466: iconst_1
+       467: invokestatic  #108                // Method ae.a:(II)I
+       470: istore        22
+       472: iload         17
+       474: iload         19
+       476: if_icmple     509
+       479: aload_0
+       480: getfield      #91                 // Field u:[[I
+       483: iload         16
+       485: aaload
+       486: iload         21
+       488: iload         23
+       490: iadd
+       491: aload_0
+       492: getfield      #57                 // Field a:I
+       495: iconst_4
+       496: if_icmpne     503
+       499: iconst_0
+       500: goto          505
+       503: ldc           #2                  // int -16777216
+       505: iastore
+       506: goto          564
+       509: iload         17
+       511: iload         20
+       513: if_icmpge     546
+       516: aload_0
+       517: getfield      #91                 // Field u:[[I
+       520: iload         16
+       522: aaload
+       523: iload         21
+       525: iload         23
+       527: iadd
+       528: aload_0
+       529: getfield      #57                 // Field a:I
+       532: iconst_4
+       533: if_icmpne     541
+       536: ldc           #2                  // int -16777216
+       538: goto          542
+       541: iconst_0
+       542: iastore
+       543: goto          564
+       546: aload_0
+       547: getfield      #91                 // Field u:[[I
+       550: iload         16
+       552: aaload
+       553: iload         21
+       555: iload         23
+       557: iadd
+       558: aload         15
+       560: iload         22
+       562: iaload
+       563: iastore
+       564: iinc          23, 1
+       567: goto          440
+       570: iinc          9, 1
+       573: goto          406
+       576: aload_0
+       577: getfield      #92                 // Field v:[I
+       580: iload         16
+       582: dup2
+       583: iaload
+       584: iconst_1
+       585: iadd
+       586: iastore
+       587: iinc          16, 1
+       590: goto          169
+       593: iconst_1
+       594: istore        16
+       596: aload_1
+       597: iload_2
+       598: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+       601: iconst_0
+       602: istore        17
+       604: iload         17
+       606: iload         12
+       608: if_icmpge     807
+       611: iload         17
+       613: iload         14
+       615: isub
+       616: iload         17
+       618: iload         14
+       620: isub
+       621: imul
+       622: istore        18
+       624: iconst_0
+       625: istore        20
+       627: iload         20
+       629: iload         11
+       631: if_icmpge     801
+       634: iload         18
+       636: iload         20
+       638: iload         13
+       640: isub
+       641: iload         20
+       643: iload         13
+       645: isub
+       646: imul
+       647: iadd
+       648: iconst_1
+       649: invokestatic  #108                // Method ae.a:(II)I
+       652: istore        9
+       654: aload_0
+       655: getfield      #91                 // Field u:[[I
+       658: iload         9
+       660: aaload
+       661: ifnonnull     701
+       664: aload_0
+       665: getfield      #57                 // Field a:I
+       668: iconst_5
+       669: if_icmpne     795
+       672: aload_1
+       673: iload         20
+       675: aload_0
+       676: getfield      #88                 // Field r:I
+       679: imul
+       680: iload         17
+       682: aload_0
+       683: getfield      #88                 // Field r:I
+       686: imul
+       687: aload_0
+       688: getfield      #88                 // Field r:I
+       691: aload_0
+       692: getfield      #88                 // Field r:I
+       695: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+       698: goto          795
+       701: aload_0
+       702: getfield      #92                 // Field v:[I
+       705: iload         9
+       707: iaload
+       708: iload         7
+       710: iload         4
+       712: iadd
+       713: if_icmplt     753
+       716: aload_0
+       717: getfield      #57                 // Field a:I
+       720: iconst_4
+       721: if_icmpne     795
+       724: aload_1
+       725: iload         20
+       727: aload_0
+       728: getfield      #88                 // Field r:I
+       731: imul
+       732: iload         17
+       734: aload_0
+       735: getfield      #88                 // Field r:I
+       738: imul
+       739: aload_0
+       740: getfield      #88                 // Field r:I
+       743: aload_0
+       744: getfield      #88                 // Field r:I
+       747: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+       750: goto          795
+       753: iconst_0
+       754: istore        16
+       756: aload_1
+       757: aload_0
+       758: getfield      #91                 // Field u:[[I
+       761: iload         9
+       763: aaload
+       764: iconst_0
+       765: aload_0
+       766: getfield      #88                 // Field r:I
+       769: iload         20
+       771: aload_0
+       772: getfield      #88                 // Field r:I
+       775: imul
+       776: iload         17
+       778: aload_0
+       779: getfield      #88                 // Field r:I
+       782: imul
+       783: aload_0
+       784: getfield      #88                 // Field r:I
+       787: aload_0
+       788: getfield      #88                 // Field r:I
+       791: iconst_1
+       792: invokevirtual #143                // Method javax/microedition/lcdui/Graphics.drawRGB:([IIIIIIIZ)V
+       795: iinc          20, 1
+       798: goto          627
+       801: iinc          17, 1
+       804: goto          604
+       807: iload         16
+       809: ifeq          818
+       812: aload_0
+       813: invokespecial #131                // Method d:()V
+       816: iconst_1
+       817: ireturn
+       818: aload_0
+       819: dup
+       820: getfield      #90                 // Field t:I
+       823: bipush        15
+       825: iadd
+       826: putfield      #90                 // Field t:I
+       829: iconst_0
+       830: ireturn
+        StackMap: length = 0x47C (unknown attribute)
+         00 25 00 83 00 10 07 00 12 07 00 18 01 01 01 01
+         01 01 01 00 01 01 01 01 01 07 00 08 00 00 00 95
+         00 10 07 00 12 07 00 18 01 01 01 01 01 01 01 00
+         01 01 01 01 01 07 00 08 00 00 00 A6 00 10 07 00
+         12 07 00 18 01 01 01 01 01 01 01 00 01 01 01 01
+         01 07 00 08 00 00 00 A9 00 11 07 00 12 07 00 18
+         01 01 01 01 01 01 01 00 01 01 01 01 01 07 00 08
+         01 00 00 00 CC 00 11 07 00 12 07 00 18 01 01 01
+         01 01 01 01 00 01 01 01 01 01 07 00 08 01 00 00
+         00 EB 00 12 07 00 12 07 00 18 01 01 01 01 01 01
+         01 01 01 01 01 01 01 07 00 08 01 01 00 00 01 0C
+         00 12 07 00 12 07 00 18 01 00 01 01 01 01 01 01
+         01 01 01 01 01 07 00 08 01 01 00 00 01 0F 00 12
+         07 00 12 07 00 18 01 00 01 01 01 01 01 01 01 01
+         01 01 01 07 00 08 01 01 00 01 01 01 13 00 13 07
+         00 12 07 00 18 01 01 01 01 01 01 01 01 01 01 01
+         01 01 07 00 08 01 01 01 00 00 01 29 00 12 07 00
+         12 07 00 18 01 00 01 01 01 01 01 01 01 01 01 01
+         01 07 00 08 01 01 00 00 01 2A 00 12 07 00 12 07
+         00 18 01 00 01 01 01 01 01 01 01 01 01 01 01 07
+         00 08 01 01 00 01 01 01 2E 00 13 07 00 12 07 00
+         18 01 01 01 01 01 01 01 01 01 01 01 01 01 07 00
+         08 01 01 01 00 00 01 42 00 13 07 00 12 07 00 18
+         01 01 01 01 01 01 01 01 01 01 01 01 01 07 00 08
+         01 01 01 00 00 01 53 00 12 07 00 12 07 00 18 01
+         01 01 01 01 01 01 01 01 01 01 01 01 07 00 08 01
+         01 00 00 01 64 00 11 07 00 12 07 00 18 01 01 01
+         01 01 01 01 01 01 01 01 01 01 07 00 08 01 00 00
+         01 7F 00 13 07 00 12 07 00 18 01 01 01 01 01 01
+         01 01 01 01 01 01 01 07 00 08 01 01 01 00 00 01
+         96 00 15 07 00 12 07 00 18 01 01 01 01 01 01 01
+         01 01 01 01 01 01 07 00 08 01 00 00 01 01 00 00
+         01 B8 00 18 07 00 12 07 00 18 01 01 01 01 01 01
+         01 01 01 01 01 01 01 07 00 08 01 00 01 01 01 01
+         00 01 00 00 01 F7 00 18 07 00 12 07 00 18 01 01
+         01 01 01 01 01 01 01 01 01 01 01 07 00 08 01 00
+         01 01 01 01 00 01 00 02 07 00 08 01 01 F9 00 18
+         07 00 12 07 00 18 01 01 01 01 01 01 01 01 01 01
+         01 01 01 07 00 08 01 00 01 01 01 01 00 01 00 03
+         07 00 08 01 01 01 FD 00 18 07 00 12 07 00 18 01
+         01 01 01 01 01 01 01 01 01 01 01 01 07 00 08 01
+         01 01 01 01 01 01 01 00 00 02 1D 00 18 07 00 12
+         07 00 18 01 01 01 01 01 01 01 01 01 01 01 01 01
+         07 00 08 01 00 01 01 01 01 00 01 00 02 07 00 08
+         01 02 1E 00 18 07 00 12 07 00 18 01 01 01 01 01
+         01 01 01 01 01 01 01 01 07 00 08 01 00 01 01 01
+         01 00 01 00 03 07 00 08 01 01 02 22 00 18 07 00
+         12 07 00 18 01 01 01 01 01 01 01 01 01 01 01 01
+         01 07 00 08 01 00 01 01 01 01 01 01 00 00 02 34
+         00 18 07 00 12 07 00 18 01 01 01 01 01 01 01 01
+         01 01 01 01 01 07 00 08 01 00 01 01 01 01 00 01
+         00 00 02 3A 00 15 07 00 12 07 00 18 01 01 01 01
+         01 01 01 01 01 01 01 01 01 07 00 08 01 00 00 01
+         01 00 00 02 40 00 11 07 00 12 07 00 18 01 01 01
+         01 01 01 01 00 01 01 01 01 01 07 00 08 01 00 00
+         02 4B 00 11 07 00 12 07 00 18 01 01 01 01 01 01
+         01 00 01 01 01 01 01 07 00 08 01 00 00 02 51 00
+         0F 07 00 12 07 00 18 01 00 01 00 00 01 00 00 00
+         01 01 01 01 00 00 02 5C 00 12 07 00 12 07 00 18
+         00 00 01 00 00 01 00 00 00 01 01 01 01 00 01 01
+         00 00 02 73 00 15 07 00 12 07 00 18 00 00 01 00
+         00 01 00 00 00 01 01 01 01 00 01 01 01 00 01 00
+         00 02 BD 00 15 07 00 12 07 00 18 00 00 01 00 00
+         01 00 01 00 01 01 01 01 00 01 01 01 00 01 00 00
+         02 F1 00 15 07 00 12 07 00 18 00 00 01 00 00 01
+         00 01 00 01 01 01 01 00 00 01 01 00 01 00 00 03
+         1B 00 15 07 00 12 07 00 18 00 00 01 00 00 01 00
+         00 00 01 01 01 01 00 01 01 01 00 01 00 00 03 21
+         00 12 07 00 12 07 00 18 00 00 01 00 00 01 00 00
+         00 01 01 01 01 00 01 01 00 00 03 27 00 11 07 00
+         12 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+         01 00 00 03 32 00 01 07 00 12 00 00
+
+  private static int[] a(int[], int[], int, int, byte);
+    descriptor: ([I[IIIB)[I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=5, locals=9, args_size=5
+         0: iload         4
+         2: iconst_5
+         3: if_icmpne     73
+         6: iconst_0
+         7: istore        4
+         9: iload         4
+        11: iload_3
+        12: if_icmpge     70
+        15: iload         4
+        17: iload_2
+        18: imul
+        19: istore        5
+        21: iconst_m1
+        22: iload         4
+        24: isub
+        25: istore        6
+        27: iconst_0
+        28: istore        7
+        30: iconst_1
+        31: istore        8
+        33: iload         7
+        35: iload_2
+        36: if_icmpge     64
+        39: aload_1
+        40: iload         8
+        42: iload_3
+        43: imul
+        44: iload         6
+        46: iadd
+        47: aload_0
+        48: iload         5
+        50: iload         7
+        52: iadd
+        53: iaload
+        54: iastore
+        55: iinc          7, 1
+        58: iinc          8, 1
+        61: goto          33
+        64: iinc          4, 1
+        67: goto          9
+        70: goto          382
+        73: iload         4
+        75: iconst_3
+        76: if_icmpne     148
+        79: iload_2
+        80: iload_3
+        81: imul
+        82: iconst_1
+        83: isub
+        84: istore        4
+        86: iconst_0
+        87: istore        5
+        89: iload         5
+        91: iload_3
+        92: if_icmpge     145
+        95: iload         5
+        97: iload_2
+        98: imul
+        99: istore        6
+       101: iload         4
+       103: iload         5
+       105: iload_2
+       106: imul
+       107: isub
+       108: istore        7
+       110: iconst_0
+       111: istore        8
+       113: iload         8
+       115: iload_2
+       116: if_icmpge     139
+       119: aload_1
+       120: iload         7
+       122: iload         8
+       124: isub
+       125: aload_0
+       126: iload         6
+       128: iload         8
+       130: iadd
+       131: iaload
+       132: iastore
+       133: iinc          8, 1
+       136: goto          113
+       139: iinc          5, 1
+       142: goto          89
+       145: goto          382
+       148: iload         4
+       150: bipush        6
+       152: if_icmpne     224
+       155: iload_2
+       156: iconst_1
+       157: isub
+       158: istore        4
+       160: iconst_0
+       161: istore        5
+       163: iload         5
+       165: iload_3
+       166: if_icmpge     221
+       169: iload         4
+       171: iload_3
+       172: imul
+       173: iload         5
+       175: iadd
+       176: istore        6
+       178: iload         5
+       180: iload_2
+       181: imul
+       182: istore        7
+       184: iconst_0
+       185: istore        8
+       187: iload         8
+       189: iload_2
+       190: if_icmpge     215
+       193: aload_1
+       194: iload         6
+       196: iload         8
+       198: iload_3
+       199: imul
+       200: isub
+       201: aload_0
+       202: iload         7
+       204: iload         8
+       206: iadd
+       207: iaload
+       208: iastore
+       209: iinc          8, 1
+       212: goto          187
+       215: iinc          5, 1
+       218: goto          163
+       221: goto          382
+       224: iload         4
+       226: ifeq          382
+       229: iload         4
+       231: bipush        7
+       233: if_icmpeq     382
+       236: iload         4
+       238: iconst_1
+       239: if_icmpne     309
+       242: iload_3
+       243: iconst_1
+       244: isub
+       245: istore        4
+       247: iconst_0
+       248: istore        5
+       250: iload         5
+       252: iload_3
+       253: if_icmpge     306
+       256: iload         5
+       258: iload_2
+       259: imul
+       260: istore        6
+       262: iload         4
+       264: iload         5
+       266: isub
+       267: iload_2
+       268: imul
+       269: istore        7
+       271: iconst_0
+       272: istore        8
+       274: iload         8
+       276: iload_2
+       277: if_icmpge     300
+       280: aload_1
+       281: iload         7
+       283: iload         8
+       285: iadd
+       286: aload_0
+       287: iload         6
+       289: iload         8
+       291: iadd
+       292: iaload
+       293: iastore
+       294: iinc          8, 1
+       297: goto          274
+       300: iinc          5, 1
+       303: goto          250
+       306: goto          382
+       309: iload         4
+       311: iconst_4
+       312: if_icmpeq     382
+       315: iload         4
+       317: iconst_2
+       318: if_icmpne     382
+       321: iload_2
+       322: iconst_1
+       323: isub
+       324: istore        4
+       326: iconst_0
+       327: istore        5
+       329: iload         5
+       331: iload_3
+       332: if_icmpge     382
+       335: iload         5
+       337: iload_2
+       338: imul
+       339: dup
+       340: istore        6
+       342: iload         4
+       344: iadd
+       345: istore        7
+       347: iconst_0
+       348: istore        8
+       350: iload         8
+       352: iload_2
+       353: if_icmpge     376
+       356: aload_1
+       357: iload         7
+       359: iload         8
+       361: isub
+       362: aload_0
+       363: iload         6
+       365: iload         8
+       367: iadd
+       368: iaload
+       369: iastore
+       370: iinc          8, 1
+       373: goto          350
+       376: iinc          5, 1
+       379: goto          329
+       382: aload_1
+       383: areturn
+        StackMap: length = 0x16D (unknown attribute)
+         00 18 00 09 00 05 07 00 08 07 00 08 01 01 01 00
+         00 00 21 00 09 07 00 08 07 00 08 01 01 01 01 01
+         01 01 00 00 00 40 00 05 07 00 08 07 00 08 01 01
+         01 00 00 00 46 00 02 00 07 00 08 00 00 00 49 00
+         05 07 00 08 07 00 08 01 01 01 00 00 00 59 00 06
+         07 00 08 07 00 08 01 01 01 01 00 00 00 71 00 09
+         07 00 08 07 00 08 01 01 01 01 01 01 01 00 00 00
+         8B 00 06 07 00 08 07 00 08 01 01 01 01 00 00 00
+         91 00 02 00 07 00 08 00 00 00 94 00 05 07 00 08
+         07 00 08 01 01 01 00 00 00 A3 00 06 07 00 08 07
+         00 08 01 01 01 01 00 00 00 BB 00 09 07 00 08 07
+         00 08 01 01 01 01 01 01 01 00 00 00 D7 00 06 07
+         00 08 07 00 08 01 01 01 01 00 00 00 DD 00 02 00
+         07 00 08 00 00 00 E0 00 05 07 00 08 07 00 08 01
+         01 01 00 00 00 FA 00 06 07 00 08 07 00 08 01 01
+         01 01 00 00 01 12 00 09 07 00 08 07 00 08 01 01
+         01 01 01 01 01 00 00 01 2C 00 06 07 00 08 07 00
+         08 01 01 01 01 00 00 01 32 00 02 00 07 00 08 00
+         00 01 35 00 05 07 00 08 07 00 08 01 01 01 00 00
+         01 49 00 06 07 00 08 07 00 08 01 01 01 01 00 00
+         01 5E 00 09 07 00 08 07 00 08 01 01 01 01 01 01
+         01 00 00 01 78 00 06 07 00 08 07 00 08 01 01 01
+         01 00 00 01 7E 00 02 00 07 00 08 00 00
+
+  public final void c();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: iconst_m1
+         2: putfield      #74                 // Field d:B
+         5: aload_0
+         6: aconst_null
+         7: putfield      #45                 // Field O:Le;
+        10: return
+
+  public final void a(int, int, int, int, int, int);
+    descriptor: (IIIIII)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=7, args_size=7
+         0: aload_0
+         1: iconst_0
+         2: putfield      #74                 // Field d:B
+         5: aload_0
+         6: iload_1
+         7: iload_2
+         8: invokevirtual #129                // Method b:(II)V
+        11: aload_0
+        12: iload_3
+        13: putfield      #61                 // Field ad:I
+        16: aload_0
+        17: iload         4
+        19: putfield      #62                 // Field ae:I
+        22: aload_0
+        23: iload         5
+        25: putfield      #63                 // Field af:I
+        28: aload_0
+        29: iload         6
+        31: putfield      #64                 // Field ag:I
+        34: return
+
+  public final void a(int, int);
+    descriptor: (II)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=3, args_size=3
+         0: aload_0
+         1: iload_1
+         2: putfield      #63                 // Field af:I
+         5: aload_0
+         6: iload_2
+         7: putfield      #64                 // Field ag:I
+        10: return
+
+  public final void b(int, int);
+    descriptor: (II)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=3, args_size=3
+         0: aload_0
+         1: iload_1
+         2: putfield      #59                 // Field ab:I
+         5: aload_0
+         6: iload_2
+         7: putfield      #60                 // Field ac:I
+        10: return
+
+  public final void b(javax.microedition.lcdui.Graphics);
+    descriptor: (Ljavax/microedition/lcdui/Graphics;)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=7, locals=2, args_size=2
+         0: aload_1
+         1: iconst_0
+         2: invokevirtual #146                // Method javax/microedition/lcdui/Graphics.setColor:(I)V
+         5: aload_1
+         6: iconst_0
+         7: iconst_0
+         8: aload_0
+         9: getfield      #61                 // Field ad:I
+        12: aload_0
+        13: getfield      #60                 // Field ac:I
+        16: aload_0
+        17: getfield      #64                 // Field ag:I
+        20: isub
+        21: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+        24: aload_1
+        25: iconst_0
+        26: aload_0
+        27: getfield      #60                 // Field ac:I
+        30: aload_0
+        31: getfield      #64                 // Field ag:I
+        34: isub
+        35: aload_0
+        36: getfield      #59                 // Field ab:I
+        39: aload_0
+        40: getfield      #63                 // Field af:I
+        43: isub
+        44: aload_0
+        45: getfield      #64                 // Field ag:I
+        48: iconst_1
+        49: ishl
+        50: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+        53: aload_1
+        54: iconst_0
+        55: aload_0
+        56: getfield      #60                 // Field ac:I
+        59: aload_0
+        60: getfield      #64                 // Field ag:I
+        63: iadd
+        64: aload_0
+        65: getfield      #61                 // Field ad:I
+        68: aload_0
+        69: getfield      #62                 // Field ae:I
+        72: aload_0
+        73: getfield      #60                 // Field ac:I
+        76: aload_0
+        77: getfield      #64                 // Field ag:I
+        80: iadd
+        81: isub
+        82: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+        85: aload_1
+        86: aload_0
+        87: getfield      #59                 // Field ab:I
+        90: aload_0
+        91: getfield      #63                 // Field af:I
+        94: iadd
+        95: aload_0
+        96: getfield      #60                 // Field ac:I
+        99: aload_0
+       100: getfield      #64                 // Field ag:I
+       103: isub
+       104: aload_0
+       105: getfield      #61                 // Field ad:I
+       108: aload_0
+       109: getfield      #59                 // Field ab:I
+       112: aload_0
+       113: getfield      #63                 // Field af:I
+       116: iadd
+       117: isub
+       118: aload_0
+       119: getfield      #64                 // Field ag:I
+       122: iconst_1
+       123: ishl
+       124: invokevirtual #145                // Method javax/microedition/lcdui/Graphics.fillRect:(IIII)V
+       127: return
+
+  public final void c(int, int);
+    descriptor: (II)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=3, args_size=3
+         0: aload_0
+         1: iconst_0
+         2: putfield      #81                 // Field k:I
+         5: aload_0
+         6: iload_1
+         7: putfield      #84                 // Field n:I
+        10: iload_2
+        11: bipush        12
+        13: if_icmpeq     22
+        16: iload_2
+        17: bipush        13
+        19: if_icmpne     35
+        22: aload_0
+        23: iload_2
+        24: putfield      #77                 // Field g:I
+        27: aload_0
+        28: iconst_0
+        29: putfield      #73                 // Field c:Z
+        32: goto          54
+        35: iload_2
+        36: bipush        18
+        38: if_icmpne     49
+        41: aload_0
+        42: iload_2
+        43: putfield      #78                 // Field h:I
+        46: goto          54
+        49: aload_0
+        50: iload_2
+        51: putfield      #57                 // Field a:I
+        54: aload_0
+        55: iconst_0
+        56: putfield      #72                 // Field b:Z
+        59: aload_0
+        60: getfield      #57                 // Field a:I
+        63: tableswitch   { // 1 to 20
+
+                       1: 156
+
+                       2: 156
+
+                       3: 163
+
+                       4: 177
+
+                       5: 177
+
+                       6: 183
+
+                       7: 197
+
+                       8: 203
+
+                       9: 237
+
+                      10: 220
+
+                      11: 237
+
+                      12: 237
+
+                      13: 237
+
+                      14: 237
+
+                      15: 237
+
+                      16: 237
+
+                      17: 220
+
+                      18: 237
+
+                      19: 226
+
+                      20: 232
+                 default: 237
+            }
+       156: aload_0
+       157: bipush        17
+       159: putfield      #83                 // Field m:I
+       162: return
+       163: aload_0
+       164: invokestatic  #123                // Method an.y:()S
+       167: putfield      #81                 // Field k:I
+       170: aload_0
+       171: bipush        20
+       173: putfield      #82                 // Field l:I
+       176: return
+       177: aload_0
+       178: iconst_0
+       179: putfield      #90                 // Field t:I
+       182: return
+       183: aload_0
+       184: iconst_0
+       185: putfield      #79                 // Field i:I
+       188: aload_0
+       189: iconst_2
+       190: invokestatic  #107                // Method ae.a:(I)I
+       193: putfield      #94                 // Field x:I
+       196: return
+       197: aload_0
+       198: iconst_0
+       199: invokespecial #126                // Method a:(I)V
+       202: return
+       203: aload_0
+       204: iconst_0
+       205: putfield      #79                 // Field i:I
+       208: getstatic     #96                 // Field z:Lgame/h;
+       211: invokevirtual #137                // Method game/h.at:()V
+       214: aload_0
+       215: iconst_0
+       216: invokespecial #126                // Method a:(I)V
+       219: return
+       220: aload_0
+       221: iconst_0
+       222: putfield      #79                 // Field i:I
+       225: return
+       226: aload_0
+       227: iconst_m1
+       228: invokespecial #130                // Method c:(I)V
+       231: return
+       232: aload_0
+       233: iconst_1
+       234: invokespecial #130                // Method c:(I)V
+       237: return
+        StackMap: length = 0x83 (unknown attribute)
+         00 0E 00 16 00 03 07 00 12 00 01 00 00 00 23 00
+         03 07 00 12 00 01 00 00 00 31 00 03 07 00 12 00
+         01 00 00 00 36 00 01 07 00 12 00 00 00 9C 00 01
+         07 00 12 00 00 00 A3 00 01 07 00 12 00 00 00 B1
+         00 01 07 00 12 00 00 00 B7 00 01 07 00 12 00 00
+         00 C5 00 01 07 00 12 00 00 00 CB 00 01 07 00 12
+         00 00 00 DC 00 01 07 00 12 00 00 00 E2 00 01 07
+         00 12 00 00 00 E8 00 01 07 00 12 00 00 00 ED 00
+         00 00 00
+
+  public final void a(int, int, int);
+    descriptor: (III)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=4, args_size=4
+         0: invokestatic  #117                // Method ai.a:()Lai;
+         3: iconst_3
+         4: invokevirtual #118                // Method ai.d:(B)V
+         7: aload_0
+         8: iload_1
+         9: putfield      #33                 // Field C:I
+        12: aload_0
+        13: iload_2
+        14: putfield      #34                 // Field D:I
+        17: aload_0
+        18: iload_3
+        19: putfield      #35                 // Field E:I
+        22: return
+
+  public final void a(int, int, int, int, int);
+    descriptor: (IIIII)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=6, args_size=6
+         0: aload_0
+         1: iconst_0
+         2: putfield      #80                 // Field j:I
+         5: aload_0
+         6: iload_1
+         7: putfield      #37                 // Field G:I
+        10: aload_0
+        11: iload_2
+        12: putfield      #38                 // Field H:I
+        15: aload_0
+        16: iload_3
+        17: putfield      #39                 // Field I:I
+        20: aload_0
+        21: iload         4
+        23: putfield      #40                 // Field J:I
+        26: aload_0
+        27: iload         5
+        29: putfield      #41                 // Field K:I
+        32: return
+
+  public final void d(int, int);
+    descriptor: (II)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=3, args_size=3
+         0: aload_0
+         1: iload_1
+         2: putfield      #42                 // Field L:I
+         5: aload_0
+         6: iload_2
+         7: putfield      #43                 // Field M:I
+        10: return
+
+  public final void a(int, int, int, int);
+    descriptor: (IIII)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=5, args_size=5
+         0: aload_0
+         1: iload_1
+         2: putfield      #49                 // Field S:I
+         5: aload_0
+         6: iload_2
+         7: putfield      #50                 // Field T:I
+        10: aload_0
+        11: iload_3
+        12: putfield      #51                 // Field U:I
+        15: aload_0
+        16: iload         4
+        18: putfield      #48                 // Field R:I
+        21: return
+
+  public final void a(java.lang.String, int, int, int);
+    descriptor: (Ljava/lang/String;III)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=3, locals=5, args_size=5
+         0: aload_0
+         1: ldc           #5                  // String /data/tex/
+         3: aload_1
+         4: invokestatic  #110                // Method ae.b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+         7: putfield      #44                 // Field N:Ljavax/microedition/lcdui/Image;
+        10: aload_0
+        11: new           #19                 // class e
+        14: dup
+        15: invokespecial #133                // Method e."<init>":()V
+        18: putfield      #45                 // Field O:Le;
+        21: aload_0
+        22: aload_0
+        23: getfield      #44                 // Field N:Ljavax/microedition/lcdui/Image;
+        26: aload_0
+        27: getfield      #45                 // Field O:Le;
+        30: invokestatic  #149                // Method l.a:(Ljavax/microedition/lcdui/Image;Le;)Le;
+        33: putfield      #45                 // Field O:Le;
+        36: aload_0
+        37: iload_2
+        38: putfield      #46                 // Field P:I
+        41: aload_0
+        42: iload_3
+        43: putfield      #47                 // Field Q:I
+        46: aload_0
+        47: iload         4
+        49: putfield      #83                 // Field m:I
+        52: return
+
+  private void d();
+    descriptor: ()V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: aconst_null
+         2: putfield      #85                 // Field o:[I
+         5: aload_0
+         6: aconst_null
+         7: putfield      #86                 // Field p:[I
+        10: aload_0
+        11: aconst_null
+        12: putfield      #87                 // Field q:[I
+        15: aload_0
+        16: aconst_null
+        17: putfield      #91                 // Field u:[[I
+        20: aload_0
+        21: aconst_null
+        22: putfield      #92                 // Field v:[I
+        25: aload_0
+        26: aconst_null
+        27: putfield      #44                 // Field N:Ljavax/microedition/lcdui/Image;
+        30: return
+
+  public final void a(int, byte, byte, java.lang.String[]);
+    descriptor: (IBB[Ljava/lang/String;)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=5, locals=5, args_size=5
+         0: aload_0
+         1: iload_1
+         2: putfield      #76                 // Field f:I
+         5: aload_0
+         6: getfield      #57                 // Field a:I
+         9: bipush        17
+        11: if_icmpne     22
+        14: aload_0
+        15: getfield      #49                 // Field S:I
+        18: ifne          22
+        21: return
+        22: aload_0
+        23: iconst_m1
+        24: putfield      #57                 // Field a:I
+        27: aload_0
+        28: getfield      #76                 // Field f:I
+        31: bipush        16
+        33: if_icmpge     37
+        36: return
+        37: aload_0
+        38: iload_2
+        39: putfield      #66                 // Field ai:B
+        42: aload_0
+        43: iload_1
+        44: putfield      #69                 // Field al:I
+        47: aload_0
+        48: iconst_0
+        49: putfield      #70                 // Field am:I
+        52: aload_0
+        53: iload_3
+        54: putfield      #71                 // Field an:B
+        57: aload_0
+        58: aconst_null
+        59: putfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+        62: aload_0
+        63: aload         4
+        65: arraylength
+        66: anewarray     #25                 // class javax/microedition/lcdui/Image
+        69: putfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+        72: iconst_0
+        73: istore_1
+        74: iload_1
+        75: aload         4
+        77: arraylength
+        78: if_icmpge     102
+        81: aload_0
+        82: getfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+        85: iload_1
+        86: ldc           #5                  // String /data/tex/
+        88: aload         4
+        90: iload_1
+        91: aaload
+        92: invokestatic  #110                // Method ae.b:(Ljava/lang/String;Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+        95: aastore
+        96: iinc          1, 1
+        99: goto          74
+       102: aload_0
+       103: iload_2
+       104: iconst_5
+       105: multianewarray #11,  2            // class "[[I"
+       109: putfield      #68                 // Field ak:[[I
+       112: iconst_0
+       113: istore_1
+       114: iload_1
+       115: iload_2
+       116: if_icmpge     130
+       119: aload_0
+       120: iload_1
+       121: invokespecial #128                // Method b:(I)V
+       124: iinc          1, 1
+       127: goto          114
+       130: return
+        StackMap: length = 0x4B (unknown attribute)
+         00 06 00 16 00 05 07 00 12 01 01 01 07 00 09 00
+         00 00 25 00 05 07 00 12 01 01 01 07 00 09 00 00
+         00 4A 00 05 07 00 12 01 01 00 07 00 09 00 00 00
+         66 00 03 07 00 12 00 01 00 00 00 72 00 03 07 00
+         12 01 01 00 00 00 82 00 00 00 00
+
+  private void b(int);
+    descriptor: (I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=6, locals=3, args_size=2
+         0: bipush        100
+         2: invokestatic  #107                // Method ae.a:(I)I
+         5: dup
+         6: istore_2
+         7: iconst_3
+         8: if_icmpge     29
+        11: aload_0
+        12: getfield      #68                 // Field ak:[[I
+        15: iload_1
+        16: aaload
+        17: iconst_0
+        18: aload_0
+        19: getfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+        22: arraylength
+        23: iconst_1
+        24: isub
+        25: iastore
+        26: goto          86
+        29: iload_2
+        30: bipush        15
+        32: if_icmpge     53
+        35: aload_0
+        36: getfield      #68                 // Field ak:[[I
+        39: iload_1
+        40: aaload
+        41: iconst_0
+        42: aload_0
+        43: getfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+        46: arraylength
+        47: iconst_2
+        48: isub
+        49: iastore
+        50: goto          86
+        53: iload_2
+        54: bipush        50
+        56: if_icmpge     77
+        59: aload_0
+        60: getfield      #68                 // Field ak:[[I
+        63: iload_1
+        64: aaload
+        65: iconst_0
+        66: aload_0
+        67: getfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+        70: arraylength
+        71: iconst_3
+        72: isub
+        73: iastore
+        74: goto          86
+        77: aload_0
+        78: getfield      #68                 // Field ak:[[I
+        81: iload_1
+        82: aaload
+        83: iconst_0
+        84: iconst_0
+        85: iastore
+        86: aload_0
+        87: getfield      #68                 // Field ak:[[I
+        90: iload_1
+        91: aaload
+        92: iconst_1
+        93: invokestatic  #121                // Method an.w:()S
+        96: invokestatic  #107                // Method ae.a:(I)I
+        99: iastore
+       100: aload_0
+       101: getfield      #68                 // Field ak:[[I
+       104: iload_1
+       105: aaload
+       106: iconst_2
+       107: invokestatic  #122                // Method an.x:()S
+       110: invokestatic  #107                // Method ae.a:(I)I
+       113: iastore
+       114: aload_0
+       115: getfield      #68                 // Field ak:[[I
+       118: iload_1
+       119: aaload
+       120: iconst_3
+       121: getstatic     #65                 // Field ah:[[I
+       124: aload_0
+       125: getfield      #68                 // Field ak:[[I
+       128: iload_1
+       129: aaload
+       130: iconst_0
+       131: iaload
+       132: aaload
+       133: iconst_1
+       134: iaload
+       135: getstatic     #65                 // Field ah:[[I
+       138: aload_0
+       139: getfield      #68                 // Field ak:[[I
+       142: iload_1
+       143: aaload
+       144: iconst_0
+       145: iaload
+       146: aaload
+       147: iconst_0
+       148: iaload
+       149: isub
+       150: invokestatic  #107                // Method ae.a:(I)I
+       153: getstatic     #65                 // Field ah:[[I
+       156: aload_0
+       157: getfield      #68                 // Field ak:[[I
+       160: iload_1
+       161: aaload
+       162: iconst_0
+       163: iaload
+       164: aaload
+       165: iconst_0
+       166: iaload
+       167: iadd
+       168: iastore
+       169: aload_0
+       170: getfield      #68                 // Field ak:[[I
+       173: iload_1
+       174: aaload
+       175: iconst_4
+       176: invokestatic  #106                // Method ae.a:()I
+       179: iastore
+       180: return
+        StackMap: length = 0x2C (unknown attribute)
+         00 04 00 1D 00 03 07 00 12 01 01 00 00 00 35 00
+         03 07 00 12 01 01 00 00 00 4D 00 02 07 00 12 01
+         00 00 00 56 00 02 07 00 12 01 00 00
+
+  public final void c(javax.microedition.lcdui.Graphics);
+    descriptor: (Ljavax/microedition/lcdui/Graphics;)V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=5, locals=3, args_size=2
+         0: aload_0
+         1: getfield      #76                 // Field f:I
+         4: bipush        16
+         6: if_icmpge     10
+         9: return
+        10: iconst_0
+        11: istore_2
+        12: iload_2
+        13: aload_0
+        14: getfield      #66                 // Field ai:B
+        17: if_icmpge     453
+        20: aload_0
+        21: getfield      #68                 // Field ak:[[I
+        24: iload_2
+        25: aaload
+        26: iconst_1
+        27: iaload
+        28: invokestatic  #121                // Method an.w:()S
+        31: if_icmpge     83
+        34: aload_0
+        35: getfield      #68                 // Field ak:[[I
+        38: iload_2
+        39: aaload
+        40: iconst_2
+        41: iaload
+        42: invokestatic  #122                // Method an.x:()S
+        45: if_icmpge     83
+        48: aload_1
+        49: aload_0
+        50: getfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+        53: aload_0
+        54: getfield      #68                 // Field ak:[[I
+        57: iload_2
+        58: aaload
+        59: iconst_0
+        60: iaload
+        61: aaload
+        62: aload_0
+        63: getfield      #68                 // Field ak:[[I
+        66: iload_2
+        67: aaload
+        68: iconst_1
+        69: iaload
+        70: aload_0
+        71: getfield      #68                 // Field ak:[[I
+        74: iload_2
+        75: aaload
+        76: iconst_2
+        77: iaload
+        78: bipush        20
+        80: invokevirtual #142                // Method javax/microedition/lcdui/Graphics.drawImage:(Ljavax/microedition/lcdui/Image;III)V
+        83: aload_0
+        84: getfield      #71                 // Field an:B
+        87: tableswitch   { // 0 to 7
+
+                       0: 132
+
+                       1: 154
+
+                       2: 195
+
+                       3: 217
+
+                       4: 258
+
+                       5: 280
+
+                       6: 321
+
+                       7: 343
+                 default: 381
+            }
+       132: aload_0
+       133: getfield      #68                 // Field ak:[[I
+       136: iload_2
+       137: aaload
+       138: iconst_2
+       139: dup2
+       140: iaload
+       141: aload_0
+       142: getfield      #68                 // Field ak:[[I
+       145: iload_2
+       146: aaload
+       147: iconst_3
+       148: iaload
+       149: isub
+       150: iastore
+       151: goto          381
+       154: aload_0
+       155: getfield      #68                 // Field ak:[[I
+       158: iload_2
+       159: aaload
+       160: iconst_1
+       161: dup2
+       162: iaload
+       163: aload_0
+       164: getfield      #68                 // Field ak:[[I
+       167: iload_2
+       168: aaload
+       169: iconst_3
+       170: iaload
+       171: iadd
+       172: iastore
+       173: aload_0
+       174: getfield      #68                 // Field ak:[[I
+       177: iload_2
+       178: aaload
+       179: iconst_2
+       180: dup2
+       181: iaload
+       182: aload_0
+       183: getfield      #68                 // Field ak:[[I
+       186: iload_2
+       187: aaload
+       188: iconst_3
+       189: iaload
+       190: isub
+       191: iastore
+       192: goto          381
+       195: aload_0
+       196: getfield      #68                 // Field ak:[[I
+       199: iload_2
+       200: aaload
+       201: iconst_1
+       202: dup2
+       203: iaload
+       204: aload_0
+       205: getfield      #68                 // Field ak:[[I
+       208: iload_2
+       209: aaload
+       210: iconst_3
+       211: iaload
+       212: iadd
+       213: iastore
+       214: goto          381
+       217: aload_0
+       218: getfield      #68                 // Field ak:[[I
+       221: iload_2
+       222: aaload
+       223: iconst_1
+       224: dup2
+       225: iaload
+       226: aload_0
+       227: getfield      #68                 // Field ak:[[I
+       230: iload_2
+       231: aaload
+       232: iconst_3
+       233: iaload
+       234: iadd
+       235: iastore
+       236: aload_0
+       237: getfield      #68                 // Field ak:[[I
+       240: iload_2
+       241: aaload
+       242: iconst_2
+       243: dup2
+       244: iaload
+       245: aload_0
+       246: getfield      #68                 // Field ak:[[I
+       249: iload_2
+       250: aaload
+       251: iconst_3
+       252: iaload
+       253: iadd
+       254: iastore
+       255: goto          381
+       258: aload_0
+       259: getfield      #68                 // Field ak:[[I
+       262: iload_2
+       263: aaload
+       264: iconst_2
+       265: dup2
+       266: iaload
+       267: aload_0
+       268: getfield      #68                 // Field ak:[[I
+       271: iload_2
+       272: aaload
+       273: iconst_3
+       274: iaload
+       275: iadd
+       276: iastore
+       277: goto          381
+       280: aload_0
+       281: getfield      #68                 // Field ak:[[I
+       284: iload_2
+       285: aaload
+       286: iconst_1
+       287: dup2
+       288: iaload
+       289: aload_0
+       290: getfield      #68                 // Field ak:[[I
+       293: iload_2
+       294: aaload
+       295: iconst_3
+       296: iaload
+       297: isub
+       298: iastore
+       299: aload_0
+       300: getfield      #68                 // Field ak:[[I
+       303: iload_2
+       304: aaload
+       305: iconst_2
+       306: dup2
+       307: iaload
+       308: aload_0
+       309: getfield      #68                 // Field ak:[[I
+       312: iload_2
+       313: aaload
+       314: iconst_3
+       315: iaload
+       316: iadd
+       317: iastore
+       318: goto          381
+       321: aload_0
+       322: getfield      #68                 // Field ak:[[I
+       325: iload_2
+       326: aaload
+       327: iconst_1
+       328: dup2
+       329: iaload
+       330: aload_0
+       331: getfield      #68                 // Field ak:[[I
+       334: iload_2
+       335: aaload
+       336: iconst_3
+       337: iaload
+       338: isub
+       339: iastore
+       340: goto          381
+       343: aload_0
+       344: getfield      #68                 // Field ak:[[I
+       347: iload_2
+       348: aaload
+       349: iconst_1
+       350: dup2
+       351: iaload
+       352: aload_0
+       353: getfield      #68                 // Field ak:[[I
+       356: iload_2
+       357: aaload
+       358: iconst_3
+       359: iaload
+       360: isub
+       361: iastore
+       362: aload_0
+       363: getfield      #68                 // Field ak:[[I
+       366: iload_2
+       367: aaload
+       368: iconst_2
+       369: dup2
+       370: iaload
+       371: aload_0
+       372: getfield      #68                 // Field ak:[[I
+       375: iload_2
+       376: aaload
+       377: iconst_3
+       378: iaload
+       379: isub
+       380: iastore
+       381: aload_0
+       382: getfield      #68                 // Field ak:[[I
+       385: iload_2
+       386: aaload
+       387: iconst_1
+       388: iaload
+       389: aload_0
+       390: getfield      #69                 // Field al:I
+       393: aload_0
+       394: getfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+       397: aload_0
+       398: getfield      #68                 // Field ak:[[I
+       401: iload_2
+       402: aaload
+       403: iconst_0
+       404: iaload
+       405: aaload
+       406: invokevirtual #148                // Method javax/microedition/lcdui/Image.getWidth:()I
+       409: isub
+       410: if_icmplt     442
+       413: aload_0
+       414: getfield      #68                 // Field ak:[[I
+       417: iload_2
+       418: aaload
+       419: iconst_2
+       420: iaload
+       421: iconst_0
+       422: aload_0
+       423: getfield      #67                 // Field aj:[Ljavax/microedition/lcdui/Image;
+       426: aload_0
+       427: getfield      #68                 // Field ak:[[I
+       430: iload_2
+       431: aaload
+       432: iconst_0
+       433: iaload
+       434: aaload
+       435: invokevirtual #147                // Method javax/microedition/lcdui/Image.getHeight:()I
+       438: isub
+       439: if_icmpge     447
+       442: aload_0
+       443: iload_2
+       444: invokespecial #128                // Method b:(I)V
+       447: iinc          2, 1
+       450: goto          12
+       453: return
+        StackMap: length = 0xBD (unknown attribute)
+         00 0F 00 0A 00 02 07 00 12 07 00 18 00 00 00 0C
+         00 03 07 00 12 07 00 18 01 00 00 00 53 00 03 07
+         00 12 07 00 18 01 00 00 00 84 00 03 07 00 12 07
+         00 18 01 00 00 00 9A 00 03 07 00 12 07 00 18 01
+         00 00 00 C3 00 03 07 00 12 07 00 18 01 00 00 00
+         D9 00 03 07 00 12 07 00 18 01 00 00 01 02 00 03
+         07 00 12 07 00 18 01 00 00 01 18 00 03 07 00 12
+         07 00 18 01 00 00 01 41 00 03 07 00 12 07 00 18
+         01 00 00 01 57 00 03 07 00 12 07 00 18 01 00 00
+         01 7D 00 03 07 00 12 07 00 18 01 00 00 01 BA 00
+         03 07 00 12 07 00 18 01 00 00 01 BF 00 03 07 00
+         12 07 00 18 01 00 00 01 C5 00 00 00 00
+
+  private void c(int);
+    descriptor: (I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=5, locals=2, args_size=2
+         0: getstatic     #54                 // Field X:[I
+         3: iconst_0
+         4: bipush        20
+         6: iastore
+         7: invokestatic  #121                // Method an.w:()S
+        10: getstatic     #54                 // Field X:[I
+        13: iconst_0
+        14: iaload
+        15: idiv
+        16: putstatic     #53                 // Field W:I
+        19: getstatic     #54                 // Field X:[I
+        22: iconst_1
+        23: invokestatic  #122                // Method an.x:()S
+        26: iconst_1
+        27: isub
+        28: getstatic     #54                 // Field X:[I
+        31: iconst_0
+        32: iaload
+        33: idiv
+        34: iconst_1
+        35: iadd
+        36: iastore
+        37: getstatic     #54                 // Field X:[I
+        40: iconst_2
+        41: iload_1
+        42: iastore
+        43: getstatic     #54                 // Field X:[I
+        46: iconst_3
+        47: iconst_0
+        48: bipush        7
+        50: invokestatic  #109                // Method ae.b:(II)I
+        53: iastore
+        54: getstatic     #54                 // Field X:[I
+        57: iconst_4
+        58: iconst_0
+        59: iastore
+        60: aload_0
+        61: iconst_0
+        62: putfield      #72                 // Field b:Z
+        65: return
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=7, locals=0, args_size=0
+         0: bipush        12
+         2: anewarray     #10                 // class "[S"
+         5: dup
+         6: iconst_0
+         7: iconst_1
+         8: newarray       short
+        10: dup
+        11: iconst_0
+        12: iconst_0
+        13: sastore
+        14: aastore
+        15: dup
+        16: iconst_1
+        17: iconst_1
+        18: newarray       short
+        20: dup
+        21: iconst_0
+        22: iconst_1
+        23: sastore
+        24: aastore
+        25: dup
+        26: iconst_2
+        27: iconst_1
+        28: newarray       short
+        30: dup
+        31: iconst_0
+        32: iconst_2
+        33: sastore
+        34: aastore
+        35: dup
+        36: iconst_3
+        37: iconst_1
+        38: newarray       short
+        40: dup
+        41: iconst_0
+        42: iconst_3
+        43: sastore
+        44: aastore
+        45: dup
+        46: iconst_4
+        47: iconst_5
+        48: newarray       short
+        50: dup
+        51: iconst_0
+        52: iconst_4
+        53: sastore
+        54: dup
+        55: iconst_1
+        56: iconst_5
+        57: sastore
+        58: dup
+        59: iconst_2
+        60: bipush        6
+        62: sastore
+        63: dup
+        64: iconst_3
+        65: bipush        7
+        67: sastore
+        68: dup
+        69: iconst_4
+        70: bipush        8
+        72: sastore
+        73: aastore
+        74: dup
+        75: iconst_5
+        76: iconst_1
+        77: newarray       short
+        79: dup
+        80: iconst_0
+        81: bipush        9
+        83: sastore
+        84: aastore
+        85: dup
+        86: bipush        6
+        88: iconst_1
+        89: newarray       short
+        91: dup
+        92: iconst_0
+        93: bipush        10
+        95: sastore
+        96: aastore
+        97: dup
+        98: bipush        7
+       100: iconst_2
+       101: newarray       short
+       103: dup
+       104: iconst_0
+       105: bipush        11
+       107: sastore
+       108: dup
+       109: iconst_1
+       110: bipush        12
+       112: sastore
+       113: aastore
+       114: dup
+       115: bipush        8
+       117: iconst_1
+       118: newarray       short
+       120: dup
+       121: iconst_0
+       122: bipush        13
+       124: sastore
+       125: aastore
+       126: dup
+       127: bipush        9
+       129: bipush        7
+       131: newarray       short
+       133: dup
+       134: iconst_0
+       135: bipush        14
+       137: sastore
+       138: dup
+       139: iconst_1
+       140: bipush        15
+       142: sastore
+       143: dup
+       144: iconst_2
+       145: bipush        16
+       147: sastore
+       148: dup
+       149: iconst_3
+       150: bipush        17
+       152: sastore
+       153: dup
+       154: iconst_4
+       155: bipush        18
+       157: sastore
+       158: dup
+       159: iconst_5
+       160: bipush        19
+       162: sastore
+       163: dup
+       164: bipush        6
+       166: bipush        20
+       168: sastore
+       169: aastore
+       170: dup
+       171: bipush        10
+       173: iconst_1
+       174: newarray       short
+       176: dup
+       177: iconst_0
+       178: bipush        21
+       180: sastore
+       181: aastore
+       182: dup
+       183: bipush        11
+       185: iconst_1
+       186: newarray       short
+       188: dup
+       189: iconst_0
+       190: bipush        22
+       192: sastore
+       193: aastore
+       194: putstatic     #31                 // Field A:[[S
+       197: iconst_0
+       198: putstatic     #53                 // Field W:I
+       201: iconst_5
+       202: newarray       int
+       204: putstatic     #54                 // Field X:[I
+       207: bipush        8
+       209: newarray       byte
+       211: dup
+       212: iconst_0
+       213: iconst_0
+       214: bastore
+       215: dup
+       216: iconst_1
+       217: iconst_5
+       218: bastore
+       219: dup
+       220: iconst_2
+       221: iconst_3
+       222: bastore
+       223: dup
+       224: iconst_3
+       225: bipush        6
+       227: bastore
+       228: dup
+       229: iconst_4
+       230: iconst_2
+       231: bastore
+       232: dup
+       233: iconst_5
+       234: bipush        7
+       236: bastore
+       237: dup
+       238: bipush        6
+       240: iconst_1
+       241: bastore
+       242: bipush        7
+       244: iconst_4
+       245: bastore
+       246: iconst_4
+       247: anewarray     #8                  // class "[I"
+       250: dup
+       251: iconst_0
+       252: iconst_2
+       253: newarray       int
+       255: dup
+       256: iconst_0
+       257: iconst_1
+       258: iastore
+       259: dup
+       260: iconst_1
+       261: iconst_3
+       262: iastore
+       263: aastore
+       264: dup
+       265: iconst_1
+       266: iconst_2
+       267: newarray       int
+       269: dup
+       270: iconst_0
+       271: iconst_1
+       272: iastore
+       273: dup
+       274: iconst_1
+       275: iconst_4
+       276: iastore
+       277: aastore
+       278: dup
+       279: iconst_2
+       280: iconst_2
+       281: newarray       int
+       283: dup
+       284: iconst_0
+       285: iconst_2
+       286: iastore
+       287: dup
+       288: iconst_1
+       289: iconst_5
+       290: iastore
+       291: aastore
+       292: dup
+       293: iconst_3
+       294: iconst_2
+       295: newarray       int
+       297: dup
+       298: iconst_0
+       299: iconst_2
+       300: iastore
+       301: dup
+       302: iconst_1
+       303: bipush        6
+       305: iastore
+       306: aastore
+       307: putstatic     #65                 // Field ah:[[I
+       310: return
+}
