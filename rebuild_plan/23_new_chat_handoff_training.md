@@ -348,3 +348,30 @@ Nếu task nhỏ đạt chất lượng, bước tiếp hợp lý:
 Đây không phải project “làm cho nhìn hay”. Đây là project “đọc bản gốc rồi dựng lại”. Nếu không biết, hãy audit. Nếu audit chưa ra, hãy ghi `UNKNOWN`. Nếu chỉ làm gần đúng để flow chạy, hãy ghi `APPROX` hoặc `STUB`.
 
 Điều user kỳ vọng nhất không phải tốc độ, mà là sự trung thực và bám sát bản gốc.
+
+## 13. Current-State Addendum
+
+Before starting any new implementation after the room1 Bunny/op13 work, also
+read:
+
+- `rebuild_plan/34_new_chat_handoff_current_state_and_exercises.md`
+
+That file updates the current source-backed chain:
+
+- scene_1 room3 group0 -> scene_1 room0 group0
+- room0 group0 -> scene_1 room1 free movement
+- room1 group0 starts only after `op13 [370,176,80,32]`
+- room1 group0 post-op13 currently ends with `op23 [1,0,1]`,
+  `op40 "Trở về tìm trưởng thôn!"`, and `op14`
+- the next safe target is the return-to-village path and
+  `scene_1 room0 group2`, gated by `op86 [1,1,0]` and `op16 [52]`
+
+The new chat must complete the entry exercise in file 34 before coding:
+
+1. Prove the event chain with event JSON and `game.c.b()`.
+2. Build the room0 group2 record matrix.
+3. List unknowns before implementation.
+4. Write a smoke plan.
+
+If the new chat skips that exercise or starts coding from memory, stop it and
+make it reload the handoff.
