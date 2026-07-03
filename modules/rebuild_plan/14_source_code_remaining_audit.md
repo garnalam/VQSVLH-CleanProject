@@ -1,6 +1,6 @@
-# 14. Source Code Remaining Audit Checklist
+﻿# 14. Source Code Remaining Audit Checklist
 
-Pham vi: `C:/Users/Dell/Downloads/ResourcesVQSV/modules/source_code/decoded/decompiled_source_cfr`
+Pham vi: `<PROJECT_ROOT>/modules/source_code/decoded/decompiled_source_cfr`
 
 Muc tieu file nay: liet ke thuc te nhung gi trong `source_code` van can audit tiep truoc khi rebuild full game. Khong danh dau `VERIFIED` neu moi suy luan theo ten bien/decompile.
 
@@ -92,3 +92,4 @@ Renderer primitive `d/aa/am/j/s/l/ae/aq` da co audit sau rieng. Buoc tiep cua cu
 Du de tiep tuc dung khung project va port module theo thu tu.
 
 Chua du de cam ket JAR full game pixel-perfect/gameplay-perfect. Nhung danh sach con thieu da khoanh lai ro: khong phai con mo toan bo source nua, ma tap trung vao cac cum damaged/lon o tren.
+

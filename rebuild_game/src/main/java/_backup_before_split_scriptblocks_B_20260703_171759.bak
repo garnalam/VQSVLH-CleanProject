@@ -117,52 +117,6 @@ public final class VqsvIntroDemo extends JPanel {
         }
     }
 
-    private static void placePlayerForActorMaskSmoke(Scene s, int actorId,
-                                                     boolean actorHitMask, int direction) {
-        Actor actor = s.actors[actorId];
-        if (actor == null) {
-            throw new IllegalStateException("Missing smoke actor " + actorId);
-        }
-        for (int dy = -28; dy <= 28; dy += 2) {
-            for (int dx = -28; dx <= 28; dx += 2) {
-                placePlayerForSmoke(s, actor.x + dx, actor.y + dy, direction);
-                if (s.playerIntersectsActorSourceMask(actorId, actorHitMask)) {
-                    return;
-                }
-            }
-        }
-        throw new IllegalStateException("Could not place player on actor mask " + actorId);
-    }
-
-    private static void placePlayerForActorInteractionSmoke(Scene s, int actorId) {
-        Actor actor = s.actors[actorId];
-        if (actor == null) {
-            throw new IllegalStateException("Missing smoke actor " + actorId);
-        }
-        for (int dir = 0; dir < 4; dir++) {
-            for (int dy = -28; dy <= 28; dy += 2) {
-                for (int dx = -28; dx <= 28; dx += 2) {
-                    placePlayerForSmoke(s, actor.x + dx, actor.y + dy, dir);
-                    if (s.playerInteractsActorSourceMask(actorId)) {
-                        return;
-                    }
-                }
-            }
-        }
-        throw new IllegalStateException("Could not place player for actor interaction " + actorId);
-    }
-
-    private static void placePlayerForSmoke(Scene s, int x, int y, int direction) {
-        s.player.x = x;
-        s.player.y = y;
-        s.playerX = x;
-        s.playerY = y;
-        s.player.direction = direction;
-        s.player.visible = true;
-        s.player.applyMode(0);
-        s.setCameraCenter(x, y);
-    }
-
     private static void runSmoke(String outPath, int ticks) {
         try {
             Scene s = new Scene();
@@ -252,42 +206,6 @@ public final class VqsvIntroDemo extends JPanel {
                 s.setPlayerPositionApprox(200, 192);
                 Scene.setActive(s, new int[]{53, 54, 55}, new int[]{0, 0, 0});
                 s.choice = ChoiceBox.optionUi(0, VqsvText.Scene1Room0Group3.YES_NO_OPTIONS);
-            } else if ("room1_op13_bunny_trigger".equals(checkpoint)) {
-                s.loadScene1Room1(370, 176);
-                s.setPlayerPositionApprox(374, 180);
-                Blocking trigger = new Op13FreeWorldTrigger(1, 1, 0, 370, 176, 80, 32);
-                if (!trigger.tick(s)) {
-                    throw new IllegalStateException("op13 smoke trigger did not complete");
-                }
-                s.text = TextBox.taskTip(VqsvText.Scene1Room0Group0.TASK_BUNNY);
-                revealCheckpointText(s, 80);
-            } else if ("return_room0_transition".equals(checkpoint)) {
-                s.loadScene1Room1(370, 176);
-                placePlayerForActorMaskSmoke(s, 37, true, 3);
-                Blocking trigger = new ActorTransitionFreeWorldTrigger(1, 1, 37, 3, 1, 0, 30);
-                if (!trigger.tick(s)) {
-                    throw new IllegalStateException("return room0 smoke trigger did not complete");
-                }
-                if (s.currentSceneId != 1 || s.currentRoomIndex != 0) {
-                    throw new IllegalStateException("return room0 target mismatch scene="
-                            + s.currentSceneId + " room=" + s.currentRoomIndex);
-                }
-            } else if ("actor52_interaction_group2".equals(checkpoint)) {
-                s.loadScene1Room0(199, 218);
-                s.op14CompleteEvent(1, 1, 0);
-                placePlayerForActorInteractionSmoke(s, 52);
-                s.key0 = true;
-                Blocking trigger = new ActorInteractionFreeWorldTrigger(1, 0, 2, 1, 1, 0, 52);
-                if (!trigger.tick(s)) {
-                    throw new IllegalStateException("actor52 smoke trigger did not complete");
-                }
-                if (s.worldEventActor != 52) {
-                    throw new IllegalStateException("actor52 smoke worldEventActor mismatch "
-                            + s.worldEventActor);
-                }
-                s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group2.NEIL,
-                        VqsvText.Scene1Room0Group2.CAUGHT, 0);
-                revealCheckpointText(s, 80);
             } else if ("battle_kidnapping".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
@@ -520,17 +438,17 @@ public final class VqsvIntroDemo extends JPanel {
     }
 
     static final class Scene {
-        static int tenYearsEventIndex = -1;
-        final FontBitmap font = new FontBitmap();
-        final Effect effect = new Effect();
+        private static int tenYearsEventIndex = -1;
+        private final FontBitmap font = new FontBitmap();
+        private final Effect effect = new Effect();
         final Actor[] actors = makeActors();
         private final List<Event> events = makeEvents();
         private final List<TempSprite> tempSprites = new ArrayList<>();
         final Actor player = new Actor(-1, 0, 0, 0, 0, 1, 1);
         private final WorldUi worldUi = new WorldUi();
         private MapRenderer mapRenderer;
-        TextBox text;
-        ChoiceBox choice;
+        private TextBox text;
+        private ChoiceBox choice;
         private int eventIndex = 0;
         private int currentSceneId = -1;
         private int currentRoomIndex = -1;
@@ -539,49 +457,49 @@ public final class VqsvIntroDemo extends JPanel {
         int playerX = 0;
         int playerY = 0;
         private boolean useMap;
-        boolean key0;
+        private boolean key0;
         private boolean keyUp;
         private boolean keyDown;
         private boolean keyLeft;
         private boolean keyRight;
         private Blocking current;
         private int followActorId = -1;
-        int worldEventActor = -1;
-        int battleEventActor = -1;
-        int[] battleEncounter = new int[0];
-        boolean battleCanLose = false;
-        boolean battleScriptLocksInput = false;
-        int battleMode = -1;
-        int battleBackgroundMode = -1;
-        int battleResultIndex = -1;
-        int battleBranchTarget = -1;
-        int battleOverlayTicks = 0;
-        String battleEnemyName = "";
-        String battlePlayerName = "";
-        String battleLog = "";
-        int battleEnemyLevel;
-        int battlePlayerLevel;
-        int battleEnemyVisualId;
-        int battlePlayerVisualId;
-        int battleEnemyElement;
-        int battlePlayerElement;
-        int battleEnemyPowerPercent = 100;
-        int battlePlayerPowerPercent = 100;
-        int battleEnemyMaxHp;
-        int battleEnemyHp;
-        int battlePlayerMaxHp;
-        int battlePlayerHp;
-        int battleTurn;
-        int battlePlayerEnergy;
-        int battlePlayerMaxEnergy = 1;
-        boolean battleCaptureTutorial;
+        private int worldEventActor = -1;
+        private int battleEventActor = -1;
+        private int[] battleEncounter = new int[0];
+        private boolean battleCanLose = false;
+        private boolean battleScriptLocksInput = false;
+        private int battleMode = -1;
+        private int battleBackgroundMode = -1;
+        private int battleResultIndex = -1;
+        private int battleBranchTarget = -1;
+        private int battleOverlayTicks = 0;
+        private String battleEnemyName = "";
+        private String battlePlayerName = "";
+        private String battleLog = "";
+        private int battleEnemyLevel;
+        private int battlePlayerLevel;
+        private int battleEnemyVisualId;
+        private int battlePlayerVisualId;
+        private int battleEnemyElement;
+        private int battlePlayerElement;
+        private int battleEnemyPowerPercent = 100;
+        private int battlePlayerPowerPercent = 100;
+        private int battleEnemyMaxHp;
+        private int battleEnemyHp;
+        private int battlePlayerMaxHp;
+        private int battlePlayerHp;
+        private int battleTurn;
+        private int battlePlayerEnergy;
+        private int battlePlayerMaxEnergy = 1;
+        private boolean battleCaptureTutorial;
         private int sourceMoney;
         private int sourceBadges;
         private final Map<Integer, BagItem> sourceBagItems = initialSourceBagItems();
         private final Map<Integer, SourceSpecialReward> sourceSpecialRewards = new HashMap<>();
-        private final VqsvEventState eventState = new VqsvEventState();
-        final List<SourcePetState> sourcePets = new ArrayList<>();
-        final List<String> sourceStateTrace = eventState.trace;
+        private final Map<String, Byte> sourceEventStates = new HashMap<>();
+        private final List<SourcePetState> sourcePets = new ArrayList<>();
+        private final List<String> sourceStateTrace = new ArrayList<>();
         private boolean sourceGameCF = false;
         private int sourcePetRefreshOps = 0;
 
@@ -927,12 +845,12 @@ public final class VqsvIntroDemo extends JPanel {
                     && oldY == clamp(cy - H / 2, 0, 480 - H);
         }
 
-        void followActor(int actorId) {
+        private void followActor(int actorId) {
             followActorId = actorId;
             updateCameraFollow();
         }
 
-        void stopCameraFollow() {
+        private void stopCameraFollow() {
             followActorId = -1;
         }
 
@@ -1034,18 +952,424 @@ public final class VqsvIntroDemo extends JPanel {
 
         private static List<Event> makeEvents() {
             ArrayList<Event> e = new ArrayList<>();
-            Scene0IntroScript.appendTo(e);
-            Scene1Room3EntryScript.appendTo(e);
-            Scene1Room0Group0Script.appendTo(e);
-            Scene1Room1BunnyScript.appendTo(e);
-            Scene1Room0Group2ElderScript.appendTo(e);
-            Scene1Room0Group3PetScript.appendTo(e);
-            Scene1Room0Group6ElderBattleScript.appendTo(e);
+            e.add(s -> {
+                s.effect.startSolid(0);
+                s.text = TextBox.full(30, 90, VqsvText.Scene0Intro.TEXT[0], true);
+                return sc -> {
+                    if (sc.text != null && sc.text.readyForKey && sc.key0) {
+                        sc.text.disposed = true;
+                        sc.effect.clearOverlay();
+                        return true;
+                    }
+                    return false;
+                };
+            });
+            e.add(s -> { s.effect.startBars(13, 1, 1, 240, 10, 10); return s.effect::doneBars; });
+            e.add(s -> { s.effect.startParticles(80); return null; });
+            e.add(s -> { s.setCameraCenter(190, 0); return null; });
+            e.add(s -> { setActive(s, new int[]{1, 0}, new int[]{1, 3}); return null; });
+            e.add(s -> new Move(new int[]{0, 1}, new int[]{-26, 23}, new int[]{0, 0}, new int[]{5, 5}, new int[]{0, 0}));
+            e.add(s -> new Move(new int[]{0, 1}, new int[]{0, 0}, new int[]{3, -3}, new int[]{0, 0}, new int[]{20, 20}));
+            e.add(s -> new Move(new int[]{0, 1}, new int[]{0, 0}, new int[]{-3, 3}, new int[]{0, 0}, new int[]{10, 10}));
+            e.add(s -> new Path(new int[]{0, 1}, new int[][]{{257, 262, 249}, {125, 120, 133}}, new int[][]{{193, 188, 195}, {248, 253, 247}}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> { setActive(s, new int[]{18, 19, 20, 22, 23, 24}, new int[]{1, 3, 1, 1, 1, 1}); return null; });
+            e.add(s -> new Delay(15));
+            e.add(s -> { hide(s, new int[]{18, 19, 20, 22, 23, 24}); return null; });
+            e.add(s -> new Path(new int[]{0, 1}, new int[][]{{257, 262, 249}, {125, 120, 133}}, new int[][]{{193, 188, 195}, {248, 253, 247}}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> { setActive(s, new int[]{26, 27, 28, 14, 15, 16}, new int[]{1, 1, 1, 1, 1, 1}); return null; });
+            e.add(s -> new Delay(30));
+            e.add(s -> { hide(s, new int[]{26, 27, 28, 14, 15, 16}); return null; });
+            e.add(s -> new Path(new int[]{0, 1}, new int[][]{{257, 262, 249}, {125, 120, 133}}, new int[][]{{193, 188, 195}, {248, 253, 247}}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> { setActive(s, new int[]{32, 33, 35}, new int[]{1, 1, 1}); return null; });
+            e.add(s -> new Delay(30));
+            e.add(s -> { s.effect.startCircle(0, 0, 120, 160, 25); return s.effect::doneOverlay; });
+            e.add(s -> { hide(s, new int[]{32, 33, 35}); return null; });
+            e.add(s -> new Move(new int[]{0}, new int[]{75}, new int[]{0}, new int[]{2}, new int[]{0}));
+            e.add(s -> new Path(new int[]{1}, new int[][]{{185}}, new int[][]{{200}}));
+            e.add(s -> new Move(new int[]{1}, new int[]{0}, new int[]{4}, new int[]{0}, new int[]{6}));
+            e.add(s -> { s.effect.startCircle(0, 1, 120, 160, 160); return s.effect::doneOverlay; });
+            e.add(s -> { s.effect.startBars(13, 1, 1, 240, 10, 50); return s.effect::doneBars; });
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[1], false);
+                return null;
+            });
+            e.add(s -> new Move(new int[]{1}, new int[]{0}, new int[]{-4}, new int[]{0}, new int[]{18}));
+            e.add(s -> new Delay(50));
+            e.add(s -> { setActive(s, new int[]{2, 3, 4}, new int[]{1, 1, 3}); return null; });
+            e.add(s -> new Move(new int[]{2}, new int[]{35}, new int[]{0}, new int[]{2}, new int[]{0}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> new Move(new int[]{4}, new int[]{-30}, new int[]{0}, new int[]{4}, new int[]{0}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> new Move(new int[]{3}, new int[]{0}, new int[]{-32}, new int[]{0}, new int[]{5}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
+            e.add(s -> { hide(s, new int[]{1, 2, 3, 4}); return null; });
+            e.add(s -> new Move(new int[]{0}, new int[]{-100}, new int[]{-14}, new int[]{2}, new int[]{2}));
+            e.add(s -> { s.effect.startParticles(90); return null; });
+            e.add(s -> new Delay(15));
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[2], false);
+                return null;
+            });
+            e.add(s -> new Delay(60));
+            e.add(s -> { setActive(s, new int[]{5, 6, 7, 8}, new int[]{1, 1, 1, 1}); return null; });
+            e.add(s -> new Move(new int[]{7}, new int[]{30}, new int[]{0}, new int[]{3}, new int[]{0}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> new Move(new int[]{8}, new int[]{-38}, new int[]{0}, new int[]{3}, new int[]{0}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> new Move(new int[]{6}, new int[]{-33}, new int[]{0}, new int[]{3}, new int[]{0}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> new Move(new int[]{5}, new int[]{38}, new int[]{0}, new int[]{3}, new int[]{0}));
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> new Delay(5));
+            e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
+            e.add(s -> { hide(s, new int[]{5, 6, 7, 8}); return null; });
+            e.add(s -> { s.loadScene7Room2(296, 140); return null; });
+            e.add(s -> { s.effect.startFade(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[3], false);
+                return null;
+            });
+            e.add(s -> new Delay(15));
+            e.add(s -> { setActive(s, new int[]{32, 33}, new int[]{1, 3}); return null; });
+            e.add(s -> new Move(new int[]{32, 33}, new int[]{10, -10}, new int[]{0, 0}, new int[]{13, 12}, new int[]{0, 0}));
+            e.add(s -> new Move(new int[]{32, 33}, new int[]{0, 0}, new int[]{5, -5}, new int[]{0, 0}, new int[]{18, 30}));
+            e.add(s -> new Delay(15));
+            e.add(s -> { setActive(s, new int[]{36, 37, 38}, new int[]{1, 1, 1}); return null; });
+            e.add(s -> new Delay(30));
+            e.add(s -> { hide(s, new int[]{36, 37, 38}); return null; });
+            e.add(s -> { setActive(s, new int[]{39, 40}, new int[]{1, 1}); return null; });
+            e.add(s -> new Delay(30));
+            e.add(s -> { hide(s, new int[]{39, 40}); return null; });
+            e.add(s -> { setActive(s, new int[]{41, 42, 43, 44, 45}, new int[]{1, 1, 1, 1, 1}); return null; });
+            e.add(s -> new Delay(30));
+            e.add(s -> { hide(s, new int[]{41, 42, 43, 44, 45}); return null; });
+            e.add(s -> { setActive(s, new int[]{57, 58, 59}, new int[]{1, 1, 1}); return null; });
+            e.add(s -> new Delay(15));
+            e.add(s -> { s.effect.startCircle(0, 0, 120, 160, 25); return s.effect::doneOverlay; });
+            e.add(s -> { hide(s, new int[]{57, 58, 59}); return null; });
+            e.add(s -> { hide(s, new int[]{32, 33}); return null; });
+            e.add(s -> { s.effect.stopParticles(); return null; });
+            e.add(s -> { s.effect.startCircle(0, 1, 120, 160, 160); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[4], false);
+                return null;
+            });
+            e.add(s -> new Delay(50));
+            e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.prepareTransition(95, 280, 240, 320);
+                s.markWorldTransition(0, 0, 0);
+                s.reloadBlankRoomCenteredOnActor(9);
+                return null;
+            });
+            e.add(s -> { setActive(s, new int[]{9}, new int[]{1}); return null; });
+            e.add(s -> { s.effect.startFade(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[5], false);
+                return null;
+            });
+            e.add(s -> new Delay(140));
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[6], false);
+                return null;
+            });
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> { s.effect.startParticles(80); return null; });
+            e.add(s -> new Move(new int[]{9}, new int[]{0}, new int[]{-2}, new int[]{0}, new int[]{52}));
+            e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.prepareTransition(340, 412, 240, 320);
+                s.markWorldTransition(5, 3, 36);
+                s.loadScene5Room3(340, 412);
+                return null;
+            });
+            e.add(s -> { setActive(s, new int[]{41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51}, new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}); return null; });
+            e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[7], false);
+                return null;
+            });
+            e.add(s -> new CameraPanPoint(340, 412, 2));
+            e.add(s -> new Delay(200));
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[8], false);
+                return null;
+            });
+            e.add(s -> new Delay(110));
+            e.add(s -> {
+                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[9], false);
+                return null;
+            });
+            e.add(s -> new Delay(35));
+            e.add(s -> {
+                s.text = TextBox.full(30, 90, VqsvText.Scene0Intro.TEXT[10], true);
+                return waitForText();
+            });
+            e.add(s -> { s.effect.startBars(12, 1, 1, 240, 10, 50); return s.effect::doneBars; });
+            e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.loadRoom1(340, 412);
+                s.text = TextBox.full(30, 90, VqsvText.Scene0Intro.TEXT[11], true);
+                return sc -> {
+                    if (sc.text != null && sc.text.readyForKey && sc.key0) {
+                        sc.text.disposed = true;
+                        sc.effect.clearOverlay();
+                        return true;
+                    }
+                    return false;
+                };
+            });
+            e.add(s -> { s.effect.startFireParticles(100); return null; });
+            e.add(s -> new Delay(8));
+            e.add(s -> { setActive(s, new int[]{29, 28, 30}, new int[]{1, 1, 3}); return null; });
+            e.add(s -> { s.followActor(30); return null; });
+            e.add(s -> new Move(new int[]{30}, new int[]{-5}, new int[]{1}, new int[]{84}, new int[]{84}));
+            e.add(s -> { hide(s, new int[]{28}); return null; });
+            e.add(s -> new Move(new int[]{30, 29}, new int[]{-5, -5}, new int[]{-2, -2}, new int[]{50, 50}, new int[]{50, 50}));
+            e.add(s -> { s.stopCameraFollow(); return null; });
+            e.add(s -> { s.effect.stopParticles(); return null; });
+            e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.prepareTransition(199, 79, 240, 320);
+                s.markWorldTransition(1, 3, 0);
+                s.loadScene1Room3Entry(199, 79);
+                return null;
+            });
+            e.add(s -> {
+                s.text = TextBox.full(60, 90, VqsvText.Scene1Room3BeforeTenYears.TEXT[0], true);
+                return waitForText();
+            });
+            e.add(s -> { s.effect.startFade(1, 0); return s.effect::doneOverlay; });
+            e.add(s -> { setActive(s, new int[]{48, 49, 50}, new int[]{1, 2, 2}); return null; });
+            e.add(s -> new CameraPan(49, 0));
+            e.add(s -> new Delay(15));
+            e.add(s -> new CameraPan(48, 10));
+            e.add(dialog(VqsvText.Scene1Room0Group0.NEIL, VqsvText.Scene1Room3BeforeTenYears.TEXT[1]));
+            e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{0, 0}, new int[]{0, 0}));
+            e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{0, 0}, new int[]{4, 4}, new int[]{13, 13}));
+            e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{3, 3}, new int[]{4, 4}, new int[]{13, 13}));
+            e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{0, 0}, new int[]{4, 4}, new int[]{23, 23}));
+            e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{3, 3}, new int[]{4, 4}, new int[]{20, 20}));
+            e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{2, 2}, new int[]{4, 4}, new int[]{18, 18}));
+            e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{1, 1}, new int[]{3, 3}));
+            e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{1, 1}, new int[]{1, 1}));
+            e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{2, 2}, new int[]{2, 2}));
+            e.add(s -> { s.spawnActorEffect(49, 14); return null; });
+            e.add(s -> new Delay(15));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[2]));
+            e.add(s -> new TimedAction(new int[]{48}, new int[]{0}, new int[]{4}, new int[]{6}));
+            e.add(s -> new TimedAction(new int[]{48}, new int[]{1}, new int[]{4}, new int[]{13}));
+            e.add(s -> new TimedAction(new int[]{48}, new int[]{2}, new int[]{4}, new int[]{8}));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[3]));
+            e.add(s -> { s.spawnActorEffect(49, 7); return null; });
+            e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{0, 0}, new int[]{0, 0}));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[4]));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[5]));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[6]));
+            e.add(s -> new TimedAction(new int[]{48, 49, 50}, new int[]{0, 0, 0}, new int[]{4, 4, 4}, new int[]{13, 13, 13}));
+            e.add(s -> new TimedAction(new int[]{48, 49, 50}, new int[]{1, 1, 1}, new int[]{4, 4, 4}, new int[]{20, 20, 20}));
+            e.add(s -> new ActionSet(new int[]{48}, new int[]{2}, new int[]{2}));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[7]));
+            e.add(s -> new ActionSet(new int[]{49}, new int[]{0}, new int[]{0}));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[8]));
+            e.add(s -> { s.spawnActorEffect(48, 8); return null; });
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[9]));
+            e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{2, 2}, new int[]{4, 4}, new int[]{16, 16}));
+            e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{0, 0}, new int[]{0, 0}));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[10]));
+            e.add(dialog("Neil", "..."));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[11]));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[12]));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[13]));
+            e.add(s -> new Delay(15));
+            e.add(s -> new TimedAction(new int[]{48}, new int[]{2}, new int[]{4}, new int[]{10}));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[14]));
+            e.add(s -> { s.spawnActorEffect(49, 5); return null; });
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[15]));
+            e.add(dialog("Neil", "..."));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[16]));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[17]));
+            e.add(s -> { s.spawnActorEffect(49, 14); return null; });
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[18]));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[19]));
+            e.add(s -> { setActive(s, new int[]{53, 54, 55, 56}, new int[]{0, 0, 0, 0}); return null; });
+            e.add(s -> new TimedAction(new int[]{53, 54, 55, 56}, new int[]{0, 0, 0, 0}, new int[]{4, 4, 4, 4}, new int[]{23, 23, 23, 23}));
+            e.add(s -> new TimedAction(new int[]{53, 54, 55, 56}, new int[]{3, 3, 3, 3}, new int[]{4, 4, 4, 4}, new int[]{15, 15, 15, 15}));
+            e.add(s -> new ActionSet(new int[]{53, 54, 55, 56}, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0}));
+            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[20]));
+            e.add(s -> { s.spawnActorEffect(48, 7); return null; });
+            e.add(s -> { s.spawnActorEffect(49, 7); return null; });
+            e.add(s -> new ActionSet(new int[]{49}, new int[]{2}, new int[]{2}));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[21]));
+            e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{0, 0}, new int[]{0, 0}));
+            e.add(s -> new TimedAction(new int[]{53, 49, 56, 50}, new int[]{0, 0, 0, 0}, new int[]{6, 4, 6, 4}, new int[]{4, 4, 4, 4}));
+            e.add(s -> new TimedAction(new int[]{53, 49, 56, 50}, new int[]{2, 2, 2, 2}, new int[]{4, 4, 4, 4}, new int[]{6, 6, 6, 6}));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[22]));
+            e.add(s -> new TimedAction(new int[]{48}, new int[]{2}, new int[]{4}, new int[]{6}));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[23]));
+            e.add(s -> new ActionSet(new int[]{53, 56, 49}, new int[]{0, 0, 0}, new int[]{0, 0, 0}));
+            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[24]));
+            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[25]));
+            e.add(s -> new SourceBattleRuntime(
+                    56,
+                    new int[]{5, 20, 4},
+                    new int[]{1, 1},
+                    new int[]{0, 2},
+                    new int[]{78, 78, 0}));
+            e.add(s -> { hide(s, new int[]{50}); return null; });
+            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[26]));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[27]));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[28]));
+            e.add(s -> { s.spawnActorEffect(49, 6); return null; });
+            e.add(s -> new Delay(15));
+            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[29]));
+            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[30]));
+            e.add(s -> new TimedAction(new int[]{49, 53, 54, 55, 56}, new int[]{1, 1, 1, 1, 1}, new int[]{4, 4, 4, 4, 4}, new int[]{15, 15, 15, 15, 15}));
+            e.add(s -> new TimedAction(new int[]{48}, new int[]{2}, new int[]{4}, new int[]{4}));
+            e.add(s -> new TimedAction(new int[]{49, 53, 54, 55, 56}, new int[]{2, 2, 2, 2, 2}, new int[]{4, 4, 4, 4, 4}, new int[]{23, 23, 23, 23, 23}));
+            e.add(s -> { hide(s, new int[]{49, 53, 54, 55, 56}); return null; });
+            e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
+            e.add(s -> new Opcode34Counter(70, 0, 0));
+            e.add(s -> {
+                s.text = TextBox.box(20, 220, 200, 40, VqsvText.Scene1Room3BeforeTenYears.TEXT[31], true);
+                return waitForText();
+            });
+            e.add(s -> new Delay(30));
+            e.add(s -> {
+                s.text = TextBox.full(60, 90, VqsvText.Scene1Room3BeforeTenYears.TEXT[32], true);
+                return waitForText();
+            });
+            e.add(s -> { s.spawnActorEffect(48, 1); return null; });
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[33]));
+            e.add(s -> { s.effect.startIcon("ikon_1", 120, 100, 10); return s.effect::doneOverlay; });
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[34]));
+            e.add(s -> { s.spawnActorEffect(48, 13); return null; });
+            e.add(s -> new Delay(15));
+            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[35]));
+            e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
+            e.add(s -> {
+                s.prepareTransition(199, 218, 240, 320, 2);
+                s.markWorldTransition(1, 0, -1);
+                return null;
+            });
+            e.add(s -> {
+                s.loadScene1Room0(s.transitionCenterX, s.transitionCenterY);
+                return null;
+            });
+            e.add(s -> { s.effect.startFade(1, 0); return s.effect::doneOverlay; });
+            // scene_1 room0 group0, records 0..29. Gameplay/task side effects remain approximate.
+            tenYearsEventIndex = e.size();
+            e.add(s -> {
+                s.text = TextBox.full(60, 90, VqsvText.Scene1Room0Group0.TEN_YEARS_TITLE, true);
+                return waitForText();
+            });
+            e.add(s -> { setActive(s,
+                    new int[]{36, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51},
+                    new int[]{1, 1, 1, 1, 1, 1, 0, 1, 0, 3, 1, 0, 0, 0, 3}); return null; });
+            e.add(s -> { s.setPlayerPositionApprox(199, 218); s.player.direction = 2; return null; });
+            e.add(s -> new Delay(30));
+            e.add(s -> {
+                s.text = TextBox.box(10, 260, 220, 50, VqsvText.Scene1Room0Group0.NOISE, false);
+                return null;
+            });
+            e.add(s -> new Delay(60));
+            e.add(s -> { s.spawnActorEffect(36, 13); return null; });
+            e.add(dialog(VqsvText.Scene1Room0Group0.ALI, VqsvText.Scene1Room0Group0.ALI_TALENT));
+            e.add(s -> { s.spawnActorEffect(50, 13); return null; });
+            e.add(dialog(VqsvText.Scene1Room0Group0.TITAN, VqsvText.Scene1Room0Group0.TITAN_REPLY));
+            e.add(s -> { s.spawnActorEffect(36, 13); return null; });
+            e.add(dialog(VqsvText.Scene1Room0Group0.ALI, VqsvText.Scene1Room0Group0.ALI_MOTIVE));
+            e.add(dialog(VqsvText.Scene1Room0Group0.ELDER, VqsvText.Scene1Room0Group0.ELDER_HO));
+            e.add(dialog(VqsvText.Scene1Room0Group0.ELDER, VqsvText.Scene1Room0Group0.ELDER_EXAM));
+            e.add(dialog(VqsvText.Scene1Room0Group0.NEIL, VqsvText.Scene1Room0Group0.NEIL_READY));
+            e.add(dialog(VqsvText.Scene1Room0Group0.ELDER, VqsvText.Scene1Room0Group0.ELDER_BUNNY_TASK));
+            e.add(s -> s.op17Item(0, 0, 1));
+            e.add(s -> s.op17Item(0, 1, 2));
+            e.add(s -> s.op17Item(0, 4, 5));
+            e.add(s -> { s.op39RefreshPets(); return null; });
+            e.add(dialog(VqsvText.Scene1Room0Group0.NEIL, VqsvText.Scene1Room0Group0.NEIL_SIMPLE));
+            e.add(taskNotice(VqsvText.Scene1Room0Group0.TASK_BUNNY));
+            e.add(s -> s.op10PlayerTimedAction(1, 4, 36));            e.add(s -> s.op10PlayerTimedAction(0, 4, 12));
+            e.add(s -> s.op10PlayerTimedAction(1, 4, 8));
+            e.add(s -> {
+                s.prepareTransition(55, 279, 240, 320);
+                s.op25SetGameFlag(1);
+                s.markWorldTransition(1, 1, 37);
+                s.loadScene1Room1(s.transitionCenterX, s.transitionCenterY);
+                s.placePlayerAtTransitionActorApprox(37, 16);
+                return new Op13FreeWorldTrigger(1, 1, 0, 370, 176, 80, 32);
+            });
+            // scene_1 room1 group0, records 1..10 after op13 trigger. Battle/capture remains a source-backed stub.
+            e.add(s -> s.room1BunnyBattleCaptureRuntime());
+            e.add(dialog(VqsvText.Scene1Room1Group0.NEIL, VqsvText.Scene1Room1Group0.BUNNY_REPORT));
+            e.add(s -> { s.op56ActorVisibility(1, new int[]{50}, new int[]{0}); return null; });
+            e.add(s -> { s.op23MarkEventComplete(1, 0, 1); return null; });
+            e.add(taskNotice(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER));
+            e.add(s -> {
+                s.op14CompleteEvent(1, 1, 0);
+                s.sourceStateTrace.add("PORTED op86 gate preview [1,1,0]="
+                        + s.sourceEventState(1, 1, 0)
+                        + " complete=" + s.sourceEventStateComplete(1, 1, 0));
+                return new ActorTransitionFreeWorldTrigger(1, 1, 37, 3, 1, 0, 30);
+            });
+            // scene_1 room0 group2, records 0..15. Starts only after op16 actor 52 interaction.
+            e.add(s -> new ActorInteractionFreeWorldTrigger(1, 0, 2, 1, 1, 0, 52));
+            e.add(dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.CAUGHT));
+            e.add(dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_BUNNY_CUTE, 1));
+            e.add(s -> { s.op5ActorEffect(0, 0, 9, 0, 0); return null; });
+            e.add(s -> new Delay(15));
+            e.add(dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_WRONG_TARGET));
+            e.add(dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_PET_OFFER, 1));
+            e.add(s -> { s.op5ActorEffect(0, 0, 14, 0, 0); return null; });
+            e.add(s -> new Delay(15));
+            e.add(dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_GO_SEE));
+            e.add(dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_ONLY_ONE, 1));
+            e.add(dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_NOT_FREE));
+            e.add(s -> { s.op5ActorEffect(1, 52, 3, 0, 0); return null; });
+            e.add(s -> {
+                s.sourceStateTrace.add("PORTED/APPROX room0 group2 op45 taskFlag=1");
+                s.text = TextBox.taskTip(VqsvText.Scene1Room0Group2.TASK_PET_CHOICE);
+                return waitForText();
+            });
+            e.add(s -> { s.op14CompleteEvent(1, 0, 2); return null; });
+            e.add(s -> new Room0Group3PetOffer());
+            // scene_1 room0 group6, records 0..21. Battle remains a controlled game.d stub.
+            e.add(s -> new Room0Group6Start());
+            e.add(dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_ATTACK, 1));
+            e.add(s -> { s.op67SetBattleActor(52); return null; });
+            e.add(s -> s.room0Group6ElderBattleRuntime());
+            e.add(dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_REWARD, 1));
+            e.add(s -> s.op31CurrencyReward(0, 0, 500));
+            e.add(s -> s.op17Item(0, 4, 10));
+            e.add(s -> s.op17Item(0, 11, 2));
+            e.add(s -> s.op19SpecialReward(5, 1));
+            e.add(dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_BOOK, 1));
+            e.add(dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_ABRA, 1));
+            e.add(dialog(VqsvText.Scene1Room0Group6.NEIL, VqsvText.Scene1Room0Group6.NEIL_REMEMBER));
+            e.add(s -> { s.op23MarkEventComplete(1, 0, 4); return null; });
+            e.add(s -> { s.op23MarkEventComplete(1, 0, 5); return null; });
+            e.add(s -> {
+                s.sourceStateTrace.add("PORTED/APPROX room0 group6 op45 taskFlag=2");
+                s.text = TextBox.taskTip(VqsvText.Scene1Room0Group6.TASK_BICH_THUY);
+                return waitForText();
+            });
+            e.add(s -> {
+                s.sourceStateTrace.add("PORTED/APPROX room0 group6 op40 free-world notice");
+                s.text = TextBox.openBox(VqsvText.Scene1Room0Group6.FREE_WORLD);
+                return waitForText();
+            });
+            e.add(s -> { s.op14CompleteEvent(1, 0, 6); return null; });
+            e.add(s -> new Room0PostGroup6FreeWorld());
             return e;
         }
 
-        int transitionCenterX;
-        int transitionCenterY;
+        private int transitionCenterX;
+        private int transitionCenterY;
         private int transitionWidth = W;
         private int transitionHeight = H;
         private int transitionDirection = 0;
@@ -1053,11 +1377,11 @@ public final class VqsvIntroDemo extends JPanel {
         private int nextWorldG = -1;
         private int nextWorldActor = -1;
 
-        void prepareTransition(int centerX, int centerY, int width, int height) {
+        private void prepareTransition(int centerX, int centerY, int width, int height) {
             prepareTransition(centerX, centerY, width, height, transitionDirection);
         }
 
-        void prepareTransition(int centerX, int centerY, int width, int height, int direction) {
+        private void prepareTransition(int centerX, int centerY, int width, int height, int direction) {
             transitionCenterX = centerX;
             transitionCenterY = centerY;
             transitionWidth = width;
@@ -1065,18 +1389,18 @@ public final class VqsvIntroDemo extends JPanel {
             transitionDirection = direction;
         }
 
-        void markWorldTransition(int worldF, int worldG, int actorIndex) {
+        private void markWorldTransition(int worldF, int worldG, int actorIndex) {
             nextWorldF = worldF;
             nextWorldG = worldG;
             nextWorldActor = actorIndex;
         }
 
-        static int sourceTransitionRequiredDirection(int c) {
+        private static int sourceTransitionRequiredDirection(int c) {
             int[] map = {2, 3, 0, 1};
             return c >= 0 && c < map.length ? map[c] : -1;
         }
 
-        boolean trySourceTransition(int actorId, int sourceC,
+        private boolean trySourceTransition(int actorId, int sourceC,
                                             int targetSceneId, int targetRoomIndex, int targetActorId) {
             int requiredDirection = sourceTransitionRequiredDirection(sourceC);
             if (player.direction != requiredDirection || !playerIntersectsActorSourceMask(actorId, true)) {
@@ -1132,13 +1456,13 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(cameraCenterX, cameraCenterY);
         }
 
-        void reloadBlankRoomCenteredOnActor(int actorId) {
+        private void reloadBlankRoomCenteredOnActor(int actorId) {
             reloadBlankRoom(0, 0);
             Actor target = actors[actorId];
             setCameraCenter(target.x, target.y);
         }
 
-        void loadScene7Room2(int cameraCenterX, int cameraCenterY) {
+        private void loadScene7Room2(int cameraCenterX, int cameraCenterY) {
             useMap = true;
             mapRenderer = loadMapRenderer(20);
             followActorId = -1;
@@ -1170,7 +1494,7 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(cameraCenterX, cameraCenterY);
         }
 
-        void loadRoom1(int cameraCenterX, int cameraCenterY) {
+        private void loadRoom1(int cameraCenterX, int cameraCenterY) {
             useMap = true;
             mapRenderer = loadMapRenderer(100);
             followActorId = -1;
@@ -1220,7 +1544,7 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(cameraCenterX, cameraCenterY);
         }
 
-        void loadScene5Room3(int cameraCenterX, int cameraCenterY) {
+        private void loadScene5Room3(int cameraCenterX, int cameraCenterY) {
             useMap = true;
             mapRenderer = loadMapRenderer(64);
             followActorId = -1;
@@ -1304,7 +1628,7 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(cameraCenterX, cameraCenterY);
         }
 
-        void loadScene1Room3Entry(int cameraCenterX, int cameraCenterY) {
+        private void loadScene1Room3Entry(int cameraCenterX, int cameraCenterY) {
             currentSceneId = 1;
             currentRoomIndex = 3;
             useMap = true;
@@ -1387,7 +1711,7 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(cameraCenterX, cameraCenterY);
         }
 
-        void loadScene1Room0(int cameraCenterX, int cameraCenterY) {
+        private void loadScene1Room0(int cameraCenterX, int cameraCenterY) {
             currentSceneId = 1;
             currentRoomIndex = 0;
             useMap = true;
@@ -1466,7 +1790,7 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(cameraCenterX, cameraCenterY);
         }
 
-        void loadScene1Room1(int cameraCenterX, int cameraCenterY) {
+        private void loadScene1Room1(int cameraCenterX, int cameraCenterY) {
             currentSceneId = 1;
             currentRoomIndex = 1;
             useMap = true;
@@ -1589,13 +1913,13 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(cameraCenterX, cameraCenterY);
         }
 
-        void spawnActorEffect(int actorId, int animation) {
+        private void spawnActorEffect(int actorId, int animation) {
             if (actorId == -1 || actorId >= 0 && actorId < actors.length && actors[actorId] != null) {
                 tempSprites.add(new TempSprite(actorId, animation, 120));
             }
         }
 
-        void op5ActorEffect(int mode, int actorId, int animation, int x, int y) {
+        private void op5ActorEffect(int mode, int actorId, int animation, int x, int y) {
             if (mode == 0) {
                 spawnActorEffect(-1, animation);
             } else if (mode == 1 && (x != 0 || y != 0)) {
@@ -1616,7 +1940,7 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
 
-        void setPlayerPositionApprox(int x, int y) {
+        private void setPlayerPositionApprox(int x, int y) {
             playerX = x;
             playerY = y;
             player.x = x;
@@ -1627,7 +1951,7 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(x, y);
         }
 
-        void placePlayerAtTransitionActorApprox(int actorId, int tileSize) {
+        private void placePlayerAtTransitionActorApprox(int actorId, int tileSize) {
             if (actorId < 0 || actorId >= actors.length || actors[actorId] == null) {
                 return;
             }
@@ -1642,7 +1966,7 @@ public final class VqsvIntroDemo extends JPanel {
             setCameraCenter(playerX, playerY);
         }
 
-        void tickFreeWorldPlayer() {
+        private void tickFreeWorldPlayer() {
             int dir = heldDirection();
             if (dir < 0) {
                 player.applyMode(0);
@@ -1702,7 +2026,7 @@ public final class VqsvIntroDemo extends JPanel {
                     && ny - 8 >= 0 && ny + 8 <= mapRenderer.mapHeightPixels();
         }
 
-        boolean playerIntersectsSourceRect(int x, int y, int w, int h) {
+        private boolean playerIntersectsSourceRect(int x, int y, int w, int h) {
             // Source op13 calls ae.a(rectX, rectY, rectW, rectH, player.i, player.j, player.a.k()).
             return x + w >= player.x - 8
                     && x <= player.x - 8 + 16
@@ -1710,7 +2034,7 @@ public final class VqsvIntroDemo extends JPanel {
                     && y + h >= player.y - 8;
         }
 
-        boolean playerIntersectsActorSourceMask(int actorId, boolean actorHitMask) {
+        private boolean playerIntersectsActorSourceMask(int actorId, boolean actorHitMask) {
             if (actorId < 0 || actorId >= actors.length || actors[actorId] == null) {
                 return false;
             }
@@ -1729,7 +2053,7 @@ public final class VqsvIntroDemo extends JPanel {
                     && actor.y - 16 <= player.y + 8;
         }
 
-        boolean playerInteractsActorSourceMask(int actorId) {
+        private boolean playerInteractsActorSourceMask(int actorId) {
             if (actorId < 0 || actorId >= actors.length || actors[actorId] == null) {
                 return false;
             }
@@ -1777,7 +2101,7 @@ public final class VqsvIntroDemo extends JPanel {
                     && ay + aMask[1] + aMask[3] >= by + bMask[1];
         }
 
-        void stopPlayerForSourceEvent() {
+        private void stopPlayerForSourceEvent() {
             player.applyMode(0);
             setCameraCenter(player.x, player.y);
         }
@@ -1786,23 +2110,25 @@ public final class VqsvIntroDemo extends JPanel {
             sourceStateTrace.add("APPROX " + ignoredSourceNote);
         }
 
-        int sourceEventState(int sceneId, int roomIndex, int groupIndex) {
-            return eventState.sourceEventState(sceneId, roomIndex, groupIndex);
+        private static String sourceEventStateKey(int sceneId, int roomIndex, int groupIndex) {
+            return sceneId + ":" + roomIndex + ":" + groupIndex;
         }
 
-        boolean sourceEventStateComplete(int sceneId, int roomIndex, int groupIndex) {
-            return eventState.sourceEventStateComplete(sceneId, roomIndex, groupIndex);
+        private void setSourceEventState(int sceneId, int roomIndex, int groupIndex, int state, String reason) {
+            sourceEventStates.put(sourceEventStateKey(sceneId, roomIndex, groupIndex), (byte) state);
+            sourceStateTrace.add("PORTED sourceEventState [" + sceneId + "," + roomIndex + "," + groupIndex
+                    + "]=" + state + " via " + reason);
         }
 
-        boolean op15CheckEventState(int sceneId, int roomIndex, int groupIndex) {
-            return eventState.op15CheckEventState(sceneId, roomIndex, groupIndex);
+        private int sourceEventState(int sceneId, int roomIndex, int groupIndex) {
+            return sourceEventStates.getOrDefault(sourceEventStateKey(sceneId, roomIndex, groupIndex), (byte) 0);
         }
 
-        boolean op86CheckEventState(int sceneId, int roomIndex, int groupIndex) {
-            return eventState.op86CheckEventState(sceneId, roomIndex, groupIndex);
+        private boolean sourceEventStateComplete(int sceneId, int roomIndex, int groupIndex) {
+            return sourceEventState(sceneId, roomIndex, groupIndex) == 3;
         }
 
-        Blocking op17Item(int mode, int itemId, int qty) {
+        private Blocking op17Item(int mode, int itemId, int qty) {
             SourceItem item = sourceItem(itemId);
             if (mode == 0) {
                 if (sourceCanAddItem(itemId, qty)) {
@@ -1825,7 +2151,7 @@ public final class VqsvIntroDemo extends JPanel {
             return text == null ? null : waitForText();
         }
 
-        void op39RefreshPets() {
+        private void op39RefreshPets() {
             for (SourcePetState pet : sourcePets) {
                 pet.refreshFromSourceDb();
                 sourcePetRefreshOps++;
@@ -1834,7 +2160,7 @@ public final class VqsvIntroDemo extends JPanel {
                     + " refreshOps=" + sourcePetRefreshOps);
         }
 
-        void op25SetGameFlag(int arg0) {
+        private void op25SetGameFlag(int arg0) {
             sourceGameCF = arg0 == 0;
             sourceStateTrace.add("PORTED op25 game.c.f=" + sourceGameCF + " arg0=" + arg0);
         }
@@ -1899,7 +2225,7 @@ public final class VqsvIntroDemo extends JPanel {
             return (r << 16) | (g << 8) | b;
         }
 
-        Blocking room1BunnyBattleCaptureRuntime() {
+        private Blocking room1BunnyBattleCaptureRuntime() {
             sourceStateTrace.add("PORTED/APPROX room1 group0 op37 battleSetup=[[34,5,1]]");
             sourceStateTrace.add("PORTED/APPROX room1 group0 op52 this.i=true game.c.j=false args=[0,1]");
             sourceStateTrace.add("PORTED/APPROX room1 group0 op66 an.U=0");
@@ -1914,13 +2240,13 @@ public final class VqsvIntroDemo extends JPanel {
                     -1);
         }
 
-        void op67SetBattleActor(int actorId) {
+        private void op67SetBattleActor(int actorId) {
             worldEventActor = actorId;
             battleEventActor = actorId;
             sourceStateTrace.add("PORTED room0 group6 op67 game.k.v=" + actorId);
         }
 
-        Blocking room0Group6ElderBattleRuntime() {
+        private Blocking room0Group6ElderBattleRuntime() {
             sourceStateTrace.add("PORTED/APPROX room0 group6 op37 battleSetup species=68 level=5 nature=1 from game.d.a(int[][])");
             sourceStateTrace.add("PORTED/APPROX room0 group6 op32 battleEntry mode=[0,2] captures world screen then state=12 in source");
             sourceStateTrace.add("PORTED/APPROX room0 group6 op47 branch=[10,10,0] result=0 continue reward path; full game.d command UI pending");
@@ -1934,7 +2260,7 @@ public final class VqsvIntroDemo extends JPanel {
                     true);
         }
 
-        Blocking op31CurrencyReward(int mode, int currencyKind, int amount) {
+        private Blocking op31CurrencyReward(int mode, int currencyKind, int amount) {
             if (mode == 0 && currencyKind == 0) {
                 sourceMoney += amount;
                 sourceStateTrace.add("PORTED/APPROX room0 group6 op31 add money=" + amount
@@ -1967,7 +2293,7 @@ public final class VqsvIntroDemo extends JPanel {
             return text == null ? null : waitForText();
         }
 
-        Blocking op19SpecialReward(int rewardId, int qty) {
+        private Blocking op19SpecialReward(int rewardId, int qty) {
             SourceSpecialReward reward = sourceSpecialRewards.computeIfAbsent(rewardId, SourceSpecialReward::fromSourceDb);
             reward.applySourceGameGSemantics(qty);
             sourceStateTrace.add("PORTED/APPROX room0 group6 op19 rewardId=" + rewardId
@@ -1980,7 +2306,7 @@ public final class VqsvIntroDemo extends JPanel {
             return waitForText();
         }
 
-        void op56ActorVisibility(int mode, int[] ids, int[] states) {
+        private void op56ActorVisibility(int mode, int[] ids, int[] states) {
             for (int i = 0; i < ids.length; i++) {
                 int id = ids[i];
                 if (id < 0 || id >= actors.length || actors[id] == null) {
@@ -2000,12 +2326,12 @@ public final class VqsvIntroDemo extends JPanel {
                     + " states=" + Arrays.toString(states));
         }
 
-        void op23MarkEventComplete(int worldF, int worldG, int eventId) {
-            eventState.op23MarkEventComplete(worldF, worldG, eventId);
+        private void op23MarkEventComplete(int worldF, int worldG, int eventId) {
+            setSourceEventState(worldF, worldG, eventId, 3, "op23");
         }
 
-        void op14CompleteEvent(int sceneId, int roomIndex, int groupIndex) {
-            eventState.op14CompleteEvent(sceneId, roomIndex, groupIndex);
+        private void op14CompleteEvent(int sceneId, int roomIndex, int groupIndex) {
+            setSourceEventState(sceneId, roomIndex, groupIndex, 3, "op14");
         }
 
         private static TextBox sourceInventoryPopup(String message, int qty) {
@@ -2074,11 +2400,11 @@ public final class VqsvIntroDemo extends JPanel {
             }
         }
 
-        Blocking op10PlayerTimedAction(int dir, int speed, int duration) {
+        private Blocking op10PlayerTimedAction(int dir, int speed, int duration) {
             return new Op10PlayerTimedAction(dir, speed, duration);
         }
 
-        static void setActive(Scene s, int[] ids, int[] dirs) {
+        private static void setActive(Scene s, int[] ids, int[] dirs) {
             for (int i = 0; i < ids.length; i++) {
                 Actor a = s.actors[ids[i]];
                 if (a != null) {
@@ -2089,7 +2415,7 @@ public final class VqsvIntroDemo extends JPanel {
             }
         }
 
-        static void hide(Scene s, int[] ids) {
+        private static void hide(Scene s, int[] ids) {
             for (int id : ids) {
                 if (s.actors[id] != null) {
                     s.actors[id].visible = false;
@@ -2097,28 +2423,28 @@ public final class VqsvIntroDemo extends JPanel {
             }
         }
 
-        static Event dialog(String speaker, String text) {
+        private static Event dialog(String speaker, String text) {
             return s -> {
                 s.text = TextBox.dialog(s.font, speaker, text, 0);
                 return waitForText();
             };
         }
 
-        static Event dialog(String speaker, String text, int mode) {
+        private static Event dialog(String speaker, String text, int mode) {
             return s -> {
                 s.text = TextBox.dialog(s.font, speaker, text, mode);
                 return waitForText();
             };
         }
 
-        static Event taskNotice(String text) {
+        private static Event taskNotice(String text) {
             return s -> {
                 s.text = TextBox.taskTip(text);
                 return waitForText();
             };
         }
 
-        static Blocking waitForText() {
+        private static Blocking waitForText() {
             return sc -> {
                 if (sc.text != null && sc.text.readyForKey && sc.key0) {
                     return sc.text.confirm();
@@ -2128,14 +2454,179 @@ public final class VqsvIntroDemo extends JPanel {
         }
     }
 
-    static final class Room0Group6Start implements Blocking {
+    private interface Event {
+        Blocking start(Scene s);
+    }
+
+    private static final class Op13FreeWorldTrigger implements Blocking {
+        private final int sceneId;
+        private final int roomIndex;
+        private final int groupIndex;
+        private final int x;
+        private final int y;
+        private final int w;
+        private final int h;
+        private boolean started;
+
+        private Op13FreeWorldTrigger(int sceneId, int roomIndex, int groupIndex, int x, int y, int w, int h) {
+            this.sceneId = sceneId;
+            this.roomIndex = roomIndex;
+            this.groupIndex = groupIndex;
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+        }
+
+        @Override
+        public boolean tick(Scene s) {
+            if (!started) {
+                started = true;
+                s.sourceStateTrace.add("PORTED/APPROX op13 wait scene=" + sceneId
+                        + " room=" + roomIndex + " group=" + groupIndex
+                        + " rect=[" + x + "," + y + "," + w + "," + h + "]");
+            }
+            if (s.playerIntersectsSourceRect(x, y, w, h)) {
+                s.stopPlayerForSourceEvent();
+                s.sourceStateTrace.add("PORTED/APPROX op13 trigger scene=" + sceneId
+                        + " room=" + roomIndex + " group=" + groupIndex
+                        + " player=[" + s.player.x + "," + s.player.y + "]");
+                return true;
+            }
+            s.tickFreeWorldPlayer();
+            if (s.playerIntersectsSourceRect(x, y, w, h)) {
+                s.stopPlayerForSourceEvent();
+                s.sourceStateTrace.add("PORTED/APPROX op13 trigger scene=" + sceneId
+                        + " room=" + roomIndex + " group=" + groupIndex
+                        + " player=[" + s.player.x + "," + s.player.y + "]");
+                return true;
+            }
+            return false;
+        }
+    }
+
+    private static final class ActorTransitionFreeWorldTrigger implements Blocking {
+        private final int sceneId;
+        private final int roomIndex;
+        private final int actorId;
+        private final int requiredDirection;
+        private final int targetSceneId;
+        private final int targetRoomIndex;
+        private final int targetActorId;
+        private boolean started;
+
+        private ActorTransitionFreeWorldTrigger(int sceneId, int roomIndex, int actorId,
+                                                int requiredDirection, int targetSceneId,
+                                                int targetRoomIndex, int targetActorId) {
+            this.sceneId = sceneId;
+            this.roomIndex = roomIndex;
+            this.actorId = actorId;
+            this.requiredDirection = requiredDirection;
+            this.targetSceneId = targetSceneId;
+            this.targetRoomIndex = targetRoomIndex;
+            this.targetActorId = targetActorId;
+        }
+
+        @Override
+        public boolean tick(Scene s) {
+            if (!started) {
+                started = true;
+                s.sourceStateTrace.add("PORTED/APPROX type1 transition wait scene=" + sceneId
+                        + " room=" + roomIndex
+                        + " actor=" + actorId
+                        + " requiredDir=" + requiredDirection
+                        + " target=[" + targetSceneId + "," + targetRoomIndex + "," + targetActorId + "]");
+            }
+            if (canTrigger(s)) {
+                trigger(s);
+                return true;
+            }
+            s.tickFreeWorldPlayer();
+            if (canTrigger(s)) {
+                trigger(s);
+                return true;
+            }
+            return false;
+        }
+
+        private boolean canTrigger(Scene s) {
+            return s.player.direction == requiredDirection && s.playerIntersectsActorSourceMask(actorId, true);
+        }
+
+        private void trigger(Scene s) {
+            s.trySourceTransition(actorId, sourceCFromRequiredDirection(requiredDirection),
+                    targetSceneId, targetRoomIndex, targetActorId);
+        }
+
+        private static int sourceCFromRequiredDirection(int requiredDirection) {
+            for (int c = 0; c < 4; c++) {
+                if (Scene.sourceTransitionRequiredDirection(c) == requiredDirection) {
+                    return c;
+                }
+            }
+            return -1;
+        }
+    }
+
+    private static final class ActorInteractionFreeWorldTrigger implements Blocking {
+        private final int sceneId;
+        private final int roomIndex;
+        private final int groupIndex;
+        private final int gateSceneId;
+        private final int gateRoomIndex;
+        private final int gateGroupIndex;
+        private final int actorId;
+        private boolean started;
+
+        private ActorInteractionFreeWorldTrigger(int sceneId, int roomIndex, int groupIndex,
+                                                 int gateSceneId, int gateRoomIndex, int gateGroupIndex,
+                                                 int actorId) {
+            this.sceneId = sceneId;
+            this.roomIndex = roomIndex;
+            this.groupIndex = groupIndex;
+            this.gateSceneId = gateSceneId;
+            this.gateRoomIndex = gateRoomIndex;
+            this.gateGroupIndex = gateGroupIndex;
+            this.actorId = actorId;
+        }
+
+        @Override
+        public boolean tick(Scene s) {
+            if (!started) {
+                started = true;
+                s.sourceStateTrace.add("PORTED op86 gate scene=" + sceneId
+                        + " room=" + roomIndex
+                        + " group=" + groupIndex
+                        + " requires [" + gateSceneId + "," + gateRoomIndex + "," + gateGroupIndex + "]="
+                        + s.sourceEventState(gateSceneId, gateRoomIndex, gateGroupIndex));
+                s.sourceStateTrace.add("PORTED op16 wait actor=" + actorId
+                        + " game.k.u emulated by key0 + source-mask interaction");
+            }
+            if (!s.sourceEventStateComplete(gateSceneId, gateRoomIndex, gateGroupIndex)) {
+                s.tickFreeWorldPlayer();
+                return false;
+            }
+            if (s.key0 && s.playerInteractsActorSourceMask(actorId)) {
+                s.stopPlayerForSourceEvent();
+                s.worldEventActor = actorId;
+                s.sourceStateTrace.add("PORTED op16 trigger actor=" + actorId
+                        + " player=[" + s.player.x + "," + s.player.y + "]"
+                        + " dir=" + s.player.direction);
+                return true;
+            }
+            s.tickFreeWorldPlayer();
+            return false;
+        }
+    }
+
+    private static final class Room0Group6Start implements Blocking {
         private int phase;
         private int wait;
         private Blocking effectWait;
 
         @Override
         public boolean tick(Scene s) {
-            if (!s.op15CheckEventState(1, 0, 3)) {
+            if (!s.sourceEventStateComplete(1, 0, 3)) {
                 s.tickFreeWorldPlayer();
                 return false;
             }
@@ -2163,7 +2654,7 @@ public final class VqsvIntroDemo extends JPanel {
         }
     }
 
-    static final class Room0PostGroup6FreeWorld implements Blocking {
+    private static final class Room0PostGroup6FreeWorld implements Blocking {
         private boolean started;
         private boolean room2Group3Started;
         private boolean dodoPendingLogged;
@@ -2217,7 +2708,7 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         private boolean tickRoom2(Scene s) {
-            if (!s.op15CheckEventState(1, 2, 3) && !room2Group3Started) {
+            if (!s.sourceEventStateComplete(1, 2, 3) && !room2Group3Started) {
                 room2Group3Started = true;
                 s.sourceStateTrace.add("PORTED scene1 room2 group3 op15 [1,0,6] pass");
                 s.text = TextBox.openBox(VqsvText.Common.MINIMAP_TASK_HELP);
@@ -2249,7 +2740,7 @@ public final class VqsvIntroDemo extends JPanel {
         }
     }
 
-    static final class Room0Group3PetOffer implements Blocking {
+    private static final class Room0Group3PetOffer implements Blocking {
         private static final int[] PET_IDS = {53, 54, 55};
         private static final int[] PET_BRANCH_TARGETS = {4, 8, 12};
         private static final int[][] OP87_ARGS = {
@@ -2270,7 +2761,7 @@ public final class VqsvIntroDemo extends JPanel {
 
         @Override
         public boolean tick(Scene s) {
-            if (!s.op15CheckEventState(1, 0, 2)) {
+            if (!s.sourceEventStateComplete(1, 0, 2)) {
                 s.tickFreeWorldPlayer();
                 return false;
             }
@@ -2437,7 +2928,7 @@ public final class VqsvIntroDemo extends JPanel {
 
         @Override
         public boolean tick(Scene s) {
-            if (!s.op15CheckEventState(1, 0, 2)) {
+            if (!s.sourceEventStateComplete(1, 0, 2)) {
                 s.tickFreeWorldPlayer();
                 return false;
             }
@@ -2506,6 +2997,249 @@ public final class VqsvIntroDemo extends JPanel {
         }
     }
 
+    private static final class SourceBattleRuntime implements Blocking {
+        private final int actorId;
+        private final int[] encounter;
+        private final int[] flags;
+        private final int[] battleMode;
+        private final int[] branchTargets;
+        private final int forcedResultIndex;
+        private final boolean sourceBattleSlice;
+        private int phase;
+        private int wait;
+        private SourceBattleUnit enemy;
+        private SourceBattleUnit player;
+        private int turn;
+        private boolean bunnyTutorialShown;
+        private boolean captureStarted;
+
+        private SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode, int[] branchTargets) {
+            this(actorId, encounter, flags, battleMode, branchTargets, 0, false);
+        }
+
+        private SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode,
+                                   int[] branchTargets, int forcedResultIndex) {
+            this(actorId, encounter, flags, battleMode, branchTargets, forcedResultIndex, false);
+        }
+
+        private SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode,
+                                   int[] branchTargets, int forcedResultIndex, boolean sourceBattleSlice) {
+            this.actorId = actorId;
+            this.encounter = encounter;
+            this.flags = flags;
+            this.battleMode = battleMode;
+            this.branchTargets = branchTargets;
+            this.forcedResultIndex = forcedResultIndex;
+            this.sourceBattleSlice = sourceBattleSlice;
+        }
+
+        @Override
+        public boolean tick(Scene s) {
+            switch (phase) {
+                case 0:
+                    enemy = SourceBattleUnit.enemyFromEncounter(encounter);
+                    player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
+                    if (isKidnappingBattle()) {
+                        player = SourceBattleUnit.fallback(-1, 6, 3, "Neil", 120, 22, 12, 10);
+                    }
+                    s.worldEventActor = actorId;
+                    s.battleEventActor = actorId;
+                    s.battleEncounter = Arrays.copyOf(encounter, encounter.length);
+                    s.battleCanLose = flags.length > 0 && flags[0] == 0;
+                    s.battleScriptLocksInput = flags.length > 1 && flags[1] == 0;
+                    s.battleMode = battleMode.length > 0 ? battleMode[0] : -1;
+                    s.battleBackgroundMode = battleMode.length > 1 ? battleMode[1] : -1;
+                    s.battleResultIndex = -2;
+                    s.battleBranchTarget = resolveBranch(s.battleResultIndex);
+                    s.battleCaptureTutorial = isBunnyCaptureBattle();
+                    syncRenderState(s, VqsvText.Battle.START);
+                    s.sourceStateTrace.add("PORTED/APPROX source battle runtime actor=" + actorId
+                            + " encounter=" + Arrays.toString(encounter)
+                            + " flags=" + Arrays.toString(flags)
+                            + " mode=" + Arrays.toString(battleMode)
+                            + " enemy=" + enemy
+                            + " player=" + player
+                            + " branchTargets=" + Arrays.toString(branchTargets)
+                            + "; NOT full game.d command UI/status/effect engine");
+                    s.effect.startFade(2, 0);
+                    phase = 1;
+                    return false;
+                case 1:
+                    if (!s.effect.doneOverlay(s)) {
+                        return false;
+                    }
+                    s.battleOverlayTicks = 1;
+                    wait = 18;
+                    phase = 2;
+                    return false;
+                case 2:
+                    s.battleOverlayTicks = 1;
+                    if (wait-- > 0) {
+                        return false;
+                    }
+                    if (advanceBattle(s)) {
+                        wait = 18;
+                        phase = 3;
+                    } else {
+                        wait = 22;
+                    }
+                    return false;
+                case 3:
+                    s.battleOverlayTicks = 1;
+                    if (wait-- > 0) {
+                        return false;
+                    }
+                    s.battleOverlayTicks = 0;
+                    s.battleCaptureTutorial = false;
+                    s.effect.startFade(1, 0);
+                    phase = 4;
+                    return false;
+                case 4:
+                    return s.effect.doneOverlay(s);
+                default:
+                    return true;
+            }
+        }
+
+        private boolean advanceBattle(Scene s) {
+            if (isBunnyCaptureBattle()) {
+                return advanceBunnyCapture(s);
+            }
+            if (isKidnappingBattle()) {
+                int damage = Math.max(1, enemy.basicDamageTo(player));
+                player.damage(damage);
+                turn++;
+                syncRenderState(s, enemy.name + VqsvText.Battle.DAMAGE + damage + VqsvText.Battle.DAMAGE_SUFFIX);
+                if (!player.alive()) {
+                    s.battleResultIndex = forcedResultIndex;
+                    s.battleBranchTarget = resolveBranch(s.battleResultIndex);
+                    s.battleLog = VqsvText.Battle.NEIL_LOST + s.battleResultIndex;
+                    s.sourceStateTrace.add("PORTED/APPROX kidnapping battle resolved by source stats; resultIndex="
+                            + s.battleResultIndex + " branch=" + s.battleBranchTarget);
+                    return true;
+                }
+                return false;
+            }
+            SourceBattleUnit first = player.speed >= enemy.speed ? player : enemy;
+            SourceBattleUnit second = first == player ? enemy : player;
+            applyAttack(s, first, second);
+            if (!second.alive()) {
+                return finishNormalBattle(s);
+            }
+            applyAttack(s, second, first);
+            if (!first.alive()) {
+                return finishNormalBattle(s);
+            }
+            turn++;
+            return false;
+        }
+
+        private boolean advanceBunnyCapture(Scene s) {
+            if (!bunnyTutorialShown) {
+                int damage = Math.max(1, player.basicDamageTo(enemy));
+                enemy.damage(damage);
+                turn++;
+                if (enemy.hp > enemy.maxHp / 2) {
+                    syncRenderState(s, player.name + VqsvText.Battle.DAMAGE + damage + VqsvText.Battle.DAMAGE_SUFFIX);
+                    return false;
+                }
+                bunnyTutorialShown = true;
+                syncRenderState(s, VqsvText.Battle.BUNNY_WEAK);
+                s.sourceStateTrace.add("PORTED/APPROX bunny tutorial source game.d.l(): HP<=50% then prompt capture ball");
+                return false;
+            }
+            if (!captureStarted) {
+                captureStarted = true;
+                syncRenderState(s, VqsvText.Battle.BALL_CHOSEN);
+                return false;
+            }
+            enemy.hp = 0;
+            s.battleResultIndex = forcedResultIndex;
+            s.battleBranchTarget = resolveBranch(s.battleResultIndex);
+            syncRenderState(s, VqsvText.Battle.BUNNY_CAUGHT + s.battleResultIndex);
+            s.sourceStateTrace.add("PORTED/APPROX bunny capture resolved; op47 sees l=-1/continue success path in manual script");
+            return true;
+        }
+
+        private void applyAttack(Scene s, SourceBattleUnit attacker, SourceBattleUnit target) {
+            int damage = attacker.basicDamageTo(target);
+            target.damage(damage);
+            syncRenderState(s, attacker.name + VqsvText.Battle.DAMAGE + damage + VqsvText.Battle.DAMAGE_SUFFIX);
+        }
+
+        private boolean finishNormalBattle(Scene s) {
+            int result = player.alive() ? 0 : Math.max(0, forcedResultIndex);
+            if (!player.alive() && forcedResultIndex == 0 && isElderBattle()) {
+                player.hp = 1;
+                enemy.hp = 0;
+                result = 0;
+                syncRenderState(s, VqsvText.Battle.ELDER_DONE);
+            }
+            s.battleResultIndex = result;
+            s.battleBranchTarget = resolveBranch(s.battleResultIndex);
+            s.sourceStateTrace.add("PORTED/APPROX battle resolved resultIndex="
+                    + s.battleResultIndex + " branch=" + s.battleBranchTarget
+                    + " playerHp=" + player.hp + "/" + player.maxHp
+                    + " enemyHp=" + enemy.hp + "/" + enemy.maxHp);
+            return true;
+        }
+
+        private void syncRenderState(Scene s, String log) {
+            s.battleEnemyName = enemy.name;
+            s.battleEnemyLevel = enemy.level;
+            s.battleEnemyVisualId = enemy.visualId;
+            s.battleEnemyElement = enemy.element;
+            s.battleEnemyMaxHp = enemy.maxHp;
+            s.battleEnemyHp = enemy.hp;
+            s.battlePlayerName = player.name;
+            s.battlePlayerLevel = player.level;
+            s.battlePlayerVisualId = player.visualId;
+            s.battlePlayerElement = player.element;
+            s.battlePlayerMaxHp = player.maxHp;
+            s.battlePlayerHp = player.hp;
+            s.battlePlayerEnergy = 0;
+            s.battlePlayerMaxEnergy = player.nextLevelEnergy();
+            byte relation = player.elementRelationTo(enemy);
+            if (relation == 0) {
+                s.battlePlayerPowerPercent = 300;
+                s.battleEnemyPowerPercent = 60;
+            } else if (relation == 1) {
+                s.battlePlayerPowerPercent = 60;
+                s.battleEnemyPowerPercent = 300;
+            } else {
+                s.battlePlayerPowerPercent = 100;
+                s.battleEnemyPowerPercent = 100;
+            }
+            s.battleTurn = turn;
+            s.battleLog = log;
+        }
+
+        private boolean isKidnappingBattle() {
+            return encounter.length >= 2 && encounter[0] == 5 && encounter[1] == 20;
+        }
+
+        private boolean isBunnyCaptureBattle() {
+            return encounter.length >= 1 && encounter[0] == 34;
+        }
+
+        private boolean isElderBattle() {
+            return encounter.length >= 1 && encounter[0] == 68;
+        }
+
+        private int resolveBranch(int resultIndex) {
+            if (resultIndex < 0) {
+                return -1;
+            }
+            if (branchTargets.length == 0) {
+                return -1;
+            }
+            int index = Math.max(0, resultIndex);
+            if (index >= branchTargets.length) {
+                index = branchTargets.length - 1;
+            }
+            return branchTargets[index];
+        }
+    }
 
 
 }

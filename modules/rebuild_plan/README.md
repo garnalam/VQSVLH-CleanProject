@@ -1,41 +1,106 @@
-# VQSV Rebuild Plan
+﻿# VQSV Module Rebuild Plan
 
-Mục tiêu của thư mục này là làm "móng" cho project rebuild: đọc hiểu code gốc trong
-`source_code`, ghi lại kiến trúc thật, rồi dùng nó để dựng một project Java mới có thể
-build ra JAR chạy giống bản gốc.
+ThÆ° má»¥c nÃ y lÃ  bá»™ tÃ i liá»‡u ná»n mÃ³ng Ä‘Æ°á»£c viáº¿t trong giai Ä‘oáº¡n Ä‘á»c hiá»ƒu
+`modules`: source gá»‘c, resource, renderer, runtime, UI, world/event, battle,
+text/cutscene vÃ  SMS/payment.
 
-Nguyên tắc làm việc:
+Vai trÃ² cá»§a thÆ° má»¥c nÃ y:
 
-- Không viết lại game bằng cảm tính; mọi module mới phải có đối chiếu từ source/data gốc.
-- Tách rõ ba lớp: resource format, runtime renderer, gameplay/event logic.
-- Ưu tiên dựng khung xương build được trước, sau đó lắp từng hệ đã hiểu chắc.
-- Mọi chỗ chưa chắc phải ghi là `UNVERIFIED`, không biến suy đoán thành sự thật.
+- ghi láº¡i cÆ¡ cháº¿ váº­n hÃ nh cá»§a source gá»‘c;
+- giáº£i thÃ­ch Ã½ nghÄ©a tá»«ng cá»¥m file/module;
+- chá»‰ ra dá»¯ liá»‡u nÃ o tÃ¡c Ä‘á»™ng Ä‘áº¿n module Ä‘Ã³;
+- Ä‘Ã¡nh dáº¥u cÃ¡c pháº§n cÃ²n `PARTIAL`, `UNVERIFIED`, hoáº·c cáº§n audit sÃ¢u;
+- lÃ m nguá»“n tham chiáº¿u khi port tá»«ng pháº§n sang project Java má»›i.
 
-Các tài liệu chính:
+KhÃ´ng dÃ¹ng thÆ° má»¥c nÃ y nhÆ° tráº¡ng thÃ¡i tiáº¿n Ä‘á»™ má»›i nháº¥t cá»§a demo rebuild. Tiáº¿n
+Ä‘á»™ hiá»‡n táº¡i, cÃ¡c closeout smoke, kiáº¿n trÃºc Java sau refactor, vÃ  bÃ i táº­p cho
+dev chat má»›i náº±m á»Ÿ:
 
-- [01_source_code_architecture.md](01_source_code_architecture.md): bản đồ kiến trúc source gốc.
-- [02_runtime_skeleton.md](02_runtime_skeleton.md): khung project Java mới cần dựng.
-- [03_module_port_order.md](03_module_port_order.md): thứ tự port module từ thấp lên cao.
-- [04_opcode_matrix.md](04_opcode_matrix.md): ma trận opcode event/cutscene trong `game.c`.
-- [05_resource_format_specs.md](05_resource_format_specs.md): spec tài nguyên `img/spr/map/mod/script/event/ui`.
-- [06_runtime_core_notes.md](06_runtime_core_notes.md): thu hoạch Runtime/Core: lifecycle, input, state manager.
-- [07_resource_renderer_notes.md](07_resource_renderer_notes.md): thu hoach Resource/Renderer core: loader, cache, sprite, map, font.
-- [08_effect_ui_renderer_notes.md](08_effect_ui_renderer_notes.md): thu hoach effect manager `b.java` va UI `.ui` runtime.
-- [09_world_event_notes.md](09_world_event_notes.md): thu hoach World/Event: room, actor, event VM, camera, opcode groups.
-- [10_world_event_opcode_matrix.md](10_world_event_opcode_matrix.md): ma tran opcode World/Event `0..88` tu `game.c`.
-- [11_world_event_opcode_deep_audit.md](11_world_event_opcode_deep_audit.md): audit sau opcode World/Event: branch/condition, inventory/task/reward, UI, transition, battle trigger, resource usage counts.
-- [12_ui_system_notes.md](12_ui_system_notes.md): thu hoach UI runtime: `ab/ao/af/al/ac`, `.ui`, `game.h`, va `package a/*`.
-- [13_gameplay_battle_save_notes.md](13_gameplay_battle_save_notes.md): thu hoach Gameplay/Battle/Save: `game.g`, `game.b`, `game.d`, `ar`, save slots trong `game.k`.
-- [14_source_code_remaining_audit.md](14_source_code_remaining_audit.md): checklist nhung phan trong `source_code` con can audit tiep truoc rebuild full game.
-- [15_renderer_primitive_deep_audit.md](15_renderer_primitive_deep_audit.md): audit sau renderer primitive: sprite frame/cell/animation, map layer, bitmap font, image/cache, DB bootstrap.
-- [16_ui_workflow_matrix.md](16_ui_workflow_matrix.md): ma tran UI workflow: `.ui` file, widget id, input mask, side effect/state change trong `game.h`.
-- [17_battle_state_machine.md](17_battle_state_machine.md): battle state machine `game.d.P`, UI battle flow, unit model `game.b`, damage/catch/EXP notes.
-- [18_battle_formula_status_matrix.md](18_battle_formula_status_matrix.md): ma tran cong thuc battle, skill family, status/form, buff/debuff, element relation, catch formula.
-- [19_world_tick_actor_matrix.md](19_world_tick_actor_matrix.md): world tick + actor behavior: `game.k.b()`, random encounter, actor `t/v`, camera `ai`, effect actor `ah`.
-- [20_text_cutscene_renderer_matrix.md](20_text_cutscene_renderer_matrix.md): text/cutscene renderer `game.j`: opcode `1/48/51/84`, typewriter, wrap bitmap font, prompt, paging, intro layout.
-- [21_sms_payment_side_effect_matrix.md](21_sms_payment_side_effect_matrix.md): SMS/payment side effects: `an`, `q/u/v`, VM `scene_13.mib`, reward/save matrix, `PK6_RMS_SMS/CNTSMS`.
+```text
+<PROJECT_ROOT>\rebuild_plan
+```
 
-Proof-of-concept hiện có:
+`<PROJECT_ROOT>` là thư mục chứa `modules`, `rebuild_game`, và `rebuild_plan`.
+Không ghi cố định đường dẫn theo máy cá nhân trong tài liệu hoặc code.
 
-- `build_intro_demo/`: demo Java SE dựng lại intro scene từ resource thật.
-- `dist/vqsv_intro_scene_demo.jar`: JAR demo scene đã build.
+Äá»c bridge nÃ y trÆ°á»›c náº¿u báº¡n lÃ  dev chat má»›i:
+
+```text
+modules\rebuild_plan\22_current_rebuild_handoff_bridge.md
+```
+
+## NhÃ³m TÃ i Liá»‡u Ná»n
+
+1. `01_source_code_architecture.md`
+   - báº£n Ä‘á»“ kiáº¿n trÃºc source gá»‘c.
+
+2. `02_runtime_skeleton.md`
+   - khung Java rebuild ban Ä‘áº§u.
+
+3. `03_module_port_order.md`
+   - thá»© tá»± port module tá»« tháº¥p lÃªn cao.
+
+4. `04_opcode_matrix.md`
+   - ma tráº­n opcode event/cutscene trong `game.c`.
+
+5. `05_resource_format_specs.md`
+   - spec tÃ i nguyÃªn `img/spr/map/mod/script/event/ui`.
+
+6. `06_runtime_core_notes.md`
+   - lifecycle, input, state manager, runtime/core.
+
+7. `07_resource_renderer_notes.md`
+   - loader, cache, sprite, map, font.
+
+8. `08_effect_ui_renderer_notes.md`
+   - effect manager `b.java` vÃ  UI `.ui` runtime.
+
+9. `09_world_event_notes.md`
+   - room, actor, event VM, camera, opcode groups.
+
+10. `10_world_event_opcode_matrix.md`
+    - opcode World/Event `0..88` tá»« `game.c`.
+
+11. `11_world_event_opcode_deep_audit.md`
+    - branch/condition, inventory/task/reward, UI, transition, battle trigger.
+
+12. `12_ui_system_notes.md`
+    - UI runtime: `ab/ao/af/al/ac`, `.ui`, `game.h`, package `a/*`.
+
+13. `13_gameplay_battle_save_notes.md`
+    - gameplay/battle/save: `game.g`, `game.b`, `game.d`, `ar`, save slots.
+
+14. `14_source_code_remaining_audit.md`
+    - cÃ¡c pháº§n source_code cÃ²n cáº§n audit trÆ°á»›c rebuild full game.
+
+15. `15_renderer_primitive_deep_audit.md`
+    - sprite frame/cell/animation, map layer, bitmap font, DB bootstrap.
+
+16. `16_ui_workflow_matrix.md`
+    - `.ui` file, widget id, input mask, side effect/state change trong `game.h`.
+
+17. `17_battle_state_machine.md`
+    - battle state machine `game.d.P`, UI battle flow, unit model `game.b`.
+
+18. `18_battle_formula_status_matrix.md`
+    - cÃ´ng thá»©c battle, skill family, status/form, buff/debuff, element relation.
+
+19. `19_world_tick_actor_matrix.md`
+    - world tick, actor behavior, random encounter, camera/effect actor.
+
+20. `20_text_cutscene_renderer_matrix.md`
+    - `game.j`: text/cutscene renderer, typewriter, prompt, paging, layout.
+
+21. `21_sms_payment_side_effect_matrix.md`
+    - SMS/payment side effects: `an`, `q/u/v`, VM `scene_13.mib`, save slots.
+
+## CÃ¡ch DÃ¹ng ÄÃºng
+
+Khi lÃ m má»™t task má»›i:
+
+1. Äá»c tÃ i liá»‡u hiá»‡n táº¡i trong `..\rebuild_plan` trÆ°á»›c.
+2. DÃ¹ng tÃ i liá»‡u trong `modules\rebuild_plan` Ä‘á»ƒ hiá»ƒu cÆ¡ cháº¿ gá»‘c.
+3. Má»Ÿ láº¡i source/resource tháº­t Ä‘á»ƒ kiá»ƒm chá»©ng.
+4. KhÃ´ng láº¥y ghi chÃº cÅ© lÃ m báº±ng chá»©ng cuá»‘i cÃ¹ng náº¿u chÆ°a Ä‘á»‘i chiáº¿u láº¡i file gá»‘c.
+
+
