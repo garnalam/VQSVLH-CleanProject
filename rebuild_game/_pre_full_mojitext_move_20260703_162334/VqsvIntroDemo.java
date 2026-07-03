@@ -170,7 +170,7 @@ public final class VqsvIntroDemo extends JPanel {
                     + " state123=" + s.sourceEventState(1, 2, 3)
                     + " sourcePets=" + s.sourcePets.size()
                     + " money=" + s.sourceMoney
-                    + " textState=" + (s.text == null ? "none" : "present"));
+                    + " text=" + (s.text == null ? "none" : s.text.currentText()));
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(1);
@@ -183,16 +183,15 @@ public final class VqsvIntroDemo extends JPanel {
             if ("room0_group2_first_dialog".equals(checkpoint)) {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
-                s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group2.NEIL,
-                        VqsvText.Scene1Room0Group2.CAUGHT, 0);
+                s.text = TextBox.dialog(s.font, "Neil", "B\u1ecb b\u1eaft", 0);
                 for (int i = 0; i < 60; i++) {
                     s.text.tick(s.font);
                 }
             } else if ("font_long_dialog".equals(checkpoint)) {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
-                s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group2.ELDER,
-                        VqsvText.Scene1Room0Group2.ELDER_PET_OFFER,
+                s.text = TextBox.dialog(s.font, "Tr\u01b0\u1edfng th\u00f4n",
+                        "Ti\u1ec3u t\u1eed th\u00fai, ng\u01b0\u01a1i bao nhi\u00eau tu\u1ed5i m\u00e0 l\u00ean m\u1eb7t d\u1ea1y ta h\u1ea3? \u0110\u00e2y, Cho ng\u01b0\u01a1i chu\u1ea9n b\u1ecb 3 s\u1ee7ng v\u1eadt. Hi\u1ec7n t\u1ea1i H\u1eafc Long Qu\u00e2n \u0111\u00e3 chi\u1ebfm l\u0129nh ph\u00e2n n\u1eeda \u0111\u1ea1i l\u1ee5c.",
                         1);
                 for (int i = 0; i < 120; i++) {
                     s.text.tick(s.font);
@@ -200,20 +199,21 @@ public final class VqsvIntroDemo extends JPanel {
             } else if ("font_tasktip".equals(checkpoint)) {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
-                s.text = TextBox.taskTip(VqsvText.Scene1Room0Group2.TASK_PET_CHOICE);
+                s.text = TextBox.taskTip("L\u1ef1a ch\u1ecdn s\u1ee7ng v\u1eadt c\u00f9ng tr\u01b0\u1edfng th\u00f4n t\u1ef7 th\u00ed.");
                 for (int i = 0; i < 80; i++) {
                     s.text.tick(s.font);
                 }
             } else if ("font_openbox".equals(checkpoint)) {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
-                s.text = TextBox.openBox(VqsvText.Common.ITEM_REWARD_PREFIX
-                        + VqsvText.Common.SMOKE_SANDWICH_X10);
+                s.text = TextBox.openBox("\u0110\u1ea1t \u0111\u01b0\u1ee3c: B\u00e1nh Sandwich x 10");
                 for (int i = 0; i < 80; i++) {
                     s.text.tick(s.font);
                 }
             } else if ("font_full_cutscene".equals(checkpoint)) {
-                s.text = TextBox.full(30, 90, VqsvText.Scene0Intro.TEXT[0], true);
+                s.text = TextBox.full(30, 90,
+                        "#FFFFFF Nghe \u0111\u1ed3n Thi\u00ean \u0110\u1ecba chi s\u01a1, v\u1ea1n n\u0103m v\u1ec1 tr\u01b0\u1edbc c\u00f3 hai v\u1ecb th\u1ea7n, m\u1ed9t ng\u01b0\u1eddi duy tr\u00ec tr\u1eadt t\u1ef1, m\u1ed9t ng\u01b0\u1eddi cai qu\u1ea3n th\u1ebf gi\u1edbi h\u1ed7n lo\u1ea1n.",
+                        true);
                 for (int i = 0; i < 160; i++) {
                     s.text.tick(s.font);
                 }
@@ -270,8 +270,8 @@ public final class VqsvIntroDemo extends JPanel {
                     throw new IllegalStateException("Sophie battle branch mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
                 }
-                s.text = TextBox.dialog(s.font, VqsvText.Common.UNKNOWN_SPEAKER,
-                        VqsvText.Scene1Room3BeforeTenYears.TEXT[26],
+                s.text = TextBox.dialog(s.font, "??",
+                        "\u1ea2i \u1ea3i, kh\u00f4ng ph\u1ea3i ta khi d\u1ec5 ng\u01b0\u01a1i, l\u00e0 ng\u01b0\u01a1i kh\u00f4ng bi\u1ebft t\u1ef1 l\u01b0\u1ee3ng s\u1ee9c m\u00ecnh mu\u1ed1n c\u00f9ng ta \u0111\u1ea5u m\u1ed9t chuy\u1ebfn.",
                         0);
                 revealCheckpointText(s, 120);
             } else if ("route_bunny_after_battle_task".equals(checkpoint)) {
@@ -285,7 +285,7 @@ public final class VqsvIntroDemo extends JPanel {
                 }
                 s.op23MarkEventComplete(1, 0, 1);
                 s.op14CompleteEvent(1, 1, 0);
-                s.text = TextBox.taskTip(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER);
+                s.text = TextBox.taskTip("Tr\u1edf v\u1ec1 t\u00ecm tr\u01b0\u1edfng th\u00f4n!");
                 revealCheckpointText(s, 90);
             } else if ("route_elder_after_battle_reward_state".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
@@ -304,7 +304,7 @@ public final class VqsvIntroDemo extends JPanel {
                 s.op23MarkEventComplete(1, 0, 4);
                 s.op23MarkEventComplete(1, 0, 5);
                 s.op14CompleteEvent(1, 0, 6);
-                s.text = TextBox.openBox(VqsvText.Scene1Room0Group6.FREE_WORLD);
+                s.text = TextBox.openBox("Gi\u1edd c\u00f3 th\u1ec3 t\u1ef1 do di chuy\u1ec3n.");
                 revealCheckpointText(s, 90);
             } else {
                 throw new IllegalArgumentException("Unknown checkpoint: " + checkpoint);
@@ -315,7 +315,7 @@ public final class VqsvIntroDemo extends JPanel {
             g.dispose();
             ImageIO.write(img, "png", new java.io.File(outPath));
             System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
-                    + " textState=" + (s.text == null ? "none" : "present")
+                    + " text=" + (s.text == null ? "none" : s.text.currentText())
                     + " battleResult=" + s.battleResultIndex
                     + " battleBranch=" + s.battleBranchTarget
                     + " battleHp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
@@ -691,8 +691,7 @@ public final class VqsvIntroDemo extends JPanel {
 
             font.drawTagged(g, "#FFFFFF" + battleLog, 29, 261, 202, battleLog.length());
             if (battleCaptureTutorial) {
-                font.drawTagged(g, "#fff9b1" + VqsvText.Battle.CAPTURE_LABEL, 48, 299, 28,
-                        VqsvText.Battle.CAPTURE_LABEL.length());
+                font.drawTagged(g, "#fff9b1B\u1eaft", 48, 299, 28, 3);
             }
         }
 
@@ -733,7 +732,14 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         private void drawBattleCommandBar(Graphics2D g) {
-            String[][] labels = VqsvText.Battle.COMMAND_LABELS;
+            String[][] labels = {
+                    {"Chi\u1ebfn", "\u0111\u1ea5u"},
+                    {"B\u1eaft", "\u0111\u01b0\u1ee3c"},
+                    {"\u0110\u1ea1o", "c\u1ee5"},
+                    {"S\u1ee7ng", "v\u1eadt"},
+                    {"Th\u01b0\u01a1ng", "\u0111i\u1ec3m"},
+                    {"Ch\u1ea1y", "tr\u1ed1n"}
+            };
             int[] textXs = {7, 48, 88, 128, 168, 208};
             int[] iconXs = {20, 56, 98, 137, 176, 218};
             for (int i = 0; i < iconXs.length; i++) {
@@ -965,7 +971,7 @@ public final class VqsvIntroDemo extends JPanel {
             ArrayList<Event> e = new ArrayList<>();
             e.add(s -> {
                 s.effect.startSolid(0);
-                s.text = TextBox.full(30, 90, VqsvText.Scene0Intro.TEXT[0], true);
+                s.text = TextBox.full(30, 90, "#FFFFFF Nghe Ä‘á»“n ThiÃªn Äá»‹a chi sÆ¡, váº¡n nÄƒm vá» trÆ°á»›c cÃ³ hai vá»‹ tháº§n, má»™t ngÆ°á»i duy trÃ¬ tráº­t tá»±, má»™t ngÆ°á»i cai quáº£n tháº¿ giá»›i há»—n loáº¡n, kiá»m cháº¿ láº«n nhau, duy trÃ¬ cÃ¢n báº±ng cá»§a tháº¿ giá»›i.", true);
                 return sc -> {
                     if (sc.text != null && sc.text.readyForKey && sc.key0) {
                         sc.text.disposed = true;
@@ -1004,7 +1010,7 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> { s.effect.startCircle(0, 1, 120, 160, 160); return s.effect::doneOverlay; });
             e.add(s -> { s.effect.startBars(13, 1, 1, 240, 10, 50); return s.effect::doneBars; });
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[1], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFF Vi Báº¡ch Long, vá»‹ tháº§n Ä‘á»©ng Ä‘áº§u ThiÃªn Giá»›i phá»¥ trÃ¡ch cai quáº£n tráº­t tá»±. Ba vá»‹ thá»§ há»™ thÃ¡nh thÃº láº§n lÆ°á»£t lÃ  LÃ´i Ká»³ LÃ¢n, Tinh VÃ¢n Háº¡c cÃ¹ng Minh VÆ°Æ¡ng Long.", false);
                 return null;
             });
             e.add(s -> new Move(new int[]{1}, new int[]{0}, new int[]{-4}, new int[]{0}, new int[]{18}));
@@ -1022,7 +1028,7 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> { s.effect.startParticles(90); return null; });
             e.add(s -> new Delay(15));
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[2], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFF Vi Háº¯c Long, vá»‹ tháº§n Ä‘á»©ng Ä‘áº§u Äá»‹a Giá»›i phá»¥ trÃ¡ch cai quáº£n tháº¿ giá»›i há»—n loáº¡n. Bá»‘n vá»‹ chiáº¿n tháº§n thÃº láº§n lÆ°á»£t lÃ  Chiáº¿n Tháº§n ÄÃ , TÆ°Æ¡ng QuÃ¢n Giáº£i, Linh Quang Lá»™c vÃ  Há»a PhÆ°á»£ng HoÃ ng.", false);
                 return null;
             });
             e.add(s -> new Delay(60));
@@ -1041,7 +1047,7 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> { s.loadScene7Room2(296, 140); return null; });
             e.add(s -> { s.effect.startFade(1, 0); return s.effect::doneOverlay; });
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[3], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFF Máº¥y ngÃ n nÄƒm trÆ°á»›c, lá»±c lÆ°á»£ng há»—n Ä‘á»™n tháº¿ lá»±c khÃ´ng ngá»«ng lá»›n máº¡nh, dáº§n hÃ¬nh thÃ nh xu tháº¿ Ä‘Ã n Ã¡p ThiÃªn Giá»›i. Äá»ƒ cÃ¢n báº±ng giá»¯a ThiÃªn Äá»‹a, Báº¡ch Long cÃ¹ng Háº¯c Long Ä‘Ã£ tiáº¿n hÃ nh má»™t cuá»™c ThiÃªn Äá»‹a thÃ¡nh chiáº¿n.", false);
                 return null;
             });
             e.add(s -> new Delay(15));
@@ -1066,7 +1072,7 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> { s.effect.stopParticles(); return null; });
             e.add(s -> { s.effect.startCircle(0, 1, 120, 160, 160); return s.effect::doneOverlay; });
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[4], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFF Máº¥y trÄƒm nÄƒm sau, cuá»™c chiáº¿n káº¿t thÃºc, Báº¡ch Long cÃ¹ng Háº¯c Long Ä‘á»u tan biáº¿n.", false);
                 return null;
             });
             e.add(s -> new Delay(50));
@@ -1080,12 +1086,12 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> { setActive(s, new int[]{9}, new int[]{1}); return null; });
             e.add(s -> { s.effect.startFade(1, 0); return s.effect::doneOverlay; });
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[5], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFF KhÃ´ng lÃ¢u sau Ä‘Ã³, tháº¿ gian xuáº¥t hiá»‡n hai Báº£o ChÃ¢u, má»™t tráº¯ng, má»™t Ä‘en. NgÆ°á»i ta tin ráº±ng Ä‘Ã¢y chÃ­nh lÃ  linh há»“n cá»§a cÃ¡c vá»‹ tháº§n cá»• Ä‘áº¡i, cÃ³ nÄƒng lÆ°á»£ng vÃ´ táº­n.", false);
                 return null;
             });
             e.add(s -> new Delay(140));
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[6], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFF Vá» sau, hai Báº£o ChÃ¢u nÃ y, má»™t bay lÃªn ThiÃªn Giá»›i, má»™t rÆ¡i xuá»‘ng nhÃ¢n gian, tiáº¿p tá»¥c sá»© má»‡nh báº£o vá»‡ tháº¿ giá»›i.", false);
                 return null;
             });
             e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
@@ -1102,30 +1108,30 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> { setActive(s, new int[]{41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51}, new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}); return null; });
             e.add(s -> { s.effect.startFlash(1, 0); return s.effect::doneOverlay; });
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[7], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFF ThiÃªn Giá»›i vÃ  Äá»‹a Giá»›i cÃ³ má»‘i liÃªn há»‡ duy nháº¥t thÃ´ng Ä‘áº¡o ThiÃªn Giá»›i Báº¡ch Long Tháº§n Äiá»‡n cÃ¹ng Äá»‹a Giá»›i Háº¯c Long Tháº§n Äiá»‡n. Cá»© sau má»™t trÄƒm nÄƒm, hai tÃ²a tháº§n Ä‘iá»‡n má»Ÿ lá»‘i Ä‘i thÃ´ng nhau vÃ o má»™t ngÃ y Ä‘á»ƒ ngÆ°á»i hai giá»›i cÃ³ thá»ƒ gáº·p gá»¡. NhÆ°ng má»™t trÄƒm nÄƒm má»›i cÃ³ má»™t cÆ¡ há»™i nÃªn cÃ³ thá»ƒ nÃ³i Ä‘Ã¢y cÅ©ng khÃ´ng háº³n Ä‘Ã£ lÃ  niá»m vui cho nhÃ¢n loáº¡i.", false);
                 return null;
             });
             e.add(s -> new CameraPanPoint(340, 412, 2));
             e.add(s -> new Delay(200));
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[8], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFFHáº¯c Tháº¡ch ThÃ nh MÃ£ Äáº§u: Ha ha! Tuy lÃ  trÄƒm nÄƒm má»›i cÃ³ má»™t dá»‹p nhÆ°ng Ä‘Ã¢y cÅ©ng lÃ  cÆ¡ há»™i tá»‘t. Ã trá»i Ä‘Ã£ Ä‘á»‹nh! ChÃºng quÃ¢n nghe lá»‡nh!", false);
                 return null;
             });
             e.add(s -> new Delay(110));
             e.add(s -> {
-                s.text = TextBox.box(10, 270, 220, 50, VqsvText.Scene0Intro.TEXT[9], false);
+                s.text = TextBox.box(10, 270, 220, 50, "#FFFFFF Háº¯c Long QuÃ¢n:!", false);
                 return null;
             });
             e.add(s -> new Delay(35));
             e.add(s -> {
-                s.text = TextBox.full(30, 90, VqsvText.Scene0Intro.TEXT[10], true);
+                s.text = TextBox.full(30, 90, "#FFFFFF NgÃ y nÃ o Ä‘Ã³, Táº¥t cáº£ thiÃªn khÃ´ng tháº§n Ä‘iá»‡n cÅ©ng khÃ´ng thá»ƒ thoÃ¡t khá»i kiáº¿p Ä‘á»‹nh nÃ y. ÄÃ¢y khÃ´ng pháº£i chiáº¿n tranh, cuá»™c chiáº¿n cá»§a má»™t phe, cÄƒn báº£n chÃ­nh lÃ ... Cháº¿t chÃ³c.", true);
                 return waitForText();
             });
             e.add(s -> { s.effect.startBars(12, 1, 1, 240, 10, 50); return s.effect::doneBars; });
             e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
             e.add(s -> {
                 s.loadRoom1(340, 412);
-                s.text = TextBox.full(30, 90, VqsvText.Scene0Intro.TEXT[11], true);
+                s.text = TextBox.full(30, 90, "#FFFFFF Má»™t ngÃ y sau Ä‘Ã³, trÆ°á»›c má»™t ngÃ´i Ä‘á»n hoang ...", true);
                 return sc -> {
                     if (sc.text != null && sc.text.readyForKey && sc.key0) {
                         sc.text.disposed = true;
@@ -1152,7 +1158,7 @@ public final class VqsvIntroDemo extends JPanel {
                 return null;
             });
             e.add(s -> {
-                s.text = TextBox.full(60, 90, VqsvText.Scene1Room3BeforeTenYears.TEXT[0], true);
+                s.text = TextBox.full(60, 90, "#FFFFFF SÃ¡u nÄƒm sau ...", true);
                 return waitForText();
             });
             e.add(s -> { s.effect.startFade(1, 0); return s.effect::doneOverlay; });
@@ -1160,7 +1166,7 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> new CameraPan(49, 0));
             e.add(s -> new Delay(15));
             e.add(s -> new CameraPan(48, 10));
-            e.add(dialog(VqsvText.Scene1Room0Group0.NEIL, VqsvText.Scene1Room3BeforeTenYears.TEXT[1]));
+            e.add(dialog("Neil", "Äáº¿n Ä‘Ã¢y Ä‘i! Sophie ~ TÃ¬m khÃ´ng tháº¥y ta Ä‘Ã¢u~~~ Ha ha"));
             e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{0, 0}, new int[]{0, 0}));
             e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{0, 0}, new int[]{4, 4}, new int[]{13, 13}));
             e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{3, 3}, new int[]{4, 4}, new int[]{13, 13}));
@@ -1172,60 +1178,60 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{2, 2}, new int[]{2, 2}));
             e.add(s -> { s.spawnActorEffect(49, 14); return null; });
             e.add(s -> new Delay(15));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[2]));
+            e.add(dialog("Sophie", "... HÃª hÃª ... Ã´ng trá»‘n sau Ä‘Ã¡ Peepna cá»§a tÃ´i nhÃ¬n lÃ©n chá»© gÃ¬? ~ Mau ra Ä‘Ã¢y ~"));
             e.add(s -> new TimedAction(new int[]{48}, new int[]{0}, new int[]{4}, new int[]{6}));
             e.add(s -> new TimedAction(new int[]{48}, new int[]{1}, new int[]{4}, new int[]{13}));
             e.add(s -> new TimedAction(new int[]{48}, new int[]{2}, new int[]{4}, new int[]{8}));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[3]));
+            e.add(dialog("Neil", "áº¶c, sao phÃ¡t hiá»‡n giá»i váº­y ta?..."));
             e.add(s -> { s.spawnActorEffect(49, 7); return null; });
             e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{0, 0}, new int[]{0, 0}));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[4]));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[5]));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[6]));
+            e.add(dialog("Sophie", "Hun? Tháº­t Ä‘áº¥y ~"));
+            e.add(dialog("Neil", "Ãch ... sá»›m biáº¿t khÃ´ng pháº£i."));
+            e.add(dialog("Sophie", "HÃ¬ hÃ¬ ~ thá»i gian khÃ´ng cÃ²n sá»›m, chÃºng ta mau trá»Ÿ vá» ~"));
             e.add(s -> new TimedAction(new int[]{48, 49, 50}, new int[]{0, 0, 0}, new int[]{4, 4, 4}, new int[]{13, 13, 13}));
             e.add(s -> new TimedAction(new int[]{48, 49, 50}, new int[]{1, 1, 1}, new int[]{4, 4, 4}, new int[]{20, 20, 20}));
             e.add(s -> new ActionSet(new int[]{48}, new int[]{2}, new int[]{2}));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[7]));
+            e.add(dialog("Neil", "Sophie, Ä‘Ã£ qua vÃ i nÄƒm tÃ´i muá»‘n gáº·p cha máº¹ cáº­u."));
             e.add(s -> new ActionSet(new int[]{49}, new int[]{0}, new int[]{0}));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[8]));
+            e.add(dialog("Sophie", "Ai? VÃ¬ sao chá»©?"));
             e.add(s -> { s.spawnActorEffect(48, 8); return null; });
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[9]));
+            e.add(dialog("Neil", "ÄÆ°Æ¡ng nhiÃªn lÃ  bá»Ÿi vÃ¬ chÆ°a tá»«ng gáº·p há»!"));
             e.add(s -> new TimedAction(new int[]{49, 50}, new int[]{2, 2}, new int[]{4, 4}, new int[]{16, 16}));
             e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{0, 0}, new int[]{0, 0}));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[10]));
+            e.add(dialog("Sophie", "Thá»±c ra..., chÃ­nh ta cÅ©ng chÆ°a tá»«ng Ä‘Æ°á»£c gáº·p há». Má»i ngÆ°á»i Ä‘á»u nÃ³i cha máº¹ ta Ä‘Ã£ máº¥t trong chiáº¿n tranh. Táº¥t cáº£ nhá»¯ng gÃ¬ cÃ²n láº¡i cá»§a há» chá»‰ cÃ³ chiáº¿c vÃ²ng cá»• nÃ y."));
             e.add(dialog("Neil", "..."));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[11]));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[12]));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[13]));
+            e.add(dialog("Sophie", "Neil, trÃ´ng bá»™ dáº¡ng cÃ³ váº» tÃ¢m tráº¡ng tháº¿ háº£?"));
+            e.add(dialog("Neil", "á»œ thÃ¬ ngÆ°á»i ta Ä‘á»“ng cáº£m vá»›i cáº£nh ngá»™ cá»§a cáº­u! ÄÃ¡ng thÆ°Æ¡ng quÃ¡. Hix"));
+            e.add(dialog("Sophie", "Ta khÃ´ng cáº£m tháº¥y váº­y. Máº·c dÃ¹ ta cÅ©ng muá»‘n cÃ³ cha máº¹, nhÆ°ng ta cÃ³ gia gia, cÃ³ Neil lÃ m báº¡n tháº¿ lÃ  Ä‘Ã£ quÃ¡ Ä‘á»§ rá»“i! Nháº¥t lÃ  Ä‘Æ°á»£c sá»‘ng má»™t nÆ¡i vá»›i Neil lÃ  niá»m vui lá»›n nháº¥t cá»§a ta!"));
             e.add(s -> new Delay(15));
             e.add(s -> new TimedAction(new int[]{48}, new int[]{2}, new int[]{4}, new int[]{10}));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[14]));
+            e.add(dialog("Neil", "Váº­y chÃºng ta sáº½ cÃ¹ng nhau Ä‘i Ä‘áº¿n báº¥t cá»© Ä‘Ã¢u."));
             e.add(s -> { s.spawnActorEffect(49, 5); return null; });
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[15]));
+            e.add(dialog("Sophie", "Tháº­t sá»± sao? Neil cÃ¹ng vá»›i Sophie sao?"));
             e.add(dialog("Neil", "..."));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[16]));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[17]));
+            e.add(dialog("Sophie", "NÃ³i láº¡i Ä‘i ~ Neil tháº­t sá»± sáº½ cÃ¹ng vá»›i Sophie sao?"));
+            e.add(dialog("Neil", "ÄÆ°Æ¡ng nhiÃªn! Nam nhÃ¢n Ä‘áº¡i trÆ°á»£ng phu nÃ³i má»™t lá»i khÃ´ng thay Ä‘á»•i! Ta sáº½ á»Ÿ bÃªn, báº£o vá»‡, khÃ´ng cho báº¥t cá»© ai lÃ m tá»•n thÆ°Æ¡ng Sophie!"));
             e.add(s -> { s.spawnActorEffect(49, 14); return null; });
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[18]));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[19]));
+            e.add(dialog("Sophie", " Hay quÃ¡, ta Æ°á»›c Ä‘Æ°á»£c cÃ¹ng Neil sá»‘ng chung má»™t nÆ¡i, vÄ©nh viá»…n khÃ´ng xa rá»i nhau."));
+            e.add(dialog("Neil", "á»ª, nháº¥t Ä‘á»‹nh."));
             e.add(s -> { setActive(s, new int[]{53, 54, 55, 56}, new int[]{0, 0, 0, 0}); return null; });
             e.add(s -> new TimedAction(new int[]{53, 54, 55, 56}, new int[]{0, 0, 0, 0}, new int[]{4, 4, 4, 4}, new int[]{23, 23, 23, 23}));
             e.add(s -> new TimedAction(new int[]{53, 54, 55, 56}, new int[]{3, 3, 3, 3}, new int[]{4, 4, 4, 4}, new int[]{15, 15, 15, 15}));
             e.add(s -> new ActionSet(new int[]{53, 54, 55, 56}, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0}));
-            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[20]));
+            e.add(dialog("??", "TÃ¬m Ä‘Æ°á»£c rá»“i! Rá»‘t cuá»™c Ä‘Ã£ tÃ¬m Ä‘Æ°á»£c! NgÆ°á»i mang dáº¥u áº¥n mÃ u há»“ng!"));
             e.add(s -> { s.spawnActorEffect(48, 7); return null; });
             e.add(s -> { s.spawnActorEffect(49, 7); return null; });
             e.add(s -> new ActionSet(new int[]{49}, new int[]{2}, new int[]{2}));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[21]));
+            e.add(dialog("Neil", "CÃ¡c ngÆ°Æ¡i muá»‘n lÃ m gÃ¬!?"));
             e.add(s -> new ActionSet(new int[]{49, 50}, new int[]{0, 0}, new int[]{0, 0}));
             e.add(s -> new TimedAction(new int[]{53, 49, 56, 50}, new int[]{0, 0, 0, 0}, new int[]{6, 4, 6, 4}, new int[]{4, 4, 4, 4}));
             e.add(s -> new TimedAction(new int[]{53, 49, 56, 50}, new int[]{2, 2, 2, 2}, new int[]{4, 4, 4, 4}, new int[]{6, 6, 6, 6}));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[22]));
+            e.add(dialog("Sophie", "A a a! Tháº£ ta ra! Neil!"));
             e.add(s -> new TimedAction(new int[]{48}, new int[]{2}, new int[]{4}, new int[]{6}));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[23]));
+            e.add(dialog("Neil", "Há»—n xÆ°á»£c! BuÃ´ng Sophie ra!"));
             e.add(s -> new ActionSet(new int[]{53, 56, 49}, new int[]{0, 0, 0}, new int[]{0, 0, 0}));
-            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[24]));
-            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[25]));
+            e.add(dialog("??", "Ãi chÃ , xem ra tiá»ƒu tá»­ nÃ y muá»‘n lÃ m anh hÃ¹ng cá»©u má»¹ nhÃ¢n Ä‘Ã¢y."));
+            e.add(dialog("??", "Giáº£i quyáº¿t nhanh tÃªn nÃ y trá»Ÿ vá» phá»¥c má»‡nh."));
             e.add(s -> new SourceBattleRuntime(
                     56,
                     new int[]{5, 20, 4},
@@ -1233,13 +1239,13 @@ public final class VqsvIntroDemo extends JPanel {
                     new int[]{0, 2},
                     new int[]{78, 78, 0}));
             e.add(s -> { hide(s, new int[]{50}); return null; });
-            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[26]));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[27]));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[28]));
+            e.add(dialog("??", "áº¢i áº£i, khÃ´ng pháº£i ta khi dá»… ngÆ°Æ¡i, lÃ  ngÆ°Æ¡i khÃ´ng biáº¿t tá»± lÆ°á»£ng sá»©c mÃ¬nh muá»‘n cÃ¹ng ta Ä‘áº¥u má»™t chuyáº¿n."));
+            e.add(dialog("Sophie", "Neil! Cáº­u lÃ m sao...?!"));
+            e.add(dialog("Neil", "YÃªn tÃ¢m, Ta cÃ²n cÃ³ thá»ƒ..."));
             e.add(s -> { s.spawnActorEffect(49, 6); return null; });
             e.add(s -> new Delay(15));
-            e.add(dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[29]));
-            e.add(dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[30]));
+            e.add(dialog("Sophie", "Neil! Neil! Cháº¡y mau Ä‘i!"));
+            e.add(dialog("??", "Äi thÃ´i, khÃ´ng cÃ³ thá»i gian Ä‘Ã¹a vá»›i tÃªn tiá»ƒu tá»­ Ä‘Ã³."));
             e.add(s -> new TimedAction(new int[]{49, 53, 54, 55, 56}, new int[]{1, 1, 1, 1, 1}, new int[]{4, 4, 4, 4, 4}, new int[]{15, 15, 15, 15, 15}));
             e.add(s -> new TimedAction(new int[]{48}, new int[]{2}, new int[]{4}, new int[]{4}));
             e.add(s -> new TimedAction(new int[]{49, 53, 54, 55, 56}, new int[]{2, 2, 2, 2, 2}, new int[]{4, 4, 4, 4, 4}, new int[]{23, 23, 23, 23, 23}));
@@ -1247,21 +1253,21 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
             e.add(s -> new Opcode34Counter(70, 0, 0));
             e.add(s -> {
-                s.text = TextBox.box(20, 220, 200, 40, VqsvText.Scene1Room3BeforeTenYears.TEXT[31], true);
+                s.text = TextBox.box(20, 220, 200, 40, "#FFFFFF Tá»©c tháº­t! Sophie! Tráº£ Sophie láº¡i cho ta ...!(vá»«a má»›i thá» sáº½ báº£o vá»‡ nÃ ng. Vá»«a má»›i há»©a háº¹n Ä‘i Ä‘Ã¢u cÅ©ng cÃ³ nhau, vÄ©nh viá»…n Ä‘em láº¡i niá»m vui cho Sophie. Tháº¿ mÃ ...)", true);
                 return waitForText();
             });
             e.add(s -> new Delay(30));
             e.add(s -> {
-                s.text = TextBox.full(60, 90, VqsvText.Scene1Room3BeforeTenYears.TEXT[32], true);
+                s.text = TextBox.full(60, 90, "#FFFFFF ÄÃ¡m xáº¥c xÆ°á»£c nÃ y! HÃ£y khoan!", true);
                 return waitForText();
             });
             e.add(s -> { s.spawnActorEffect(48, 1); return null; });
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[33]));
+            e.add(dialog("Neil", "ÄÃ³ lÃ  ... cÃ¡i gÃ¬ ...?"));
             e.add(s -> { s.effect.startIcon("ikon_1", 120, 100, 10); return s.effect::doneOverlay; });
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[34]));
+            e.add(dialog("Neil", "Sophie, vÃ²ng cá»• ..."));
             e.add(s -> { s.spawnActorEffect(48, 13); return null; });
             e.add(s -> new Delay(15));
-            e.add(dialog("Neil", VqsvText.Scene1Room3BeforeTenYears.TEXT[35]));
+            e.add(dialog("Neil", "KhÃ´ng, lÃ  ta khÃ´ng Ä‘á»§ máº¡nh... má»™t ngÃ y nÃ o Ä‘Ã³ ... má»™t ngÃ y nÃ o Ä‘Ã³!!!"));
             e.add(s -> { s.effect.startFade(2, 0); return s.effect::doneOverlay; });
             e.add(s -> {
                 s.prepareTransition(199, 218, 240, 320, 2);
@@ -1317,10 +1323,10 @@ public final class VqsvIntroDemo extends JPanel {
             });
             // scene_1 room1 group0, records 1..10 after op13 trigger. Battle/capture remains a source-backed stub.
             e.add(s -> s.room1BunnyBattleCaptureRuntime());
-            e.add(dialog(VqsvText.Scene1Room1Group0.NEIL, VqsvText.Scene1Room1Group0.BUNNY_REPORT));
+            e.add(dialog("Neil", "Ch\u00ednh l\u00e0 con th\u1ecf c\u1ee7a ng\u01b0\u01a1i, mau gi\u00fap ta b\u00e1o c\u00e1o k\u1ebft qu\u1ea3 \u0111\u1ec3 v\u01b0\u1ee3t qua"));
             e.add(s -> { s.op56ActorVisibility(1, new int[]{50}, new int[]{0}); return null; });
             e.add(s -> { s.op23MarkEventComplete(1, 0, 1); return null; });
-            e.add(taskNotice(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER));
+            e.add(taskNotice("Tr\u1edf v\u1ec1 t\u00ecm tr\u01b0\u1edfng th\u00f4n!"));
             e.add(s -> {
                 s.op14CompleteEvent(1, 1, 0);
                 s.sourceStateTrace.add("PORTED op86 gate preview [1,1,0]="
@@ -1351,27 +1357,27 @@ public final class VqsvIntroDemo extends JPanel {
             e.add(s -> new Room0Group3PetOffer());
             // scene_1 room0 group6, records 0..21. Battle remains a controlled game.d stub.
             e.add(s -> new Room0Group6Start());
-            e.add(dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_ATTACK, 1));
+            e.add(dialog("Tr\u01b0\u1edfng th\u00f4n", "Ti\u1ec3u t\u1eed th\u00fai, ti\u1ebfp chi\u00eau!", 1));
             e.add(s -> { s.op67SetBattleActor(52); return null; });
             e.add(s -> s.room0Group6ElderBattleRuntime());
-            e.add(dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_REWARD, 1));
+            e.add(dialog("Tr\u01b0\u1edfng th\u00f4n", "R\u1ea5t t\u1ed1t, nh\u01b0 v\u1eady, ch\u00fang ta c\u0169ng y\u00ean t\u00e2m. Neil, nh\u1eefng v\u1eadt n\u00e0y ng\u01b0\u01a1i mang theo, nh\u1eefng l\u00fac nguy k\u1ecbch s\u1ebd c\u1ea7n d\u00f9ng \u0111\u1ebfn.", 1));
             e.add(s -> s.op31CurrencyReward(0, 0, 500));
             e.add(s -> s.op17Item(0, 4, 10));
             e.add(s -> s.op17Item(0, 11, 2));
             e.add(s -> s.op19SpecialReward(5, 1));
-            e.add(dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_BOOK, 1));
-            e.add(dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_ABRA, 1));
-            e.add(dialog(VqsvText.Scene1Room0Group6.NEIL, VqsvText.Scene1Room0Group6.NEIL_REMEMBER));
+            e.add(dialog("Tr\u01b0\u1edfng th\u00f4n", "M\u1ed7i khi ng\u01b0\u01a1i nh\u00ecn th\u1ea5y ho\u1eb7c \u0111\u1ea1t \u0111\u01b0\u1ee3c m\u1ed9t s\u1ee7ng v\u1eadt m\u1edbi, s\u00e1ch tranh l\u00fd s\u1ebd gia t\u0103ng ch\u1ee7ng lo\u1ea1i s\u1ee7ng v\u1eadt, do \u0111\u00f3 c\u00e0ng thu th\u1eadp nhi\u1ec1u c\u00e0ng t\u1ed1t.", 1));
+            e.add(dialog("Tr\u01b0\u1edfng th\u00f4n", "Sau khi \u0111\u1ebfn B\u00edch Th\u1ee7y Th\u00e0nh, nh\u1edb t\u00ecm Abra, \u00f4ng \u1ea5y s\u1ebd gi\u00fap ng\u01b0\u01a1i tr\u1edf th\u00e0nh tay hu\u1ea5n luy\u1ec7n s\u1ee7ng v\u1eadt m\u1ea1nh m\u1ebd h\u01a1n.", 1));
+            e.add(dialog("Neil", "\u1eecm, ta nh\u1edb r\u1ed3i!"));
             e.add(s -> { s.op23MarkEventComplete(1, 0, 4); return null; });
             e.add(s -> { s.op23MarkEventComplete(1, 0, 5); return null; });
             e.add(s -> {
                 s.sourceStateTrace.add("PORTED/APPROX room0 group6 op45 taskFlag=2");
-                s.text = TextBox.taskTip(VqsvText.Scene1Room0Group6.TASK_BICH_THUY);
+                s.text = TextBox.taskTip("\u0110\u1ebfn B\u00edch Th\u1ee7y Th\u00e0nh.");
                 return waitForText();
             });
             e.add(s -> {
                 s.sourceStateTrace.add("PORTED/APPROX room0 group6 op40 free-world notice");
-                s.text = TextBox.openBox(VqsvText.Scene1Room0Group6.FREE_WORLD);
+                s.text = TextBox.openBox("Gi\u1edd c\u00f3 th\u1ec3 t\u1ef1 do di chuy\u1ec3n.");
                 return waitForText();
             });
             e.add(s -> { s.op14CompleteEvent(1, 0, 6); return null; });
@@ -2146,16 +2152,16 @@ public final class VqsvIntroDemo extends JPanel {
                     sourceAddItem(itemId, qty);
                     sourceStateTrace.add("PORTED/APPROX op17 add [" + mode + "," + itemId + "," + qty
                             + "] bagChannel=" + item.bagChannel + " count=" + sourceItemCount(itemId));
-                    text = sourceInventoryPopup(VqsvText.Common.ITEM_REWARD_PREFIX + item.name, qty);
+                    text = sourceInventoryPopup("\u0110\u1ea1t \u0111\u01b0\u1ee3c: " + item.name, qty);
                 } else {
                     sourceStateTrace.add("PORTED/APPROX op17 add-full [" + mode + "," + itemId + "," + qty + "]");
-                    text = sourceInventoryPopup(VqsvText.Common.ITEM_BAG_FULL, 0);
+                    text = sourceInventoryPopup("Ba l\u00f4 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ea1o c\u1ee5 n\u00e0y", 0);
                 }
             } else if (sourceCanRemoveItem(itemId, qty)) {
                 sourceRemoveItem(itemId, qty);
                 sourceStateTrace.add("PORTED/APPROX op17 remove [" + mode + "," + itemId + "," + qty
                         + "] bagChannel=" + item.bagChannel + " count=" + sourceItemCount(itemId));
-                text = sourceInventoryPopup(VqsvText.Common.ITEM_LOST_PREFIX + item.name, qty);
+                text = sourceInventoryPopup("M\u1ea5t: " + item.name, qty);
             } else {
                 sourceStateTrace.add("PORTED/APPROX op17 remove-missing [" + mode + "," + itemId + "," + qty + "]");
             }
@@ -2276,26 +2282,22 @@ public final class VqsvIntroDemo extends JPanel {
                 sourceMoney += amount;
                 sourceStateTrace.add("PORTED/APPROX room0 group6 op31 add money=" + amount
                         + " total=" + sourceMoney);
-                text = TextBox.openBox(VqsvText.Common.MONEY_REWARD_PREFIX + amount
-                        + VqsvText.Common.MONEY_REWARD_SUFFIX);
+                text = TextBox.openBox("\u0110\u1ea1t \u0111\u01b0\u1ee3c: " + amount + " kim ti\u1ec1n");
             } else if (mode == 0 && currencyKind == 1) {
                 sourceBadges += amount;
                 sourceStateTrace.add("PORTED/APPROX room0 group6 op31 add badge=" + amount
                         + " total=" + sourceBadges);
-                text = TextBox.openBox(VqsvText.Common.MONEY_REWARD_PREFIX + amount
-                        + VqsvText.Common.BADGE_REWARD_SUFFIX);
+                text = TextBox.openBox("\u0110\u1ea1t \u0111\u01b0\u1ee3c: " + amount + " Huy hi\u1ec7u");
             } else if (mode == 1 && currencyKind == 0) {
                 sourceMoney -= amount;
                 sourceStateTrace.add("PORTED/APPROX room0 group6 op31 remove money=" + amount
                         + " total=" + sourceMoney);
-                text = TextBox.openBox(VqsvText.Common.MONEY_LOST_PREFIX + amount
-                        + VqsvText.Common.MONEY_REWARD_SUFFIX);
+                text = TextBox.openBox("M\u1ea5t: " + amount + " kim ti\u1ec1n");
             } else if (mode == 1 && currencyKind == 1) {
                 sourceBadges -= amount;
                 sourceStateTrace.add("PORTED/APPROX room0 group6 op31 remove badge=" + amount
                         + " total=" + sourceBadges);
-                text = TextBox.openBox(VqsvText.Common.MONEY_LOST_PREFIX + amount
-                        + VqsvText.Common.BADGE_LOST_SUFFIX);
+                text = TextBox.openBox("M\u1ea5t: " + amount + " huy hi\u1ec7u");
             } else {
                 sourceStateTrace.add("UNKNOWN room0 group6 op31 args=["
                         + mode + "," + currencyKind + "," + amount + "]");
@@ -2313,7 +2315,7 @@ public final class VqsvIntroDemo extends JPanel {
                     + " game.g path=" + reward.gameGPath
                     + " unlocked=" + reward.unlocked
                     + " stack=" + reward.stackCount);
-            text = sourceInventoryPopup(VqsvText.Common.ITEM_REWARD_PREFIX + reward.name, qty);
+            text = sourceInventoryPopup("\u0110\u1ea1t \u0111\u01b0\u1ee3c: " + reward.name, qty);
             return waitForText();
         }
 
@@ -2399,13 +2401,13 @@ public final class VqsvIntroDemo extends JPanel {
             // Source data: aq.c[4][itemId][0] -> aq.d[textId], plus aq.c[4][itemId][5] bag channel.
             switch (itemId) {
                 case 0:
-                    return new SourceItem(0, 261, VqsvText.Items.TAT_TRUNG_CAU, 0);
+                    return new SourceItem(0, 261, "T\u1ea5t Trung C\u1ea7u", 0);
                 case 1:
-                    return new SourceItem(1, 262, VqsvText.Items.PHONG_AN_CAU, 0);
+                    return new SourceItem(1, 262, "Phong \u1ea5n c\u1ea7u", 0);
                 case 4:
-                    return new SourceItem(4, 265, VqsvText.Items.BANH_SANDWICH, 1);
+                    return new SourceItem(4, 265, "B\u00e1nh Sandwich", 1);
                 case 11:
-                    return new SourceItem(11, 272, VqsvText.Items.SINH_MENH_THACH, 4);
+                    return new SourceItem(11, 272, "Sinh m\u1ec7nh th\u1ea1ch", 4);
                 default:
                     return new SourceItem(itemId, 0, "", 0);
             }
@@ -2514,7 +2516,7 @@ public final class VqsvIntroDemo extends JPanel {
         private static SourceSpecialReward fromSourceDb(int rewardId) {
             if (rewardId == 5) {
                 return new SourceSpecialReward(5, 300, 47, 308,
-                        VqsvText.Items.PET_BOOK_PAGE);
+                        "Trang s\u00e1ch t\u01b0\u01a1ng \u1ee9ng c\u1ee7a s\u1ee7ng v\u1eadt");
             }
             return new SourceSpecialReward(rewardId, 0, 0, 0, "Reward " + rewardId);
         }
@@ -3383,7 +3385,7 @@ public final class VqsvIntroDemo extends JPanel {
                         s.stopPlayerForSourceEvent();
                         s.sourceStateTrace.add("PORTED room0 group3 op38 selected actor="
                                 + petId + " branch=" + PET_BRANCH_TARGETS[i]);
-                        s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group3.ELDER,
+                        s.text = TextBox.dialog(s.font, "\u0054\u0072\u01b0\u1edf\u006e\u0067 \u0074\u0068\u00f4\u006e",
                                 petDescription(petId), 1);
                         phase = 1;
                         return false;
@@ -3403,7 +3405,7 @@ public final class VqsvIntroDemo extends JPanel {
                     downWasDown = s.keyDown;
                     leftWasDown = s.keyLeft;
                     rightWasDown = s.keyRight;
-                    s.choice = ChoiceBox.optionUi(0, VqsvText.Scene1Room0Group3.YES_NO_OPTIONS);
+                    s.choice = ChoiceBox.optionUi(0, new String[]{"C\u00f3", "Kh\u00f4ng"});
                     s.sourceStateTrace.add("PORTED/APPROX room0 group3 op35 choice shown actor="
                             + selectedActor + " branches=" + op35BranchesForSelectedPet()
                             + "; source game.h mode=0 /data/ui/option.ui coordinates/cells ported, full ao renderer pending");
@@ -3433,8 +3435,7 @@ public final class VqsvIntroDemo extends JPanel {
                         return false;
                     }
                     applyOp87(s);
-                    s.text = TextBox.openBox(VqsvText.Common.ITEM_REWARD_PREFIX
-                            + petRewardName(selectedActor));
+                    s.text = TextBox.openBox("\u0110\u1ea1t \u0111\u01b0\u1ee3c: " + petRewardName(selectedActor));
                     phase = 3;
                 }
                 return false;
@@ -3500,7 +3501,7 @@ public final class VqsvIntroDemo extends JPanel {
                 case 55:
                     return VqsvText.Scene1Room0Group3.DRAGON;
                 default:
-                    return VqsvText.Common.SOURCE_PET_REWARD_FALLBACK;
+                    return "S\u1ee7ng v\u1eadt";
             }
         }
 
@@ -5079,7 +5080,7 @@ public final class VqsvIntroDemo extends JPanel {
                     int[] ys = {307, 307, 313};
                     g.fillPolygon(xs, ys, 3);
                 } else {
-                    String prompt = VqsvText.Common.PROMPT_PRESS_0;
+                    String prompt = "Nh\u1ea5n n\u00fat 0 \u0111\u1ec3 ti\u1ebfp t\u1ee5c";
                     g.setColor(Color.WHITE);
                     int px = (W - font.width(prompt)) / 2;
                     font.drawTagged(g, prompt, px, H - 18, W, prompt.length());

@@ -1,0 +1,12 @@
+# Basic original-JAR visual probe.
+# This intentionally only checks launch/capture around the music prompt; it
+# does not claim scene parity or menu progression.
+
+wait 5000
+capture 001_after_launch
+
+key 0 1000
+capture 002_after_0
+
+key 0 1000
+capture 003_after_second_0

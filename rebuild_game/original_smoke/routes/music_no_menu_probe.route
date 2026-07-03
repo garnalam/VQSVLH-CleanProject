@@ -1,0 +1,12 @@
+# Probe original boot flow through the music prompt.
+# Use pointer click for "Khong" because KEmulator softkey SendKeys can be
+# unreliable depending on focus.
+
+wait 5000
+capture 001_music_prompt
+
+click 214 309 3000
+capture 002_after_music_no
+
+key FIRE 1000
+capture 003_after_fire
