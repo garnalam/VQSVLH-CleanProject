@@ -118,7 +118,7 @@ Important honesty notes:
 | 93 | 1 | Full text `Dam xac xuoc nay!...` | `TextBox.full(60,90,...)` | APPROX | Text exists; first arg/type handling simplified. |
 | 94 | 5 | Effect anim 1 on actor 48 | `spawnActorEffect(48,1)` | APPROX | Effect exists; exact offset/layer may differ. |
 | 95 | 4 | Neil dialog | `dialog("Neil", ...)` | PORTED | Direct text. |
-| 96 | 9 | Circle/special effect `[15,0,120,100,10,0]` | `effect.startCircle(0,0,120,100,10)` | APPROX | Visual intent present; opcode 9 type 15 is not pixel-perfect. |
+| 96 | 9 | Icon/special effect `[15,0,120,100,10,0]` using `M[0] = ikon_1` | `effect.startIcon("ikon_1",120,100,10)` | APPROX | Now uses the real source tex asset `modules/tex/decoded/data__tex__ikon_1.png` centered at source args. Alpha/timing is still an approximation of root `b.java`. |
 | 97 | 4 | Neil dialog | `dialog("Neil", ...)` | PORTED | Direct text. |
 | 98 | 5 | Effect anim 13 on actor 48 | `spawnActorEffect(48,13)` | APPROX | Effect exists; exact offset/layer may differ. |
 | 99 | 12 | Delay `15` | `Delay(15)` | PORTED | Direct. |

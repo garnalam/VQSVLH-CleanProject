@@ -43,6 +43,14 @@ public final class MapRenderer {
         return cameraY;
     }
 
+    public int mapWidthPixels() {
+        return map.widthPixels();
+    }
+
+    public int mapHeightPixels() {
+        return map.heightPixels();
+    }
+
     public int layerCount() {
         return map.layerCount();
     }
