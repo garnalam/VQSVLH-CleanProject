@@ -123,6 +123,36 @@ For a new dev chat:
 | Full UI runtime | PENDING | `40`, `41` |
 | Generic event runner | PENDING | `42`, `43` |
 
+## Recent Cleanup Status
+
+- DONE: `OldRoom0Group3PetOffer` removed after proving it was unused.
+- DONE: `Room0Group3PetOffer` moved into
+  `Scene1Room0Group3PetScript.java` without behavior changes.
+- DONE: `Room0Group6Start` and `Room0PostGroup6FreeWorld` moved into
+  `Scene1Room0Group6ElderBattleScript.java` without behavior changes.
+- DONE: battle UI drawing extracted into `VqsvBattleRenderer.java` without
+  intended runtime behavior changes.
+- DONE: map/room loaders extracted into `VqsvSceneLoaders.java` without
+  intended runtime behavior changes.
+- DONE: inventory/reward/source gameplay ops extracted into
+  `VqsvSourceOps.java` without intended runtime behavior changes.
+- DONE: smoke harness extracted into `VqsvSmokeHarness.java` without intended
+  smoke behavior changes.
+- DONE: source event side-effect helpers extracted into
+  `VqsvSourceEffects.java` without intended runtime behavior changes.
+  `op9` effect parity remains `APPROX/PENDING`; this was a move-only cleanup.
+- DONE: free-world movement/transition/collision helpers extracted into
+  `VqsvFreeWorldRuntime.java` without intended runtime behavior changes.
+  Full `game.g.q()` movement/collision remains pending; this was a move-only
+  cleanup.
+- DONE: scene camera/render helpers extracted into `VqsvSceneView.java`
+  without intended runtime behavior changes. Full original renderer/UI parity
+  remains pending; this was a move-only cleanup.
+- Next recommended cleanup:
+  audit remaining `VqsvIntroDemo.Scene` responsibilities and choose the next
+  smallest move-only split, likely input/tick/event-runner shell, actor/dialog
+  utilities, or battle runtime factory wrappers.
+
 ## Documentation Rules For Future Audits
 
 When adding a new audit doc:

@@ -143,13 +143,10 @@ Responsibilities still inside:
 - runnable demo and smoke-test entrypoint
 - main `Scene` state object
 - event list assembly call site
-- map/world render glue
-- source inventory/reward slices
-- some room loaders and actor setup
-- current battle HUD drawing glue
-- pet-selection and post-group6 blocking classes that still need extraction
+- input/tick/event-runner shell
+- thin wrappers around extracted source helper files
 
-Known size after refactor: about 2368 lines.
+Known size after refactor: still large.
 
 Do not treat it as fully cleaned up. New code should avoid making it larger
 unless the task specifically requires working inside the central scene object.
@@ -242,10 +239,122 @@ Not yet complete:
 - capture probability and full inventory semantics
 - battle animations/effects
 
+### `VqsvBattleRenderer.java`
+
+Current battle overlay/HUD drawing helpers.
+
+Current truth: extracted from `VqsvIntroDemo.Scene` without intended runtime
+behavior changes. It is still `PORTED/APPROX`, because full original
+`game.h/game.d` battle UI parity remains pending.
+
+### `VqsvSceneLoaders.java`
+
+Current map/room loader tables and map renderer construction.
+
+Current truth: extracted from `VqsvIntroDemo.Scene` without intended runtime
+behavior changes. `Scene` intentionally keeps wrapper methods such as
+`loadScene1Room0(...)` so existing script files do not change call shape.
+
+Contains loaders for scene 7 room 2, legacy `loadRoom1`, scene 5 room 3,
+scene 1 room 3 entry, and scene 1 rooms 0/1/2.
+
 ### `VqsvSourceModels.java`
 
 Small source-like models for items, special rewards, pet state, and battle
 units. Keep this as data model code, not story logic.
+
+### `VqsvSourceOps.java`
+
+Current source-backed inventory/reward opcode helpers.
+
+Current truth: extracted from `VqsvIntroDemo.Scene` without intended runtime
+behavior changes. `Scene` intentionally keeps wrapper methods for
+`op17Item(...)`, `op31CurrencyReward(...)`, and `op19SpecialReward(...)` so
+existing script files do not change call shape.
+
+This file owns current source bag helpers, item id mapping, reward popup
+construction, currency mutation, and special reward mutation for the current
+manual route.
+
+### `VqsvSourceEffects.java`
+
+Current source event side-effect opcode helpers.
+
+Current truth: extracted from `VqsvIntroDemo.Scene` without intended runtime
+behavior changes. Keep this separate from `VqsvSourceOps.java`; inventory and
+reward mutation belong in `VqsvSourceOps.java`, while event side effects belong
+here.
+
+Contains current wrappers/helpers for:
+
+- `op5ActorEffect`
+- `op9SourceEffect`
+- `op25SetGameFlag`
+- `op39RefreshPets`
+- `op56ActorVisibility`
+- `op67SetBattleActor`
+
+Important: extraction does not mean full original effect parity. Opcode 9
+effect rendering remains `APPROX/PENDING` against the original engine.
+
+### `VqsvFreeWorldRuntime.java`
+
+Current free-world movement, transition, and collision/interaction helpers.
+
+Current truth: extracted from `VqsvIntroDemo.Scene` without intended runtime
+behavior changes. `Scene` intentionally keeps wrapper methods such as
+`tickFreeWorldPlayer()`, `trySourceTransition(...)`,
+`playerIntersectsActorSourceMask(...)`, and `playerInteractsActorSourceMask(...)`
+so existing scripts and smoke harness code do not change call shape.
+
+Contains current helpers for:
+
+- transition preparation/state and source direction mapping
+- type-1 actor transition checks/loads for current scene1 room0/room1/room2
+- source-shaped player placement at target transition actors
+- free-world player movement from held direction keys
+- source rectangle trigger check for `op13`
+- actor mask overlap checks for type-1 transitions and `op16`/`op38`
+- stop-player behavior when a source event fires
+
+Important: this does not make movement/collision fully original. Full
+`game.g.q()` tile/actor collision remains pending; current movement collision
+is still `APPROX` and mostly map-boundary plus source mask trigger checks.
+
+### `VqsvSceneView.java`
+
+Current scene camera and render helpers.
+
+Current truth: extracted from `VqsvIntroDemo.Scene` without intended runtime
+behavior changes. `Scene` intentionally keeps wrapper methods such as
+`render(...)`, `setCameraCenter(...)`, `moveCameraToward(...)`,
+`cameraCenteredOn(...)`, `followActor(...)`, and `stopCameraFollow()` so
+existing scripts, loaders, free-world runtime, and smoke harness code do not
+change call shape.
+
+Contains current helpers for:
+
+- scene render ordering
+- map layer rendering
+- actor layer rendering and Y-sort for layer 1
+- player rendering
+- camera center/pan/follow helpers
+
+Important: extraction does not mean full original renderer parity. The current
+route rendering remains `PORTED/APPROX`; full original `game.k/game.j/game.h`
+rendering is still broader pending work.
+
+### `VqsvSmokeHarness.java`
+
+Smoke-only command-line harness extracted from `VqsvIntroDemo.java`.
+
+It owns smoke image rendering, checkpoint setup, route driving, fast-forward
+ticks, actor-placement helpers used by checkpoints, and output logging for
+`--smoke`, `--smoke-drive`, and `--smoke-checkpoint`.
+
+Movement/transition smoke checkpoints include `room1_op13_bunny_trigger`,
+`return_room0_transition`, `actor52_interaction_group2`,
+`post_group6_room2_entry_tip`, and `post_group6_room0_back_from_room2`.
 
 ### `VqsvEffect.java`
 
@@ -289,8 +398,8 @@ Script status:
 | `Scene1Room0Group0Script.java` | PORTED/APPROX | Ten-years-later start and Bunny transition. |
 | `Scene1Room1BunnyScript.java` | PORTED/APPROX + battle pending | Writes source event states after Bunny. |
 | `Scene1Room0Group2ElderScript.java` | PORTED/APPROX | Must be actor52 interaction gated, not auto-run. |
-| `Scene1Room0Group3PetScript.java` | PORTED/APPROX | Still delegates to `Room0Group3PetOffer` inside `VqsvIntroDemo`. |
-| `Scene1Room0Group6ElderBattleScript.java` | PORTED/APPROX + battle pending | Still uses `Room0Group6Start` and post-group6 block inside `VqsvIntroDemo`. |
+| `Scene1Room0Group3PetScript.java` | PORTED/APPROX | Owns `Room0Group3PetOffer`; full `game.g` pet inventory remains partial. |
+| `Scene1Room0Group6ElderBattleScript.java` | PORTED/APPROX + battle pending | Owns `Room0Group6Start` and `Room0PostGroup6FreeWorld`; full `game.d` remains pending. |
 
 ## Current Trust Boundary
 
@@ -338,7 +447,10 @@ java "-Dvqsv.modules=$env:MODULES_ROOT" -cp "$env:REBUILD_GAME\build\classes" co
 Mojibake scan:
 
 ```powershell
-rg -n "Ãƒ|Ã‚|Ã„|Ã†|Ã¡Âº|Ã¡Â»|Ã…|â‚¬|Å“|â„¢|Å¡|Å¸" "$env:REBUILD_GAME\src\main\java" -g "*.java"
+$pattern = @'
+Ãƒ|Ã‚|Ã„|Ã†|Ã¡Âº|Ã¡Â»|Ã…|â‚¬|Å“|â„¢|Å¡|Å¸
+'@.Trim()
+rg -n $pattern "$env:REBUILD_GAME\src\main\java" -g "*.java" -g "!_backup*"
 ```
 
 PNG smoke only:

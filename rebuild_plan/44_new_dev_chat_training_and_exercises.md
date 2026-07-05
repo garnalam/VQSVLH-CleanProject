@@ -137,7 +137,10 @@ $env:REBUILD_GAME = Join-Path $env:PROJECT_ROOT "rebuild_game"
 cd $env:REBUILD_GAME
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 java "-Dvqsv.modules=$env:MODULES_ROOT" -cp "$env:REBUILD_GAME\build\classes" com.vqsv.rebuild.Main --check
-rg -n "Ãƒ|Ã‚|Ã„|Ã†|Ã¡Âº|Ã¡Â»|Ã…|â‚¬|Å“|â„¢|Å¡|Å¸" "$env:REBUILD_GAME\src\main\java" -g "*.java"
+$pattern = @'
+Ãƒ|Ã‚|Ã„|Ã†|Ã¡Âº|Ã¡Â»|Ã…|â‚¬|Å“|â„¢|Å¡|Å¸
+'@.Trim()
+rg -n $pattern "$env:REBUILD_GAME\src\main\java" -g "*.java" -g "!_backup*"
 ```
 
 Relevant PNG smoke examples:
@@ -195,42 +198,53 @@ Reject or correct the answer if it:
 - opens the game client when asked for smoke only
 - edits user-approved intro/scene0 while working on unrelated tasks
 
+## Completed Small Tasks
+
+- DONE: proved `OldRoom0Group3PetOffer` was unused and removed only that old
+  class.
+- DONE: moved live `Room0Group3PetOffer` into
+  `Scene1Room0Group3PetScript.java` without changing behavior.
+- DONE: moved `Room0Group6Start` and `Room0PostGroup6FreeWorld` into
+  `Scene1Room0Group6ElderBattleScript.java` without changing behavior.
+- DONE: extracted battle UI drawing into `VqsvBattleRenderer.java` without
+  changing intended runtime behavior.
+- DONE: extracted map/room loaders into `VqsvSceneLoaders.java` without
+  changing intended runtime behavior.
+- DONE: extracted inventory/reward/source gameplay ops into
+  `VqsvSourceOps.java` without changing intended runtime behavior.
+- DONE: extracted smoke harness into `VqsvSmokeHarness.java` without changing
+  intended smoke behavior.
+- DONE: extracted source event side-effect helpers into
+  `VqsvSourceEffects.java` without changing intended runtime behavior.
+  Keep it separate from `VqsvSourceOps.java`.
+- DONE: extracted free-world movement/transition/collision helpers into
+  `VqsvFreeWorldRuntime.java` without changing intended runtime behavior.
+  Full `game.g.q()` movement/collision remains pending.
+- DONE: extracted scene camera/render helpers into `VqsvSceneView.java`
+  without changing intended runtime behavior.
+
 ## First Small Task For A New Dev
 
 Recommended starter task:
 
 ```text
-Prove whether OldRoom0Group3PetOffer is unused, then remove only that unused
-class if the proof is clean.
+Audit remaining `VqsvIntroDemo.Scene` responsibilities and recommend the next
+smallest move-only split.
 ```
 
 Required procedure:
 
-1. Run `rg -n "OldRoom0Group3PetOffer|new Room0Group3PetOffer|Room0Group3PetOffer" rebuild_game/src/main/java`.
+1. Run `rg -n "press0|click|setMoveKey|void tick|makeEvents|setActive|hide|dialog\\(|taskNotice|waitForText|room1BunnyBattleCaptureRuntime|room0Group6ElderBattleRuntime" rebuild_game/src/main/java/VqsvIntroDemo.java`.
 2. Show the references in chat.
-3. If `OldRoom0Group3PetOffer` has no runtime references, remove only that
-   class.
-4. Build.
-5. Run `--check`.
-6. Run mojibake scan.
-7. Smoke:
-   - `room0_pet_choice_ui`
-   - `actor52_interaction_group2`
-   - `route_elder_after_battle_reward_state`
+3. List remaining responsibilities in `VqsvIntroDemo.Scene`.
+4. Recommend one smallest move-only split, but do not code until the user
+   chooses it.
+5. If the user chooses a split, keep behavior identical, build, run `--check`,
+   run mojibake scan, and smoke relevant checkpoints.
 
-Do not move or rewrite the live `Room0Group3PetOffer` in the same task.
-
-## Second Small Task After Passing
-
-Move `Room0Group3PetOffer` into `Scene1Room0Group3PetScript.java` without
-changing behavior.
-
-Rules:
-
-- This is a move-only refactor.
-- Keep constructor and behavior identical.
-- Build/check/smoke the same three checkpoints.
-- If any PNG differs unexpectedly, stop and report before continuing.
+Do not touch battle runtime, route scripts, scene/map loader tables,
+inventory/reward/source ops, source side-effect helpers, free-world runtime
+helpers, or scene view helpers in the same task.
 
 ## Larger Future Work
 

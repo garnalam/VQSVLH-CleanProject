@@ -1,44 +1,33 @@
-import com.vqsv.rebuild.core.GameConfig;
-import com.vqsv.rebuild.render.GameMap;
-import com.vqsv.rebuild.render.MapModInfo;
 import com.vqsv.rebuild.render.MapRenderer;
-import com.vqsv.rebuild.render.TileSet;
-import com.vqsv.rebuild.resource.AssetPaths;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Shape;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 public final class VqsvIntroDemo extends JPanel {
-    private static final int W = 240;
-    private static final int H = 320;
-    private static final int SCALE = 2;
+    static final int W = 240;
+    static final int H = 320;
+    static final int SCALE = 2;
     private final BufferedImage frame = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
     private final Scene scene;
 
     public static void main(String[] args) {
         if (args.length > 0 && "--smoke".equals(args[0])) {
             int ticks = args.length > 2 ? Integer.parseInt(args[2]) : 360;
-            runSmoke(args.length > 1 ? args[1] : "build_intro_demo/smoke.png", ticks);
+            VqsvSmokeHarness.runSmoke(args.length > 1 ? args[1] : "build_intro_demo/smoke.png", ticks);
             return;
         }
         if (args.length > 0 && "--smoke-drive".equals(args[0])) {
@@ -46,13 +35,13 @@ public final class VqsvIntroDemo extends JPanel {
             int preloadTicks = args.length > 2 ? Integer.parseInt(args[2]) : 5920;
             String route = args.length > 3 ? args[3] : "";
             int postTicks = args.length > 4 ? Integer.parseInt(args[4]) : 0;
-            runSmokeDrive(out, preloadTicks, route, postTicks);
+            VqsvSmokeHarness.runSmokeDrive(out, preloadTicks, route, postTicks);
             return;
         }
         if (args.length > 0 && "--smoke-checkpoint".equals(args[0])) {
             String checkpoint = args.length > 1 ? args[1] : "room0_group2_first_dialog";
             String out = args.length > 2 ? args[2] : "build_intro_demo/smoke_checkpoint.png";
-            runSmokeCheckpoint(checkpoint, out);
+            VqsvSmokeHarness.runSmokeCheckpoint(checkpoint, out);
             return;
         }
         if (args.length > 0 && "--play-at".equals(args[0])) {
@@ -86,375 +75,6 @@ public final class VqsvIntroDemo extends JPanel {
         panel.start();
     }
 
-    private static void tickSceneFastForward(Scene s, int ticks) {
-        for (int i = 0; i < ticks; i++) {
-            if (s.text != null && s.text.readyForKey) {
-                s.press0();
-            }
-            s.tick();
-        }
-    }
-
-    private static void tickCurrentUntilDone(Scene s, int maxTicks) {
-        int guard = 0;
-        while (s.current != null && guard++ < maxTicks) {
-            if (s.text != null && s.text.readyForKey) {
-                s.press0();
-            }
-            s.tick();
-        }
-        if (s.current != null) {
-            throw new IllegalStateException("Checkpoint current did not finish in " + maxTicks + " ticks");
-        }
-    }
-
-    private static void revealCheckpointText(Scene s, int ticks) {
-        for (int i = 0; i < ticks; i++) {
-            if (s.text == null) {
-                return;
-            }
-            s.text.tick(s.font);
-        }
-    }
-
-    private static void placePlayerForActorMaskSmoke(Scene s, int actorId,
-                                                     boolean actorHitMask, int direction) {
-        Actor actor = s.actors[actorId];
-        if (actor == null) {
-            throw new IllegalStateException("Missing smoke actor " + actorId);
-        }
-        for (int dy = -28; dy <= 28; dy += 2) {
-            for (int dx = -28; dx <= 28; dx += 2) {
-                placePlayerForSmoke(s, actor.x + dx, actor.y + dy, direction);
-                if (s.playerIntersectsActorSourceMask(actorId, actorHitMask)) {
-                    return;
-                }
-            }
-        }
-        throw new IllegalStateException("Could not place player on actor mask " + actorId);
-    }
-
-    private static void placePlayerForActorInteractionSmoke(Scene s, int actorId) {
-        Actor actor = s.actors[actorId];
-        if (actor == null) {
-            throw new IllegalStateException("Missing smoke actor " + actorId);
-        }
-        for (int dir = 0; dir < 4; dir++) {
-            for (int dy = -28; dy <= 28; dy += 2) {
-                for (int dx = -28; dx <= 28; dx += 2) {
-                    placePlayerForSmoke(s, actor.x + dx, actor.y + dy, dir);
-                    if (s.playerInteractsActorSourceMask(actorId)) {
-                        return;
-                    }
-                }
-            }
-        }
-        throw new IllegalStateException("Could not place player for actor interaction " + actorId);
-    }
-
-    private static void placePlayerForSmoke(Scene s, int x, int y, int direction) {
-        s.player.x = x;
-        s.player.y = y;
-        s.playerX = x;
-        s.playerY = y;
-        s.player.direction = direction;
-        s.player.visible = true;
-        s.player.applyMode(0);
-        s.setCameraCenter(x, y);
-    }
-
-    private static void runSmoke(String outPath, int ticks) {
-        try {
-            Scene s = new Scene();
-            BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
-            tickSceneFastForward(s, ticks);
-            Graphics2D g = img.createGraphics();
-            s.render(g);
-            g.dispose();
-            ImageIO.write(img, "png", new java.io.File(outPath));
-            System.out.println("smoke-ok " + outPath + " ticks=" + ticks);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    private static void runSmokeDrive(String outPath, int preloadTicks, String route, int postTicks) {
-        try {
-            Scene s = new Scene();
-            BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
-            tickSceneFastForward(s, preloadTicks);
-            driveRoute(s, route);
-            tickSceneFastForward(s, postTicks);
-            Graphics2D g = img.createGraphics();
-            s.render(g);
-            g.dispose();
-            ImageIO.write(img, "png", new java.io.File(outPath));
-            System.out.println("smoke-drive-ok " + outPath + " preload=" + preloadTicks
-                    + " route=" + route + " post=" + postTicks
-                    + " room=[" + s.currentSceneId + "," + s.currentRoomIndex + "]"
-                    + " player=[" + s.player.x + "," + s.player.y + "," + s.player.direction + "]"
-                    + " eventIndex=" + s.eventIndex
-                    + " state103=" + s.sourceEventState(1, 0, 3)
-                    + " state106=" + s.sourceEventState(1, 0, 6)
-                    + " state123=" + s.sourceEventState(1, 2, 3)
-                    + " sourcePets=" + s.sourcePets.size()
-                    + " money=" + s.sourceMoney
-                    + " textState=" + (s.text == null ? "none" : "present"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    private static void runSmokeCheckpoint(String checkpoint, String outPath) {
-        try {
-            Scene s = new Scene();
-            if ("room0_group2_first_dialog".equals(checkpoint)) {
-                s.loadScene1Room0(199, 218);
-                s.setPlayerPositionApprox(200, 192);
-                s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group2.NEIL,
-                        VqsvText.Scene1Room0Group2.CAUGHT, 0);
-                for (int i = 0; i < 60; i++) {
-                    s.text.tick(s.font);
-                }
-            } else if ("font_long_dialog".equals(checkpoint)) {
-                s.loadScene1Room0(199, 218);
-                s.setPlayerPositionApprox(200, 192);
-                s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group2.ELDER,
-                        VqsvText.Scene1Room0Group2.ELDER_PET_OFFER,
-                        1);
-                for (int i = 0; i < 120; i++) {
-                    s.text.tick(s.font);
-                }
-            } else if ("font_tasktip".equals(checkpoint)) {
-                s.loadScene1Room0(199, 218);
-                s.setPlayerPositionApprox(200, 192);
-                s.text = TextBox.taskTip(VqsvText.Scene1Room0Group2.TASK_PET_CHOICE);
-                for (int i = 0; i < 80; i++) {
-                    s.text.tick(s.font);
-                }
-            } else if ("font_openbox".equals(checkpoint)) {
-                s.loadScene1Room0(199, 218);
-                s.setPlayerPositionApprox(200, 192);
-                s.text = TextBox.openBox(VqsvText.Common.ITEM_REWARD_PREFIX
-                        + VqsvText.Common.SMOKE_SANDWICH_X10);
-                for (int i = 0; i < 80; i++) {
-                    s.text.tick(s.font);
-                }
-            } else if ("font_full_cutscene".equals(checkpoint)) {
-                s.text = TextBox.full(30, 90, VqsvText.Scene0Intro.TEXT[0], true);
-                for (int i = 0; i < 160; i++) {
-                    s.text.tick(s.font);
-                }
-            } else if ("room0_pet_choice_ui".equals(checkpoint)) {
-                s.loadScene1Room0(199, 218);
-                s.setPlayerPositionApprox(200, 192);
-                Scene.setActive(s, new int[]{53, 54, 55}, new int[]{0, 0, 0});
-                s.choice = ChoiceBox.optionUi(0, VqsvText.Scene1Room0Group3.YES_NO_OPTIONS);
-            } else if ("room1_op13_bunny_trigger".equals(checkpoint)) {
-                s.loadScene1Room1(370, 176);
-                s.setPlayerPositionApprox(374, 180);
-                Blocking trigger = new Op13FreeWorldTrigger(1, 1, 0, 370, 176, 80, 32);
-                if (!trigger.tick(s)) {
-                    throw new IllegalStateException("op13 smoke trigger did not complete");
-                }
-                s.text = TextBox.taskTip(VqsvText.Scene1Room0Group0.TASK_BUNNY);
-                revealCheckpointText(s, 80);
-            } else if ("return_room0_transition".equals(checkpoint)) {
-                s.loadScene1Room1(370, 176);
-                placePlayerForActorMaskSmoke(s, 37, true, 3);
-                Blocking trigger = new ActorTransitionFreeWorldTrigger(1, 1, 37, 3, 1, 0, 30);
-                if (!trigger.tick(s)) {
-                    throw new IllegalStateException("return room0 smoke trigger did not complete");
-                }
-                if (s.currentSceneId != 1 || s.currentRoomIndex != 0) {
-                    throw new IllegalStateException("return room0 target mismatch scene="
-                            + s.currentSceneId + " room=" + s.currentRoomIndex);
-                }
-            } else if ("actor52_interaction_group2".equals(checkpoint)) {
-                s.loadScene1Room0(199, 218);
-                s.op14CompleteEvent(1, 1, 0);
-                placePlayerForActorInteractionSmoke(s, 52);
-                s.key0 = true;
-                Blocking trigger = new ActorInteractionFreeWorldTrigger(1, 0, 2, 1, 1, 0, 52);
-                if (!trigger.tick(s)) {
-                    throw new IllegalStateException("actor52 smoke trigger did not complete");
-                }
-                if (s.worldEventActor != 52) {
-                    throw new IllegalStateException("actor52 smoke worldEventActor mismatch "
-                            + s.worldEventActor);
-                }
-                s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group2.NEIL,
-                        VqsvText.Scene1Room0Group2.CAUGHT, 0);
-                revealCheckpointText(s, 80);
-            } else if ("battle_kidnapping".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
-                        new int[]{1, 1}, new int[]{0, 2}, new int[]{78, 78, 0});
-                for (int i = 0; i < 50; i++) {
-                    s.tick();
-                }
-            } else if ("battle_kidnapping_result".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
-                        new int[]{1, 1}, new int[]{0, 2}, new int[]{78, 78, 0});
-                for (int i = 0; i < 80; i++) {
-                    s.tick();
-                }
-            } else if ("battle_bunny_capture".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
-                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
-                for (int i = 0; i < 140; i++) {
-                    s.tick();
-                }
-            } else if ("battle_bunny_capture_result".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
-                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
-                for (int i = 0; i < 190; i++) {
-                    s.tick();
-                }
-            } else if ("battle_elder".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
-                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
-                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
-                for (int i = 0; i < 50; i++) {
-                    s.tick();
-                }
-            } else if ("battle_elder_result".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
-                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
-                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
-                for (int i = 0; i < 260; i++) {
-                    s.tick();
-                }
-            } else if ("route_sophie_after_battle_branch".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
-                        new int[]{1, 1}, new int[]{0, 2}, new int[]{78, 78, 0});
-                tickCurrentUntilDone(s, 500);
-                if (s.battleResultIndex != 0 || s.battleBranchTarget != 78) {
-                    throw new IllegalStateException("Sophie battle branch mismatch result="
-                            + s.battleResultIndex + " branch=" + s.battleBranchTarget);
-                }
-                s.text = TextBox.dialog(s.font, VqsvText.Common.UNKNOWN_SPEAKER,
-                        VqsvText.Scene1Room3BeforeTenYears.TEXT[26],
-                        0);
-                revealCheckpointText(s, 120);
-            } else if ("route_bunny_after_battle_task".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
-                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
-                tickCurrentUntilDone(s, 600);
-                if (s.battleResultIndex != -1 || s.battleBranchTarget != -1) {
-                    throw new IllegalStateException("Bunny battle branch mismatch result="
-                            + s.battleResultIndex + " branch=" + s.battleBranchTarget);
-                }
-                s.op23MarkEventComplete(1, 0, 1);
-                s.op14CompleteEvent(1, 1, 0);
-                s.text = TextBox.taskTip(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER);
-                revealCheckpointText(s, 90);
-            } else if ("route_elder_after_battle_reward_state".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
-                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
-                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
-                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
-                tickCurrentUntilDone(s, 800);
-                if (s.battleResultIndex != 0 || s.battleBranchTarget != 10) {
-                    throw new IllegalStateException("Elder battle branch mismatch result="
-                            + s.battleResultIndex + " branch=" + s.battleBranchTarget);
-                }
-                s.op31CurrencyReward(0, 0, 500);
-                s.op17Item(0, 4, 10);
-                s.op17Item(0, 11, 2);
-                s.op19SpecialReward(5, 1);
-                s.op23MarkEventComplete(1, 0, 4);
-                s.op23MarkEventComplete(1, 0, 5);
-                s.op14CompleteEvent(1, 0, 6);
-                s.text = TextBox.openBox(VqsvText.Scene1Room0Group6.FREE_WORLD);
-                revealCheckpointText(s, 90);
-            } else {
-                throw new IllegalArgumentException("Unknown checkpoint: " + checkpoint);
-            }
-            BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = img.createGraphics();
-            s.render(g);
-            g.dispose();
-            ImageIO.write(img, "png", new java.io.File(outPath));
-            System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
-                    + " textState=" + (s.text == null ? "none" : "present")
-                    + " battleResult=" + s.battleResultIndex
-                    + " battleBranch=" + s.battleBranchTarget
-                    + " battleHp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
-                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
-                    + " battleLog=" + s.battleLog
-                    + " state101=" + s.sourceEventState(1, 0, 1)
-                    + " state110=" + s.sourceEventState(1, 1, 0)
-                    + " state106=" + s.sourceEventState(1, 0, 6)
-                    + " money=" + s.sourceMoney
-                    + " pets=" + s.sourcePets.size());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    private static void driveRoute(Scene s, String route) {
-        for (String raw : route.split(",")) {
-            String step = raw.trim();
-            if ("0".equals(step)) {
-                s.press0();
-                s.tick();
-                continue;
-            }
-            if (step.length() >= 2 && Character.toUpperCase(step.charAt(0)) == 'T') {
-                int ticks = Integer.parseInt(step.substring(1));
-                for (int i = 0; i < ticks; i++) {
-                    if (s.text != null && s.text.readyForKey) {
-                        s.press0();
-                    }
-                    s.tick();
-                }
-                continue;
-            }
-            if (step.length() < 2) {
-                continue;
-            }
-            int keyCode = driveKeyCode(Character.toUpperCase(step.charAt(0)));
-            if (keyCode == 0) {
-                continue;
-            }
-            int ticks = Integer.parseInt(step.substring(1));
-            s.setMoveKey(keyCode, true);
-            for (int i = 0; i < ticks; i++) {
-                if (s.text != null && s.text.readyForKey) {
-                    s.press0();
-                }
-                s.tick();
-            }
-            s.setMoveKey(keyCode, false);
-        }
-    }
-
-    private static int driveKeyCode(char dir) {
-        switch (dir) {
-            case 'U':
-                return KeyEvent.VK_UP;
-            case 'D':
-                return KeyEvent.VK_DOWN;
-            case 'L':
-                return KeyEvent.VK_LEFT;
-            case 'R':
-                return KeyEvent.VK_RIGHT;
-            default:
-                return 0;
-        }
-    }
-
     private VqsvIntroDemo() {
         this(0);
     }
@@ -467,11 +87,11 @@ public final class VqsvIntroDemo extends JPanel {
         setPreferredSize(new Dimension(W * SCALE, H * SCALE));
         setFocusable(true);
         scene = new Scene();
-        tickSceneFastForward(scene, preloadTicks);
+        VqsvSmokeHarness.tickSceneFastForward(scene, preloadTicks);
         if (route != null && !route.isEmpty()) {
-            driveRoute(scene, route);
+            VqsvSmokeHarness.driveRoute(scene, route);
         }
-        tickSceneFastForward(scene, postTicks);
+        VqsvSmokeHarness.tickSceneFastForward(scene, postTicks);
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -524,28 +144,28 @@ public final class VqsvIntroDemo extends JPanel {
         final FontBitmap font = new FontBitmap();
         final Effect effect = new Effect();
         final Actor[] actors = makeActors();
-        private final List<Event> events = makeEvents();
-        private final List<TempSprite> tempSprites = new ArrayList<>();
+        final List<Event> events = makeEvents();
+        final List<TempSprite> tempSprites = new ArrayList<>();
         final Actor player = new Actor(-1, 0, 0, 0, 0, 1, 1);
-        private final WorldUi worldUi = new WorldUi();
-        private MapRenderer mapRenderer;
+        final WorldUi worldUi = new WorldUi();
+        MapRenderer mapRenderer;
         TextBox text;
         ChoiceBox choice;
-        private int eventIndex = 0;
-        private int currentSceneId = -1;
-        private int currentRoomIndex = -1;
+        int eventIndex = 0;
+        int currentSceneId = -1;
+        int currentRoomIndex = -1;
         int cameraX = 0;
         int cameraY = 0;
         int playerX = 0;
         int playerY = 0;
-        private boolean useMap;
+        boolean useMap;
         boolean key0;
-        private boolean keyUp;
-        private boolean keyDown;
-        private boolean keyLeft;
-        private boolean keyRight;
-        private Blocking current;
-        private int followActorId = -1;
+        boolean keyUp;
+        boolean keyDown;
+        boolean keyLeft;
+        boolean keyRight;
+        Blocking current;
+        int followActorId = -1;
         int worldEventActor = -1;
         int battleEventActor = -1;
         int[] battleEncounter = new int[0];
@@ -575,17 +195,17 @@ public final class VqsvIntroDemo extends JPanel {
         int battlePlayerEnergy;
         int battlePlayerMaxEnergy = 1;
         boolean battleCaptureTutorial;
-        private int sourceMoney;
-        private int sourceBadges;
-        private final Map<Integer, BagItem> sourceBagItems = initialSourceBagItems();
-        private final Map<Integer, SourceSpecialReward> sourceSpecialRewards = new HashMap<>();
+        int sourceMoney;
+        int sourceBadges;
+        final Map<Integer, BagItem> sourceBagItems = VqsvSourceOps.initialSourceBagItems();
+        final Map<Integer, SourceSpecialReward> sourceSpecialRewards = VqsvSourceOps.initialSourceSpecialRewards();
         private final VqsvEventState eventState = new VqsvEventState();
         final List<SourcePetState> sourcePets = new ArrayList<>();
         final List<String> sourceStateTrace = eventState.trace;
-        private boolean sourceGameCF = false;
-        private int sourcePetRefreshOps = 0;
+        boolean sourceGameCF = false;
+        int sourcePetRefreshOps = 0;
 
-        private void press0() {
+        void press0() {
             key0 = true;
         }
 
@@ -599,7 +219,7 @@ public final class VqsvIntroDemo extends JPanel {
             key0 = true;
         }
 
-        private void setMoveKey(int keyCode, boolean pressed) {
+        void setMoveKey(int keyCode, boolean pressed) {
             switch (keyCode) {
                 case KeyEvent.VK_UP:
                 case KeyEvent.VK_W:
@@ -626,7 +246,7 @@ public final class VqsvIntroDemo extends JPanel {
             }
         }
 
-        private void tick() {
+        void tick() {
             effect.tick();
             if (text != null) {
                 text.tick(font);
@@ -671,313 +291,32 @@ public final class VqsvIntroDemo extends JPanel {
             updateCameraFollow();
         }
 
-        private void render(Graphics2D g) {
-            g.setColor(useMap ? Color.BLACK : new Color(8, 16, 80));
-            g.fillRect(0, 0, W, H);
-            if (useMap) {
-                renderMapLayer(g, 1);
-                renderMapLayer(g, 2);
-            }
-
-            renderActorLayer(g, 2, false);
-            renderActorLayer(g, 1, true);
-            renderPlayer(g);
-            for (TempSprite sprite : tempSprites) {
-                sprite.render(g, this);
-            }
-            if (useMap) {
-                renderMapLayer(g, 3);
-            }
-            renderActorLayer(g, 0, false);
-
-            effect.renderParticles(g);
-            effect.renderOverlay(g);
-            renderBattleOverlay(g);
-            worldUi.render(g, useMap);
-            if (text != null) {
-                text.render(g, font);
-            }
-            if (choice != null) {
-                choice.render(g, font);
-            }
-        }
-
-        private void renderBattleOverlay(Graphics2D g) {
-            if (battleOverlayTicks <= 0) {
-                return;
-            }
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, W, H);
-            g.setColor(new Color(36, 72, 104));
-            g.fillRect(0, 36, W, 118);
-            g.setColor(new Color(8, 18, 28));
-            g.fillRect(0, 154, W, 166);
-            g.setColor(Color.WHITE);
-            g.drawRect(8, 46, 224, 88);
-            g.drawRect(8, 188, 224, 76);
-            String branch = "auto result " + battleResultIndex + " -> branch " + battleBranchTarget;
-            font.drawTagged(g, "#FFFFFF" + branch, 16, 206, 208, branch.length());
-            font.drawTagged(g, "#FFFFFFScripted stub", 16, 228, 208, 13);
-        }
-
-        private void renderSourceLikeBattleUi(Graphics2D g) {
-            g.setColor(new Color(9, 42, 58));
-            g.fillRect(0, 0, W, H);
-            g.setColor(new Color(22, 82, 94));
-            g.fillRect(0, 72, W, 92);
-            g.setColor(new Color(17, 54, 82));
-            g.fillRect(0, 164, W, 71);
-            drawBattleUiCellTopLeft(g, 92, 0, 0);
-            drawBattleUiCellTopLeft(g, 93, 0, 235);
-            drawBattleUiCellTopLeft(g, 158, 101, 1);
-            drawBattleSprite(g, battleEnemyVisualId, 132, 70, 96, 118, 7, 0);
-            drawBattleSprite(g, battlePlayerVisualId, 18, 140, 96, 95, 7, 0);
-
-            drawBattleUiCellTopLeft(g, 101, 97, 14);
-            drawBattleCommandBar(g);
-
-            font.drawTagged(g, "#FFFFFF" + battleEnemyName, 3, 2, 58, battleEnemyName.length());
-            font.drawTagged(g, "#FFFFFFlv" + battleEnemyLevel, 64, 2, 36, 4);
-            drawBattleProgressWidget(g, 5, 16, 82, hpPercent(battleEnemyHp, battleEnemyMaxHp), 0x9B9B9B);
-            drawBattleProgressWidget(g, 5, 16, 82, hpPercent(battleEnemyHp, battleEnemyMaxHp), 0x59F148);
-            drawBattleProgressWidget(g, 5, 16, 82, hpPercent(battleEnemyHp, battleEnemyMaxHp), 0xFFFFFF);
-            String enemyHp = battleEnemyHp + "/" + battleEnemyMaxHp;
-            font.drawTagged(g, "#fff9b1" + enemyHp, 16, 13, 72, enemyHp.length());
-            drawBattleUiCellTopLeft(g, 94 + Math.max(0, battleEnemyElement), 92, 2);
-            drawBattlePercent(g, 124, 2, battleEnemyPowerPercent);
-            drawStatusSlots(g, 2, 25, 10, 30, false);
-
-            font.drawTagged(g, "#FFFFFF" + battlePlayerName, 153, 238, 58, battlePlayerName.length());
-            font.drawTagged(g, "#FFFFFFlv" + battlePlayerLevel, 214, 238, 26, 4);
-            drawBattleProgressWidget(g, 153, 252, 82, hpPercent(battlePlayerHp, battlePlayerMaxHp), 0x9B9B9B);
-            drawBattleProgressWidget(g, 153, 252, 82, hpPercent(battlePlayerHp, battlePlayerMaxHp), 0x59F148);
-            drawBattleProgressWidget(g, 153, 252, 82, hpPercent(battlePlayerHp, battlePlayerMaxHp), 0xFFFFFF);
-            String playerHp = battlePlayerHp + "/" + battlePlayerMaxHp;
-            font.drawTagged(g, "#fff9b1" + playerHp, 167, 249, 66, playerHp.length());
-            String playerEnergy = battlePlayerEnergy + "/" + battlePlayerMaxEnergy;
-            font.drawTagged(g, "#fff9b1" + playerEnergy, 81, 258, 72, playerEnergy.length());
-            drawBattleUiCellTopLeft(g, 94 + Math.max(0, battlePlayerElement), 139, 249);
-            drawBattlePercent(g, 104, 248, battlePlayerPowerPercent);
-            drawStatusSlots(g, 226, 221, 234, 226, true);
-
-            font.drawTagged(g, "#FFFFFF" + battleLog, 29, 261, 202, battleLog.length());
-            if (battleCaptureTutorial) {
-                font.drawTagged(g, "#fff9b1" + VqsvText.Battle.CAPTURE_LABEL, 48, 299, 28,
-                        VqsvText.Battle.CAPTURE_LABEL.length());
-            }
-        }
-
-        private void drawBattleUiCellTopLeft(Graphics2D g, int cellId, int x, int y) {
-            SpriteAnim ui = SpriteAnim.load(257);
-            int[] bounds = ui.cellBounds(cellId);
-            if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
-                return;
-            }
-            ui.drawCell(g, cellId, x - bounds[0], y - bounds[1], 0);
-        }
-
-        private void drawSpriteCellTopLeft(Graphics2D g, int spriteIndex, int cellId, int x, int y) {
-            SpriteAnim sprite = SpriteAnim.load(spriteIndex);
-            int[] bounds = sprite.cellBounds(cellId);
-            if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
-                return;
-            }
-            sprite.drawCell(g, cellId, x - bounds[0], y - bounds[1], 0);
-        }
-
-        private void drawBattleSprite(Graphics2D g, int spriteIndex, int x, int y, int w, int h, int align, int orientation) {
-            if (spriteIndex < 0) {
-                return;
-            }
-            SpriteAnim.load(spriteIndex).drawAligned(g, x, y, w, h, align, orientation);
-        }
-
-        private void drawBattlePanel(Graphics2D g, int x, int y, int w, int h, boolean fill) {
-            if (fill) {
-                g.setColor(new Color(0, 0, 0, 150));
-                g.fillRect(x, y, w, h);
-            }
-            g.setColor(new Color(232, 244, 255));
-            g.drawRect(x, y, w - 1, h - 1);
-            g.setColor(new Color(52, 88, 105));
-            g.drawRect(x + 1, y + 1, w - 3, h - 3);
-        }
-
-        private void drawBattleCommandBar(Graphics2D g) {
-            String[][] labels = VqsvText.Battle.COMMAND_LABELS;
-            int[] textXs = {7, 48, 88, 128, 168, 208};
-            int[] iconXs = {20, 56, 98, 137, 176, 218};
-            for (int i = 0; i < iconXs.length; i++) {
-                drawBattleUiCellTopLeft(g, 31, iconXs[i], 293);
-            }
-            for (int i = 0; i < labels.length; i++) {
-                drawTinyBattleText(g, labels[i][0], textXs[i], 299, 34, Color.WHITE);
-                drawTinyBattleText(g, labels[i][1], textXs[i], 309, 34, Color.WHITE);
-            }
-        }
-
-        private void drawStatusSlots(Graphics2D g, int iconStartX, int iconY, int overlayStartX, int overlayY, boolean rightToLeft) {
-            for (int i = 0; i < 6; i++) {
-                int dx = rightToLeft ? -i * 15 : i * 15;
-                drawSpriteCellTopLeft(g, 325, 0, iconStartX + dx, iconY);
-                drawBattleUiCellTopLeft(g, 145, overlayStartX + dx, overlayY);
-            }
-        }
-
-        private void drawBattlePercent(Graphics2D g, int x, int y, int percent) {
-            Color color = percent > 100 ? new Color(0xfff1a0) : percent < 100 ? new Color(0xb8d8ff) : Color.WHITE;
-            drawTinyBattleText(g, percent + "%", x, y + 1, 28, color);
-        }
-
-        private void drawTinyBattleText(Graphics2D g, String text, int x, int y, int width, Color color) {
-            Shape oldClip = g.getClip();
-            g.clipRect(x, y - 1, width, 18);
-            font.drawTaggedLine(g, text, x, y, TextBox.visibleLength(TextBox.decodeMojibake(text)),
-                    color.getRGB() & 0xFFFFFF);
-            g.setClip(oldClip);
-        }
-
-        private void drawBattleProgressWidget(Graphics2D g, int x, int y, int w, int percent, int color) {
-            int fill = Math.max(0, Math.min(w, percent * w / 100));
-            if (fill <= 1) {
-                return;
-            }
-            g.setColor(new Color(color));
-            g.fillRect(x + 1, y + 1, fill - 1, 7);
-        }
-
-        private static int hpPercent(int hp, int maxHp) {
-            return Math.max(0, Math.min(100, hp * 100 / Math.max(1, maxHp)));
-        }
-
-        private void drawBattleHpTrack(Graphics2D g, int x, int y, int w, int hp, int maxHp) {
-            int safeMax = Math.max(1, maxHp);
-            int fill = Math.max(0, Math.min(w - 2, hp * (w - 2) / safeMax));
-            g.setColor(new Color(0x646464));
-            g.fillRect(x, y, w, 6);
-            g.setColor(Color.BLACK);
-            g.drawRect(x, y, w, 6);
-            g.setColor(new Color(0x58c548));
-            g.fillRect(x + 1, y + 1, fill, 5);
-        }
-
-        private static void drawBattleHpBar(Graphics2D g, int x, int y, int hp, int maxHp, int color) {
-            int safeMax = Math.max(1, maxHp);
-            int fill = Math.max(0, Math.min(96, hp * 96 / safeMax));
-            g.setColor(Color.WHITE);
-            g.drawRect(x, y, 100, 8);
-            g.setColor(new Color(color));
-            g.fillRect(x + 2, y + 2, fill, 5);
+        void render(Graphics2D g) {
+            VqsvSceneView.render(this, g);
         }
 
         void setCameraCenter(int cx, int cy) {
-            if (useMap && mapRenderer != null) {
-                mapRenderer.centerCameraOn(cx, cy);
-                cameraX = mapRenderer.cameraX();
-                cameraY = mapRenderer.cameraY();
-            } else {
-                cameraX = clamp(cx - W / 2, 0, 640 - W);
-                cameraY = clamp(cy - H / 2, 0, 480 - H);
-            }
+            VqsvSceneView.setCameraCenter(this, cx, cy);
         }
 
         void moveCameraToward(int cx, int cy, int speed) {
-            int targetX;
-            int targetY;
-            if (useMap && mapRenderer != null) {
-                mapRenderer.centerCameraOn(cx, cy);
-                targetX = mapRenderer.cameraX();
-                targetY = mapRenderer.cameraY();
-            } else {
-                targetX = clamp(cx - W / 2, 0, 640 - W);
-                targetY = clamp(cy - H / 2, 0, 480 - H);
-            }
-            if (speed <= 0) {
-                cameraX = targetX;
-                cameraY = targetY;
-            } else {
-                int dx = targetX - cameraX;
-                int dy = targetY - cameraY;
-                int distance = (int) Math.sqrt(dx * dx + dy * dy);
-                if (distance <= speed) {
-                    cameraX = targetX;
-                    cameraY = targetY;
-                } else {
-                    cameraX += dx * speed / distance;
-                    cameraY += dy * speed / distance;
-                }
-            }
-            if (useMap && mapRenderer != null) {
-                mapRenderer.setCamera(cameraX, cameraY);
-                cameraX = mapRenderer.cameraX();
-                cameraY = mapRenderer.cameraY();
-            }
+            VqsvSceneView.moveCameraToward(this, cx, cy, speed);
         }
 
         boolean cameraCenteredOn(int cx, int cy) {
-            int oldX = cameraX;
-            int oldY = cameraY;
-            if (useMap && mapRenderer != null) {
-                mapRenderer.centerCameraOn(cx, cy);
-                boolean same = oldX == mapRenderer.cameraX() && oldY == mapRenderer.cameraY();
-                mapRenderer.setCamera(oldX, oldY);
-                return same;
-            }
-            return oldX == clamp(cx - W / 2, 0, 640 - W)
-                    && oldY == clamp(cy - H / 2, 0, 480 - H);
+            return VqsvSceneView.cameraCenteredOn(this, cx, cy);
         }
 
         void followActor(int actorId) {
-            followActorId = actorId;
-            updateCameraFollow();
+            VqsvSceneView.followActor(this, actorId);
         }
 
         void stopCameraFollow() {
-            followActorId = -1;
+            VqsvSceneView.stopCameraFollow(this);
         }
 
-        private void updateCameraFollow() {
-            if (followActorId < 0 || followActorId >= actors.length || actors[followActorId] == null) {
-                return;
-            }
-            Actor actor = actors[followActorId];
-            setCameraCenter(actor.x, actor.y);
-        }
-
-        private void renderMapLayer(Graphics2D g, int layerIndex) {
-            if (useMap && mapRenderer != null && mapRenderer.hasLayer(layerIndex)) {
-                mapRenderer.renderLayer(g, layerIndex);
-            }
-        }
-
-        private void renderActorLayer(Graphics2D g, int layer, boolean sortByY) {
-            ArrayList<Actor> draw = new ArrayList<>();
-            for (Actor a : actors) {
-                if (a != null && a.visible && a.layer == layer) {
-                    draw.add(a);
-                }
-            }
-            if (sortByY) {
-                draw.sort(Comparator.comparingInt(a -> a.y));
-            }
-            for (Actor a : draw) {
-                a.render(g, cameraX, cameraY);
-            }
-        }
-
-        private static MapRenderer loadMapRenderer(int mapId) {
-            try {
-                AssetPaths paths = AssetPaths.fromWorkingTree(GameConfig.defaultConfig());
-                GameMap map = GameMap.load(paths, mapId);
-                MapModInfo modInfo = MapModInfo.load(paths);
-                return new MapRenderer(map, TileSet.load(paths, modInfo, map.modId()));
-            } catch (RuntimeException exception) {
-                return null;
-            }
-        }
-
-        private static int clamp(int v, int lo, int hi) {
-            return Math.max(lo, Math.min(hi, v));
+        void updateCameraFollow() {
+            VqsvSceneView.updateCameraFollow(this);
         }
 
         private static Actor[] makeActors() {
@@ -1046,79 +385,33 @@ public final class VqsvIntroDemo extends JPanel {
 
         int transitionCenterX;
         int transitionCenterY;
-        private int transitionWidth = W;
-        private int transitionHeight = H;
-        private int transitionDirection = 0;
-        private int nextWorldF = -1;
-        private int nextWorldG = -1;
-        private int nextWorldActor = -1;
+        int transitionWidth = W;
+        int transitionHeight = H;
+        int transitionDirection = 0;
+        int nextWorldF = -1;
+        int nextWorldG = -1;
+        int nextWorldActor = -1;
 
         void prepareTransition(int centerX, int centerY, int width, int height) {
-            prepareTransition(centerX, centerY, width, height, transitionDirection);
+            VqsvFreeWorldRuntime.prepareTransition(this, centerX, centerY, width, height);
         }
 
         void prepareTransition(int centerX, int centerY, int width, int height, int direction) {
-            transitionCenterX = centerX;
-            transitionCenterY = centerY;
-            transitionWidth = width;
-            transitionHeight = height;
-            transitionDirection = direction;
+            VqsvFreeWorldRuntime.prepareTransition(this, centerX, centerY, width, height, direction);
         }
 
         void markWorldTransition(int worldF, int worldG, int actorIndex) {
-            nextWorldF = worldF;
-            nextWorldG = worldG;
-            nextWorldActor = actorIndex;
+            VqsvFreeWorldRuntime.markWorldTransition(this, worldF, worldG, actorIndex);
         }
 
         static int sourceTransitionRequiredDirection(int c) {
-            int[] map = {2, 3, 0, 1};
-            return c >= 0 && c < map.length ? map[c] : -1;
+            return VqsvFreeWorldRuntime.sourceTransitionRequiredDirection(c);
         }
 
         boolean trySourceTransition(int actorId, int sourceC,
                                             int targetSceneId, int targetRoomIndex, int targetActorId) {
-            int requiredDirection = sourceTransitionRequiredDirection(sourceC);
-            if (player.direction != requiredDirection || !playerIntersectsActorSourceMask(actorId, true)) {
-                return false;
-            }
-            stopPlayerForSourceEvent();
-            sourceStateTrace.add("PORTED/APPROX type1 transition trigger actor=" + actorId
-                    + " sourceC=" + sourceC
-                    + " requiredDir=" + requiredDirection
-                    + " from=[" + currentSceneId + "," + currentRoomIndex + "]"
-                    + " target=[" + targetSceneId + "," + targetRoomIndex + "," + targetActorId + "]");
-            markWorldTransition(targetSceneId, targetRoomIndex, targetActorId);
-            if (!loadImplementedTransitionTarget(targetSceneId, targetRoomIndex, targetActorId)) {
-                sourceStateTrace.add("PENDING type1 transition target not implemented ["
-                        + targetSceneId + "," + targetRoomIndex + "," + targetActorId + "]");
-            }
-            return true;
-        }
-
-        private boolean loadImplementedTransitionTarget(int targetSceneId, int targetRoomIndex, int targetActorId) {
-            if (targetSceneId == 1 && targetRoomIndex == 0) {
-                loadScene1Room0(player.x, player.y);
-                placePlayerAtTransitionActorApprox(targetActorId, 16);
-                sourceStateTrace.add("PORTED/APPROX loaded scene=1 room=0 targetActor="
-                        + targetActorId + " player=[" + player.x + "," + player.y + "]");
-                return true;
-            }
-            if (targetSceneId == 1 && targetRoomIndex == 1) {
-                loadScene1Room1(player.x, player.y);
-                placePlayerAtTransitionActorApprox(targetActorId, 16);
-                sourceStateTrace.add("PORTED/APPROX loaded scene=1 room=1 targetActor="
-                        + targetActorId + " player=[" + player.x + "," + player.y + "]");
-                return true;
-            }
-            if (targetSceneId == 1 && targetRoomIndex == 2) {
-                loadScene1Room2(player.x, player.y);
-                placePlayerAtTransitionActorApprox(targetActorId, 16);
-                sourceStateTrace.add("PORTED/APPROX loaded scene=1 room=2 targetActor="
-                        + targetActorId + " player=[" + player.x + "," + player.y + "]");
-                return true;
-            }
-            return false;
+            return VqsvFreeWorldRuntime.trySourceTransition(this, actorId, sourceC,
+                    targetSceneId, targetRoomIndex, targetActorId);
         }
 
         private void reloadBlankRoom(int cameraCenterX, int cameraCenterY) {
@@ -1139,454 +432,31 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         void loadScene7Room2(int cameraCenterX, int cameraCenterY) {
-            useMap = true;
-            mapRenderer = loadMapRenderer(20);
-            followActorId = -1;
-            int[][] rows = {
-                    {32, 85, 0, 56, 173, 0},
-                    {33, 84, 0, 522, 278, 0},
-                    {36, 264, 0, 286, 196, 0},
-                    {37, 264, 0, 236, 218, 0},
-                    {38, 264, 0, 343, 202, 0},
-                    {39, 265, 0, 320, 260, 0},
-                    {40, 265, 0, 265, 209, 0},
-                    {41, 266, 0, 252, 248, 0},
-                    {42, 266, 0, 288, 202, 0},
-                    {43, 266, 0, 329, 270, 0},
-                    {44, 266, 0, 310, 236, 0},
-                    {45, 266, 0, 337, 185, 0},
-                    {57, 262, 0, 226, 219, 0},
-                    {58, 262, 0, 286, 213, 0},
-                    {59, 262, 0, 343, 226, 0}
-            };
-            for (int i = 0; i < actors.length; i++) {
-                actors[i] = null;
-            }
-            for (int[] row : rows) {
-                Actor actor = new Actor(row[0], row[1], row[2], row[3], row[4]);
-                actor.visible = row[5] == 1;
-                actors[row[0]] = actor;
-            }
-            setCameraCenter(cameraCenterX, cameraCenterY);
+            VqsvSceneLoaders.loadScene7Room2(this, cameraCenterX, cameraCenterY);
         }
 
         void loadRoom1(int cameraCenterX, int cameraCenterY) {
-            useMap = true;
-            mapRenderer = loadMapRenderer(100);
-            followActorId = -1;
-            int[][] rows = {
-                    {0, 247, 0, 167, 201, 1},
-                    {1, 282, 0, 176, 224, 1},
-                    {2, 282, 0, 239, 79, 1},
-                    {3, 282, 1, 48, 127, 1},
-                    {4, 282, 2, 65, 110, 1},
-                    {5, 282, 2, 528, 127, 1},
-                    {6, 282, 2, 336, 287, 1},
-                    {7, 282, 4, 64, 160, 1},
-                    {8, 282, 4, 464, 112, 1},
-                    {9, 282, 4, 208, 207, 1},
-                    {10, 282, 5, 498, 158, 1},
-                    {11, 282, 5, 464, 255, 1},
-                    {12, 282, 5, 289, 191, 1},
-                    {13, 282, 5, 193, 79, 1},
-                    {14, 282, 18, 30, 286, 1},
-                    {15, 282, 18, 49, 316, 1},
-                    {16, 282, 18, 30, 347, 1},
-                    {17, 282, 18, 63, 349, 1},
-                    {18, 282, 19, 237, 314, 1},
-                    {19, 282, 19, 237, 345, 1},
-                    {20, 282, 19, 240, 412, 1},
-                    {21, 282, 19, 272, 429, 1},
-                    {22, 282, 19, 304, 429, 1},
-                    {23, 284, 1, 385, 142, 1},
-                    {24, 284, 4, 385, 142, 1},
-                    {25, 247, 0, 406, 154, 1},
-                    {26, 247, 0, 439, 204, 1},
-                    {27, 247, 0, 600, 317, 1},
-                    {28, 259, 8, 214, 135, 0},
-                    {29, 326, 0, 220, 155, 0},
-                    {30, 83, 1, 633, 70, 0}
-            };
-            for (Actor actor : actors) {
-                if (actor != null) {
-                    actor.visible = false;
-                }
-            }
-            for (int[] row : rows) {
-                Actor actor = new Actor(row[0], row[1], row[2], row[3], row[4]);
-                actor.visible = row[5] == 1;
-                actors[row[0]] = actor;
-            }
-            setCameraCenter(cameraCenterX, cameraCenterY);
+            VqsvSceneLoaders.loadRoom1(this, cameraCenterX, cameraCenterY);
         }
 
         void loadScene5Room3(int cameraCenterX, int cameraCenterY) {
-            useMap = true;
-            mapRenderer = loadMapRenderer(64);
-            followActorId = -1;
-            tempSprites.clear();
-            int[][] rows = {
-                    {0, 270, 0, 335, 160, 1, 0, 1},
-                    {1, 270, 3, 110, 384, 1, 0, 1},
-                    {2, 270, 1, 584, 350, 1, 0, 1},
-                    {3, 271, 0, 110, 393, 1, 0, 0},
-                    {4, 314, 0, 584, 351, 1, 0, 0},
-                    {5, 273, 20, 61, 129, 1, 0, 1},
-                    {6, 273, 20, 159, 128, 1, 0, 1},
-                    {7, 273, 20, 511, 127, 1, 0, 1},
-                    {8, 273, 20, 608, 129, 1, 0, 1},
-                    {9, 243, 0, 104, 81, 1, 0, 1},
-                    {10, 243, 0, 552, 80, 1, 0, 1},
-                    {11, 273, 0, 24, 110, 1, 0, 1},
-                    {12, 273, 1, 41, 192, 1, 0, 1},
-                    {13, 273, 1, 23, 223, 1, 0, 1},
-                    {14, 273, 14, 69, 207, 1, 0, 1},
-                    {15, 273, 14, 55, 219, 1, 0, 1},
-                    {16, 273, 3, 60, 240, 1, 0, 1},
-                    {17, 273, 19, 100, 187, 1, 0, 1},
-                    {18, 275, 0, 97, 202, 1, 0, 1},
-                    {19, 275, 0, 80, 234, 1, 0, 1},
-                    {20, 273, 3, 285, 252, 1, 0, 1},
-                    {21, 273, 1, 310, 255, 1, 0, 1},
-                    {22, 275, 0, 331, 248, 1, 0, 1},
-                    {23, 273, 1, 359, 256, 1, 0, 1},
-                    {24, 273, 3, 384, 254, 1, 0, 1},
-                    {25, 273, 16, 135, 476, 1, 0, 1},
-                    {26, 273, 17, 199, 475, 1, 0, 1},
-                    {27, 273, 12, 370, 478, 1, 0, 1},
-                    {28, 273, 13, 306, 479, 1, 0, 1},
-                    {29, 273, 16, 471, 475, 1, 0, 1},
-                    {30, 273, 17, 537, 474, 1, 0, 1},
-                    {31, 243, 0, 663, 303, 1, 0, 1},
-                    {32, 273, 15, 645, 430, 1, 0, 1},
-                    {33, 275, 0, 624, 425, 1, 0, 1},
-                    {34, 273, 0, 631, 465, 1, 0, 1},
-                    {35, 273, 0, 663, 463, 1, 0, 1},
-                    {36, 289, 8, 337, 368, 1, 0, 1},
-                    {37, 223, 1, 167, 481, 1, 1, 2},
-                    {38, 223, 1, 339, 478, 1, 1, 2},
-                    {39, 223, 1, 503, 481, 1, 1, 2},
-                    {40, 271, 0, 335, 163, 1, 0, 2},
-                    {41, 65, 0, 340, 382, 0, 0, 1},
-                    {42, 31, 2, 279, 416, 0, 0, 1},
-                    {43, 31, 2, 343, 416, 0, 0, 1},
-                    {44, 31, 2, 376, 417, 0, 0, 1},
-                    {45, 31, 2, 409, 418, 0, 0, 1},
-                    {46, 31, 2, 311, 416, 0, 0, 1},
-                    {47, 30, 2, 279, 447, 0, 0, 1},
-                    {48, 30, 2, 312, 450, 0, 0, 1},
-                    {49, 30, 2, 345, 448, 0, 0, 1},
-                    {50, 30, 2, 379, 449, 0, 0, 1},
-                    {51, 30, 2, 410, 449, 0, 0, 1},
-                    {53, 13, 0, 52, 398, 1, 1, 1},
-                    {54, 30, 2, 279, 473, 0, 0, 0},
-                    {55, 30, 2, 410, 474, 0, 0, 0},
-                    {56, 7, 1, 360, 192, 0, 1, 1},
-                    {57, 342, 1, 111, 344, 1, 0, 0},
-                    {58, 342, 0, 586, 318, 1, 0, 0},
-                    {59, 17, 0, 168, 401, 1, 1, 1},
-                    {60, 30, 4, 120, 207, 1, 3, 1},
-                    {61, 31, 4, 137, 222, 1, 3, 1},
-                    {62, 32, 1, 57, 433, 1, 3, 1},
-                    {63, 29, 1, 42, 448, 1, 1, 1},
-                    {64, 29, 1, 122, 239, 1, 0, 1},
-                    {65, 31, 0, 600, 174, 1, 1, 1},
-                    {66, 31, 2, 601, 210, 1, 1, 1}
-            };
-            for (int i = 0; i < actors.length; i++) {
-                actors[i] = null;
-            }
-            for (int[] row : rows) {
-                Actor actor = new Actor(row[0], row[1], row[2], row[3], row[4], row[6], row[7]);
-                actor.visible = row[5] == 1;
-                actors[row[0]] = actor;
-            }
-            setCameraCenter(cameraCenterX, cameraCenterY);
+            VqsvSceneLoaders.loadScene5Room3(this, cameraCenterX, cameraCenterY);
         }
 
         void loadScene1Room3Entry(int cameraCenterX, int cameraCenterY) {
-            currentSceneId = 1;
-            currentRoomIndex = 3;
-            useMap = true;
-            mapRenderer = loadMapRenderer(8);
-            followActorId = -1;
-            tempSprites.clear();
-            int[][] rows = {
-                    {0, 244, 0, 329, 32, 1, 1, 2},
-                    {1, 205, 0, 135, 26, 1, 0, 1},
-                    {2, 328, 0, 25, 10, 1, 0, 1},
-                    {3, 328, 0, 89, 41, 1, 0, 1},
-                    {4, 328, 0, 40, 265, 1, 0, 1},
-                    {5, 204, 1, 44, 45, 1, 0, 1},
-                    {6, 205, 1, 8, 60, 1, 0, 1},
-                    {7, 205, 0, 391, 183, 1, 0, 1},
-                    {8, 204, 0, 393, 43, 1, 0, 1},
-                    {9, 204, 1, 26, 250, 1, 0, 1},
-                    {10, 328, 0, 120, 328, 1, 0, 1},
-                    {11, 205, 1, 216, 281, 1, 0, 1},
-                    {12, 200, 1, 247, 51, 1, 0, 1},
-                    {13, 225, 1, 121, 32, 1, 0, 2},
-                    {14, 225, 1, 56, 46, 1, 0, 2},
-                    {15, 225, 1, 133, 62, 1, 0, 2},
-                    {16, 225, 1, 10, 161, 1, 0, 2},
-                    {17, 225, 1, 7, 303, 1, 0, 2},
-                    {18, 225, 1, 80, 284, 1, 0, 2},
-                    {19, 225, 1, 164, 316, 1, 0, 2},
-                    {20, 225, 1, 358, 53, 1, 0, 2},
-                    {21, 225, 1, 388, 121, 1, 0, 2},
-                    {22, 225, 1, 205, 246, 1, 0, 2},
-                    {23, 225, 1, 250, 208, 1, 0, 2},
-                    {24, 223, 0, 201, 29, 1, 1, 0},
-                    {25, 223, 3, 397, 273, 1, 1, 3},
-                    {26, 200, 1, 247, 82, 1, 0, 1},
-                    {27, 200, 0, 67, 339, 1, 0, 1},
-                    {28, 200, 0, 147, 290, 1, 0, 1},
-                    {29, 200, 0, 196, 355, 1, 0, 1},
-                    {30, 200, 1, 183, 178, 1, 0, 1},
-                    {31, 200, 1, 231, 177, 1, 0, 1},
-                    {32, 200, 1, 279, 177, 1, 0, 1},
-                    {33, 203, 0, 65, 98, 1, 1, 0},
-                    {34, 200, 1, 183, 226, 1, 0, 1},
-                    {35, 200, 1, 278, 228, 1, 0, 1},
-                    {36, 200, 1, 279, 273, 1, 0, 1},
-                    {37, 204, 1, 284, 297, 1, 0, 1},
-                    {38, 200, 1, 294, 324, 1, 0, 1},
-                    {39, 200, 1, 343, 323, 1, 0, 1},
-                    {40, 200, 1, 390, 323, 1, 0, 1},
-                    {41, 200, 0, 418, 69, 1, 0, 1},
-                    {42, 202, 1, 357, 223, 1, 0, 1},
-                    {43, 289, 5, 26, 143, 1, 0, 1},
-                    {44, 289, 4, 107, 141, 1, 0, 1},
-                    {45, 289, 5, 25, 191, 1, 0, 1},
-                    {46, 289, 4, 107, 193, 1, 0, 1},
-                    {47, 243, 0, 233, 191, 1, 0, 2},
-                    {48, 0, 1, 13, 186, 0, 1, 1},
-                    {49, 8, 2, 196, 90, 0, 1, 1},
-                    {50, 83, 2, 182, 85, 0, 1, 1},
-                    {51, 148, 0, 361, 98, 1, 1, 1},
-                    {52, 81, 0, 354, 112, 1, 1, 1},
-                    {53, 30, 0, 188, 52, 0, 1, 1},
-                    {54, 30, 0, 188, 22, 0, 1, 1},
-                    {55, 30, 0, 214, 22, 0, 1, 1},
-                    {56, 30, 0, 214, 52, 0, 1, 1},
-                    {57, 200, 0, 40, 304, 1, 0, 1},
-                    {58, 8, 0, 143, 168, 0, 1, 1},
-                    {59, 0, 2, 144, 236, 0, 1, 1},
-                    {60, 7, 0, 76, 192, 0, 1, 1},
-                    {61, 7, 0, 68, 55, 0, 1, 1},
-                    {62, 83, 1, 222, 106, 0, 0, 2}
-            };
-            for (int i = 0; i < actors.length; i++) {
-                actors[i] = null;
-            }
-            for (int[] row : rows) {
-                Actor actor = new Actor(row[0], row[1], row[2], row[3], row[4], row[6], row[7]);
-                actor.visible = row[5] == 1;
-                actors[row[0]] = actor;
-            }
-            setCameraCenter(cameraCenterX, cameraCenterY);
+            VqsvSceneLoaders.loadScene1Room3Entry(this, cameraCenterX, cameraCenterY);
         }
 
         void loadScene1Room0(int cameraCenterX, int cameraCenterY) {
-            currentSceneId = 1;
-            currentRoomIndex = 0;
-            useMap = true;
-            mapRenderer = loadMapRenderer(2);
-            followActorId = -1;
-            tempSprites.clear();
-            worldUi.visible = true;
-            int[][] rows = {
-                    {0, 208, 1, 354, 150, 1, 0, 1},
-                    {1, 208, 1, 52, 224, 1, 0, 1},
-                    {2, 208, 1, 201, 86, 1, 0, 1},
-                    {3, 213, 0, 192, 81, 1, 0, 0},
-                    {4, 213, 0, 45, 220, 1, 0, 0},
-                    {5, 213, 0, 346, 145, 1, 0, 0},
-                    {6, 339, 0, 41, 30, 1, 0, 1},
-                    {7, 339, 0, 42, 80, 1, 0, 1},
-                    {8, 200, 1, 121, 48, 1, 0, 1},
-                    {9, 200, 1, 282, 49, 1, 0, 1},
-                    {10, 200, 1, 326, 49, 1, 0, 1},
-                    {11, 200, 1, 370, 49, 1, 0, 1},
-                    {12, 200, 1, 414, 50, 1, 0, 1},
-                    {13, 225, 1, 73, 17, 1, 0, 2},
-                    {14, 225, 0, 313, 63, 1, 0, 2},
-                    {15, 225, 1, 392, 224, 1, 0, 2},
-                    {16, 225, 0, 297, 273, 1, 0, 2},
-                    {17, 225, 0, 122, 113, 1, 0, 2},
-                    {18, 202, 0, 136, 127, 1, 0, 1},
-                    {19, 202, 1, 260, 128, 1, 0, 1},
-                    {20, 209, 0, 297, 145, 1, 0, 1},
-                    {21, 230, 0, 53, 146, 1, 0, 0},
-                    {22, 200, 1, -5, 278, 1, 0, 1},
-                    {23, 200, 1, -5, 319, 1, 0, 1},
-                    {24, 200, 1, 40, 321, 1, 0, 1},
-                    {25, 200, 1, 89, 321, 1, 0, 1},
-                    {26, 200, 1, 136, 321, 1, 0, 1},
-                    {27, 200, 1, 326, 321, 1, 0, 1},
-                    {28, 198, 0, 198, 272, 1, 0, 1},
-                    {29, 202, 3, 292, 249, 1, 0, 1},
-                    {30, 223, 3, 408, 273, 1, 1, 3},
-                    {31, 223, 1, 200, 318, 1, 1, 2},
-                    {32, 209, 0, 231, 98, 1, 0, 1},
-                    {33, 69, 0, 127, 79, 1, 1, 1},
-                    {34, 66, 0, 88, 234, 1, 1, 1},
-                    {35, 66, 0, 294, 175, 1, 1, 1},
-                    {36, 81, 1, 152, 212, 0, 1, 1},
-                    {37, 201, 0, 200, 316, 1, 0, 1},
-                    {38, 66, 1, 153, 233, 0, 1, 1},
-                    {39, 52, 1, 148, 179, 0, 1, 1},
-                    {40, 81, 1, 142, 249, 0, 1, 1},
-                    {41, 23, 1, 124, 186, 0, 1, 1},
-                    {42, 50, 1, 134, 202, 0, 1, 1},
-                    {43, 53, 0, 158, 143, 0, 1, 1},
-                    {44, 69, 1, 128, 231, 0, 1, 1},
-                    {45, 54, 0, 242, 152, 0, 1, 1},
-                    {46, 23, 1, 263, 170, 0, 1, 1},
-                    {47, 69, 0, 280, 139, 0, 1, 1},
-                    {48, 25, 0, 180, 153, 0, 1, 1},
-                    {49, 23, 0, 208, 131, 0, 1, 1},
-                    {50, 17, 0, 223, 160, 0, 1, 1},
-                    {51, 66, 0, 386, 190, 1, 1, 1},
-                    {52, 51, 0, 200, 190, 1, 1, 1},
-                    {53, 137, 0, 149, 153, 0, 1, 1},
-                    {54, 102, 0, 198, 148, 0, 1, 1},
-                    {55, 92, 0, 246, 155, 0, 1, 1},
-                    {56, 51, 0, 61, 234, 0, 1, 1},
-                    {57, 8, 2, 224, 224, 0, 1, 1}
-            };
-            for (int i = 0; i < actors.length; i++) {
-                actors[i] = null;
-            }
-            for (int[] row : rows) {
-                Actor actor = new Actor(row[0], row[1], row[2], row[3], row[4], row[6], row[7]);
-                actor.visible = row[5] == 1;
-                actors[row[0]] = actor;
-            }
-            setCameraCenter(cameraCenterX, cameraCenterY);
+            VqsvSceneLoaders.loadScene1Room0(this, cameraCenterX, cameraCenterY);
         }
 
         void loadScene1Room1(int cameraCenterX, int cameraCenterY) {
-            currentSceneId = 1;
-            currentRoomIndex = 1;
-            useMap = true;
-            mapRenderer = loadMapRenderer(5);
-            followActorId = -1;
-            tempSprites.clear();
-            worldUi.visible = true;
-            int[][] rows = {
-                    {0, 205, 0, 7, 26, 1, 0, 1},
-                    {1, 200, 1, 56, 52, 1, 0, 1},
-                    {2, 200, 1, 103, 30, 1, 0, 1},
-                    {3, 200, 1, 152, 30, 1, 0, 1},
-                    {4, 200, 1, 200, 30, 1, 0, 1},
-                    {5, 204, 0, 233, 40, 1, 0, 1},
-                    {6, 200, 0, 244, 66, 1, 0, 1},
-                    {7, 200, 0, 257, 97, 1, 0, 1},
-                    {8, 200, 0, 243, 128, 1, 0, 1},
-                    {9, 200, 1, 297, 129, 1, 0, 1},
-                    {10, 200, 1, 342, 95, 1, 0, 1},
-                    {11, 204, 1, 348, 116, 1, 0, 1},
-                    {12, 200, 1, 326, 146, 1, 0, 1},
-                    {13, 205, 1, 279, 138, 1, 0, 1},
-                    {14, 200, 1, 260, 156, 1, 0, 1},
-                    {15, 225, 1, 440, 16, 1, 0, 2},
-                    {16, 225, 1, 280, 34, 1, 0, 2},
-                    {17, 225, 1, 360, 143, 1, 0, 2},
-                    {18, 225, 1, 7, 176, 1, 0, 2},
-                    {19, 225, 1, 168, 254, 1, 0, 2},
-                    {20, 225, 0, 27, 65, 1, 0, 2},
-                    {21, 225, 0, 232, 272, 1, 0, 2},
-                    {22, 200, 0, 356, 192, 1, 0, 1},
-                    {23, 200, 0, 368, 225, 1, 0, 1},
-                    {24, 328, 0, 361, 234, 1, 0, 1},
-                    {25, 243, 0, 312, 32, 1, 0, 2},
-                    {26, 200, 1, 451, 130, 1, 0, 1},
-                    {27, 200, 0, 438, 163, 1, 0, 1},
-                    {28, 200, 0, 452, 257, 1, 0, 1},
-                    {29, 200, 1, 454, 289, 1, 0, 1},
-                    {30, 200, 0, 405, 355, 1, 0, 1},
-                    {31, 200, 1, 311, 354, 1, 0, 1},
-                    {32, 200, 0, 54, 128, 1, 0, 1},
-                    {33, 200, 1, 55, 167, 1, 0, 1},
-                    {34, 200, 1, 55, 205, 1, 0, 1},
-                    {35, 200, 1, 22, 224, 1, 0, 1},
-                    {36, 202, 2, 56, 223, 1, 0, 1},
-                    {37, 223, 2, 19, 273, 1, 1, 1},
-                    {38, 200, 1, 23, 322, 1, 0, 1},
-                    {39, 200, 0, 100, 338, 1, 0, 1},
-                    {40, 200, 1, 152, 116, 1, 0, 1},
-                    {41, 200, 1, 151, 163, 1, 0, 1},
-                    {42, 204, 1, 157, 199, 1, 0, 1},
-                    {43, 200, 1, 148, 226, 1, 0, 1},
-                    {44, 243, 0, 208, 240, 1, 0, 3},
-                    {45, 204, 0, 249, 253, 1, 0, 1},
-                    {46, 200, 0, 243, 322, 1, 0, 1},
-                    {47, 205, 0, 150, 315, 1, 0, 1},
-                    {48, 140, 0, 118, 52, 1, 1, 1},
-                    {49, 23, 0, 97, 60, 1, 1, 1},
-                    {50, 120, 0, 409, 176, 1, 1, 1}
-            };
-            for (int i = 0; i < actors.length; i++) {
-                actors[i] = null;
-            }
-            for (int[] row : rows) {
-                Actor actor = new Actor(row[0], row[1], row[2], row[3], row[4], row[6], row[7]);
-                actor.visible = row[5] == 1;
-                actors[row[0]] = actor;
-            }
-            setCameraCenter(cameraCenterX, cameraCenterY);
+            VqsvSceneLoaders.loadScene1Room1(this, cameraCenterX, cameraCenterY);
         }
 
-        private void loadScene1Room2(int cameraCenterX, int cameraCenterY) {
-            currentSceneId = 1;
-            currentRoomIndex = 2;
-            useMap = true;
-            mapRenderer = loadMapRenderer(6);
-            followActorId = -1;
-            tempSprites.clear();
-            worldUi.visible = true;
-            int[][] rows = {
-                    {0, 200, 1, 70, 49, 1, 0, 1},
-                    {1, 200, 1, 167, 51, 1, 0, 1},
-                    {2, 223, 0, 120, 23, 1, 1, 0},
-                    {3, 223, 1, 121, 320, 1, 1, 2},
-                    {4, 243, 0, 216, 33, 1, 0, 1},
-                    {5, 225, 0, 97, 61, 1, 0, 2},
-                    {6, 225, 0, 216, 80, 1, 0, 2},
-                    {7, 225, 0, 24, 239, 1, 0, 2},
-                    {8, 225, 0, 53, 319, 1, 0, 2},
-                    {9, 225, 1, 87, 143, 1, 0, 2},
-                    {10, 225, 1, 10, 256, 1, 0, 2},
-                    {11, 225, 1, 5, 130, 1, 0, 2},
-                    {12, 200, 1, 71, 95, 1, 0, 1},
-                    {13, 200, 1, 168, 97, 0, 0, 1},
-                    {14, 328, 0, 73, 137, 1, 0, 1},
-                    {15, 204, 1, 12, 56, 1, 0, 1},
-                    {16, 205, 1, 23, 72, 1, 0, 1},
-                    {17, 200, 1, 168, 175, 1, 0, 1},
-                    {18, 200, 1, 174, 216, 1, 0, 1},
-                    {19, 204, 0, 172, 262, 1, 0, 1},
-                    {20, 205, 0, 167, 279, 1, 0, 1},
-                    {21, 200, 1, 167, 322, 1, 0, 1},
-                    {22, 204, 1, 236, 312, 1, 0, 1},
-                    {23, 200, 0, 72, 226, 1, 0, 1},
-                    {24, 200, 1, 68, 272, 1, 0, 1},
-                    {25, 243, 0, 56, 288, 1, 0, 1},
-                    {26, 140, 0, 29, 119, 1, 1, 1},
-                    {27, 54, 0, 22, 144, 1, 1, 1},
-                    {28, 69, 0, 214, 229, 1, 1, 1},
-                    {29, 86, 0, 199, 194, 1, 1, 1}
-            };
-            for (int i = 0; i < actors.length; i++) {
-                actors[i] = null;
-            }
-            for (int[] row : rows) {
-                Actor actor = new Actor(row[0], row[1], row[2], row[3], row[4], row[6], row[7]);
-                actor.visible = row[5] == 1;
-                actors[row[0]] = actor;
-            }
-            setCameraCenter(cameraCenterX, cameraCenterY);
+        void loadScene1Room2(int cameraCenterX, int cameraCenterY) {
+            VqsvSceneLoaders.loadScene1Room2(this, cameraCenterX, cameraCenterY);
         }
 
         void spawnActorEffect(int actorId, int animation) {
@@ -1596,190 +466,35 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         void op5ActorEffect(int mode, int actorId, int animation, int x, int y) {
-            if (mode == 0) {
-                spawnActorEffect(-1, animation);
-            } else if (mode == 1 && (x != 0 || y != 0)) {
-                tempSprites.add(new TempSprite(x, y, animation, 120));
-            } else {
-                spawnActorEffect(actorId, animation);
-            }
-            sourceStateTrace.add("PORTED/APPROX op5 effect mode=" + mode
-                    + " actor=" + actorId
-                    + " anim=" + animation
-                    + " xy=[" + x + "," + y + "]");
+            VqsvSourceEffects.op5ActorEffect(this, mode, actorId, animation, x, y);
         }
-
-        private void renderPlayer(Graphics2D g) {
-            if (useMap && player.visible) {
-                player.render(g, cameraX, cameraY);
-            }
-        }
-
 
         void setPlayerPositionApprox(int x, int y) {
-            playerX = x;
-            playerY = y;
-            player.x = x;
-            player.y = y;
-            player.direction = transitionDirection;
-            player.applyMode(0);
-            player.visible = true;
-            setCameraCenter(x, y);
+            VqsvFreeWorldRuntime.setPlayerPositionApprox(this, x, y);
         }
 
         void placePlayerAtTransitionActorApprox(int actorId, int tileSize) {
-            if (actorId < 0 || actorId >= actors.length || actors[actorId] == null) {
-                return;
-            }
-            Actor actor = actors[actorId];
-            playerX = actor.x - Math.floorMod(actor.x, tileSize);
-            playerY = actor.y - Math.floorMod(actor.y, tileSize);
-            player.x = playerX;
-            player.y = playerY;
-            player.direction = actor.direction;
-            player.applyMode(0);
-            player.visible = true;
-            setCameraCenter(playerX, playerY);
+            VqsvFreeWorldRuntime.placePlayerAtTransitionActorApprox(this, actorId, tileSize);
         }
 
         void tickFreeWorldPlayer() {
-            int dir = heldDirection();
-            if (dir < 0) {
-                player.applyMode(0);
-                setCameraCenter(player.x, player.y);
-                return;
-            }
-            player.direction = dir;
-            player.applyMode(3);
-            if (canMovePlayer(dir, 4)) {
-                player.step(4);
-                playerX = player.x;
-                playerY = player.y;
-            }
-            setCameraCenter(player.x, player.y);
-        }
-
-        private int heldDirection() {
-            if (keyUp && !keyDown) {
-                return 2;
-            }
-            if (keyDown && !keyUp) {
-                return 0;
-            }
-            if (keyRight && !keyLeft) {
-                return 1;
-            }
-            if (keyLeft && !keyRight) {
-                return 3;
-            }
-            return -1;
-        }
-
-        private boolean canMovePlayer(int dir, int speed) {
-            int nx = player.x;
-            int ny = player.y;
-            int amount = Math.max(1, Math.abs(speed));
-            switch (dir) {
-                case 0:
-                    ny += amount;
-                    break;
-                case 1:
-                    nx += amount;
-                    break;
-                case 2:
-                    ny -= amount;
-                    break;
-                case 3:
-                    nx -= amount;
-                    break;
-                default:
-                    break;
-            }
-            if (mapRenderer == null) {
-                return true;
-            }
-            return nx - 8 >= 0 && nx + 8 <= mapRenderer.mapWidthPixels()
-                    && ny - 8 >= 0 && ny + 8 <= mapRenderer.mapHeightPixels();
+            VqsvFreeWorldRuntime.tickFreeWorldPlayer(this);
         }
 
         boolean playerIntersectsSourceRect(int x, int y, int w, int h) {
-            // Source op13 calls ae.a(rectX, rectY, rectW, rectH, player.i, player.j, player.a.k()).
-            return x + w >= player.x - 8
-                    && x <= player.x - 8 + 16
-                    && y <= player.y - 8 + 16
-                    && y + h >= player.y - 8;
+            return VqsvFreeWorldRuntime.playerIntersectsSourceRect(this, x, y, w, h);
         }
 
         boolean playerIntersectsActorSourceMask(int actorId, boolean actorHitMask) {
-            if (actorId < 0 || actorId >= actors.length || actors[actorId] == null) {
-                return false;
-            }
-            Actor actor = actors[actorId];
-            if (!actor.visible) {
-                return false;
-            }
-            short[] playerMask = player.collisionMask();
-            short[] actorMask = actorHitMask ? actor.hitMask() : actor.collisionMask();
-            if (playerMask != null && actorMask != null) {
-                return sourceMaskOverlap(player.x, player.y, playerMask, actor.x, actor.y, actorMask);
-            }
-            return actor.x + 12 >= player.x - 8
-                    && actor.x - 12 <= player.x + 8
-                    && actor.y + 16 >= player.y - 8
-                    && actor.y - 16 <= player.y + 8;
+            return VqsvFreeWorldRuntime.playerIntersectsActorSourceMask(this, actorId, actorHitMask);
         }
 
         boolean playerInteractsActorSourceMask(int actorId) {
-            if (actorId < 0 || actorId >= actors.length || actors[actorId] == null) {
-                return false;
-            }
-            Actor actor = actors[actorId];
-            if (!actor.visible) {
-                return false;
-            }
-            int px = player.x;
-            int py = player.y;
-            int offset = 4;
-            switch (player.direction) {
-                case 0:
-                    py += offset;
-                    break;
-                case 1:
-                    px += offset;
-                    break;
-                case 2:
-                    py -= offset;
-                    break;
-                case 3:
-                    px -= offset;
-                    break;
-                default:
-                    break;
-            }
-            short[] playerMask = player.collisionMask();
-            short[] actorMask = actor.collisionMask();
-            if (playerMask != null && actorMask != null) {
-                return sourceMaskOverlap(px, py, playerMask, actor.x, actor.y, actorMask);
-            }
-            return actor.x + 12 >= px - 8
-                    && actor.x - 12 <= px + 8
-                    && actor.y + 16 >= py - 8
-                    && actor.y - 16 <= py + 8;
-        }
-
-        private static boolean sourceMaskOverlap(int ax, int ay, short[] aMask, int bx, int by, short[] bMask) {
-            if (aMask.length < 4 || bMask.length < 4) {
-                return false;
-            }
-            return ax + aMask[0] + aMask[2] >= bx + bMask[0]
-                    && ax + aMask[0] <= bx + bMask[0] + bMask[2]
-                    && ay + aMask[1] <= by + bMask[1] + bMask[3]
-                    && ay + aMask[1] + aMask[3] >= by + bMask[1];
+            return VqsvFreeWorldRuntime.playerInteractsActorSourceMask(this, actorId);
         }
 
         void stopPlayerForSourceEvent() {
-            player.applyMode(0);
-            setCameraCenter(player.x, player.y);
+            VqsvFreeWorldRuntime.stopPlayerForSourceEvent(this);
         }
 
         private void sourceStateApprox(String ignoredSourceNote) {
@@ -1803,100 +518,19 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         Blocking op17Item(int mode, int itemId, int qty) {
-            SourceItem item = sourceItem(itemId);
-            if (mode == 0) {
-                if (sourceCanAddItem(itemId, qty)) {
-                    sourceAddItem(itemId, qty);
-                    sourceStateTrace.add("PORTED/APPROX op17 add [" + mode + "," + itemId + "," + qty
-                            + "] bagChannel=" + item.bagChannel + " count=" + sourceItemCount(itemId));
-                    text = sourceInventoryPopup(VqsvText.Common.ITEM_REWARD_PREFIX + item.name, qty);
-                } else {
-                    sourceStateTrace.add("PORTED/APPROX op17 add-full [" + mode + "," + itemId + "," + qty + "]");
-                    text = sourceInventoryPopup(VqsvText.Common.ITEM_BAG_FULL, 0);
-                }
-            } else if (sourceCanRemoveItem(itemId, qty)) {
-                sourceRemoveItem(itemId, qty);
-                sourceStateTrace.add("PORTED/APPROX op17 remove [" + mode + "," + itemId + "," + qty
-                        + "] bagChannel=" + item.bagChannel + " count=" + sourceItemCount(itemId));
-                text = sourceInventoryPopup(VqsvText.Common.ITEM_LOST_PREFIX + item.name, qty);
-            } else {
-                sourceStateTrace.add("PORTED/APPROX op17 remove-missing [" + mode + "," + itemId + "," + qty + "]");
-            }
-            return text == null ? null : waitForText();
+            return VqsvSourceOps.op17Item(this, mode, itemId, qty);
         }
 
         void op39RefreshPets() {
-            for (SourcePetState pet : sourcePets) {
-                pet.refreshFromSourceDb();
-                sourcePetRefreshOps++;
-            }
-            sourceStateTrace.add("PORTED/APPROX op39 refreshPets count=" + sourcePets.size()
-                    + " refreshOps=" + sourcePetRefreshOps);
+            VqsvSourceEffects.op39RefreshPets(this);
         }
 
         void op25SetGameFlag(int arg0) {
-            sourceGameCF = arg0 == 0;
-            sourceStateTrace.add("PORTED op25 game.c.f=" + sourceGameCF + " arg0=" + arg0);
+            VqsvSourceEffects.op25SetGameFlag(this, arg0);
         }
 
-        private Blocking op9SourceEffect(String context, int... args) {
-            int effectId = args.length > 0 ? args[0] : -1;
-            switch (effectId) {
-                case 1:
-                case 2: {
-                    int color = sourceEffectColor(args);
-                    effect.startFade(effectId, color);
-                    sourceStateTrace.add("PORTED/APPROX " + context + " op9 " + Arrays.toString(args)
-                            + " -> b.a().c(color,id) fade id=" + effectId
-                            + " color=0x" + String.format("%06X", color & 0xFFFFFF));
-                    return effect::doneOverlay;
-                }
-                case 10:
-                    effect.startFlash(argOrZero(args, 1), argOrZero(args, 2));
-                    sourceStateTrace.add("PORTED/APPROX " + context + " op9 " + Arrays.toString(args)
-                            + " -> b.a().d flash/toggle path");
-                    return effect::doneOverlay;
-                case 12:
-                case 13:
-                    effect.startBars(effectId, Math.max(1, argOrZero(args, 1)),
-                            Math.max(1, argOrZero(args, 2)), Math.max(1, argOrZero(args, 3)),
-                            Math.max(0, argOrZero(args, 4)), Math.max(0, argOrZero(args, 5)));
-                    sourceStateTrace.add("PORTED/APPROX " + context + " op9 " + Arrays.toString(args)
-                            + " -> b.a().a bar transition path");
-                    return effect::doneBars;
-                case 16:
-                    if (argOrZero(args, 1) == 0) {
-                        effect.startParticles(Math.max(1, argOrZero(args, 2)) * 10);
-                    } else if (argOrZero(args, 1) == 1 || argOrZero(args, 1) == 2) {
-                        effect.startFireParticles(Math.max(1, argOrZero(args, 2)) * 10);
-                    } else {
-                        effect.stopParticles();
-                    }
-                    sourceStateTrace.add("PORTED/APPROX " + context + " op9 " + Arrays.toString(args)
-                            + " -> source particle texture family");
-                    return null;
-                case 14:
-                case 15:
-                case 17:
-                    sourceStateTrace.add("PENDING " + context + " op9 " + Arrays.toString(args)
-                            + " source id handled by b.a() actor/texture path; not used as full renderer yet");
-                    return null;
-                default:
-                    sourceStateTrace.add("UNKNOWN " + context + " op9 " + Arrays.toString(args)
-                            + " unsupported source effect id");
-                    return null;
-            }
-        }
-
-        private static int argOrZero(int[] args, int index) {
-            return index >= 0 && index < args.length ? args[index] : 0;
-        }
-
-        private static int sourceEffectColor(int[] args) {
-            int r = argOrZero(args, 2) & 0xFF;
-            int g = argOrZero(args, 3) & 0xFF;
-            int b = argOrZero(args, 4) & 0xFF;
-            return (r << 16) | (g << 8) | b;
+        Blocking op9SourceEffect(String context, int... args) {
+            return VqsvSourceEffects.op9SourceEffect(this, context, args);
         }
 
         Blocking room1BunnyBattleCaptureRuntime() {
@@ -1915,9 +549,7 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         void op67SetBattleActor(int actorId) {
-            worldEventActor = actorId;
-            battleEventActor = actorId;
-            sourceStateTrace.add("PORTED room0 group6 op67 game.k.v=" + actorId);
+            VqsvSourceEffects.op67SetBattleActor(this, actorId);
         }
 
         Blocking room0Group6ElderBattleRuntime() {
@@ -1935,69 +567,15 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         Blocking op31CurrencyReward(int mode, int currencyKind, int amount) {
-            if (mode == 0 && currencyKind == 0) {
-                sourceMoney += amount;
-                sourceStateTrace.add("PORTED/APPROX room0 group6 op31 add money=" + amount
-                        + " total=" + sourceMoney);
-                text = TextBox.openBox(VqsvText.Common.MONEY_REWARD_PREFIX + amount
-                        + VqsvText.Common.MONEY_REWARD_SUFFIX);
-            } else if (mode == 0 && currencyKind == 1) {
-                sourceBadges += amount;
-                sourceStateTrace.add("PORTED/APPROX room0 group6 op31 add badge=" + amount
-                        + " total=" + sourceBadges);
-                text = TextBox.openBox(VqsvText.Common.MONEY_REWARD_PREFIX + amount
-                        + VqsvText.Common.BADGE_REWARD_SUFFIX);
-            } else if (mode == 1 && currencyKind == 0) {
-                sourceMoney -= amount;
-                sourceStateTrace.add("PORTED/APPROX room0 group6 op31 remove money=" + amount
-                        + " total=" + sourceMoney);
-                text = TextBox.openBox(VqsvText.Common.MONEY_LOST_PREFIX + amount
-                        + VqsvText.Common.MONEY_REWARD_SUFFIX);
-            } else if (mode == 1 && currencyKind == 1) {
-                sourceBadges -= amount;
-                sourceStateTrace.add("PORTED/APPROX room0 group6 op31 remove badge=" + amount
-                        + " total=" + sourceBadges);
-                text = TextBox.openBox(VqsvText.Common.MONEY_LOST_PREFIX + amount
-                        + VqsvText.Common.BADGE_LOST_SUFFIX);
-            } else {
-                sourceStateTrace.add("UNKNOWN room0 group6 op31 args=["
-                        + mode + "," + currencyKind + "," + amount + "]");
-                text = null;
-            }
-            return text == null ? null : waitForText();
+            return VqsvSourceOps.op31CurrencyReward(this, mode, currencyKind, amount);
         }
 
         Blocking op19SpecialReward(int rewardId, int qty) {
-            SourceSpecialReward reward = sourceSpecialRewards.computeIfAbsent(rewardId, SourceSpecialReward::fromSourceDb);
-            reward.applySourceGameGSemantics(qty);
-            sourceStateTrace.add("PORTED/APPROX room0 group6 op19 rewardId=" + rewardId
-                    + " qty=" + qty
-                    + " sourceRow=[" + reward.textId + "," + reward.iconId + "," + reward.descriptionTextId + "]"
-                    + " game.g path=" + reward.gameGPath
-                    + " unlocked=" + reward.unlocked
-                    + " stack=" + reward.stackCount);
-            text = sourceInventoryPopup(VqsvText.Common.ITEM_REWARD_PREFIX + reward.name, qty);
-            return waitForText();
+            return VqsvSourceOps.op19SpecialReward(this, rewardId, qty);
         }
 
         void op56ActorVisibility(int mode, int[] ids, int[] states) {
-            for (int i = 0; i < ids.length; i++) {
-                int id = ids[i];
-                if (id < 0 || id >= actors.length || actors[id] == null) {
-                    continue;
-                }
-                Actor actor = actors[id];
-                if (mode == 0) {
-                    actor.visible = true;
-                    actor.direction = states[Math.min(i, states.length - 1)];
-                    actor.applyMode(0);
-                } else if (mode == 1) {
-                    actor.visible = false;
-                    actor.applyMode(0);
-                }
-            }
-            sourceStateTrace.add("PORTED/APPROX op56 mode=" + mode + " ids=" + Arrays.toString(ids)
-                    + " states=" + Arrays.toString(states));
+            VqsvSourceEffects.op56ActorVisibility(this, mode, ids, states);
         }
 
         void op23MarkEventComplete(int worldF, int worldG, int eventId) {
@@ -2006,72 +584,6 @@ public final class VqsvIntroDemo extends JPanel {
 
         void op14CompleteEvent(int sceneId, int roomIndex, int groupIndex) {
             eventState.op14CompleteEvent(sceneId, roomIndex, groupIndex);
-        }
-
-        private static TextBox sourceInventoryPopup(String message, int qty) {
-            String suffix = qty > 0 ? " x " + qty : "";
-            return TextBox.openBox(message + suffix);
-        }
-
-        private static Map<Integer, BagItem> initialSourceBagItems() {
-            Map<Integer, BagItem> items = new HashMap<>();
-            items.put(0, new BagItem(0, 0, 0, true));
-            return items;
-        }
-
-        private boolean sourceCanAddItem(int itemId, int qty) {
-            BagItem entry = sourceBagItems.get(itemId);
-            if (entry != null) {
-                return entry.count < 99;
-            }
-            return qty <= 99;
-        }
-
-        private boolean sourceCanRemoveItem(int itemId, int qty) {
-            BagItem entry = sourceBagItems.get(itemId);
-            return entry != null && entry.count - qty >= 0;
-        }
-
-        private void sourceAddItem(int itemId, int qty) {
-            SourceItem item = sourceItem(itemId);
-            BagItem entry = sourceBagItems.get(itemId);
-            if (entry == null) {
-                sourceBagItems.put(itemId, new BagItem(itemId, Math.min(qty, 99), item.bagChannel, false));
-                return;
-            }
-            entry.count = Math.min(entry.count + qty, 99);
-        }
-
-        private void sourceRemoveItem(int itemId, int qty) {
-            BagItem entry = sourceBagItems.get(itemId);
-            if (entry == null) {
-                return;
-            }
-            entry.count -= qty;
-            if (entry.count <= 0 && !entry.keepAtZero) {
-                sourceBagItems.remove(itemId);
-            }
-        }
-
-        private int sourceItemCount(int itemId) {
-            BagItem entry = sourceBagItems.get(itemId);
-            return entry == null ? 0 : entry.count;
-        }
-
-        private static SourceItem sourceItem(int itemId) {
-            // Source data: aq.c[4][itemId][0] -> aq.d[textId], plus aq.c[4][itemId][5] bag channel.
-            switch (itemId) {
-                case 0:
-                    return new SourceItem(0, 261, VqsvText.Items.TAT_TRUNG_CAU, 0);
-                case 1:
-                    return new SourceItem(1, 262, VqsvText.Items.PHONG_AN_CAU, 0);
-                case 4:
-                    return new SourceItem(4, 265, VqsvText.Items.BANH_SANDWICH, 1);
-                case 11:
-                    return new SourceItem(11, 272, VqsvText.Items.SINH_MENH_THACH, 4);
-                default:
-                    return new SourceItem(itemId, 0, "", 0);
-            }
         }
 
         Blocking op10PlayerTimedAction(int dir, int speed, int duration) {
@@ -2127,386 +639,6 @@ public final class VqsvIntroDemo extends JPanel {
             };
         }
     }
-
-    static final class Room0Group6Start implements Blocking {
-        private int phase;
-        private int wait;
-        private Blocking effectWait;
-
-        @Override
-        public boolean tick(Scene s) {
-            if (!s.op15CheckEventState(1, 0, 3)) {
-                s.tickFreeWorldPlayer();
-                return false;
-            }
-            if (phase == 0) {
-                s.sourceStateTrace.add("PORTED room0 group6 op15 [1,0,3] pass");
-                s.setPlayerPositionApprox(199, 218);
-                s.player.direction = 2;
-                s.sourceStateTrace.add("PORTED/APPROX room0 group6 op8 set player=[199,218]");
-                s.player.applyMode(2);
-                wait = 24;
-                s.sourceStateTrace.add("PORTED/APPROX room0 group6 op7 actor=-1 state=0 action=2");
-                phase = 1;
-                return false;
-            }
-            if (phase == 1) {
-                if (wait-- > 0) {
-                    return false;
-                }
-                s.player.applyMode(0);
-                effectWait = s.op9SourceEffect("room0 group6", 1, 0, 0, 0, 0, 0);
-                phase = 2;
-                return false;
-            }
-            return effectWait == null || effectWait.tick(s);
-        }
-    }
-
-    static final class Room0PostGroup6FreeWorld implements Blocking {
-        private boolean started;
-        private boolean room2Group3Started;
-        private boolean dodoPendingLogged;
-        private boolean doorPendingLogged;
-
-        @Override
-        public boolean tick(Scene s) {
-            if (!started) {
-                started = true;
-                s.sourceStateTrace.add("PORTED/APPROX room0 group6 enters free-world after op40/op14");
-            }
-            if (s.currentSceneId == 1 && s.currentRoomIndex == 0) {
-                return tickRoom0(s);
-            }
-            if (s.currentSceneId == 1 && s.currentRoomIndex == 2) {
-                return tickRoom2(s);
-            }
-            s.tickFreeWorldPlayer();
-            return false;
-        }
-
-        private boolean tickRoom0(Scene s) {
-            if (s.trySourceTransition(31, 2, 1, 2, 2)) {
-                room2Group3Started = false;
-                return false;
-            }
-            if (s.trySourceTransition(30, 3, 1, 1, 37)) {
-                return false;
-            }
-            if (s.key0 && s.playerInteractsActorSourceMask(35) && !dodoPendingLogged) {
-                dodoPendingLogged = true;
-                s.sourceStateTrace.add("PENDING room0 post-group6 Dodo actor35 side quest groups 7/8/9 not ported yet");
-            }
-            if (!doorPendingLogged) {
-                if (s.playerIntersectsActorSourceMask(3, true)
-                        || s.playerIntersectsActorSourceMask(4, true)
-                        || s.playerIntersectsActorSourceMask(5, true)) {
-                    doorPendingLogged = true;
-                    s.sourceStateTrace.add("PENDING room0 post-group6 scene11 door transitions actors=[3,4,5] not ported yet");
-                }
-            }
-            s.tickFreeWorldPlayer();
-            if (s.trySourceTransition(31, 2, 1, 2, 2)) {
-                room2Group3Started = false;
-                return false;
-            }
-            if (s.trySourceTransition(30, 3, 1, 1, 37)) {
-                return false;
-            }
-            return false;
-        }
-
-        private boolean tickRoom2(Scene s) {
-            if (!s.op15CheckEventState(1, 2, 3) && !room2Group3Started) {
-                room2Group3Started = true;
-                s.sourceStateTrace.add("PORTED scene1 room2 group3 op15 [1,0,6] pass");
-                s.text = TextBox.openBox(VqsvText.Common.MINIMAP_TASK_HELP);
-                return false;
-            }
-            if (room2Group3Started) {
-                if (s.text != null && s.text.readyForKey && s.key0) {
-                    s.text.confirm();
-                    return false;
-                }
-                if (s.text == null) {
-                    s.op14CompleteEvent(1, 2, 3);
-                    s.sourceStateTrace.add("PORTED scene1 room2 group3 op14 complete");
-                    room2Group3Started = false;
-                }
-                return false;
-            }
-            if (s.trySourceTransition(2, 0, 1, 0, 31)) {
-                return false;
-            }
-            s.tickFreeWorldPlayer();
-            if (s.trySourceTransition(2, 0, 1, 0, 31)) {
-                return false;
-            }
-            if (s.trySourceTransition(3, 2, 1, 3, 24)) {
-                s.sourceStateTrace.add("PENDING scene1 room2 actor3 to room3 target24 needs room3 free-world loader audit");
-            }
-            return false;
-        }
-    }
-
-    static final class Room0Group3PetOffer implements Blocking {
-        private static final int[] PET_IDS = {53, 54, 55};
-        private static final int[] PET_BRANCH_TARGETS = {4, 8, 12};
-        private static final int[][] OP87_ARGS = {
-                {0, 51, 7, 3, 2, 30, 45, 0},
-                {0, 17, 7, 3, 2, 10, 45, 0},
-                {0, 6, 7, 3, 2, 0, 45, 0}
-        };
-        private boolean started;
-        private int phase;
-        private int selectedActor = -1;
-        private int selectedPetIndex = -1;
-        private int choiceIndex;
-        private boolean upWasDown;
-        private boolean downWasDown;
-        private boolean leftWasDown;
-        private boolean rightWasDown;
-        private Blocking effectWait;
-
-        @Override
-        public boolean tick(Scene s) {
-            if (!s.op15CheckEventState(1, 0, 2)) {
-                s.tickFreeWorldPlayer();
-                return false;
-            }
-            if (!started) {
-                started = true;
-                Scene.setActive(s, PET_IDS, new int[]{0, 0, 0});
-                s.sourceStateTrace.add("PORTED room0 group3 op15 [1,0,2] pass");
-                s.sourceStateTrace.add("PORTED room0 group3 op2 show pets ids=[53,54,55] dirs=[0,0,0]");
-                s.sourceStateTrace.add("PORTED room0 group3 op38 wait pets=[53,54,55] branches=[4,8,12]");
-            }
-            if (phase == 0) {
-                if (s.key0) {
-                    for (int i = 0; i < PET_IDS.length; i++) {
-                        int petId = PET_IDS[i];
-                        if (!s.playerInteractsActorSourceMask(petId)) {
-                            continue;
-                        }
-                        selectedActor = petId;
-                        selectedPetIndex = i;
-                        s.stopPlayerForSourceEvent();
-                        s.sourceStateTrace.add("PORTED room0 group3 op38 selected actor="
-                                + petId + " branch=" + PET_BRANCH_TARGETS[i]);
-                        s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group3.ELDER,
-                                petDescription(petId), 1);
-                        phase = 1;
-                        return false;
-                    }
-                }
-                s.tickFreeWorldPlayer();
-                return false;
-            }
-            if (phase == 1) {
-                if (s.text != null && s.text.readyForKey && s.key0) {
-                    s.text.confirm();
-                    return false;
-                }
-                if (s.text == null) {
-                    choiceIndex = 0;
-                    upWasDown = s.keyUp;
-                    downWasDown = s.keyDown;
-                    leftWasDown = s.keyLeft;
-                    rightWasDown = s.keyRight;
-                    s.choice = ChoiceBox.optionUi(0, VqsvText.Scene1Room0Group3.YES_NO_OPTIONS);
-                    s.sourceStateTrace.add("PORTED/APPROX room0 group3 op35 choice shown actor="
-                            + selectedActor + " branches=" + op35BranchesForSelectedPet()
-                            + "; source game.h mode=0 /data/ui/option.ui coordinates/cells ported, full ao renderer pending");
-                    phase = 2;
-                }
-                return false;
-            }
-            if (phase == 2) {
-                if ((s.keyUp && !upWasDown) || (s.keyLeft && !leftWasDown)) {
-                    s.choice.move(-1);
-                }
-                if ((s.keyDown && !downWasDown) || (s.keyRight && !rightWasDown)) {
-                    s.choice.move(1);
-                }
-                upWasDown = s.keyUp;
-                downWasDown = s.keyDown;
-                leftWasDown = s.keyLeft;
-                rightWasDown = s.keyRight;
-                if (s.choice != null && s.key0) {
-                    choiceIndex = s.choice.selectedIndex();
-                    s.choice = null;
-                    if (choiceIndex == 1) {
-                        s.sourceStateTrace.add("PORTED room0 group3 op35 selected No branch target=2 return to op38");
-                        phase = 0;
-                        selectedActor = -1;
-                        selectedPetIndex = -1;
-                        return false;
-                    }
-                    applyOp87(s);
-                    s.text = TextBox.openBox(VqsvText.Common.ITEM_REWARD_PREFIX
-                            + petRewardName(selectedActor));
-                    phase = 3;
-                }
-                return false;
-            }
-            if (phase == 3) {
-                if (s.text != null && s.text.readyForKey && s.key0) {
-                    s.text.confirm();
-                    s.sourceStateTrace.add("PORTED room0 group3 op41 [16] jump to record 15");
-                    Scene.hide(s, PET_IDS);
-                    s.sourceStateTrace.add("PORTED room0 group3 op3 hide pets ids=[53,54,55] states=[1,1,1]");
-                    effectWait = s.op9SourceEffect("room0 group3", 2, 0, 0, 0, 0, 0);
-                    phase = 4;
-                }
-                return false;
-            }
-            if (phase == 4) {
-                if (effectWait != null && !effectWait.tick(s)) {
-                    return false;
-                }
-                s.op14CompleteEvent(1, 0, 3);
-                s.sourceStateTrace.add("PORTED room0 group3 op14 complete");
-                return true;
-            }
-            return false;
-        }
-
-        private void applyOp87(Scene s) {
-            int[] args = OP87_ARGS[selectedPetIndex];
-            if (args[0] == 0) {
-                SourcePetState pet = new SourcePetState(args[7], args[1], args[2], args[3], args[4], args[5], args[6]);
-                s.sourcePets.add(pet);
-                s.sourceStateTrace.add("PORTED/APPROX room0 group3 op87 addPet args="
-                        + Arrays.toString(args)
-                        + " stored slot=" + pet.slot
-                        + " species=" + pet.speciesId
-                        + " level=" + pet.level
-                        + " skills=[" + pet.skillIds[0] + "," + pet.skillIds[1] + "]"
-                        + "; full game.g pet inventory UI still pending");
-            } else {
-                s.sourceStateTrace.add("UNKNOWN room0 group3 op87 unsupported mode args=" + Arrays.toString(args));
-            }
-        }
-
-        private String op35BranchesForSelectedPet() {
-            switch (selectedActor) {
-                case 53:
-                    return "[6,2]";
-                case 54:
-                    return "[10,2]";
-                case 55:
-                    return "[14,2]";
-                default:
-                    return "[]";
-            }
-        }
-
-        private static String petRewardName(int petId) {
-            switch (petId) {
-                case 53:
-                    return VqsvText.Scene1Room0Group3.PENGUIN;
-                case 54:
-                    return VqsvText.Scene1Room0Group3.FROG;
-                case 55:
-                    return VqsvText.Scene1Room0Group3.DRAGON;
-                default:
-                    return VqsvText.Common.SOURCE_PET_REWARD_FALLBACK;
-            }
-        }
-
-        private static String petDescription(int petId) {
-            switch (petId) {
-                case 53:
-                    return VqsvText.Scene1Room0Group3.PENGUIN;
-                case 54:
-                    return VqsvText.Scene1Room0Group3.FROG;
-                case 55:
-                    return VqsvText.Scene1Room0Group3.DRAGON;
-                default:
-                    return "";
-            }
-        }
-    }
-
-    private static final class OldRoom0Group3PetOffer implements Blocking {
-        private static final int[] PET_IDS = {53, 54, 55};
-        private static final int[] PET_BRANCH_TARGETS = {4, 8, 12};
-        private boolean started;
-        private int phase;
-        private int selectedActor = -1;
-
-        @Override
-        public boolean tick(Scene s) {
-            if (!s.op15CheckEventState(1, 0, 2)) {
-                s.tickFreeWorldPlayer();
-                return false;
-            }
-            if (!started) {
-                started = true;
-                Scene.setActive(s, PET_IDS, new int[]{0, 0, 0});
-                s.sourceStateTrace.add("PORTED room0 group3 op15 [1,0,2] pass");
-                s.sourceStateTrace.add("PORTED room0 group3 op2 show pets ids=[53,54,55] dirs=[0,0,0]");
-                s.sourceStateTrace.add("PORTED/APPROX room0 group3 op38 wait pets=[53,54,55] branches=[4,8,12]");
-            }
-            if (phase == 0) {
-                if (s.key0) {
-                    for (int i = 0; i < PET_IDS.length; i++) {
-                        int petId = PET_IDS[i];
-                        if (!s.playerInteractsActorSourceMask(petId)) {
-                            continue;
-                        }
-                        selectedActor = petId;
-                        s.stopPlayerForSourceEvent();
-                        s.sourceStateTrace.add("PORTED/APPROX room0 group3 op38 selected actor="
-                                + petId + " branch=" + PET_BRANCH_TARGETS[i]);
-                        s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group3.ELDER, petDescription(petId), 1);
-                        phase = 1;
-                        return false;
-                    }
-                }
-                s.tickFreeWorldPlayer();
-                return false;
-            }
-            if (phase == 1) {
-                if (s.text != null && s.text.readyForKey && s.key0) {
-                    s.text.confirm();
-                    return false;
-                }
-                if (s.text == null) {
-                    s.text = TextBox.openBox(VqsvText.Scene1Room0Group3.YES_NO);
-                    s.sourceStateTrace.add("PENDING/APPROX room0 group3 op35 choice shown for actor="
-                            + selectedActor + "; op87 pet grant not ported yet");
-                    phase = 2;
-                }
-                return false;
-            }
-            if (phase == 2) {
-                if (s.text != null && s.text.readyForKey && s.key0) {
-                    s.text.confirm();
-                    phase = 0;
-                    selectedActor = -1;
-                    s.sourceStateTrace.add("PENDING room0 group3 op35/op87 selection branch not executed; returned to pet wait");
-                }
-                return false;
-            }
-            return false;
-        }
-
-        private static String petDescription(int petId) {
-            switch (petId) {
-                case 53:
-                    return VqsvText.Scene1Room0Group3.PENGUIN;
-                case 54:
-                    return VqsvText.Scene1Room0Group3.FROG;
-                case 55:
-                    return VqsvText.Scene1Room0Group3.DRAGON;
-                default:
-                    return "";
-            }
-        }
-    }
-
-
 
 }
 

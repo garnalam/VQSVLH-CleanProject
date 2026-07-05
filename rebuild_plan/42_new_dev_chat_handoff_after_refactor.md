@@ -101,9 +101,8 @@ rebuild_plan/
 
 - Still the main runnable demo/client and smoke entrypoint.
 - Still contains the large `Scene` class.
-- Still contains map/room loading, world render glue, battle UI drawing,
-  source inventory/reward ops, free-world post-group6 code, and pet/group6
-  custom blocking classes.
+- Still contains the coordinator shell for input/tick/event-runner state and
+  thin wrappers around extracted source/free-world/view helpers.
 - It is no longer the place where the main event list is handwritten inline.
   `makeEvents()` now delegates to script files.
 
@@ -140,15 +139,16 @@ rebuild_plan/
 
 `Scene1Room0Group3PetScript.java`
 
-- Currently only appends `Room0Group3PetOffer`.
-- Actual pet selection blocking class is still inside `VqsvIntroDemo`.
+- Owns `Room0Group3PetOffer`.
+- Pet selection blocking behavior was moved out of `VqsvIntroDemo` during the
+  cleanup pass.
 - Status: `PORTED/APPROX`; op9 and pet inventory semantics still approximate.
 
 `Scene1Room0Group6ElderBattleScript.java`
 
 - Elder battle/reward/free-world unlock script.
-- Calls `Room0Group6Start`, `SourceBattleRuntime`, and
-  `Room0PostGroup6FreeWorld`.
+- Owns `Room0Group6Start` and `Room0PostGroup6FreeWorld`.
+- Calls `SourceBattleRuntime` for the elder battle slice.
 - Status: `PORTED/APPROX + STUB battle`.
 
 `VqsvScriptBlocks.java`
@@ -189,6 +189,27 @@ rebuild_plan/
   - Bunny capture
   - Elder battle
 
+`VqsvBattleRenderer.java`
+
+- Owns current battle overlay/HUD drawing helpers.
+- Status: `PORTED/APPROX`; this is a renderer extraction only, not full
+  `game.h/game.d` battle UI parity.
+
+`VqsvSceneLoaders.java`
+
+- Owns current map/room loader tables moved out of `VqsvIntroDemo.Scene`.
+- Status: move-only extraction, no intended runtime behavior change.
+- Contains `loadMapRenderer` and loaders for:
+  - `loadScene7Room2`
+  - `loadRoom1`
+  - `loadScene5Room3`
+  - `loadScene1Room3Entry`
+  - `loadScene1Room0`
+  - `loadScene1Room1`
+  - `loadScene1Room2`
+- `VqsvIntroDemo.Scene` keeps thin wrapper methods so existing scripts still
+  call `s.loadScene...(...)` unchanged.
+
 `VqsvText.java`
 
 - Centralized Vietnamese text/constants.
@@ -211,6 +232,93 @@ rebuild_plan/
 
 - Source-like item/reward/battle unit/pet data models.
 
+`VqsvSourceOps.java`
+
+- Owns current source-backed inventory/reward opcode helpers moved out of
+  `VqsvIntroDemo.Scene`.
+- Status: move-only extraction, no intended runtime behavior change.
+- Contains:
+  - `op17Item`
+  - `op31CurrencyReward`
+  - `op19SpecialReward`
+  - source bag add/remove/check/count helpers
+  - source item id mapping for currently used items
+  - source inventory/reward popup helper
+- `VqsvIntroDemo.Scene` keeps thin wrappers so script files still call
+  `s.op17Item(...)`, `s.op31CurrencyReward(...)`, and
+  `s.op19SpecialReward(...)` unchanged.
+
+`VqsvSourceEffects.java`
+
+- Owns current source event side-effect helpers moved out of
+  `VqsvIntroDemo.Scene`.
+- Status: move-only extraction, no intended runtime behavior change.
+- Contains:
+  - `op5ActorEffect`
+  - `op9SourceEffect`
+  - `op25SetGameFlag`
+  - `op39RefreshPets`
+  - `op56ActorVisibility`
+  - `op67SetBattleActor`
+  - local helpers for op9 argument/default/color handling
+- Keep this separate from `VqsvSourceOps.java`; `VqsvSourceOps.java` is for
+  inventory/reward/source gameplay ops, while this file is for event
+  side-effects. `op9` visual parity is still `APPROX/PENDING`, even though the
+  current helper has been extracted.
+- `VqsvIntroDemo.Scene` keeps thin wrappers so script files still call
+  `s.op5ActorEffect(...)`, `s.op9SourceEffect(...)`, `s.op25SetGameFlag(...)`,
+  `s.op39RefreshPets()`, `s.op56ActorVisibility(...)`, and
+  `s.op67SetBattleActor(...)` unchanged.
+
+`VqsvSmokeHarness.java`
+
+- Owns smoke-only CLI harness code moved out of `VqsvIntroDemo.java`.
+- Contains `--smoke`, `--smoke-drive`, `--smoke-checkpoint`, route driving,
+  checkpoint setup, smoke image rendering, and smoke placement helpers.
+- `VqsvIntroDemo.main()` now only dispatches smoke commands to this harness.
+- Current movement/transition checkpoints include:
+  - `room1_op13_bunny_trigger`
+  - `return_room0_transition`
+  - `actor52_interaction_group2`
+  - `post_group6_room2_entry_tip`
+  - `post_group6_room0_back_from_room2`
+
+`VqsvFreeWorldRuntime.java`
+
+- Owns current free-world movement, source transition, and source-shaped
+  collision/interaction helpers moved out of `VqsvIntroDemo.Scene`.
+- Status: move-only extraction, no intended runtime behavior change.
+- Contains:
+  - transition setup/state helpers
+  - `sourceTransitionRequiredDirection`
+  - `trySourceTransition`
+  - implemented target loaders for current scene1 room0/room1/room2 slice
+  - player placement helpers
+  - `tickFreeWorldPlayer`
+  - source rectangle trigger check for `op13`
+  - actor mask overlap checks for type-1 transitions and `op16`/`op38`
+  - stop-player helper used when source events fire
+- `VqsvIntroDemo.Scene` keeps thin wrappers so scripts and smoke harness still
+  call `s.tickFreeWorldPlayer()`, `s.trySourceTransition(...)`,
+  `s.playerIntersects...(...)`, and related methods unchanged.
+- Important: this is not full `game.g.q()` movement/collision. Map-boundary
+  movement remains `APPROX`; full tile/actor collision remains pending.
+
+`VqsvSceneView.java`
+
+- Owns current scene camera and render helpers moved out of
+  `VqsvIntroDemo.Scene`.
+- Status: move-only extraction, no intended runtime behavior change.
+- Contains:
+  - `render`
+  - map layer / actor layer / player rendering helpers
+  - camera center/pan/follow helpers
+  - local camera clamp helper
+- `VqsvIntroDemo.Scene` keeps thin wrappers so scripts/loaders/smoke still
+  call `s.render(...)`, `s.setCameraCenter(...)`, `s.moveCameraToward(...)`,
+  `s.cameraCenteredOn(...)`, `s.followActor(...)`, and
+  `s.stopCameraFollow()` unchanged.
+
 `VqsvEffect.java`
 
 - Visual effects used by current manual scripts.
@@ -221,13 +329,27 @@ rebuild_plan/
 
 Most obvious next splits:
 
-1. Remove or archive `OldRoom0Group3PetOffer`.
-2. Move `Room0Group3PetOffer` into `Scene1Room0Group3PetScript.java`.
-3. Move `Room0Group6Start` and `Room0PostGroup6FreeWorld` into
+1. DONE: remove `OldRoom0Group3PetOffer`.
+2. DONE: move `Room0Group3PetOffer` into `Scene1Room0Group3PetScript.java`.
+3. DONE: move `Room0Group6Start` and `Room0PostGroup6FreeWorld` into
    `Scene1Room0Group6ElderBattleScript.java`.
-4. Extract battle UI drawing into `VqsvBattleRenderer.java`.
-5. Extract map/room loaders into `VqsvSceneLoaders.java`.
-6. Extract inventory/reward/source gameplay ops into `VqsvSourceOps.java`.
+4. DONE: extract battle UI drawing into `VqsvBattleRenderer.java`.
+5. DONE: extract map/room loaders into `VqsvSceneLoaders.java`.
+6. DONE: extract inventory/reward/source gameplay ops into `VqsvSourceOps.java`.
+7. DONE: extract smoke harness into `VqsvSmokeHarness.java`.
+8. DONE: extract source event side-effect helpers into
+   `VqsvSourceEffects.java`.
+9. DONE: extract free-world movement/transition/collision helpers into
+   `VqsvFreeWorldRuntime.java`.
+10. DONE: extract scene camera/render helpers into `VqsvSceneView.java`.
+
+Next cleanup is not chosen yet. Before coding, audit the remaining
+`VqsvIntroDemo.Scene` responsibilities and recommend the smallest move-only
+split, likely one of:
+
+- input/tick/event-runner shell separation
+- actor/dialog utility wrappers
+- battle runtime factory wrappers
 
 ## Current Behavior Scope
 
@@ -417,22 +539,26 @@ Must include:
 Recommended first task for a new dev:
 
 ```text
-Remove or archive OldRoom0Group3PetOffer without changing runtime behavior.
+Audit remaining `VqsvIntroDemo.Scene` responsibilities after the completed
+refactors, then recommend the next smallest move-only split.
 ```
 
 Rules:
 
-- Prove it is unused with `rg`.
-- Remove only the old unused class.
+- This is a move-only refactor.
+- Keep map ids, actor rows, camera placement, source transition targets, and
+  rendered output identical.
 - Build.
 - Run `--check`.
 - Run mojibake scan.
 - Smoke:
-  - `room0_pet_choice_ui`
-  - `actor52_interaction_group2`
-  - `route_elder_after_battle_reward_state`
+  - choose checkpoints relevant to the chosen split
+  - for shell/input work, include at least `room1_op13_bunny_trigger`,
+    `room0_pet_choice_ui`, and a `--smoke-drive` route
 
-Do not touch `Room0Group3PetOffer` behavior in the same task.
+Do not touch battle runtime, rewards, source inventory ops, or
+`VqsvFreeWorldRuntime.java` in the same task.
+Do not merge source side-effect helpers back into `VqsvSourceOps.java`.
 
 ## Current Trust Boundary
 
