@@ -16,11 +16,11 @@ final class Scene1Room1BunnyScript {
 
     static void appendTo(List<Event> e) {
             // scene_1 room1 group0, records 1..10 after op13 trigger. Battle/capture remains a source-backed stub.
-            e.add(s -> s.room1BunnyBattleCaptureRuntime());
-            e.add(dialog(VqsvText.Scene1Room1Group0.NEIL, VqsvText.Scene1Room1Group0.BUNNY_REPORT));
+            e.add(VqsvBattleScripts::room1BunnyBattleCaptureRuntime);
+            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room1Group0.NEIL, VqsvText.Scene1Room1Group0.BUNNY_REPORT));
             e.add(s -> { s.op56ActorVisibility(1, new int[]{50}, new int[]{0}); return null; });
             e.add(s -> { s.op23MarkEventComplete(1, 0, 1); return null; });
-            e.add(taskNotice(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER));
+            e.add(VqsvSceneScriptSupport.taskNotice(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER));
             e.add(s -> {
                 s.op14CompleteEvent(1, 1, 0);
                 s.sourceStateTrace.add("PORTED op86 gate preview [1,1,0]="
@@ -30,19 +30,4 @@ final class Scene1Room1BunnyScript {
             });
     }
 
-    private static Event dialog(String speaker, String text) {
-        return VqsvIntroDemo.Scene.dialog(speaker, text);
-    }
-
-    private static Event dialog(String speaker, String text, int mode) {
-        return VqsvIntroDemo.Scene.dialog(speaker, text, mode);
-    }
-
-    private static Blocking waitForText() {
-        return VqsvIntroDemo.Scene.waitForText();
-    }
-
-    private static Event taskNotice(String text) {
-        return VqsvIntroDemo.Scene.taskNotice(text);
-    }
 }

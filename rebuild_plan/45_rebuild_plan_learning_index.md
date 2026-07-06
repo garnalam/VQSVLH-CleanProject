@@ -19,69 +19,88 @@ randomly and miss the current truth.
 3. `44_new_dev_chat_training_and_exercises.md`
    - copy-paste prompt, required exercises, answer rubric, first safe tasks
 
+4. `47_battle_scripts_refactor_audit.md`
+   - latest small refactor audit for moving Bunny/elder battle factory wrappers
+     into `VqsvBattleScripts.java`
+
+5. `48_intro_demo_remaining_scene_audit.md`
+   - latest audit-only map of what remains in `VqsvIntroDemo.Scene`
+   - classifies remaining areas as `KEEP_CORE`, `MOVE_SAFE`, `MOVE_LATER`,
+     and `DO_NOT_TOUCH_YET`
+
+6. `49_scene_tick_input_runner_audit.md`
+   - audit-only map of `press0`, `click`, `setMoveKey`, and `tick`
+   - documents why input/tick runner has not been moved yet
+
 ## Closeout Truth For Current Playable Route
 
-4. `40_intro_to_elder_battle_closeout_audit.md`
+7. `40_intro_to_elder_battle_closeout_audit.md`
    - current closed scope from intro to elder battle reward
    - must read before claiming old sections are done
 
-5. `41_battle_engine_three_stub_replacement_audit.md`
+8. `41_battle_engine_three_stub_replacement_audit.md`
    - explains current battle slice
    - important because battle is improved, but still not full `game.d`
 
+9. `50_battle_full_engine_port_plan.md`
+   - current forward plan for replacing the remaining `PORTED/APPROX` battle
+     slice with a source-backed `game.d/game.b/game.h` runtime
+   - includes the immediate fix that removes the visible `Scripted stub`
+     overlay and the staged implementation order
+
 ## Scene 1 Return / Elder / Pet / Battle Chain
 
-6. `35_scene1_return_to_room0_group2_elder_audit.md`
+10. `35_scene1_return_to_room0_group2_elder_audit.md`
    - post-Bunny return to room0 group2
    - actor52 interaction gate
 
-7. `36_scene1_room0_group3_pet_selection_audit.md`
+11. `36_scene1_room0_group3_pet_selection_audit.md`
    - pet selection source chain and implemented behavior
 
-8. `37_scene1_room0_group6_elder_battle_audit.md`
+12. `37_scene1_room0_group6_elder_battle_audit.md`
    - elder battle and reward chain
 
-9. `38_scene1_post_group6_flow_audit.md`
+13. `38_scene1_post_group6_flow_audit.md`
    - what source seems to do after group6
 
-10. `39_post_group6_freeworld_port_audit.md`
+14. `39_post_group6_freeworld_port_audit.md`
     - current post-group6 free-world slice
 
 ## Earlier Scene 1 Audits
 
-11. `31_scene1_post_intro_original_init_trace.md`
+15. `31_scene1_post_intro_original_init_trace.md`
     - original initialization after intro
 
-12. `28_scene1_room0_group0_manual_script_audit.md`
+16. `28_scene1_room0_group0_manual_script_audit.md`
     - ten-years-later room0 group0 manual script audit
 
-13. `32_scene1_room1_freeworld_op13_audit.md`
+17. `32_scene1_room1_freeworld_op13_audit.md`
     - transition/free-world trigger into Bunny map
 
-14. `33_scene1_room1_group0_post_op13_audit.md`
+18. `33_scene1_room1_group0_post_op13_audit.md`
     - room1 group0 after op13
 
-15. `29_scene1_event_transition_chain_audit.md`
+19. `29_scene1_event_transition_chain_audit.md`
     - broader scene1 event transition notes
 
-16. `30_scene1_room0_player_world_ui_correction.md`
+20. `30_scene1_room0_player_world_ui_correction.md`
     - correction notes around player/world/UI behavior
 
-17. `22_scene1_room3_group0_manual_script_audit.md`
+21. `22_scene1_room3_group0_manual_script_audit.md`
     - room3 entry/Sophie/Neil cutscene audit
 
 ## Resource / Runtime Study Notes
 
-18. `24_scene1_room0_sprite_mapping_audit.md`
+22. `24_scene1_room0_sprite_mapping_audit.md`
     - room0 sprite mapping and resource readiness
 
-19. `25_module_source_learning_notes.md`
+23. `25_module_source_learning_notes.md`
     - learning notes from module/source audit
 
-20. `26_source_code_file_role_map.md`
+24. `26_source_code_file_role_map.md`
     - role map for decompiled source files
 
-21. `27_deep_runtime_resource_world_trace.md`
+25. `27_deep_runtime_resource_world_trace.md`
     - deeper runtime/resource/world trace
 
 ## Old Handoff Docs
@@ -148,10 +167,21 @@ For a new dev chat:
 - DONE: scene camera/render helpers extracted into `VqsvSceneView.java`
   without intended runtime behavior changes. Full original renderer/UI parity
   remains pending; this was a move-only cleanup.
+- DONE: battle factory wrappers extracted into `VqsvBattleScripts.java`
+  without intended runtime behavior changes.
+- DONE: actor bootstrap table extracted into `VqsvSceneActors.java` without
+  intended runtime behavior changes.
+- DONE: actor/dialog script support implementation moved into
+  `VqsvSceneScriptSupport.java` without intended runtime behavior changes.
+  This includes `setActive`, `hide`, `dialog`, `taskNotice`, and
+  `waitForText`.
+- DONE: unused `sourceStateApprox` helper removed after a dedicated call-site
+  scan found no Java callers.
+- DONE: input/tick runner audited in `49_scene_tick_input_runner_audit.md`;
+  no runner code was moved.
 - Next recommended cleanup:
-  audit remaining `VqsvIntroDemo.Scene` responsibilities and choose the next
-  smallest move-only split, likely input/tick/event-runner shell, actor/dialog
-  utilities, or battle runtime factory wrappers.
+  pause refactor and continue source route porting, or audit the next tiny
+  source-clean candidate before touching input/tick.
 
 ## Documentation Rules For Future Audits
 

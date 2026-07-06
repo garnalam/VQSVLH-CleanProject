@@ -31,10 +31,52 @@ final class VqsvText {
                 {"B\u1eaft", "\u0111\u01b0\u1ee3c"},
                 {"\u0110\u1ea1o", "c\u1ee5"},
                 {"S\u1ee7ng", "v\u1eadt"},
-                {"Th\u01b0\u01a1ng", "\u0111i\u1ec3m"},
+                {"Th\u01b0\u01a1ng", "\u0111i\u1ebfm"},
                 {"Ch\u1ea1y", "tr\u1ed1n"}
         };
+        static final String[] COMMAND_PROMPTS = {
+                "Chi\u1ebfn \u0111\u1ea5u",
+                "B\u1eaft \u0111\u01b0\u1ee3c",
+                "\u0110\u1ea1o c\u1ee5",
+                "S\u1ee7ng v\u1eadt",
+                "Th\u01b0\u01a1ng \u0111i\u1ebfm",
+                "Ch\u1ea1y tr\u1ed1n"
+        };
         static final String START = "B\u1eaft \u0111\u1ea7u tr\u1eadn";
+        static final String COMMAND_FIGHT = "Chi\u1ebfn \u0111\u1ea5u";
+        static final String COMMAND_CATCH_PENDING = "B\u1eaft \u0111\u01b0\u1ee3c";
+        static final String COMMAND_ITEM_PENDING = "\u0110\u1ea1o c\u1ee5";
+        static final String COMMAND_PET_PENDING = "S\u1ee7ng v\u1eadt";
+        static final String COMMAND_SHOP_PENDING = "Th\u01b0\u01a1ng \u0111i\u1ebfm";
+        static final String COMMAND_RUN_PENDING = "Ch\u1ea1y tr\u1ed1n";
+        static final String WARNING_PROMPT = "Nh\u1ea5n n\u00fat 5 \u0111\u1ec3 ti\u1ebfp t\u1ee5c";
+        static final String SKILL_TITLE = "K\u1ef9 n\u0103ng";
+        static final String SKILL_PP_TITLE = "S\u1ed1 l\u1ea7n";
+        static final String SKILL_USE = "S\u1eed d\u1ee5ng";
+        static final String SKILL_NO_PP = "K\u1ef9 n\u0103ng gi\u00e1 tr\u1ecb ch\u01b0a \u0111\u1ee7";
+        static final String SKILL_EMPTY = "Kh\u00f4ng c\u00f3 k\u1ef9 n\u0103ng gi\u00e1 tr\u1ecb, kh\u00f4ng c\u00e1ch n\u00e0o chi\u1ebfn \u0111\u1ea5u";
+        static final String CATCH_NOT_ALLOWED = "Tr\u1eadn chi\u1ebfn n\u00e0y kh\u00f4ng cho b\u1eaft s\u1ee7ng v\u1eadt";
+        static final String NO_BALLS = "S\u1ed1 l\u01b0\u1ee3ng Pokemon ball kh\u00f4ng \u0111\u1ee7";
+        static final String CATCH_SUCCESS = "B\u1eaft th\u00e0nh c\u00f4ng #2";
+        static final String CATCH_FAILED = "\u0110\u00e1ng ti\u1ebfc \u0111\u00e3 b\u1eaft tr\u01b0\u1ee3t";
+        static final String CATCH_RELEASED_FULL = "Kh\u00f4ng c\u00f2n kh\u00f4ng gian, s\u1ee7ng v\u1eadt n\u00e0y \u0111\u00e3 ph\u00f3ng sinh";
+        static final String CATCH_SENT_BANK = "S\u1ee7ng v\u1eadt ba l\u00f4 \u0111\u00e3 \u0111\u1ee7, \u0111\u00e3 \u0111\u1ec3 v\u00e0o ng\u00e2n h\u00e0ng";
+        static final String CATCH_STORAGE_FULL = "Ng\u00e2n h\u00e0ng v\u00e0 Ba l\u00f4 \u0111\u1ec1u \u0111\u00e3 \u0111\u1ea7y";
+        static final String ITEM_BIND_WARNING = "Tr\u1ea1ng th\u00e1i b\u1ecb qu\u1ea5n, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng \u0111\u1ea1o c\u1ee5";
+        static final String PET_BIND_WARNING = "Tr\u1ea1ng th\u00e1i b\u1ecb qu\u1ea5n, kh\u00f4ng th\u1ec3 \u0111\u1ed5i s\u1ee7ng v\u1eadt";
+        static final String RUN_BIND_WARNING = "Tr\u1ea1ng th\u00e1i b\u1ecb qu\u1ea5n, kh\u00f4ng th\u1ec3 ch\u1ea1y tr\u1ed1n";
+        static final String RUN_NOT_ALLOWED = "Tr\u1eadn chi\u1ebfn n\u00e0y kh\u00f4ng th\u1ec3 tr\u1ed1n ch\u1ea1y";
+        static final String RUN_FAILED = "Ch\u1ea1y tr\u1ed1n th\u1ea5t b\u1ea1i";
+        static final String RUN_SUCCESS = "Ch\u1ea1y tr\u1ed1n";
+        static final String NO_ITEMS = "Kh\u00f4ng c\u00f3 \u0111\u1ea1o c\u1ee5";
+        static final String ITEM_NOT_IN_BATTLE = "Trong chi\u1ebfn \u0111\u1ea5u kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng";
+        static final String NO_ITEM_COUNT = "\u0110\u00e3 kh\u00f4ng c\u00f3 \u0111\u1ea1o n\u00e0y c\u1ee5, th\u1ec9nh mua s\u1eafm";
+        static final String NO_PET_TARGET = "S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng c\u00f3, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng";
+        static final String ITEM_USED = "Th\u00e0nh c\u00f4ng s\u1eed d\u1ee5ng \u0111\u1ea1o c\u1ee5";
+        static final String NO_SWITCH_PET = "Kh\u00f4ng c\u00f3 s\u1ee7ng v\u1eadt c\u00f3 th\u1ec3 thay \u0111\u1ed5i";
+        static final String PET_SWITCHED = "\u0110\u00e3 thay \u0111\u1ed5i s\u1ee7ng v\u1eadt: ";
+        static final String NO_SHOP_ITEMS = "Kh\u00f4ng c\u00f3 \u0111\u1ea1o c\u1ee5 b\u00e1n";
+        static final String NOT_ENOUGH_MONEY = "Kim ti\u1ec1n kh\u00f4ng \u0111\u1ee7";
         static final String DAMAGE = " g\u00e2y ";
         static final String DAMAGE_SUFFIX = " s\u00e1t th\u01b0\u01a1ng";
         static final String NEIL_LOST = "Neil th\u1ea5t th\u1ee7, result ";

@@ -143,7 +143,7 @@ public final class VqsvIntroDemo extends JPanel {
         static int tenYearsEventIndex = -1;
         final FontBitmap font = new FontBitmap();
         final Effect effect = new Effect();
-        final Actor[] actors = makeActors();
+        final Actor[] actors = VqsvSceneActors.makeActors();
         final List<Event> events = makeEvents();
         final List<TempSprite> tempSprites = new ArrayList<>();
         final Actor player = new Actor(-1, 0, 0, 0, 0, 1, 1);
@@ -179,6 +179,62 @@ public final class VqsvIntroDemo extends JPanel {
         String battleEnemyName = "";
         String battlePlayerName = "";
         String battleLog = "";
+        String battleUiMode = "command";
+        String battleMenuTitle = "";
+        String battleMenuSubtitle = "";
+        String battleMenuAction = "";
+        String[] battleMenuNames = new String[0];
+        String[] battleMenuValues = new String[0];
+        int[] battleMenuIds = new int[0];
+        int[] battleMenuIconIds = new int[0];
+        int battleMenuIndex = 0;
+        String[] battleSkillNames = new String[0];
+        String[] battleSkillPpLabels = new String[0];
+        int[] battleSkillIds = new int[0];
+        int battleSkillIndex = 0;
+        int battleSkillScroll = 0;
+        String battleSkillDescription = "";
+        String[] battleTargetNames = new String[0];
+        int[] battleTargetSlots = new int[0];
+        int battleTargetIndex = 0;
+        int battleTargetCount = 0;
+        boolean battleTargetPlayerSide = false;
+        int battleP7Phase = 0;
+        int battleP7Ticks = 0;
+        int battleP7EffectAnimState = -1;
+        int battleP7EffectAnimCursor = 0;
+        boolean battleP7EffectOnPlayerSide = false;
+        boolean battleP7AttackerPlayerSide = false;
+        boolean battleP7TargetPlayerSide = false;
+        boolean battleP7DamageVisible = false;
+        String battleP7DamageText = "";
+        boolean battleP7SpecialVisible = false;
+        boolean battleP7SpecialOnPlayerSide = false;
+        int battleP7SpecialType = -1;
+        int battleP7SpecialAlpha = 0;
+        int battleP7SpecialRed = 0;
+        int battleP7SpecialGreen = 0;
+        int battleP7SpecialBlue = 0;
+        int battleP7SpecialDuration = 0;
+        int battleP7SpecialInterval = 1;
+        int battleP7SpecialTextureId = -1;
+        int battleP7SpecialBlendMode = 0;
+        int battleP7SpecialScrollMode = 0;
+        String battleWarningTitle = "";
+        String battleWarningPrompt = "";
+        int battleCatchSpriteId = -1;
+        int battleCatchPhase = -1;
+        int battleCatchTicks = 0;
+        int battleCatchAnimCursor = 0;
+        int battleCatchItemId = -1;
+        int battleCatchChance = 0;
+        boolean battleCatchCaught = false;
+        boolean battleCatchVisible = false;
+        boolean battleCatchEffectVisible = false;
+        int battleCatchEffectDx = 0;
+        int battleCatchEffectDy = 0;
+        int battleCatchEffectScale10 = 10;
+        boolean battleEnemyHiddenByCatch = false;
         int battleEnemyLevel;
         int battlePlayerLevel;
         int battleEnemyVisualId;
@@ -192,6 +248,10 @@ public final class VqsvIntroDemo extends JPanel {
         int battlePlayerMaxHp;
         int battlePlayerHp;
         int battleTurn;
+        String battleStateName = "";
+        int battleCommandIndex = 0;
+        int battleClickX = -1;
+        int battleClickY = -1;
         int battlePlayerEnergy;
         int battlePlayerMaxEnergy = 1;
         boolean battleCaptureTutorial;
@@ -201,6 +261,7 @@ public final class VqsvIntroDemo extends JPanel {
         final Map<Integer, SourceSpecialReward> sourceSpecialRewards = VqsvSourceOps.initialSourceSpecialRewards();
         private final VqsvEventState eventState = new VqsvEventState();
         final List<SourcePetState> sourcePets = new ArrayList<>();
+        final List<SourcePetState> sourcePetBank = new ArrayList<>();
         final List<String> sourceStateTrace = eventState.trace;
         boolean sourceGameCF = false;
         int sourcePetRefreshOps = 0;
@@ -212,6 +273,12 @@ public final class VqsvIntroDemo extends JPanel {
         private void click(int screenX, int screenY) {
             int x = screenX / SCALE;
             int y = screenY / SCALE;
+            if (battleOverlayTicks > 0) {
+                battleClickX = x;
+                battleClickY = y;
+                key0 = true;
+                return;
+            }
             if (choice != null && choice.click(x, y)) {
                 key0 = true;
                 return;
@@ -319,58 +386,6 @@ public final class VqsvIntroDemo extends JPanel {
             VqsvSceneView.updateCameraFollow(this);
         }
 
-        private static Actor[] makeActors() {
-            int[][] rows = {
-                    {0, 84, 0, 384, 168, 0},
-                    {1, 85, 0, 9, 274, 0},
-                    {2, 161, 0, 53, 192, 0},
-                    {3, 173, 0, 187, 419, 0},
-                    {4, 185, 0, 383, 191, 0},
-                    {5, 101, 0, 15, 246, 0},
-                    {6, 117, 0, 354, 110, 0},
-                    {7, 133, 0, 26, 91, 0},
-                    {8, 149, 0, 378, 238, 0},
-                    {9, 327, 2, 124, 357, 0},
-                    {10, 266, 0, 618, 130, 0},
-                    {11, 266, 0, 617, 144, 0},
-                    {12, 266, 0, 617, 145, 0},
-                    {13, 266, 0, 617, 145, 0},
-                    {14, 267, 2, 255, 223, 0},
-                    {15, 267, 2, 196, 239, 0},
-                    {16, 267, 2, 156, 211, 0},
-                    {17, 262, 0, 602, 199, 0},
-                    {18, 262, 0, 132, 227, 0},
-                    {19, 262, 0, 201, 222, 0},
-                    {20, 262, 0, 264, 219, 0},
-                    {21, 262, 0, 601, 199, 0},
-                    {22, 264, 0, 148, 201, 0},
-                    {23, 264, 0, 204, 221, 0},
-                    {24, 264, 0, 262, 205, 0},
-                    {25, 266, 0, 615, 149, 0},
-                    {26, 267, 0, 153, 199, 0},
-                    {27, 267, 0, 188, 249, 0},
-                    {28, 267, 0, 260, 233, 0},
-                    {29, 266, 0, 615, 149, 0},
-                    {30, 266, 0, 616, 149, 0},
-                    {31, 266, 0, 617, 149, 0},
-                    {32, 266, 0, 158, 210, 0},
-                    {33, 266, 0, 211, 257, 0},
-                    {34, 266, 0, 617, 148, 0},
-                    {35, 266, 0, 251, 203, 0},
-                    {36, 262, 0, 603, 196, 0},
-                    {37, 262, 0, 601, 197, 0},
-                    {38, 262, 0, 602, 197, 0},
-                    {39, 85, 0, 46, 166, 0}
-            };
-            Actor[] out = new Actor[80];
-            for (int[] r : rows) {
-                Actor a = new Actor(r[0], r[1], r[2], r[3], r[4]);
-                a.visible = r[5] == 1;
-                out[r[0]] = a;
-            }
-            return out;
-        }
-
         private static List<Event> makeEvents() {
             ArrayList<Event> e = new ArrayList<>();
             Scene0IntroScript.appendTo(e);
@@ -418,7 +433,7 @@ public final class VqsvIntroDemo extends JPanel {
             useMap = false;
             mapRenderer = null;
             followActorId = -1;
-            Actor[] fresh = makeActors();
+            Actor[] fresh = VqsvSceneActors.makeActors();
             for (int i = 0; i < fresh.length; i++) {
                 actors[i] = fresh[i];
             }
@@ -497,10 +512,6 @@ public final class VqsvIntroDemo extends JPanel {
             VqsvFreeWorldRuntime.stopPlayerForSourceEvent(this);
         }
 
-        private void sourceStateApprox(String ignoredSourceNote) {
-            sourceStateTrace.add("APPROX " + ignoredSourceNote);
-        }
-
         int sourceEventState(int sceneId, int roomIndex, int groupIndex) {
             return eventState.sourceEventState(sceneId, roomIndex, groupIndex);
         }
@@ -533,37 +544,8 @@ public final class VqsvIntroDemo extends JPanel {
             return VqsvSourceEffects.op9SourceEffect(this, context, args);
         }
 
-        Blocking room1BunnyBattleCaptureRuntime() {
-            sourceStateTrace.add("PORTED/APPROX room1 group0 op37 battleSetup=[[34,5,1]]");
-            sourceStateTrace.add("PORTED/APPROX room1 group0 op52 this.i=true game.c.j=false args=[0,1]");
-            sourceStateTrace.add("PORTED/APPROX room1 group0 op66 an.U=0");
-            sourceStateTrace.add("PORTED/APPROX room1 group0 op32 battleEntry mode=[0,0]");
-            sourceStateTrace.add("PORTED/APPROX room1 group0 op47 branch=[12,0,0] result=-1 continue success path; full game.d command UI pending");
-            return new SourceBattleRuntime(
-                    50,
-                    new int[]{34, 5, 1},
-                    new int[]{0, 1},
-                    new int[]{0, 0},
-                    new int[]{12, 0, 0},
-                    -1);
-        }
-
         void op67SetBattleActor(int actorId) {
             VqsvSourceEffects.op67SetBattleActor(this, actorId);
-        }
-
-        Blocking room0Group6ElderBattleRuntime() {
-            sourceStateTrace.add("PORTED/APPROX room0 group6 op37 battleSetup species=68 level=5 nature=1 from game.d.a(int[][])");
-            sourceStateTrace.add("PORTED/APPROX room0 group6 op32 battleEntry mode=[0,2] captures world screen then state=12 in source");
-            sourceStateTrace.add("PORTED/APPROX room0 group6 op47 branch=[10,10,0] result=0 continue reward path; full game.d command UI pending");
-            return new SourceBattleRuntime(
-                    52,
-                    new int[]{68, 5, 1},
-                    new int[0],
-                    new int[]{0, 2},
-                    new int[]{10, 10, 0},
-                    0,
-                    true);
         }
 
         Blocking op31CurrencyReward(int mode, int currencyKind, int amount) {
@@ -590,54 +572,6 @@ public final class VqsvIntroDemo extends JPanel {
             return new Op10PlayerTimedAction(dir, speed, duration);
         }
 
-        static void setActive(Scene s, int[] ids, int[] dirs) {
-            for (int i = 0; i < ids.length; i++) {
-                Actor a = s.actors[ids[i]];
-                if (a != null) {
-                    a.direction = dirs[i];
-                    a.applyMode(0);
-                    a.visible = true;
-                }
-            }
-        }
-
-        static void hide(Scene s, int[] ids) {
-            for (int id : ids) {
-                if (s.actors[id] != null) {
-                    s.actors[id].visible = false;
-                }
-            }
-        }
-
-        static Event dialog(String speaker, String text) {
-            return s -> {
-                s.text = TextBox.dialog(s.font, speaker, text, 0);
-                return waitForText();
-            };
-        }
-
-        static Event dialog(String speaker, String text, int mode) {
-            return s -> {
-                s.text = TextBox.dialog(s.font, speaker, text, mode);
-                return waitForText();
-            };
-        }
-
-        static Event taskNotice(String text) {
-            return s -> {
-                s.text = TextBox.taskTip(text);
-                return waitForText();
-            };
-        }
-
-        static Blocking waitForText() {
-            return sc -> {
-                if (sc.text != null && sc.text.readyForKey && sc.key0) {
-                    return sc.text.confirm();
-                }
-                return false;
-            };
-        }
     }
 
 }

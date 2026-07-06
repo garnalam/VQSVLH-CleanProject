@@ -25,7 +25,7 @@ final class VqsvSourceOps {
         } else {
             s.sourceStateTrace.add("PORTED/APPROX op17 remove-missing [" + mode + "," + itemId + "," + qty + "]");
         }
-        return s.text == null ? null : VqsvIntroDemo.Scene.waitForText();
+        return s.text == null ? null : VqsvSceneScriptSupport.waitForText();
     }
 
     static Blocking op31CurrencyReward(VqsvIntroDemo.Scene s, int mode, int currencyKind, int amount) {
@@ -58,7 +58,7 @@ final class VqsvSourceOps {
                     + mode + "," + currencyKind + "," + amount + "]");
             s.text = null;
         }
-        return s.text == null ? null : VqsvIntroDemo.Scene.waitForText();
+        return s.text == null ? null : VqsvSceneScriptSupport.waitForText();
     }
 
     static Blocking op19SpecialReward(VqsvIntroDemo.Scene s, int rewardId, int qty) {
@@ -71,7 +71,7 @@ final class VqsvSourceOps {
                 + " unlocked=" + reward.unlocked
                 + " stack=" + reward.stackCount);
         s.text = sourceInventoryPopup(VqsvText.Common.ITEM_REWARD_PREFIX + reward.name, qty);
-        return VqsvIntroDemo.Scene.waitForText();
+        return VqsvSceneScriptSupport.waitForText();
     }
 
     static Map<Integer, BagItem> initialSourceBagItems() {
@@ -89,7 +89,7 @@ final class VqsvSourceOps {
         return TextBox.openBox(message + suffix);
     }
 
-    private static boolean sourceCanAddItem(VqsvIntroDemo.Scene s, int itemId, int qty) {
+    static boolean sourceCanAddItem(VqsvIntroDemo.Scene s, int itemId, int qty) {
         BagItem entry = s.sourceBagItems.get(itemId);
         if (entry != null) {
             return entry.count < 99;
@@ -97,12 +97,12 @@ final class VqsvSourceOps {
         return qty <= 99;
     }
 
-    private static boolean sourceCanRemoveItem(VqsvIntroDemo.Scene s, int itemId, int qty) {
+    static boolean sourceCanRemoveItem(VqsvIntroDemo.Scene s, int itemId, int qty) {
         BagItem entry = s.sourceBagItems.get(itemId);
         return entry != null && entry.count - qty >= 0;
     }
 
-    private static void sourceAddItem(VqsvIntroDemo.Scene s, int itemId, int qty) {
+    static void sourceAddItem(VqsvIntroDemo.Scene s, int itemId, int qty) {
         SourceItem item = sourceItem(itemId);
         BagItem entry = s.sourceBagItems.get(itemId);
         if (entry == null) {
@@ -112,7 +112,7 @@ final class VqsvSourceOps {
         entry.count = Math.min(entry.count + qty, 99);
     }
 
-    private static void sourceRemoveItem(VqsvIntroDemo.Scene s, int itemId, int qty) {
+    static void sourceRemoveItem(VqsvIntroDemo.Scene s, int itemId, int qty) {
         BagItem entry = s.sourceBagItems.get(itemId);
         if (entry == null) {
             return;
@@ -123,7 +123,7 @@ final class VqsvSourceOps {
         }
     }
 
-    private static int sourceItemCount(VqsvIntroDemo.Scene s, int itemId) {
+    static int sourceItemCount(VqsvIntroDemo.Scene s, int itemId) {
         BagItem entry = s.sourceBagItems.get(itemId);
         return entry == null ? 0 : entry.count;
     }

@@ -15,6 +15,13 @@ final class VqsvSmokeHarness {
             if (s.text != null && s.text.readyForKey) {
                 s.press0();
             }
+            if ("P20".equals(s.battleStateName)) {
+                s.press0();
+            }
+            if ("P21".equals(s.battleStateName) || "P17".equals(s.battleStateName)
+                    || "P4".equals(s.battleStateName) || "P16".equals(s.battleStateName)) {
+                s.press0();
+            }
             s.tick();
         }
     }
@@ -25,10 +32,46 @@ final class VqsvSmokeHarness {
             if (s.text != null && s.text.readyForKey) {
                 s.press0();
             }
+            if ("P20".equals(s.battleStateName)) {
+                s.press0();
+            }
+            if ("P21".equals(s.battleStateName) || "P17".equals(s.battleStateName)
+                    || "P4".equals(s.battleStateName) || "P16".equals(s.battleStateName)) {
+                s.press0();
+            }
             s.tick();
         }
         if (s.current != null) {
-            throw new IllegalStateException("Checkpoint current did not finish in " + maxTicks + " ticks");
+            throw new IllegalStateException("Checkpoint current did not finish in " + maxTicks
+                    + " ticks state=" + s.battleStateName
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " log=" + s.battleLog
+                    + " command=" + s.battleCommandIndex);
+        }
+    }
+
+    private static void tickUntilBattleState(VqsvIntroDemo.Scene s, String stateName, int maxTicks) {
+        int guard = 0;
+        while (!stateName.equals(s.battleStateName) && guard++ < maxTicks) {
+            s.tick();
+        }
+        if (!stateName.equals(s.battleStateName)) {
+            throw new IllegalStateException("Battle state " + stateName
+                    + " not reached in " + maxTicks + " ticks, current=" + s.battleStateName);
+        }
+    }
+
+    private static void tickUntilBattleP7Phase(VqsvIntroDemo.Scene s, int phase, int maxTicks) {
+        int guard = 0;
+        while (!"P7".equals(s.battleStateName) || s.battleP7Phase != phase) {
+            if (guard++ >= maxTicks) {
+                throw new IllegalStateException("Battle P7 phase " + phase
+                        + " not reached in " + maxTicks
+                        + " ticks, current=" + s.battleStateName
+                        + " phase=" + s.battleP7Phase);
+            }
+            s.tick();
         }
     }
 
@@ -174,7 +217,7 @@ final class VqsvSmokeHarness {
             } else if ("room0_pet_choice_ui".equals(checkpoint)) {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
-                VqsvIntroDemo.Scene.setActive(s, new int[]{53, 54, 55}, new int[]{0, 0, 0});
+                VqsvSceneScriptSupport.setActive(s, new int[]{53, 54, 55}, new int[]{0, 0, 0});
                 s.choice = ChoiceBox.optionUi(0, VqsvText.Scene1Room0Group3.YES_NO_OPTIONS);
             } else if ("room1_op13_bunny_trigger".equals(checkpoint)) {
                 s.loadScene1Room1(370, 176);
@@ -259,6 +302,20 @@ final class VqsvSmokeHarness {
                 for (int i = 0; i < 140; i++) {
                     s.tick();
                 }
+            } else if ("battle_bunny_command_ui".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickUntilBattleState(s, "P20", 120);
+            } else if ("battle_bunny_p3_skill_list".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 20;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P3", 80);
             } else if ("battle_bunny_capture_result".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
@@ -274,6 +331,277 @@ final class VqsvSmokeHarness {
                 for (int i = 0; i < 50; i++) {
                     s.tick();
                 }
+            } else if ("battle_elder_command_ui".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+            } else if ("battle_elder_p3_skill_list".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 20;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P3", 80);
+            } else if ("battle_elder_p6_target_select".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{1, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 20;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P3", 80);
+                for (int i = 0; i < 18 && !"P6".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P6", 80);
+            } else if ("battle_elder_p6_confirm_to_p7".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{1, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 20;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P3", 80);
+                for (int i = 0; i < 18 && !"P6".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P6", 80);
+                for (int i = 0; i < 18 && !"P7".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P7", 80);
+            } else if ("battle_elder_p7_anim_start".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                tickUntilBattleP7Phase(s, 1, 80);
+            } else if ("battle_elder_p7_damage_frame".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                tickUntilBattleP7Phase(s, 2, 120);
+            } else if ("battle_elder_p7_after_resolve".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                int guard = 0;
+                while ("P7".equals(s.battleStateName) && guard++ < 180) {
+                    s.tick();
+                }
+                if ("P7".equals(s.battleStateName)) {
+                    throw new IllegalStateException("P7 did not resolve");
+                }
+            } else if ("battle_elder_p7_speffect45_start".equals(checkpoint)) {
+                enterElderP7WithSkillIndex(s, 1);
+                tickUntilBattleP7Phase(s, 1, 80);
+            } else if ("battle_elder_p7_speffect45_overlay".equals(checkpoint)) {
+                enterElderP7WithSkillIndex(s, 1);
+                tickUntilBattleP7Phase(s, 1, 80);
+                for (int i = 0; i < 2; i++) {
+                    s.tick();
+                }
+                if (!s.battleP7SpecialVisible) {
+                    throw new IllegalStateException("Expected skill 45 AH type 9 overlay to be visible");
+                }
+            } else if ("battle_elder_p7_speffect45_type1".equals(checkpoint)) {
+                enterElderP7WithSkillIndex(s, 1);
+                tickUntilBattleP7Phase(s, 1, 80);
+                for (int i = 0; i < 8 && s.battleP7SpecialType != 1; i++) {
+                    s.tick();
+                }
+                if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 1) {
+                    throw new IllegalStateException("Expected skill 45 chunk1 AH type 1 overlay, type="
+                            + s.battleP7SpecialType + " visible=" + s.battleP7SpecialVisible);
+                }
+            } else if ("battle_elder_p7_speffect45_after".equals(checkpoint)) {
+                enterElderP7WithSkillIndex(s, 1);
+                int guard = 0;
+                while ("P7".equals(s.battleStateName) && guard++ < 180) {
+                    s.tick();
+                }
+                if ("P7".equals(s.battleStateName)) {
+                    throw new IllegalStateException("P7 speffect45 did not resolve");
+                }
+            } else if ("battle_skill_no_pp_warning".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                pet.skillCooldowns[0] = 0;
+                pet.skillCooldowns[1] = 0;
+                s.sourcePets.add(pet);
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 20;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P3", 80);
+                for (int i = 0; i < 18 && !"WARN".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "WARN", 80);
+            } else if ("battle_elder_command_ui_right".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.setMoveKey(KeyEvent.VK_RIGHT, true);
+                for (int i = 0; i < 12; i++) {
+                    s.tick();
+                }
+                s.setMoveKey(KeyEvent.VK_RIGHT, false);
+            } else if ("battle_elder_command_ui_click_pet".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 137;
+                s.battleClickY = 300;
+                for (int i = 0; i < 12; i++) {
+                    s.tick();
+                }
+            } else if ("battle_bunny_catch_p21".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+            } else if ("battle_bunny_catch_p17_anim_or_result".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P17", 80);
+                for (int i = 0; i < 18; i++) {
+                    s.tick();
+                }
+            } else if ("battle_bunny_after_catch_route".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickBattleAutoUntilDone(s, 3000);
+                if (s.battleResultIndex != -1 || s.battleBranchTarget != -1) {
+                    throw new IllegalStateException("Bunny catch route mismatch result="
+                            + s.battleResultIndex + " branch=" + s.battleBranchTarget);
+                }
+                s.text = TextBox.taskTip(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER);
+                revealCheckpointText(s, 90);
+            } else if ("battle_catch_fail_or_warning".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P17", 80);
+                for (int i = 0; i < 58 && "P17".equals(s.battleStateName); i++) {
+                    s.tick();
+                }
+            } else if ("battle_catch_storage_bank".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedSourcePets(s, 6);
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runCatchToDone(s, 3000);
+                if (s.sourcePets.size() != 6 || s.sourcePetBank.size() != 1) {
+                    throw new IllegalStateException("Catch bank storage mismatch bag="
+                            + s.sourcePets.size() + " bank=" + s.sourcePetBank.size());
+                }
+                s.text = TextBox.openBox(VqsvText.Battle.CATCH_SENT_BANK);
+                revealCheckpointText(s, 120);
+            } else if ("battle_catch_storage_full_release".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedSourcePets(s, 6);
+                seedSourceBank(s, 100);
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runCatchToDone(s, 3000);
+                if (s.sourcePets.size() != 6 || s.sourcePetBank.size() != 100) {
+                    throw new IllegalStateException("Catch full storage mismatch bag="
+                            + s.sourcePets.size() + " bank=" + s.sourcePetBank.size());
+                }
+                s.text = TextBox.openBox(VqsvText.Battle.CATCH_RELEASED_FULL);
+                revealCheckpointText(s, 120);
+            } else if ("battle_elder_item_p4".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(4, new BagItem(4, 2, 1, false));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 98;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P4", 80);
+            } else if ("battle_elder_item_target_p16".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(4, new BagItem(4, 2, 1, false));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 98;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P4", 80);
+                for (int i = 0; i < 12 && !"P16".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P16", 80);
+            } else if ("battle_elder_pet_p5".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 137;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P5", 80);
+            } else if ("battle_elder_shop_p11".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourceMoney = 1000;
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 176;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P11", 80);
+            } else if ("battle_elder_run_warning".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 218;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "WARN", 80);
             } else if ("battle_elder_result".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -297,9 +625,11 @@ final class VqsvSmokeHarness {
                 revealCheckpointText(s, 120);
             } else if ("route_bunny_after_battle_task".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
-                tickCurrentUntilDone(s, 600);
+                tickBattleAutoUntilDone(s, 3000);
                 if (s.battleResultIndex != -1 || s.battleBranchTarget != -1) {
                     throw new IllegalStateException("Bunny battle branch mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
@@ -313,7 +643,7 @@ final class VqsvSmokeHarness {
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
                 s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
                         new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
-                tickCurrentUntilDone(s, 800);
+                tickBattleAutoUntilDone(s, 3000);
                 if (s.battleResultIndex != 0 || s.battleBranchTarget != 10) {
                     throw new IllegalStateException("Elder battle branch mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
@@ -339,6 +669,7 @@ final class VqsvSmokeHarness {
                     + " textState=" + (s.text == null ? "none" : "present")
                     + " battleResult=" + s.battleResultIndex
                     + " battleBranch=" + s.battleBranchTarget
+                    + " battleState=" + s.battleStateName
                     + " battleHp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
                     + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
                     + " battleLog=" + s.battleLog
@@ -346,7 +677,8 @@ final class VqsvSmokeHarness {
                     + " state110=" + s.sourceEventState(1, 1, 0)
                     + " state106=" + s.sourceEventState(1, 0, 6)
                     + " money=" + s.sourceMoney
-                    + " pets=" + s.sourcePets.size());
+                    + " pets=" + s.sourcePets.size()
+                    + " bankPets=" + s.sourcePetBank.size());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(1);
@@ -387,6 +719,88 @@ final class VqsvSmokeHarness {
                 s.tick();
             }
             s.setMoveKey(keyCode, false);
+        }
+    }
+
+    private static void runCatchToDone(VqsvIntroDemo.Scene s, int maxTicks) {
+        tickUntilBattleState(s, "P20", 120);
+        s.battleClickX = 56;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P21", 80);
+        for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+            s.press0();
+            s.tick();
+        }
+        tickUntilBattleState(s, "P17", 80);
+        tickCurrentUntilDone(s, maxTicks);
+    }
+
+    private static void enterElderP7FromFight(VqsvIntroDemo.Scene s) {
+        enterElderP7WithSkillIndex(s, 0);
+    }
+
+    private static void enterElderP7WithSkillIndex(VqsvIntroDemo.Scene s, int skillIndex) {
+        s.eventIndex = s.events.size();
+        s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+        s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+        tickUntilBattleState(s, "P20", 120);
+        s.battleClickX = 20;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P3", 80);
+        for (int i = 0; i < 10; i++) {
+            s.tick();
+        }
+        for (int i = 0; i < skillIndex; i++) {
+            s.setMoveKey(KeyEvent.VK_DOWN, true);
+            s.tick();
+            s.setMoveKey(KeyEvent.VK_DOWN, false);
+            s.tick();
+        }
+        for (int i = 0; i < 18 && !"P7".equals(s.battleStateName); i++) {
+            s.press0();
+            s.tick();
+        }
+        tickUntilBattleState(s, "P7", 120);
+    }
+
+    private static void tickBattleAutoUntilDone(VqsvIntroDemo.Scene s, int maxTicks) {
+        for (int i = 0; i < maxTicks; i++) {
+            if (s.current == null) {
+                return;
+            }
+            if ("P20".equals(s.battleStateName)) {
+                if (s.battleCommandIndex == 1) {
+                    s.battleClickX = 56;
+                } else {
+                    s.battleClickX = 20;
+                }
+                s.battleClickY = 300;
+            } else if ("P3".equals(s.battleStateName)
+                    || "P6".equals(s.battleStateName)
+                    || "P21".equals(s.battleStateName)
+                    || "WARN".equals(s.battleStateName)) {
+                s.press0();
+            }
+            s.tick();
+        }
+        throw new IllegalStateException("Checkpoint current did not finish in " + maxTicks
+                + " ticks state=" + s.battleStateName
+                + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                + " log=" + s.battleLog
+                + " command=" + s.battleCommandIndex);
+    }
+
+    private static void seedSourcePets(VqsvIntroDemo.Scene s, int count) {
+        for (int i = 0; i < count; i++) {
+            s.sourcePets.add(new SourcePetState(i, 17 + i, 7, 3, 2, 10, 45));
+        }
+    }
+
+    private static void seedSourceBank(VqsvIntroDemo.Scene s, int count) {
+        for (int i = 0; i < count; i++) {
+            s.sourcePetBank.add(new SourcePetState(i, 17 + i % 20, 7, 3, 2, 10, 45));
         }
     }
 

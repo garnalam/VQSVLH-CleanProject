@@ -1,18 +1,4 @@
-import com.vqsv.rebuild.core.GameConfig;
-import com.vqsv.rebuild.resource.AssetPaths;
-import com.vqsv.rebuild.resource.BinaryTables;
-import com.vqsv.rebuild.resource.ResourceLocator;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.CodingErrorAction;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 final class BagItem {
     final int id;
@@ -83,8 +69,6 @@ final class SourceSpecialReward {
 }
 
 final class SourceBattleUnit {
-    private static final int[] NATURE_MULT = {90, 95, 100, 110, 125};
-
     final int speciesId;
     final int level;
     final int nature;
@@ -96,10 +80,19 @@ final class SourceBattleUnit {
     final int speed;
     final int element;
     final int visualId;
+    final int relationClass;
+    final BattleUnit battleUnit;
 
     SourceBattleUnit(int speciesId, int level, int nature, String name,
                      int maxHp, int attack, int defense, int speed,
-                     int element, int visualId) {
+                     int element, int visualId, int relationClass) {
+        this(speciesId, level, nature, name, maxHp, attack, defense, speed,
+                element, visualId, relationClass, null);
+    }
+
+    SourceBattleUnit(int speciesId, int level, int nature, String name,
+                     int maxHp, int attack, int defense, int speed,
+                     int element, int visualId, int relationClass, BattleUnit battleUnit) {
         this.speciesId = speciesId;
         this.level = level;
         this.nature = nature;
@@ -111,51 +104,46 @@ final class SourceBattleUnit {
         this.speed = speed;
         this.element = element;
         this.visualId = visualId;
+        this.relationClass = relationClass;
+        this.battleUnit = battleUnit;
     }
 
     static SourceBattleUnit enemyFromEncounter(int[] encounter) {
-        int species = encounter.length > 0 ? encounter[0] : -1;
-        int level = encounter.length > 1 ? encounter[1] : 1;
-        int nature = encounter.length > 2 ? encounter[2] : 3;
-        return fromSpecies(species, level, nature, false);
+        return BattleUnit.enemyFromEncounter(encounter).toRenderUnit(false);
     }
 
     static SourceBattleUnit playerFromSourcePets(List<SourcePetState> pets) {
         if (pets.isEmpty()) {
-            return fallback(-1, 1, 3, "Neil", 120, 22, 12, 10);
+            return BattleUnit.neilFallback().toRenderUnit(true);
         }
-        SourcePetState pet = pets.get(0);
-        int level = Math.max(1, pet.level);
-        return fromSpecies(pet.speciesId, level, 3, true);
+        return BattleUnit.playerFromSourcePets(pets).toRenderUnit(true);
     }
 
     static SourceBattleUnit fromSpecies(int species, int level, int nature, boolean playerSide) {
-        short[] row = SourceBattleDb.instance().speciesRow(species);
-        if (row == null || row.length < 23) {
+        BattleSpeciesRow row = VqsvBattleTables.instance().species(species);
+        if (row == null || !row.validForBattle()) {
             String fallbackName = playerSide ? "Pet " + species : "Enemy " + species;
             return fallback(species, level, nature, fallbackName, 80 + level * 4, 18 + level, 8 + level / 2, 8);
         }
-        int idx = Math.max(0, Math.min(NATURE_MULT.length - 1, nature - 1));
-        int mult = NATURE_MULT[idx];
-        int hp = ((row[5] + row[6] * level + row[7]) * mult) / 100;
-        int atk = ((row[8] + row[9] * level + row[10]) * mult) / 100;
-        int def = ((row[11] + row[12] * level / 10 + row[13]) * mult) / 100;
-        int spd = ((row[14] + row[15] * level / 10 + row[16]) * mult) / 100;
-        String sourceName = SourceBattleDb.instance().text(row[0], playerSide ? "Pet " + species : "Enemy " + species);
+        int hp = row.statHp(level, nature);
+        int atk = row.statAttack(level, nature);
+        int def = row.statDefense(level, nature);
+        int spd = row.statSpeed(level, nature);
+        String sourceName = row.name(playerSide ? "Pet " + species : "Enemy " + species);
         return new SourceBattleUnit(species, level, nature, sourceName,
                 Math.max(1, hp), Math.max(1, atk), Math.max(0, def), Math.max(1, spd),
-                row[1], row[17]);
+                row.element, row.spriteId, row.relationClass);
     }
 
     static SourceBattleUnit fallback(int species, int level, int nature, String name,
                                      int maxHp, int attack, int defense, int speed) {
         return new SourceBattleUnit(species, level, nature, name,
                 Math.max(1, maxHp), Math.max(1, attack), Math.max(0, defense), Math.max(1, speed),
-                -1, -1);
+                -1, -1, 0);
     }
 
     boolean alive() {
-        return hp > 0;
+        return battleUnit == null ? hp > 0 : battleUnit.alive();
     }
 
     int nextLevelEnergy() {
@@ -166,6 +154,9 @@ final class SourceBattleUnit {
     }
 
     int basicDamageTo(SourceBattleUnit target) {
+        if (battleUnit != null && target.battleUnit != null) {
+            return battleUnit.computeDamage(target.battleUnit).damage;
+        }
         int raw = attack - target.defense;
         int levelPart = Math.max(1, level / 2);
         int damage = Math.max(1, raw + levelPart);
@@ -179,19 +170,24 @@ final class SourceBattleUnit {
     }
 
     void damage(int amount) {
+        if (battleUnit != null) {
+            battleUnit.damage(amount);
+            hp = battleUnit.hp();
+            return;
+        }
         hp = Math.max(0, hp - Math.max(1, amount));
     }
 
     byte elementRelationTo(SourceBattleUnit target) {
         boolean attackerEffective = true;
         boolean defenderEffective = true;
-        if (visualId == 2 && target.visualId == 2) {
+        if (relationClass == 2 && target.relationClass == 2) {
             attackerEffective = true;
             defenderEffective = true;
-        } else if (visualId == 2 && target.visualId != 2) {
+        } else if (relationClass == 2 && target.relationClass != 2) {
             attackerEffective = true;
             defenderEffective = false;
-        } else if (visualId != 2 && target.visualId == 2) {
+        } else if (relationClass != 2 && target.relationClass == 2) {
             attackerEffective = false;
             defenderEffective = true;
         }
@@ -224,151 +220,8 @@ final class SourceBattleUnit {
                 + ",def=" + defense
                 + ",spd=" + speed
                 + ",element=" + element
-                + ",visual=" + visualId + ")";
-    }
-}
-
-final class SourceBattleDb {
-    private static SourceBattleDb cached;
-    private final short[][] speciesRows;
-    private final String[] texts;
-
-    SourceBattleDb(short[][] speciesRows, String[] texts) {
-        this.speciesRows = speciesRows;
-        this.texts = texts;
-    }
-
-    static SourceBattleDb instance() {
-        if (cached == null) {
-            cached = load();
-        }
-        return cached;
-    }
-
-    private static SourceBattleDb load() {
-        try {
-            AssetPaths paths = AssetPaths.fromWorkingTree(GameConfig.defaultConfig());
-            ResourceLocator locator = new ResourceLocator(paths);
-            com.vqsv.rebuild.resource.BinaryReader reader = locator.binary(paths.scriptOriginal("db.mid"));
-            short[][][] groups = new short[9][][];
-            for (int i = 0; i < groups.length; i++) {
-                groups[i] = BinaryTables.readShortRows(reader);
-            }
-            return new SourceBattleDb(groups[0], readTextRows(paths));
-        } catch (RuntimeException ex) {
-            return new SourceBattleDb(new short[0][], new String[0]);
-        }
-    }
-
-    private static String[] readTextRows(AssetPaths paths) {
-        try {
-            java.nio.file.Path path = paths.modulesRoot()
-                    .resolve("script").resolve("decoded").resolve("data__script__chs.mid.json");
-            String json = Files.readString(path, StandardCharsets.UTF_8);
-            List<String> rows = new ArrayList<>();
-            Matcher matcher = Pattern.compile("\\[\\s*\"((?:\\\\.|[^\"])*)\"\\s*\\]").matcher(json);
-            while (matcher.find()) {
-                rows.add(decodeMojibake(unescapeJsonString(matcher.group(1))));
-            }
-            return rows.toArray(new String[0]);
-        } catch (IOException ex) {
-            return new String[0];
-        }
-    }
-
-    private static String unescapeJsonString(String raw) {
-        StringBuilder out = new StringBuilder(raw.length());
-        for (int i = 0; i < raw.length(); i++) {
-            char ch = raw.charAt(i);
-            if (ch != '\\' || i + 1 >= raw.length()) {
-                out.append(ch);
-                continue;
-            }
-            char next = raw.charAt(++i);
-            switch (next) {
-                case '"':
-                case '\\':
-                case '/':
-                    out.append(next);
-                    break;
-                case 'n':
-                    out.append('\n');
-                    break;
-                case 'r':
-                    out.append('\r');
-                    break;
-                case 't':
-                    out.append('\t');
-                    break;
-                case 'u':
-                    if (i + 4 < raw.length()) {
-                        out.append((char) Integer.parseInt(raw.substring(i + 1, i + 5), 16));
-                        i += 4;
-                    }
-                    break;
-                default:
-                    out.append(next);
-                    break;
-            }
-        }
-        return out.toString();
-    }
-
-    private static String decodeMojibake(String text) {
-        if (text == null) {
-            return null;
-        }
-        String current = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFC);
-        for (int i = 0; i < 4 && looksMojibake(current); i++) {
-            String decoded = decodeMojibakeOnce(current);
-            if (decoded.equals(current)) {
-                break;
-            }
-            current = java.text.Normalizer.normalize(decoded, java.text.Normalizer.Form.NFC);
-        }
-        return current;
-    }
-
-    private static String decodeMojibakeOnce(String text) {
-        try {
-            ByteBuffer bytes = java.nio.charset.Charset.forName("windows-1252")
-                    .newEncoder()
-                    .onMalformedInput(CodingErrorAction.REPORT)
-                    .onUnmappableCharacter(CodingErrorAction.REPORT)
-                    .encode(java.nio.CharBuffer.wrap(text));
-            return StandardCharsets.UTF_8.newDecoder()
-                    .onMalformedInput(CodingErrorAction.REPORT)
-                    .decode(bytes)
-                    .toString();
-        } catch (CharacterCodingException ex) {
-            return text;
-        }
-    }
-
-    private static boolean looksMojibake(String text) {
-        return text.indexOf('\u00c3') >= 0
-                || text.indexOf('\u00c2') >= 0
-                || text.indexOf('\u00c4') >= 0
-                || text.indexOf('\u00c5') >= 0
-                || text.indexOf('\u00c6') >= 0
-                || text.indexOf('\u00e2') >= 0
-                || text.indexOf('\u00e1') >= 0
-                || text.indexOf('\u00c1') >= 0
-                || text.indexOf('\u20ac') >= 0;
-    }
-
-    short[] speciesRow(int species) {
-        if (species < 0 || species >= speciesRows.length) {
-            return null;
-        }
-        return speciesRows[species];
-    }
-
-    String text(int id, String fallback) {
-        if (id < 0 || id >= texts.length || texts[id] == null || texts[id].isEmpty()) {
-            return fallback;
-        }
-        return texts[id];
+                + ",visual=" + visualId
+                + ",relationClass=" + relationClass + ")";
     }
 }
 
@@ -380,6 +233,7 @@ final class SourcePetState {
     int arg4;
     final int[] skillIds = new int[]{-1, -1, -1, -1};
     final int[] skillCooldowns = new int[skillIds.length];
+    int[] sourcePayload;
     int refreshCount;
 
     SourcePetState() {
@@ -394,6 +248,31 @@ final class SourcePetState {
         this.skillIds[0] = skillA;
         this.skillIds[1] = skillB;
         refreshFromSourceDb();
+        sourcePayload = toSourcePayload();
+    }
+
+    static SourcePetState caughtFromBattleUnit(int slot, SourceBattleUnit unit) {
+        SourcePetState pet = new SourcePetState();
+        pet.slot = slot;
+        pet.speciesId = unit.speciesId;
+        pet.level = unit.level;
+        pet.arg3 = unit.nature;
+        pet.arg4 = 0;
+        BattleUnit battle = unit.battleUnit;
+        if (battle != null) {
+            pet.arg3 = battle.baseStats[BattleUnit.STAT_QUALITY];
+            pet.arg4 = battle.natureType;
+            int count = Math.min(pet.skillIds.length, battle.skillCount);
+            for (int i = 0; i < count; i++) {
+                pet.skillIds[i] = battle.skillIds[i];
+                pet.skillCooldowns[i] = battle.skillPp[i];
+            }
+            pet.sourcePayload = pet.toSourcePayloadFromBattleUnit(battle);
+        } else {
+            pet.sourcePayload = pet.toSourcePayload();
+        }
+        pet.refreshCount++;
+        return pet;
     }
 
     void refreshFromSourceDb() {
@@ -406,9 +285,57 @@ final class SourcePetState {
     }
 
     private static int sourceSkillCooldown(int skillId) {
-        switch (skillId) {
-            default:
-                return 0;
+        BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
+        return row == null ? 0 : row.ppMax;
+    }
+
+    int[] toSourcePayload() {
+        int skillCount = 0;
+        for (int skillId : skillIds) {
+            if (skillId != -1) {
+                skillCount++;
+            }
         }
+        int[] payload = new int[10 + skillCount * 2];
+        payload[0] = speciesId;
+        payload[1] = level;
+        payload[2] = -1;
+        payload[3] = -1;
+        payload[4] = arg3;
+        payload[5] = arg4;
+        payload[6] = -1;
+        payload[7] = 0;
+        payload[8] = 0;
+        payload[9] = skillCount;
+        int out = 0;
+        for (int i = 0; i < skillIds.length; i++) {
+            if (skillIds[i] == -1) {
+                continue;
+            }
+            payload[10 + out] = skillIds[i];
+            payload[10 + skillCount + out] = skillCooldowns[i];
+            out++;
+        }
+        return payload;
+    }
+
+    private int[] toSourcePayloadFromBattleUnit(BattleUnit battle) {
+        int skillCount = Math.max(0, battle.skillCount);
+        int[] payload = new int[10 + skillCount * 2];
+        payload[0] = battle.speciesId;
+        payload[1] = battle.level;
+        payload[2] = battle.baseStats[BattleUnit.STAT_FORM];
+        payload[3] = battle.currentStats[BattleUnit.STAT_SIDE_FLAG];
+        payload[4] = battle.baseStats[BattleUnit.STAT_QUALITY];
+        payload[5] = battle.natureType;
+        payload[6] = battle.currentStats[BattleUnit.STAT_HP];
+        payload[7] = battle.exp;
+        payload[8] = battle.visualSpriteId;
+        payload[9] = skillCount;
+        for (int i = 0; i < skillCount; i++) {
+            payload[10 + i] = battle.skillIds[i];
+            payload[10 + skillCount + i] = battle.skillPp[i];
+        }
+        return payload;
     }
 }

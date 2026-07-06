@@ -189,6 +189,38 @@ World actor and small UI containers:
 Current truth: current route actors/dialog/choice are covered by smoke, but
 full `game.h` UI runtime is still pending.
 
+### `VqsvSceneActors.java`
+
+Actor bootstrap table extracted from `VqsvIntroDemo.Scene`.
+
+Current truth: move-only extraction of the source-guided actor rows used by the
+current manual route. `VqsvIntroDemo.Scene` now calls
+`VqsvSceneActors.makeActors()` for initial actor creation and blank-room reset.
+
+This file does not change actor behavior or source fidelity; it only owns the
+current actor table construction.
+
+### `VqsvSceneScriptSupport.java`
+
+Shared actor/dialog script support extracted from `VqsvIntroDemo.Scene`.
+
+Current truth: move-only extraction of these implementation bodies:
+
+- `setActive(Scene,int[],int[])`
+- `hide(Scene,int[])`
+- `dialog(String,String)`
+- `dialog(String,String,int)`
+- `taskNotice(String)`
+- `waitForText()`
+
+Scripts use this file for common actor visibility, dialog creation, task-tip
+creation, and text-confirm blocking. It still accepts `VqsvIntroDemo.Scene`
+because `Scene` remains the current runtime context.
+
+This file does not change dialog timing, typewriter behavior, prompt behavior,
+or source fidelity; it only removes these utility bodies from
+`VqsvIntroDemo.Scene`.
+
 ### `VqsvScriptBlocks.java`
 
 Reusable blocking/event primitives:
@@ -222,7 +254,7 @@ This is the preferred place for event-state helper behavior.
 
 ### `VqsvBattleRuntime.java`
 
-Contains `SourceBattleRuntime`, `SourceBattleDb`, and `SourceBattleUnit`.
+Contains `SourceBattleRuntime`.
 
 Current truth: battle setup/stats/result branches are source-backed enough for
 the three current story battles, but this is still `PORTED/APPROX`, not full
@@ -238,6 +270,63 @@ Not yet complete:
 - EXP/result flow
 - capture probability and full inventory semantics
 - battle animations/effects
+
+### `VqsvBattleTables.java`
+
+Source-backed wrappers for battle database tables loaded from
+`modules/script/original/db.mid`.
+
+Current truth: reads all nine `aq.c[0..8]` groups and exposes named row wrappers
+for species, skills, status/form rows, items, buffs, and debuffs. This is the
+new foundation for replacing the remaining `PORTED/APPROX` battle runtime with
+real `game.d/game.b/game.h` logic.
+
+Important source-backed correction: battle relation now uses species
+relation/catch class `[22]`, matching the battle audit docs, rather than
+accidentally using sprite/visual id.
+
+This file does not by itself complete battle. It only makes the source data
+named and testable for the next phases: `BattleUnit`, damage formula, command
+UI, catch, EXP, and animation scripts.
+
+### `VqsvBattleUnit.java`
+
+Source-shaped battle unit model based on `game.b`.
+
+Current truth: mirrors the important `game.b` storage shape:
+
+- `baseStats c[23]`;
+- `currentStats d[23]`;
+- `skillPp y[5]`;
+- `skillIds z[5]`;
+- `buffSlots v[16][5]`;
+- `debuffSlots w[11][5]`;
+- `activeEffectQueue x[2][3]`;
+- `activeEffectCount N[2]`;
+- `effectScratch K[16]`.
+
+Current story battles instantiate this model, then pass through the temporary
+`SourceBattleUnit` bridge for the existing renderer/runtime fields.
+
+This file does not yet make battle fully original. The bytecode-equivalent
+`game.b.b(target)` damage formula, full buff/debuff tick/apply behavior, item
+validation/use, catch, EXP, and save payload still need later slices.
+
+### `VqsvBattleScripts.java`
+
+Small story-battle factory helpers extracted from `VqsvIntroDemo.Scene`.
+
+Current truth: move-only extraction for Bunny and elder battle setup wrappers.
+It adds the same source trace lines and returns the same `SourceBattleRuntime`
+instances as before the split.
+
+Contains:
+
+- `room1BunnyBattleCaptureRuntime`
+- `room0Group6ElderBattleRuntime`
+
+This file does not make battle more complete. Full original `game.d/game.h`
+battle behavior remains `PENDING`.
 
 ### `VqsvBattleRenderer.java`
 

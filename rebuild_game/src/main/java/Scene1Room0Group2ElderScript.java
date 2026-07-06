@@ -17,35 +17,23 @@ final class Scene1Room0Group2ElderScript {
     static void appendTo(List<Event> e) {
             // scene_1 room0 group2, records 0..15. Starts only after op16 actor 52 interaction.
             e.add(s -> new ActorInteractionFreeWorldTrigger(1, 0, 2, 1, 1, 0, 52));
-            e.add(dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.CAUGHT));
-            e.add(dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_BUNNY_CUTE, 1));
+            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.CAUGHT));
+            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_BUNNY_CUTE, 1));
             e.add(s -> { s.op5ActorEffect(0, 0, 9, 0, 0); return null; });
             e.add(s -> new Delay(15));
-            e.add(dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_WRONG_TARGET));
-            e.add(dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_PET_OFFER, 1));
+            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_WRONG_TARGET));
+            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_PET_OFFER, 1));
             e.add(s -> { s.op5ActorEffect(0, 0, 14, 0, 0); return null; });
             e.add(s -> new Delay(15));
-            e.add(dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_GO_SEE));
-            e.add(dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_ONLY_ONE, 1));
-            e.add(dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_NOT_FREE));
+            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_GO_SEE));
+            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group2.ELDER, VqsvText.Scene1Room0Group2.ELDER_ONLY_ONE, 1));
+            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group2.NEIL, VqsvText.Scene1Room0Group2.NEIL_NOT_FREE));
             e.add(s -> { s.op5ActorEffect(1, 52, 3, 0, 0); return null; });
             e.add(s -> {
                 s.sourceStateTrace.add("PORTED/APPROX room0 group2 op45 taskFlag=1");
                 s.text = TextBox.taskTip(VqsvText.Scene1Room0Group2.TASK_PET_CHOICE);
-                return waitForText();
+                return VqsvSceneScriptSupport.waitForText();
             });
             e.add(s -> { s.op14CompleteEvent(1, 0, 2); return null; });
-    }
-
-    private static Event dialog(String speaker, String text) {
-        return VqsvIntroDemo.Scene.dialog(speaker, text);
-    }
-
-    private static Event dialog(String speaker, String text, int mode) {
-        return VqsvIntroDemo.Scene.dialog(speaker, text, mode);
-    }
-
-    private static Blocking waitForText() {
-        return VqsvIntroDemo.Scene.waitForText();
     }
 }

@@ -47,7 +47,7 @@ final class Room0Group3PetOffer implements Blocking {
         }
         if (!started) {
             started = true;
-            VqsvIntroDemo.Scene.setActive(s, PET_IDS, new int[]{0, 0, 0});
+            VqsvSceneScriptSupport.setActive(s, PET_IDS, new int[]{0, 0, 0});
             s.sourceStateTrace.add("PORTED room0 group3 op15 [1,0,2] pass");
             s.sourceStateTrace.add("PORTED room0 group3 op2 show pets ids=[53,54,55] dirs=[0,0,0]");
             s.sourceStateTrace.add("PORTED room0 group3 op38 wait pets=[53,54,55] branches=[4,8,12]");
@@ -124,7 +124,7 @@ final class Room0Group3PetOffer implements Blocking {
             if (s.text != null && s.text.readyForKey && s.key0) {
                 s.text.confirm();
                 s.sourceStateTrace.add("PORTED room0 group3 op41 [16] jump to record 15");
-                VqsvIntroDemo.Scene.hide(s, PET_IDS);
+                VqsvSceneScriptSupport.hide(s, PET_IDS);
                 s.sourceStateTrace.add("PORTED room0 group3 op3 hide pets ids=[53,54,55] states=[1,1,1]");
                 effectWait = s.op9SourceEffect("room0 group3", 2, 0, 0, 0, 0, 0);
                 phase = 4;
