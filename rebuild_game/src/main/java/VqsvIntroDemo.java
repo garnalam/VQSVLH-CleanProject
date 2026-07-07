@@ -56,6 +56,11 @@ public final class VqsvIntroDemo extends JPanel {
             openWindow(preloadTicks, route, postTicks);
             return;
         }
+        if (args.length > 0 && "--play-checkpoint".equals(args[0])) {
+            String checkpoint = args.length > 1 ? args[1] : "battle_elder_command_ui";
+            openWindow(checkpoint);
+            return;
+        }
         openWindow(0);
     }
 
@@ -66,6 +71,16 @@ public final class VqsvIntroDemo extends JPanel {
     private static void openWindow(int preloadTicks, String route, int postTicks) {
         JFrame f = new JFrame("VQSV Liet Hoa - Intro Scene Rebuild");
         VqsvIntroDemo panel = new VqsvIntroDemo(preloadTicks, route, postTicks);
+        openWindow(f, panel);
+    }
+
+    private static void openWindow(String checkpoint) {
+        JFrame f = new JFrame("VQSV Liet Hoa - Battle Checkpoint - " + checkpoint);
+        VqsvIntroDemo panel = new VqsvIntroDemo(checkpoint);
+        openWindow(f, panel);
+    }
+
+    private static void openWindow(JFrame f, VqsvIntroDemo panel) {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setResizable(false);
         f.setContentPane(panel);
@@ -83,15 +98,27 @@ public final class VqsvIntroDemo extends JPanel {
         this(preloadTicks, "", 0);
     }
 
+    private VqsvIntroDemo(String checkpoint) {
+        this(0, "", 0, checkpoint);
+    }
+
     private VqsvIntroDemo(int preloadTicks, String route, int postTicks) {
+        this(preloadTicks, route, postTicks, "");
+    }
+
+    private VqsvIntroDemo(int preloadTicks, String route, int postTicks, String checkpoint) {
         setPreferredSize(new Dimension(W * SCALE, H * SCALE));
         setFocusable(true);
         scene = new Scene();
-        VqsvSmokeHarness.tickSceneFastForward(scene, preloadTicks);
-        if (route != null && !route.isEmpty()) {
-            VqsvSmokeHarness.driveRoute(scene, route);
+        if (checkpoint != null && !checkpoint.isEmpty()) {
+            VqsvSmokeHarness.setupLiveCheckpoint(scene, checkpoint);
+        } else {
+            VqsvSmokeHarness.tickSceneFastForward(scene, preloadTicks);
+            if (route != null && !route.isEmpty()) {
+                VqsvSmokeHarness.driveRoute(scene, route);
+            }
+            VqsvSmokeHarness.tickSceneFastForward(scene, postTicks);
         }
-        VqsvSmokeHarness.tickSceneFastForward(scene, postTicks);
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -208,8 +235,37 @@ public final class VqsvIntroDemo extends JPanel {
         boolean battleP7TargetPlayerSide = false;
         boolean battleP7DamageVisible = false;
         String battleP7DamageText = "";
+        boolean battleP7DamageCritical = false;
+        String battleP7DebuffText = "";
+        boolean battleP7PostEffectVisible = false;
+        boolean battleP7PostEffectPlayerSide = false;
+        String battleP7PostEffectText = "";
         boolean battleP7SpecialVisible = false;
         boolean battleP7SpecialOnPlayerSide = false;
+        boolean battleP7BaseHiddenPlayerSide = false;
+        boolean battleP7BaseHiddenEnemySide = false;
+        int battleP7BaseStatePlayerSide = 0;
+        int battleP7BaseStateEnemySide = 0;
+        int battleP7BaseCursorPlayerSide = -1;
+        int battleP7BaseCursorEnemySide = -1;
+        int battleP7PlayerOffsetX = 0;
+        int battleP7PlayerOffsetY = 0;
+        int battleP7EnemyOffsetX = 0;
+        int battleP7EnemyOffsetY = 0;
+        boolean battleLVisible = false;
+        boolean battleLPlayerSide = false;
+        boolean battleLDrawAfter = false;
+        int battleLType = -1;
+        int battleLSpriteId = -1;
+        int battleLFrame = 0;
+        int battleLDirection = 0;
+        short[] battleLRow = new short[0];
+        boolean battleP7ActorEffectVisible = false;
+        boolean battleP7ActorEffectOnPlayerSide = false;
+        int battleP7ActorEffectSpriteId = -1;
+        int battleP7ActorEffectState = 0;
+        int battleP7ActorEffectCursor = 0;
+        int battleAnimationTick = 0;
         int battleP7SpecialType = -1;
         int battleP7SpecialAlpha = 0;
         int battleP7SpecialRed = 0;
@@ -220,6 +276,14 @@ public final class VqsvIntroDemo extends JPanel {
         int battleP7SpecialTextureId = -1;
         int battleP7SpecialBlendMode = 0;
         int battleP7SpecialScrollMode = 0;
+        short[] battleP7SpecialRow = new short[0];
+        boolean battleActiveQueueVisible = false;
+        boolean battleActiveQueuePlayerSide = false;
+        int battleActiveQueueBank = -1;
+        int battleActiveQueueEffectId = -1;
+        int battleActiveQueueBuffId = -1;
+        int battleActiveQueueSegment = -1;
+        int battleActiveQueueTicks = 0;
         String battleWarningTitle = "";
         String battleWarningPrompt = "";
         int battleCatchSpriteId = -1;
@@ -315,6 +379,9 @@ public final class VqsvIntroDemo extends JPanel {
 
         void tick() {
             effect.tick();
+            if (battleOverlayTicks > 0) {
+                battleAnimationTick++;
+            }
             if (text != null) {
                 text.tick(font);
                 if (text.disposed) {

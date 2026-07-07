@@ -55,10 +55,40 @@ final class BattleUnit {
         if (pets.isEmpty()) {
             return neilFallback();
         }
-        SourcePetState pet = pets.get(0);
-        BattleUnit unit = fromSpecies(pet.speciesId, Math.max(1, pet.level), (short) -1,
-                (byte) 0, (short) 3, (byte) 0, pet);
+        BattleUnit unit = fromSourcePet(pets.get(0), (byte) 0);
         unit.ownerSide = 0;
+        return unit;
+    }
+
+    static BattleUnit fromSourcePet(SourcePetState pet, byte ownerSide) {
+        if (pet == null) {
+            return neilFallback();
+        }
+        short form = -1;
+        short quality = (short) (pet.arg3 <= 0 ? 3 : pet.arg3);
+        byte nature = (byte) pet.arg4;
+        if (pet.sourcePayload != null) {
+            if (pet.sourcePayload.length > 2) {
+                form = (short) pet.sourcePayload[2];
+            }
+            if (pet.sourcePayload.length > 4 && pet.sourcePayload[4] > 0) {
+                quality = (short) pet.sourcePayload[4];
+            }
+            if (pet.sourcePayload.length > 5) {
+                nature = (byte) pet.sourcePayload[5];
+            }
+        }
+        BattleUnit unit = fromSpecies(pet.speciesId, Math.max(1, pet.level), form,
+                ownerSide, quality, nature, pet);
+        unit.ownerSide = ownerSide == 1 ? 1 : 0;
+        if (pet.sourcePayload != null) {
+            if (pet.sourcePayload.length > 6 && pet.sourcePayload[6] >= 0) {
+                unit.setHp(pet.sourcePayload[6]);
+            }
+            if (pet.sourcePayload.length > 7) {
+                unit.exp = pet.sourcePayload[7];
+            }
+        }
         return unit;
     }
 
@@ -120,10 +150,12 @@ final class BattleUnit {
         String name = row == null ? fallback : row.name(fallback);
         int element = row == null ? -1 : row.element;
         int relationClass = row == null ? 0 : row.relationClass;
-        return new SourceBattleUnit(speciesId, level, baseStats[STAT_QUALITY], name,
+        SourceBattleUnit render = new SourceBattleUnit(speciesId, level, baseStats[STAT_QUALITY], name,
                 Math.max(1, baseStats[STAT_HP]), Math.max(1, currentStats[STAT_ATTACK]),
                 Math.max(0, currentStats[STAT_DEFENSE]), Math.max(1, currentStats[STAT_SPEED]),
                 element, visualSpriteId, relationClass, this);
+        render.hp = hp();
+        return render;
     }
 
     int maxHp() {
@@ -144,6 +176,10 @@ final class BattleUnit {
 
     void heal(int amount) {
         setHp(hp() + Math.max(0, amount));
+    }
+
+    void reviveTo(int hp) {
+        setHp(Math.max(0, hp));
     }
 
     boolean alive() {
@@ -174,6 +210,81 @@ final class BattleUnit {
             return 0;
         }
         return skillPp[slot];
+    }
+
+    int validateBattleItem(int itemId) {
+        BattleItemRow item = VqsvBattleTables.instance().item(itemId);
+        int behavior = item == null ? -1 : item.behavior;
+        if (!alive() && behavior != 4) {
+            return 8;
+        }
+        switch (behavior) {
+            case 0:
+                return 6;
+            case 1:
+                return hp() == maxHp() ? 2 : -1;
+            case 2:
+                return allSkillPpFull() ? 3 : -1;
+            case 3: {
+                int hpCode = -1;
+                if (hp() == maxHp() || !alive()) {
+                    hpCode = 2;
+                }
+                if (!allSkillPpFull()) {
+                    return -1;
+                }
+                return hpCode == 2 ? 7 : -1;
+            }
+            case 4:
+                return alive() ? 1 : -1;
+            case 5:
+                return hasAnyDebuff() ? -1 : 4;
+            case 6:
+                return currentStats[STAT_SIDE_FLAG] >= 2 ? 5 : -1;
+            default:
+                return -1;
+        }
+    }
+
+    BattleItemUseResult applyBattleItem(int itemId) {
+        BattleItemRow item = VqsvBattleTables.instance().item(itemId);
+        int behavior = item == null ? -1 : item.behavior;
+        int hpBefore = hp();
+        int ppBefore = totalSkillPp();
+        int debuffsBefore = activeDebuffTotal();
+        switch (behavior) {
+            case 1: {
+                int heal = maxHp() * item.paramA / 100 + item.paramB;
+                heal(heal);
+                break;
+            }
+            case 2:
+                restoreSkillPp(item.paramA);
+                break;
+            case 3: {
+                int heal = maxHp() * item.paramA / 100 + item.paramB;
+                heal(heal);
+                restoreSkillPp(item.paramC);
+                break;
+            }
+            case 4: {
+                int heal = maxHp() * item.paramA / 100 + item.paramB;
+                reviveTo(heal);
+                restoreSkillPp(item.paramC);
+                break;
+            }
+            case 5:
+                clearDebuffs();
+                break;
+            case 6:
+                currentStats[STAT_SIDE_FLAG] = 2;
+                break;
+            default:
+                break;
+        }
+        return new BattleItemUseResult(itemId, behavior, hpBefore, hp(),
+                ppBefore, totalSkillPp(), debuffsBefore, activeDebuffTotal(),
+                currentStats[STAT_SIDE_FLAG]);
     }
 
     BattleDamageResult computeDamage(BattleUnit target) {
@@ -283,6 +394,140 @@ final class BattleUnit {
         return new BattleDamageResult(damage, critFlag, appliedDebuffId);
     }
 
+    int sourceBaseAttackForCurrentTarget() {
+        return Math.max(1, baseAttack());
+    }
+
+    boolean hasSourceFormStatus(int statusId) {
+        return hasFormStatus((byte) statusId);
+    }
+
+    boolean rollSourceChance(int chance) {
+        return randomPercent() <= chance;
+    }
+
+    int sourceStatusParam(int statusId, int index, int fallback) {
+        return statusParam(VqsvBattleTables.instance().status(statusId), index, fallback);
+    }
+
+    int consumeStoredReflectDamage() {
+        int damage = Math.max(0, effectScratch[5]);
+        effectScratch[5] = 0;
+        return damage;
+    }
+
+    int applySourceBuff(int buffId, int value, int sourceSkill) {
+        if (buffId < 0 || buffId >= buffSlots.length) {
+            return 0;
+        }
+        BattleBuffRow row = VqsvBattleTables.instance().buff(buffId);
+        if (row == null) {
+            return 0;
+        }
+        int heal = 0;
+        switch (buffId) {
+            case 0:
+                buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * row.paramA / 100);
+                buffSlots[buffId][2] = toShort(row.paramB * sourceBaseAttackForCurrentTarget() / 100);
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[buffId][1]);
+                break;
+            case 1:
+                buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * row.paramA / 100);
+                buffSlots[buffId][2] = toShort(row.paramB);
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][1]);
+                break;
+            case 2:
+                buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * row.paramA / 100);
+                buffSlots[buffId][2] = toShort(row.paramB);
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[buffId][1]);
+                break;
+            case 3:
+                buffSlots[buffId][1] = toShort(baseStats[STAT_HP] * row.paramA / 100);
+                heal = buffSlots[buffId][1];
+                heal(heal);
+                break;
+            case 4: {
+                effectScratch[4] = toShort(sourceSkill);
+                BattleSkillRow skill = VqsvBattleTables.instance().skill(sourceSkill);
+                int param = skill == null ? 0 : skill.chanceOrParam;
+                buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * param / 100);
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[buffId][1]);
+                break;
+            }
+            case 5:
+                buffSlots[buffId][1] = toShort(row.paramA);
+                break;
+            case 6:
+                buffSlots[buffId][1] = toShort(row.paramA);
+                buffSlots[buffId][2] = toShort(row.paramB);
+                break;
+            case 7: {
+                effectScratch[7] = toShort(sourceSkill);
+                BattleSkillRow skill = VqsvBattleTables.instance().skill(sourceSkill);
+                int param = skill == null ? 0 : skill.chanceOrParam;
+                buffSlots[buffId][1] = toShort(baseStats[STAT_SPEED] * param / 100);
+                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[buffId][1]);
+                break;
+            }
+            case 8:
+                buffSlots[buffId][1] = toShort(row.paramA);
+                break;
+            case 9:
+                buffSlots[buffId][1] = toShort(baseStats[STAT_SPEED] * row.paramA / 100);
+                buffSlots[buffId][2] = toShort(baseStats[STAT_DEFENSE] * row.paramB / 100);
+                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[buffId][1]);
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][2]);
+                break;
+            case 10:
+                buffSlots[buffId][1] = toShort(baseStats[STAT_ATTACK] * row.paramA / 100);
+                currentStats[STAT_ATTACK] = toShort(baseStats[STAT_ATTACK] + buffSlots[buffId][1]);
+                break;
+            case 11:
+                buffSlots[buffId][1] = toShort(value);
+                break;
+            case 12:
+                effectScratch[12] = 1;
+                break;
+            case 13:
+                buffSlots[buffId][1] = toShort(baseStats[STAT_HP] * row.paramA / 100);
+                heal = buffSlots[buffId][1];
+                heal(heal);
+                clearDebuffs();
+                break;
+            case 14:
+                clearDebuffs();
+                break;
+            case 15:
+                buffSlots[buffId][1] = toShort(value * row.paramA);
+                break;
+            default:
+                buffSlots[buffId][1] = toShort(value);
+                break;
+        }
+        addActiveEffect(0, buffId);
+        buffSlots[buffId][0] = toShort(row.duration);
+        buffSlots[buffId][3] = toShort(sourceSkill);
+        buffSlots[buffId][4] = 1;
+        return heal;
+    }
+
+    void copySourceBuffsFrom(BattleUnit source, int selectedIndex, int sourceSkill) {
+        if (source == null) {
+            applySourceBuff(11, selectedIndex, sourceSkill);
+            return;
+        }
+        int count = Math.max(0, Math.min(source.activeEffectCount[0], source.activeEffectQueue[0].length));
+        for (int i = 0; i < count; i++) {
+            int buffId = source.activeEffectQueue[0][i];
+            if (buffId < 0 || buffId >= source.buffSlots.length) {
+                continue;
+            }
+            applySourceBuff(buffId, source.buffSlots[buffId][1], sourceSkill);
+        }
+        source.clearBuffs();
+        applySourceBuff(11, selectedIndex, sourceSkill);
+    }
+
     void selectSkill(int skillId, BattleUnit target) {
         this.target = target;
         this.selectedSkillId = (byte) skillId;
@@ -308,12 +553,67 @@ final class BattleUnit {
         }
     }
 
+    private boolean allSkillPpFull() {
+        for (int i = 0; i < skillIds.length; i++) {
+            if (skillIds[i] == -1) {
+                continue;
+            }
+            BattleSkillRow row = VqsvBattleTables.instance().skill(skillIds[i]);
+            int max = row == null ? 0 : row.ppMax;
+            if (skillPp[i] < max) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void restoreSkillPp(int amount) {
+        for (int i = 0; i < skillIds.length; i++) {
+            if (skillIds[i] == -1) {
+                continue;
+            }
+            BattleSkillRow row = VqsvBattleTables.instance().skill(skillIds[i]);
+            int max = row == null ? 0 : row.ppMax;
+            skillPp[i] = toShort(Math.min(max, skillPp[i] + Math.max(0, amount)));
+        }
+    }
+
+    private int totalSkillPp() {
+        int total = 0;
+        for (int i = 0; i < skillIds.length; i++) {
+            if (skillIds[i] != -1) {
+                total += Math.max(0, skillPp[i]);
+            }
+        }
+        return total;
+    }
+
+    private boolean hasAnyDebuff() {
+        for (int i = 0; i < debuffSlots.length; i++) {
+            if (hasDebuff(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int activeDebuffTotal() {
+        int total = 0;
+        for (int i = 0; i < debuffSlots.length; i++) {
+            if (hasDebuff(i)) {
+                total++;
+            }
+        }
+        return total;
+    }
+
     void clearDebuffs() {
         for (short[] slot : debuffSlots) {
             slot[4] = 0;
         }
         resetEffectQueue(1);
         restoreMutableStats();
+        reapplyActiveStatEffects();
     }
 
     void clearBuffs() {
@@ -322,6 +622,7 @@ final class BattleUnit {
         }
         resetEffectQueue(0);
         restoreMutableStats();
+        reapplyActiveStatEffects();
     }
 
     void addActiveEffect(int bank, int effectId) {
@@ -333,12 +634,186 @@ final class BattleUnit {
                 return;
             }
         }
-        int count = activeEffectCount[bank];
-        if (count >= activeEffectQueue[bank].length) {
+        for (int i = 0; i < activeEffectQueue[bank].length; i++) {
+            if (activeEffectQueue[bank][i] != -1) {
+                continue;
+            }
+            activeEffectQueue[bank][i] = (byte) effectId;
+            if (activeEffectCount[bank] < activeEffectQueue[bank].length) {
+                activeEffectCount[bank] = (byte) (activeEffectCount[bank] + 1);
+            }
             return;
         }
-        activeEffectQueue[bank][count] = (byte) effectId;
-        activeEffectCount[bank] = (byte) (count + 1);
+        activeEffectQueue[bank][0] = (byte) effectId;
+    }
+
+    int activeEffectIdAt(int bank, int slot) {
+        if (bank < 0 || bank >= activeEffectQueue.length || slot < 0 || slot >= activeEffectQueue[bank].length) {
+            return -1;
+        }
+        int id = activeEffectQueue[bank][slot];
+        if (bank == 0) {
+            return hasBuff(id) ? id : -1;
+        }
+        return hasDebuff(id) ? id : -1;
+    }
+
+    int activeBuffSlot(int buffId) {
+        if (!hasBuff(buffId)) {
+            return -1;
+        }
+        for (int i = 0; i < activeEffectQueue[0].length; i++) {
+            if (activeEffectQueue[0][i] == buffId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    int activeDebuffSlot(int debuffId) {
+        if (!hasDebuff(debuffId)) {
+            return -1;
+        }
+        for (int i = 0; i < activeEffectQueue[1].length; i++) {
+            if (activeEffectQueue[1][i] == debuffId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    int tickSourceBuff(int buffId, int queueSlot) {
+        if (!hasBuff(buffId)) {
+            return 0;
+        }
+        int heal = 0;
+        switch (buffId) {
+            case 1:
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][1]);
+                break;
+            case 2:
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[buffId][1]);
+                break;
+            case 3:
+                heal = Math.max(0, buffSlots[buffId][1]);
+                heal(heal);
+                break;
+            case 4:
+                currentStats[STAT_DEFENSE] = toShort(currentStats[STAT_DEFENSE] + buffSlots[buffId][1]);
+                break;
+            case 7:
+                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[buffId][1]);
+                break;
+            case 9:
+                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[buffId][1]);
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][2]);
+                break;
+            case 10:
+                currentStats[STAT_ATTACK] = toShort(baseStats[STAT_ATTACK] + buffSlots[buffId][1]);
+                break;
+            case 12:
+                effectScratch[12] = 2;
+                break;
+            case 13:
+                heal = Math.max(0, buffSlots[buffId][1]);
+                heal(heal);
+                break;
+            default:
+                break;
+        }
+        tickSourceBuffDuration(buffId, queueSlot);
+        return heal;
+    }
+
+    private void tickSourceBuffDuration(int buffId, int queueSlot) {
+        if (!hasBuff(buffId)) {
+            return;
+        }
+        if (buffSlots[buffId][0] > 0) {
+            buffSlots[buffId][0] = toShort(buffSlots[buffId][0] - 1);
+        }
+        if (buffSlots[buffId][0] <= 0) {
+            clearSourceBuff(buffId);
+            removeActiveEffect(0, queueSlot);
+        }
+    }
+
+    int tickSourceDebuff(int debuffId, int queueSlot) {
+        if (!hasDebuff(debuffId)) {
+            return 0;
+        }
+        int damage = 0;
+        switch (debuffId) {
+            case 0: {
+                BattleSkillRow skill = VqsvBattleTables.instance().skill(debuffSlots[debuffId][3]);
+                int divisor = skill == null || skill.chanceOrParam == 0 ? 1 : skill.chanceOrParam;
+                damage = Math.max(1, debuffSlots[debuffId][1] / divisor);
+                damage(damage);
+                break;
+            }
+            case 3: {
+                if (debuffSlots[debuffId][0] <= 1) {
+                    BattleSkillRow skill = VqsvBattleTables.instance().skill(debuffSlots[debuffId][3]);
+                    int percent = skill == null ? 0 : skill.chanceOrParam;
+                    damage = Math.max(1, debuffSlots[debuffId][1] * percent / 100);
+                    damage(damage);
+                }
+                break;
+            }
+            case 5:
+                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] - debuffSlots[debuffId][1]);
+                break;
+            case 7:
+                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - debuffSlots[debuffId][1]);
+                break;
+            default:
+                break;
+        }
+        tickSourceDebuffDuration(debuffId, queueSlot);
+        return damage;
+    }
+
+    private void tickSourceDebuffDuration(int debuffId, int queueSlot) {
+        if (!hasDebuff(debuffId)) {
+            return;
+        }
+        if (debuffSlots[debuffId][0] > 0) {
+            debuffSlots[debuffId][0] = toShort(debuffSlots[debuffId][0] - 1);
+        }
+        if (debuffSlots[debuffId][0] <= 0) {
+            clearSourceDebuff(debuffId);
+            removeActiveEffect(1, queueSlot);
+        }
+    }
+
+    private void clearSourceBuff(int buffId) {
+        if (buffId < 0 || buffId >= buffSlots.length) {
+            return;
+        }
+        buffSlots[buffId][4] = 0;
+        restoreMutableStats();
+        reapplyActiveStatEffects();
+    }
+
+    private void clearSourceDebuff(int debuffId) {
+        if (debuffId < 0 || debuffId >= debuffSlots.length) {
+            return;
+        }
+        debuffSlots[debuffId][4] = 0;
+        restoreMutableStats();
+        reapplyActiveStatEffects();
+    }
+
+    private void removeActiveEffect(int bank, int slot) {
+        if (bank < 0 || bank >= activeEffectQueue.length || slot < 0 || slot >= activeEffectQueue[bank].length) {
+            return;
+        }
+        if (activeEffectQueue[bank][slot] != -1) {
+            activeEffectQueue[bank][slot] = -1;
+            if (activeEffectCount[bank] > 0) {
+                activeEffectCount[bank] = (byte) (activeEffectCount[bank] - 1);
+            }
+        }
     }
 
     int nextLevelEnergy() {
@@ -356,6 +831,39 @@ final class BattleUnit {
         currentStats[STAT_ATTACK] = baseStats[STAT_ATTACK];
         currentStats[STAT_DEFENSE] = baseStats[STAT_DEFENSE];
         currentStats[STAT_SPEED] = baseStats[STAT_SPEED];
+    }
+
+    void restoreStatsForCheck() {
+        restoreMutableStats();
+        reapplyActiveStatEffects();
+    }
+
+    private void reapplyActiveStatEffects() {
+        if (hasBuff(1)) {
+            currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[1][1]);
+        }
+        if (hasBuff(2)) {
+            currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[2][1]);
+        }
+        if (hasBuff(4)) {
+            currentStats[STAT_DEFENSE] = toShort(currentStats[STAT_DEFENSE] + buffSlots[4][1]);
+        }
+        if (hasBuff(7)) {
+            currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[7][1]);
+        }
+        if (hasBuff(9)) {
+            currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[9][1]);
+            currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[9][2]);
+        }
+        if (hasBuff(10)) {
+            currentStats[STAT_ATTACK] = toShort(baseStats[STAT_ATTACK] + buffSlots[10][1]);
+        }
+        if (hasDebuff(5)) {
+            currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] - debuffSlots[5][1]);
+        }
+        if (hasDebuff(7)) {
+            currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - debuffSlots[7][1]);
+        }
     }
 
     private void loadSkills(int[] ids, int[] pp) {
@@ -635,5 +1143,31 @@ final class BattleDamageResult {
         this.damage = damage;
         this.critFlag = critFlag;
         this.appliedDebuffId = appliedDebuffId;
+    }
+}
+
+final class BattleItemUseResult {
+    final int itemId;
+    final int behavior;
+    final int hpBefore;
+    final int hpAfter;
+    final int ppBefore;
+    final int ppAfter;
+    final int debuffsBefore;
+    final int debuffsAfter;
+    final int sourceStateFlag;
+
+    BattleItemUseResult(int itemId, int behavior, int hpBefore, int hpAfter,
+                        int ppBefore, int ppAfter, int debuffsBefore, int debuffsAfter,
+                        int sourceStateFlag) {
+        this.itemId = itemId;
+        this.behavior = behavior;
+        this.hpBefore = hpBefore;
+        this.hpAfter = hpAfter;
+        this.ppBefore = ppBefore;
+        this.ppAfter = ppAfter;
+        this.debuffsBefore = debuffsBefore;
+        this.debuffsAfter = debuffsAfter;
+        this.sourceStateFlag = sourceStateFlag;
     }
 }

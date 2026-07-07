@@ -15,6 +15,9 @@ final class VqsvBattleDamageFormulaCheck {
         checkRelationMultiplier();
         checkStatusAttackDefenseModifiers();
         checkMinimumClamp();
+        checkActiveEffectClearReapplyStats();
+        checkBattleItemValidateApply();
+        checkSourcePetVisualUsesSpeciesRow();
         System.out.println("battle-damage-formula-check-ok");
     }
 
@@ -141,6 +144,76 @@ final class VqsvBattleDamageFormulaCheck {
         BattleUnit target = unit(-1, 30, 200);
         BattleDamageResult result = damage(attacker, target, 0, 1014L);
         assertEquals("minimum damage", 1, result.damage);
+    }
+
+    private static void checkActiveEffectClearReapplyStats() {
+        BattleUnit unit = unit(-1, 100, 40);
+        unit.baseStats[BattleUnit.STAT_SPEED] = 30;
+        unit.currentStats[BattleUnit.STAT_SPEED] = 30;
+
+        unit.buffSlots[10][1] = 15;
+        unit.buffSlots[10][4] = 1;
+        unit.debuffSlots[5][1] = 8;
+        unit.debuffSlots[5][4] = 1;
+        unit.restoreStatsForCheck();
+        unit.clearDebuffs();
+        assertEquals("clearDebuffs keeps active buff10 attack",
+                115, unit.currentStats[BattleUnit.STAT_ATTACK]);
+        assertEquals("clearDebuffs removes debuff5 speed",
+                30, unit.currentStats[BattleUnit.STAT_SPEED]);
+
+        unit.debuffSlots[7][1] = 6;
+        unit.debuffSlots[7][4] = 1;
+        unit.clearBuffs();
+        assertEquals("clearBuffs removes buff10 attack",
+                100, unit.currentStats[BattleUnit.STAT_ATTACK]);
+        assertEquals("clearBuffs keeps active debuff7 defense",
+                34, unit.currentStats[BattleUnit.STAT_DEFENSE]);
+    }
+
+    private static void checkBattleItemValidateApply() {
+        BattleUnit unit = unit(-1, 100, 40);
+        unit.setHp(50);
+        assertEquals("item4 hp validate damaged", -1, unit.validateBattleItem(4));
+        BattleItemUseResult heal = unit.applyBattleItem(4);
+        assertEquals("item4 heal source formula includes paramB", 200, heal.hpAfter);
+        assertEquals("item4 hp full validation", 2, unit.validateBattleItem(4));
+
+        unit.skillIds[0] = 10;
+        unit.skillPp[0] = 0;
+        assertEquals("item6 pp validate empty", -1, unit.validateBattleItem(6));
+        BattleItemUseResult pp = unit.applyBattleItem(6);
+        assertEquals("item6 pp restore", 25, pp.ppAfter);
+
+        unit.setHp(40);
+        unit.skillPp[0] = 0;
+        BattleItemUseResult both = unit.applyBattleItem(8);
+        assertEquals("item8 hp restore", 190, both.hpAfter);
+        assertEquals("item8 pp restore", 20, both.ppAfter);
+
+        unit.setHp(0);
+        unit.skillPp[0] = 0;
+        assertEquals("item11 revive valid only dead", -1, unit.validateBattleItem(11));
+        BattleItemUseResult revive = unit.applyBattleItem(11);
+        assertEquals("item11 revive hp set", 150, revive.hpAfter);
+        assertEquals("item11 revive pp restore", 20, revive.ppAfter);
+        assertEquals("item11 alive invalid", 1, unit.validateBattleItem(11));
+
+        unit.debuffSlots[5][1] = 8;
+        unit.debuffSlots[5][4] = 1;
+        assertEquals("item10 clear debuff valid", -1, unit.validateBattleItem(10));
+        BattleItemUseResult clear = unit.applyBattleItem(10);
+        assertEquals("item10 clear debuffs", 0, clear.debuffsAfter);
+        assertEquals("item10 no debuff invalid", 4, unit.validateBattleItem(10));
+    }
+
+    private static void checkSourcePetVisualUsesSpeciesRow() {
+        SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+        if (pet.sourcePayload == null || pet.sourcePayload.length <= 8 || pet.sourcePayload[8] != 0) {
+            throw new AssertionError("Expected rebuilt default payload[8] test fixture to be 0");
+        }
+        BattleUnit unit = BattleUnit.fromSourcePet(pet, (byte) 0);
+        assertEquals("source pet visual species17 row sprite", 103, unit.visualSpriteId);
     }
 
     private static BattleDamageResult damage(BattleUnit attacker, BattleUnit target, int skillId, long seed) {

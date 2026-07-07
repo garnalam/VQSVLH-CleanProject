@@ -116,7 +116,7 @@ final class SourceBattleUnit {
         if (pets.isEmpty()) {
             return BattleUnit.neilFallback().toRenderUnit(true);
         }
-        return BattleUnit.playerFromSourcePets(pets).toRenderUnit(true);
+        return BattleUnit.fromSourcePet(pets.get(0), (byte) 0).toRenderUnit(true);
     }
 
     static SourceBattleUnit fromSpecies(int species, int level, int nature, boolean playerSide) {
@@ -154,8 +154,12 @@ final class SourceBattleUnit {
     }
 
     int basicDamageTo(SourceBattleUnit target) {
+        return damageResultTo(target).damage;
+    }
+
+    BattleDamageResult damageResultTo(SourceBattleUnit target) {
         if (battleUnit != null && target.battleUnit != null) {
-            return battleUnit.computeDamage(target.battleUnit).damage;
+            return battleUnit.computeDamage(target.battleUnit);
         }
         int raw = attack - target.defense;
         int levelPart = Math.max(1, level / 2);
@@ -166,7 +170,7 @@ final class SourceBattleUnit {
         } else if (relation == 1) {
             damage = Math.max(1, damage * 2 / 3);
         }
-        return damage;
+        return new BattleDamageResult(damage, 0, -1);
     }
 
     void damage(int amount) {
@@ -176,6 +180,15 @@ final class SourceBattleUnit {
             return;
         }
         hp = Math.max(0, hp - Math.max(1, amount));
+    }
+
+    int applySourceBuff(int buffId, int value, int sourceSkill) {
+        if (battleUnit == null) {
+            return 0;
+        }
+        int heal = battleUnit.applySourceBuff(buffId, value, sourceSkill);
+        hp = battleUnit.hp();
+        return heal;
     }
 
     byte elementRelationTo(SourceBattleUnit target) {
@@ -317,6 +330,27 @@ final class SourcePetState {
             out++;
         }
         return payload;
+    }
+
+    void persistBattleUnit(BattleUnit battle) {
+        if (battle == null) {
+            return;
+        }
+        speciesId = battle.speciesId;
+        level = battle.level;
+        arg3 = battle.baseStats[BattleUnit.STAT_QUALITY];
+        arg4 = battle.natureType;
+        for (int i = 0; i < skillIds.length; i++) {
+            skillIds[i] = -1;
+            skillCooldowns[i] = 0;
+        }
+        int count = Math.min(skillIds.length, battle.skillCount);
+        for (int i = 0; i < count; i++) {
+            skillIds[i] = battle.skillIds[i];
+            skillCooldowns[i] = battle.skillPp[i];
+        }
+        sourcePayload = toSourcePayloadFromBattleUnit(battle);
+        refreshCount++;
     }
 
     private int[] toSourcePayloadFromBattleUnit(BattleUnit battle) {

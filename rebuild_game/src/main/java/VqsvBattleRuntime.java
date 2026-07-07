@@ -20,6 +20,10 @@ enum BattleRuntimeState {
     WARNING(-3, "WARN"),
     P2_SELECT_EXECUTE(2, "P2"),
     P7_RESOLVE(7, "P7"),
+    P12_ACTIVE_QUEUE(12, "P12"),
+    P13_ACTIVE_QUEUE(13, "P13"),
+    P15_PLAYER_SWITCH(15, "P15"),
+    P15_ENEMY_REPLACEMENT(15, "P15"),
     P1_DISPATCH(1, "P1"),
     P8_WIN(8, "P8"),
     P9_LOSE(9, "P9"),
@@ -41,6 +45,81 @@ enum MenuAction {
     BACK
 }
 
+final class P7ActorAnimation {
+    private static final int[] SOURCE_AH_ACTOR_SPRITES = {
+            262, 263, 264, 265, 266, 267, 268, 299, 300, 301, 304, 306, 307, 308, 309
+    };
+
+    final boolean playerSide;
+    final int sourceEffectId;
+    final int spriteId;
+    final int state;
+    private final SpriteAnim anim;
+    private boolean started;
+    private boolean stopped;
+
+    P7ActorAnimation(boolean playerSide, int sourceEffectId, int state) {
+        this.playerSide = playerSide;
+        this.sourceEffectId = sourceEffectId;
+        this.spriteId = spriteForSourceEffect(sourceEffectId);
+        this.state = Math.max(0, state);
+        this.anim = spriteId >= 0 ? SpriteAnim.load(spriteId) : null;
+        if (this.anim != null) {
+            this.anim.setState(this.state);
+        }
+    }
+
+    void start() {
+        started = true;
+    }
+
+    boolean started() {
+        return started;
+    }
+
+    boolean stopped() {
+        return stopped;
+    }
+
+    void stop() {
+        stopped = true;
+    }
+
+    boolean frame(int frame) {
+        return started && !stopped && frame >= 0 && cursor() == frame;
+    }
+
+    boolean lastFrame() {
+        if (anim == null || anim.data.anim == null || anim.data.anim.length == 0) {
+            return true;
+        }
+        int frames = anim.data.anim[anim.state].length / 2;
+        return frames <= 1 || anim.cursor >= frames - 1;
+    }
+
+    void tick() {
+        if (started && !stopped && anim != null) {
+            anim.tickHoldLast();
+        }
+    }
+
+    int cursor() {
+        return anim == null ? 0 : anim.cursor;
+    }
+
+    boolean complete() {
+        return started && (anim == null || lastFrame());
+    }
+
+    private static int spriteForSourceEffect(int sourceEffectId) {
+        int index = sourceEffectId - 20;
+        if (index < 0 || index >= SOURCE_AH_ACTOR_SPRITES.length) {
+            return -1;
+        }
+        return SOURCE_AH_ACTOR_SPRITES[index];
+    }
+}
+
 final class SourceBattleRuntime implements Blocking {
     private static final int SHORT_WAIT = 6;
     private static final int RESOLVE_WAIT = 10;
@@ -59,6 +138,9 @@ final class SourceBattleRuntime implements Blocking {
 
     private BattleRuntimeState state = BattleRuntimeState.P0_ENTRY;
     private int wait;
+    private SourceBattleUnit[] enemyParty = new SourceBattleUnit[0];
+    private int activeEnemyIndex;
+    private int pendingEnemyReplacementIndex = -1;
     private SourceBattleUnit enemy;
     private SourceBattleUnit player;
     private int turn;
@@ -78,6 +160,10 @@ final class SourceBattleRuntime implements Blocking {
     private String warningReturnLog = VqsvText.Battle.START;
     private int selectedItemId = -1;
     private int selectedPetIndex = -1;
+    private boolean forcedPetSwitch;
+    private boolean playerSwitchWasForced;
+    private int playerSwitchTicks;
+    private short[] playerSwitchCposRow = new short[0];
     private int selectedSkillId = -1;
     private SourceBattleUnit[] targetUnits = new SourceBattleUnit[0];
     private int[] targetSlots = new int[0];
@@ -89,12 +175,57 @@ final class SourceBattleRuntime implements Blocking {
     private int p7Phase = 0;
     private int p7Ticks = 0;
     private int p7Damage = 0;
+    private BattleDamageResult p7DamageResult;
+    private boolean p7PostEffectApplied;
+    private String p7PostEffectText = "";
+    private boolean p7PostEffectPlayerSide;
     private boolean p7Prepared;
     private boolean p7DamageApplied;
     private byte[] p7EffectRow = new byte[0];
     private short[] p7SpeffectRow = new short[0];
     private int p7EffectChunk;
+    private int p7SourceI;
+    private int p7SourceJ;
+    private int p7SourceK;
+    private int p7SourceL;
+    private boolean p7FlagM;
+    private boolean p7FlagN;
+    private boolean p7FlagZ;
+    private boolean p7FlagA;
+    private boolean p7FlagB;
     private int p7SpecialType = -1;
+    private boolean p7SpecialPrepared;
+    private boolean p7SpecialActive;
+    private int p7SpecialTicks;
+    private boolean p7LEffectActive;
+    private boolean p7LEffectPlayerSide;
+    private boolean p7LEffectDrawAfter;
+    private int p7LEffectTicks;
+    private int p7LEffectSpeffectId = -1;
+    private short[] p7LEffectRow = new short[0];
+    private boolean p7BaseHiddenPlayerSide;
+    private boolean p7BaseHiddenEnemySide;
+    private int p7BaseStatePlayerSide;
+    private int p7BaseStateEnemySide;
+    private P7ActorAnimation p7ActorAnimation;
+    private SourceBattleUnit activeQueueUnit;
+    private boolean activeQueuePlayerSide;
+    private int activeQueueBank;
+    private int activeQueueBuffId = -1;
+    private int activeQueueDebuffId = -1;
+    private int activeQueueSlot = -1;
+    private final int[] activeQueueOrderBank = new int[6];
+    private final int[] activeQueueOrderId = new int[6];
+    private final int[] activeQueueOrderSlot = new int[6];
+    private int activeQueueOrderCount;
+    private int activeQueueOrderIndex;
+    private byte[] activeQueueVisualRow = new byte[0];
+    private int activeQueueSegment;
+    private int activeQueueTicks;
+    private boolean activeQueueApplied;
+    private P7ActorAnimation activeQueueActorAnimation;
+    private boolean playerActiveQueueProcessedThisRound;
+    private boolean enemyActiveQueueProcessedThisRound;
     private int catchPhase = -1;
     private int catchPhaseTicks = 0;
     private int catchChance = 0;
@@ -171,6 +302,13 @@ final class SourceBattleRuntime implements Blocking {
                 return tickSelectExecute(s);
             case P7_RESOLVE:
                 return tickResolve(s);
+            case P12_ACTIVE_QUEUE:
+            case P13_ACTIVE_QUEUE:
+                return tickActiveQueue(s);
+            case P15_PLAYER_SWITCH:
+                return tickPlayerSwitchTransition(s);
+            case P15_ENEMY_REPLACEMENT:
+                return tickEnemyReplacement(s);
             case P1_DISPATCH:
                 return tickDispatch(s);
             case P8_WIN:
@@ -187,7 +325,10 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private void enterBattle(VqsvIntroDemo.Scene s) {
-        enemy = SourceBattleUnit.enemyFromEncounter(encounter);
+        enemyParty = enemyPartyFromEncounter(encounter);
+        activeEnemyIndex = 0;
+        pendingEnemyReplacementIndex = -1;
+        enemy = enemyParty[activeEnemyIndex];
         player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
         if (isKidnappingBattle()) {
             player = SourceBattleUnit.fallback(-1, 6, 3, "Neil", 120, 22, 12, 10);
@@ -209,6 +350,7 @@ final class SourceBattleRuntime implements Blocking {
                 + " flags=" + Arrays.toString(flags)
                 + " mode=" + Arrays.toString(battleMode)
                 + " enemy=" + enemy
+                + " enemyPartySize=" + enemyParty.length
                 + " player=" + player
                 + " branchTargets=" + Arrays.toString(branchTargets)
                 + " sourceSlice=" + sourceBattleSlice
@@ -217,6 +359,22 @@ final class SourceBattleRuntime implements Blocking {
         entered = true;
         enterState(s, BattleRuntimeState.P0_ENTRY, VqsvText.Battle.START, SHORT_WAIT);
         s.effect.startFade(2, 0);
+    }
+
+    private SourceBattleUnit[] enemyPartyFromEncounter(int[] rawEncounter) {
+        if (rawEncounter == null || rawEncounter.length == 0) {
+            return new SourceBattleUnit[]{SourceBattleUnit.enemyFromEncounter(new int[0])};
+        }
+        if (rawEncounter.length > 3 && rawEncounter.length % 3 == 0) {
+            SourceBattleUnit[] party = new SourceBattleUnit[rawEncounter.length / 3];
+            for (int i = 0; i < party.length; i++) {
+                party[i] = SourceBattleUnit.enemyFromEncounter(new int[]{
+                        rawEncounter[i * 3], rawEncounter[i * 3 + 1], rawEncounter[i * 3 + 2]
+                });
+            }
+            return party;
+        }
+        return new SourceBattleUnit[]{SourceBattleUnit.enemyFromEncounter(rawEncounter)};
     }
 
     private boolean tickEntry(VqsvIntroDemo.Scene s) {
@@ -232,10 +390,19 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         if (!player.alive()) {
-            enterState(s, BattleRuntimeState.P9_LOSE, VqsvText.Battle.NEIL_LOST + forcedResultIndex, SHORT_WAIT);
+            if (hasSwitchPet(s)) {
+                forcedPetSwitch = true;
+                preparePetMenu(s);
+                enterState(s, BattleRuntimeState.P5_PET_SWITCH, VqsvText.Battle.COMMAND_PET_PENDING, SHORT_WAIT);
+            } else {
+                enterState(s, BattleRuntimeState.P9_LOSE, VqsvText.Battle.NEIL_LOST + forcedResultIndex, SHORT_WAIT);
+            }
             return false;
         }
         if (!enemy.alive()) {
+            if (prepareEnemyReplacement(s)) {
+                return false;
+            }
             enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
             return false;
         }
@@ -245,25 +412,484 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         if (!enemyActionThisRound && !playerActionThisRound && enemy.speed > player.speed) {
+            if (tryEnterActiveQueue(s, enemy, false)) {
+                return false;
+            }
             currentActorPlayer = false;
             enterState(s, BattleRuntimeState.P2_SELECT_EXECUTE, enemy.name, SHORT_WAIT);
             return false;
         }
         if (!playerActionThisRound) {
+            if (tryEnterActiveQueue(s, player, true)) {
+                return false;
+            }
             currentActorPlayer = true;
             enterCommandState(s, VqsvText.Battle.START, SHORT_WAIT);
             return false;
         }
         if (!enemyActionThisRound) {
+            if (tryEnterActiveQueue(s, enemy, false)) {
+                return false;
+            }
             currentActorPlayer = false;
             enterState(s, BattleRuntimeState.P2_SELECT_EXECUTE, enemy.name, SHORT_WAIT);
             return false;
         }
         playerActionThisRound = false;
         enemyActionThisRound = false;
+        playerActiveQueueProcessedThisRound = false;
+        enemyActiveQueueProcessedThisRound = false;
         turn++;
         enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.START, SHORT_WAIT);
         return false;
+    }
+
+    private boolean tryEnterActiveQueue(VqsvIntroDemo.Scene s, SourceBattleUnit unit, boolean playerSide) {
+        if (unit == null || unit.battleUnit == null) {
+            return false;
+        }
+        if (playerSide && playerActiveQueueProcessedThisRound || !playerSide && enemyActiveQueueProcessedThisRound) {
+            return false;
+        }
+        if (unit.battleUnit.hasBuff(13) || unit.battleUnit.hasBuff(14)) {
+            unit.battleUnit.clearDebuffs();
+        }
+        if (!buildActiveQueueOrder(unit.battleUnit)) {
+            return false;
+        }
+        activeQueueUnit = unit;
+        activeQueuePlayerSide = playerSide;
+        activeQueueOrderIndex = 0;
+        BattleRuntimeState next = playerSide ? BattleRuntimeState.P13_ACTIVE_QUEUE : BattleRuntimeState.P12_ACTIVE_QUEUE;
+        enterState(s, next, s.battleLog, 0);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle " + next.label
+                + " active queue source order count=" + activeQueueOrderCount
+                + " side=" + (playerSide ? "player" : "enemy"));
+        startNextActiveQueueEntry(s, false);
+        return true;
+    }
+
+    private boolean buildActiveQueueOrder(BattleUnit unit) {
+        Arrays.fill(activeQueueOrderBank, -1);
+        Arrays.fill(activeQueueOrderId, -1);
+        Arrays.fill(activeQueueOrderSlot, -1);
+        activeQueueOrderCount = 0;
+        for (int bank = 0; bank <= 1; bank++) {
+            for (int slot = 0; slot < 3; slot++) {
+                int effectId = unit.activeEffectIdAt(bank, slot);
+                if (effectId < 0 || activeQueueOrderCount >= activeQueueOrderBank.length) {
+                    continue;
+                }
+                activeQueueOrderBank[activeQueueOrderCount] = bank;
+                activeQueueOrderId[activeQueueOrderCount] = effectId;
+                activeQueueOrderSlot[activeQueueOrderCount] = slot;
+                activeQueueOrderCount++;
+            }
+        }
+        return activeQueueOrderCount > 0;
+    }
+
+    private boolean tickActiveQueue(VqsvIntroDemo.Scene s) {
+        if (activeQueueUnit == null || activeQueueUnit.battleUnit == null || activeQueueBank < 0) {
+            finishActiveQueue(s, true);
+            return false;
+        }
+        if (activeQueueSegment < activeQueueSegmentCount()) {
+            activeQueueTicks++;
+            tickActiveQueueActorAnimation(s);
+            syncActiveQueueRenderState(s);
+            if (activeQueueActorTriggerMatched() && activeQueueSegment + 1 < activeQueueSegmentCount()) {
+                activeQueueSegment++;
+                activeQueueTicks = 0;
+                prepareActiveQueueSegment(s);
+                syncActiveQueueRenderState(s);
+                return false;
+            }
+            if (activeQueueVisualValue(0) == 0 && !activeQueueActorActionComplete()) {
+                return false;
+            }
+            if (activeQueueVisualValue(0) != 0 && activeQueueTicks <= activeQueueSegmentDuration()) {
+                return false;
+            }
+            activeQueueSegment++;
+            activeQueueTicks = 0;
+            if (activeQueueSegment < activeQueueSegmentCount()) {
+                prepareActiveQueueSegment(s);
+                syncActiveQueueRenderState(s);
+                return false;
+            }
+        }
+        if (!activeQueueApplied) {
+            applyActiveQueueCurrentEntry(s, true);
+            activeQueueApplied = true;
+            activeQueueTicks = 0;
+            return false;
+        }
+        activeQueueTicks++;
+        syncRenderState(s, s.battleLog);
+        syncActiveQueueBookkeeping(s);
+        if (activeQueueTicks < P7_EXIT_TICKS) {
+            return false;
+        }
+        activeQueueOrderIndex++;
+        startNextActiveQueueEntry(s, true);
+        return false;
+    }
+
+    private void startNextActiveQueueEntry(VqsvIntroDemo.Scene s, boolean afterVisualEntry) {
+        while (activeQueueOrderIndex < activeQueueOrderCount) {
+            activeQueueBank = activeQueueOrderBank[activeQueueOrderIndex];
+            activeQueueBuffId = activeQueueBank == 0 ? activeQueueOrderId[activeQueueOrderIndex] : -1;
+            activeQueueDebuffId = activeQueueBank == 1 ? activeQueueOrderId[activeQueueOrderIndex] : -1;
+            activeQueueSlot = activeQueueOrderSlot[activeQueueOrderIndex];
+            if (!activeQueueStillActive()) {
+                activeQueueOrderIndex++;
+                continue;
+            }
+            if (!activeQueueNeedsVisual(activeQueueBank, activeQueueEffectId())) {
+                applyActiveQueueCurrentEntry(s, false);
+                activeQueueOrderIndex++;
+                if (!activeQueueUnit.alive()) {
+                    finishActiveQueue(s, activeQueueOrderIndex >= activeQueueOrderCount);
+                    return;
+                }
+                continue;
+            }
+            activeQueueVisualRow = VqsvBattleAnimationTables.instance()
+                    .bufDebufVisualRow(activeQueueBank, activeQueueEffectId());
+            activeQueueSegment = 0;
+            activeQueueTicks = 0;
+            activeQueueApplied = false;
+            prepareActiveQueueSegment(s);
+            syncActiveQueueRenderState(s);
+            s.sourceStateTrace.add("PORTED battle " + state.label
+                    + " active queue visual start bank=" + activeQueueBank
+                    + " id=" + activeQueueEffectId()
+                    + " slot=" + activeQueueSlot
+                    + " order=" + activeQueueOrderIndex + "/" + activeQueueOrderCount
+                    + " visual=" + activeQueueVisualLabel()
+                    + " duration=" + activeQueueDuration());
+            return;
+        }
+        finishActiveQueue(s, true);
+    }
+
+    private void applyActiveQueueCurrentEntry(VqsvIntroDemo.Scene s, boolean showHpText) {
+        int beforeHp = activeQueueUnit.hp;
+        int beforeSpeed = activeQueueUnit.battleUnit.currentStats[BattleUnit.STAT_SPEED];
+        int beforeDefense = activeQueueUnit.battleUnit.currentStats[BattleUnit.STAT_DEFENSE];
+        int beforeAttack = activeQueueUnit.battleUnit.currentStats[BattleUnit.STAT_ATTACK];
+        int heal;
+        int damage;
+        if (activeQueueBank == 0) {
+            heal = activeQueueUnit.battleUnit.tickSourceBuff(activeQueueBuffId, activeQueueSlot);
+            damage = 0;
+        } else {
+            heal = 0;
+            damage = activeQueueUnit.battleUnit.tickSourceDebuff(activeQueueDebuffId, activeQueueSlot);
+        }
+        activeQueueUnit.hp = activeQueueUnit.battleUnit.hp();
+        clearActiveQueueSpecialRenderState(s);
+        if (showHpText && (activeQueueUnit.hp < beforeHp || damage > 0)) {
+            s.battleP7PostEffectVisible = true;
+            s.battleP7PostEffectPlayerSide = activeQueuePlayerSide;
+            s.battleP7PostEffectText = "" + Math.min(-1, activeQueueUnit.hp - beforeHp);
+        } else if (showHpText && heal > 0) {
+            s.battleP7PostEffectVisible = true;
+            s.battleP7PostEffectPlayerSide = activeQueuePlayerSide;
+            s.battleP7PostEffectText = "+" + heal;
+        }
+        syncRenderState(s, s.battleLog);
+        syncActiveQueueBookkeeping(s);
+        s.sourceStateTrace.add("PORTED battle " + state.label
+                + " active queue apply bank=" + activeQueueBank
+                + " id=" + activeQueueEffectId()
+                + " slot=" + activeQueueSlot
+                + " visualText=" + showHpText
+                + " attack " + beforeAttack + "->" + activeQueueUnit.battleUnit.currentStats[BattleUnit.STAT_ATTACK]
+                + " speed " + beforeSpeed + "->" + activeQueueUnit.battleUnit.currentStats[BattleUnit.STAT_SPEED]
+                + " defense " + beforeDefense + "->" + activeQueueUnit.battleUnit.currentStats[BattleUnit.STAT_DEFENSE]
+                + " hp " + beforeHp + "->" + activeQueueUnit.hp
+                + " duration=" + activeQueueDuration()
+                + " active=" + activeQueueStillActive());
+    }
+
+    private void finishActiveQueue(VqsvIntroDemo.Scene s, boolean fullQueueComplete) {
+        if (activeQueuePlayerSide) {
+            playerActiveQueueProcessedThisRound = true;
+        } else {
+            enemyActiveQueueProcessedThisRound = true;
+        }
+        SourceBattleUnit unit = activeQueueUnit;
+        boolean playerSide = activeQueuePlayerSide;
+        clearActiveQueueState(s);
+        if (unit == null) {
+            enterState(s, BattleRuntimeState.P1_DISPATCH, s.battleLog, SHORT_WAIT);
+            return;
+        }
+        if (!unit.alive()) {
+            if (playerSide) {
+                if (hasSwitchPet(s)) {
+                    forcedPetSwitch = true;
+                    preparePetMenu(s);
+                    enterState(s, BattleRuntimeState.P5_PET_SWITCH, VqsvText.Battle.COMMAND_PET_PENDING, SHORT_WAIT);
+                } else {
+                    enterState(s, BattleRuntimeState.P9_LOSE, VqsvText.Battle.NEIL_LOST + forcedResultIndex, SHORT_WAIT);
+                }
+            } else {
+                if (prepareEnemyReplacement(s)) {
+                    return;
+                }
+                enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
+            }
+            return;
+        }
+        if (!fullQueueComplete) {
+            enterState(s, BattleRuntimeState.P1_DISPATCH, s.battleLog, SHORT_WAIT);
+            return;
+        }
+        if (playerSide) {
+            if (unit.battleUnit != null && unit.battleUnit.hasDebuff(9)) {
+                currentActorPlayer = true;
+                enterState(s, BattleRuntimeState.P2_SELECT_EXECUTE, unit.name, SHORT_WAIT);
+            } else {
+                currentActorPlayer = true;
+                enterCommandState(s, s.battleLog, SHORT_WAIT);
+            }
+        } else {
+            currentActorPlayer = false;
+            enterState(s, BattleRuntimeState.P2_SELECT_EXECUTE, unit.name, SHORT_WAIT);
+        }
+    }
+
+    private void prepareActiveQueueSegment(VqsvIntroDemo.Scene s) {
+        int speffectId = activeQueueSpeffectId();
+        p7SpeffectRow = VqsvBattleAnimationTables.instance().speffectRow(speffectId);
+        p7SpecialType = p7SpeffectRow.length > 0 ? p7SpeffectRow[0] : -1;
+        if (activeQueueVisualValue(0) == 0) {
+            activeQueueActorAnimation = new P7ActorAnimation(activeQueuePlayerSide,
+                    activeQueueVisualValue(1), activeQueueVisualValue(2));
+            activeQueueActorAnimation.start();
+        } else {
+            activeQueueActorAnimation = null;
+        }
+        s.sourceStateTrace.add("PORTED/PARTIAL battle " + state.label
+                + " active queue visual bank=" + activeQueueBank
+                + " buff=" + activeQueueBuffId
+                + " debuff=" + activeQueueDebuffId
+                + " segment=" + activeQueueSegment
+                + " speffect=" + speffectId
+                + " row=" + java.util.Arrays.toString(p7SpeffectRow));
+    }
+
+    private int activeQueueEffectId() {
+        return activeQueueBank == 0 ? activeQueueBuffId : activeQueueDebuffId;
+    }
+
+    private boolean activeQueueNeedsVisual(int bank, int effectId) {
+        int[] visualIds = bank == 0 ? new int[]{3, 5, 13} : new int[]{0, 1, 2, 3, 8, 9, 10};
+        for (int id : visualIds) {
+            if (id == effectId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int activeQueueSegmentCount() {
+        return activeQueueVisualRow.length / 4;
+    }
+
+    private int activeQueueSpeffectId() {
+        return activeQueueVisualValue(0) == 1 ? activeQueueVisualValue(1) : -1;
+    }
+
+    private int activeQueueVisualValue(int offset) {
+        int index = activeQueueSegment * 4 + offset;
+        return index >= 0 && index < activeQueueVisualRow.length ? activeQueueVisualRow[index] : -1;
+    }
+
+    private String activeQueueVisualLabel() {
+        return (activeQueueBank == 0 ? "ap" : "aq")
+                + " id=" + activeQueueEffectId()
+                + " row=" + Arrays.toString(activeQueueVisualRow);
+    }
+
+    private int activeQueueDuration() {
+        if (activeQueueUnit == null || activeQueueUnit.battleUnit == null) {
+            return 0;
+        }
+        if (activeQueueBank == 0 && activeQueueBuffId >= 0) {
+            return activeQueueUnit.battleUnit.buffSlots[activeQueueBuffId][0];
+        }
+        if (activeQueueBank == 1 && activeQueueDebuffId >= 0) {
+            return activeQueueUnit.battleUnit.debuffSlots[activeQueueDebuffId][0];
+        }
+        return 0;
+    }
+
+    private boolean activeQueueStillActive() {
+        if (activeQueueUnit == null || activeQueueUnit.battleUnit == null) {
+            return false;
+        }
+        if (activeQueueBank == 0 && activeQueueBuffId >= 0) {
+            return activeQueueUnit.battleUnit.hasBuff(activeQueueBuffId);
+        }
+        if (activeQueueBank == 1 && activeQueueDebuffId >= 0) {
+            return activeQueueUnit.battleUnit.hasDebuff(activeQueueDebuffId);
+        }
+        return false;
+    }
+
+    private int activeQueueSegmentDuration() {
+        if (activeQueueVisualValue(0) == 0) {
+            return P7_START_TICKS * 4;
+        }
+        if (p7SpecialType == 9 && p7SpeffectRow.length >= 8) {
+            return Math.max(1, p7SpeffectRow[6]);
+        }
+        if (p7SpecialType == 1 && p7SpeffectRow.length >= 3) {
+            return Math.max(1, p7SpeffectRow[2]);
+        }
+        if (p7SpecialType == 8 && p7SpeffectRow.length >= 3) {
+            return Math.max(1, p7SpeffectRow[2]);
+        }
+        if (p7SpecialType == 12 && p7SpeffectRow.length >= 6) {
+            return Math.max(1, p7SpeffectRow[5]);
+        }
+        return P7_START_TICKS;
+    }
+
+    private void syncActiveQueueRenderState(VqsvIntroDemo.Scene s) {
+        syncRenderState(s, s.battleLog);
+        boolean show = activeQueueUnit != null
+                && activeQueueSegment < activeQueueSegmentCount()
+                && activeQueueVisualValue(0) == 1
+                && p7SpeffectRow.length > 0;
+        s.battleP7Ticks = activeQueueTicks;
+        s.battleP7SpecialVisible = show;
+        s.battleP7SpecialOnPlayerSide = activeQueuePlayerSide;
+        s.battleP7SpecialType = show ? p7SpecialType : -1;
+        s.battleP7SpecialAlpha = show && p7SpecialType == 9 ? p7SpeffectRow[1] : 0;
+        s.battleP7SpecialRed = show && p7SpecialType == 9 ? p7SpeffectRow[2] : 0;
+        s.battleP7SpecialGreen = show && p7SpecialType == 9 ? p7SpeffectRow[3] : 0;
+        s.battleP7SpecialBlue = show && p7SpecialType == 9 ? p7SpeffectRow[4] : 0;
+        s.battleP7SpecialDuration = show ? activeQueueSegmentDuration() : 0;
+        s.battleP7SpecialInterval = show && p7SpecialType == 9 && p7SpeffectRow.length >= 8
+                ? Math.max(1, p7SpeffectRow[7]) : 1;
+        s.battleP7SpecialTextureId = show && p7SpecialType == 1 && p7SpeffectRow.length >= 4
+                ? p7SpeffectRow[3] : -1;
+        s.battleP7SpecialBlendMode = show && p7SpecialType == 1 && p7SpeffectRow.length >= 5
+                ? p7SpeffectRow[4] : 0;
+        s.battleP7SpecialScrollMode = show && p7SpecialType == 1 && p7SpeffectRow.length >= 6
+                ? p7SpeffectRow[5] : 0;
+        s.battleP7SpecialRow = show ? Arrays.copyOf(p7SpeffectRow, p7SpeffectRow.length) : new short[0];
+        s.battleP7BaseHiddenPlayerSide = show && activeQueuePlayerSide;
+        s.battleP7BaseHiddenEnemySide = show && !activeQueuePlayerSide;
+        boolean actorAction = activeQueueActorAnimation != null
+                && activeQueueActorAnimation.started()
+                && !activeQueueActorAnimation.stopped()
+                && activeQueueVisualValue(0) == 0
+                && activeQueueSegment < activeQueueSegmentCount();
+        s.battleP7ActorEffectVisible = actorAction;
+        s.battleP7ActorEffectOnPlayerSide = actorAction && activeQueueActorAnimation.playerSide;
+        s.battleP7ActorEffectSpriteId = actorAction ? activeQueueActorAnimation.spriteId : -1;
+        s.battleP7ActorEffectState = actorAction ? activeQueueActorAnimation.state : 0;
+        s.battleP7ActorEffectCursor = actorAction ? activeQueueActorAnimation.cursor() : 0;
+        syncActiveQueueBookkeeping(s);
+    }
+
+    private void tickActiveQueueActorAnimation(VqsvIntroDemo.Scene s) {
+        if (activeQueueActorAnimation == null || activeQueueActorAnimation.stopped()) {
+            return;
+        }
+        activeQueueActorAnimation.tick();
+        if (activeQueueActorAnimation.complete()) {
+            activeQueueActorAnimation.stop();
+            s.sourceStateTrace.add("PORTED/PARTIAL battle " + state.label
+                    + " active queue type0 ah actor action complete effect="
+                    + activeQueueVisualValue(1)
+                    + " state=" + activeQueueVisualValue(2)
+                    + " cursor=" + activeQueueActorAnimation.cursor());
+        }
+    }
+
+    private boolean activeQueueActorActionComplete() {
+        return activeQueueActorAnimation == null || activeQueueActorAnimation.complete()
+                || activeQueueActorAnimation.stopped();
+    }
+
+    private boolean activeQueueActorTriggerMatched() {
+        int trigger = activeQueueVisualValue(3);
+        return trigger >= 0
+                && activeQueueActorAnimation != null
+                && activeQueueActorAnimation.frame(trigger);
+    }
+
+    private void syncActiveQueueBookkeeping(VqsvIntroDemo.Scene s) {
+        s.battleActiveQueueVisible = activeQueueUnit != null;
+        s.battleActiveQueuePlayerSide = activeQueuePlayerSide;
+        s.battleActiveQueueBank = activeQueueBank;
+        s.battleActiveQueueEffectId = activeQueueBuffId >= 0 ? activeQueueBuffId : activeQueueDebuffId;
+        s.battleActiveQueueBuffId = activeQueueBuffId >= 0 ? activeQueueBuffId : activeQueueDebuffId;
+        s.battleActiveQueueSegment = activeQueueSegment;
+        s.battleActiveQueueTicks = activeQueueTicks;
+    }
+
+    private void clearActiveQueueSpecialRenderState(VqsvIntroDemo.Scene s) {
+        s.battleP7SpecialVisible = false;
+        s.battleP7SpecialOnPlayerSide = false;
+        s.battleP7SpecialType = -1;
+        s.battleP7SpecialAlpha = 0;
+        s.battleP7SpecialRed = 0;
+        s.battleP7SpecialGreen = 0;
+        s.battleP7SpecialBlue = 0;
+        s.battleP7SpecialDuration = 0;
+        s.battleP7SpecialInterval = 1;
+        s.battleP7SpecialTextureId = -1;
+        s.battleP7SpecialBlendMode = 0;
+        s.battleP7SpecialScrollMode = 0;
+        s.battleP7SpecialRow = new short[0];
+        s.battleP7BaseHiddenPlayerSide = false;
+        s.battleP7BaseHiddenEnemySide = false;
+        s.battleP7BaseStatePlayerSide = 0;
+        s.battleP7BaseStateEnemySide = 0;
+        s.battleP7BaseCursorPlayerSide = -1;
+        s.battleP7BaseCursorEnemySide = -1;
+        s.battleP7ActorEffectVisible = false;
+        s.battleP7ActorEffectOnPlayerSide = false;
+        s.battleP7ActorEffectSpriteId = -1;
+        s.battleP7ActorEffectState = 0;
+        s.battleP7ActorEffectCursor = 0;
+    }
+
+    private void clearActiveQueueState(VqsvIntroDemo.Scene s) {
+        activeQueueUnit = null;
+        activeQueuePlayerSide = false;
+        activeQueueBank = -1;
+        activeQueueBuffId = -1;
+        activeQueueDebuffId = -1;
+        activeQueueSlot = -1;
+        Arrays.fill(activeQueueOrderBank, -1);
+        Arrays.fill(activeQueueOrderId, -1);
+        Arrays.fill(activeQueueOrderSlot, -1);
+        activeQueueOrderCount = 0;
+        activeQueueOrderIndex = 0;
+        activeQueueVisualRow = new byte[0];
+        activeQueueSegment = 0;
+        activeQueueTicks = 0;
+        activeQueueApplied = false;
+        activeQueueActorAnimation = null;
+        p7SpeffectRow = new short[0];
+        p7SpecialType = -1;
+        clearActiveQueueSpecialRenderState(s);
+        s.battleActiveQueueVisible = false;
+        s.battleActiveQueuePlayerSide = false;
+        s.battleActiveQueueBank = -1;
+        s.battleActiveQueueEffectId = -1;
+        s.battleActiveQueueBuffId = -1;
+        s.battleActiveQueueSegment = -1;
+        s.battleActiveQueueTicks = 0;
     }
 
     private boolean tickCommand(VqsvIntroDemo.Scene s) {
@@ -386,7 +1012,7 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private MenuAction handleMenuInput(VqsvIntroDemo.Scene s) {
-        int clicked = menuIndexAt(s.battleClickX, s.battleClickY);
+        int clicked = menuIndexAt(s, s.battleClickX, s.battleClickY);
         boolean clickedBack = s.battleClickX >= 144 && s.battleClickX <= 198
                 && s.battleClickY >= 232 && s.battleClickY <= 255;
         s.battleClickX = -1;
@@ -414,7 +1040,14 @@ final class SourceBattleRuntime implements Blocking {
         return s.key0 ? MenuAction.CONFIRM : MenuAction.NONE;
     }
 
-    private int menuIndexAt(int x, int y) {
+    private int menuIndexAt(VqsvIntroDemo.Scene s, int x, int y) {
+        if ("petstate".equals(s.battleUiMode)) {
+            if (x < 45 || x > 197 || y < 86 || y > 176) {
+                return -1;
+            }
+            int index = (y - 86) / 15;
+            return index >= 0 && index < 6 ? index : -1;
+        }
         if (x < 44 || x > 195 || y < 92 || y > 226) {
             return -1;
         }
@@ -571,7 +1204,9 @@ final class SourceBattleRuntime implements Blocking {
             values.add(player.hp + "/" + player.maxHp);
         } else {
             for (int i = 0; i < s.sourcePets.size(); i++) {
-                SourceBattleUnit unit = SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(i, i + 1));
+                SourceBattleUnit unit = i == 0 && player != null
+                        ? player
+                        : SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(i, i + 1));
                 ids.add(i);
                 names.add(unit.name);
                 values.add(unit.hp + "/" + unit.maxHp);
@@ -584,13 +1219,32 @@ final class SourceBattleRuntime implements Blocking {
         java.util.ArrayList<String> names = new java.util.ArrayList<>();
         java.util.ArrayList<String> values = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> ids = new java.util.ArrayList<>();
-        for (int i = 1; i < s.sourcePets.size(); i++) {
-            SourceBattleUnit unit = SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(i, i + 1));
+        int start = forcedPetSwitch ? 1 : 0;
+        for (int i = start; i < s.sourcePets.size(); i++) {
+            SourceBattleUnit unit = i == 0 && player != null
+                    ? player
+                    : SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(i, i + 1));
+            if (forcedPetSwitch && !unit.alive()) {
+                continue;
+            }
             ids.add(i);
             names.add(unit.name);
-            values.add("lv" + unit.level);
+            values.add((unit.alive() ? "lv" + unit.level : "KO") + " " + unit.hp + "/" + unit.maxHp);
         }
         setMenu(s, "S\u1ee7ng v\u1eadt", "Thay \u0111\u1ed5i", "S\u1eed d\u1ee5ng", names, values, ids);
+        s.battleUiMode = "petstate";
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P5 petstate.ui open forced=" + forcedPetSwitch
+                + " ids=" + java.util.Arrays.toString(s.battleMenuIds)
+                + " names=" + java.util.Arrays.toString(s.battleMenuNames));
+    }
+
+    private boolean hasSwitchPet(VqsvIntroDemo.Scene s) {
+        for (int i = 1; i < s.sourcePets.size(); i++) {
+            if (sourcePetAlive(s.sourcePets.get(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void prepareShopMenu(VqsvIntroDemo.Scene s) {
@@ -694,6 +1348,7 @@ final class SourceBattleRuntime implements Blocking {
         s.battleUiMode = "choiceskill";
         MenuAction action = handleSkillInput(s);
         if (action == MenuAction.BACK) {
+            forcedPetSwitch = false;
             enterCommandState(s, VqsvText.Battle.START, SHORT_WAIT);
             return false;
         }
@@ -1176,7 +1831,7 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         if (s.battleMenuIds.length == 0) {
-            enterWarning(s, VqsvText.Battle.NO_PET_TARGET, BattleRuntimeState.P4_ITEM_LIST);
+            enterWarning(s, VqsvText.Battle.NO_PET_TARGET, BattleRuntimeState.P16_ITEM_TARGET);
             return false;
         }
         BagItem item = s.sourceBagItems.get(selectedItemId);
@@ -1184,29 +1839,87 @@ final class SourceBattleRuntime implements Blocking {
             enterWarning(s, VqsvText.Battle.NO_ITEM_COUNT, BattleRuntimeState.P4_ITEM_LIST);
             return false;
         }
+        int targetIndex = s.battleMenuIds[Math.max(0, Math.min(s.battleMenuIndex, s.battleMenuIds.length - 1))];
+        BattleUnit targetUnit = itemTargetUnit(s, targetIndex);
+        if (targetUnit == null) {
+            enterWarning(s, VqsvText.Battle.NO_PET_TARGET, BattleRuntimeState.P16_ITEM_TARGET);
+            return false;
+        }
+        int validation = targetUnit.validateBattleItem(selectedItemId);
+        if (validation != -1) {
+            s.sourceStateTrace.add("PORTED battle P16 game.b.x item=" + selectedItemId
+                    + " targetIndex=" + targetIndex
+                    + " validation=" + validation
+                    + " warning=" + itemWarning(validation));
+            enterWarning(s, itemWarning(validation), BattleRuntimeState.P16_ITEM_TARGET);
+            return false;
+        }
         BattleItemRow row = VqsvBattleTables.instance().item(selectedItemId);
         int behavior = row == null ? -1 : row.behavior;
-        if (behavior == 1 || behavior == 3 || behavior == 4) {
-            int before = player.hp;
-            int heal = Math.max(1, player.maxHp * Math.max(1, row.paramA) / 100);
-            setHp(player, player.hp + heal);
+        if (behavior >= 1 && behavior <= 6) {
+            BattleItemUseResult result = targetUnit.applyBattleItem(selectedItemId);
             VqsvSourceOps.sourceRemoveItem(s, selectedItemId, 1);
+            persistItemTarget(s, targetIndex, targetUnit);
             playerActionThisRound = true;
-            s.sourceStateTrace.add("PORTED/PARTIAL battle P16 item=" + selectedItemId
-                    + " behavior=" + behavior + " heal=" + before + "->" + player.hp);
-            syncRenderState(s, VqsvText.Battle.ITEM_USED);
-            enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.ITEM_USED, SHORT_WAIT);
-        } else if (behavior == 2) {
-            VqsvSourceOps.sourceRemoveItem(s, selectedItemId, 1);
-            playerActionThisRound = true;
-            s.sourceStateTrace.add("PORTED/PARTIAL battle P16 item=" + selectedItemId
-                    + " behavior=2 PP restore approximated");
+            s.sourceStateTrace.add("PORTED battle P16 game.b.w item=" + selectedItemId
+                    + " behavior=" + behavior
+                    + " targetIndex=" + targetIndex
+                    + " hp=" + result.hpBefore + "->" + result.hpAfter
+                    + " pp=" + result.ppBefore + "->" + result.ppAfter
+                    + " debuffs=" + result.debuffsBefore + "->" + result.debuffsAfter
+                    + " state6=" + result.sourceStateFlag
+                    + " remaining=" + VqsvSourceOps.sourceItemCount(s, selectedItemId));
             syncRenderState(s, VqsvText.Battle.ITEM_USED);
             enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.ITEM_USED, SHORT_WAIT);
         } else {
             enterWarning(s, VqsvText.Battle.ITEM_NOT_IN_BATTLE, BattleRuntimeState.P4_ITEM_LIST);
         }
         return false;
+    }
+
+    private BattleUnit itemTargetUnit(VqsvIntroDemo.Scene s, int targetIndex) {
+        if (targetIndex < 0) {
+            return null;
+        }
+        if (targetIndex == 0 && player != null && player.battleUnit != null) {
+            return player.battleUnit;
+        }
+        if (targetIndex >= s.sourcePets.size()) {
+            return null;
+        }
+        return BattleUnit.fromSourcePet(s.sourcePets.get(targetIndex), (byte) 0);
+    }
+
+    private void persistItemTarget(VqsvIntroDemo.Scene s, int targetIndex, BattleUnit targetUnit) {
+        if (targetIndex >= 0 && targetIndex < s.sourcePets.size()) {
+            s.sourcePets.get(targetIndex).persistBattleUnit(targetUnit);
+        }
+        if (targetIndex == 0) {
+            player = targetUnit.toRenderUnit(true);
+        }
+    }
+
+    private String itemWarning(int validation) {
+        switch (validation) {
+            case 0:
+                return VqsvText.Battle.ITEM_TARGET_DEAD_STRICT;
+            case 1:
+                return VqsvText.Battle.NO_PET_TARGET;
+            case 2:
+                return VqsvText.Battle.ITEM_HP_FULL;
+            case 3:
+                return VqsvText.Battle.ITEM_PP_FULL;
+            case 4:
+                return VqsvText.Battle.ITEM_NO_DEBUFF;
+            case 5:
+                return VqsvText.Battle.ITEM_ALREADY_EXCITED;
+            case 7:
+                return VqsvText.Battle.ITEM_HP_PP_FULL;
+            case 8:
+                return VqsvText.Battle.ITEM_TARGET_DEAD;
+            default:
+                return VqsvText.Battle.ITEM_NOT_IN_BATTLE;
+        }
     }
 
     private boolean tickPetSwitch(VqsvIntroDemo.Scene s) {
@@ -1227,17 +1940,149 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         selectedPetIndex = s.battleMenuIds[s.battleMenuIndex];
-        if (selectedPetIndex <= 0 || selectedPetIndex >= s.sourcePets.size()) {
+        if (selectedPetIndex < 0 || selectedPetIndex >= s.sourcePets.size()) {
             enterWarning(s, VqsvText.Battle.NO_SWITCH_PET, BattleRuntimeState.P5_PET_SWITCH);
             return false;
+        }
+        if (!sourcePetAlive(s.sourcePets.get(selectedPetIndex))) {
+            s.sourceStateTrace.add("PORTED battle P5 game.d.a(slot) validation=0 dead selectedIndex="
+                    + selectedPetIndex + " forced=" + forcedPetSwitch);
+            enterWarning(s, VqsvText.Battle.PET_CANNOT_BATTLE, BattleRuntimeState.P5_PET_SWITCH);
+            return false;
+        }
+        if (selectedPetIndex == 0) {
+            s.sourceStateTrace.add("PORTED battle P5 game.d.a(slot) validation=1 already-active selectedIndex=0");
+            enterWarning(s, VqsvText.Battle.PET_ALREADY_ACTIVE, BattleRuntimeState.P5_PET_SWITCH);
+            return false;
+        }
+        if (!s.sourcePets.isEmpty() && player != null && player.battleUnit != null) {
+            s.sourcePets.get(0).persistBattleUnit(player.battleUnit);
         }
         SourcePetState next = s.sourcePets.remove(selectedPetIndex);
         s.sourcePets.add(0, next);
         player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
         playerActionThisRound = true;
-        s.sourceStateTrace.add("PORTED/PARTIAL battle P5 pet switch selectedIndex="
-                + selectedPetIndex + " newPlayer=" + player.name);
+        boolean wasForced = forcedPetSwitch;
+        forcedPetSwitch = false;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P5 game.d.a(slot) validation=-1 selectedIndex="
+                + selectedPetIndex + " newPlayer=" + player.name
+                + " forced=" + wasForced
+                + " sourcePath=reorder f[slot]->f[0], mark active K/J then game.d.a(byte 15)");
+        enterPlayerSwitchTransition(s, wasForced);
+        return false;
+    }
+
+    private boolean sourcePetAlive(SourcePetState pet) {
+        return pet != null && BattleUnit.fromSourcePet(pet, (byte) 0).alive();
+    }
+
+    private void enterPlayerSwitchTransition(VqsvIntroDemo.Scene s, boolean wasForced) {
+        playerSwitchWasForced = wasForced;
+        playerSwitchTicks = 0;
+        playerSwitchCposRow = VqsvBattleAnimationTables.instance().cposRow(playerSwitchCposGroup(), playerSwitchCposRow());
+        targetUnits = new SourceBattleUnit[0];
+        targetSlots = new int[0];
+        selectedTarget = null;
         syncRenderState(s, VqsvText.Battle.PET_SWITCHED + player.name);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P15 player switch transition from game.h.X valid P5"
+                + " forced=" + playerSwitchWasForced
+                + " active=" + player.name
+                + " hp=" + player.hp + "/" + player.maxHp
+                + " cposGroup=" + playerSwitchCposGroup()
+                + " cposRow=" + playerSwitchCposRow()
+                + " cposFrames=" + (playerSwitchCposRow.length / 4));
+        enterState(s, BattleRuntimeState.P15_PLAYER_SWITCH, s.battleLog, SHORT_WAIT);
+        applyPlayerSwitchCposOffset(s);
+    }
+
+    private boolean tickPlayerSwitchTransition(VqsvIntroDemo.Scene s) {
+        if (countdown()) {
+            applyPlayerSwitchCposOffset(s);
+            return false;
+        }
+        ++playerSwitchTicks;
+        syncRenderState(s, s.battleLog);
+        applyPlayerSwitchCposOffset(s);
+        if (playerSwitchTicks < playerSwitchCposFrameCount()) {
+            return false;
+        }
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P15 player switch transition complete forced="
+                + playerSwitchWasForced + " next=P1");
+        enterState(s, BattleRuntimeState.P1_DISPATCH, s.battleLog, SHORT_WAIT);
+        return false;
+    }
+
+    private void applyPlayerSwitchCposOffset(VqsvIntroDemo.Scene s) {
+        int frames = playerSwitchCposFrameCount();
+        if (frames <= 0) {
+            s.battleP7PlayerOffsetX = 0;
+            s.battleP7PlayerOffsetY = 0;
+            return;
+        }
+        int frame = Math.max(0, Math.min(frames - 1, playerSwitchTicks));
+        int finalAt = (frames - 1) << 2;
+        int at = frame << 2;
+        s.battleP7PlayerOffsetX = playerSwitchCposRow[at] - playerSwitchCposRow[finalAt];
+        s.battleP7PlayerOffsetY = playerSwitchCposRow[at + 1] - playerSwitchCposRow[finalAt + 1];
+    }
+
+    private int playerSwitchCposFrameCount() {
+        return playerSwitchCposRow.length / 4;
+    }
+
+    private int playerSwitchCposGroup() {
+        int sourceA = battleMode.length > 0 ? battleMode[0] : 0;
+        int sourceB = battleMode.length > 1 ? battleMode[1] : 0;
+        return sourceA == 0 ? (sourceB == 1 ? 2 : 0) : 1;
+    }
+
+    private int playerSwitchCposRow() {
+        return playerSwitchCposGroup() == 1 ? 2 : 1;
+    }
+
+    private boolean prepareEnemyReplacement(VqsvIntroDemo.Scene s) {
+        int next = nextAliveEnemyIndex();
+        if (next < 0) {
+            return false;
+        }
+        pendingEnemyReplacementIndex = next;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P15 source game.d.a(byte) replacement pending oldIndex="
+                + activeEnemyIndex + " nextIndex=" + pendingEnemyReplacementIndex
+                + " next=" + enemyParty[pendingEnemyReplacementIndex].name);
+        enterState(s, BattleRuntimeState.P15_ENEMY_REPLACEMENT,
+                VqsvText.Battle.START, SHORT_WAIT);
+        return true;
+    }
+
+    private int nextAliveEnemyIndex() {
+        for (int i = Math.max(0, activeEnemyIndex + 1); i < enemyParty.length; i++) {
+            if (enemyParty[i] != null && enemyParty[i].alive()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean tickEnemyReplacement(VqsvIntroDemo.Scene s) {
+        if (countdown()) {
+            return false;
+        }
+        if (pendingEnemyReplacementIndex < 0 || pendingEnemyReplacementIndex >= enemyParty.length) {
+            enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
+            return false;
+        }
+        activeEnemyIndex = pendingEnemyReplacementIndex;
+        pendingEnemyReplacementIndex = -1;
+        enemy = enemyParty[activeEnemyIndex];
+        enemyActionThisRound = false;
+        enemyActiveQueueProcessedThisRound = false;
+        targetUnits = new SourceBattleUnit[0];
+        targetSlots = new int[0];
+        selectedTarget = null;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P15 source case15 swap enemy activeIndex="
+                + activeEnemyIndex + " enemy=" + enemy.name
+                + " hp=" + enemy.hp + "/" + enemy.maxHp);
+        syncRenderState(s, s.battleLog);
         enterState(s, BattleRuntimeState.P1_DISPATCH, s.battleLog, SHORT_WAIT);
         return false;
     }
@@ -1273,6 +2118,67 @@ final class SourceBattleRuntime implements Blocking {
         enterWarning(s, VqsvText.Common.ITEM_REWARD_PREFIX
                 + itemName(itemId) + " x 1", BattleRuntimeState.P11_SHOP);
         return false;
+    }
+
+    void debugQueueDebuffForSmoke(VqsvIntroDemo.Scene s, boolean playerSide,
+                                  int debuffId, int storedRaw, int sourceSkill, int duration, int hp) {
+        SourceBattleUnit unit = playerSide ? player : enemy;
+        if (unit == null || unit.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires an entered source battle");
+        }
+        unit.battleUnit.debuffSlots[debuffId][0] = (short) duration;
+        unit.battleUnit.debuffSlots[debuffId][1] = (short) storedRaw;
+        unit.battleUnit.debuffSlots[debuffId][3] = (short) sourceSkill;
+        unit.battleUnit.debuffSlots[debuffId][4] = 1;
+        unit.battleUnit.addActiveEffect(1, debuffId);
+        setHp(unit, hp);
+        if (playerSide) {
+            playerActionThisRound = false;
+            enemyActionThisRound = true;
+            playerActiveQueueProcessedThisRound = false;
+        } else {
+            playerActionThisRound = true;
+            enemyActionThisRound = false;
+            enemyActiveQueueProcessedThisRound = false;
+        }
+        enterState(s, BattleRuntimeState.P1_DISPATCH, s.battleLog, 0);
+    }
+
+    void debugEnemyPartyForSmoke(VqsvIntroDemo.Scene s, int[][] encounterRows) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (encounterRows == null || encounterRows.length == 0) {
+            throw new IllegalArgumentException("Smoke enemy party requires at least one encounter row");
+        }
+        enemyParty = new SourceBattleUnit[encounterRows.length];
+        for (int i = 0; i < encounterRows.length; i++) {
+            enemyParty[i] = SourceBattleUnit.enemyFromEncounter(encounterRows[i]);
+        }
+        activeEnemyIndex = 0;
+        pendingEnemyReplacementIndex = -1;
+        enemy = enemyParty[activeEnemyIndex];
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle enemy party injected size=" + enemyParty.length
+                + " active=" + enemy.name);
+    }
+
+    void debugPlayerDebuffForItemSmoke(VqsvIntroDemo.Scene s, int debuffId, int value, int sourceSkill) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (player == null || player.battleUnit == null) {
+            throw new IllegalStateException("Item smoke requires active player battle unit");
+        }
+        BattleUnit unit = player.battleUnit;
+        unit.debuffSlots[debuffId][0] = 3;
+        unit.debuffSlots[debuffId][1] = (short) value;
+        unit.debuffSlots[debuffId][3] = (short) sourceSkill;
+        unit.debuffSlots[debuffId][4] = 1;
+        unit.addActiveEffect(1, debuffId);
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle P16 item debuff target prepared id="
+                + debuffId + " value=" + value + " skill=" + sourceSkill);
     }
 
     private boolean tickRun(VqsvIntroDemo.Scene s) {
@@ -1320,6 +2226,9 @@ final class SourceBattleRuntime implements Blocking {
         } else if (warningReturnState == BattleRuntimeState.P4_ITEM_LIST) {
             prepareItemMenu(s);
             enterState(s, BattleRuntimeState.P4_ITEM_LIST, VqsvText.Battle.COMMAND_ITEM_PENDING, SHORT_WAIT);
+        } else if (warningReturnState == BattleRuntimeState.P16_ITEM_TARGET) {
+            prepareItemTargetMenu(s);
+            enterState(s, BattleRuntimeState.P16_ITEM_TARGET, VqsvText.Battle.COMMAND_ITEM_PENDING, SHORT_WAIT);
         } else if (warningReturnState == BattleRuntimeState.P5_PET_SWITCH) {
             preparePetMenu(s);
             enterState(s, BattleRuntimeState.P5_PET_SWITCH, VqsvText.Battle.COMMAND_PET_PENDING, SHORT_WAIT);
@@ -1357,14 +2266,17 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (p7Phase == 1) {
             p7Ticks++;
-            syncP7RenderState(s, p7SkillName());
-            if (p7Ticks < p7CurrentEffectDuration()) {
+            tickP7LEffect(s);
+            if (tickP7SourceEffectSequence(s)) {
+                syncP7RenderState(s, p7SkillName());
                 return false;
             }
-            if (advanceP7EffectChunk(s)) {
+            syncP7RenderState(s, p7SkillName());
+            if (!p7FlagA) {
                 return false;
             }
             if (p7NoDamageSkill()) {
+                applyP7PostSkillEffects(s);
                 markP7ActionUsed();
                 p7Phase = 3;
                 p7Ticks = 0;
@@ -1382,10 +2294,14 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (p7Phase == 2) {
             p7Ticks++;
+            if (p7Ticks == P7_DAMAGE_TICKS / 2 && p7Target.alive()) {
+                setP7BaseState(p7Target == player, 0);
+            }
             syncP7RenderState(s, s.battleLog);
             if (p7Ticks < P7_DAMAGE_TICKS) {
                 return false;
             }
+            applyP7PostSkillEffects(s);
             p7Phase = 3;
             p7Ticks = 0;
             syncP7RenderState(s, s.battleLog);
@@ -1409,14 +2325,78 @@ final class SourceBattleRuntime implements Blocking {
         }
         p7SkillId = selectedSkillFor(p7Attacker);
         p7EffectRow = VqsvBattleAnimationTables.instance().effectRow(p7SkillId);
-        p7EffectChunk = 0;
-        prepareP7SpecialEffect(s);
+        prepareP7SourceState(s);
         p7Phase = 0;
         p7Ticks = 0;
         p7Damage = 0;
+        p7DamageResult = null;
+        p7PostEffectApplied = false;
+        p7PostEffectText = "";
+        p7PostEffectPlayerSide = false;
         p7DamageApplied = false;
         p7Prepared = true;
         clearP7RenderState(s);
+    }
+
+    private void prepareP7SourceState(VqsvIntroDemo.Scene s) {
+        p7EffectChunk = 0;
+        p7SourceI = 0;
+        p7SourceJ = 0;
+        p7SourceK = 0;
+        p7SourceL = 0;
+        p7FlagM = false;
+        p7FlagN = false;
+        p7FlagZ = false;
+        p7FlagA = false;
+        p7FlagB = false;
+        p7SpecialPrepared = false;
+        p7SpecialActive = false;
+        p7SpecialTicks = 0;
+        p7LEffectActive = false;
+        p7LEffectPlayerSide = false;
+        p7LEffectDrawAfter = false;
+        p7LEffectTicks = 0;
+        p7LEffectSpeffectId = -1;
+        p7LEffectRow = new short[0];
+        p7BaseHiddenPlayerSide = false;
+        p7BaseHiddenEnemySide = false;
+        p7BaseStatePlayerSide = 0;
+        p7BaseStateEnemySide = 0;
+        p7ActorAnimation = null;
+        enterP7SourceChunk(s, "initial");
+    }
+
+    private void enterP7SourceChunk(VqsvIntroDemo.Scene s, String reason) {
+        enterP7SourceChunk(s, reason, null);
+    }
+
+    private void enterP7SourceChunk(VqsvIntroDemo.Scene s, String reason, P7ActorAnimation preservedActorAnimation) {
+        p7SourceJ = p7SourceI;
+        p7EffectChunk = p7SourceJ;
+        p7SpecialPrepared = false;
+        p7SpecialActive = false;
+        p7SpecialTicks = 0;
+        p7ActorAnimation = preservedActorAnimation;
+        prepareP7SpecialEffect(s);
+        if ("initial".equals(reason)) {
+            setP7BaseState(p7Attacker == player, p7EffectValue(0) == 0 ? 1 : 0);
+        }
+        if (p7EffectValue(1) == 1) {
+            p7SpecialPrepared = true;
+        } else {
+            boolean targetSide = p7EffectValue(0) == 0;
+            boolean playerSide = targetSide ? p7Target == player : p7Attacker == player;
+            p7ActorAnimation = new P7ActorAnimation(playerSide, p7EffectValue(2), p7EffectValue(3));
+        }
+        p7SourceI++;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P7 source n() skill=" + p7SkillId
+                + " chunk=" + p7SourceJ
+                + " reason=" + reason
+                + " side=" + p7EffectValue(0)
+                + " special=" + p7EffectValue(1)
+                + " id=" + p7EffectValue(2)
+                + " param=" + p7EffectValue(3)
+                + " nextI=" + p7SourceI);
     }
 
     private void prepareP7SpecialEffect(VqsvIntroDemo.Scene s) {
@@ -1449,6 +2429,155 @@ final class SourceBattleRuntime implements Blocking {
         return P7_START_TICKS;
     }
 
+    private boolean tickP7SourceEffectSequence(VqsvIntroDemo.Scene s) {
+        boolean actorBranchActive = false;
+        if (p7ActorAnimation != null && !p7ActorAnimation.stopped()) {
+            actorBranchActive = tickP7ActorAnimation(s);
+        }
+        if (p7SpecialPrepared) {
+            return tickP7SpecialEffect(s) || actorBranchActive;
+        }
+        if (actorBranchActive) {
+            return true;
+        }
+        if (p7FlagA) {
+            return false;
+        }
+        p7FlagA = true;
+        p7FlagB = true;
+        return false;
+    }
+
+    private boolean tickP7ActorAnimation(VqsvIntroDemo.Scene s) {
+        if (!p7ActorAnimation.started()) {
+            p7ActorAnimation.start();
+            p7FlagN = false;
+            s.sourceStateTrace.add("PORTED battle P7 actor u.a() start skill=" + p7SkillId
+                    + " chunk=" + p7SourceJ
+                    + " sourceEffectId=" + p7ActorAnimation.sourceEffectId
+                    + " sprite=" + p7ActorAnimation.spriteId
+                    + " state=" + p7ActorAnimation.state
+                    + " side=" + (p7ActorAnimation.playerSide ? "player" : "enemy"));
+            return true;
+        }
+        int stateTrigger = p7EffectValue(5);
+        if (stateTrigger != -1 && p7ActorAnimation.frame(stateTrigger)) {
+            setP7BaseState(p7ActorAnimation.playerSide, p7EffectValue(6));
+            p7SourceK = 0;
+            s.sourceStateTrace.add("PORTED battle P7 chunk[5]/[6] state trigger skill=" + p7SkillId
+                    + " chunk=" + p7SourceJ
+                    + " frame=" + stateTrigger
+                    + " state=" + p7EffectValue(6)
+                    + " side=" + (p7ActorAnimation.playerSide ? "player" : "enemy"));
+        }
+        int nextTrigger = p7EffectValue(4);
+        if (nextTrigger != -1 && p7ActorAnimation.frame(nextTrigger) && hasNextP7Chunk()) {
+            boolean keepTargetActor = p7EffectValue(0) == 0;
+            P7ActorAnimation preserved = keepTargetActor ? p7ActorAnimation : null;
+            if (!keepTargetActor) {
+                p7ActorAnimation.stop();
+            }
+            s.sourceStateTrace.add("PORTED battle P7 chunk[4] frame trigger skill=" + p7SkillId
+                    + " chunk=" + p7SourceJ
+                    + " frame=" + nextTrigger
+                    + " cursor=" + p7ActorAnimation.cursor()
+                    + " keepTargetActor=" + keepTargetActor);
+            enterP7SourceChunk(s, "chunk4-frame-trigger", preserved);
+            if (p7SpecialPrepared) {
+                p7FlagM = true;
+            }
+            return true;
+        }
+        if (p7ActorAnimation.lastFrame()) {
+            p7ActorAnimation.stop();
+            if (hasNextP7Chunk()) {
+                enterP7SourceChunk(s, "actor-animation-complete");
+                if (p7ActorAnimation != null) {
+                    p7ActorAnimation.start();
+                }
+                if (p7SpecialPrepared) {
+                    p7FlagM = true;
+                }
+                return true;
+            }
+            p7FlagA = true;
+            p7FlagB = true;
+            return false;
+        }
+        p7ActorAnimation.tick();
+        return true;
+    }
+
+    private boolean tickP7SpecialEffect(VqsvIntroDemo.Scene s) {
+        if (!p7SpecialActive) {
+            if (!(p7FlagM || p7ActorAnimation == null)) {
+                return true;
+            }
+            if (p7SourceJ == 0) {
+                p7FlagN = true;
+            }
+            setP7BaseState(p7Attacker == player, 0);
+            p7SpecialActive = true;
+            p7SpecialTicks = 0;
+            p7SourceL = p7SourceJ;
+            setP7BaseHidden(p7EffectValue(0) == 0 ? p7Target == player : p7Attacker == player, true);
+            s.sourceStateTrace.add("PORTED battle P7 H.a() start skill=" + p7SkillId
+                    + " chunk=" + p7SourceJ
+                    + " ownerSide=" + p7EffectValue(0)
+                    + " speffectType=" + p7SpecialType
+                    + " actorHidden=" + (p7EffectValue(0) == 0 ? "target" : "attacker"));
+        }
+        p7SpecialTicks++;
+        if (p7SpecialTicks <= p7CurrentEffectDuration()) {
+            return true;
+        }
+        setP7BaseHidden(p7EffectValueAtChunk(p7SourceL, 0) == 0 ? p7Target == player : p7Attacker == player, false);
+        p7SpecialPrepared = false;
+        p7SpecialActive = false;
+        p7FlagM = false;
+        s.sourceStateTrace.add("PORTED battle P7 H.e() complete skill=" + p7SkillId
+                + " chunk=" + p7SourceL
+                + " restoreOwnerSide=" + p7EffectValueAtChunk(p7SourceL, 0));
+        p7SourceL = 0;
+        if (hasNextP7Chunk()) {
+            if (p7EffectValueAtChunk(p7SourceI, 0) == 1) {
+                p7FlagZ = true;
+            }
+            enterP7SourceChunk(s, "special-complete");
+            if (p7SpecialPrepared) {
+                p7FlagM = true;
+            }
+            return true;
+        }
+        if (p7EffectValue(0) == 0) {
+            p7FlagZ = true;
+        }
+        p7FlagB = true;
+        p7FlagA = true;
+        return false;
+    }
+
+    private boolean hasNextP7Chunk() {
+        return p7SourceI < p7EffectRow.length / 7;
+    }
+
+    private void setP7BaseState(boolean playerSide, int state) {
+        int safe = Math.max(0, state);
+        if (playerSide) {
+            p7BaseStatePlayerSide = safe;
+        } else {
+            p7BaseStateEnemySide = safe;
+        }
+    }
+
+    private void setP7BaseHidden(boolean playerSide, boolean hidden) {
+        if (playerSide) {
+            p7BaseHiddenPlayerSide = hidden;
+        } else {
+            p7BaseHiddenEnemySide = hidden;
+        }
+    }
+
     private boolean p7NoDamageSkill() {
         BattleSkillRow row = VqsvBattleTables.instance().skill(p7SkillId);
         return row != null && row.powerPercent == 0;
@@ -1462,15 +2591,24 @@ final class SourceBattleRuntime implements Blocking {
         }
     }
 
-    private boolean advanceP7EffectChunk(VqsvIntroDemo.Scene s) {
+    private int p7EffectAnimCursor() {
+        return p7ActorAnimation == null ? 0 : p7ActorAnimation.cursor();
+    }
+
+    private boolean advanceP7EffectChunk(VqsvIntroDemo.Scene s, String reason) {
         int chunkCount = p7EffectRow.length / 7;
         if (p7EffectChunk + 1 >= chunkCount) {
             return false;
         }
+        int previousChunk = p7EffectChunk;
         p7EffectChunk++;
         p7Ticks = 0;
         prepareP7SpecialEffect(s);
         syncP7RenderState(s, p7SkillName());
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P7 advance skill=" + p7SkillId
+                + " chunk=" + previousChunk + "->" + p7EffectChunk
+                + " reason=" + reason
+                + " effectRow=" + java.util.Arrays.toString(p7EffectRow));
         return true;
     }
 
@@ -1496,7 +2634,11 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private int p7EffectValue(int offset) {
-        int index = p7EffectChunk * 7 + offset;
+        return p7EffectValueAtChunk(p7EffectChunk, offset);
+    }
+
+    private int p7EffectValueAtChunk(int chunk, int offset) {
+        int index = chunk * 7 + offset;
         return index >= 0 && index < p7EffectRow.length ? p7EffectRow[index] : -1;
     }
 
@@ -1504,12 +2646,17 @@ final class SourceBattleRuntime implements Blocking {
         if (p7DamageApplied) {
             return;
         }
-        p7Damage = Math.max(1, p7Attacker.basicDamageTo(p7Target));
+        p7DamageResult = p7Attacker.damageResultTo(p7Target);
+        p7Damage = Math.max(1, p7DamageResult.damage);
         p7Target.damage(p7Damage);
+        setP7BaseState(p7Target == player, p7Target.alive() ? 2 : 3);
         markP7ActionUsed();
         p7DamageApplied = true;
         s.sourceStateTrace.add("PORTED/PARTIAL battle P7 damage frame skill=" + p7SkillId
                 + " damage=" + p7Damage
+                + " critFlag=" + p7DamageResult.critFlag
+                + " appliedDebuffId=" + p7DamageResult.appliedDebuffId
+                + " debuffText=" + p7DebuffText()
                 + " target=" + p7Target.name
                 + " hp=" + p7Target.hp + "/" + p7Target.maxHp
                 + " bloodRow0Len=" + VqsvBattleAnimationTables.instance().bloodRow(0).length);
@@ -1526,6 +2673,9 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         if (!p7Target.alive()) {
+            if (currentActorPlayer && p7Target == enemy && prepareEnemyReplacement(s)) {
+                return false;
+            }
             enterState(s, currentActorPlayer ? BattleRuntimeState.P8_WIN : BattleRuntimeState.P9_LOSE,
                     currentActorPlayer ? battleWinLog() : VqsvText.Battle.NEIL_LOST + forcedResultIndex,
                     SHORT_WAIT);
@@ -1543,13 +2693,34 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7TargetPlayerSide = p7Target == player;
         boolean effectOnTarget = p7EffectValue(0) == 0;
         s.battleP7EffectOnPlayerSide = effectOnTarget ? s.battleP7TargetPlayerSide : s.battleP7AttackerPlayerSide;
-        s.battleP7EffectAnimState = p7EffectValue(1) == 0 ? p7EffectValue(2) : 0;
-        s.battleP7EffectAnimCursor = Math.max(0, p7Ticks / 2);
+        s.battleP7EffectAnimState = p7ActorAnimation != null ? p7ActorAnimation.state : 0;
+        s.battleP7EffectAnimCursor = p7EffectAnimCursor();
+        s.battleP7BaseHiddenPlayerSide = p7BaseHiddenPlayerSide;
+        s.battleP7BaseHiddenEnemySide = p7BaseHiddenEnemySide;
+        s.battleP7BaseStatePlayerSide = p7BaseStatePlayerSide;
+        s.battleP7BaseStateEnemySide = p7BaseStateEnemySide;
+        syncP7MotionOffsets(s);
+        syncP7LEffectRenderState(s);
+        s.battleP7ActorEffectVisible = p7Phase == 1
+                && p7ActorAnimation != null
+                && p7ActorAnimation.started()
+                && !p7ActorAnimation.stopped();
+        s.battleP7ActorEffectOnPlayerSide = s.battleP7ActorEffectVisible && p7ActorAnimation.playerSide;
+        s.battleP7ActorEffectSpriteId = s.battleP7ActorEffectVisible ? p7ActorAnimation.spriteId : -1;
+        s.battleP7ActorEffectState = s.battleP7ActorEffectVisible ? p7ActorAnimation.state : 0;
+        s.battleP7ActorEffectCursor = s.battleP7ActorEffectVisible ? p7ActorAnimation.cursor() : 0;
         s.battleP7DamageVisible = p7Phase == 2 && p7DamageApplied;
         s.battleP7DamageText = s.battleP7DamageVisible ? "-" + p7Damage : "";
+        s.battleP7DamageCritical = s.battleP7DamageVisible && p7DamageResult != null
+                && p7DamageResult.critFlag == 1;
+        s.battleP7DebuffText = s.battleP7DamageVisible ? p7DebuffText() : "";
+        s.battleP7PostEffectVisible = p7Phase == 3 && !p7PostEffectText.isEmpty();
+        s.battleP7PostEffectPlayerSide = p7PostEffectPlayerSide;
+        s.battleP7PostEffectText = s.battleP7PostEffectVisible ? p7PostEffectText : "";
         boolean showSpecial = p7Phase == 1
                 && (p7SpecialType == 9 || p7SpecialType == 1)
-                && p7Ticks <= p7CurrentEffectDuration();
+                && p7SpecialActive
+                && p7SpecialTicks <= p7CurrentEffectDuration();
         s.battleP7SpecialVisible = showSpecial;
         s.battleP7SpecialOnPlayerSide = s.battleP7EffectOnPlayerSide;
         s.battleP7SpecialType = showSpecial ? p7SpecialType : -1;
@@ -1566,6 +2737,7 @@ final class SourceBattleRuntime implements Blocking {
                 ? p7SpeffectRow[4] : 0;
         s.battleP7SpecialScrollMode = showSpecial && p7SpecialType == 1 && p7SpeffectRow.length >= 6
                 ? p7SpeffectRow[5] : 0;
+        s.battleP7SpecialRow = showSpecial ? Arrays.copyOf(p7SpeffectRow, p7SpeffectRow.length) : new short[0];
     }
 
     private void clearP7RenderState(VqsvIntroDemo.Scene s) {
@@ -1573,8 +2745,34 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7Ticks = 0;
         s.battleP7EffectAnimState = -1;
         s.battleP7EffectAnimCursor = 0;
+        s.battleP7BaseHiddenPlayerSide = false;
+        s.battleP7BaseHiddenEnemySide = false;
+        s.battleP7BaseStatePlayerSide = 0;
+        s.battleP7BaseStateEnemySide = 0;
+        s.battleP7PlayerOffsetX = 0;
+        s.battleP7PlayerOffsetY = 0;
+        s.battleP7EnemyOffsetX = 0;
+        s.battleP7EnemyOffsetY = 0;
+        s.battleLVisible = false;
+        s.battleLPlayerSide = false;
+        s.battleLDrawAfter = false;
+        s.battleLType = -1;
+        s.battleLSpriteId = -1;
+        s.battleLFrame = 0;
+        s.battleLDirection = 0;
+        s.battleLRow = new short[0];
+        s.battleP7ActorEffectVisible = false;
+        s.battleP7ActorEffectOnPlayerSide = false;
+        s.battleP7ActorEffectSpriteId = -1;
+        s.battleP7ActorEffectState = 0;
+        s.battleP7ActorEffectCursor = 0;
         s.battleP7DamageVisible = false;
         s.battleP7DamageText = "";
+        s.battleP7DamageCritical = false;
+        s.battleP7DebuffText = "";
+        s.battleP7PostEffectVisible = false;
+        s.battleP7PostEffectPlayerSide = false;
+        s.battleP7PostEffectText = "";
         s.battleP7SpecialVisible = false;
         s.battleP7SpecialOnPlayerSide = false;
         s.battleP7SpecialType = -1;
@@ -1587,6 +2785,308 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7SpecialTextureId = -1;
         s.battleP7SpecialBlendMode = 0;
         s.battleP7SpecialScrollMode = 0;
+        s.battleP7SpecialRow = new short[0];
+    }
+
+    private void syncP7MotionOffsets(VqsvIntroDemo.Scene s) {
+        s.battleP7PlayerOffsetX = 0;
+        s.battleP7PlayerOffsetY = 0;
+        s.battleP7EnemyOffsetX = 0;
+        s.battleP7EnemyOffsetY = 0;
+        if (p7ActorAnimation != null && p7ActorAnimation.started() && !p7ActorAnimation.stopped()) {
+            return;
+        }
+        if (p7Phase == 1 && p7Attacker != null) {
+            int amp = lungeAmplitude(p7Ticks);
+            if (amp > 0) {
+                if (p7Attacker == player) {
+                    s.battleP7PlayerOffsetX = amp;
+                    s.battleP7PlayerOffsetY = -amp / 2;
+                } else {
+                    s.battleP7EnemyOffsetX = -amp;
+                    s.battleP7EnemyOffsetY = amp / 2;
+                }
+            }
+        } else if (p7Phase == 2 && p7Target != null && p7DamageApplied) {
+            int amp = recoilAmplitude(p7Ticks);
+            if (amp > 0) {
+                int dir = p7Target == player ? -1 : 1;
+                int x = (p7Ticks % 2 == 0 ? amp : -amp) * dir;
+                int y = Math.max(0, amp / 2);
+                if (p7Target == player) {
+                    s.battleP7PlayerOffsetX = x;
+                    s.battleP7PlayerOffsetY = y;
+                } else {
+                    s.battleP7EnemyOffsetX = x;
+                    s.battleP7EnemyOffsetY = -y;
+                }
+            }
+        }
+    }
+
+    private int lungeAmplitude(int tick) {
+        if (tick <= 0 || tick > 8) {
+            return 0;
+        }
+        int[] sourceShaped = {0, 2, 5, 8, 10, 8, 5, 2, 0};
+        return sourceShaped[Math.max(0, Math.min(sourceShaped.length - 1, tick))];
+    }
+
+    private int recoilAmplitude(int tick) {
+        if (tick <= 0 || tick > 8) {
+            return 0;
+        }
+        int[] sourceShaped = {0, 5, 4, 3, 3, 2, 2, 1, 0};
+        return sourceShaped[Math.max(0, Math.min(sourceShaped.length - 1, tick))];
+    }
+
+    private String p7DebuffText() {
+        if (p7DamageResult == null || p7DamageResult.appliedDebuffId < 0) {
+            return "";
+        }
+        BattleDebuffRow row = VqsvBattleTables.instance().debuff(p7DamageResult.appliedDebuffId);
+        return row == null ? "" : row.name("");
+    }
+
+    private void applyP7PostSkillEffects(VqsvIntroDemo.Scene s) {
+        if (p7PostEffectApplied) {
+            return;
+        }
+        p7PostEffectApplied = true;
+        BattleSkillRow row = VqsvBattleTables.instance().skill(p7SkillId);
+        if (row == null || p7Attacker == null) {
+            return;
+        }
+        int heal = 0;
+        int buffId = -1;
+        SourceBattleUnit buffOwner = p7Attacker;
+        boolean sourceTargetSelf = true;
+        boolean leechRollPassed = false;
+        int attackerHpBefore = p7Attacker.hp;
+        switch (p7SkillId) {
+            case 11:
+            case 17:
+                if (p7Attacker.battleUnit != null) {
+                    heal = Math.max(1, p7Attacker.battleUnit.sourceBaseAttackForCurrentTarget()
+                            * row.chanceOrParam / 100);
+                }
+                break;
+            case 21:
+            case 27:
+            case 42:
+            case 48:
+            case 62:
+            case 68:
+                buffId = row.effectId;
+                break;
+            case 52:
+            case 58:
+                leechRollPassed = p7DamageApplied && p7Damage > 0
+                        && (p7Attacker.battleUnit == null || p7Attacker.battleUnit.rollSourceChance(30));
+                if (leechRollPassed) {
+                    heal = Math.max(0, p7Damage * row.chanceOrParam / 100);
+                }
+                buffId = row.effectId;
+                break;
+            case 64:
+                buffId = row.effectId;
+                break;
+            default:
+                if (row.effectMode == 1 && p7Target != null) {
+                    buffId = row.effectId;
+                    buffOwner = p7Target;
+                    sourceTargetSelf = false;
+                }
+                break;
+        }
+        if (heal > 0 && p7Attacker.battleUnit != null) {
+            p7Attacker.battleUnit.heal(heal);
+            p7Attacker.hp = p7Attacker.battleUnit.hp();
+        }
+        int buffHeal = 0;
+        if (buffId >= 0 && buffOwner != null) {
+            int selectedIndex = p7SkillId == 64 && p7Attacker.battleUnit != null
+                    ? p7Attacker.battleUnit.selectedTargetSlot : -1;
+            if (p7SkillId == 64 && p7Attacker.battleUnit != null && p7Target != null && p7Target.battleUnit != null) {
+                p7Attacker.battleUnit.copySourceBuffsFrom(p7Target.battleUnit, selectedIndex, p7SkillId);
+                buffHeal = 0;
+            } else {
+                buffHeal = buffOwner.applySourceBuff(buffId, selectedIndex, p7SkillId);
+            }
+            BattleBuffRow buff = VqsvBattleTables.instance().buff(buffId);
+            p7PostEffectText = buffHeal > 0 ? "+" + buffHeal : buff == null ? "" : buff.name("");
+            p7PostEffectPlayerSide = buffOwner == player;
+        }
+        applyP7SourcePostDamageModifiers();
+        if (p7Attacker.hp < attackerHpBefore) {
+            p7PostEffectText = "-" + (attackerHpBefore - p7Attacker.hp);
+            p7PostEffectPlayerSide = p7Attacker == player;
+        } else if (p7PostEffectText.isEmpty() && heal > 0) {
+            p7PostEffectText = "+" + heal;
+            p7PostEffectPlayerSide = p7Attacker == player;
+        }
+        if (!p7PostEffectText.isEmpty()) {
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P7 game.d.q postEffect skill=" + p7SkillId
+                    + " text=" + p7PostEffectText
+                    + " selfTarget=" + sourceTargetSelf
+                    + " owner=" + (p7PostEffectPlayerSide ? "player" : "enemy")
+                    + " heal=" + heal
+                    + " buffId=" + buffId
+                    + " buffHeal=" + buffHeal
+                    + " leechRollPassed=" + leechRollPassed);
+        }
+    }
+
+    private void applyP7SourcePostDamageModifiers() {
+        if (p7Attacker == null || p7Attacker.battleUnit == null || p7Target == null || p7Target.battleUnit == null) {
+            return;
+        }
+        BattleSkillRow row = VqsvBattleTables.instance().skill(p7SkillId);
+        if (row == null || row.targetSide != 0) {
+            return;
+        }
+        BattleUnit attackerUnit = p7Attacker.battleUnit;
+        BattleUnit targetUnit = p7Target.battleUnit;
+        if (attackerUnit.hasSourceFormStatus(8)) {
+            int chance = attackerUnit.sourceStatusParam(8, 5, 0);
+            if (attackerUnit.rollSourceChance(chance)) {
+                int heal = Math.max(0, p7Damage * attackerUnit.sourceStatusParam(8, 6, 0) / 100);
+                attackerUnit.heal(heal);
+                p7Attacker.hp = attackerUnit.hp();
+            }
+        }
+        if (targetUnit.hasBuff(2)) {
+            int reflect = Math.max(0, p7Damage * targetUnit.buffSlots[2][2] / 100);
+            p7Attacker.damage(reflect);
+        }
+        if (targetUnit.hasBuff(5)) {
+            int stored = attackerUnit.consumeStoredReflectDamage();
+            if (stored > 0) {
+                p7Attacker.damage(stored);
+            }
+        }
+    }
+
+    private void tickP7LEffect(VqsvIntroDemo.Scene s) {
+        if (p7LEffectActive) {
+            p7LEffectTicks++;
+            if (p7LEffectTicks >= p7LEffectFrameCount()) {
+                p7LEffectActive = false;
+                s.sourceStateTrace.add("PORTED/PARTIAL battle state1 L complete species="
+                        + p7Attacker.speciesId + " speffect=" + p7LEffectSpeffectId);
+            }
+            return;
+        }
+        if (p7Attacker == null || p7Attacker.visualId < 0 || p7BaseStateFor(p7Attacker == player) != 1) {
+            return;
+        }
+        int speffectId = state1LEffectSpeffectId(p7Attacker.speciesId);
+        if (speffectId < 0) {
+            return;
+        }
+        int cursor = battleSpriteCursor(p7Attacker.visualId, 1, s.battleAnimationTick);
+        if (cursor != 1) {
+            return;
+        }
+        p7LEffectRow = VqsvBattleAnimationTables.instance().speffectRow(speffectId);
+        if (p7LEffectRow.length == 0) {
+            return;
+        }
+        p7LEffectActive = true;
+        p7LEffectPlayerSide = p7Attacker == player;
+        p7LEffectDrawAfter = p7Attacker.speciesId == 10;
+        p7LEffectTicks = 0;
+        p7LEffectSpeffectId = speffectId;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle state1 L start species=" + p7Attacker.speciesId
+                + " visual=" + p7Attacker.visualId
+                + " speffect=" + speffectId
+                + " row=" + java.util.Arrays.toString(p7LEffectRow)
+                + " cursor=" + cursor
+                + " drawAfter=" + p7LEffectDrawAfter);
+    }
+
+    private void syncP7LEffectRenderState(VqsvIntroDemo.Scene s) {
+        boolean show = p7LEffectActive && p7LEffectRow.length > 0 && p7Phase == 1;
+        s.battleLVisible = show;
+        s.battleLPlayerSide = show && p7LEffectPlayerSide;
+        s.battleLDrawAfter = show && p7LEffectDrawAfter;
+        s.battleLType = show ? p7LEffectRow[0] : -1;
+        s.battleLSpriteId = show && p7Attacker != null ? p7Attacker.visualId : -1;
+        s.battleLFrame = show ? Math.max(0, Math.min(p7LEffectFrameCount() - 1, p7LEffectTicks)) : 0;
+        s.battleLDirection = 0;
+        s.battleLRow = show ? java.util.Arrays.copyOf(p7LEffectRow, p7LEffectRow.length) : new short[0];
+    }
+
+    private int p7BaseStateFor(boolean playerSide) {
+        return playerSide ? p7BaseStatePlayerSide : p7BaseStateEnemySide;
+    }
+
+    private int p7LEffectFrameCount() {
+        if (p7LEffectRow.length < 3) {
+            return 0;
+        }
+        int type = p7LEffectRow[0];
+        if (type == 11 || type == 14 || type == 15) {
+            int count = Math.max(1, p7LEffectRow[1]);
+            int tStart = 2 + ((count - 1) << 2);
+            return tStart + 1 < p7LEffectRow.length ? Math.max(1, p7LEffectRow[tStart + 1]) : 1;
+        }
+        if (type == 12) {
+            return p7LEffectRow.length > 5 ? Math.max(1, p7LEffectRow[5]) : 1;
+        }
+        if (type == 13) {
+            int count = Math.max(1, p7LEffectRow[1]);
+            int tStart = 2 + count;
+            return tStart + 1 < p7LEffectRow.length ? Math.max(1, p7LEffectRow[tStart + 1]) : 1;
+        }
+        return 1;
+    }
+
+    private int state1LEffectSpeffectId(int species) {
+        switch (species) {
+            case 0:
+                return 27;
+            case 10:
+                return 28;
+            case 91:
+                return 26;
+            case 92:
+                return 25;
+            case 97:
+            case 98:
+                return 23;
+            case 62:
+                return 24;
+            case 75:
+                return 20;
+            case 87:
+                return 21;
+            default:
+                return -1;
+        }
+    }
+
+    private int battleSpriteCursor(int spriteIndex, int state, int tick) {
+        SpriteAnim anim = SpriteAnim.load(spriteIndex);
+        anim.setState(Math.max(0, state));
+        if (anim.data.anim == null || anim.data.anim.length == 0 || anim.data.anim[anim.state].length == 0) {
+            return 0;
+        }
+        int elapsed = Math.max(0, tick);
+        short[] frames = anim.data.anim[anim.state];
+        int total = 0;
+        for (int i = 0; i < frames.length; i += 2) {
+            total += Math.max(1, frames[i]);
+        }
+        int wrapped = total <= 0 ? 0 : elapsed % total;
+        int sum = 0;
+        for (int i = 0; i < frames.length; i += 2) {
+            sum += Math.max(1, frames[i]);
+            if (wrapped < sum) {
+                return i / 2;
+            }
+        }
+        return 0;
     }
 
     private boolean tickWin(VqsvIntroDemo.Scene s) {
@@ -1667,7 +3167,7 @@ final class SourceBattleRuntime implements Blocking {
                 && next != BattleRuntimeState.P16_ITEM_TARGET
                 && next != BattleRuntimeState.P5_PET_SWITCH
                 && next != BattleRuntimeState.P11_SHOP) {
-            s.battleUiMode = "command";
+            s.battleUiMode = "battle";
             s.battleCatchVisible = false;
             s.battleCatchEffectVisible = false;
             s.battleEnemyHiddenByCatch = false;

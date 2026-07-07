@@ -12,11 +12,21 @@ final class VqsvBattleAnimationTables {
     private final byte[][] effectRows;
     private final short[][] speffectRows;
     private final short[][] bloodRows;
+    private final byte[][] bufBuffRows;
+    private final byte[][] bufDebuffRows;
+    private final byte[][] bufRowMaps;
+    private final short[][][] cposGroups;
 
-    private VqsvBattleAnimationTables(byte[][] effectRows, short[][] speffectRows, short[][] bloodRows) {
+    private VqsvBattleAnimationTables(byte[][] effectRows, short[][] speffectRows, short[][] bloodRows,
+                                      byte[][] bufBuffRows, byte[][] bufDebuffRows, byte[][] bufRowMaps,
+                                      short[][][] cposGroups) {
         this.effectRows = effectRows;
         this.speffectRows = speffectRows;
         this.bloodRows = bloodRows;
+        this.bufBuffRows = bufBuffRows;
+        this.bufDebuffRows = bufDebuffRows;
+        this.bufRowMaps = bufRowMaps;
+        this.cposGroups = cposGroups;
     }
 
     static VqsvBattleAnimationTables instance() {
@@ -47,11 +57,33 @@ final class VqsvBattleAnimationTables {
         return Arrays.copyOf(speffectRows[id], speffectRows[id].length);
     }
 
+    byte[] bufDebufVisualRow(int bank, int effectId) {
+        if (bank < 0 || bank >= bufRowMaps.length || effectId < 0 || effectId >= bufRowMaps[bank].length) {
+            return new byte[0];
+        }
+        int rowId = bufRowMaps[bank][effectId];
+        byte[][] rows = bank == 0 ? bufBuffRows : bufDebuffRows;
+        if (rowId < 0 || rowId >= rows.length || rows[rowId] == null) {
+            return new byte[0];
+        }
+        return Arrays.copyOf(rows[rowId], rows[rowId].length);
+    }
+
+    short[] cposRow(int group, int row) {
+        if (group < 0 || group >= cposGroups.length || cposGroups[group] == null
+                || row < 0 || row >= cposGroups[group].length || cposGroups[group][row] == null) {
+            return new short[0];
+        }
+        return Arrays.copyOf(cposGroups[group][row], cposGroups[group][row].length);
+    }
+
     static String sourceSummary(int skillId) {
         VqsvBattleAnimationTables tables = instance();
         return "effectRows=" + tables.effectRows.length
                 + " speffectRows=" + tables.speffectRows.length
                 + " bloodRows=" + tables.bloodRows.length
+                + " bufBuffRows=" + tables.bufBuffRows.length
+                + " bufDebuffRows=" + tables.bufDebuffRows.length
                 + " skill" + skillId + "=" + Arrays.toString(tables.effectRow(skillId));
     }
 
@@ -62,9 +94,20 @@ final class VqsvBattleAnimationTables {
             byte[][] effectRows = readByteRows(locator.binary(paths.scriptOriginal("effect.mid")));
             short[][] speffectRows = BinaryTables.readShortRows(locator.binary(paths.scriptOriginal("speffect.mid")));
             short[][] bloodRows = BinaryTables.readShortRows(locator.binary(paths.scriptOriginal("blood.mid")));
-            return new VqsvBattleAnimationTables(effectRows, speffectRows, bloodRows);
+            BinaryReader bufReader = locator.binary(paths.scriptOriginal("bufDebuf.mid"));
+            byte[][] bufBuffRows = readByteRows(bufReader);
+            byte[][] bufDebuffRows = readByteRows(bufReader);
+            byte[][] bufRowMaps = readByteRows(bufReader);
+            BinaryReader cposReader = locator.binary(paths.scriptOriginal("cpos.mid"));
+            short[][][] cposGroups = new short[3][][];
+            for (int i = 0; i < cposGroups.length; i++) {
+                cposGroups[i] = BinaryTables.readShortRows(cposReader);
+            }
+            return new VqsvBattleAnimationTables(effectRows, speffectRows, bloodRows,
+                    bufBuffRows, bufDebuffRows, bufRowMaps, cposGroups);
         } catch (RuntimeException ex) {
-            return new VqsvBattleAnimationTables(new byte[0][], new short[0][], new short[0][]);
+            return new VqsvBattleAnimationTables(new byte[0][], new short[0][], new short[0][],
+                    new byte[0][], new byte[0][], new byte[0][], new short[0][][]);
         }
     }
 
