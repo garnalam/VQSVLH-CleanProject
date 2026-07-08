@@ -68,6 +68,39 @@ final class SourceSpecialReward {
     }
 }
 
+final class SourceEvolutionNotice {
+    final int currentSpeciesId;
+    final int currentNameTextId;
+    final int currentLevel;
+    final int targetSpeciesId;
+    final int targetNameTextId;
+    final int targetKind;
+    final int requiredLevel;
+    final int materialId;
+    final int materialNeed;
+    final int materialCount;
+    final int sourceR;
+    final boolean materialEnough;
+
+    SourceEvolutionNotice(int currentSpeciesId, int currentNameTextId, int currentLevel,
+                          int targetSpeciesId, int targetNameTextId, int targetKind,
+                          int requiredLevel, int materialId, int materialNeed,
+                          int materialCount, int sourceR, boolean materialEnough) {
+        this.currentSpeciesId = currentSpeciesId;
+        this.currentNameTextId = currentNameTextId;
+        this.currentLevel = currentLevel;
+        this.targetSpeciesId = targetSpeciesId;
+        this.targetNameTextId = targetNameTextId;
+        this.targetKind = targetKind;
+        this.requiredLevel = requiredLevel;
+        this.materialId = materialId;
+        this.materialNeed = materialNeed;
+        this.materialCount = materialCount;
+        this.sourceR = sourceR;
+        this.materialEnough = materialEnough;
+    }
+}
+
 final class SourceBattleUnit {
     final int speciesId;
     final int level;
@@ -248,6 +281,13 @@ final class SourcePetState {
     final int[] skillCooldowns = new int[skillIds.length];
     int[] sourcePayload;
     int refreshCount;
+    boolean sourceActive;
+    boolean sourceTurnUsed;
+    int sourceF;
+    int sourcePendingExp;
+    int sourceExpStart;
+    boolean sourceExpParticipant;
+    boolean sourceExpDisplay;
 
     SourcePetState() {
     }
@@ -262,6 +302,14 @@ final class SourcePetState {
         this.skillIds[1] = skillB;
         refreshFromSourceDb();
         sourcePayload = toSourcePayload();
+    }
+
+    boolean sourceK() {
+        return sourceActive;
+    }
+
+    void sourceD(boolean active) {
+        sourceActive = active;
     }
 
     static SourcePetState caughtFromBattleUnit(int slot, SourceBattleUnit unit) {

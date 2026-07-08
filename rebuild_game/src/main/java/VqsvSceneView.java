@@ -37,6 +37,9 @@ final class VqsvSceneView {
         if (s.battleOverlayTicks <= 0 && s.worldPetstateVisible) {
             VqsvBattleRenderer.renderPetStateOverlay(g, s.font, s, false);
         }
+        if (s.battleOverlayTicks <= 0 && s.sourceEvolveVisible) {
+            VqsvBattleRenderer.renderEvolutionOverlay(g, s.font, s);
+        }
         if (s.text != null) {
             s.text.render(g, s.font);
         }

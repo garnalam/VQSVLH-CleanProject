@@ -59,6 +59,39 @@ final class VqsvSmokeHarness {
         return null;
     }
 
+    private static void openEvolutionUiForSmoke(VqsvIntroDemo.Scene s, int speciesId, int level,
+                                                int materialId, int materialCount) {
+        s.eventIndex = s.events.size();
+        SourcePetState pet = new SourcePetState(0, speciesId, level, 3, 2, 0, -1);
+        s.sourcePets.add(pet);
+        if (materialId >= 0) {
+            SourceSpecialReward material = s.sourceSpecialRewards.computeIfAbsent(materialId,
+                    SourceSpecialReward::fromSourceDb);
+            material.stackCount = materialCount;
+        }
+        s.sourceEvolutionL[0] = level;
+        s.sourceEvolutionL[1] = speciesId;
+        s.sourceEvolutionTutorialPending = true;
+        int guard = 0;
+        while (!s.worldPetstateVisible && guard++ < 80) {
+            s.press0();
+            s.tick();
+        }
+        if (!s.worldPetstateVisible || s.battleMenuIndex != 0) {
+            throw new IllegalStateException("Expected evolution smoke petstate bridge, visible="
+                    + s.worldPetstateVisible
+                    + " index=" + s.battleMenuIndex
+                    + " trace=" + tailTrace(s, 20));
+        }
+        s.press0();
+        s.tick();
+        if (!s.sourceEvolveVisible) {
+            throw new IllegalStateException("Expected evolve.ui open for smoke, visible="
+                    + s.sourceEvolveVisible
+                    + " trace=" + tailTrace(s, 20));
+        }
+    }
+
     private static int sourceMaxHp(SourcePetState pet) {
         return BattleUnit.fromSourcePet(pet, (byte) 0).maxHp();
     }
@@ -229,6 +262,90 @@ final class VqsvSmokeHarness {
             }
         }
         return false;
+    }
+
+    private static int traceCount(VqsvIntroDemo.Scene s, String needle) {
+        int count = 0;
+        for (String line : s.sourceStateTrace) {
+            if (line.contains(needle)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static void tickUntilTraceContains(VqsvIntroDemo.Scene s, String needle, int maxTicks) {
+        int guard = 0;
+        while (!traceContains(s, needle) && guard++ < maxTicks) {
+            if (s.text != null && s.text.readyForKey) {
+                s.press0();
+            }
+            s.tick();
+        }
+        if (!traceContains(s, needle)) {
+            throw new IllegalStateException("Trace not reached: " + needle
+                    + " in " + maxTicks + " ticks, state=" + s.battleStateName
+                    + " ui=" + s.battleUiMode
+                    + " trace=" + tailTrace(s, 24));
+        }
+    }
+
+    private static int sourceExpectedExpAward(int enemyLevel, int enemyQuality,
+                                              int participantLevel, int participantCount) {
+        return sourceExpectedExpAward(enemyLevel, enemyQuality, participantLevel, participantCount, 1000);
+    }
+
+    private static int sourceExpectedExpAward(int enemyLevel, int enemyQuality,
+                                              int participantLevel, int participantCount,
+                                              int divisor) {
+        int[] aG = {10, 11, 12, 13, 15};
+        int[] aH = {10, 12, 13, 14, 15, 16};
+        int[] aI = {105, 100, 80, 60, 40, 20, 5};
+        int quality = Math.max(1, Math.min(5, enemyQuality));
+        int count = Math.max(1, Math.min(6, participantCount));
+        int base = (((enemyLevel << 1) * enemyLevel + 50) * aG[quality - 1] / 10) + 400;
+        int diff = Math.max(1, participantLevel) - enemyLevel;
+        int levelFactor;
+        if (diff >= 6) {
+            levelFactor = aI[6];
+        } else if (diff > 0) {
+            levelFactor = aI[diff];
+        } else if (diff == 0) {
+            levelFactor = aI[1];
+        } else {
+            levelFactor = aI[0];
+        }
+        return Math.max(0, base / count * aH[count - 1] * levelFactor / Math.max(1, divisor));
+    }
+
+    private static int sourceExpectedStatusParam(int statusId, int index, int fallback) {
+        BattleStatusRow row = VqsvBattleTables.instance().status(statusId);
+        return row == null ? fallback : VqsvBattleTables.get(row.raw, index, fallback);
+    }
+
+    private static int sourceExpectedPostExpPassiveHeal(int speciesId) {
+        BattleSpeciesRow species = VqsvBattleTables.instance().species(speciesId);
+        short[] passiveRow = VqsvBattleTables.instance().row(2, 0);
+        int baseHp = species == null ? 0 : VqsvBattleTables.get(species.raw, 5, 0);
+        int percent = VqsvBattleTables.get(passiveRow, 6, 0);
+        return Math.max(0, baseHp * percent / 100);
+    }
+
+    private static int sourcePetExp(SourcePetState pet) {
+        return pet != null && pet.sourcePayload != null && pet.sourcePayload.length > 7
+                ? pet.sourcePayload[7]
+                : 0;
+    }
+
+    private static void assertSourcePetExp(SourcePetState pet, int expected, String label) {
+        int actual = sourcePetExp(pet);
+        if (actual != expected) {
+            throw new IllegalStateException(label + " EXP mismatch expected="
+                    + expected + " actual=" + actual
+                    + " species=" + (pet == null ? -1 : pet.speciesId)
+                    + " level=" + (pet == null ? -1 : pet.level)
+                    + " payload=" + (pet == null ? "null" : java.util.Arrays.toString(pet.sourcePayload)));
+        }
     }
 
     private static void tickUntilBattleP7Phase(VqsvIntroDemo.Scene s, int phase, int maxTicks) {
@@ -948,6 +1065,388 @@ final class VqsvSmokeHarness {
                             + s.battleStateName + " enemyHp=" + s.battleEnemyHp
                             + " trace=" + tailTrace(s, 14));
                 }
+            } else if ("battle_levelup_evolution_queue_created".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 6, 11, 3, 2, 0, -1);
+                pet.sourcePayload[7] = BattleUnit.sourceLevelThreshold(12) - 10;
+                s.sourcePets.add(pet);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{0, 1, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                int guard = 0;
+                while ((s.sourceEvolutionQueue.isEmpty()
+                        || !traceContains(s, "game.b.J evolution queue species=6 target=7"))
+                        && guard++ < 680) {
+                    s.tick();
+                }
+                if (s.sourceEvolutionQueue.size() != 1
+                        || s.sourceEvolutionL[0] != 12
+                        || s.sourceEvolutionL[1] != 6
+                        || s.sourceEvolutionI != 0
+                        || !"levelup".equals(s.battleUiMode)
+                        || s.battleLevelUpView == null
+                        || !s.battleLevelUpView.leveled) {
+                    throw new IllegalStateException("Expected evolution queue producer only, queue="
+                            + s.sourceEvolutionQueue.size()
+                            + " L=" + java.util.Arrays.toString(s.sourceEvolutionL)
+                            + " I=" + s.sourceEvolutionI
+                            + " mode=" + s.battleUiMode
+                            + " trace=" + tailTrace(s, 20));
+                }
+                SourceEvolutionNotice notice = s.sourceEvolutionQueue.get(0);
+                if (notice.targetSpeciesId != 7
+                        || notice.requiredLevel != 12
+                        || notice.sourceR != 1
+                        || notice.currentNameTextId != 16
+                        || notice.targetNameTextId != 17) {
+                    throw new IllegalStateException("Bad evolution notice species="
+                            + notice.currentSpeciesId + " target=" + notice.targetSpeciesId
+                            + " required=" + notice.requiredLevel
+                            + " sourceR=" + notice.sourceR
+                            + " names=" + notice.currentNameTextId + "/" + notice.targetNameTextId);
+                }
+                s.sourceStateTrace.add("SMOKE verified battle P22 evolution queue producer species=6 target=7"
+                        + " L=" + java.util.Arrays.toString(s.sourceEvolutionL));
+            } else if ("world_evolution_notice_after_levelup".equals(checkpoint)
+                    || "world_evolution_notice_queue_exhausted".equals(checkpoint)
+                    || "world_evolution_tutorial_petstate_bridge".equals(checkpoint)
+                    || "world_evolution_evolve_ui_open".equals(checkpoint)
+                    || "world_evolution_confirm_success_mutate".equals(checkpoint)
+                    || "world_evolution_after_success_continue".equals(checkpoint)
+                    || "world_evolution_confirm_no_material".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 6, 11, 3, 2, 0, -1);
+                pet.sourcePayload[7] = BattleUnit.sourceLevelThreshold(12) - 10;
+                s.sourcePets.add(pet);
+                if ("world_evolution_confirm_success_mutate".equals(checkpoint)
+                        || "world_evolution_after_success_continue".equals(checkpoint)) {
+                    SourceSpecialReward material = s.sourceSpecialRewards.computeIfAbsent(12, SourceSpecialReward::fromSourceDb);
+                    material.stackCount = 1;
+                }
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{0, 1, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                int guard = 0;
+                while (s.current != null && guard++ < 1200) {
+                    if (s.text != null && s.text.readyForKey) {
+                        s.press0();
+                    }
+                    if ("levelup".equals(s.battleUiMode)
+                            || "warning".equals(s.battleUiMode)
+                            || "choiceskill".equals(s.battleUiMode)) {
+                        s.press0();
+                    }
+                    s.tick();
+                }
+                if (s.current != null || s.sourceEvolutionQueue.isEmpty()
+                        || s.sourceEvolutionI != 0) {
+                    throw new IllegalStateException("Expected battle complete with pending evolution queue, current="
+                            + (s.current == null ? "none" : s.current.getClass().getSimpleName())
+                            + " queue=" + s.sourceEvolutionQueue.size()
+                            + " I=" + s.sourceEvolutionI
+                            + " trace=" + tailTrace(s, 20));
+                }
+                if ("world_evolution_notice_queue_exhausted".equals(checkpoint)) {
+                    s.sourceEvolutionL[0] = -1;
+                    s.sourceEvolutionL[1] = -1;
+                    s.sourceStateTrace.add("SMOKE setup no-tutorial game.k.H drain: clear L before notice");
+                }
+                guard = 0;
+                while ((s.text == null || !traceContains(s, "game.k evolution notice consume"))
+                        && guard++ < 90) {
+                    s.tick();
+                }
+                if (s.text == null
+                        || s.sourceEvolutionNoticeIndex != 1
+                        || s.sourceEvolutionQueue.size() != 1
+                        || s.sourceEvolutionI != 0
+                        || !traceContains(s, "game.k evolution notice consume ac=0 species=6 target=7")) {
+                    throw new IllegalStateException("Expected world evolution notice consumer, text="
+                            + (s.text == null ? "none" : s.text.currentText())
+                            + " ac=" + s.sourceEvolutionNoticeIndex
+                            + " queue=" + s.sourceEvolutionQueue.size()
+                            + " I=" + s.sourceEvolutionI
+                            + " trace=" + tailTrace(s, 20));
+                }
+                revealCheckpointText(s, 90);
+                if ("world_evolution_notice_queue_exhausted".equals(checkpoint)) {
+                    guard = 0;
+                    while ((s.sourceEvolutionI != 1 || !s.sourceEvolutionQueue.isEmpty())
+                            && guard++ < 120) {
+                        if (s.text != null && s.text.readyForKey) {
+                            s.press0();
+                        }
+                        s.tick();
+                    }
+                    if (s.sourceEvolutionI != 1 || !s.sourceEvolutionQueue.isEmpty()
+                            || s.sourceEvolutionNoticeIndex != 0
+                            || !traceContains(s, "evolution notice queue exhausted")) {
+                        throw new IllegalStateException("Expected evolution queue exhausted, queue="
+                                + s.sourceEvolutionQueue.size()
+                                + " ac=" + s.sourceEvolutionNoticeIndex
+                                + " I=" + s.sourceEvolutionI
+                                + " trace=" + tailTrace(s, 20));
+                    }
+                }
+                s.sourceStateTrace.add("SMOKE verified game.k.H/L/I Slice2 world notice consumer"
+                        + " queue=" + s.sourceEvolutionQueue.size()
+                        + " ac=" + s.sourceEvolutionNoticeIndex
+                        + " I=" + s.sourceEvolutionI);
+                if ("world_evolution_tutorial_petstate_bridge".equals(checkpoint)
+                        || "world_evolution_evolve_ui_open".equals(checkpoint)
+                        || "world_evolution_confirm_success_mutate".equals(checkpoint)
+                        || "world_evolution_after_success_continue".equals(checkpoint)
+                        || "world_evolution_confirm_no_material".equals(checkpoint)) {
+                    guard = 0;
+                    while (s.current != null && guard++ < 80) {
+                        if (s.text != null && s.text.readyForKey) {
+                            s.press0();
+                        }
+                        s.tick();
+                    }
+                    guard = 0;
+                    while (!s.worldPetstateVisible && guard++ < 80) {
+                        s.press0();
+                        s.tick();
+                    }
+                    if (!s.worldPetstateVisible || !s.sourceEvolutionK
+                            || s.sourceEvolutionTutorialU != 4 || s.battleMenuIndex != 0) {
+                        throw new IllegalStateException("Expected evolution tutorial petstate bridge, visible="
+                                + s.worldPetstateVisible
+                                + " K=" + s.sourceEvolutionK
+                                + " U=" + s.sourceEvolutionTutorialU
+                                + " index=" + s.battleMenuIndex
+                                + " trace=" + tailTrace(s, 20));
+                    }
+                    if ("world_evolution_evolve_ui_open".equals(checkpoint)
+                            || "world_evolution_confirm_success_mutate".equals(checkpoint)
+                            || "world_evolution_after_success_continue".equals(checkpoint)
+                            || "world_evolution_confirm_no_material".equals(checkpoint)) {
+                        s.press0();
+                        s.tick();
+                        if (!s.sourceEvolveVisible || s.sourceEvolveNotice == null
+                                || s.sourceEvolveNotice.targetSpeciesId != 7) {
+                            throw new IllegalStateException("Expected evolve.ui open, visible="
+                                    + s.sourceEvolveVisible
+                                    + " notice=" + (s.sourceEvolveNotice == null ? "null"
+                                    : s.sourceEvolveNotice.currentSpeciesId + "->" + s.sourceEvolveNotice.targetSpeciesId)
+                                    + " trace=" + tailTrace(s, 20));
+                        }
+                    }
+                    if ("world_evolution_confirm_success_mutate".equals(checkpoint)
+                            || "world_evolution_after_success_continue".equals(checkpoint)) {
+                        s.press0();
+                        guard = 0;
+                        while ((s.text == null || s.sourceEvolvePhase != 2) && guard++ < 260) {
+                            s.tick();
+                        }
+                        int materialLeft = VqsvSourceEvolutionRuntime.materialCount(s, 12);
+                        if (s.sourcePets.get(0).speciesId != 7 || materialLeft != 0
+                                || !s.sourceEvolveVisible
+                                || s.text == null
+                                || !traceContains(s, "game.h.bh mutate pet index=0 species=6->7")) {
+                            throw new IllegalStateException("Expected evolution success mutate, species="
+                                    + s.sourcePets.get(0).speciesId
+                                    + " material=" + materialLeft
+                                    + " visible=" + s.sourceEvolveVisible
+                                    + " trace=" + tailTrace(s, 24));
+                        }
+                        s.text.sourceTextOffset = 70;
+                        if ("world_evolution_after_success_continue".equals(checkpoint)) {
+                            revealCheckpointText(s, 90);
+                            s.press0();
+                            s.tick();
+                            s.tick();
+                            if (!s.sourceEvolveVisible || s.text != null
+                                    || !s.sourceEvolveSucceeded
+                                    || s.sourcePets.get(0).speciesId != 7
+                                    || VqsvSourceEvolutionRuntime.materialCount(s, 12) != 0) {
+                                throw new IllegalStateException("Expected continue after evolution success to return to evolve.ui, visible="
+                                        + s.sourceEvolveVisible
+                                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                                        + " succeeded=" + s.sourceEvolveSucceeded
+                                        + " species=" + s.sourcePets.get(0).speciesId
+                                        + " material=" + VqsvSourceEvolutionRuntime.materialCount(s, 12)
+                                        + " trace=" + tailTrace(s, 24));
+                            }
+                            s.sourceStateTrace.add("SMOKE verified game.h.bh success continue closes msgwarm and keeps evolve.ui");
+                        }
+                    } else if ("world_evolution_confirm_no_material".equals(checkpoint)) {
+                        s.press0();
+                        guard = 0;
+                        while ((s.text == null || !s.text.readyForKey) && guard++ < 120) {
+                            s.tick();
+                        }
+                        if (s.text == null
+                                || !s.text.currentText().contains(VqsvText.Evolution.MATERIAL_MISSING_EVOLVE)
+                                || VqsvSourceEvolutionRuntime.materialCount(s, 12) != 0
+                                || s.sourcePets.get(0).speciesId != 6) {
+                            throw new IllegalStateException("Expected no-material msgwarm without mutation, text="
+                                    + (s.text == null ? "none" : s.text.currentText())
+                                    + " species=" + s.sourcePets.get(0).speciesId
+                                    + " material=" + VqsvSourceEvolutionRuntime.materialCount(s, 12)
+                                    + " trace=" + tailTrace(s, 24));
+                        }
+                        s.text.sourceTextOffset = 70;
+                        s.sourceStateTrace.add("SMOKE verified game.h.bh no-material validation");
+                    }
+                }
+            } else if ("world_evolution_confirm_level_low".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 6, 11, 3, 2, 0, -1);
+                s.sourcePets.add(pet);
+                SourceSpecialReward material = s.sourceSpecialRewards.computeIfAbsent(12, SourceSpecialReward::fromSourceDb);
+                material.stackCount = 1;
+                s.sourceEvolutionL[0] = 11;
+                s.sourceEvolutionL[1] = 6;
+                s.sourceEvolutionTutorialPending = true;
+                int guard = 0;
+                while (!s.worldPetstateVisible && guard++ < 80) {
+                    s.press0();
+                    s.tick();
+                }
+                if (!s.worldPetstateVisible || s.battleMenuIndex != 0) {
+                    throw new IllegalStateException("Expected manual U=4 bridge for level-low smoke, visible="
+                            + s.worldPetstateVisible
+                            + " index=" + s.battleMenuIndex
+                            + " trace=" + tailTrace(s, 20));
+                }
+                s.press0();
+                s.tick();
+                if (!s.sourceEvolveVisible || s.sourceEvolveNotice == null) {
+                    throw new IllegalStateException("Expected evolve.ui open for level-low smoke, visible="
+                            + s.sourceEvolveVisible
+                            + " trace=" + tailTrace(s, 20));
+                }
+                s.press0();
+                guard = 0;
+                while ((s.text == null || !s.text.readyForKey) && guard++ < 120) {
+                    s.tick();
+                }
+                String expected = VqsvText.Evolution.levelTooLow(12);
+                if (s.text == null
+                        || !s.text.currentText().contains(expected)
+                        || s.sourcePets.get(0).speciesId != 6
+                        || VqsvSourceEvolutionRuntime.materialCount(s, 12) != 1) {
+                    throw new IllegalStateException("Expected level-low msgwarm without mutation, text="
+                            + (s.text == null ? "none" : s.text.currentText())
+                            + " species=" + s.sourcePets.get(0).speciesId
+                            + " material=" + VqsvSourceEvolutionRuntime.materialCount(s, 12)
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.text.sourceTextOffset = 70;
+                s.sourceStateTrace.add("SMOKE verified game.h.bh level-low validation");
+            } else if ("world_evolution_no_next_target_warning".equals(checkpoint)
+                    || "world_evolution_no_next_target_after_warning_continue".equals(checkpoint)) {
+                openEvolutionUiForSmoke(s, 8, 12, -1, 0);
+                if (s.sourceEvolveNotice != null) {
+                    throw new IllegalStateException("Expected species 8 to have no next target, notice="
+                            + s.sourceEvolveNotice.currentSpeciesId + "->" + s.sourceEvolveNotice.targetSpeciesId);
+                }
+                s.press0();
+                int guard = 0;
+                while ((s.text == null || !s.text.readyForKey) && guard++ < 120) {
+                    s.tick();
+                }
+                if (s.text == null
+                        || !s.text.currentText().contains(VqsvText.Evolution.CANNOT_EVOLVE)
+                        || s.sourcePets.get(0).speciesId != 8) {
+                    throw new IllegalStateException("Expected no-next-target msgwarm without mutation, text="
+                            + (s.text == null ? "none" : s.text.currentText())
+                            + " species=" + s.sourcePets.get(0).speciesId
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.text.sourceTextOffset = 70;
+                if ("world_evolution_no_next_target_after_warning_continue".equals(checkpoint)) {
+                    s.press0();
+                    s.tick();
+                    s.tick();
+                    if (!s.sourceEvolveVisible || s.text != null || s.sourceEvolvePhase != 0
+                            || s.sourcePets.get(0).speciesId != 8) {
+                        throw new IllegalStateException("Expected no-target warning continue to return evolve.ui, visible="
+                                + s.sourceEvolveVisible
+                                + " text=" + (s.text == null ? "none" : s.text.currentText())
+                                + " phase=" + s.sourceEvolvePhase
+                                + " species=" + s.sourcePets.get(0).speciesId
+                                + " trace=" + tailTrace(s, 24));
+                    }
+                }
+                s.sourceStateTrace.add("SMOKE verified game.h.bh no-next-target warning path");
+            } else if ("world_evolution_confirm_no_material_after_warning_continue".equals(checkpoint)) {
+                openEvolutionUiForSmoke(s, 6, 12, 12, 0);
+                s.press0();
+                int guard = 0;
+                while ((s.text == null || !s.text.readyForKey) && guard++ < 120) {
+                    s.tick();
+                }
+                if (s.text == null
+                        || !s.text.currentText().contains(VqsvText.Evolution.MATERIAL_MISSING_EVOLVE)) {
+                    throw new IllegalStateException("Expected no-material warning before continue, text="
+                            + (s.text == null ? "none" : s.text.currentText())
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.press0();
+                s.tick();
+                s.tick();
+                if (!s.sourceEvolveVisible || s.text != null || s.sourceEvolvePhase != 0
+                        || s.sourcePets.get(0).speciesId != 6
+                        || VqsvSourceEvolutionRuntime.materialCount(s, 12) != 0) {
+                    throw new IllegalStateException("Expected no-material continue to return evolve.ui, visible="
+                            + s.sourceEvolveVisible
+                            + " text=" + (s.text == null ? "none" : s.text.currentText())
+                            + " phase=" + s.sourceEvolvePhase
+                            + " species=" + s.sourcePets.get(0).speciesId
+                            + " material=" + VqsvSourceEvolutionRuntime.materialCount(s, 12)
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.sourceStateTrace.add("SMOKE verified game.h.bh no-material warning continue");
+            } else if ("world_evolution_confirm_level_low_after_warning_continue".equals(checkpoint)) {
+                openEvolutionUiForSmoke(s, 6, 11, 12, 1);
+                s.press0();
+                int guard = 0;
+                while ((s.text == null || !s.text.readyForKey) && guard++ < 120) {
+                    s.tick();
+                }
+                String expected = VqsvText.Evolution.levelTooLow(12);
+                if (s.text == null || !s.text.currentText().contains(expected)) {
+                    throw new IllegalStateException("Expected level-low warning before continue, text="
+                            + (s.text == null ? "none" : s.text.currentText())
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.press0();
+                s.tick();
+                s.tick();
+                if (!s.sourceEvolveVisible || s.text != null || s.sourceEvolvePhase != 0
+                        || s.sourcePets.get(0).speciesId != 6
+                        || VqsvSourceEvolutionRuntime.materialCount(s, 12) != 1) {
+                    throw new IllegalStateException("Expected level-low continue to return evolve.ui, visible="
+                            + s.sourceEvolveVisible
+                            + " text=" + (s.text == null ? "none" : s.text.currentText())
+                            + " phase=" + s.sourceEvolvePhase
+                            + " species=" + s.sourcePets.get(0).speciesId
+                            + " material=" + VqsvSourceEvolutionRuntime.materialCount(s, 12)
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.sourceStateTrace.add("SMOKE verified game.h.bh level-low warning continue");
+            } else if ("world_evolution_back_from_evolve_ui".equals(checkpoint)) {
+                openEvolutionUiForSmoke(s, 6, 12, 12, 1);
+                s.keyBack = true;
+                s.tick();
+                if (s.sourceEvolveVisible || s.text != null
+                        || s.sourceEvolutionL[0] != -1
+                        || s.sourceEvolutionTutorialU != -1) {
+                    throw new IllegalStateException("Expected back from evolve.ui to close overlay, visible="
+                            + s.sourceEvolveVisible
+                            + " text=" + (s.text == null ? "none" : s.text.currentText())
+                            + " L=" + java.util.Arrays.toString(s.sourceEvolutionL)
+                            + " U=" + s.sourceEvolutionTutorialU
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.sourceStateTrace.add("SMOKE verified game.h.bh back closes evolve.ui");
             } else if ("battle_exp_levelup_ui".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 SourcePetState pet = new SourcePetState(0, 0, 5, 3, 2, 1, 45);
@@ -977,6 +1476,46 @@ final class VqsvSmokeHarness {
                             + " view=" + (s.battleLevelUpView == null ? "null" : s.battleLevelUpView.visible)
                             + " trace=" + tailTrace(s, 18));
                 }
+            } else if ("battle_exp_p8_confirm_fast_forward".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                pet.sourcePayload[7] = 0;
+                s.sourcePets.add(pet);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                int expected = sourceExpectedExpAward(5, 1, 7, 1);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                int guard = 0;
+                while ((!"P8".equals(s.battleStateName)
+                        || !"levelup".equals(s.battleUiMode)
+                        || s.battleLevelUpView == null
+                        || s.battleLevelUpView.expValue <= 0
+                        || s.battleLevelUpView.expValue >= expected)
+                        && guard++ < 300) {
+                    s.tick();
+                }
+                if (!"P8".equals(s.battleStateName)
+                        || s.battleLevelUpView == null
+                        || s.battleLevelUpView.expValue <= 0
+                        || s.battleLevelUpView.expValue >= expected) {
+                    throw new IllegalStateException("Expected partial P8 EXP before fast-forward"
+                            + " value=" + (s.battleLevelUpView == null ? -1 : s.battleLevelUpView.expValue)
+                            + " expected=" + expected
+                            + " trace=" + tailTrace(s, 18));
+                }
+                s.press0();
+                s.tick();
+                if (s.battleLevelUpView == null
+                        || s.battleLevelUpView.expValue != expected
+                        || !traceContains(s, "game.h.am confirm fast-forward")) {
+                    throw new IllegalStateException("Expected P8 confirm fast-forward to target"
+                            + " value=" + (s.battleLevelUpView == null ? -1 : s.battleLevelUpView.expValue)
+                            + " expected=" + expected
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.sourceStateTrace.add("SMOKE verified P8 confirm fast-forward expected=" + expected);
             } else if ("battle_exp_levelup_choiceskill_ui".equals(checkpoint)
                     || "battle_exp_levelup_learn_skill_done".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
@@ -1028,6 +1567,203 @@ final class VqsvSmokeHarness {
                                 + " trace=" + tailTrace(s, 18));
                     }
                 }
+            } else if ("battle_exp_vector_active_only_regression".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                pet.sourcePayload[7] = 0;
+                s.sourcePets.add(pet);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                int expected = sourceExpectedExpAward(5, 1, 7, 1);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                tickUntilTraceContains(s, "battle P8 game.h.a select game.d.j index=0/1", 760);
+                assertSourcePetExp(pet, expected, "active-only EXP vector");
+                if (!traceContains(s, "reason=battle entry active f[0]")
+                        || !traceContains(s, "participants=1")
+                        || traceCount(s, "battle P8 game.d.X commit B->S") != 1) {
+                    throw new IllegalStateException("Expected active-only EXP vector traces, exp="
+                            + sourcePetExp(pet) + " expected=" + expected
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.sourceStateTrace.add("SMOKE verified SliceA active-only EXP vector expected=" + expected);
+            } else if ("battle_exp_vector_p5_switch_two_participants".equals(checkpoint)
+                    || "battle_exp_vector_j_iterates_second_pet".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState petA = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                SourcePetState petB = new SourcePetState(1, 92, 5, 3, 2, 10, 45);
+                if ("battle_exp_vector_j_iterates_second_pet".equals(checkpoint)) {
+                    petA.sourcePayload[7] = BattleUnit.sourceLevelThreshold(8) - 10;
+                } else {
+                    petA.sourcePayload[7] = 0;
+                }
+                petB.sourcePayload[7] = 0;
+                s.sourcePets.add(petA);
+                s.sourcePets.add(petB);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                drivePetCommandToP5(s);
+                s.battleMenuIndex = 1;
+                press0UntilAnyBattleState(s, 120, "P1", "WARN");
+                if (!"P1".equals(s.battleStateName) || s.sourcePets.get(0) != petB) {
+                    throw new IllegalStateException("Expected P5 switch before EXP vector test, state="
+                            + s.battleStateName
+                            + " slot0Species=" + (s.sourcePets.isEmpty() ? -1 : s.sourcePets.get(0).speciesId)
+                            + " trace=" + tailTrace(s, 18));
+                }
+                int expectedA = sourceExpectedExpAward(5, 1, 7, 2);
+                int expectedB = sourceExpectedExpAward(5, 1, 5, 2);
+                int startA = sourcePetExp(petA);
+                int startB = sourcePetExp(petB);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                tickUntilTraceContains(s, "battle P8 game.h.a select game.d.j index=0/2", 760);
+                tickUntilTraceContains(s, "battle P8 game.h.a select game.d.j index=1/2", 760);
+                int finalExpectedA = startA + expectedA;
+                if ("battle_exp_vector_j_iterates_second_pet".equals(checkpoint)) {
+                    finalExpectedA -= BattleUnit.sourceLevelThreshold(8);
+                }
+                assertSourcePetExp(petA, finalExpectedA, "P5 switched share petA");
+                assertSourcePetExp(petB, startB + expectedB, "P5 switched share petB");
+                if (!traceContains(s, "reason=battle entry active f[0]")
+                        || !traceContains(s, "reason=P5 game.d.a(slot) switched-in pet")
+                        || traceCount(s, "participants=2") < 2
+                        || traceCount(s, "battle P8 game.d.X commit B->S") != 2) {
+                    throw new IllegalStateException("Expected two-participant EXP vector traces"
+                            + " expA=" + sourcePetExp(petA) + " expectedA=" + finalExpectedA
+                            + " expB=" + sourcePetExp(petB) + " expectedB=" + (startB + expectedB)
+                            + " trace=" + tailTrace(s, 32));
+                }
+                if ("battle_exp_vector_j_iterates_second_pet".equals(checkpoint)
+                        && (!traceContains(s, "battle P8 finish game.d.j index=0/2")
+                        || petA.level <= 7)) {
+                    throw new IllegalStateException("Expected first j pet to finish/level then select second"
+                            + " levelA=" + petA.level
+                            + " trace=" + tailTrace(s, 32));
+                }
+                s.sourceStateTrace.add("SMOKE verified SliceA two-participant EXP vector"
+                        + " expectedA=" + expectedA + " expectedB=" + expectedB
+                        + " checkpoint=" + checkpoint);
+            } else if ("battle_exp_vector_participant_form5_multiplier".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                pet.sourcePayload[2] = 5;
+                pet.sourcePayload[7] = 0;
+                s.sourcePets.add(pet);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                int expected = sourceExpectedExpAward(5, 1, 7, 1);
+                expected = expected * (sourceExpectedStatusParam(5, 5, 0) + 100) / 100;
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                tickUntilTraceContains(s, "form5Multiplier=true", 760);
+                tickUntilTraceContains(s, "battle P8 game.h.a select game.d.j index=0/1", 760);
+                assertSourcePetExp(pet, expected, "SliceB participant f(5) multiplier");
+                s.sourceStateTrace.add("SMOKE verified SliceB participant f(5) multiplier expected=" + expected);
+            } else if ("battle_exp_vector_reserve_form6_share".equals(checkpoint)
+                    || "battle_exp_vector_global_state7_share".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState petA = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                SourcePetState petB = new SourcePetState(1, 92, 5, 3, 2, 10, 45);
+                petA.sourcePayload[7] = 0;
+                petB.sourcePayload[7] = 0;
+                if ("battle_exp_vector_reserve_form6_share".equals(checkpoint)) {
+                    petB.sourcePayload[2] = 6;
+                } else {
+                    s.sourceGlobalState[7][0] = 2;
+                }
+                s.sourcePets.add(petA);
+                s.sourcePets.add(petB);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                int expectedA = sourceExpectedExpAward(5, 1, 7, 1);
+                int divisor = "battle_exp_vector_global_state7_share".equals(checkpoint) ? 3000 : 1000;
+                int expectedB = sourceExpectedExpAward(5, 1, 7, 1, divisor);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                tickUntilTraceContains(s, "battle P8 game.h.a select game.d.j index=0/2", 760);
+                tickUntilTraceContains(s, "battle P8 game.h.a select game.d.j index=1/2", 760);
+                assertSourcePetExp(petA, expectedA, "SliceB direct participant baseline");
+                assertSourcePetExp(petB, expectedB, "SliceB reserve share");
+                String expectedReason = "battle_exp_vector_global_state7_share".equals(checkpoint)
+                        ? "reason=game.g.B[7][0]==2"
+                        : "reason=reserve f(6)";
+                if (!traceContains(s, expectedReason)
+                        || !traceContains(s, "levelFactorFromLastX=7")
+                        || traceCount(s, "battle P8 game.d.X commit B->S") != 2) {
+                    throw new IllegalStateException("Expected SliceB reserve/share traces"
+                            + " checkpoint=" + checkpoint
+                            + " expA=" + sourcePetExp(petA) + " expectedA=" + expectedA
+                            + " expB=" + sourcePetExp(petB) + " expectedB=" + expectedB
+                            + " trace=" + tailTrace(s, 32));
+                }
+                s.sourceStateTrace.add("SMOKE verified SliceB reserve/share expectedA="
+                        + expectedA + " expectedB=" + expectedB + " checkpoint=" + checkpoint);
+            } else if ("battle_exp_consumer_x_clears_active_marker".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                pet.sourcePayload[7] = 0;
+                pet.sourceD(true);
+                s.sourcePets.add(pet);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                tickUntilTraceContains(s, "sourceD=false", 760);
+                if (pet.sourceK()) {
+                    throw new IllegalStateException("Expected game.b.d(false) sourceActive clear"
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.sourceStateTrace.add("SMOKE verified SliceC game.d.X clears sourceActive");
+            } else if ("battle_exp_consumer_x_removes_dead_j".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                pet.sourcePayload[6] = 0;
+                pet.sourcePendingExp = 12;
+                pet.sourceExpDisplay = true;
+                s.sourcePets.add(pet);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugInjectSourceExpDisplayForSmoke(pet, 12);
+                runtime.debugRunSourceExpConsumerForSmoke(s);
+                if (pet.sourcePendingExp != 0 || pet.sourceExpDisplay
+                        || !traceContains(s, "game.d.X remove dead game.d.j")) {
+                    throw new IllegalStateException("Expected dead game.d.j entry removal"
+                            + " pending=" + pet.sourcePendingExp
+                            + " display=" + pet.sourceExpDisplay
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.current = runtime;
+                s.sourceStateTrace.add("SMOKE verified SliceC game.d.X removes dead j entry");
+            } else if ("battle_exp_consumer_x_passive_heal".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState petA = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+                SourcePetState petB = new SourcePetState(1, 92, 5, 3, 2, 10, 45);
+                petA.sourcePayload[6] = Math.max(1, sourceMaxHp(petA) / 2);
+                petB.sourcePayload[6] = Math.max(1, sourceMaxHp(petB) / 2);
+                int startA = payloadHp(petA);
+                int startB = payloadHp(petB);
+                s.sourceGlobalState[0][0] = 2;
+                s.sourceGlobalState[0][1] = 1;
+                s.sourcePets.add(petA);
+                s.sourcePets.add(petB);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                tickUntilTraceContains(s, "game.d.X passive heal B[0][0/1]", 760);
+                int expectedA = Math.min(sourceMaxHp(petA), startA + sourceExpectedPostExpPassiveHeal(petA.speciesId));
+                int expectedB = Math.min(sourceMaxHp(petB), startB + sourceExpectedPostExpPassiveHeal(petB.speciesId));
+                assertPayloadHp(petA, expectedA, "SliceC passive heal petA");
+                assertPayloadHp(petB, expectedB, "SliceC passive heal petB");
+                s.sourceStateTrace.add("SMOKE verified SliceC game.d.X passive heal"
+                        + " expectedA=" + expectedA + " expectedB=" + expectedB);
             } else if ("battle_p13_queue_death_to_p5".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -1518,6 +2254,9 @@ final class VqsvSmokeHarness {
                 s.battleClickY = 300;
                 tickUntilBattleState(s, "P21", 80);
                 assertBattleMenuIds(s, "Bunny route P21 ball list", new int[]{0, 1});
+                assertRenderedColorPixels(s, "choice.ui P21 body fill", 44, 78, 151, 160, 0xbde4ef, 1800);
+                assertRenderedColorPixels(s, "choice.ui P21 footer strip", 44, 238, 151, 14, 0x82cafb, 350);
+                assertRenderedColorPixels(s, "choice.ui P21 count text", 57, 180, 125, 12, 0xffffff, 6);
             } else if ("battle_bunny_catch_p17_anim_or_result".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 seedInitialDienMieu(s, "smoke Bunny P17");
@@ -1867,10 +2606,198 @@ final class VqsvSmokeHarness {
                 tickUntilBattleState(s, "WARN", 80);
                 String trace = tailTrace(s, 12);
                 if (!VqsvText.Battle.NO_BALLS.equals(s.battleWarningTitle)
-                        || !trace.contains("P101/SMS path remains PENDING")) {
+                        || !trace.contains("item0 SMS-free hook not taken")) {
                     throw new IllegalStateException("Catch missing-count warning mismatch title="
                             + s.battleWarningTitle + " trace=" + trace);
                 }
+            } else if ("battle_catch_missing_count_warning_return_p21".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 0, 0, false));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                for (int i = 0; i < 18 && !"WARN".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "WARN", 80);
+                press0UntilAnyBattleState(s, 120, "P21");
+                if (!"P21".equals(s.battleStateName)
+                        || !traceContains(s, "item0 SMS-free hook not taken")) {
+                    throw new IllegalStateException("Catch missing-count warning should return P21, state="
+                            + s.battleStateName + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_catch_p21_back_to_command".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                s.keyBack = true;
+                tickUntilBattleState(s, "P20", 80);
+                if (!"P20".equals(s.battleStateName)
+                        || s.battleUiMode == null
+                        || !"command".equals(s.battleUiMode)) {
+                    throw new IllegalStateException("Expected P21 back to return command state, state="
+                            + s.battleStateName + " ui=" + s.battleUiMode
+                            + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_catch_sms_free_item0_p17".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(0, new BagItem(0, 0, 0, false));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(99);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                assertBattleMenuIds(s, "SMS-free P101 item0 P21 list", new int[]{0});
+                press0UntilAnyBattleState(s, 120, "P17", "WARN");
+                if (!"P17".equals(s.battleStateName)
+                        || s.battleCatchItemId != 0
+                        || !s.battleCatchCaught
+                        || VqsvSourceOps.sourceItemCount(s, 0) != 0
+                        || !traceContains(s, "P21/P101 SMS purchase bypass item=0")) {
+                    throw new IllegalStateException("Expected SMS-free item0 to bypass P101 and enter P17, state="
+                            + s.battleStateName + " item=" + s.battleCatchItemId
+                            + " caught=" + s.battleCatchCaught
+                            + " count=" + VqsvSourceOps.sourceItemCount(s, 0)
+                            + " trace=" + tailTrace(s, 14));
+                }
+            } else if ("battle_choice_ui_scroll_source_rows".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                for (int id = 4; id <= 11; id++) {
+                    s.sourceBagItems.put(id, new BagItem(id, 1, 1, false));
+                }
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 98;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P4", 80);
+                s.battleMenuIndex = 6;
+                s.battleMenuScroll = 2;
+                s.tick();
+                if (!"P4".equals(s.battleStateName)
+                        || s.battleMenuIndex < 5
+                        || s.battleMenuScroll <= 0) {
+                    throw new IllegalStateException("Expected choice.ui 5-row scroll, state="
+                            + s.battleStateName + " index=" + s.battleMenuIndex
+                            + " scroll=" + s.battleMenuScroll
+                            + " names=" + java.util.Arrays.toString(s.battleMenuNames));
+                }
+                assertRenderedColorPixels(s, "choice.ui scroll body fill", 44, 78, 151, 160, 0xbde4ef, 1800);
+                assertRenderedColorPixels(s, "choice.ui scrollbar track", 183, 98, 3, 72, 0x51d8e9, 120);
+                assertRenderedColorPixels(s, "choice.ui scrollbar thumb source index", 183, 152, 4, 8, 0xc6f1ff, 20);
+            } else if ("battle_msgwarm_source_widget_warning".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 0, 0, false));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                press0UntilAnyBattleState(s, 120, "WARN");
+                if (!"WARN".equals(s.battleStateName)
+                        || s.text == null
+                        || s.text.sourceUiKind != TextBox.SOURCE_MSGWARM
+                        || !VqsvText.Battle.NO_BALLS.equals(s.battleWarningTitle)) {
+                    throw new IllegalStateException("Expected battle warning to use msgwarm.ui widget, state="
+                            + s.battleStateName
+                            + " title=" + s.battleWarningTitle
+                            + " textKind=" + (s.text == null ? -1 : s.text.sourceUiKind)
+                            + " trace=" + tailTrace(s, 14));
+                }
+                assertRenderedColorPixels(s, "msgwarm text", 85, 119, 70, 12, 0x196b91, 8);
+                assertRenderedColorPixels(s, "msgwarm frame fill", 82, 116, 76, 54, 0x51d8e9, 200);
+                s.sourceStateTrace.add("SMOKE verified battle warning renders through /data/ui/msgwarm.ui TextBox");
+            } else if ("battle_openbox_source_widget_catch_success".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(0);
+                s.current = runtime;
+                runCatchToOpenBox(s, 320);
+                if (s.text == null
+                        || s.text.sourceUiKind != TextBox.SOURCE_OPENBOX
+                        || !s.text.text.startsWith(TextBox.decodeMojibake(VqsvText.Battle.CATCH_SUCCESS))) {
+                    throw new IllegalStateException("Expected catch success to use openbox.ui, state="
+                            + s.battleStateName
+                            + " text=" + (s.text == null ? "null" : s.text.text)
+                            + " kind=" + (s.text == null ? -1 : s.text.sourceUiKind)
+                            + " trace=" + tailTrace(s, 18));
+                }
+                revealCheckpointText(s, 120);
+                assertRenderedColorPixels(s, "openbox source sprite fill", 45, 134, 150, 40, 0xffffff, 2000);
+                assertRenderedColorPixels(s, "openbox source sprite edge", 45, 134, 150, 40, 0xc7f0fe, 250);
+                assertRenderedColorPixels(s, "openbox text", 47, 142, 146, 12, 0x1c6c91, 8);
+                s.sourceStateTrace.add("SMOKE verified battle catch success renders through /data/ui/openbox.ui TextBox");
+            } else if ("battle_p17_q1_h_effect_order".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(99);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                press0UntilAnyBattleState(s, 120, "P17");
+                tickUntilBattleCatchPhase(s, 1, 260);
+                if (s.battleCatchPhase != 1
+                        || !s.battleCatchEffectVisible
+                        || !s.battleEnemyHiddenByCatch) {
+                    throw new IllegalStateException("Expected P17 q1 H effect over hidden target, phase="
+                            + s.battleCatchPhase
+                            + " effect=" + s.battleCatchEffectVisible
+                            + " hidden=" + s.battleEnemyHiddenByCatch
+                            + " trace=" + tailTrace(s, 18));
+                }
+                s.sourceStateTrace.add("SMOKE verified battle P17 q1 draw order H then aj over hidden target");
+            } else if ("battle_p17_q4_fail_restore_enemy".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(99);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                press0UntilAnyBattleState(s, 120, "P17");
+                tickUntilBattleCatchPhase(s, 4, 320);
+                int guard = 0;
+                while ("P17".equals(s.battleStateName) && guard++ < 160) {
+                    s.tick();
+                }
+                if ("P17".equals(s.battleStateName) || s.battleEnemyHiddenByCatch || s.battleCatchVisible) {
+                    throw new IllegalStateException("Expected P17 q4 fail to restore enemy before next state, state="
+                            + s.battleStateName
+                            + " hidden=" + s.battleEnemyHiddenByCatch
+                            + " catchVisible=" + s.battleCatchVisible
+                            + " trace=" + tailTrace(s, 18));
+                }
+                s.sourceStateTrace.add("SMOKE verified battle P17 q4 fail clears H/aj and restores target");
             } else if ("battle_catch_not_allowed_warning".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -1898,6 +2825,8 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Catch bag storage mismatch bag="
                             + s.sourcePets.size() + " bank=" + s.sourcePetBank.size());
                 }
+                assertCaughtPayload(s.sourcePets.get(1), s.battleEnemyVisualId,
+                        "Catch bag stored payload");
                 assertOpenBoxText(s, VqsvText.Battle.CATCH_SUCCESS + s.battleEnemyName,
                         "Catch bag success openbox");
                 revealCheckpointText(s, 120);
@@ -1914,6 +2843,8 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Catch bank storage mismatch bag="
                             + s.sourcePets.size() + " bank=" + s.sourcePetBank.size());
                 }
+                assertCaughtPayload(s.sourcePetBank.get(0), s.battleEnemyVisualId,
+                        "Catch bank stored payload");
                 assertOpenBoxText(s, VqsvText.Battle.CATCH_SUCCESS + s.battleEnemyName,
                         "Catch bank first success openbox");
                 closeOpenBoxAndWaitForNextOpenBox(s, 300);
@@ -1952,7 +2883,11 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Expected P4 choice.ui widget 53 item description, descriptions="
                             + java.util.Arrays.toString(s.battleMenuDescriptions));
                 }
-            } else if ("battle_elder_item_target_p16".equals(checkpoint)) {
+                assertRenderedColorPixels(s, "choice.ui P4 body fill", 44, 78, 151, 160, 0xbde4ef, 1800);
+                assertRenderedColorPixels(s, "choice.ui P4 footer strip", 44, 238, 151, 14, 0x82cafb, 350);
+                assertRenderedColorPixels(s, "choice.ui P4 description text", 57, 180, 125, 12, 0xffffff, 6);
+            } else if ("battle_elder_item_target_p16".equals(checkpoint)
+                    || "battle_p16_target_petstate_ui".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
                 s.sourceBagItems.put(4, new BagItem(4, 2, 1, false));
@@ -1967,6 +2902,18 @@ final class VqsvSmokeHarness {
                     s.tick();
                 }
                 tickUntilBattleState(s, "P16", 80);
+                if (!"petstate".equals(s.battleUiMode)
+                        || !VqsvText.Battle.PETSTATE_USE.equals(s.battleMenuAction)
+                        || !traceContains(s, "battle P16 petstate.ui open")) {
+                    throw new IllegalStateException("Expected P16 to render petstate.ui with use action, state="
+                            + s.battleStateName + " ui=" + s.battleUiMode
+                            + " action=" + s.battleMenuAction
+                            + " trace=" + tailTrace(s, 12));
+                }
+                assertPetStateBinaryLayout("P16 petstate.ui");
+                assertRenderedColorPixels(s, "P16 petstate.ui body fill", 46, 87, 151, 160, 0xbde4ef, 1800);
+                assertRenderedColorPixels(s, "P16 petstate.ui footer strip", 46, 247, 151, 13, 0x82cafb, 350);
+                assertRenderedColorPixels(s, "P16 petstate.ui row hp source bar", 73, 88, 26, 4, 0xfb7249, 40);
             } else if ("battle_p16_item_heal_hp".equals(checkpoint)) {
                 setupElderItemBattle(s, 4, 1, 20, -1);
                 driveItemUse(s);
@@ -2043,7 +2990,81 @@ final class VqsvSmokeHarness {
                             + s.battleStateName + " warning=" + s.battleWarningTitle
                             + " trace=" + tailTrace(s, 10));
                 }
-            } else if ("battle_elder_pet_p5".equals(checkpoint)) {
+            } else if ("battle_p16_item_success_msgwarm".equals(checkpoint)) {
+                setupElderItemBattle(s, 4, 1, 20, -1);
+                driveItemUse(s);
+                if (!"WARN".equals(s.battleStateName)
+                        || !VqsvText.Battle.ITEM_USED.equals(s.battleWarningTitle)
+                        || !traceContains(s, "P16 game.b.w item=4")) {
+                    throw new IllegalStateException("Expected P16 success msgwarm before P1, state="
+                            + s.battleStateName + " warning=" + s.battleWarningTitle
+                            + " trace=" + tailTrace(s, 12));
+                }
+                revealCheckpointText(s, 90);
+                assertRenderedColorPixels(s, "P16 success msgwarm frame", 82, 116, 76, 54, 0x51d8e9, 200);
+                assertRenderedColorPixels(s, "P16 success msgwarm text", 85, 119, 70, 12, 0x196b91, 8);
+            } else if ("battle_p16_success_confirm_to_p1".equals(checkpoint)) {
+                setupElderItemBattle(s, 4, 1, 20, -1);
+                driveItemUse(s);
+                press0UntilAnyBattleState(s, 80, "P1");
+                if (!traceContains(s, "P16 game.b.w item=4")) {
+                    throw new IllegalStateException("Expected P16 success confirm to keep apply trace, trace="
+                            + tailTrace(s, 12));
+                }
+            } else if ("battle_p16_warning_return_petstate_preserve_cursor".equals(checkpoint)) {
+                setupElderItemBattleWithReserve(s, 4, 1);
+                driveItemCommandToP16(s);
+                s.battleMenuIndex = 1;
+                s.battleMenuScroll = 0;
+                if (s.battleMenuIndex != 1) {
+                    throw new IllegalStateException("Expected P16 cursor on reserve before warning, index="
+                            + s.battleMenuIndex);
+                }
+                press0UntilAnyBattleState(s, 80, "WARN");
+                if (!VqsvText.Battle.ITEM_HP_FULL.equals(s.battleWarningTitle)) {
+                    throw new IllegalStateException("Expected reserve HP full warning, warning="
+                            + s.battleWarningTitle + " trace=" + tailTrace(s, 12));
+                }
+                press0UntilAnyBattleState(s, 80, "P16");
+                if (!"petstate".equals(s.battleUiMode) || s.battleMenuIndex != 1) {
+                    throw new IllegalStateException("Expected warning confirm to return P16 preserving cursor, state="
+                            + s.battleStateName + " ui=" + s.battleUiMode + " index=" + s.battleMenuIndex
+                            + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_p16_back_returns_p4".equals(checkpoint)) {
+                setupElderItemBattle(s, 4, 1, 20, -1);
+                driveItemCommandToP16(s);
+                s.keyBack = true;
+                tickUntilBattleState(s, "P4", 80);
+                if (!"choice".equals(s.battleUiMode)
+                        || !VqsvText.Battle.COMMAND_ITEM_PENDING.equals(s.battleMenuTitle)) {
+                    throw new IllegalStateException("Expected P16 back to return P4 item list, state="
+                            + s.battleStateName + " ui=" + s.battleUiMode + " title=" + s.battleMenuTitle
+                            + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_p4_blocked_item_warning".equals(checkpoint)) {
+                setupElderItemBattle(s, 13, 1, -1, -1);
+                s.battleClickX = 98;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P4", 80);
+                press0UntilAnyBattleState(s, 80, "WARN");
+                if (!VqsvText.Battle.ITEM_NOT_IN_BATTLE.equals(s.battleWarningTitle)) {
+                    throw new IllegalStateException("Expected behavior 10 item13 blocked in battle, warning="
+                            + s.battleWarningTitle + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_p16_item_hp_pp_full_warning".equals(checkpoint)) {
+                setupElderItemBattle(s, 8, 1, -1, -1);
+                driveItemUse(s);
+                if (!"WARN".equals(s.battleStateName)
+                        || !VqsvText.Battle.ITEM_HP_PP_FULL.equals(s.battleWarningTitle)) {
+                    throw new IllegalStateException("Expected HP+PP full warning, state="
+                            + s.battleStateName + " warning=" + s.battleWarningTitle
+                            + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_elder_pet_p5".equals(checkpoint)
+                    || "battle_p5_petstate_source_rows".equals(checkpoint)
+                    || "battle_p5_petstate_text_start".equals(checkpoint)
+                    || "battle_p5_petstate_text_active".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
                 s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
@@ -2053,7 +3074,24 @@ final class VqsvSmokeHarness {
                 s.battleClickX = 137;
                 s.battleClickY = 300;
                 tickUntilBattleState(s, "P5", 80);
-            } else if ("battle_p5_voluntary_switch_success".equals(checkpoint)) {
+                if ("battle_p5_petstate_text_active".equals(checkpoint)) {
+                    for (int i = 0; i < 36; i++) {
+                        s.tick();
+                    }
+                }
+                if (s.battleMenuIndex != 0
+                        || !traceContains(s, "sourceProxy=sourcePets-as-game.d.f")
+                        || !traceContains(s, "resetCursor=true")) {
+                    throw new IllegalStateException("Expected P5 source W() cursor reset/proxy trace, index="
+                            + s.battleMenuIndex + " trace=" + tailTrace(s, 12));
+                }
+                assertPetStateBinaryLayout("P5 petstate.ui");
+                assertRenderedColorPixels(s, "petstate.ui body fill", 46, 87, 151, 160, 0xbde4ef, 1800);
+                assertRenderedColorPixels(s, "petstate.ui footer strip", 46, 247, 151, 13, 0x82cafb, 350);
+                assertRenderedColorPixels(s, "petstate.ui row hp source bar", 73, 88, 26, 4, 0xfb7249, 40);
+                assertRenderedColorPixels(s, "petstate.ui detail text", 53, 178, 72, 12, 0x1c6c91, 6);
+            } else if ("battle_p5_voluntary_switch_success".equals(checkpoint)
+                    || "battle_p5_after_switch_active_pet".equals(checkpoint)) {
                 setupElderPetSwitchBattle(s, false);
                 drivePetCommandToP5(s);
                 s.battleMenuIndex = 1;
@@ -2078,7 +3116,8 @@ final class VqsvSmokeHarness {
                             + s.battleStateName + " species0=" + s.sourcePets.get(0).speciesId
                             + " trace=" + tailTrace(s, 12));
                 }
-            } else if ("battle_p5_switch_transition".equals(checkpoint)) {
+            } else if ("battle_p5_switch_transition".equals(checkpoint)
+                    || "battle_p5_valid_switch_transition".equals(checkpoint)) {
                 setupElderPetSwitchBattle(s, false);
                 drivePetCommandToP5(s);
                 s.battleMenuIndex = 1;
@@ -2105,7 +3144,8 @@ final class VqsvSmokeHarness {
                             + s.battleStateName + " species0=" + s.sourcePets.get(0).speciesId
                             + " trace=" + tailTrace(s, 12));
                 }
-            } else if ("battle_p5_current_warning".equals(checkpoint)) {
+            } else if ("battle_p5_current_warning".equals(checkpoint)
+                    || "battle_p5_current_pet_warning".equals(checkpoint)) {
                 setupElderPetSwitchBattle(s, false);
                 drivePetCommandToP5(s);
                 s.battleMenuIndex = 0;
@@ -2116,7 +3156,8 @@ final class VqsvSmokeHarness {
                             + s.battleStateName + " warning=" + s.battleWarningTitle
                             + " trace=" + tailTrace(s, 12));
                 }
-            } else if ("battle_p5_dead_warning".equals(checkpoint)) {
+            } else if ("battle_p5_dead_warning".equals(checkpoint)
+                    || "battle_p5_dead_pet_warning".equals(checkpoint)) {
                 setupElderPetSwitchBattle(s, true);
                 drivePetCommandToP5(s);
                 s.battleMenuIndex = 1;
@@ -2125,6 +3166,18 @@ final class VqsvSmokeHarness {
                         || !VqsvText.Battle.PET_CANNOT_BATTLE.equals(s.battleWarningTitle)) {
                     throw new IllegalStateException("Expected dead pet warning, state="
                             + s.battleStateName + " warning=" + s.battleWarningTitle
+                            + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_p5_back_to_command".equals(checkpoint)) {
+                setupElderPetSwitchBattle(s, false);
+                drivePetCommandToP5(s);
+                s.keyBack = true;
+                tickUntilBattleState(s, "P20", 80);
+                if (!"P20".equals(s.battleStateName)
+                        || s.battleUiMode == null
+                        || !"command".equals(s.battleUiMode)) {
+                    throw new IllegalStateException("Expected P5 back to return command state, state="
+                            + s.battleStateName + " ui=" + s.battleUiMode
                             + " trace=" + tailTrace(s, 12));
                 }
             } else if ("battle_p5_forced_menu_visibility".equals(checkpoint)) {
@@ -2189,6 +3242,31 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Expected forced P5 dead active warning, state="
                             + s.battleStateName + " warning=" + s.battleWarningTitle
                             + " trace=" + tailTrace(s, 14));
+                }
+            } else if ("battle_p5_status11_cleanup".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugEnemyBuff11ForPetSwitchSmoke(s);
+                s.battleClickX = 137;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P5", 80);
+                s.battleMenuIndex = 1;
+                press0UntilAnyBattleState(s, 100, "P15", "WARN");
+                if (!"P15".equals(s.battleStateName)
+                        || !traceContains(s, "clearedEnemyBuff11=1")
+                        || !traceContains(s, "sourcePetOrder=[0, 1]")
+                        || !s.sourcePets.get(0).sourceK()
+                        || s.sourcePets.get(1).sourceK()) {
+                    throw new IllegalStateException("Expected P5 switch to clear source buff11 and set K flags, state="
+                            + s.battleStateName
+                            + " active0=" + s.sourcePets.get(0).sourceK()
+                            + " active1=" + s.sourcePets.get(1).sourceK()
+                            + " trace=" + tailTrace(s, 16));
                 }
             } else if ("battle_elder_shop_p11".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
@@ -2397,6 +3475,69 @@ final class VqsvSmokeHarness {
         }
     }
 
+    private static void assertRenderedColorPixels(VqsvIntroDemo.Scene s, String label,
+                                                  int x, int y, int w, int h,
+                                                  int rgb, int minPixels) {
+        BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        s.render(g);
+        g.dispose();
+        int count = 0;
+        int expected = rgb & 0xFFFFFF;
+        for (int yy = Math.max(0, y); yy < Math.min(H, y + h); yy++) {
+            for (int xx = Math.max(0, x); xx < Math.min(W, x + w); xx++) {
+                if ((img.getRGB(xx, yy) & 0xFFFFFF) == expected) {
+                    count++;
+                }
+            }
+        }
+        if (count < minPixels) {
+            throw new IllegalStateException("Rendered pixel assertion failed for " + label
+                    + " expectedColor=#" + Integer.toHexString(expected)
+                    + " count=" + count
+                    + " min=" + minPixels
+                    + " region=[" + x + "," + y + "," + w + "," + h + "]"
+                    + " state=" + s.battleStateName
+                    + " text=" + (s.text == null ? "null" : s.text.text)
+                    + " colors=" + dominantRegionColors(img, x, y, w, h, 5)
+                    + " trace=" + tailTrace(s, 14));
+        }
+        s.sourceStateTrace.add("SMOKE pixel verified " + label
+                + " color=#" + Integer.toHexString(expected) + " count=" + count);
+    }
+
+    private static void assertPetStateBinaryLayout(String label) {
+        VqsvUiLayout layout = VqsvUiLayout.load("petstate.ui");
+        int[] required = {1, 2, 3, 4, 5, 6, 14, 16, 17, 48, 51, 65, 75, 76};
+        for (int id : required) {
+            if (layout.widget(id) == null) {
+                throw new IllegalStateException(label + " missing widget id=" + id
+                        + " source=" + (layout.binarySource ? "binary" : "decoded")
+                        + " count=" + layout.widgetCount());
+            }
+        }
+        if (!layout.binarySource || layout.widgetCount() < 70) {
+            throw new IllegalStateException(label + " expected binary petstate.ui layout, source="
+                    + (layout.binarySource ? "binary" : "decoded")
+                    + " count=" + layout.widgetCount());
+        }
+    }
+
+    private static String dominantRegionColors(BufferedImage img, int x, int y, int w, int h, int limit) {
+        java.util.Map<Integer, Integer> counts = new java.util.HashMap<>();
+        for (int yy = Math.max(0, y); yy < Math.min(H, y + h); yy++) {
+            for (int xx = Math.max(0, x); xx < Math.min(W, x + w); xx++) {
+                int rgb = img.getRGB(xx, yy) & 0xFFFFFF;
+                counts.put(rgb, counts.getOrDefault(rgb, 0) + 1);
+            }
+        }
+        return counts.entrySet().stream()
+                .sorted((a, b) -> Integer.compare(b.getValue(), a.getValue()))
+                .limit(limit)
+                .map(e -> "#" + String.format("%06x", e.getKey()) + ":" + e.getValue())
+                .collect(java.util.stream.Collectors.joining(","));
+    }
+
     static void setupLiveCheckpoint(VqsvIntroDemo.Scene s, String checkpoint) {
         s.eventIndex = s.events.size();
         if ("battle_bunny_command_ui".equals(checkpoint)) {
@@ -2424,6 +3565,13 @@ final class VqsvSmokeHarness {
             s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
             s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
             s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                    new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+            tickUntilBattleState(s, "P20", 120);
+        } else if ("battle_levelup_command_ui".equals(checkpoint)) {
+            SourcePetState pet = new SourcePetState(0, 6, 11, 3, 2, 0, -1);
+            pet.sourcePayload[7] = BattleUnit.sourceLevelThreshold(12) - 10;
+            s.sourcePets.add(pet);
+            s.current = new SourceBattleRuntime(52, new int[]{0, 1, 1},
                     new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
             tickUntilBattleState(s, "P20", 120);
         } else if ("battle_elder_pet_p5".equals(checkpoint)) {
@@ -2655,8 +3803,33 @@ final class VqsvSmokeHarness {
         return runtime;
     }
 
+    private static SourceBattleRuntime setupElderItemBattleWithReserve(VqsvIntroDemo.Scene s, int itemId,
+                                                                       int itemCount) {
+        s.eventIndex = s.events.size();
+        s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+        s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
+        s.sourceBagItems.put(itemId, new BagItem(itemId, itemCount, 1, false));
+        SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+        s.current = runtime;
+        tickUntilBattleState(s, "P20", 120);
+        return runtime;
+    }
+
     private static void driveItemUse(VqsvIntroDemo.Scene s) {
         driveItemUseToTarget(s, 0);
+    }
+
+    private static void driveItemCommandToP16(VqsvIntroDemo.Scene s) {
+        s.battleClickX = 98;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P4", 80);
+        press0UntilAnyBattleState(s, 40, "P16", "WARN");
+        if (!"P16".equals(s.battleStateName)) {
+            throw new IllegalStateException("Expected item command to enter P16, state="
+                    + s.battleStateName + " warning=" + s.battleWarningTitle
+                    + " trace=" + tailTrace(s, 12));
+        }
     }
 
     private static void driveItemUseToTarget(VqsvIntroDemo.Scene s, int targetIndex) {
@@ -2970,6 +4143,23 @@ final class VqsvSmokeHarness {
                 + java.util.Arrays.toString(s.battleMenuIds)
                 + " counts=[" + VqsvSourceOps.sourceItemCount(s, 0)
                 + "," + VqsvSourceOps.sourceItemCount(s, 1) + "]");
+    }
+
+    private static void assertCaughtPayload(SourcePetState pet, int expectedVisualId, String label) {
+        if (pet == null || pet.sourcePayload == null || pet.sourcePayload.length < 10) {
+            throw new IllegalStateException(label + " missing source payload");
+        }
+        int skillCount = pet.sourcePayload[9];
+        if (pet.sourcePayload[0] != pet.speciesId
+                || pet.sourcePayload[1] != pet.level
+                || pet.sourcePayload[6] <= 0
+                || pet.sourcePayload[8] != expectedVisualId
+                || skillCount < 0
+                || pet.sourcePayload.length != 10 + skillCount * 2) {
+            throw new IllegalStateException(label + " bad game.b.P payload species="
+                    + pet.speciesId + " visual=" + expectedVisualId
+                    + " payload=" + java.util.Arrays.toString(pet.sourcePayload));
+        }
     }
 
     private static void seedSourcePets(VqsvIntroDemo.Scene s, int count) {

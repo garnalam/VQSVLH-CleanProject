@@ -786,6 +786,14 @@ final class BattleUnit {
         reapplyActiveStatEffects();
     }
 
+    boolean clearSourceBuffForSwitch(int buffId) {
+        if (!hasBuff(buffId)) {
+            return false;
+        }
+        clearSourceBuff(buffId);
+        return true;
+    }
+
     private void clearSourceDebuff(int debuffId) {
         if (debuffId < 0 || debuffId >= debuffSlots.length) {
             return;

@@ -233,11 +233,12 @@ final class TextBox {
     static final int SOURCE_NONE = 0;
     static final int SOURCE_OPENBOX = 1;
     static final int SOURCE_TASKTIP = 2;
+    static final int SOURCE_MSGWARM = 3;
     static final int OPENBOX_FRAME_X = 45;
     static final int OPENBOX_FRAME_Y = 147;
     static final int OPENBOX_FRAME_W = 150;
     static final int OPENBOX_FRAME_H_SOURCE = -1;
-    static final int OPENBOX_FRAME_ALIGN = 0;
+    static final int OPENBOX_FRAME_ALIGN = 4;
     static final int OPENBOX_TEXT_X = 47;
     static final int OPENBOX_TEXT_Y = 154;
     static final int OPENBOX_TEXT_W = 146;
@@ -255,8 +256,19 @@ final class TextBox {
     static final int TASKTIP_TEXT_H = 26;
     static final int TASKTIP_TEXT_ALIGN = 4;
     static final int TASKTIP_TEXT_COLOR = 0x1C6C91;
+    static final int MSGWARM_FRAME_X = 76;
+    static final int MSGWARM_FRAME_Y = 106;
+    static final int MSGWARM_FRAME_W = 89;
+    static final int MSGWARM_FRAME_H = 79;
+    static final int MSGWARM_TEXT_X = 85;
+    static final int MSGWARM_TEXT_Y = 119;
+    static final int MSGWARM_TEXT_W = 70;
+    static final int MSGWARM_PROMPT_X = 89;
+    static final int MSGWARM_PROMPT_Y = 170;
+    static final int MSGWARM_PROMPT_W = 60;
     final int x, y, w, h;
     final String text;
+    final String sourcePrompt;
     final List<String> pages;
     final boolean waitKey;
     final boolean fullBackdrop;
@@ -298,6 +310,7 @@ final class TextBox {
         this.sourceUiKind = openBoxBackdrop ? SOURCE_OPENBOX : SOURCE_NONE;
         this.speaker = decodeMojibake(speaker);
         this.dialogMode = dialogMode;
+        this.sourcePrompt = "";
         this.sourceUiAnim = sourceUiKind == SOURCE_NONE ? null : SpriteAnim.load(257);
         if (this.sourceUiAnim != null) {
             this.sourceUiAnim.setState(sourceUiKind == SOURCE_TASKTIP ? 10 : 9);
@@ -305,11 +318,16 @@ final class TextBox {
     }
 
     TextBox(int x, int y, int w, int h, String text, int sourceUiKind) {
+        this(x, y, w, h, text, sourceUiKind, "");
+    }
+
+    TextBox(int x, int y, int w, int h, String text, int sourceUiKind, String sourcePrompt) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.text = decodeMojibake(text);
+        this.sourcePrompt = decodeMojibake(sourcePrompt);
         this.pages = null;
         this.waitKey = true;
         this.fullBackdrop = false;
@@ -336,6 +354,14 @@ final class TextBox {
 
     static TextBox taskTip(String text) {
         return new TextBox(TASKTIP_TEXT_X, TASKTIP_TEXT_Y, TASKTIP_TEXT_W, TASKTIP_TEXT_H, text, SOURCE_TASKTIP);
+    }
+
+    static TextBox msgWarm(String text, String prompt) {
+        VqsvUiLayout layout = VqsvUiLayout.load("msgwarm.ui");
+        VqsvUiLayout.UiWidget message = layout.widget(7);
+        return new TextBox(layout.x(7, MSGWARM_TEXT_X), layout.y(7, MSGWARM_TEXT_Y),
+                layout.w(7, MSGWARM_TEXT_W), layout.h(7, 18),
+                text, SOURCE_MSGWARM, prompt);
     }
 
     static TextBox dialog(FontBitmap font, String speaker, String text, int mode) {
@@ -430,6 +456,10 @@ final class TextBox {
             sourceTextOffset = 0;
             sourceTextInitialized = true;
         }
+        if (font.taggedWidth(currentText()) > w && doneTicks > 8) {
+            int cycle = font.taggedWidth(currentText()) + w + 12;
+            sourceTextOffset = (sourceTextOffset + 1) % Math.max(1, cycle);
+        }
         doneTicks++;
         if (waitKey && doneTicks > 10) {
             readyForKey = true;
@@ -471,20 +501,44 @@ final class TextBox {
     }
 
     void renderSourceUiFrame(Graphics2D g) {
+        if (sourceUiKind == SOURCE_MSGWARM) {
+            renderMsgWarmFrame(g);
+            return;
+        }
+        if (sourceUiKind == SOURCE_OPENBOX) {
+            renderOpenBoxFrame(g);
+            return;
+        }
         if (sourceUiAnim == null) {
             return;
         }
         if (sourceUiKind == SOURCE_TASKTIP) {
             sourceUiAnim.drawAligned(g, TASKTIP_FRAME_X, TASKTIP_FRAME_Y, TASKTIP_FRAME_W,
                     TASKTIP_FRAME_H_SOURCE, TASKTIP_FRAME_ALIGN, 0);
-        } else {
-            sourceUiAnim.drawAligned(g, OPENBOX_FRAME_X, OPENBOX_FRAME_Y, OPENBOX_FRAME_W,
-                    OPENBOX_FRAME_H_SOURCE, OPENBOX_FRAME_ALIGN, 0);
         }
     }
 
     void renderSourceUiText(Graphics2D g, FontBitmap font) {
         if (!sourceUiTextReady()) {
+            return;
+        }
+        if (sourceUiKind == SOURCE_MSGWARM) {
+            VqsvUiLayout layout = VqsvUiLayout.load("msgwarm.ui");
+            VqsvUiLayout.UiWidget message = layout.widget(7);
+            VqsvUiLayout.UiWidget prompt = layout.widget(6);
+            drawSourceUiMarqueeLine(g, font, currentText(), layout.x(7, MSGWARM_TEXT_X),
+                    layout.y(7, MSGWARM_TEXT_Y), layout.w(7, MSGWARM_TEXT_W),
+                    widgetTextColor(message, OPENBOX_TEXT_COLOR));
+            drawSourceUiMarqueeLine(g, font, sourcePrompt, layout.x(6, MSGWARM_PROMPT_X),
+                    layout.y(6, MSGWARM_PROMPT_Y), layout.w(6, MSGWARM_PROMPT_W),
+                    widgetTextColor(prompt, OPENBOX_TEXT_COLOR));
+            return;
+        }
+        if (sourceUiKind == SOURCE_OPENBOX) {
+            int[] rect = openBoxSpriteRect();
+            int textY = rect[1] + Math.max(0, (rect[3] - font.height) / 2);
+            drawSourceUiLine(g, font, currentText(), OPENBOX_TEXT_X, textY,
+                    OPENBOX_TEXT_W, rect[3], OPENBOX_TEXT_ALIGN, OPENBOX_TEXT_COLOR);
             return;
         }
         Shape oldClip = g.getClip();
@@ -493,14 +547,8 @@ final class TextBox {
         int align = sourceUiKind == SOURCE_TASKTIP ? TASKTIP_TEXT_ALIGN : OPENBOX_TEXT_ALIGN;
         int color = sourceUiKind == SOURCE_TASKTIP ? TASKTIP_TEXT_COLOR : OPENBOX_TEXT_COLOR;
         if (textWidth > w) {
-            String[] lines = splitSourceUiLines(font, currentText());
-            for (int i = 0; i < lines.length; i++) {
-                int lineWidth = font.taggedWidth(lines[i]);
-                int drawX = align == 4 ? x + Math.max(0, (w - lineWidth) / 2) : x;
-                int drawY = lines.length > 1 ? y - 1 + i * font.height : y;
-                font.drawTaggedLine(g, lines[i], drawX, drawY,
-                        visibleLength(lines[i]), color);
-            }
+            int drawX = x + w - sourceTextOffset;
+            font.drawTaggedLine(g, currentText(), drawX, y, visibleLength(currentText()), color);
         } else {
             int drawX = align == 4 ? x + (w - textWidth) / 2 : x;
             font.drawTaggedLine(g, currentText(), drawX, y, visibleLength(currentText()), color);
@@ -508,56 +556,118 @@ final class TextBox {
         g.setClip(oldClip);
     }
 
-    String[] splitSourceUiLines(FontBitmap font, String source) {
-        String text = source == null ? "" : source.trim();
-        int totalWidth = font.taggedWidth(text);
-        if (totalWidth <= w) {
-            return new String[]{text};
+    void drawSourceUiLine(Graphics2D g, FontBitmap font, String value,
+                          int lineX, int lineY, int lineW, int lineH, int align, int color) {
+        Shape oldClip = g.getClip();
+        g.clipRect(lineX, lineY, lineW, lineH);
+        int textWidth = font.taggedWidth(value);
+        if (textWidth > lineW) {
+            int drawX = lineX + lineW - sourceTextOffset;
+            font.drawTaggedLine(g, value, drawX, lineY, visibleLength(value), color);
+        } else {
+            int drawX = align == 4 ? lineX + (lineW - textWidth) / 2 : lineX;
+            font.drawTaggedLine(g, value, drawX, lineY, visibleLength(value), color);
         }
-        int lineLimit = Math.max(1, w - 8);
-        int best = -1;
-        int bestScore = Integer.MAX_VALUE;
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) != ' ') {
-                continue;
-            }
-            String left = text.substring(0, i).trim();
-            String right = text.substring(i + 1).trim();
-            if (left.isEmpty() || right.isEmpty()) {
-                continue;
-            }
-            int leftWidth = font.taggedWidth(left);
-            int rightWidth = font.taggedWidth(right);
-            if (leftWidth > lineLimit || rightWidth > lineLimit) {
-                continue;
-            }
-            int score = Math.abs(leftWidth - rightWidth);
-            if (score < bestScore) {
-                bestScore = score;
-                best = i;
-            }
-        }
-        if (best >= 0) {
-            return new String[]{text.substring(0, best).trim(), text.substring(best + 1).trim()};
-        }
-        int split = fallbackSourceUiSplit(font, text);
-        return new String[]{text.substring(0, split).trim(), text.substring(split).trim()};
+        g.setClip(oldClip);
     }
 
-    int fallbackSourceUiSplit(FontBitmap font, String text) {
-        int split = Math.max(1, text.length() / 2);
-        int width = 0;
-        for (int i = 0; i < text.length(); i++) {
-            width += font.charWidth(text.charAt(i));
-            if (width >= w && i > 0) {
-                split = i;
-                break;
-            }
+    void renderMsgWarmFrame(Graphics2D g) {
+        VqsvUiLayout layout = VqsvUiLayout.load("msgwarm.ui");
+        drawMsgWarmFill(g, layout, 1, 7, 0xc6f3ff);
+        drawMsgWarmFill(g, layout, 2, 59, 0xbee6f2);
+        drawMsgWarmFill(g, layout, 3, 10, 0x6cc2fb);
+        drawMsgWarmFill(g, layout, 5, 54, 0x51d8e9);
+        SpriteAnim ui = SpriteAnim.load(257);
+        VqsvUiLayout.UiWidget frame = layout.widget(8);
+        int cellId = frame != null && frame.altId >= 0 ? frame.altId : 128;
+        int x = frame == null ? MSGWARM_FRAME_X : frame.x;
+        int y = frame == null ? MSGWARM_FRAME_Y : frame.y;
+        int[] bounds = ui.cellBounds(cellId);
+        if (bounds != null) {
+            ui.drawCell(g, cellId, x - bounds[0], y - bounds[1], 0);
         }
-        return Math.max(1, Math.min(text.length() - 1, split));
+    }
+
+    private static void drawMsgWarmFill(Graphics2D g, VqsvUiLayout layout, int widgetId,
+                                        int fallbackHeight, int fallbackRgb) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        int x = layout.x(widgetId, widgetId == 5 ? 82 : 79);
+        int y = layout.y(widgetId, widgetId == 1 ? 109 : widgetId == 3 ? 175 : 116);
+        int w = layout.w(widgetId, widgetId == 5 ? 76 : 81);
+        int h = layout.bandHeight(widgetId, fallbackHeight);
+        g.setColor(new Color(widgetFillColor(widget, fallbackRgb)));
+        g.fillRect(x, y, w, h);
+    }
+
+    private static int widgetFillColor(VqsvUiLayout.UiWidget widget, int fallbackRgb) {
+        if (widget == null) {
+            return fallbackRgb;
+        }
+        int source = widget.jColor;
+        if ((source >>> 24) == 0 && source < 0) {
+            return source & 0xffffff;
+        }
+        if (source == 0 || source == -16777216 || source == -1) {
+            return fallbackRgb;
+        }
+        return source & 0xffffff;
+    }
+
+    private static int widgetTextColor(VqsvUiLayout.UiWidget widget, int fallbackRgb) {
+        if (widget == null) {
+            return fallbackRgb;
+        }
+        int source = widget.lColor;
+        if ((source >>> 24) == 0 && source < 0) {
+            return source & 0xffffff;
+        }
+        if (source == 0 || source == -16777216 || source == -1) {
+            return fallbackRgb;
+        }
+        return source & 0xffffff;
+    }
+
+    void drawSourceUiMarqueeLine(Graphics2D g, FontBitmap font, String source,
+                                 int lineX, int lineY, int lineW, int color) {
+        String value = source == null ? "" : source;
+        int textWidth = font.taggedWidth(value);
+        int drawX = lineX;
+        if (textWidth > lineW) {
+            int cycle = textWidth + 12;
+            drawX = lineX - (sourceTextOffset % Math.max(1, cycle));
+        } else {
+            drawX = lineX + Math.max(0, (lineW - textWidth) / 2);
+        }
+        Shape oldClip = g.getClip();
+        g.clipRect(lineX, lineY, lineW, 12);
+        font.drawTaggedLine(g, value, drawX, lineY, visibleLength(value), color);
+        g.setClip(oldClip);
+    }
+
+    void renderOpenBoxFrame(Graphics2D g) {
+        if (sourceUiAnim != null) {
+            sourceUiAnim.drawAligned(g, OPENBOX_FRAME_X, OPENBOX_FRAME_Y, OPENBOX_FRAME_W,
+                    OPENBOX_FRAME_H_SOURCE, OPENBOX_FRAME_ALIGN, 0);
+        }
+    }
+
+    int[] openBoxSpriteRect() {
+        if (sourceUiAnim == null) {
+            return new int[]{OPENBOX_FRAME_X, OPENBOX_FRAME_Y, OPENBOX_FRAME_W, OPENBOX_TEXT_H};
+        }
+        int[] bounds = sourceUiAnim.animationBounds(9);
+        if (bounds == null) {
+            return new int[]{OPENBOX_FRAME_X, OPENBOX_FRAME_Y, OPENBOX_FRAME_W, OPENBOX_TEXT_H};
+        }
+        int drawX = OPENBOX_FRAME_X + (OPENBOX_FRAME_W - bounds[2]) / 2 - bounds[0];
+        int drawY = OPENBOX_FRAME_Y + (OPENBOX_FRAME_H_SOURCE - bounds[3]) / 2 - bounds[1];
+        return new int[]{drawX, drawY, bounds[2], bounds[3]};
     }
 
     boolean sourceUiTextReady() {
+        if (sourceUiKind == SOURCE_MSGWARM) {
+            return true;
+        }
         if (sourceUiAnim == null) {
             return false;
         }

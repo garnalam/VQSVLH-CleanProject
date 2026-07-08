@@ -124,7 +124,7 @@ final class VqsvBattleRenderer {
             renderPetStateOverlay(g, s.font, s, true);
         } else if ("target".equals(s.battleUiMode)) {
             drawTargetCursor(g, s.font, s);
-        } else if ("warning".equals(s.battleUiMode)) {
+        } else if ("warning".equals(s.battleUiMode) && !hasSourceTextBox(s, TextBox.SOURCE_MSGWARM)) {
             drawWarningOverlay(g, s.font, s);
         } else if ("levelup".equals(s.battleUiMode)) {
             drawLevelUpOverlay(g, s.font, s);
@@ -138,6 +138,10 @@ final class VqsvBattleRenderer {
         if (s.battleP7PostEffectVisible) {
             drawP7PostEffect(g, s.font, s);
         }
+    }
+
+    private static boolean hasSourceTextBox(VqsvIntroDemo.Scene s, int sourceUiKind) {
+        return s.text != null && s.text.sourceUiKind == sourceUiKind;
     }
 
     private static void drawBattleUiCellTopLeft(Graphics2D g, int cellId, int x, int y) {
@@ -156,6 +160,16 @@ final class VqsvBattleRenderer {
             return;
         }
         sprite.drawCell(g, cellId, x - bounds[0], y - bounds[1], 0);
+    }
+
+    private static void drawBattleUiStateTopLeft(Graphics2D g, int state, int x, int y) {
+        SpriteAnim ui = SpriteAnim.load(257);
+        ui.setState(state);
+        int[] bounds = ui.animationBounds(state);
+        if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
+            return;
+        }
+        ui.draw(g, x - bounds[0], y - bounds[1], 0);
     }
 
     private static void drawBattleGroundMarkers(Graphics2D g, VqsvIntroDemo.Scene s) {
@@ -177,8 +191,8 @@ final class VqsvBattleRenderer {
 
     private static void drawFootMarker(Graphics2D g, SpriteAnim marker, VqsvIntroDemo.Scene s, boolean playerSide) {
         int[] delta = sourceMarkerDelta(s, playerSide);
-        int x = battleSpriteAnchorX(s, playerSide) + delta[0];
-        int y = battleSpriteAnchorY(s, playerSide) + delta[1];
+        int x = battleSlotAnchorX(s, playerSide) + delta[0];
+        int y = battleSlotAnchorY(s, playerSide) + delta[1];
         marker.draw(g, x, y, 0);
     }
 
@@ -208,6 +222,22 @@ final class VqsvBattleRenderer {
     private static int battleSpriteAnchorY(VqsvIntroDemo.Scene s, boolean playerSide) {
         int sprite = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
         int rectY = playerSide ? PLAYER_RECT_Y + playerOffsetY(s) : ENEMY_RECT_Y + enemyOffsetY(s);
+        int rectH = playerSide ? PLAYER_RECT_H : ENEMY_RECT_H;
+        return battleSpriteAnchor(sprite, playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide,
+                rectY, rectH, false);
+    }
+
+    private static int battleSlotAnchorX(VqsvIntroDemo.Scene s, boolean playerSide) {
+        int sprite = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
+        int rectX = playerSide ? PLAYER_RECT_X : ENEMY_RECT_X;
+        int rectW = playerSide ? PLAYER_RECT_W : ENEMY_RECT_W;
+        return battleSpriteAnchor(sprite, playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide,
+                rectX, rectW, true);
+    }
+
+    private static int battleSlotAnchorY(VqsvIntroDemo.Scene s, boolean playerSide) {
+        int sprite = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
+        int rectY = playerSide ? PLAYER_RECT_Y : ENEMY_RECT_Y;
         int rectH = playerSide ? PLAYER_RECT_H : ENEMY_RECT_H;
         return battleSpriteAnchor(sprite, playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide,
                 rectY, rectH, false);
@@ -273,42 +303,95 @@ final class VqsvBattleRenderer {
     }
 
     private static void drawChoiceOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
-        drawBattleUiCellTopLeft(g, 91, 41, 68);
-        drawSourceUiFill(g, 44, 70, 151, 8, 0xc6f1ff);
-        drawSourceUiFill(g, 44, 78, 151, 160, 0xbde4ef);
-        drawSourceUiFill(g, 44, 238, 151, 14, 0x82cafb);
-        drawSourceUiFill(g, 48, 90, 143, 82, 0xbde4ef);
-        drawTinyBattleText(g, font, s.battleMenuTitle, 60, 75, 70, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, s.battleMenuSubtitle, 143, 75, 46, SOURCE_UI_TEXT);
-        int rowY = 95;
-        int rowH = 15;
-        for (int i = 0; i < Math.min(5, s.battleMenuNames.length); i++) {
-            int y = rowY + i * rowH;
-            drawBattleUiCellTopLeft(g, i == s.battleMenuIndex ? 25 : 26, 54, y);
-            Color color = i == s.battleMenuIndex ? new Color(0xfff16a) : SOURCE_UI_TEXT;
+        VqsvUiLayout layout = VqsvUiLayout.load("choice.ui");
+        drawChoiceStaticWidgets(g, font, layout, s);
+        int start = Math.max(0, Math.min(s.battleMenuScroll, Math.max(0, s.battleMenuNames.length - 5)));
+        int visibleRows = Math.min(5, Math.max(0, s.battleMenuNames.length - start));
+        for (int row = 0; row < visibleRows; row++) {
+            int i = start + row;
+            boolean selected = i == s.battleMenuIndex;
+            int frameId = 11 + row * 5;
+            int iconId = 54 + row;
+            int nameId = 13 + row * 5;
+            int valueId = 14 + row * 5;
+            drawSourceWidgetCell(g, layout, frameId, selected, true);
+            Color color = selected
+                    ? widgetTextColor(layout.widget(nameId), true, new Color(0xfff16a))
+                    : widgetTextColor(layout.widget(nameId), false, SOURCE_UI_TEXT);
             if (i < s.battleMenuIconIds.length && s.battleMenuIconIds[i] >= 0) {
-                drawSpriteCellTopLeft(g, 258, s.battleMenuIconIds[i], 54, y);
+                drawSpriteCellTopLeft(g, 258, s.battleMenuIconIds[i],
+                        layout.x(iconId, 54), layout.y(iconId, 95 + row * 15));
             }
-            drawTinyBattleText(g, font, s.battleMenuNames[i], 77, y + 2, 72, color);
+            drawSourceWidgetText(g, font, s.battleMenuNames[i],
+                    layout.x(nameId, 77), layout.y(nameId, 97 + row * 15),
+                    layout.w(nameId, 72), sourceWidgetHeight(layout.widget(nameId)),
+                    color, s.battleAnimationTick, layout.widget(nameId) == null ? 3 : layout.widget(nameId).b);
             String value = i < s.battleMenuValues.length ? s.battleMenuValues[i] : "";
-            drawTinyBattleText(g, font, value, 141, y + 2, 36, color);
+            VqsvUiLayout.UiWidget valueWidget = layout.widget(valueId);
+            drawSourceWidgetText(g, font, value,
+                    layout.x(valueId, 141), layout.y(valueId, 97 + row * 15),
+                    layout.w(valueId, 36), sourceWidgetHeight(valueWidget),
+                    widgetTextColor(valueWidget, selected, color), s.battleAnimationTick,
+                    valueWidget == null ? 4 : valueWidget.b);
+        }
+        if (s.battleMenuNames.length > 5) {
+            VqsvUiLayout.UiWidget track = layout.widget(50);
+            drawSourceWidgetFill(g, layout, 50, 72, 0x51d8e9);
+            int selected = Math.max(0, Math.min(s.battleMenuIndex, s.battleMenuNames.length - 1));
+            int trackY = track == null ? 98 : track.y;
+            int trackH = 72;
+            int knobY = trackY + selected * trackH / s.battleMenuNames.length;
+            VqsvUiLayout.UiWidget knob = layout.widget(51);
+            drawSourceUiFill(g, layout.x(51, 183), knobY, layout.w(51, 4), 8,
+                    widgetFillColor(knob, false, new Color(0xc6f3ff)).getRGB() & 0xffffff);
         }
         if (s.battleMenuNames.length == 0) {
             drawTinyBattleText(g, font, "...", 105, 136, 40, SOURCE_UI_TEXT);
         }
         if ("Pokemon ball".equals(TextBox.decodeMojibake(s.battleMenuTitle))) {
-            drawBattleUiCellTopLeft(g, 24, 52, 174);
-            drawTinyBattleText(g, font, selectedCatchCountText(s), 57, 180, 125, Color.WHITE);
+            drawSourceWidgetCell(g, layout, 52, false, false);
+            drawChoiceDescription(g, font, layout, selectedCatchCountText(s), s.battleAnimationTick);
         } else {
             String description = selectedMenuDescription(s);
             if (!description.isEmpty()) {
-                drawBattleUiCellTopLeft(g, 24, 52, 174);
-                drawWrappedTinyText(g, font, description, 57, 180, 125, 5, Color.WHITE);
+                drawSourceWidgetCell(g, layout, 52, false, false);
+                drawChoiceDescription(g, font, layout, description, s.battleAnimationTick);
             }
         }
-        drawTinyBattleText(g, font, s.battleMenuAction, 50, 235, 58, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, "Quay", 164, 235, 28, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, "l\u1ea1i", 164, 245, 28, SOURCE_UI_TEXT);
+        String action = s.battleMenuAction == null || s.battleMenuAction.isEmpty()
+                ? layout.text(5, "")
+                : s.battleMenuAction;
+        drawChoiceText(g, font, layout, 5, action, SOURCE_UI_TEXT, s.battleAnimationTick);
+        drawChoiceText(g, font, layout, 6, layout.text(6, "Quay l\u1ea1i"),
+                SOURCE_UI_TEXT, s.battleAnimationTick);
+    }
+
+    private static void drawChoiceStaticWidgets(Graphics2D g, FontBitmap font,
+                                                VqsvUiLayout layout, VqsvIntroDemo.Scene s) {
+        drawSourceWidgetFill(g, layout, 4, 8, 0xc6f1ff);
+        drawSourceWidgetFill(g, layout, 2, 160, 0xbde4ef);
+        drawSourceWidgetFill(g, layout, 3, 14, 0x82cafb);
+        drawSourceWidgetCell(g, layout, 1, false, false);
+        drawSourceWidgetFill(g, layout, 7, 82, 0xbde4ef);
+        drawChoiceText(g, font, layout, 8, s.battleMenuTitle, SOURCE_UI_TEXT, s.battleAnimationTick);
+        drawChoiceText(g, font, layout, 9, s.battleMenuSubtitle, SOURCE_UI_TEXT, s.battleAnimationTick);
+    }
+
+    private static void drawChoiceText(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                       int widgetId, String text, Color fallback, int tick) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        drawSourceWidgetText(g, font, text,
+                layout.x(widgetId, 0), layout.y(widgetId, 0), layout.w(widgetId, 1),
+                sourceWidgetHeight(widget), widgetTextColor(widget, false, fallback),
+                tick, widget == null ? 0 : widget.b);
+    }
+
+    private static void drawChoiceDescription(Graphics2D g, FontBitmap font,
+                                              VqsvUiLayout layout, String text, int tick) {
+        VqsvUiLayout.UiWidget widget = layout.widget(53);
+        drawSourceWidgetText(g, font, text,
+                layout.x(53, 57), layout.y(53, 180), layout.w(53, 125),
+                sourceWidgetHeight(widget), Color.WHITE, tick, widget == null ? 0 : widget.b);
     }
 
     private static String selectedMenuDescription(VqsvIntroDemo.Scene s) {
@@ -330,114 +413,291 @@ final class VqsvBattleRenderer {
         return "S\u1ed1 l\u01b0\u1ee3ng: " + count + " c\u00e1i ";
     }
 
-    static void renderPetStateOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s, boolean battleMode) {
-        drawSourceUiFill(g, 43, 55, 158, 197, 0xbde4ef);
-        drawBattleUiCellTopLeft(g, 1, 43, 55);
-        drawSourceUiFill(g, 46, 79, 151, 8, 0xc6f1ff);
-        drawSourceUiFill(g, 46, 87, 151, 160, 0xbde4ef);
-        drawSourceUiFill(g, 46, 247, 151, 13, 0x82cafb);
-        drawBattleUiCellTopLeft(g, 8, 107, 92);
-        drawBattleUiCellTopLeft(g, 17, 50, 184);
-        drawBattleUiCellTopLeft(g, 15, 144, 184);
-        drawBattleUiCellTopLeft(g, 16, 144, 197);
-        drawBattleUiCellTopLeft(g, 16, 144, 210);
-        drawBattleUiCellTopLeft(g, 16, 144, 223);
-        drawCenteredTinyText(g, font, VqsvText.Battle.PETSTATE_TITLE, 54, 58, 132, Color.WHITE);
-        drawPetStateArrows(g, s);
-        for (int i = 0; i < 6; i++) {
-            drawPetStateRow(g, font, s, i);
-        }
-        if (s.battleMenuNames.length == 0) {
-            drawTinyBattleText(g, font, "...", 105, 136, 40, SOURCE_UI_TEXT);
-        }
-        drawPetStateDetails(g, font, s);
-        if (battleMode) {
-            drawTinyBattleText(g, font, VqsvText.Battle.PETSTATE_DEPLOY, 50, 240, 60, SOURCE_UI_TEXT);
-            drawTinyBattleText(g, font, VqsvText.Battle.PETSTATE_BACK, 154, 240, 82, SOURCE_UI_TEXT);
+    private static void drawSourceWidgetFill(Graphics2D g, VqsvUiLayout layout,
+                                             int widgetId, int fallbackHeight, int rgb) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget != null) {
+            drawSourceUiFill(g, widget.x, widget.y, Math.max(1, widget.w),
+                    layout.bandHeight(widgetId, fallbackHeight),
+                    widgetFillColor(widget, false, new Color(rgb)).getRGB() & 0xffffff);
         }
     }
 
-    private static void drawPetStateArrows(Graphics2D g, VqsvIntroDemo.Scene s) {
-        if (s.battleMenuIndex > 0) {
-            drawPetStateTriangle(g, 82, 82, true);
-        }
-        if (s.battleMenuIndex < s.battleMenuNames.length - 1) {
-            drawPetStateTriangle(g, 80, 178, false);
-        }
-    }
-
-    private static void drawPetStateTriangle(Graphics2D g, int x, int y, boolean up) {
-        int[] xs = {x - 4, x + 4, x};
-        int[] ys = up ? new int[]{y + 4, y + 4, y - 2} : new int[]{y - 4, y - 4, y + 2};
-        g.setColor(new Color(0xffffff));
-        g.fillPolygon(xs, ys, 3);
-        g.setColor(new Color(0x2b8eb6));
-        g.drawPolygon(xs, ys, 3);
-    }
-
-    private static void drawPetStateRow(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s, int row) {
-        int y = 86 + row * 15;
-        boolean selected = row == s.battleMenuIndex;
-        drawBattleUiCellTopLeft(g, selected ? 10 : 9, 45, y);
-        VqsvBattlePetStateView view = petStateViewAt(s, row);
-        if (view == null || !view.visible) {
-            drawPetStateGauge(g, 73, y + 2, 26, 4, 0,
-                    new Color(0xff7f5f), new Color(0xd3efd2));
-            drawPetStateGauge(g, 73, y + 8, 26, 4, 0,
-                    new Color(0x6ba8ff), new Color(0xc6d7f8));
+    private static void drawSourceWidgetCell(Graphics2D g, VqsvUiLayout layout, int widgetId,
+                                             boolean selected, boolean selectedUsesAlt) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget == null) {
             return;
         }
-        drawBattleUiCellTopLeft(g, 18, 57, y + 1);
-        if (view.active) {
-            drawPetStateElementIcon(g, 52, y + 5, view.elementId);
-        }
+        int imageId;
+        int imageMode;
         if (selected) {
-            drawPetStateElementIcon(g, 52, y + 5, view.elementId);
+            imageId = selectedUsesAlt ? widget.altId : widget.imageId;
+            imageMode = selectedUsesAlt ? widget.altMode : widget.imageMode;
+        } else {
+            imageId = selectedUsesAlt ? widget.imageId : widget.altId;
+            imageMode = selectedUsesAlt ? widget.imageMode : widget.altMode;
         }
-        Color number = selected ? new Color(0xfff16a) : view.alive ? new Color(0xaf5d2e) : new Color(0x777777);
-        drawTinyBattleText(g, font, String.valueOf(row + 1), 47, y + 2, 10, number);
-        drawPetStateGauge(g, 73, y + 2, 26, 4, view.hpPercent,
+        if (imageId < 0) {
+            imageId = widget.imageId >= 0 ? widget.imageId : widget.altId;
+            imageMode = widget.imageId >= 0 ? widget.imageMode : widget.altMode;
+        }
+        if (imageId < 0) {
+            return;
+        }
+        if (imageMode == 3) {
+            drawBattleUiStateTopLeft(g, imageId, widget.x, widget.y);
+        } else {
+            drawBattleUiCellTopLeft(g, imageId, widget.x, widget.y);
+        }
+    }
+
+    static void renderPetStateOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s, boolean battleMode) {
+        VqsvUiLayout layout = VqsvUiLayout.load("petstate.ui");
+        drawPetStateStaticWidgets(g, font, layout, s);
+        drawPetStateArrows(g, layout, s);
+        for (int i = 0; i < 6; i++) {
+            drawPetStateRow(g, font, layout, s, i);
+        }
+        if (s.battleMenuNames.length == 0) {
+            drawTinyBattleText(g, font, "...", layout.x(48, 105), 136, 40, SOURCE_UI_TEXT);
+        }
+        drawPetStateDetails(g, font, layout, s);
+        if (battleMode) {
+            int tick = petstateUiTick(s);
+            String action = s.battleMenuAction == null || s.battleMenuAction.isEmpty()
+                    ? layout.text(75, VqsvText.Battle.PETSTATE_DEPLOY)
+                    : s.battleMenuAction;
+            drawPetStateText(g, font, layout, 75, action, 54, SOURCE_UI_TEXT, tick);
+            drawPetStateText(g, font, layout, 76, layout.text(76, VqsvText.Battle.PETSTATE_BACK),
+                    42, SOURCE_UI_TEXT, tick);
+        }
+    }
+
+    static void renderEvolutionOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
+        SourceEvolutionNotice notice = s.sourceEvolveNotice;
+        drawSourceUiFill(g, 43, 55, 158, 202, 0x89d8ef);
+        drawSourceUiFill(g, 46, 78, 150, 9, 0xc6f3ff);
+        drawSourceUiFill(g, 46, 87, 150, 159, 0xf7ffff);
+        drawSourceUiFill(g, 46, 246, 150, 11, 0x82d0fb);
+        drawBattleUiCellTopLeft(g, 1, 43, 55);
+        drawBattleUiCellTopLeft(g, 27, 0, 264);
+        drawBattleUiCellTopLeft(g, 8, 78, 94);
+        drawBattleUiCellTopLeft(g, 15, 59, 176);
+        drawBattleUiCellTopLeft(g, 16, 59, 189);
+        drawBattleUiCellTopLeft(g, 16, 59, 202);
+        drawBattleUiCellTopLeft(g, 16, 59, 215);
+        drawBattleUiCellTopLeft(g, 15, 139, 176);
+        drawBattleUiCellTopLeft(g, 16, 139, 189);
+        drawBattleUiCellTopLeft(g, 16, 139, 202);
+        drawBattleUiCellTopLeft(g, 16, 139, 215);
+        drawBattleUiCellTopLeft(g, 23, 52, 223);
+
+        String title = notice != null && notice.targetKind == 3
+                ? VqsvText.Evolution.MUTATE : VqsvText.Evolution.EVOLVE;
+        drawCenteredTinyText(g, font, title, 70, 60, 100, Color.WHITE);
+        drawTinyBattleText(g, font, "X\u00e1c", 5, 296, 34, Color.WHITE);
+        drawTinyBattleText(g, font, "\u0111\u1ecbnh", 5, 306, 34, Color.WHITE);
+        drawTinyBattleText(g, font, "Ph\u1ea3n", 201, 296, 34, Color.WHITE);
+        drawTinyBattleText(g, font, "h\u1ed3i", 201, 306, 34, Color.WHITE);
+
+        int sprite = s.sourceEvolveOldVisualId;
+        if (sprite >= 0) {
+            Shape oldClip = g.getClip();
+            g.clipRect(78, 90, 90, 88);
+            drawBattleSprite(g, sprite, 78, 90, 90, 88, 7, 0);
+            g.setClip(oldClip);
+        }
+        if (s.sourceEvolvePhase == 1) {
+            drawAhType10SourceGuard(g, 78, 90, 90, 88, s.sourceEvolveEffectTicks);
+        }
+
+        String name = notice == null ? currentPetName(s) : currentName(notice);
+        drawMarqueeTinyBattleText(g, font, name, 53, 84, 72, SOURCE_UI_TEXT, s.battleAnimationTick);
+        int level = s.sourceEvolvePetIndex >= 0 && s.sourceEvolvePetIndex < s.sourcePets.size()
+                ? s.sourcePets.get(s.sourceEvolvePetIndex).level : 0;
+        drawTinyBattleText(g, font, "lv", 150, 82, 12, SOURCE_UI_TEXT);
+        drawTinyBattleText(g, font, String.valueOf(level), 165, 82, 24, SOURCE_UI_TEXT);
+
+        String[] labels = {"M\u1ec7nh", "C\u00f4ng", "Ph\u00f2ng", "M\u1eabn"};
+        int[] y = {170, 184, 197, 210};
+        for (int i = 0; i < 4; i++) {
+            drawMarqueeTinyBattleText(g, font, labels[i], 65, y[i], 12, SOURCE_UI_TEXT, s.battleAnimationTick);
+            drawTinyBattleText(g, font, String.valueOf(statAt(s.sourceEvolveOldStats, i)), 80, y[i], 24, SOURCE_UI_TEXT);
+            if (notice != null) {
+                drawMarqueeTinyBattleText(g, font, labels[i], 145, y[i], 12, SOURCE_UI_TEXT, s.battleAnimationTick);
+                drawTinyBattleText(g, font, String.valueOf(statAt(s.sourceEvolveNewStats, i)), 160, y[i], 24, SOURCE_UI_TEXT);
+            }
+        }
+
+        if (notice != null) {
+            drawMarqueeTinyBattleText(g, font, "T\u00e0i li\u1ec7u c\u1ea7n thi\u1ebft", 56, 226, 48,
+                    SOURCE_UI_TEXT, s.battleAnimationTick);
+            String materialName = VqsvSourceEvolutionRuntime.materialName(notice);
+            drawMarqueeTinyBattleText(g, font, materialName, 114, 241, 48, SOURCE_UI_TEXT, s.battleAnimationTick);
+            String count = VqsvSourceEvolutionRuntime.materialCount(s, notice.materialId)
+                    + "/" + notice.materialNeed;
+            drawTinyBattleText(g, font, count, 164, 241, 24, SOURCE_UI_TEXT);
+        }
+    }
+
+    private static void drawAhType10SourceGuard(Graphics2D g, int x, int y, int w, int h, int tick) {
+        // Source h.bh creates ah row [0,0,10,0,0,oldVisual,0,0,newVisual,0,0].
+        // In ah type 10, the overlay copy is l.b(..., sArray[6]); sArray[6] is 0 here,
+        // so Java ME drawRGB receives an alpha-zero overlay. Keep the old widget visible
+        // during the wait and avoid drawing a fabricated effect.
+        // No extra drawing here until the exact alpha transform is reproduced.
+    }
+
+    private static int statAt(int[] stats, int index) {
+        return stats == null || index < 0 || index >= stats.length ? 0 : stats[index];
+    }
+
+    private static String currentName(SourceEvolutionNotice notice) {
+        BattleSpeciesRow row = VqsvBattleTables.instance().species(notice.currentSpeciesId);
+        return row == null ? "Pet " + notice.currentSpeciesId : row.name("Pet " + notice.currentSpeciesId);
+    }
+
+    private static String targetName(SourceEvolutionNotice notice) {
+        BattleSpeciesRow row = VqsvBattleTables.instance().species(notice.targetSpeciesId);
+        return row == null ? "Pet " + notice.targetSpeciesId : row.name("Pet " + notice.targetSpeciesId);
+    }
+
+    private static String currentPetName(VqsvIntroDemo.Scene s) {
+        if (s.sourceEvolvePetIndex < 0 || s.sourceEvolvePetIndex >= s.sourcePets.size()) {
+            return "";
+        }
+        int speciesId = s.sourcePets.get(s.sourceEvolvePetIndex).speciesId;
+        BattleSpeciesRow row = VqsvBattleTables.instance().species(speciesId);
+        return row == null ? "Pet " + speciesId : row.name("Pet " + speciesId);
+    }
+
+    private static void drawPetStateStaticWidgets(Graphics2D g, FontBitmap font,
+                                                  VqsvUiLayout layout, VqsvIntroDemo.Scene s) {
+        drawSourceUiFill(g, layout.x(1, 43), layout.y(1, 55), layout.w(1, 158), 197, 0xbde4ef);
+        drawPetStateWidgetCell(g, layout, 1, false);
+        drawPetStateColorBand(g, layout, 3, 8, 0xc6f1ff);
+        drawPetStateColorBand(g, layout, 4, 160, 0xbde4ef);
+        drawPetStateColorBand(g, layout, 5, 13, 0x82cafb);
+        drawPetStateWidgetCell(g, layout, 7, false);
+        drawPetStateWidgetCell(g, layout, 8, false);
+        drawPetStateWidgetCell(g, layout, 9, false);
+        drawPetStateWidgetCell(g, layout, 10, false);
+        drawPetStateWidgetCell(g, layout, 11, false);
+        drawPetStateWidgetCell(g, layout, 12, false);
+        drawTinyBattleText(g, font, layout.text(2, VqsvText.Battle.PETSTATE_TITLE),
+                layout.x(2, 70), layout.y(2, 58), layout.w(2, 100),
+                widgetTextColor(layout.widget(2), false, Color.WHITE));
+    }
+
+    private static void drawPetStateColorBand(Graphics2D g, VqsvUiLayout layout,
+                                              int widgetId, int fallbackHeight, int rgb) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget != null) {
+            drawSourceUiFill(g, widget.x, widget.y, widget.w, layout.bandHeight(widgetId, fallbackHeight),
+                    widgetColor(widget, false, rgb, false));
+        }
+    }
+
+    private static void drawPetStateWidgetCell(Graphics2D g, VqsvUiLayout layout, int widgetId) {
+        drawPetStateWidgetCell(g, layout, widgetId, false);
+    }
+
+    private static void drawPetStateWidgetCell(Graphics2D g, VqsvUiLayout layout, int widgetId, boolean selected) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget == null) {
+            return;
+        }
+        int imageId = selected && widget.imageId >= 0 ? widget.imageId : widget.altId;
+        int imageMode = selected && widget.imageId >= 0 ? widget.imageMode : widget.altMode;
+        if (imageId < 0 && widget.imageId >= 0) {
+            imageId = widget.imageId;
+            imageMode = widget.imageMode;
+        }
+        if (imageId < 0) {
+            return;
+        }
+        if (imageMode == 3) {
+            drawBattleUiStateTopLeft(g, imageId, widget.x, widget.y);
+        } else {
+            drawBattleUiCellTopLeft(g, imageId, widget.x, widget.y);
+        }
+    }
+
+    private static void drawPetStateArrows(Graphics2D g, VqsvUiLayout layout, VqsvIntroDemo.Scene s) {
+        if (s.battleMenuIndex > 0) {
+            drawPetStateWidgetCell(g, layout, 49);
+        }
+        if (s.battleMenuIndex < s.battleMenuNames.length - 1) {
+            drawPetStateWidgetCell(g, layout, 50);
+        }
+    }
+
+    private static void drawPetStateRow(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                        VqsvIntroDemo.Scene s, int row) {
+        int frameId = 6 + row * 6;
+        int iconId = 15 + row * 6;
+        int numberId = 14 + row * 6;
+        int hpId = 16 + row * 6;
+        int expId = 17 + row * 6;
+        VqsvUiLayout.UiWidget frame = layout.widget(frameId);
+        int y = frame == null ? 86 + row * 15 : frame.y;
+        boolean selected = row == s.battleMenuIndex;
+        if (frame != null) {
+            drawPetStateWidgetCell(g, layout, frameId, selected);
+        }
+        VqsvBattlePetStateView view = petStateViewAt(s, row);
+        if (view == null || !view.visible) {
+            drawPetStateGauge(g, layout, hpId, selected, 0, new Color(0xff7f5f), new Color(0xd3efd2));
+            drawPetStateGauge(g, layout, expId, selected, 0, new Color(0x6ba8ff), new Color(0xc6d7f8));
+            return;
+        }
+        drawPetStateWidgetCell(g, layout, iconId, selected);
+        Color number = view.alive
+                ? widgetTextColor(layout.widget(numberId), selected, selected ? new Color(0xfff16a) : new Color(0xaf5d2e))
+                : new Color(0x777777);
+        drawTinyBattleText(g, font, String.valueOf(row + 1),
+                layout.x(numberId, 47), layout.y(numberId, y + 2), layout.w(numberId, 10), number);
+        drawPetStateGauge(g, layout, hpId, selected, view.hpPercent,
                 new Color(0xff7f5f), new Color(0xd3efd2));
-        drawPetStateGauge(g, 73, y + 8, 26, 4, view.expPercent,
+        drawPetStateGauge(g, layout, expId, selected, view.expPercent,
                 new Color(0x6ba8ff), new Color(0xc6d7f8));
     }
 
-    private static void drawPetStateDetails(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
+    private static void drawPetStateDetails(Graphics2D g, FontBitmap font, VqsvUiLayout layout, VqsvIntroDemo.Scene s) {
         VqsvBattlePetStateView view = selectedPetStateView(s);
         if (view == null || !view.visible) {
             return;
         }
-        drawPetQualityStars(g, view, 111, 83);
+        drawPetQualityStars(g, layout, view);
         if (view.visualId >= 0) {
             Shape oldClip = g.getClip();
-            g.clipRect(105, 85, 90, 88);
-            drawBattleSprite(g, view.visualId, 105, 85, 90, 88, 7, 0);
+            int x = layout.x(48, 105);
+            int y = layout.y(48, 85);
+            int w = layout.w(48, 90);
+            g.clipRect(x, y, w, 88);
+            drawBattleSprite(g, view.visualId, x, y, w, 88, 7, 0);
             g.setClip(oldClip);
         }
-        drawPetStateGauge(g, 50, 184, 80, 5, view.hpPercent,
-                new Color(0x45d184), new Color(0xbde4ef));
-        drawPetStateStatBar(g, 144, 184, view.level, 50);
-        drawPetStateStatBar(g, 144, 197, view.attack, 80);
-        drawPetStateStatBar(g, 144, 210, view.defense, 80);
-        drawPetStateStatBar(g, 144, 223, view.speed, 80);
-        drawTinyBattleText(g, font, view.name, 53, 178, 72, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, view.elementName, 53, 194, 36, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, "T\u01b0\u01a1ng kh\u1eafc", 53, 208, 44, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, VqsvText.Battle.PETSTATE_CARRYING, 53, 224, 38, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, view.evolutionText, 95, 194, 48, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, view.relationText, 100, 208, 46, SOURCE_UI_TEXT);
+        int tick = petstateUiTick(s);
+        drawPetStateText(g, font, layout, 51, view.name, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 52, view.elementName, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 53, "T\u01b0\u01a1ng kh\u1eafc", 44, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 54, VqsvText.Battle.PETSTATE_CARRYING, 38, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 62, view.evolutionText, 48, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 61, view.relationText, 46, SOURCE_UI_TEXT, tick);
         if (view.heldItemIconId >= 0) {
-            drawSpriteCellTopLeft(g, 258, view.heldItemIconId, 80, 222);
+            drawSpriteCellTopLeft(g, 258, view.heldItemIconId, layout.x(59, 80), layout.y(59, 222));
         }
-        drawTinyBattleText(g, font, view.heldItemName, 100, 224, 48, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, "lv", 150, 178, 12, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, VqsvText.Battle.PETSTATE_ATTACK, 150, 190, 20, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, VqsvText.Battle.PETSTATE_DEFENSE, 150, 203, 20, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, VqsvText.Battle.PETSTATE_SPEED, 150, 216, 20, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, String.valueOf(view.level), 165, 178, 24, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, String.valueOf(view.attack), 165, 190, 24, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, String.valueOf(view.defense), 165, 203, 24, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, String.valueOf(view.speed), 165, 216, 24, SOURCE_UI_TEXT);
+        drawPetStateText(g, font, layout, 60, view.heldItemName, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 55, "lv", SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 56, VqsvText.Battle.PETSTATE_ATTACK, 20, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 57, VqsvText.Battle.PETSTATE_DEFENSE, 20, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 58, VqsvText.Battle.PETSTATE_SPEED, 20, SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 65, String.valueOf(view.level), SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 66, String.valueOf(view.attack), SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 67, String.valueOf(view.defense), SOURCE_UI_TEXT, tick);
+        drawPetStateText(g, font, layout, 68, String.valueOf(view.speed), SOURCE_UI_TEXT, tick);
     }
 
     private static VqsvBattlePetStateView selectedPetStateView(VqsvIntroDemo.Scene s) {
@@ -451,48 +711,158 @@ final class VqsvBattleRenderer {
         return s.battlePetStateRows[row];
     }
 
-    private static void drawPetStateElementIcon(Graphics2D g, int cx, int cy, int element) {
-        Color[] colors = {
-                new Color(0xffb631),
-                new Color(0x54c9ff),
-                new Color(0xff7d7d),
-                new Color(0x7ade65),
-                new Color(0xffd45f),
-                new Color(0xc7a3ff),
-                new Color(0xffef73)
-        };
-        Color color = colors[Math.max(0, Math.min(colors.length - 1, element))];
-        g.setColor(new Color(0xfff9c5));
-        g.fillOval(cx - 5, cy - 5, 10, 10);
-        g.setColor(color);
-        g.fillOval(cx - 4, cy - 4, 8, 8);
-        g.setColor(new Color(0xa55f28));
-        g.drawOval(cx - 5, cy - 5, 10, 10);
-    }
-
     private static void drawPetStateGauge(Graphics2D g, int x, int y, int w, int h, int percent,
                                           Color fill, Color empty) {
         g.setColor(empty);
         g.fillRect(x, y, w, h);
         g.setColor(fill);
-        g.fillRect(x, y, Math.max(0, Math.min(w, w * Math.max(0, Math.min(100, percent)) / 100)), h);
+        int sourceFill = Math.max(0, Math.min(w, w * Math.max(0, Math.min(100, percent)) / 100));
+        if (sourceFill > 1 && h > 1) {
+            g.fillRect(x + 1, y + 1, sourceFill - 1, h - 1);
+        }
         g.setColor(new Color(0x507f9a));
         g.drawRect(x, y, w, h);
     }
 
-    private static void drawPetStateStatBar(Graphics2D g, int x, int y, int value, int max) {
-        int width = Math.max(6, Math.min(47, value * 47 / Math.max(1, max)));
-        g.setColor(new Color(0xffedc4));
-        g.fillRoundRect(x, y, width, 5, 5, 5);
+    private static void drawPetStateGauge(Graphics2D g, VqsvUiLayout layout, int widgetId, boolean selected,
+                                          int percent, Color fallbackFill, Color fallbackEmpty) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget == null) {
+            drawPetStateGauge(g, layout.x(widgetId, 73), layout.y(widgetId, 88),
+                    layout.w(widgetId, 26), 4, percent, fallbackFill, fallbackEmpty);
+            return;
+        }
+        Color fill = widgetTextColor(widget, selected, fallbackFill);
+        Color empty = widgetFillColor(widget, selected, fallbackEmpty);
+        int height = widget.h > 0 ? widget.h : 4;
+        drawPetStateGauge(g, widget.x, widget.y, Math.max(1, widget.w), height, percent, fill, empty);
     }
 
-    private static void drawPetQualityStars(Graphics2D g, VqsvBattlePetStateView view, int x, int y) {
-        drawBattleUiCellTopLeft(g, 19, x, y + 1);
+    private static void drawPetQualityStars(Graphics2D g, VqsvUiLayout layout, VqsvBattlePetStateView view) {
+        drawPetStateWidgetCell(g, layout, 69, false);
         int count = Math.max(0, Math.min(5, view.filledStars));
         int visible = Math.max(0, Math.min(5, view.visibleStars));
         for (int i = 0; i < visible; i++) {
-            drawBattleUiCellTopLeft(g, i < count ? 14 : 16, 123 + i * 11, y);
+            VqsvUiLayout.UiWidget widget = layout.widget(70 + i);
+            if (widget != null) {
+                drawBattleUiCellTopLeft(g, i < count ? 14 : Math.max(0, widget.altId), widget.x, widget.y);
+            }
         }
+    }
+
+    private static void drawPetStateText(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                         int widgetId, String text, Color color) {
+        drawPetStateText(g, font, layout, widgetId, text, color, 0);
+    }
+
+    private static void drawPetStateText(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                         int widgetId, String text, Color color, int tick) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget != null) {
+            drawSourceWidgetText(g, font, text, widget.x, widget.y,
+                    Math.max(1, widget.w), sourceWidgetHeight(widget),
+                    widgetTextColor(widget, false, color), tick, widget.b);
+        }
+    }
+
+    private static void drawPetStateText(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                         int widgetId, String text, int width, Color color) {
+        drawPetStateText(g, font, layout, widgetId, text, width, color, 0);
+    }
+
+    private static void drawPetStateText(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                         int widgetId, String text, int width, Color color, int tick) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget != null) {
+            drawSourceWidgetText(g, font, text, widget.x, widget.y,
+                    Math.max(widget.w, width), sourceWidgetHeight(widget),
+                    widgetTextColor(widget, false, color), tick, widget.b);
+        }
+    }
+
+    private static int petstateUiTick(VqsvIntroDemo.Scene s) {
+        return Math.max(0, s.battleAnimationTick - s.battleUiModeStartTick);
+    }
+
+    private static int sourceWidgetHeight(VqsvUiLayout.UiWidget widget) {
+        return widget != null && widget.h > 0 ? widget.h : 10;
+    }
+
+    private static void drawSourceWidgetText(Graphics2D g, FontBitmap font, String text,
+                                             int x, int y, int width, int height,
+                                             Color color, int elapsedTicks, int align) {
+        String decoded = TextBox.decodeMojibake(text);
+        int textWidth = font.taggedWidth(decoded);
+        int drawX;
+        if (textWidth > width) {
+            drawX = x - sourceHorizontalScrollOffset(textWidth, width, elapsedTicks);
+        } else {
+            switch (align) {
+                case 1:
+                case 4:
+                case 7:
+                    drawX = x + Math.max(0, (width - textWidth) / 2);
+                    break;
+                case 2:
+                case 5:
+                case 8:
+                    drawX = x + Math.max(0, width - textWidth);
+                    break;
+                default:
+                    drawX = x;
+                    break;
+            }
+        }
+        int drawY;
+        if (align == 3 || align == 4 || align == 5) {
+            drawY = y + Math.max(0, (height - 10) / 2);
+        } else if (align == 6 || align == 7 || align == 8) {
+            drawY = y + Math.max(0, height - 10);
+        } else {
+            drawY = y;
+        }
+        Shape oldClip = g.getClip();
+        g.clipRect(x, y, width, Math.max(1, height));
+        font.drawTaggedLine(g, decoded, drawX, drawY,
+                TextBox.visibleLength(decoded), color.getRGB() & 0xFFFFFF);
+        g.setClip(oldClip);
+    }
+
+    private static int sourceHorizontalScrollOffset(int textWidth, int width, int elapsedTicks) {
+        int offset = -width / 2;
+        int frames = Math.max(0, elapsedTicks) + 1;
+        for (int i = 0; i < frames; i++) {
+            if (textWidth > offset) {
+                offset += 2;
+            } else {
+                offset = -width;
+            }
+        }
+        return offset;
+    }
+
+    private static Color widgetTextColor(VqsvUiLayout.UiWidget widget, boolean selected, Color fallback) {
+        return new Color(widgetColor(widget, selected, fallback.getRGB() & 0xffffff, true));
+    }
+
+    private static Color widgetFillColor(VqsvUiLayout.UiWidget widget, boolean selected, Color fallback) {
+        return new Color(widgetColor(widget, selected, fallback.getRGB() & 0xffffff, false));
+    }
+
+    private static int widgetColor(VqsvUiLayout.UiWidget widget, boolean selected, int fallbackRgb, boolean text) {
+        if (widget == null) {
+            return fallbackRgb;
+        }
+        int source = selected
+                ? (text ? widget.gColor : widget.eColor)
+                : (text ? widget.lColor : widget.jColor);
+        if ((source >>> 24) == 0 && source < 0) {
+            return source & 0xffffff;
+        }
+        if (source == 0 || source == -16777216 || source == -1) {
+            return fallbackRgb;
+        }
+        return source & 0xffffff;
     }
 
     private static void drawCenteredTinyText(Graphics2D g, FontBitmap font, String text,
@@ -526,7 +896,8 @@ final class VqsvBattleRenderer {
         }
         drawChoiceSkillScroll(g, s);
         drawBattleUiCellTopLeft(g, 24, 52, 174);
-        drawWrappedTinyText(g, font, s.battleSkillDescription, 57, 180, 125, 5, Color.WHITE);
+        drawMarqueeTinyBattleText(g, font, s.battleSkillDescription, 57, 180, 125,
+                Color.WHITE, s.battleAnimationTick);
         drawTinyBattleText(g, font, VqsvText.Battle.SKILL_USE, 50, 235, 58, SOURCE_UI_TEXT);
         drawTinyBattleText(g, font, "Quay", 164, 235, 28, SOURCE_UI_TEXT);
         drawTinyBattleText(g, font, "l\u1ea1i", 164, 245, 28, SOURCE_UI_TEXT);
@@ -1074,8 +1445,10 @@ final class VqsvBattleRenderer {
         drawSourceUiFill(g, 79, 175, 81, 10, 0x6cc2fb);
         drawSourceUiFill(g, 82, 116, 76, 54, 0x51d8e9);
         drawBattleUiCellTopLeft(g, 128, 76, 106);
-        drawWrappedTinyText(g, font, s.battleWarningTitle, 85, 119, 70, 5, SOURCE_UI_TEXT);
-        drawWrappedTinyText(g, font, s.battleWarningPrompt, 89, 168, 60, 3, 7, SOURCE_UI_TEXT);
+        drawMarqueeTinyBattleText(g, font, s.battleWarningTitle, 85, 119, 70,
+                SOURCE_UI_TEXT, s.battleAnimationTick);
+        drawMarqueeTinyBattleText(g, font, s.battleWarningPrompt, 89, 168, 60,
+                SOURCE_UI_TEXT, s.battleAnimationTick);
     }
 
     private static void drawLevelUpOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
@@ -1085,40 +1458,46 @@ final class VqsvBattleRenderer {
             return;
         }
         drawSourceUiFill(g, 43, 55, 158, 202, 0x89d8ef);
-        drawSourceUiFill(g, 46, 78, 150, 168, 0xd5f3f9);
+        drawSourceUiFill(g, 46, 78, 150, 9, 0xc6f3ff);
         drawSourceUiFill(g, 46, 87, 150, 159, 0xf7ffff);
-        drawBattleUiCellTopLeft(g, 1, 46, 87);
-        drawBattleUiCellTopLeft(g, 2, 46, 246);
-        drawBattleUiCellTopLeft(g, 3, 46, 78);
+        drawSourceUiFill(g, 46, 246, 150, 11, 0x82d0fb);
+        drawBattleUiCellTopLeft(g, 1, 43, 55);
+        drawBattleUiCellTopLeft(g, 8, 78, 94);
+        drawBattleUiCellTopLeft(g, 17, 50, 90);
+        drawBattleUiCellTopLeft(g, 15, 144, 90);
         drawCenteredTinyText(g, font, VqsvText.Battle.LEVEL_UP_TITLE, 70, 60, 100, Color.WHITE);
-        drawPetStateGauge(g, 78, 94, 88, 5, view.expPercent,
-                new Color(0x6ba8ff), new Color(0xc6d7f8));
         if (view.visualId >= 0) {
             Shape oldClip = g.getClip();
             g.clipRect(78, 90, 90, 88);
-            drawBattleSprite(g, view.visualId, 78, 90, 90, 88, 7, 0);
+            drawBattleSprite(g, view.visualId, 78, 90, 90, 88, 7, 0,
+                    0, idleCursor(view.visualId, 0, s.battleAnimationTick));
             g.setClip(oldClip);
         }
-        drawTinyBattleText(g, font, view.name, 53, 84, 72, SOURCE_UI_TEXT);
+        drawMarqueeTinyBattleText(g, font, view.name, 53, 84, 72, SOURCE_UI_TEXT, s.battleLevelUpTicks);
         drawTinyBattleText(g, font, "lv", 150, 82, 12, SOURCE_UI_TEXT);
         drawTinyBattleText(g, font, String.valueOf(view.level), 165, 82, 24, SOURCE_UI_TEXT);
-        drawTinyBattleText(g, font, view.expValue + "/" + view.expMax, 165, 95, 38, SOURCE_UI_TEXT);
-        drawLevelUpStats(g, font, view);
+        drawLevelUpStats(g, font, view, s.battleLevelUpTicks);
         if (!view.message.isEmpty()) {
-            drawWrappedTinyText(g, font, view.message, 76, 240, 96, 2, SOURCE_UI_TEXT);
+            drawMarqueeTinyBattleText(g, font, view.message, 76, 240, 96,
+                    SOURCE_UI_TEXT, s.battleLevelUpTicks);
         }
     }
 
-    private static void drawLevelUpStats(Graphics2D g, FontBitmap font, VqsvBattleLevelUpView view) {
+    private static void drawLevelUpStats(Graphics2D g, FontBitmap font, VqsvBattleLevelUpView view, int tick) {
         String[] labels = {"M\u1ec7nh", "C\u00f4ng", "Ph\u00f2ng", "Min"};
+        int[] textY = {182, 196, 209, 222};
+        int[] rowY = {188, 201, 214, 227};
         for (int i = 0; i < 4; i++) {
-            int y = 182 + i * 13;
-            drawTinyBattleText(g, font, labels[i], 65, y, 24, SOURCE_UI_TEXT);
-            drawTinyBattleText(g, font, String.valueOf(view.oldStats[i]), 80, y, 24, SOURCE_UI_TEXT);
-            drawPetStateStatBar(g, 114, y + 6, view.oldStats[i], i == 0 ? 120 : 80);
-            drawTinyBattleText(g, font, labels[i], 145, y, 24, SOURCE_UI_TEXT);
-            drawTinyBattleText(g, font, String.valueOf(view.newStats[i]), 160, y, 24, SOURCE_UI_TEXT);
-            drawPetStateStatBar(g, 184, y + 6, view.newStats[i], i == 0 ? 120 : 80);
+            int rowCell = i == 0 ? 15 : 16;
+            drawBattleUiCellTopLeft(g, rowCell, 59, rowY[i]);
+            drawBattleUiCellTopLeft(g, rowCell, 139, rowY[i]);
+            drawBattleUiCellTopLeft(g, 22, 114, rowY[i] - 1);
+            drawMarqueeTinyBattleText(g, font, labels[i], 65, textY[i], 12,
+                    SOURCE_UI_TEXT, tick);
+            drawTinyBattleText(g, font, String.valueOf(view.oldStats[i]), 80, textY[i], 24, SOURCE_UI_TEXT);
+            drawMarqueeTinyBattleText(g, font, labels[i], 145, textY[i], 12,
+                    SOURCE_UI_TEXT, tick);
+            drawTinyBattleText(g, font, String.valueOf(view.newStats[i]), 160, textY[i], 24, SOURCE_UI_TEXT);
         }
     }
 
@@ -1185,34 +1564,6 @@ final class VqsvBattleRenderer {
         }
     }
 
-    private static void drawWrappedTinyText(Graphics2D g, FontBitmap font, String text,
-                                            int x, int y, int width, int maxLines, Color color) {
-        drawWrappedTinyText(g, font, text, x, y, width, maxLines, 10, color);
-    }
-
-    private static void drawWrappedTinyText(Graphics2D g, FontBitmap font, String text,
-                                            int x, int y, int width, int maxLines, int lineStep, Color color) {
-        String[] words = TextBox.decodeMojibake(text).split(" ");
-        String line = "";
-        int lineIndex = 0;
-        for (String word : words) {
-            String next = line.isEmpty() ? word : line + " " + word;
-            if (!line.isEmpty() && font.width(next) > width) {
-                drawTinyBattleText(g, font, line, x, y + lineIndex * lineStep, width, color);
-                lineIndex++;
-                line = word;
-                if (lineIndex >= maxLines) {
-                    return;
-                }
-            } else {
-                line = next;
-            }
-        }
-        if (!line.isEmpty() && lineIndex < maxLines) {
-            drawTinyBattleText(g, font, line, x, y + lineIndex * lineStep, width, color);
-        }
-    }
-
     private static void drawStatusSlots(Graphics2D g, int iconStartX, int iconY, int overlayStartX, int overlayY, boolean rightToLeft) {
         for (int i = 0; i < 6; i++) {
             int dx = rightToLeft ? -i * 15 : i * 15;
@@ -1232,6 +1583,22 @@ final class VqsvBattleRenderer {
         font.drawTaggedLine(g, text, x, y,
                 TextBox.visibleLength(TextBox.decodeMojibake(text)),
                 color.getRGB() & 0xFFFFFF);
+        g.setClip(oldClip);
+    }
+
+    private static void drawMarqueeTinyBattleText(Graphics2D g, FontBitmap font, String text,
+                                                  int x, int y, int width, Color color, int tick) {
+        String decoded = TextBox.decodeMojibake(text);
+        int textWidth = font.taggedWidth(decoded);
+        int offset = 0;
+        if (textWidth > width) {
+            int cycle = textWidth + width;
+            offset = (Math.max(0, tick) + width / 2) % Math.max(1, cycle) - width;
+        }
+        Shape oldClip = g.getClip();
+        g.clipRect(x, y - 1, width, 18);
+        font.drawTaggedLine(g, decoded, x - offset, y,
+                TextBox.visibleLength(decoded), color.getRGB() & 0xFFFFFF);
         g.setClip(oldClip);
     }
 

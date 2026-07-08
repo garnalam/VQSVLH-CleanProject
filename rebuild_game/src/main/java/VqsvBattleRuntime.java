@@ -144,6 +144,7 @@ final class SourceBattleRuntime implements Blocking {
     private int pendingEnemyReplacementIndex = -1;
     private SourceBattleUnit enemy;
     private SourceBattleUnit player;
+    private int[] sourcePetOrder = new int[0];
     private int turn;
     private boolean entered;
     private boolean currentActorPlayer;
@@ -262,6 +263,11 @@ final class SourceBattleRuntime implements Blocking {
     private String catchWinLog;
     private int catchStorageResult = -1;
     private int catchOpenBoxState = 0;
+    private final java.util.ArrayList<SourcePetState> sourceExpParticipants = new java.util.ArrayList<>();
+    private final java.util.ArrayList<SourcePetState> sourceExpDisplay = new java.util.ArrayList<>();
+    private int expDisplayIndex;
+    private SourcePetState expCurrentPet;
+    private BattleUnit expCurrentUnit;
     private boolean expPrepared;
     private boolean expEligible;
     private int expAward;
@@ -372,7 +378,11 @@ final class SourceBattleRuntime implements Blocking {
                     + "source game.k/game.g.I or op36/op87 setup must run before encounter="
                     + Arrays.toString(encounter));
         }
+        resetSourcePetOrder(s);
+        setActiveSourcePetFlags(s, 0);
         player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
+        resetSourceExpVectors(s);
+        addSourceExpParticipant(s, s.sourcePets.get(0), "battle entry active f[0]");
         s.worldEventActor = actorId;
         s.battleEventActor = actorId;
         s.battleEncounter = Arrays.copyOf(encounter, encounter.length);
@@ -397,6 +407,7 @@ final class SourceBattleRuntime implements Blocking {
                 + " enemy=" + enemy
                 + " enemyPartySize=" + enemyParty.length
                 + " player=" + player
+                + " sourcePetOrder=" + Arrays.toString(sourcePetOrder)
                 + " branchTargets=" + Arrays.toString(branchTargets)
                 + " sourceSlice=" + sourceBattleSlice
                 + " states=P0/P20/P3/P6/P2/P7/P1/P8/P9; command UI/catch/items/animation still pending; "
@@ -1167,6 +1178,7 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (clicked >= 0 && clicked < s.battleMenuNames.length) {
             s.battleMenuIndex = clicked;
+            syncMenuScroll(s);
             return MenuAction.CONFIRM;
         }
 
@@ -1176,10 +1188,12 @@ final class SourceBattleRuntime implements Blocking {
         wasDownPressed = s.keyDown;
         if (upEdge && s.battleMenuNames.length > 0) {
             s.battleMenuIndex = (s.battleMenuIndex + s.battleMenuNames.length - 1) % s.battleMenuNames.length;
+            syncMenuScroll(s);
             return MenuAction.NONE;
         }
         if (downEdge && s.battleMenuNames.length > 0) {
             s.battleMenuIndex = (s.battleMenuIndex + 1) % s.battleMenuNames.length;
+            syncMenuScroll(s);
             return MenuAction.NONE;
         }
         return s.key0 ? MenuAction.CONFIRM : MenuAction.NONE;
@@ -1193,11 +1207,24 @@ final class SourceBattleRuntime implements Blocking {
             int index = (y - 86) / 15;
             return index >= 0 && index < 6 ? index : -1;
         }
-        if (x < 44 || x > 195 || y < 92 || y > 226) {
+        if (x < 54 || x > 191 || y < 95 || y > 169) {
             return -1;
         }
-        int index = (y - 92) / 26;
-        return index >= 0 && index < 5 ? index : -1;
+        int row = (y - 95) / 15;
+        if (row < 0 || row >= 5) {
+            return -1;
+        }
+        return s.battleMenuScroll + row;
+    }
+
+    private void syncMenuScroll(VqsvIntroDemo.Scene s) {
+        int maxScroll = Math.max(0, s.battleMenuNames.length - 5);
+        if (s.battleMenuIndex < s.battleMenuScroll) {
+            s.battleMenuScroll = s.battleMenuIndex;
+        } else if (s.battleMenuIndex >= s.battleMenuScroll + 5) {
+            s.battleMenuScroll = s.battleMenuIndex - 4;
+        }
+        s.battleMenuScroll = Math.max(0, Math.min(maxScroll, s.battleMenuScroll));
     }
 
     private MenuAction handleSkillInput(VqsvIntroDemo.Scene s) {
@@ -1366,34 +1393,26 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private void prepareItemTargetMenu(VqsvIntroDemo.Scene s) {
-        java.util.ArrayList<String> names = new java.util.ArrayList<>();
-        java.util.ArrayList<String> values = new java.util.ArrayList<>();
-        java.util.ArrayList<Integer> ids = new java.util.ArrayList<>();
-        if (s.sourcePets.isEmpty()) {
-            ids.add(0);
-            names.add(player.name);
-            values.add(player.hp + "/" + player.maxHp);
-        } else {
-            for (int i = 0; i < s.sourcePets.size(); i++) {
-                SourceBattleUnit unit = i == 0 && player != null
-                        ? player
-                        : SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(i, i + 1));
-                ids.add(i);
-                names.add(unit.name);
-                values.add(unit.hp + "/" + unit.maxHp);
-            }
-        }
-        setMenu(s, itemName(selectedItemId), "M\u1ee5c ti\u00eau", "S\u1eed d\u1ee5ng", names, values, ids);
+        prepareItemTargetMenu(s, true);
     }
 
-    private void preparePetMenu(VqsvIntroDemo.Scene s) {
+    private void prepareItemTargetMenu(VqsvIntroDemo.Scene s, boolean resetCursor) {
         if (!s.sourcePets.isEmpty() && player != null && player.battleUnit != null) {
             s.sourcePets.get(0).persistBattleUnit(player.battleUnit);
         }
+        if (resetCursor) {
+            s.battleMenuIndex = 0;
+            s.battleMenuScroll = 0;
+        }
         java.util.ArrayList<String> names = new java.util.ArrayList<>();
         java.util.ArrayList<String> values = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> ids = new java.util.ArrayList<>();
-        for (int i = 0; i < s.sourcePets.size(); i++) {
+        ensureSourcePetOrder(s);
+        for (int row = 0; row < sourcePetOrder.length; row++) {
+            int i = sourcePetOrder[row];
+            if (i < 0 || i >= s.sourcePets.size()) {
+                continue;
+            }
             SourceBattleUnit unit = i == 0 && player != null
                     ? player
                     : SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(i, i + 1));
@@ -1401,10 +1420,56 @@ final class SourceBattleRuntime implements Blocking {
             names.add(unit.name);
             values.add((unit.alive() ? "lv" + unit.level : "KO") + " " + unit.hp + "/" + unit.maxHp);
         }
-        setMenu(s, "S\u1ee7ng v\u1eadt", "Thay \u0111\u1ed5i", "S\u1eed d\u1ee5ng", names, values, ids);
+        setMenu(s, VqsvText.Battle.PETSTATE_TITLE, itemName(selectedItemId),
+                VqsvText.Battle.PETSTATE_USE, names, values, ids);
         s.battlePetStateRows = buildPetStateRows(s);
         s.battleUiMode = "petstate";
-        s.sourceStateTrace.add("PORTED/PARTIAL battle P5 petstate.ui open forced=" + forcedPetSwitch
+        s.battleUiModeStartTick = s.battleAnimationTick;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P16 petstate.ui open source=game.h.W/al/bo"
+                + " resetCursor=" + resetCursor
+                + " selectedItem=" + selectedItemId
+                + " sourcePetOrder=" + java.util.Arrays.toString(sourcePetOrder)
+                + " ids=" + java.util.Arrays.toString(s.battleMenuIds)
+                + " names=" + java.util.Arrays.toString(s.battleMenuNames));
+    }
+
+    private void preparePetMenu(VqsvIntroDemo.Scene s) {
+        preparePetMenu(s, true);
+    }
+
+    private void preparePetMenu(VqsvIntroDemo.Scene s, boolean resetCursor) {
+        if (!s.sourcePets.isEmpty() && player != null && player.battleUnit != null) {
+            s.sourcePets.get(0).persistBattleUnit(player.battleUnit);
+        }
+        if (resetCursor) {
+            s.battleMenuIndex = 0;
+            s.battleMenuScroll = 0;
+        }
+        java.util.ArrayList<String> names = new java.util.ArrayList<>();
+        java.util.ArrayList<String> values = new java.util.ArrayList<>();
+        java.util.ArrayList<Integer> ids = new java.util.ArrayList<>();
+        ensureSourcePetOrder(s);
+        for (int row = 0; row < sourcePetOrder.length; row++) {
+            int i = sourcePetOrder[row];
+            if (i < 0 || i >= s.sourcePets.size()) {
+                continue;
+            }
+            SourceBattleUnit unit = i == 0 && player != null
+                    ? player
+                    : SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(i, i + 1));
+            ids.add(i);
+            names.add(unit.name);
+            values.add((unit.alive() ? "lv" + unit.level : "KO") + " " + unit.hp + "/" + unit.maxHp);
+        }
+        setMenu(s, "S\u1ee7ng v\u1eadt", "Thay \u0111\u1ed5i", VqsvText.Battle.PETSTATE_DEPLOY,
+                names, values, ids);
+        s.battlePetStateRows = buildPetStateRows(s);
+        s.battleUiMode = "petstate";
+        s.battleUiModeStartTick = s.battleAnimationTick;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P5 petstate.ui open sourceProxy=sourcePets-as-game.d.f"
+                + " resetCursor=" + resetCursor
+                + " forced=" + forcedPetSwitch
+                + " sourcePetOrder=" + java.util.Arrays.toString(sourcePetOrder)
                 + " ids=" + java.util.Arrays.toString(s.battleMenuIds)
                 + " names=" + java.util.Arrays.toString(s.battleMenuNames));
     }
@@ -1421,7 +1486,8 @@ final class SourceBattleRuntime implements Blocking {
                 rows[row] = VqsvBattlePetStateView.empty(row);
                 continue;
             }
-            rows[row] = VqsvBattlePetStateView.fromPet(row, petIndex, s.sourcePets.get(petIndex), petIndex == 0);
+            rows[row] = VqsvBattlePetStateView.fromPet(row, petIndex, s.sourcePets.get(petIndex),
+                    s.sourcePets.get(petIndex).sourceK());
         }
         return rows;
     }
@@ -1486,6 +1552,7 @@ final class SourceBattleRuntime implements Blocking {
         if (s.battleMenuIndex < 0 || s.battleMenuIndex >= s.battleMenuNames.length) {
             s.battleMenuIndex = 0;
         }
+        syncMenuScroll(s);
     }
 
     private String itemName(int itemId) {
@@ -1775,6 +1842,11 @@ final class SourceBattleRuntime implements Blocking {
         if (countdown()) {
             return false;
         }
+        if (s.keyBack) {
+            s.keyBack = false;
+            enterCommandState(s, VqsvText.Battle.START, SHORT_WAIT);
+            return false;
+        }
         MenuAction action = handleMenuInput(s);
         if (action == MenuAction.BACK) {
             enterCommandState(s, VqsvText.Battle.START, SHORT_WAIT);
@@ -1791,11 +1863,19 @@ final class SourceBattleRuntime implements Blocking {
         int itemId = s.battleMenuIds[s.battleMenuIndex];
         BagItem item = s.sourceBagItems.get(itemId);
         if (item == null || item.count <= 0) {
-            s.sourceStateTrace.add("PORTED/PARTIAL battle P21 game.h.ai missing-count msgwarm.ui item="
-                    + itemId + " count=" + (item == null ? -1 : item.count)
-                    + "; P101/SMS path remains PENDING");
-            enterWarning(s, VqsvText.Battle.NO_BALLS, BattleRuntimeState.P21_CATCH_LIST);
-            return false;
+            if (itemId == 0) {
+                VqsvSourceOps.sourceAddItem(s, itemId, 1);
+                item = s.sourceBagItems.get(itemId);
+                s.sourceStateTrace.add("PORTED/REBUILD_POLICY battle P21/P101 SMS purchase bypass item=0"
+                        + " sourcePath=game.h.ai f=1 -> game.d.a(101) -> game.h.aH/aM"
+                        + " grant=1 count=" + (item == null ? -1 : item.count));
+            } else {
+                s.sourceStateTrace.add("PORTED/PARTIAL battle P21 game.h.ai missing-count msgwarm.ui item="
+                        + itemId + " count=" + (item == null ? -1 : item.count)
+                        + "; item0 SMS-free hook not taken");
+                enterWarning(s, VqsvText.Battle.NO_BALLS, BattleRuntimeState.P21_CATCH_LIST);
+                return false;
+            }
         }
         VqsvSourceOps.sourceRemoveItem(s, itemId, 1);
         selectedItemId = itemId;
@@ -1854,6 +1934,7 @@ final class SourceBattleRuntime implements Blocking {
             }
             playerActionThisRound = true;
             enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.CATCH_FAILED, SHORT_WAIT);
+            return false;
         }
         tickCatchObjects();
         syncCatchRenderState(s, catchPhase);
@@ -2186,6 +2267,12 @@ final class SourceBattleRuntime implements Blocking {
         if (countdown()) {
             return false;
         }
+        if (s.keyBack) {
+            s.keyBack = false;
+            prepareItemMenu(s);
+            enterState(s, BattleRuntimeState.P4_ITEM_LIST, VqsvText.Battle.COMMAND_ITEM_PENDING, SHORT_WAIT);
+            return false;
+        }
         MenuAction action = handleMenuInput(s);
         if (action == MenuAction.BACK) {
             prepareItemMenu(s);
@@ -2236,7 +2323,9 @@ final class SourceBattleRuntime implements Blocking {
                     + " state6=" + result.sourceStateFlag
                     + " remaining=" + VqsvSourceOps.sourceItemCount(s, selectedItemId));
             syncRenderState(s, VqsvText.Battle.ITEM_USED);
-            enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.ITEM_USED, SHORT_WAIT);
+            prepareItemTargetMenu(s, false);
+            syncRenderState(s, VqsvText.Battle.ITEM_USED);
+            enterWarning(s, VqsvText.Battle.ITEM_USED, BattleRuntimeState.P1_DISPATCH);
         } else {
             enterWarning(s, VqsvText.Battle.ITEM_NOT_IN_BATTLE, BattleRuntimeState.P4_ITEM_LIST);
         }
@@ -2292,6 +2381,11 @@ final class SourceBattleRuntime implements Blocking {
         if (countdown()) {
             return false;
         }
+        if (s.keyBack) {
+            s.keyBack = false;
+            enterCommandState(s, VqsvText.Battle.START, SHORT_WAIT);
+            return false;
+        }
         MenuAction action = handleMenuInput(s);
         if (action == MenuAction.BACK) {
             enterCommandState(s, VqsvText.Battle.START, SHORT_WAIT);
@@ -2316,26 +2410,73 @@ final class SourceBattleRuntime implements Blocking {
             enterWarning(s, VqsvText.Battle.PET_CANNOT_BATTLE, BattleRuntimeState.P5_PET_SWITCH);
             return false;
         }
-        if (selectedPetIndex == 0) {
-            s.sourceStateTrace.add("PORTED battle P5 game.d.a(slot) validation=1 already-active selectedIndex=0");
+        if (s.sourcePets.get(selectedPetIndex).sourceK()) {
+            s.sourceStateTrace.add("PORTED battle P5 game.d.a(slot) validation=1 already-active selectedIndex="
+                    + selectedPetIndex + " sourceK=true");
             enterWarning(s, VqsvText.Battle.PET_ALREADY_ACTIVE, BattleRuntimeState.P5_PET_SWITCH);
             return false;
         }
+        int clearedStatus11 = clearEnemyBuff11ForPlayerSwitch();
         if (!s.sourcePets.isEmpty() && player != null && player.battleUnit != null) {
             s.sourcePets.get(0).persistBattleUnit(player.battleUnit);
         }
         SourcePetState next = s.sourcePets.remove(selectedPetIndex);
         s.sourcePets.add(0, next);
+        resetSourcePetOrder(s);
+        setActiveSourcePetFlags(s, 0);
         player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
+        pruneSourceExpVectors(s, "P5 switch");
+        addSourceExpParticipant(s, next, "P5 game.d.a(slot) switched-in pet");
         playerActionThisRound = true;
         boolean wasForced = forcedPetSwitch;
         forcedPetSwitch = false;
         s.sourceStateTrace.add("PORTED/PARTIAL battle P5 game.d.a(slot) validation=-1 selectedIndex="
                 + selectedPetIndex + " newPlayer=" + player.name
                 + " forced=" + wasForced
-                + " sourcePath=reorder f[slot]->f[0], mark active K/J then game.d.a(byte 15)");
+                + " sourcePath=reorder f[slot]->f[0], mark active K/J then game.d.a(byte 15)"
+                + " clearedEnemyBuff11=" + clearedStatus11
+                + " sourcePetOrder=" + java.util.Arrays.toString(sourcePetOrder));
         enterPlayerSwitchTransition(s, wasForced);
         return false;
+    }
+
+    private void resetSourcePetOrder(VqsvIntroDemo.Scene s) {
+        sourcePetOrder = new int[Math.min(6, s.sourcePets.size())];
+        for (int i = 0; i < sourcePetOrder.length; i++) {
+            sourcePetOrder[i] = i;
+        }
+    }
+
+    private void ensureSourcePetOrder(VqsvIntroDemo.Scene s) {
+        if (sourcePetOrder.length != Math.min(6, s.sourcePets.size())) {
+            resetSourcePetOrder(s);
+        }
+    }
+
+    private void setActiveSourcePetFlags(VqsvIntroDemo.Scene s, int activeIndex) {
+        for (int i = 0; i < s.sourcePets.size(); i++) {
+            SourcePetState pet = s.sourcePets.get(i);
+            pet.sourceD(i == activeIndex);
+            pet.sourceTurnUsed = false;
+            pet.sourceF = 0;
+        }
+        if (activeIndex >= 0 && activeIndex < s.sourcePets.size()) {
+            s.sourcePets.get(activeIndex).sourceTurnUsed = true;
+        }
+    }
+
+    private int clearEnemyBuff11ForPlayerSwitch() {
+        int cleared = 0;
+        if (enemyParty == null) {
+            return 0;
+        }
+        for (SourceBattleUnit unit : enemyParty) {
+            if (unit != null && unit.battleUnit != null
+                    && unit.battleUnit.clearSourceBuffForSwitch(11)) {
+                cleared++;
+            }
+        }
+        return cleared;
     }
 
     private boolean sourcePetAlive(SourcePetState pet) {
@@ -2551,6 +2692,20 @@ final class SourceBattleRuntime implements Blocking {
                 + debuffId + " value=" + value + " skill=" + sourceSkill);
     }
 
+    void debugEnemyBuff11ForPetSwitchSmoke(VqsvIntroDemo.Scene s) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (enemy == null || enemy.battleUnit == null) {
+            throw new IllegalStateException("P5 buff11 cleanup smoke requires enemy battle unit");
+        }
+        enemy.battleUnit.buffSlots[11][0] = 3;
+        enemy.battleUnit.buffSlots[11][1] = 0;
+        enemy.battleUnit.buffSlots[11][4] = 1;
+        enemy.battleUnit.addActiveEffect(0, 11);
+        s.sourceStateTrace.add("SMOKE prepared enemy source buff11 pointer to active player before P5 switch");
+    }
+
     void debugSetNextCatchRollForSmoke(int roll) {
         debugNextCatchRoll = Math.max(0, Math.min(99, roll));
     }
@@ -2615,6 +2770,10 @@ final class SourceBattleRuntime implements Blocking {
         if (!s.key0) {
             return false;
         }
+        s.key0 = false;
+        if (s.text != null && s.text.sourceUiKind == TextBox.SOURCE_MSGWARM) {
+            s.text = null;
+        }
         if (warningReturnState == BattleRuntimeState.P20_COMMAND) {
             enterCommandState(s, warningReturnLog, SHORT_WAIT);
         } else if (warningReturnState == BattleRuntimeState.P6_TARGET_SELECT) {
@@ -2629,14 +2788,16 @@ final class SourceBattleRuntime implements Blocking {
             prepareItemMenu(s);
             enterState(s, BattleRuntimeState.P4_ITEM_LIST, VqsvText.Battle.COMMAND_ITEM_PENDING, SHORT_WAIT);
         } else if (warningReturnState == BattleRuntimeState.P16_ITEM_TARGET) {
-            prepareItemTargetMenu(s);
+            prepareItemTargetMenu(s, false);
             enterState(s, BattleRuntimeState.P16_ITEM_TARGET, VqsvText.Battle.COMMAND_ITEM_PENDING, SHORT_WAIT);
         } else if (warningReturnState == BattleRuntimeState.P5_PET_SWITCH) {
-            preparePetMenu(s);
+            preparePetMenu(s, false);
             enterState(s, BattleRuntimeState.P5_PET_SWITCH, VqsvText.Battle.COMMAND_PET_PENDING, SHORT_WAIT);
         } else if (warningReturnState == BattleRuntimeState.P11_SHOP) {
             prepareShopMenu(s);
             enterState(s, BattleRuntimeState.P11_SHOP, VqsvText.Battle.COMMAND_SHOP_PENDING, SHORT_WAIT);
+        } else if (warningReturnState == BattleRuntimeState.P1_DISPATCH) {
+            enterState(s, BattleRuntimeState.P1_DISPATCH, warningReturnLog, SHORT_WAIT);
         } else {
             enterCommandState(s, warningReturnLog, SHORT_WAIT);
         }
@@ -3540,29 +3701,32 @@ final class SourceBattleRuntime implements Blocking {
         if (!expPrepared) {
             prepareWinExp(s);
         }
-        if (!expEligible || player == null || player.battleUnit == null) {
+        if (!expEligible || expCurrentPet == null || expCurrentUnit == null) {
             return false;
         }
-        BattleUnit unit = player.battleUnit;
+        BattleUnit unit = expCurrentUnit;
         if (expLearningSkill) {
             return tickLevelUpSkillLearn(s, unit);
         }
         if (expLevelUpPending && !expLevelUpApplied) {
             expOldStats = unit.sourceVisibleStats();
             unit.sourceLevelUpOnce();
+            SourceEvolutionNotice evolutionNotice = produceSourceEvolutionQueue(s, unit);
             expNewStats = unit.sourceVisibleStats();
             expDisplayValue = Math.min(unit.exp, unit.nextLevelEnergy());
             expLevelUpApplied = true;
             expLearnSkillIds = unit.sourceCanLearnAfterLevelUp() ? unit.sourceLearnCandidateSkillIds() : new int[0];
             expHoldTicks = 40;
-            syncPlayerAfterExp(s, unit);
+            syncExpPetAfterExp(s, unit);
             s.sourceStateTrace.add("PORTED/PARTIAL battle P22 game.h.an/ao levelUp species="
                     + unit.speciesId + " level=" + unit.level
+                    + " jIndex=" + expDisplayIndex + "/" + sourceExpDisplay.size()
                     + " exp=" + unit.exp + "/" + unit.nextLevelEnergy()
                     + " oldStats=" + Arrays.toString(expOldStats)
                     + " newStats=" + Arrays.toString(expNewStats)
                     + " learnSkills=" + Arrays.toString(expLearnSkillIds)
-                    + " evolution-queue=PENDING");
+                    + " evolutionQueue=" + (evolutionNotice == null ? "none" : "created")
+                    + " evolution-ui/effect=PENDING");
         }
         if (expLevelUpApplied) {
             s.battleUiMode = "levelup";
@@ -3580,13 +3744,21 @@ final class SourceBattleRuntime implements Blocking {
                     expLevelUpPending = true;
                     return true;
                 }
-                expEligible = false;
-                persistActivePlayerPet(s, "P8 levelUp");
-                return false;
+                return finishCurrentExpPet(s, "P8 levelUp");
             }
             return true;
         }
         int target = Math.min(unit.exp, unit.nextLevelEnergy());
+        if (s.key0 && expDisplayValue < target) {
+            s.key0 = false;
+            expDisplayValue = target;
+            s.battleUiMode = "levelup";
+            s.battleLevelUpView = levelUpView(s, unit, false);
+            s.sourceStateTrace.add("PORTED battle P8 game.h.am confirm fast-forward exp="
+                    + expDisplayValue + "/" + unit.nextLevelEnergy()
+                    + " jIndex=" + expDisplayIndex + "/" + sourceExpDisplay.size());
+            return true;
+        }
         expDisplayValue = Math.min(target, expDisplayValue + 8);
         s.battleUiMode = "levelup";
         s.battleLevelUpView = levelUpView(s, unit, false);
@@ -3597,9 +3769,7 @@ final class SourceBattleRuntime implements Blocking {
             }
             if (s.key0 || expHoldTicks++ >= 10) {
                 s.key0 = false;
-                expEligible = false;
-                persistActivePlayerPet(s, "P8 exp");
-                return false;
+                return finishCurrentExpPet(s, "P8 exp");
             }
         }
         return true;
@@ -3610,8 +3780,11 @@ final class SourceBattleRuntime implements Blocking {
             s.battleUiMode = "warning";
             if (s.key0) {
                 s.key0 = false;
+                if (s.text != null && s.text.sourceUiKind == TextBox.SOURCE_MSGWARM) {
+                    s.text = null;
+                }
                 boolean learned = unit.learnSourceSkill(expSelectedLearnSkill);
-                syncPlayerAfterExp(s, unit);
+                syncExpPetAfterExp(s, unit);
                 s.sourceStateTrace.add("PORTED/PARTIAL battle P23 game.h.aq learn skill="
                         + expSelectedLearnSkill + " learned=" + learned
                         + " skills=" + Arrays.toString(Arrays.copyOf(unit.skillIds, unit.skillCount)));
@@ -3623,9 +3796,7 @@ final class SourceBattleRuntime implements Blocking {
                     expLevelUpPending = true;
                     return true;
                 }
-                expEligible = false;
-                persistActivePlayerPet(s, "P23 learn skill");
-                return false;
+                return finishCurrentExpPet(s, "P23 learn skill");
             }
             return true;
         }
@@ -3634,9 +3805,7 @@ final class SourceBattleRuntime implements Blocking {
         if (action == MenuAction.BACK) {
             s.sourceStateTrace.add("APPROX battle P23 choiceskill back/skip; source aq() back path not proven");
             expLearningSkill = false;
-            expEligible = false;
-            persistActivePlayerPet(s, "P23 learn skill skipped");
-            return false;
+            return finishCurrentExpPet(s, "P23 learn skill skipped");
         }
         if (action != MenuAction.CONFIRM) {
             syncRenderState(s, VqsvText.Battle.LEVEL_UP_LEARN_PENDING);
@@ -3653,6 +3822,7 @@ final class SourceBattleRuntime implements Blocking {
                 + (row == null ? "Skill " + expSelectedLearnSkill : row.name("Skill " + expSelectedLearnSkill));
         s.battleWarningPrompt = VqsvText.Battle.WARNING_PROMPT;
         s.battleUiMode = "warning";
+        s.text = TextBox.msgWarm(s.battleWarningTitle, s.battleWarningPrompt);
         expLearningConfirm = true;
         s.sourceStateTrace.add("PORTED/PARTIAL battle P23 game.h.aq confirm prompt skill="
                 + expSelectedLearnSkill + " candidates=" + Arrays.toString(expLearnSkillIds));
@@ -3686,29 +3856,272 @@ final class SourceBattleRuntime implements Blocking {
                     + (enemy == null ? -1 : enemy.hp) + " bunny=" + isBunnyCaptureBattle());
             return;
         }
-        BattleUnit unit = player.battleUnit;
-        expAward = sourceExpAward(enemy, unit, 1);
-        expOldStats = unit.sourceVisibleStats();
-        unit.addSourceExp(expAward);
-        expNewStats = unit.sourceVisibleStats();
-        expDisplayValue = Math.max(0, unit.exp - expAward);
+        if (!s.sourcePets.isEmpty() && player.battleUnit != null) {
+            s.sourcePets.get(0).persistBattleUnit(player.battleUnit);
+        }
+        prepareSourceExpAwards(s);
+        if (sourceExpDisplay.isEmpty()) {
+            expEligible = false;
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P8 EXP skipped game.d.j empty"
+                    + " participants=" + sourceExpParticipants.size());
+            return;
+        }
+        expDisplayIndex = 0;
+        if (!selectCurrentExpDisplayPet(s)) {
+            expEligible = false;
+            return;
+        }
         expHoldTicks = 0;
-        syncPlayerAfterExp(s, unit);
-        s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.d.h exp active-only species="
-                + unit.speciesId + " enemySpecies=" + enemy.speciesId
-                + " enemyLevel=" + enemy.level + " award=" + expAward
-                + " exp=" + expDisplayValue + "->" + unit.exp + "/" + unit.nextLevelEnergy()
-                + " participants=1 share/passive-exp=PENDING");
+    }
+
+    private void resetSourceExpVectors(VqsvIntroDemo.Scene s) {
+        sourceExpParticipants.clear();
+        sourceExpDisplay.clear();
+        expDisplayIndex = 0;
+        expCurrentPet = null;
+        expCurrentUnit = null;
+        for (SourcePetState pet : s.sourcePets) {
+            pet.sourcePendingExp = 0;
+            pet.sourceExpStart = 0;
+            pet.sourceExpParticipant = false;
+            pet.sourceExpDisplay = false;
+        }
+        s.sourceStateTrace.add("PORTED/PARTIAL battle EXP reset source vectors game.d.x/game.d.j/game.b.B");
+    }
+
+    private void addSourceExpParticipant(VqsvIntroDemo.Scene s, SourcePetState pet, String reason) {
+        if (pet == null || sourceExpParticipants.contains(pet)) {
+            return;
+        }
+        sourceExpParticipants.add(pet);
+        pet.sourceExpParticipant = true;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle EXP game.d.x add species="
+                + pet.speciesId + " level=" + pet.level
+                + " xSize=" + sourceExpParticipants.size()
+                + " reason=" + reason);
+    }
+
+    private void pruneSourceExpVectors(VqsvIntroDemo.Scene s, String reason) {
+        for (int i = 0; i < sourceExpParticipants.size(); i++) {
+            SourcePetState pet = sourceExpParticipants.get(i);
+            if (sourcePetAlive(pet)) {
+                continue;
+            }
+            pet.sourceExpParticipant = false;
+            pet.sourcePendingExp = 0;
+            sourceExpParticipants.remove(i--);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle EXP game.d.x remove dead species="
+                    + (pet == null ? -1 : pet.speciesId) + " reason=" + reason);
+        }
+        for (int i = 0; i < sourceExpDisplay.size(); i++) {
+            SourcePetState pet = sourceExpDisplay.get(i);
+            if (sourcePetAlive(pet)) {
+                continue;
+            }
+            pet.sourceExpDisplay = false;
+            pet.sourcePendingExp = 0;
+            sourceExpDisplay.remove(i--);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle EXP game.d.j remove dead species="
+                    + (pet == null ? -1 : pet.speciesId) + " reason=" + reason);
+        }
+    }
+
+    private void prepareSourceExpAwards(VqsvIntroDemo.Scene s) {
+        sourceExpDisplay.clear();
+        for (SourcePetState pet : s.sourcePets) {
+            pet.sourceExpDisplay = false;
+        }
+        pruneSourceExpVectors(s, "P8 prepare");
+        if (sourceExpParticipants.isEmpty() && !s.sourcePets.isEmpty()) {
+            addSourceExpParticipant(s, s.sourcePets.get(0), "P8 fallback active f[0]");
+        }
+        int participantCount = Math.max(1, Math.min(6, sourceExpParticipants.size()));
+        BattleUnit lastDirectParticipant = null;
+        for (SourcePetState pet : sourceExpParticipants) {
+            BattleUnit unit = BattleUnit.fromSourcePet(pet, (byte) 0);
+            if (!unit.alive()) {
+                continue;
+            }
+            lastDirectParticipant = unit;
+            pet.sourceExpStart = unit.exp;
+            int award = sourceExpAward(enemy, unit, participantCount);
+            if (unit.hasSourceFormStatus(5)) {
+                int multiplier = sourceStatusParam(5, 5, 0);
+                award = award * (multiplier + 100) / 100;
+            }
+            pet.sourcePendingExp += award;
+            addSourceExpDisplayPet(pet);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.d.h direct EXP species="
+                    + unit.speciesId + " level=" + unit.level
+                    + " enemySpecies=" + enemy.speciesId
+                    + " enemyLevel=" + enemy.level
+                    + " award=" + award
+                    + " B=" + pet.sourcePendingExp
+                    + " expStart=" + pet.sourceExpStart
+                    + " participants=" + participantCount
+                    + " form5Multiplier=" + unit.hasSourceFormStatus(5));
+        }
+        int reserveLevelFactorLevel = lastDirectParticipant == null ? 1 : lastDirectParticipant.level;
+        boolean globalShare = sourceGlobalState(s, 7, 0) == 2;
+        for (SourcePetState pet : s.sourcePets) {
+            if (pet == null || sourceExpParticipants.contains(pet)) {
+                continue;
+            }
+            BattleUnit unit = BattleUnit.fromSourcePet(pet, (byte) 0);
+            if (!unit.alive()) {
+                continue;
+            }
+            int divisor;
+            String reason;
+            if (globalShare) {
+                divisor = 3000;
+                reason = "game.g.B[7][0]==2";
+            } else if (unit.hasSourceFormStatus(6)) {
+                divisor = 1000;
+                reason = "reserve f(6)";
+            } else {
+                continue;
+            }
+            pet.sourceExpStart = unit.exp;
+            int award = sourceExpAward(enemy, reserveLevelFactorLevel, participantCount, divisor);
+            pet.sourcePendingExp += award;
+            addSourceExpDisplayPet(pet);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.d.h reserve EXP species="
+                    + unit.speciesId + " level=" + unit.level
+                    + " enemySpecies=" + enemy.speciesId
+                    + " enemyLevel=" + enemy.level
+                    + " award=" + award
+                    + " B=" + pet.sourcePendingExp
+                    + " expStart=" + pet.sourceExpStart
+                    + " participants=" + participantCount
+                    + " divisor=" + divisor
+                    + " levelFactorFromLastX=" + reserveLevelFactorLevel
+                    + " reason=" + reason);
+        }
+        consumeSourceExpAwards(s);
+    }
+
+    private void consumeSourceExpAwards(VqsvIntroDemo.Scene s) {
+        for (int i = 0; i < sourceExpDisplay.size(); i++) {
+            SourcePetState pet = sourceExpDisplay.get(i);
+            if (!sourcePetAlive(pet)) {
+                pet.sourceExpDisplay = false;
+                pet.sourcePendingExp = 0;
+                sourceExpDisplay.remove(i--);
+                s.sourceStateTrace.add("PORTED battle P8 game.d.X remove dead game.d.j species="
+                        + (pet == null ? -1 : pet.speciesId));
+                continue;
+            }
+            BattleUnit unit = BattleUnit.fromSourcePet(pet, (byte) 0);
+            int pending = Math.max(0, pet.sourcePendingExp);
+            unit.addSourceExp(pending);
+            pet.sourcePendingExp = 0;
+            pet.persistBattleUnit(unit);
+            pet.sourceD(false);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.d.X commit B->S species="
+                    + unit.speciesId + " exp=" + pet.sourceExpStart + "->" + unit.exp
+                    + " pending=" + pending
+                    + " jSize=" + sourceExpDisplay.size()
+                    + " sourceD=false");
+        }
+        applySourcePostExpPassiveHeal(s);
+    }
+
+    void debugInjectSourceExpDisplayForSmoke(SourcePetState pet, int pending) {
+        sourceExpDisplay.clear();
+        if (pet == null) {
+            return;
+        }
+        pet.sourcePendingExp = Math.max(0, pending);
+        pet.sourceExpStart = sourcePetExp(pet);
+        addSourceExpDisplayPet(pet);
+    }
+
+    void debugRunSourceExpConsumerForSmoke(VqsvIntroDemo.Scene s) {
+        consumeSourceExpAwards(s);
+    }
+
+    private void addSourceExpDisplayPet(SourcePetState pet) {
+        if (pet == null || sourceExpDisplay.contains(pet)) {
+            return;
+        }
+        sourceExpDisplay.add(pet);
+        pet.sourceExpDisplay = true;
+    }
+
+    private boolean selectCurrentExpDisplayPet(VqsvIntroDemo.Scene s) {
+        while (expDisplayIndex < sourceExpDisplay.size()) {
+            SourcePetState pet = sourceExpDisplay.get(expDisplayIndex);
+            BattleUnit unit = BattleUnit.fromSourcePet(pet, (byte) 0);
+            if (!unit.alive() || unit.level >= 50) {
+                s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.h.a skip jIndex="
+                        + expDisplayIndex + " species=" + unit.speciesId
+                        + " alive=" + unit.alive() + " level=" + unit.level);
+                expDisplayIndex++;
+                continue;
+            }
+            expCurrentPet = pet;
+            expCurrentUnit = unit;
+            expAward = Math.max(0, unit.exp - Math.max(0, pet.sourceExpStart));
+            expDisplayValue = Math.max(0, Math.min(pet.sourceExpStart, unit.nextLevelEnergy()));
+            expOldStats = unit.sourceVisibleStats();
+            expNewStats = unit.sourceVisibleStats();
+            expLevelUpPending = false;
+            expLevelUpApplied = false;
+            expLearningSkill = false;
+            expLearningConfirm = false;
+            expLearnSkillIds = new int[0];
+            expSelectedLearnSkill = -1;
+            expHoldTicks = 0;
+            syncExpPetAfterExp(s, unit);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.h.a select game.d.j index="
+                    + expDisplayIndex + "/" + sourceExpDisplay.size()
+                    + " species=" + unit.speciesId
+                    + " level=" + unit.level
+                    + " exp=" + expDisplayValue + "->" + unit.exp
+                    + "/" + unit.nextLevelEnergy()
+                    + " award=" + expAward);
+            return true;
+        }
+        expCurrentPet = null;
+        expCurrentUnit = null;
+        return false;
+    }
+
+    private boolean finishCurrentExpPet(VqsvIntroDemo.Scene s, String reason) {
+        if (expCurrentUnit != null) {
+            syncExpPetAfterExp(s, expCurrentUnit);
+        }
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P8 finish game.d.j index="
+                + expDisplayIndex + "/" + sourceExpDisplay.size()
+                + " reason=" + reason);
+        expDisplayIndex++;
+        expLevelUpPending = false;
+        expLevelUpApplied = false;
+        expLearningSkill = false;
+        expLearningConfirm = false;
+        expLearnSkillIds = new int[0];
+        expSelectedLearnSkill = -1;
+        if (selectCurrentExpDisplayPet(s)) {
+            return true;
+        }
+        expEligible = false;
+        return false;
     }
 
     private int sourceExpAward(SourceBattleUnit defeated, BattleUnit participant, int participantCount) {
+        return sourceExpAward(defeated, Math.max(1, participant.level), participantCount, 1000);
+    }
+
+    private int sourceExpAward(SourceBattleUnit defeated, int levelFactorLevel,
+                               int participantCount, int divisor) {
         int enemyLevel = Math.max(1, defeated.level);
         int quality = Math.max(1, Math.min(5, defeated.nature));
         int[] aG = {10, 11, 12, 13, 15};
         int[] aH = {10, 12, 13, 14, 15, 16};
         int[] aI = {105, 100, 80, 60, 40, 20, 5};
         int base = (((enemyLevel << 1) * enemyLevel + 50) * aG[quality - 1] / 10) + 400;
-        int diff = Math.max(1, participant.level) - enemyLevel;
+        int diff = Math.max(1, levelFactorLevel) - enemyLevel;
         int levelFactor;
         if (diff >= 6) {
             levelFactor = aI[6];
@@ -3720,23 +4133,164 @@ final class SourceBattleRuntime implements Blocking {
             levelFactor = aI[0];
         }
         int count = Math.max(1, Math.min(6, participantCount));
-        return Math.max(0, base / count * aH[count - 1] * levelFactor / 1000);
+        return Math.max(0, base / count * aH[count - 1] * levelFactor / Math.max(1, divisor));
+    }
+
+    private int sourceStatusParam(int statusId, int index, int fallback) {
+        BattleStatusRow row = VqsvBattleTables.instance().status(statusId);
+        return row == null ? fallback : VqsvBattleTables.get(row.raw, index, fallback);
+    }
+
+    private int sourcePetExp(SourcePetState pet) {
+        return pet != null && pet.sourcePayload != null && pet.sourcePayload.length > 7
+                ? pet.sourcePayload[7]
+                : 0;
+    }
+
+    private void applySourcePostExpPassiveHeal(VqsvIntroDemo.Scene s) {
+        if (sourceGlobalState(s, 0, 0) != 2 || sourceGlobalState(s, 0, 1) != 1) {
+            return;
+        }
+        for (SourcePetState pet : s.sourcePets) {
+            if (!sourcePetAlive(pet)) {
+                continue;
+            }
+            BattleUnit unit = BattleUnit.fromSourcePet(pet, (byte) 0);
+            int before = unit.hp();
+            int heal = sourcePostExpPassiveHealAmount(unit.speciesId);
+            unit.heal(heal);
+            pet.persistBattleUnit(unit);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.d.X passive heal B[0][0/1]"
+                    + " species=" + unit.speciesId
+                    + " hp=" + before + "->" + unit.hp()
+                    + " heal=" + heal
+                    + " sourceQ=PENDING");
+        }
+    }
+
+    private int sourcePostExpPassiveHealAmount(int speciesId) {
+        BattleSpeciesRow species = VqsvBattleTables.instance().species(speciesId);
+        short[] passiveRow = VqsvBattleTables.instance().row(2, 0);
+        int baseHp = species == null ? 0 : VqsvBattleTables.get(species.raw, 5, 0);
+        int percent = VqsvBattleTables.get(passiveRow, 6, 0);
+        return Math.max(0, baseHp * percent / 100);
+    }
+
+    private int sourceGlobalState(VqsvIntroDemo.Scene s, int group, int slot) {
+        if (s == null || group < 0 || group >= s.sourceGlobalState.length
+                || slot < 0 || slot >= s.sourceGlobalState[group].length) {
+            return 0;
+        }
+        return s.sourceGlobalState[group][slot];
+    }
+
+    private SourceEvolutionNotice produceSourceEvolutionQueue(VqsvIntroDemo.Scene s, BattleUnit unit) {
+        SourceEvolutionNotice notice = sourceEvolutionNotice(s, unit);
+        if (notice == null) {
+            return null;
+        }
+        s.sourceEvolutionQueue.add(notice);
+        s.sourceEvolutionL[0] = notice.currentLevel;
+        s.sourceEvolutionL[1] = notice.currentSpeciesId;
+        s.sourceEvolutionI = 0;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P22 game.b.J evolution queue species="
+                + notice.currentSpeciesId + " target=" + notice.targetSpeciesId
+                + " sourceR=" + notice.sourceR
+                + " level=" + notice.currentLevel + "/" + notice.requiredLevel
+                + " material=" + notice.materialId + " count=" + notice.materialCount
+                + "/" + notice.materialNeed
+                + " materialBlocksConfirm=" + !notice.materialEnough
+                + " game.k.H.size=" + s.sourceEvolutionQueue.size()
+                + " game.k.L=[" + s.sourceEvolutionL[0] + "," + s.sourceEvolutionL[1] + "]"
+                + " game.k.I=" + s.sourceEvolutionI
+                + " ui/effect=PENDING");
+        return notice;
+    }
+
+    private SourceEvolutionNotice sourceEvolutionNotice(VqsvIntroDemo.Scene s, BattleUnit unit) {
+        BattleSpeciesRow current = VqsvBattleTables.instance().species(unit.speciesId);
+        if (current == null || !current.validForBattle()) {
+            return null;
+        }
+        int targetSpecies = VqsvBattleTables.get(current.raw, 19, -1);
+        if (targetSpecies == -1) {
+            return null;
+        }
+        BattleSpeciesRow target = VqsvBattleTables.instance().species(targetSpecies);
+        if (target == null || !target.validForBattle()) {
+            return null;
+        }
+        int targetKind = VqsvBattleTables.get(target.raw, 2, -1);
+        int sourceR = sourceEvolutionKind(targetKind);
+        if (sourceR <= 0) {
+            return null;
+        }
+        int requiredLevel = sourceEvolutionRequiredLevel(targetKind);
+        if (unit.level < requiredLevel) {
+            return null;
+        }
+        int materialId = VqsvBattleTables.get(current.raw, 20, -13) + 12;
+        int materialNeed = VqsvBattleTables.get(current.raw, 21, 0);
+        int materialCount = sourceEvolutionMaterialCount(s, materialId);
+        boolean materialEnough = materialNeed <= 0 || materialCount >= materialNeed;
+        return new SourceEvolutionNotice(unit.speciesId,
+                VqsvBattleTables.get(current.raw, 0, -1),
+                unit.level,
+                targetSpecies,
+                VqsvBattleTables.get(target.raw, 0, -1),
+                targetKind,
+                requiredLevel,
+                materialId,
+                materialNeed,
+                materialCount,
+                sourceR,
+                materialEnough);
+    }
+
+    private static int sourceEvolutionKind(int targetKind) {
+        if (targetKind == 1 || targetKind == 2) {
+            return 1;
+        }
+        if (targetKind == 3) {
+            return 2;
+        }
+        return 0;
+    }
+
+    private static int sourceEvolutionRequiredLevel(int targetKind) {
+        int[] sourceLevels = {12, 30, 5};
+        int index = targetKind - 1;
+        if (index < 0 || index >= sourceLevels.length) {
+            return Integer.MAX_VALUE;
+        }
+        return sourceLevels[index];
+    }
+
+    private static int sourceEvolutionMaterialCount(VqsvIntroDemo.Scene s, int materialId) {
+        if (materialId < 0) {
+            return 0;
+        }
+        SourceSpecialReward reward = s.sourceSpecialRewards.get(materialId);
+        return reward == null ? 0 : Math.max(0, reward.stackCount);
     }
 
     private VqsvBattleLevelUpView levelUpView(VqsvIntroDemo.Scene s, BattleUnit unit, boolean leveled) {
         int expMax = unit.nextLevelEnergy();
         int shown = Math.max(0, Math.min(expDisplayValue, expMax));
-        return new VqsvBattleLevelUpView(true, leveled, player.name, player.visualId, player.element,
+        SourceBattleUnit render = unit.toRenderUnit(true);
+        return new VqsvBattleLevelUpView(true, leveled, render.name, render.visualId, render.element,
                 unit.level, shown, expMax, shown * 100 / Math.max(1, expMax),
                 expOldStats, expNewStats,
                 leveled && expLearnSkillIds.length > 0 ? VqsvText.Battle.LEVEL_UP_LEARN_PENDING : "");
     }
 
-    private void syncPlayerAfterExp(VqsvIntroDemo.Scene s, BattleUnit unit) {
-        if (!s.sourcePets.isEmpty()) {
-            s.sourcePets.get(0).persistBattleUnit(unit);
+    private void syncExpPetAfterExp(VqsvIntroDemo.Scene s, BattleUnit unit) {
+        if (expCurrentPet != null) {
+            expCurrentPet.persistBattleUnit(unit);
         }
-        player = unit.toRenderUnit(true);
+        if (!s.sourcePets.isEmpty() && s.sourcePets.get(0) == expCurrentPet) {
+            player = unit.toRenderUnit(true);
+        }
         syncRenderState(s, battleWinLog());
     }
 
@@ -3826,6 +4380,9 @@ final class SourceBattleRuntime implements Blocking {
         s.battleUiMode = "warning";
         s.battleWarningTitle = message;
         s.battleWarningPrompt = VqsvText.Battle.WARNING_PROMPT;
+        s.text = TextBox.msgWarm(message, VqsvText.Battle.WARNING_PROMPT);
+        s.sourceStateTrace.add("PORTED battle warning uses game.h.E()/a(text,prompt) /data/ui/msgwarm.ui"
+                + " return=" + returnState.label);
         enterState(s, BattleRuntimeState.WARNING, message, SHORT_WAIT);
     }
 

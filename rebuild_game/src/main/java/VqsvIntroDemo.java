@@ -191,6 +191,7 @@ public final class VqsvIntroDemo extends JPanel {
         boolean keyDown;
         boolean keyLeft;
         boolean keyRight;
+        boolean keyBack;
         Blocking current;
         int followActorId = -1;
         int worldEventActor = -1;
@@ -207,6 +208,8 @@ public final class VqsvIntroDemo extends JPanel {
         String battlePlayerName = "";
         String battleLog = "";
         String battleUiMode = "command";
+        int battleUiModeStartTick = 0;
+        int battleLevelUpTicks = 0;
         String battleMenuTitle = "";
         String battleMenuSubtitle = "";
         String battleMenuAction = "";
@@ -216,6 +219,7 @@ public final class VqsvIntroDemo extends JPanel {
         int[] battleMenuIds = new int[0];
         int[] battleMenuIconIds = new int[0];
         int battleMenuIndex = 0;
+        int battleMenuScroll = 0;
         VqsvBattlePetStateView[] battlePetStateRows = VqsvBattlePetStateView.EMPTY_ARRAY;
         String[] battleSkillNames = new String[0];
         String[] battleSkillPpLabels = new String[0];
@@ -339,6 +343,14 @@ public final class VqsvIntroDemo extends JPanel {
         final VqsvEventState eventState = new VqsvEventState();
         final List<SourcePetState> sourcePets = new ArrayList<>();
         final List<SourcePetState> sourcePetBank = new ArrayList<>();
+        final byte[][] sourceGlobalState = new byte[8][2];
+        final List<SourceEvolutionNotice> sourceEvolutionQueue = new ArrayList<>();
+        final int[] sourceEvolutionL = new int[]{-1, -1};
+        int sourceEvolutionI = 0;
+        int sourceEvolutionNoticeIndex = 0;
+        boolean sourceEvolutionK = false;
+        int sourceEvolutionTutorialU = -1;
+        boolean sourceEvolutionTutorialPending = false;
         final List<String> sourceStateTrace = eventState.trace;
         boolean sourceGameCF = false;
         int sourcePetRefreshOps = 0;
@@ -349,6 +361,16 @@ public final class VqsvIntroDemo extends JPanel {
         int savePromptClickX = -1;
         int savePromptClickY = -1;
         boolean worldPetstateVisible = false;
+        boolean sourceEvolveVisible = false;
+        int sourceEvolvePetIndex = -1;
+        SourceEvolutionNotice sourceEvolveNotice;
+        int[] sourceEvolveOldStats = new int[]{0, 0, 0, 0};
+        int[] sourceEvolveNewStats = new int[]{0, 0, 0, 0};
+        int sourceEvolveOldVisualId = -1;
+        int sourceEvolveNewVisualId = -1;
+        int sourceEvolvePhase = 0;
+        int sourceEvolveEffectTicks = 0;
+        boolean sourceEvolveSucceeded = false;
 
         void press0() {
             key0 = true;
@@ -367,6 +389,14 @@ public final class VqsvIntroDemo extends JPanel {
                 savePromptClickX = x;
                 savePromptClickY = y;
                 key0 = true;
+                return;
+            }
+            if (sourceEvolveVisible) {
+                if (x >= 190 && y >= 288) {
+                    keyBack = true;
+                } else {
+                    key0 = true;
+                }
                 return;
             }
             if (worldPetstateVisible) {
@@ -407,6 +437,10 @@ public final class VqsvIntroDemo extends JPanel {
                 case KeyEvent.VK_NUMPAD6:
                     keyRight = pressed;
                     break;
+                case KeyEvent.VK_ESCAPE:
+                case KeyEvent.VK_BACK_SPACE:
+                    keyBack = pressed;
+                    break;
                 default:
                     break;
             }
@@ -414,8 +448,13 @@ public final class VqsvIntroDemo extends JPanel {
 
         void tick() {
             effect.tick();
-            if (battleOverlayTicks > 0) {
+            if (battleOverlayTicks > 0 || worldPetstateVisible || sourceEvolveVisible) {
                 battleAnimationTick++;
+            }
+            if ("levelup".equals(battleUiMode)) {
+                battleLevelUpTicks++;
+            } else {
+                battleLevelUpTicks = 0;
             }
             if (text != null) {
                 text.tick(font);
@@ -423,9 +462,18 @@ public final class VqsvIntroDemo extends JPanel {
                     text = null;
                 }
             }
+            if (sourceEvolveVisible) {
+                tickSourceEvolve();
+                key0 = false;
+                keyBack = false;
+                keyUp = false;
+                keyDown = false;
+                return;
+            }
             if (worldPetstateVisible) {
                 tickWorldPetstate();
                 key0 = false;
+                keyBack = false;
                 keyUp = false;
                 keyDown = false;
                 return;
@@ -449,6 +497,28 @@ public final class VqsvIntroDemo extends JPanel {
                 }
                 current = null;
             }
+            if (current == null && startSourceEvolutionTutorialBridgeIfReady()) {
+                key0 = false;
+                for (Actor a : actors) {
+                    if (a != null) {
+                        a.tick();
+                    }
+                }
+                player.tick();
+                updateCameraFollow();
+                return;
+            }
+            if (current == null && startSourceEvolutionNoticeIfReady()) {
+                key0 = false;
+                for (Actor a : actors) {
+                    if (a != null) {
+                        a.tick();
+                    }
+                }
+                player.tick();
+                updateCameraFollow();
+                return;
+            }
             int guard = 0;
             while (current == null && eventIndex < events.size() && guard++ < 8) {
                 current = events.get(eventIndex++).start(this);
@@ -458,6 +528,7 @@ public final class VqsvIntroDemo extends JPanel {
                 current = null;
             }
             key0 = false;
+            keyBack = false;
             for (Actor a : actors) {
                 if (a != null) {
                     a.tick();
@@ -467,12 +538,117 @@ public final class VqsvIntroDemo extends JPanel {
             updateCameraFollow();
         }
 
+        private boolean startSourceEvolutionNoticeIfReady() {
+            if (sourceEvolutionI != 0 || sourceEvolutionQueue.isEmpty()) {
+                return false;
+            }
+            if (text != null || choice != null || savePromptVisible || worldPetstateVisible
+                    || battleOverlayTicks > 0 || eventIndex < events.size()) {
+                return false;
+            }
+            if (sourceEvolutionNoticeIndex >= sourceEvolutionQueue.size()) {
+                sourceEvolutionQueue.clear();
+                sourceEvolutionNoticeIndex = 0;
+                sourceEvolutionI = 1;
+                sourceStateTrace.add("PORTED/PARTIAL game.k evolution notice queue exhausted"
+                        + " game.k.H.clear ac=0 game.k.I=1");
+                return false;
+            }
+
+            SourceEvolutionNotice notice = sourceEvolutionQueue.get(sourceEvolutionNoticeIndex);
+            boolean detailed = sourceEvolutionNoticeIndex == sourceEvolutionQueue.size() - 1
+                    && sourceEvolutionL[0] != -1;
+            String action = notice.targetKind == 3 ? VqsvText.Evolution.MUTATE : VqsvText.Evolution.EVOLVE;
+            String petName = sourceEvolutionPetName(notice);
+            text = detailed
+                    ? TextBox.msgWarm(VqsvText.Evolution.noticeDetailed(petName, action),
+                            VqsvText.Evolution.CONTINUE_PROMPT_5)
+                    : TextBox.openBox(VqsvText.Evolution.noticeSimple(petName, action));
+            current = new SourceEvolutionNoticeBlocking(detailed);
+            sourceStateTrace.add("PORTED/PARTIAL game.k evolution notice consume ac="
+                    + sourceEvolutionNoticeIndex
+                    + " species=" + notice.currentSpeciesId
+                    + " target=" + notice.targetSpeciesId
+                    + " targetKind=" + notice.targetKind
+                    + " detail=" + detailed
+                    + " text=" + (detailed ? "S.a/msgwarm-shaped" : "S.b/openbox-shaped")
+                    + " prompt=" + (detailed ? VqsvText.Evolution.CONTINUE_PROMPT_5 : "none")
+                    + " evolve.ui=PENDING");
+            sourceEvolutionNoticeIndex++;
+            return true;
+        }
+
+        private boolean startSourceEvolutionTutorialBridgeIfReady() {
+            if (!sourceEvolutionTutorialPending || sourceEvolutionK || sourceEvolutionL[0] == -1) {
+                return false;
+            }
+            if (text != null || choice != null || savePromptVisible || worldPetstateVisible
+                    || battleOverlayTicks > 0 || eventIndex < events.size()) {
+                return false;
+            }
+            if (!key0) {
+                return false;
+            }
+            sourceEvolutionTutorialPending = false;
+            sourceEvolutionK = true;
+            sourceEvolutionTutorialU = 4;
+            openWorldPetstate();
+            int row = findSourceEvolutionPetIndex();
+            if (row >= 0) {
+                battleMenuIndex = row;
+            }
+            sourceStateTrace.add("PORTED/PARTIAL game.k evolution tutorial bridge"
+                    + " U=4 K=true L=[" + sourceEvolutionL[0] + "," + sourceEvolutionL[1] + "]"
+                    + " selectedPetIndex=" + battleMenuIndex
+                    + " next=evolve.ui-on-confirm");
+            return true;
+        }
+
+        private int findSourceEvolutionPetIndex() {
+            for (int i = 0; i < sourcePets.size(); i++) {
+                SourcePetState pet = sourcePets.get(i);
+                if (pet.level == sourceEvolutionL[0] && pet.speciesId == sourceEvolutionL[1]) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private String sourceEvolutionPetName(SourceEvolutionNotice notice) {
+            BattleSpeciesRow row = VqsvBattleTables.instance().species(notice.currentSpeciesId);
+            if (row != null && row.validForBattle()) {
+                return row.name("Pet " + notice.currentSpeciesId);
+            }
+            return "Pet " + notice.currentSpeciesId;
+        }
+
+        private static final class SourceEvolutionNoticeBlocking implements Blocking {
+            final boolean detailed;
+
+            SourceEvolutionNoticeBlocking(boolean detailed) {
+                this.detailed = detailed;
+            }
+
+            public boolean tick(Scene s) {
+                if (s.text != null && s.text.readyForKey && s.key0) {
+                    s.text.confirm();
+                    s.key0 = false;
+                    if (detailed) {
+                        s.sourceEvolutionTutorialPending = true;
+                    }
+                    return true;
+                }
+                return false;
+            }
+        }
+
         void render(Graphics2D g) {
             VqsvSceneView.render(this, g);
         }
 
         void openWorldPetstate() {
             worldPetstateVisible = true;
+            battleUiModeStartTick = battleAnimationTick;
             battleMenuTitle = VqsvText.Battle.PETSTATE_TITLE;
             battleMenuSubtitle = "";
             battleMenuAction = "";
@@ -511,9 +687,170 @@ public final class VqsvIntroDemo extends JPanel {
                 battleMenuIndex++;
             }
             if (key0) {
+                if (sourceEvolutionTutorialU == 4 && battleMenuIndex >= 0
+                        && battleMenuIndex < sourcePets.size()) {
+                    SourcePetState pet = sourcePets.get(battleMenuIndex);
+                    if (pet.level == sourceEvolutionL[0] && pet.speciesId == sourceEvolutionL[1]) {
+                        openSourceEvolveUi(battleMenuIndex);
+                        return;
+                    }
+                    sourceStateTrace.add("PORTED/PARTIAL game.k U=4 petstate wrong selection index="
+                            + battleMenuIndex + " species=" + pet.speciesId + " level=" + pet.level
+                            + " expected L=[" + sourceEvolutionL[0] + "," + sourceEvolutionL[1] + "]");
+                    return;
+                }
                 worldPetstateVisible = false;
                 sourceStateTrace.add("PORTED/PARTIAL world petstate.ui close");
             }
+        }
+
+        private void openSourceEvolveUi(int petIndex) {
+            sourceEvolveNotice = VqsvSourceEvolutionRuntime.noticeForPet(this, petIndex);
+            sourceEvolveVisible = true;
+            sourceEvolvePetIndex = petIndex;
+            sourceEvolvePhase = 0;
+            sourceEvolveEffectTicks = 0;
+            sourceEvolveSucceeded = false;
+            worldPetstateVisible = false;
+            refreshSourceEvolvePanelFromPet();
+            sourceStateTrace.add("PORTED/PARTIAL game.h.bg evolve.ui open petIndex=" + petIndex
+                    + " notice=" + (sourceEvolveNotice == null ? "none"
+                    : sourceEvolveNotice.currentSpeciesId + "->" + sourceEvolveNotice.targetSpeciesId)
+                    + " widget=10/38/40/45/46 stats=19..22/31..34");
+        }
+
+        private void tickSourceEvolve() {
+            if (sourceEvolvePhase == 1) {
+                sourceEvolveEffectTicks++;
+                if (sourceEvolveEffectTicks >= sourceEvolveType10Duration()) {
+                    SourceEvolutionNotice completedNotice = sourceEvolveNotice;
+                    VqsvSourceEvolutionRuntime.mutatePet(this, sourceEvolvePetIndex, completedNotice);
+                    String action = completedNotice.targetKind == 3
+                            ? VqsvText.Evolution.MUTATE : VqsvText.Evolution.EVOLVE;
+                    String targetName = sourceEvolutionTargetName(completedNotice);
+                    refreshSourceEvolvePanelFromPet();
+                    text = TextBox.msgWarm(action + " th\u00e0nh #2" + targetName,
+                            VqsvText.Evolution.CONTINUE_PROMPT_5);
+                    sourceEvolvePhase = 2;
+                    sourceEvolveSucceeded = true;
+                    sourceStateTrace.add("PORTED/PARTIAL game.h.bh ah effect complete successMsg target="
+                            + completedNotice.targetSpeciesId
+                            + " refresh current="
+                            + (sourceEvolveNotice == null ? "none"
+                            : sourceEvolveNotice.currentSpeciesId + "->" + sourceEvolveNotice.targetSpeciesId));
+                }
+                return;
+            }
+            if (text != null) {
+                if (text.readyForKey && key0) {
+                    text.confirm();
+                    key0 = false;
+                    if (sourceEvolvePhase == 2) {
+                        if (sourceEvolveSucceeded) {
+                            sourceEvolvePhase = 0;
+                            sourceStateTrace.add("PORTED/PARTIAL game.h.bh close msgwarm success=true return f=2 evolve.ui");
+                        } else {
+                            sourceEvolvePhase = 0;
+                            sourceStateTrace.add("PORTED/PARTIAL game.h.bh close msgwarm warning return f=2 evolve.ui");
+                        }
+                    }
+                }
+                return;
+            }
+            if (keyBack && sourceEvolvePhase < 2) {
+                closeSourceEvolveUi(false);
+                sourceStateTrace.add("PORTED game.h.bh back key closes evolve.ui f<3");
+                return;
+            }
+            if (!key0) {
+                return;
+            }
+            if (sourceEvolveNotice == null || sourceEvolveNotice.targetSpeciesId < 0) {
+                text = TextBox.msgWarm(VqsvText.Evolution.CANNOT_EVOLVE, VqsvText.Evolution.CONTINUE_PROMPT_5);
+                sourceEvolvePhase = 2;
+                return;
+            }
+            if (sourcePets.get(sourceEvolvePetIndex).level < sourceEvolveNotice.requiredLevel) {
+                text = TextBox.msgWarm(VqsvText.Evolution.levelTooLow(sourceEvolveNotice.requiredLevel),
+                        VqsvText.Evolution.CONTINUE_PROMPT_5);
+                sourceEvolvePhase = 2;
+                return;
+            }
+            int materialCount = VqsvSourceEvolutionRuntime.materialCount(this, sourceEvolveNotice.materialId);
+            if (materialCount < sourceEvolveNotice.materialNeed) {
+                String message = sourceEvolveNotice.targetKind == 3
+                        ? VqsvText.Evolution.MATERIAL_MISSING_MUTATE
+                        : VqsvText.Evolution.MATERIAL_MISSING_EVOLVE;
+                text = TextBox.msgWarm(message, VqsvText.Evolution.CONTINUE_PROMPT_5);
+                sourceEvolvePhase = 2;
+                return;
+            }
+            VqsvSourceEvolutionRuntime.consumeMaterial(this,
+                    sourceEvolveNotice.materialId, sourceEvolveNotice.materialNeed);
+            sourceEvolvePhase = 1;
+            sourceEvolveEffectTicks = 0;
+            sourceStateTrace.add("PORTED/PARTIAL game.h.bh start ah type10 row=[0,0,10,0,0,"
+                    + sourceEvolveOldVisualId + ",0,0," + sourceEvolveNewVisualId + ",0,0]"
+                    + " t=[0," + sourceEvolveNewVisualId + ",0,0]"
+                    + " consume material=" + sourceEvolveNotice.materialId
+                    + " qty=" + sourceEvolveNotice.materialNeed
+                    + " remaining=" + VqsvSourceEvolutionRuntime.materialCount(this, sourceEvolveNotice.materialId));
+        }
+
+        private void refreshSourceEvolvePanelFromPet() {
+            if (sourceEvolvePetIndex < 0 || sourceEvolvePetIndex >= sourcePets.size()) {
+                sourceEvolveNotice = null;
+                sourceEvolveOldStats = new int[]{0, 0, 0, 0};
+                sourceEvolveNewStats = new int[]{0, 0, 0, 0};
+                sourceEvolveOldVisualId = -1;
+                sourceEvolveNewVisualId = -1;
+                return;
+            }
+            SourcePetState pet = sourcePets.get(sourceEvolvePetIndex);
+            sourceEvolveNotice = VqsvSourceEvolutionRuntime.noticeForPet(this, sourceEvolvePetIndex);
+            sourceEvolveOldStats = VqsvSourceEvolutionRuntime.visibleStats(pet);
+            sourceEvolveNewStats = sourceEvolveNotice == null
+                    ? new int[]{0, 0, 0, 0}
+                    : VqsvSourceEvolutionRuntime.targetVisibleStats(pet, sourceEvolveNotice.targetSpeciesId);
+            BattleSpeciesRow current = VqsvBattleTables.instance().species(pet.speciesId);
+            BattleSpeciesRow target = sourceEvolveNotice == null ? null
+                    : VqsvBattleTables.instance().species(sourceEvolveNotice.targetSpeciesId);
+            sourceEvolveOldVisualId = current == null ? -1 : VqsvBattleTables.get(current.raw, 17, -1);
+            sourceEvolveNewVisualId = target == null ? -1 : VqsvBattleTables.get(target.raw, 17, -1);
+            sourceStateTrace.add("PORTED/PARTIAL game.h.bh refresh evolve.ui current="
+                    + pet.speciesId
+                    + " next=" + (sourceEvolveNotice == null ? -1 : sourceEvolveNotice.targetSpeciesId)
+                    + " material=" + (sourceEvolveNotice == null ? -1 : sourceEvolveNotice.materialId)
+                    + " count=" + (sourceEvolveNotice == null ? 0
+                    : VqsvSourceEvolutionRuntime.materialCount(this, sourceEvolveNotice.materialId))
+                    + "/" + (sourceEvolveNotice == null ? 0 : sourceEvolveNotice.materialNeed));
+        }
+
+        private int sourceEvolveType10Duration() {
+            return Math.max(1, sourceEvolveNewVisualId);
+        }
+
+        private void closeSourceEvolveUi(boolean success) {
+            sourceEvolveVisible = false;
+            sourceEvolvePetIndex = -1;
+            sourceEvolveNotice = null;
+            sourceEvolvePhase = 0;
+            sourceEvolveEffectTicks = 0;
+            sourceEvolveSucceeded = false;
+            sourceEvolutionL[0] = -1;
+            sourceEvolutionL[1] = -1;
+            sourceEvolutionTutorialU = -1;
+            sourceStateTrace.add("PORTED/PARTIAL game.h.bh close evolve.ui success=" + success
+                    + " reset game.k.L and tutorial U");
+        }
+
+        private String sourceEvolutionTargetName(SourceEvolutionNotice notice) {
+            BattleSpeciesRow row = notice == null ? null
+                    : VqsvBattleTables.instance().species(notice.targetSpeciesId);
+            if (row != null && row.validForBattle()) {
+                return row.name("Pet " + notice.targetSpeciesId);
+            }
+            return notice == null ? "" : "Pet " + notice.targetSpeciesId;
         }
 
         private void clickWorldPetstate(int x, int y) {

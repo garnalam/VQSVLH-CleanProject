@@ -24,6 +24,31 @@ final class VqsvText {
         static final String SAVE_SUCCESS = "L\u01b0u th\u00e0nh c\u00f4ng";
     }
 
+    static final class Evolution {
+        private Evolution() {
+        }
+
+        static final String EVOLVE = "Ti\u1ebfn h\u00f3a";
+        static final String MUTATE = "D\u1ecb ho\u00e1";
+        static final String CONTINUE_PROMPT_5 = "Nh\u1ea5n n\u00fat 5 \u0111\u1ec3 ti\u1ebfp t\u1ee5c";
+        static final String CANNOT_EVOLVE = "Kh\u00f4ng th\u1ec3 l\u1ea1i ti\u1ebfn h\u00f3a ho\u1eb7c d\u1ecb ho\u00e1";
+        static final String MATERIAL_MISSING_EVOLVE = "T\u00e0i li\u1ec7u ch\u01b0a \u0111\u1ee7, kh\u00f4ng th\u1ec3 ti\u1ebfn h\u00f3a";
+        static final String MATERIAL_MISSING_MUTATE = "T\u00e0i li\u1ec7u ch\u01b0a \u0111\u1ee7, kh\u00f4ng th\u1ec3 d\u1ecb ho\u00e1";
+
+        static String noticeSimple(String petName, String action) {
+            return "#2" + petName + "#0 c\u00f3 th\u1ec3" + action;
+        }
+
+        static String noticeDetailed(String petName, String action) {
+            return "Nh\u1ea5n #2" + petName + "#0 \u0111\u1ea1t t\u1edbi c\u00f3 th\u1ec3" + action
+                    + " \u0111i\u1ec1u ki\u1ec7n";
+        }
+
+        static String levelTooLow(int level) {
+            return "C\u00f2n ch\u01b0a t\u1edbi" + level + " c\u1ea5p, kh\u00f4ng th\u1ec3 v\u00e0o h\u00f3a";
+        }
+    }
+
     static final class Battle {
         private Battle() {
         }
@@ -90,6 +115,7 @@ final class VqsvText {
         static final String PETSTATE_TITLE = "S\u1ee7ng v\u1eadt trong h\u00e0nh trang";
         static final String PETSTATE_BATTLE = "Chi\u1ebfn \u0111\u1ea5u";
         static final String PETSTATE_DEPLOY = "Xu\u1ea5t chi\u1ebfn";
+        static final String PETSTATE_USE = "S\u1eed d\u1ee5ng";
         static final String PETSTATE_BACK = "Quay l\u1ea1i";
         static final String PETSTATE_ATTACK = "C\u00f4ng";
         static final String PETSTATE_DEFENSE = "Ph\u00f2ng";
