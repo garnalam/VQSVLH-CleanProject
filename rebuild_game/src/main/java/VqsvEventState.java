@@ -23,6 +23,18 @@ final class VqsvEventState {
         return sourceEventStateComplete(sceneId, roomIndex, groupIndex);
     }
 
+    Map<String, Byte> snapshotStates() {
+        return new HashMap<>(states);
+    }
+
+    void restoreStates(Map<String, Byte> snapshot) {
+        states.clear();
+        if (snapshot != null) {
+            states.putAll(snapshot);
+        }
+        trace.add("PORTED/PARTIAL save restore event states=" + states.size());
+    }
+
     void op23MarkEventComplete(int worldF, int worldG, int eventId) {
         setSourceEventState(worldF, worldG, eventId, 3, "op23");
     }

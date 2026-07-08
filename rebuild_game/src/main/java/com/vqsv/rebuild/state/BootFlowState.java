@@ -23,6 +23,9 @@ public final class BootFlowState implements GameState {
     private static final String[] MENU_WITHOUT_SAVE = {
             "Ch\u01a1i m\u1edbi", "T\u00f9y ch\u1ecdn", "Tr\u1ee3 gi\u00fap", "Gi\u1edbi thi\u1ec7u", "Tho\u00e1t"
     };
+    private static final String[] MENU_WITH_SAVE = {
+            "Ch\u01a1i ti\u1ebfp", "Ch\u01a1i m\u1edbi", "T\u00f9y ch\u1ecdn", "Tr\u1ee3 gi\u00fap", "Gi\u1edbi thi\u1ec7u", "Tho\u00e1t"
+    };
 
     private final AssetPaths assets;
     private final BufferedImage logo0;
@@ -38,6 +41,7 @@ public final class BootFlowState implements GameState {
     private int colorTick;
     private boolean menuParticlesPaused;
     private int menuParticlePauseTicks;
+    private boolean saveAvailable;
 
     public BootFlowState(AssetPaths assets) {
         this.assets = assets;
@@ -47,6 +51,7 @@ public final class BootFlowState implements GameState {
         this.cwaLogo = Files.isRegularFile(customLogo) ? loader.load(customLogo) : loader.load(assets.logoDecodedPng("cwalogo"));
         this.menuBackground = loader.load(assets.texDecodedPng("menu.mid"));
         this.particleImage = loader.loadDecodedImage(833);
+        this.saveAvailable = hasRebuildSave();
         resetMenuParticles();
     }
 
@@ -98,27 +103,69 @@ public final class BootFlowState implements GameState {
         return phase.name();
     }
 
+    public String selectedMenuLabelForSmoke() {
+        String[] labels = menuLabels();
+        return labels[Math.max(0, Math.min(selectedMenu, labels.length - 1))];
+    }
+
+    public boolean saveAvailableForSmoke() {
+        return menuLabels() == MENU_WITH_SAVE;
+    }
+
     private void updateTitleMenu(InputSnapshot input, GameStateMachine states) {
         if (input.wasPressed(KeyEvent.VK_UP) || input.wasPressed(KeyEvent.VK_NUMPAD8)
                 || input.wasPressed(KeyEvent.VK_8)) {
             selectedMenu--;
             if (selectedMenu < 0) {
-                selectedMenu = MENU_WITHOUT_SAVE.length - 1;
+                selectedMenu = menuLabels().length - 1;
             }
         } else if (input.wasPressed(KeyEvent.VK_DOWN) || input.wasPressed(KeyEvent.VK_NUMPAD2)
                 || input.wasPressed(KeyEvent.VK_2)) {
             selectedMenu++;
-            if (selectedMenu >= MENU_WITHOUT_SAVE.length) {
+            if (selectedMenu >= menuLabels().length) {
                 selectedMenu = 0;
             }
-        } else if ((input.confirmPressed() || clickedSelectedMenu(input)) && selectedMenu == 0) {
-            states.replace(new LegacyIntroDemoState());
+        } else if (input.confirmPressed() || clickedSelectedMenu(input)) {
+            if (saveAvailable && selectedMenu == 0) {
+                states.replace(new LegacyIntroDemoState(true));
+            } else if ((!saveAvailable && selectedMenu == 0) || (saveAvailable && selectedMenu == 1)) {
+                states.replace(new LegacyIntroDemoState());
+            }
+        }
+        if (selectedMenu >= menuLabels().length) {
+            selectedMenu = 0;
         }
         if (menuParticlesPaused) {
             menuParticlePauseTicks++;
             if (menuParticlePauseTicks >= 100) {
                 resetMenuParticles();
             }
+        }
+    }
+
+    private String[] menuLabels() {
+        boolean nowAvailable = hasRebuildSave();
+        if (nowAvailable != saveAvailable) {
+            saveAvailable = nowAvailable;
+            if (selectedMenu >= menuLabelsLength()) {
+                selectedMenu = 0;
+            }
+        }
+        return saveAvailable ? MENU_WITH_SAVE : MENU_WITHOUT_SAVE;
+    }
+
+    private int menuLabelsLength() {
+        return saveAvailable ? MENU_WITH_SAVE.length : MENU_WITHOUT_SAVE.length;
+    }
+
+    private boolean hasRebuildSave() {
+        try {
+            Class<?> saveClass = Class.forName("VqsvSaveRuntime");
+            java.lang.reflect.Method hasSave = saveClass.getDeclaredMethod("hasSave");
+            hasSave.setAccessible(true);
+            return ((Boolean) hasSave.invoke(null)).booleanValue();
+        } catch (ReflectiveOperationException exception) {
+            return false;
         }
     }
 
@@ -149,7 +196,8 @@ public final class BootFlowState implements GameState {
     private void renderTitleMenu(Graphics2D graphics) {
         graphics.drawImage(menuBackground, 0, 0, null);
         renderMenuParticles(graphics);
-        String text = MENU_WITHOUT_SAVE[selectedMenu];
+        String[] labels = menuLabels();
+        String text = labels[Math.max(0, Math.min(selectedMenu, labels.length - 1))];
         graphics.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         FontMetrics metrics = graphics.getFontMetrics();
         int x = (GameConfig.LOGICAL_WIDTH - metrics.stringWidth(text)) / 2;

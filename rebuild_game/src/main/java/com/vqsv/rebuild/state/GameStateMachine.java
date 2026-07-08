@@ -37,4 +37,9 @@ public final class GameStateMachine {
             current.render(graphics);
         }
     }
+
+    public String currentStateNameForSmoke() {
+        GameState current = stack.peek();
+        return current == null ? "none" : current.getClass().getSimpleName();
+    }
 }

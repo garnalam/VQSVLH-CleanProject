@@ -23,8 +23,10 @@ final class VqsvSourceEffects {
             pet.refreshFromSourceDb();
             s.sourcePetRefreshOps++;
         }
-        s.sourceStateTrace.add("PORTED/APPROX op39 refreshPets count=" + s.sourcePets.size()
-                + " refreshOps=" + s.sourcePetRefreshOps);
+        s.sourceStateTrace.add("PORTED/PARTIAL op39 game.c case39 -> game.g.z[i].I()"
+                + " refresh HP=max and skill PP=max count=" + s.sourcePets.size()
+                + " refreshOps=" + s.sourcePetRefreshOps
+                + " pending full game.b.c() visual/runtime side effects");
     }
 
     static void op25SetGameFlag(VqsvIntroDemo.Scene s, int arg0) {

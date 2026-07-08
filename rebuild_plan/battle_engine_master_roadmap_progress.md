@@ -29,10 +29,10 @@ numbers. The roadmap order is unchanged; only document numbers are shifted.
 | Phase 2 | `game.d` Turn/State Machine | PARTIAL / NEXT ACTIVE | Existing runtime has P0/P20/P3/P6/P7/P8/P9 plus shells | Create `74_battle_game_d_state_full_matrix.md`. |
 | Phase 3 | `game.h` Command/UI Runtime | PARTIAL | UI exists source-shaped, not full widget runtime | After Phase 2, create `75_battle_ui_game_h_widget_matrix.md`. |
 | Phase 4 | Damage Formula + Buff/Debuff | PARTIAL | `BattleUnit.computeDamage()` exists; buff/debuff lifecycle missing | After Phase 2/3 matrix, create `76_battle_damage_status_formula_full_matrix.md`, then code buff/debuff. |
-| Phase 5 | Item/Catch/Pet Switch Full Behavior | PARTIAL/APPROX | P21/P17/P4/P16/P5 shells exist; item behavior incomplete | Create `77_battle_catch_item_pet_switch_matrix.md` when Phase 4 dependencies are clear. |
+| Phase 5 | Item/Catch/Pet Switch Full Behavior | PARTIAL/APPROX | P21/P17/P4/P16/P5 are source-shaped and smoke-covered for current routes; catch/petstate UI still partial | Continue from `79`, `82..99`; next choose a small missing consumer, not broad polish. |
 | Phase 6 | P7 Effect Animation Engine | PARTIAL | Existing docs `56..62`, skill 15/45 slices, AH type 1/9, L effects | Later create `78_battle_effect_mid_full_matrix.md`, `79_battle_speffect_ah_full_matrix.md`, `80_battle_blood_bufdebuf_matrix.md`. |
 | Phase 7 | Actor Motion / Hit / Recover / Dead | PARTIAL | Existing docs `63..69`; some L and actor `u` slices ported | Later create `81_battle_actor_motion_state_matrix.md`. |
-| Phase 8 | Battle Entry/Exit + Event Integration | PARTIAL | Sophie/Bunny/Elder route currently passes with same runtime, but not broad | Later create `82_battle_event_opcode_integration_matrix.md`. |
+| Phase 8 | Battle Entry/Exit + Event Integration | PARTIAL | Sophie/Bunny/Elder route regressions pass; P8/P22/P23 EXP/levelUp/learn-skill source-shaped | Audit next event/UI consumer before new code. |
 | Phase 9 | Broad Skill Coverage | PARTIAL | `72` classifies skills, but coverage/smoke matrix not complete | Later create `83_battle_skill_coverage_matrix.md`. |
 | Phase 10 | Regression Suite | PARTIAL | Many smoke images/checks exist, but no single full battle regression suite | Later create `84_battle_regression_suite_matrix.md`. |
 
@@ -105,9 +105,10 @@ Progress update:
   `BattleUnit.applySourceBuff(...)` exists, `75_battle_game_d_q_post_skill_matrix.md`
   documents `game.d.q()` heal/buff/leech/reflect branches, and P7 calls the
   source-shaped post-skill resolver.
-- Remaining Phase 2/4 gaps are still real: P12/P13 active queue lifecycle,
-  forced replacement P15, EXP/level-up P22/P23, full item behavior, and broad
-  active-effect lifecycle coverage are not complete.
+- Remaining Phase 2/4/5/8 gaps are still real: full participant EXP vector
+  `game.d.x`, passive EXP share, exact `msgwarm.ui`/`choiceskill.ui` pixels,
+  evolution queue `game.b.J()`/`game.k.H`, full item/catch/petstate widget
+  runtime, and broad active-effect/skill coverage are not complete.
 
 ## Current Code Task Queue From Phase 1
 
@@ -178,6 +179,18 @@ Recommended ordering now:
    returning to P1. Full `game.d.an` parity remains PARTIAL for P0 entry,
    enemy replacement, side-marker `al[]`, group `1` multi-unit layout, and
    absolute MIDP sprite anchoring.
+16. P21/P17 catch, Bunny tutorial, RNG trace, catch storage/openbox, battle
+   marker/HUD, pet persistence, P5/petstate, save prompt, and world petstate
+   have been audited/ported in slices `82..99`. Current status is
+   PORTED/PARTIAL for the route-smoked behavior, not pixel-perfect.
+17. P8/P22 EXP and level-up are now ported for the active participant slice in
+   `100_battle_exp_levelup_source_audit.md`: source EXP formula, threshold,
+   stat refresh, `levelUp.ui` renderer, and focused smoke
+   `battle_exp_levelup_ui`.
+18. P23 learn-skill after level-up is now ported for the active-pet slice in
+   `101_battle_levelup_learn_skill_evolution_audit.md`: candidate skill list
+   from `game.b.F()`, `choiceskill.ui`, confirm prompt, and payload skill add.
+   Evolution queue from `game.b.J()` remains PENDING.
 
 ## Phase Dependency Rules
 
@@ -193,19 +206,24 @@ Recommended ordering now:
 ## Immediate Next Step
 
 Continue from the implemented P7/q, generalized P12/P13 queue, P16 item
-behavior parity, P5 pet switch parity, and P15 cpos slice:
+behavior parity, P5 pet switch parity, P15 cpos slice, P21/P17 Bunny/catch
+slices, petstate/save slices, and P8/P22/P23 EXP/levelUp/learn-skill slices:
 
 - Enemy-party/P15 data model now exists at current rebuild granularity.
 - P16 now validates and applies `game.b.x/w` item behavior `1..6` through
   selected active/reserve pet targets; HP/PP payload persistence is wired for
   current rebuild state.
-- Next roadmap-consistent target should move to either P21/P17 catch edge cases
-  or the remaining active-effect gaps with known consumers, depending on which
-  gameplay route is next.
+- Next roadmap-consistent target should be selected by source audit from the
+  remaining missing consumers:
+  - evolution queue `game.b.J()` -> `game.k.H/L/I` and its UI/effects;
+  - full EXP participant/share vector `game.d.x` and passive EXP share;
+  - exact `msgwarm.ui`/`choiceskill.ui` widget runtime;
+  - remaining catch/P17 pixel parity and full RNG route parity;
+  - remaining active-effect/skill consumers with real source callers.
 - Do not port AH type7 for active queue unless a source path outside current
   `ai` gate proves it is called; in P12/P13 it is currently NOT-CALLED.
-- Recommended next concrete code slice: P21/P17 catch edge cases if continuing
-  Phase 5, especially tutorial gating, no-ball/purchase path, chance/storage
-  parity, and exact catch animation lifecycle.
+- Recommended next concrete work: create an audit for the next user-visible
+  source consumer before coding. If continuing from level-up, audit the
+  evolution queue and its UI path first; do not guess the animation/UI.
 - Do not jump to broad UI polish or new effects until those state consumers are
   wired.

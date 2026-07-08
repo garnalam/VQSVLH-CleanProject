@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.BasicStroke;
+import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -29,12 +31,20 @@ final class VqsvSceneView {
         s.effect.renderParticles(g);
         s.effect.renderOverlay(g);
         VqsvBattleRenderer.render(s, g);
-        s.worldUi.render(g, s.useMap);
+        if (s.battleOverlayTicks <= 0) {
+            s.worldUi.render(g, s.useMap);
+        }
+        if (s.battleOverlayTicks <= 0 && s.worldPetstateVisible) {
+            VqsvBattleRenderer.renderPetStateOverlay(g, s.font, s, false);
+        }
         if (s.text != null) {
             s.text.render(g, s.font);
         }
         if (s.choice != null) {
             s.choice.render(g, s.font);
+        }
+        if (s.savePromptVisible) {
+            renderSavePrompt(s, g);
         }
     }
 
@@ -141,5 +151,41 @@ final class VqsvSceneView {
 
     private static int clamp(int v, int lo, int hi) {
         return Math.max(lo, Math.min(hi, v));
+    }
+
+    private static void renderSavePrompt(VqsvIntroDemo.Scene s, Graphics2D g) {
+        SpriteAnim ui = SpriteAnim.load(257);
+        drawCellTopLeft(ui, g, 124, 50, 137);
+        String message = s.savePromptStatus == null || s.savePromptStatus.isEmpty()
+                ? s.savePromptMessage : s.savePromptStatus;
+        int textWidth = s.font.width(message);
+        s.font.drawTaggedLine(g, message, 50 + (150 - textWidth) / 2, 153,
+                TextBox.visibleLength(TextBox.decodeMojibake(message)), 0x1c6c91);
+        drawConfirmSoftkey(g, 0, 296, true);
+        drawConfirmSoftkey(g, 216, 296, false);
+    }
+
+    private static void drawCellTopLeft(SpriteAnim ui, Graphics2D g, int cellId, int x, int y) {
+        int[] bounds = ui.cellBounds(cellId);
+        if (bounds == null) {
+            return;
+        }
+        ui.drawCell(g, cellId, x - bounds[0], y - bounds[1], 0);
+    }
+
+    private static void drawConfirmSoftkey(Graphics2D g, int x, int y, boolean confirm) {
+        Stroke oldStroke = g.getStroke();
+        g.setColor(new Color(0x1BA8E8));
+        g.fillOval(x, y, 24, 24);
+        g.setColor(Color.WHITE);
+        g.setStroke(new BasicStroke(4, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        if (confirm) {
+            g.drawLine(x + 5, y + 13, x + 10, y + 18);
+            g.drawLine(x + 10, y + 18, x + 20, y + 6);
+        } else {
+            g.drawLine(x + 7, y + 7, x + 17, y + 17);
+            g.drawLine(x + 17, y + 7, x + 7, y + 17);
+        }
+        g.setStroke(oldStroke);
     }
 }

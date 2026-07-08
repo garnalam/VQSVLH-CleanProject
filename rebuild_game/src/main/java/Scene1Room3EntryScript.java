@@ -16,6 +16,7 @@ final class Scene1Room3EntryScript {
 
     static void appendTo(List<Event> e) {
             e.add(s -> {
+                VqsvSourceStoryState.ensureInitialDienMieu(s, "scene1 room3 group0 entry before Sophie battle");
                 s.text = TextBox.full(60, 90, VqsvText.Scene1Room3BeforeTenYears.TEXT[0], true);
                 return VqsvSceneScriptSupport.waitForText();
             });

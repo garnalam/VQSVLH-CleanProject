@@ -21,6 +21,8 @@ final class Effect {
     private int tick;
     private int flashLimit;
     private int flashMode;
+    private int battleTransitionMode;
+    private int battleTransitionProgress;
     private int barsMode;
     private int barsProgress;
     private int barsTotal;
@@ -59,6 +61,14 @@ final class Effect {
         tick = 0;
         flashLimit = limit;
         flashMode = mode;
+        overlayDone = false;
+    }
+
+    void startBattleEntryTransition(int mode) {
+        overlayType = 106;
+        tick = 0;
+        battleTransitionMode = Math.max(0, Math.min(2, mode));
+        battleTransitionProgress = 0;
         overlayDone = false;
     }
 
@@ -176,6 +186,14 @@ final class Effect {
             if (tick > flashLimit) {
                 clearOverlay();
             }
+        } else if (overlayType == 106) {
+            tick++;
+            if (tick >= 10) {
+                battleTransitionProgress += 15;
+                if (battleTransitionProgress >= W) {
+                    overlayDone = true;
+                }
+            }
         } else if (overlayType == 1 || overlayType == 2) {
             tick++;
             if (fadeType == 1) {
@@ -260,6 +278,8 @@ final class Effect {
                     g.fillRect(0, 0, W, H);
                 }
             }
+        } else if (overlayType == 106) {
+            renderBattleEntryTransition(g);
         } else if (overlayType == 17) {
             g.setColor(new Color(circleColors[Math.max(0, Math.min(circleMode, 1))]));
             g.fillOval(circleX - circleR, circleY - circleR, circleR * 2, circleR * 2);
@@ -282,6 +302,54 @@ final class Effect {
                 g.fillRect(0, 0, barsWidth, top);
                 g.fillRect(0, H - bottom, barsWidth, bottom);
             }
+        }
+    }
+
+    private void renderBattleEntryTransition(Graphics2D g) {
+        if (tick < 10) {
+            if (tick % 3 == 1) {
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, W, H);
+            }
+            return;
+        }
+        int progress = Math.max(0, Math.min(W, battleTransitionProgress));
+        g.setColor(Color.BLACK);
+        if (battleTransitionMode == 0) {
+            int halfH = H / 2;
+            g.fillRect(0, 0, progress, halfH);
+            for (int i = 1; i < 6; i++) {
+                int w = Math.max(0, 15 - i * 3);
+                g.fillRect(progress + i * 15, 0, w, halfH);
+            }
+            g.fillRect(W - progress, halfH, progress, H - halfH);
+            for (int i = 1; i < 6; i++) {
+                int w = Math.max(0, 15 - i * 3);
+                g.fillRect(W - progress - i * 15, halfH, w, H - halfH);
+            }
+        } else if (battleTransitionMode == 1) {
+            boolean left = false;
+            for (int y = 0; y < H; y += 10) {
+                if (left) {
+                    g.fillRect(0, y, progress, 10);
+                } else {
+                    g.fillRect(W - progress, y, progress, 10);
+                }
+                left = !left;
+            }
+        } else {
+            boolean top = false;
+            for (int x = 0; x < W; x += 10) {
+                if (top) {
+                    g.fillRect(x, 0, 10, progress);
+                } else {
+                    g.fillRect(x, H - progress, 10, progress);
+                }
+                top = !top;
+            }
+        }
+        if (overlayDone) {
+            g.fillRect(0, 0, W, H);
         }
     }
 

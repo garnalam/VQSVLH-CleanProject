@@ -360,6 +360,10 @@ final class BattleStatusRow {
     String name(String fallback) {
         return tables.text(nameTextId, fallback);
     }
+
+    String description(String fallback) {
+        return tables.text(descriptionTextId, fallback);
+    }
 }
 
 final class BattleItemRow {
@@ -393,6 +397,10 @@ final class BattleItemRow {
 
     String name(String fallback) {
         return tables.text(nameTextId, fallback);
+    }
+
+    String description(String fallback) {
+        return tables.text(descriptionTextId, fallback);
     }
 }
 

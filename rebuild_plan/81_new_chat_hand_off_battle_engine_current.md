@@ -1,5 +1,11 @@
 # 81 New Chat Hand Off - Battle Engine Current
 
+> SUPERSEDED 2026-07-08: this handoff captured the pre-catch/levelUp state.
+> New dev chats must start from
+> `rebuild_plan/102_new_dev_chat_handoff_battle_engine_after_levelup.md`.
+> Keep this file as historical context only. Its "next target" and
+> "EXP/level-up pending" statements are outdated.
+
 Status: NEW DEV CHAT HANDOFF / TRAINING / ENTRY EXERCISE.
 
 This document is for a new dev chat that will continue the VQSV/Liet Hoa
@@ -29,16 +35,9 @@ Rules:
 - After code: run build, `--check`, formula check if battle runtime/formula was
   touched, mojibake scan, and focused smoke PNG.
 
-Before coding, read `rebuild_plan/81_new_chat_hand_off_battle_engine_current.md`
-completely, then answer its Compulsory Entry Exercise in chat. Coding starts
-only after the exercise response is source-backed and specific.
-
-Current next target: P21/P17 catch edge cases. First deliverable should be
-`rebuild_plan/82_battle_p21_p17_catch_edge_case_matrix.md`, then one small
-code slice from that matrix.
-
-Do not skip ahead to broad UI polish, new visual effects, EXP/level-up, or shop
-until the roadmap says those consumers are ready.
+Historical note: this prompt is superseded. New chats must read
+`rebuild_plan/102_new_dev_chat_handoff_battle_engine_after_levelup.md`, not this
+file, before coding.
 
 ## Prime Directive
 
@@ -218,7 +217,8 @@ The battle engine is no longer a pure stub, but it is not complete.
   - catch chance/storage payload parity is partial
   - P17 animation lifecycle is source-shaped but not pixel-perfect
 - P11 shop is a shell/minimal flow.
-- EXP/level-up/learn-skill states P22/P23 are pending.
+- Historical status only: EXP/level-up/learn-skill P22/P23 were pending when
+  this file was written. They are now PORTED/PARTIAL in `100` and `101`.
 - Full passive/global context from `game.g/game.k` is partial.
 - Broad skill coverage is partial even though many representative skills have
   smoke slices.

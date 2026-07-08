@@ -127,6 +127,7 @@ final class SourceBattleRuntime implements Blocking {
     private static final int P7_START_TICKS = 8;
     private static final int P7_DAMAGE_TICKS = 12;
     private static final int P7_EXIT_TICKS = 6;
+    private static final VqsvSourceRandom SOURCE_RANDOM = VqsvSourceRandom.lazySourceSeeded();
 
     private final int actorId;
     private final int[] encounter;
@@ -149,13 +150,27 @@ final class SourceBattleRuntime implements Blocking {
     private boolean playerActionThisRound;
     private boolean enemyActionThisRound;
     private boolean bunnyTutorialShown;
+    private boolean bunnyTutorialWeakPromptActive;
+    private boolean bunnyTutorialFirstCatchPending;
+    private boolean bunnyTutorialForceFailActive;
+    private boolean bunnyTutorialRetryPending;
+    private boolean bunnyTutorialRetryPromptActive;
+    private boolean bunnyTutorialRetryPromptAfterEnemy;
+    private int bunnyTutorialU = -1;
+    private int bunnyTutorialV = 0;
     private boolean bunnyCaptureQueued;
     private boolean exitFadeStarted;
+    private boolean playerPetPersistedOnExit;
     private boolean wasLeftPressed;
     private boolean wasRightPressed;
     private boolean wasUpPressed;
     private boolean wasDownPressed;
     private boolean commandConfirmQueued;
+    private short[][] battleEntryCposRows = new short[0][];
+    private int battleEntryActorIndex;
+    private int battleEntryFrame;
+    private int battleEntryFrameTicks;
+    private boolean battleEntryCposActive;
     private BattleRuntimeState warningReturnState = BattleRuntimeState.P20_COMMAND;
     private String warningReturnLog = VqsvText.Battle.START;
     private int selectedItemId = -1;
@@ -229,7 +244,9 @@ final class SourceBattleRuntime implements Blocking {
     private int catchPhase = -1;
     private int catchPhaseTicks = 0;
     private int catchChance = 0;
+    private int catchRoll = -1;
     private boolean catchCaught;
+    private int debugNextCatchRoll = -1;
     private boolean catchTraceWritten;
     private SpriteAnim catchAnim;
     private boolean catchAnimHoldLast;
@@ -243,6 +260,21 @@ final class SourceBattleRuntime implements Blocking {
     private int catchEffectDx;
     private int catchEffectDy;
     private String catchWinLog;
+    private int catchStorageResult = -1;
+    private int catchOpenBoxState = 0;
+    private boolean expPrepared;
+    private boolean expEligible;
+    private int expAward;
+    private int expDisplayValue;
+    private int expHoldTicks;
+    private int[] expOldStats = new int[4];
+    private int[] expNewStats = new int[4];
+    private boolean expLevelUpPending;
+    private boolean expLevelUpApplied;
+    private boolean expLearningSkill;
+    private boolean expLearningConfirm;
+    private int[] expLearnSkillIds = new int[0];
+    private int expSelectedLearnSkill = -1;
 
     SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode, int[] branchTargets) {
         this(actorId, encounter, flags, battleMode, branchTargets, 0, false);
@@ -272,6 +304,12 @@ final class SourceBattleRuntime implements Blocking {
         s.battleStateName = state.label;
         if (state != BattleRuntimeState.DONE) {
             s.battleOverlayTicks = 1;
+        }
+        if (bunnyTutorialWeakPromptActive) {
+            return tickBunnyTutorialWeakPrompt(s);
+        }
+        if (bunnyTutorialRetryPromptActive) {
+            return tickBunnyTutorialRetryPrompt(s);
         }
         switch (state) {
             case P0_ENTRY:
@@ -329,10 +367,12 @@ final class SourceBattleRuntime implements Blocking {
         activeEnemyIndex = 0;
         pendingEnemyReplacementIndex = -1;
         enemy = enemyParty[activeEnemyIndex];
-        player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
-        if (isKidnappingBattle()) {
-            player = SourceBattleUnit.fallback(-1, 6, 3, "Neil", 120, 22, 12, 10);
+        if (s.sourcePets.isEmpty()) {
+            throw new IllegalStateException("Source battle entered without player pet state; "
+                    + "source game.k/game.g.I or op36/op87 setup must run before encounter="
+                    + Arrays.toString(encounter));
         }
+        player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
         s.worldEventActor = actorId;
         s.battleEventActor = actorId;
         s.battleEncounter = Arrays.copyOf(encounter, encounter.length);
@@ -343,6 +383,11 @@ final class SourceBattleRuntime implements Blocking {
         s.battleResultIndex = -2;
         s.battleBranchTarget = resolveBranch(s.battleResultIndex);
         s.battleCaptureTutorial = isBunnyCaptureBattle();
+        if (isBunnyCaptureBattle()) {
+            setBunnyTutorialState(s, 0, 0, "battle entry");
+        } else {
+            setBunnyTutorialState(s, -1, 0, "non-bunny battle");
+        }
         s.battleCommandIndex = 0;
         syncRenderState(s, VqsvText.Battle.START);
         s.sourceStateTrace.add("PORTED/PARTIAL battle state machine actor=" + actorId
@@ -358,6 +403,7 @@ final class SourceBattleRuntime implements Blocking {
                 + VqsvBattleTables.sourceSummary());
         entered = true;
         enterState(s, BattleRuntimeState.P0_ENTRY, VqsvText.Battle.START, SHORT_WAIT);
+        prepareBattleEntryCpos(s);
         s.effect.startFade(2, 0);
     }
 
@@ -379,10 +425,108 @@ final class SourceBattleRuntime implements Blocking {
 
     private boolean tickEntry(VqsvIntroDemo.Scene s) {
         if (!s.effect.doneOverlay(s) || countdown()) {
+            applyBattleEntryCposOffset(s);
             return false;
         }
+        if (battleEntryCposActive && !tickBattleEntryCpos(s)) {
+            return false;
+        }
+        clearBattleEntryCposOffset(s);
         enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.START, SHORT_WAIT);
         return false;
+    }
+
+    private void prepareBattleEntryCpos(VqsvIntroDemo.Scene s) {
+        int group = sourceCposGroup();
+        java.util.ArrayList<short[]> rows = new java.util.ArrayList<>();
+        for (int row = 0; row < 2; row++) {
+            short[] cpos = VqsvBattleAnimationTables.instance().cposRow(group, row);
+            if (cpos.length >= 4) {
+                rows.add(cpos);
+            }
+        }
+        battleEntryCposRows = rows.toArray(new short[rows.size()][]);
+        battleEntryActorIndex = 0;
+        battleEntryFrame = 0;
+        battleEntryFrameTicks = 0;
+        battleEntryCposActive = battleEntryCposRows.length > 0;
+        applyBattleEntryCposOffset(s);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P0 entry cpos start group=" + group
+                + " actors=" + battleEntryCposRows.length
+                + " source=game.d.an[r][G] from /data/script/cpos.mid"
+                + " marker/al sprite294 rendered as footprint marker with cpos offsets");
+    }
+
+    private boolean tickBattleEntryCpos(VqsvIntroDemo.Scene s) {
+        applyBattleEntryCposOffset(s);
+        battleEntryFrameTicks++;
+        if (battleEntryFrameTicks <= 1) {
+            return false;
+        }
+        battleEntryFrameTicks = 0;
+        battleEntryFrame++;
+        if (battleEntryFrame < battleEntryFrameCount(battleEntryActorIndex)) {
+            return false;
+        }
+        battleEntryActorIndex++;
+        battleEntryFrame = 0;
+        if (battleEntryActorIndex < battleEntryCposRows.length) {
+            applyBattleEntryCposOffset(s);
+            return false;
+        }
+        battleEntryCposActive = false;
+        clearBattleEntryCposOffset(s);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P0 entry cpos complete next=P1/P20"
+                + " group=" + sourceCposGroup());
+        return true;
+    }
+
+    private void applyBattleEntryCposOffset(VqsvIntroDemo.Scene s) {
+        clearBattleEntryCposOffset(s);
+        if (!battleEntryCposActive) {
+            return;
+        }
+        applyBattleEntryActorCposOffset(s, 0, battleEntryActorIndex == 0 ? battleEntryFrame
+                : battleEntryActorIndex > 0 ? Integer.MAX_VALUE : 0);
+        applyBattleEntryActorCposOffset(s, 1, battleEntryActorIndex == 1 ? battleEntryFrame
+                : battleEntryActorIndex > 1 ? Integer.MAX_VALUE : 0);
+    }
+
+    private void applyBattleEntryActorCposOffset(VqsvIntroDemo.Scene s, int actorIndex, int requestedFrame) {
+        if (actorIndex < 0 || actorIndex >= battleEntryCposRows.length) {
+            return;
+        }
+        short[] row = battleEntryCposRows[actorIndex];
+        int frames = row.length / 4;
+        if (frames <= 0) {
+            return;
+        }
+        int frame = Math.max(0, Math.min(frames - 1, requestedFrame));
+        int at = frame << 2;
+        int finalAt = (frames - 1) << 2;
+        int dx = row[at] - row[finalAt];
+        int dy = row[at + 1] - row[finalAt + 1];
+        if (actorIndex == 0) {
+            s.battleP7EnemyOffsetX = dx;
+            s.battleP7EnemyOffsetY = dy;
+        } else if (actorIndex == 1) {
+            s.battleP7PlayerOffsetX = dx;
+            s.battleP7PlayerOffsetY = dy;
+        }
+    }
+
+    private void clearBattleEntryCposOffset(VqsvIntroDemo.Scene s) {
+        s.battleP7PlayerOffsetX = 0;
+        s.battleP7PlayerOffsetY = 0;
+        s.battleP7EnemyOffsetX = 0;
+        s.battleP7EnemyOffsetY = 0;
+    }
+
+    private int battleEntryFrameCount(int actorIndex) {
+        if (actorIndex < 0 || actorIndex >= battleEntryCposRows.length) {
+            return 0;
+        }
+        return battleEntryCposRows[actorIndex].length / 4;
     }
 
     private boolean tickDispatch(VqsvIntroDemo.Scene s) {
@@ -437,6 +581,7 @@ final class SourceBattleRuntime implements Blocking {
         }
         playerActionThisRound = false;
         enemyActionThisRound = false;
+        playerPetPersistedOnExit = false;
         playerActiveQueueProcessedThisRound = false;
         enemyActiveQueueProcessedThisRound = false;
         turn++;
@@ -1124,7 +1269,8 @@ final class SourceBattleRuntime implements Blocking {
         java.util.ArrayList<Integer> icons = new java.util.ArrayList<>();
         for (BagItem item : s.sourceBagItems.values()) {
             BattleItemRow row = VqsvBattleTables.instance().item(item.id);
-            if (item.count > 0 && row != null && row.behavior == 0) {
+            boolean sourceListedCatchRow = item.count > 0 || (item.count == 0 && !item.keepAtZero);
+            if (sourceListedCatchRow && row != null && row.behavior == 0) {
                 ids.add(item.id);
                 icons.add(row.iconId);
                 names.add(itemName(item.id));
@@ -1141,6 +1287,28 @@ final class SourceBattleRuntime implements Blocking {
             s.sourceStateTrace.add("PORTED/APPROX battle tutorial seeded source ball item=0 for P21 path");
         }
         setMenu(s, "Pokemon ball", "T\u1ec9 l\u1ec7 b\u1eaft", "S\u1eed d\u1ee5ng", names, values, ids, icons);
+        if (isBunnyCaptureBattle() && bunnyTutorialFirstCatchPending && !bunnyTutorialRetryPending) {
+            if (bunnyTutorialU == 0 && bunnyTutorialV < 4) {
+                setBunnyTutorialState(s, 0, 4, "game.d.l() V=3 choose Phong an cau prompt/list");
+            }
+            selectCatchMenuItem(s, 1);
+            s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial U=0,V=3 guide P21 cursor item=1 Phong an cau");
+        } else if (isBunnyCaptureBattle() && bunnyTutorialRetryPending) {
+            if (bunnyTutorialU == 0 && bunnyTutorialV < 7) {
+                setBunnyTutorialState(s, 0, 7, "game.d.l() V=6 re-enter P21 retry");
+            }
+            selectCatchMenuItem(s, 0);
+            s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial U=0,V=6 retry P21 cursor item=0 Tat Trung Cau");
+        }
+    }
+
+    private void selectCatchMenuItem(VqsvIntroDemo.Scene s, int itemId) {
+        for (int i = 0; i < s.battleMenuIds.length; i++) {
+            if (s.battleMenuIds[i] == itemId) {
+                s.battleMenuIndex = i;
+                return;
+            }
+        }
     }
 
     private void prepareSkillMenu(VqsvIntroDemo.Scene s) {
@@ -1180,6 +1348,7 @@ final class SourceBattleRuntime implements Blocking {
     private void prepareItemMenu(VqsvIntroDemo.Scene s) {
         java.util.ArrayList<String> names = new java.util.ArrayList<>();
         java.util.ArrayList<String> values = new java.util.ArrayList<>();
+        java.util.ArrayList<String> descriptions = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> ids = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> icons = new java.util.ArrayList<>();
         for (BagItem item : s.sourceBagItems.values()) {
@@ -1189,9 +1358,11 @@ final class SourceBattleRuntime implements Blocking {
                 icons.add(row.iconId);
                 names.add(itemName(item.id));
                 values.add(String.valueOf(item.count));
+                descriptions.add(row.description(""));
             }
         }
-        setMenu(s, "\u0110\u1ea1o c\u1ee5", "S\u1ed1 l\u01b0\u1ee3ng", "S\u1eed d\u1ee5ng", names, values, ids, icons);
+        setMenu(s, "\u0110\u1ea1o c\u1ee5", "S\u1ed1 l\u01b0\u1ee3ng", "S\u1eed d\u1ee5ng",
+                names, values, descriptions, ids, icons);
     }
 
     private void prepareItemTargetMenu(VqsvIntroDemo.Scene s) {
@@ -1216,26 +1387,43 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private void preparePetMenu(VqsvIntroDemo.Scene s) {
+        if (!s.sourcePets.isEmpty() && player != null && player.battleUnit != null) {
+            s.sourcePets.get(0).persistBattleUnit(player.battleUnit);
+        }
         java.util.ArrayList<String> names = new java.util.ArrayList<>();
         java.util.ArrayList<String> values = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> ids = new java.util.ArrayList<>();
-        int start = forcedPetSwitch ? 1 : 0;
-        for (int i = start; i < s.sourcePets.size(); i++) {
+        for (int i = 0; i < s.sourcePets.size(); i++) {
             SourceBattleUnit unit = i == 0 && player != null
                     ? player
                     : SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(i, i + 1));
-            if (forcedPetSwitch && !unit.alive()) {
-                continue;
-            }
             ids.add(i);
             names.add(unit.name);
             values.add((unit.alive() ? "lv" + unit.level : "KO") + " " + unit.hp + "/" + unit.maxHp);
         }
         setMenu(s, "S\u1ee7ng v\u1eadt", "Thay \u0111\u1ed5i", "S\u1eed d\u1ee5ng", names, values, ids);
+        s.battlePetStateRows = buildPetStateRows(s);
         s.battleUiMode = "petstate";
         s.sourceStateTrace.add("PORTED/PARTIAL battle P5 petstate.ui open forced=" + forcedPetSwitch
                 + " ids=" + java.util.Arrays.toString(s.battleMenuIds)
                 + " names=" + java.util.Arrays.toString(s.battleMenuNames));
+    }
+
+    private VqsvBattlePetStateView[] buildPetStateRows(VqsvIntroDemo.Scene s) {
+        VqsvBattlePetStateView[] rows = new VqsvBattlePetStateView[6];
+        for (int row = 0; row < rows.length; row++) {
+            if (row >= s.battleMenuIds.length) {
+                rows[row] = VqsvBattlePetStateView.empty(row);
+                continue;
+            }
+            int petIndex = s.battleMenuIds[row];
+            if (petIndex < 0 || petIndex >= s.sourcePets.size()) {
+                rows[row] = VqsvBattlePetStateView.empty(row);
+                continue;
+            }
+            rows[row] = VqsvBattlePetStateView.fromPet(row, petIndex, s.sourcePets.get(petIndex), petIndex == 0);
+        }
+        return rows;
     }
 
     private boolean hasSwitchPet(VqsvIntroDemo.Scene s) {
@@ -1275,12 +1463,20 @@ final class SourceBattleRuntime implements Blocking {
     private void setMenu(VqsvIntroDemo.Scene s, String title, String subtitle, String action,
                          java.util.List<String> names, java.util.List<String> values,
                          java.util.List<Integer> ids, java.util.List<Integer> icons) {
+        setMenu(s, title, subtitle, action, names, values, java.util.Collections.emptyList(), ids, icons);
+    }
+
+    private void setMenu(VqsvIntroDemo.Scene s, String title, String subtitle, String action,
+                         java.util.List<String> names, java.util.List<String> values,
+                         java.util.List<String> descriptions, java.util.List<Integer> ids,
+                         java.util.List<Integer> icons) {
         s.battleUiMode = "choice";
         s.battleMenuTitle = title;
         s.battleMenuSubtitle = subtitle;
         s.battleMenuAction = action;
         s.battleMenuNames = names.toArray(new String[0]);
         s.battleMenuValues = values.toArray(new String[0]);
+        s.battleMenuDescriptions = descriptions.toArray(new String[0]);
         s.battleMenuIds = new int[ids.size()];
         s.battleMenuIconIds = new int[ids.size()];
         for (int i = 0; i < ids.size(); i++) {
@@ -1314,6 +1510,15 @@ final class SourceBattleRuntime implements Blocking {
         int[] quality = {110, 100, 95, 80, 70};
         int natureIndex = Math.max(0, Math.min(quality.length - 1, enemy.nature - 1));
         chance = chance * quality[natureIndex] / 100;
+        int[] statusMultiplier = {10, 11, 12, 12, 12};
+        int statusIndex = catchStatusIndex();
+        chance = chance * statusMultiplier[statusIndex] / 10;
+        if (catchAttackerHasForm11()) {
+            int bonus = player != null && player.battleUnit != null
+                    ? player.battleUnit.sourceStatusParam(11, 5, 0)
+                    : 0;
+            chance = chance * (100 + bonus) / 100;
+        }
         int[] relation = {1000, 500, 1, 1000};
         int relationIndex = Math.max(0, Math.min(relation.length - 1, enemy.relationClass));
         chance = chance * relation[relationIndex] / 1000;
@@ -1325,6 +1530,31 @@ final class SourceBattleRuntime implements Blocking {
             }
         }
         return Math.max(1, Math.min(100, chance));
+    }
+
+    private int catchStatusIndex() {
+        int status = 0;
+        if (catchTargetHasDebuff(1)) {
+            status = 1;
+        }
+        if (catchTargetHasDebuff(2)) {
+            status = 2;
+        }
+        if (catchTargetHasDebuff(10)) {
+            status = 3;
+        }
+        if (catchAttackerHasForm11()) {
+            status = 4;
+        }
+        return status;
+    }
+
+    private boolean catchTargetHasDebuff(int debuffId) {
+        return enemy != null && enemy.battleUnit != null && enemy.battleUnit.hasDebuff(debuffId);
+    }
+
+    private boolean catchAttackerHasForm11() {
+        return player != null && player.battleUnit != null && player.battleUnit.hasSourceFormStatus(11);
     }
 
     private int runChancePercent() {
@@ -1561,17 +1791,37 @@ final class SourceBattleRuntime implements Blocking {
         int itemId = s.battleMenuIds[s.battleMenuIndex];
         BagItem item = s.sourceBagItems.get(itemId);
         if (item == null || item.count <= 0) {
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P21 game.h.ai missing-count msgwarm.ui item="
+                    + itemId + " count=" + (item == null ? -1 : item.count)
+                    + "; P101/SMS path remains PENDING");
             enterWarning(s, VqsvText.Battle.NO_BALLS, BattleRuntimeState.P21_CATCH_LIST);
             return false;
         }
         VqsvSourceOps.sourceRemoveItem(s, itemId, 1);
         selectedItemId = itemId;
+        if (isBunnyCaptureBattle() && bunnyTutorialFirstCatchPending && itemId == 1) {
+            bunnyTutorialFirstCatchPending = false;
+            bunnyTutorialForceFailActive = true;
+            setBunnyTutorialState(s, 0, 5, "game.d.m() V=4->5 first ball confirm force P17 fail");
+            s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial game.d.m() U=0,V=4->5 first item=1 will force P17 fail");
+        } else if (isBunnyCaptureBattle() && bunnyTutorialRetryPending && itemId == 0) {
+            bunnyTutorialRetryPending = false;
+            setBunnyTutorialState(s, 0, 8, "game.d.m() V=7->8 retry ball confirm");
+            s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial game.d.m() U=0,V=7->8 retry item=0");
+        }
         initCatchResult(s, itemId);
         enterState(s, BattleRuntimeState.P17_CATCH_RESULT, VqsvText.Battle.BALL_CHOSEN, 0);
         return false;
     }
 
     private boolean tickCatchResult(VqsvIntroDemo.Scene s) {
+        if (catchOpenBoxState != 0) {
+            clearCatchVisuals(s);
+            if (tickCatchOpenBox(s)) {
+                enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
+            }
+            return false;
+        }
         syncCatchRenderState(s, catchPhase);
         boolean animEnded = catchAnimAtLastFrame();
         if (catchPhase == 0 && animEnded) {
@@ -1583,10 +1833,25 @@ final class SourceBattleRuntime implements Blocking {
                     catchCaught ? VqsvText.Battle.CATCH_SUCCESS + enemy.name : VqsvText.Battle.CATCH_FAILED);
         } else if (catchPhase == 3 && animEnded) {
             clearCatchVisuals(s);
+            if (isBunnyCaptureBattle() && bunnyTutorialU == 0 && bunnyTutorialV == 8) {
+                setBunnyTutorialState(s, -1, 0, "game.d.l() V=8 cleanup after Bunny catch success");
+            }
+            applyCatchStorage(s);
             setHp(enemy, 0);
-            enterState(s, BattleRuntimeState.P8_WIN, applyCatchStorage(s), SHORT_WAIT);
+            openCatchResultBox(s, catchWinLog, "game.d P17 q=3 S.b(openbox.ui)");
+            return false;
         } else if (catchPhase == 4 && animEnded && tickCatchEffectSourceLike()) {
             clearCatchVisuals(s);
+            if (isBunnyCaptureBattle() && bunnyTutorialForceFailActive) {
+                bunnyTutorialForceFailActive = false;
+                bunnyTutorialRetryPending = true;
+                bunnyTutorialRetryPromptAfterEnemy = true;
+                playerActionThisRound = true;
+                s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial U=0,V=5 first catch failed; "
+                        + "queue enemy action before retry taskTip");
+                enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.CATCH_FAILED, SHORT_WAIT);
+                return false;
+            }
             playerActionThisRound = true;
             enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.CATCH_FAILED, SHORT_WAIT);
         }
@@ -1595,13 +1860,54 @@ final class SourceBattleRuntime implements Blocking {
         return false;
     }
 
+    private boolean tickBunnyTutorialWeakPrompt(VqsvIntroDemo.Scene s) {
+        syncRenderState(s, VqsvText.Battle.BUNNY_WEAK);
+        if (s.text != null && s.text.readyForKey && s.key0) {
+            s.text.confirm();
+            s.key0 = false;
+            if (s.text == null || s.text.disposed) {
+                s.text = null;
+                bunnyTutorialWeakPromptActive = false;
+                setBunnyTutorialState(s, 0, 3, "game.d.l() V=1 prompt closed; guide catch command");
+                s.battleCommandIndex = 1;
+                s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial U=0,V=1 weak taskTip closed, "
+                        + "return P20 with catch command selected");
+                enterCommandState(s, VqsvText.Battle.BUNNY_WEAK, SHORT_WAIT);
+            }
+        }
+        return false;
+    }
+
+    private boolean tickBunnyTutorialRetryPrompt(VqsvIntroDemo.Scene s) {
+        syncRenderState(s, VqsvText.Battle.BUNNY_RETRY_TAT_TRUNG_CAU);
+        if (s.text != null && s.text.readyForKey && s.key0) {
+            s.text.confirm();
+            s.key0 = false;
+            if (s.text == null || s.text.disposed) {
+                s.text = null;
+                bunnyTutorialRetryPromptActive = false;
+                setBunnyTutorialState(s, 0, 7, "game.d.l() V=6 taskTip closed");
+                prepareCatchMenu(s);
+                s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial U=0,V=6 prompt closed, re-enter P21");
+                enterState(s, BattleRuntimeState.P21_CATCH_LIST, VqsvText.Battle.BUNNY_RETRY_TAT_TRUNG_CAU, SHORT_WAIT);
+            }
+        }
+        return false;
+    }
+
     private void initCatchResult(VqsvIntroDemo.Scene s, int itemId) {
         catchPhase = 0;
         catchPhaseTicks = 0;
         catchChance = catchChance(itemId);
-        catchCaught = itemId == 0 || isBunnyCaptureBattle() || catchChance >= 50;
+        catchRoll = sourceCatchRollPercent(s);
+        catchCaught = catchRoll < catchChance;
+        if (bunnyTutorialForceFailActive) {
+            catchCaught = false;
+        }
         catchTraceWritten = false;
         catchWinLog = null;
+        catchStorageResult = -1;
+        catchOpenBoxState = 0;
         catchAnim = SpriteAnim.load(269);
         setCatchAnimState(0, false);
         clearCatchEffect();
@@ -1609,11 +1915,26 @@ final class SourceBattleRuntime implements Blocking {
         s.battleCatchSpriteId = 269;
         s.battleCatchItemId = itemId;
         s.battleCatchChance = catchChance;
+        s.battleCatchRoll = catchRoll;
         s.battleCatchCaught = catchCaught;
         s.battleCatchVisible = true;
         syncCatchRenderState(s, catchPhase);
         s.sourceStateTrace.add("PORTED battle P21 confirm item=" + itemId
-                + " consumed=1 next=P17 sprite=269 chance=" + catchChance);
+                + " consumed=1 next=P17 sprite=269 chance=" + catchChance
+                + " roll=" + catchRoll
+                + " caught=" + catchCaught
+                + " forceFail=" + bunnyTutorialForceFailActive);
+    }
+
+    private int sourceCatchRollPercent(VqsvIntroDemo.Scene s) {
+        if (debugNextCatchRoll >= 0) {
+            int roll = Math.max(0, Math.min(99, debugNextCatchRoll));
+            debugNextCatchRoll = -1;
+            s.sourceStateTrace.add("RNG TRACE battle.P17.catch helper=debug-forced bound=100 raw=forced return="
+                    + roll + " seed=none");
+            return roll;
+        }
+        return SOURCE_RANDOM.a("battle.P17.catch", 100, s.sourceStateTrace);
     }
 
     private void advanceCatchPhase(VqsvIntroDemo.Scene s, int nextPhase, String log) {
@@ -1645,6 +1966,7 @@ final class SourceBattleRuntime implements Blocking {
         s.battleCatchAnimCursor = catchAnim == null ? 0 : catchAnim.cursor;
         s.battleCatchItemId = selectedItemId;
         s.battleCatchChance = catchChance;
+        s.battleCatchRoll = catchRoll;
         s.battleCatchCaught = catchCaught;
         s.battleEnemyHiddenByCatch = phase >= 1;
         syncCatchEffectRender(s);
@@ -1652,6 +1974,9 @@ final class SourceBattleRuntime implements Blocking {
             catchTraceWritten = true;
             s.sourceStateTrace.add("PORTED/PARTIAL battle P17 source-timed q=0..4 item=" + selectedItemId
                     + " chance=" + catchChance
+                    + " roll=" + catchRoll
+                    + " decision=ae.a(100)<chance"
+                    + " forceFail=" + bunnyTutorialForceFailActive
                     + " caught=" + catchCaught
                     + " sprite=269 from source f.aj; H/ah type8 source scale/offset/timing ported");
         }
@@ -1762,6 +2087,44 @@ final class SourceBattleRuntime implements Blocking {
         clearCatchEffect();
     }
 
+    private void openCatchResultBox(VqsvIntroDemo.Scene s, String message, String sourceReason) {
+        s.text = TextBox.openBox(message);
+        catchOpenBoxState = catchStorageResult == 1 ? 2 : 1;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P17 " + sourceReason
+                + " f=" + catchOpenBoxState
+                + " storage=" + catchStorageResult
+                + " text=" + TextBox.decodeMojibake(message));
+    }
+
+    private boolean tickCatchOpenBox(VqsvIntroDemo.Scene s) {
+        syncRenderState(s, battleWinLog());
+        if (s.text != null) {
+            if (s.text.readyForKey && s.key0) {
+                s.text.confirm();
+                s.key0 = false;
+                if (s.text.disposed) {
+                    s.text = null;
+                }
+            }
+            if (s.text != null) {
+                return false;
+            }
+        }
+        if (catchOpenBoxState == 2) {
+            catchOpenBoxState = 4;
+            s.text = TextBox.openBox(VqsvText.Battle.CATCH_SENT_BANK);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P17 S.f=2->4 second openbox.ui bank notice");
+            return false;
+        }
+        if (catchOpenBoxState == 1 || catchOpenBoxState == 4) {
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P17 S.ax() closed f="
+                    + catchOpenBoxState + " -> game.i.a().a(10)/battle exit");
+            catchOpenBoxState = 0;
+            return true;
+        }
+        return false;
+    }
+
     private String applyCatchStorage(VqsvIntroDemo.Scene s) {
         SourcePetState caught = SourcePetState.caughtFromBattleUnit(Math.min(s.sourcePets.size(), 5), enemy);
         if (s.sourcePets.size() < 6) {
@@ -1770,6 +2133,7 @@ final class SourceBattleRuntime implements Blocking {
                     + caught.speciesId + " bagSize=" + s.sourcePets.size()
                     + " payloadLen=" + (caught.sourcePayload == null ? 0 : caught.sourcePayload.length));
             catchWinLog = VqsvText.Battle.CATCH_SUCCESS + enemy.name;
+            catchStorageResult = 0;
             return catchWinLog;
         }
         if (s.sourcePetBank.size() < 100) {
@@ -1778,12 +2142,14 @@ final class SourceBattleRuntime implements Blocking {
             s.sourceStateTrace.add("PORTED battle P17 storage game.g.y=1 add bank species="
                     + caught.speciesId + " bankSize=" + s.sourcePetBank.size()
                     + " payloadLen=" + (caught.sourcePayload == null ? 0 : caught.sourcePayload.length));
-            catchWinLog = VqsvText.Battle.CATCH_SENT_BANK;
+            catchWinLog = VqsvText.Battle.CATCH_SUCCESS + enemy.name;
+            catchStorageResult = 1;
             return catchWinLog;
         }
         s.sourceStateTrace.add("PORTED battle P17 storage game.g.y=2 full release species="
                 + caught.speciesId);
         catchWinLog = VqsvText.Battle.CATCH_RELEASED_FULL;
+        catchStorageResult = 2;
         return catchWinLog;
     }
 
@@ -2031,6 +2397,10 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private int playerSwitchCposGroup() {
+        return sourceCposGroup();
+    }
+
+    private int sourceCposGroup() {
         int sourceA = battleMode.length > 0 ? battleMode[0] : 0;
         int sourceB = battleMode.length > 1 ? battleMode[1] : 0;
         return sourceA == 0 ? (sourceB == 1 ? 2 : 0) : 1;
@@ -2181,6 +2551,37 @@ final class SourceBattleRuntime implements Blocking {
                 + debuffId + " value=" + value + " skill=" + sourceSkill);
     }
 
+    void debugSetNextCatchRollForSmoke(int roll) {
+        debugNextCatchRoll = Math.max(0, Math.min(99, roll));
+    }
+
+    void debugSetSourceRandomSeedForSmoke(long seed) {
+        SOURCE_RANDOM.setSeed(seed);
+    }
+
+    void debugSetCatchStatusForSmoke(VqsvIntroDemo.Scene s, int targetDebuffId, boolean attackerForm11) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (targetDebuffId >= 0) {
+            if (enemy == null || enemy.battleUnit == null
+                    || targetDebuffId >= enemy.battleUnit.debuffSlots.length) {
+                throw new IllegalStateException("Catch status smoke requires enemy debuff slot " + targetDebuffId);
+            }
+            enemy.battleUnit.debuffSlots[targetDebuffId][0] = 3;
+            enemy.battleUnit.debuffSlots[targetDebuffId][4] = 1;
+        }
+        if (attackerForm11) {
+            if (player == null || player.battleUnit == null) {
+                throw new IllegalStateException("Catch status smoke requires player battle unit");
+            }
+            player.battleUnit.baseStats[BattleUnit.STAT_FORM] = 11;
+        }
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle catch chance status targetDebuff="
+                + targetDebuffId + " attackerForm11=" + attackerForm11);
+    }
+
     private boolean tickRun(VqsvIntroDemo.Scene s) {
         if (countdown()) {
             return false;
@@ -2193,6 +2594,7 @@ final class SourceBattleRuntime implements Blocking {
         if (success) {
             s.battleResultIndex = -1;
             s.battleBranchTarget = -1;
+            persistActivePlayerPet(s, "P10 run success");
             s.sourceStateTrace.add("PORTED/PARTIAL battle P10 run success speed player="
                     + player.speed + " enemy=" + enemy.speed);
             enterState(s, BattleRuntimeState.EXIT_FADE, VqsvText.Battle.RUN_SUCCESS, EXIT_WAIT);
@@ -2646,7 +3048,12 @@ final class SourceBattleRuntime implements Blocking {
         if (p7DamageApplied) {
             return;
         }
-        p7DamageResult = p7Attacker.damageResultTo(p7Target);
+        BattleUnit.setSourceRandomTrace(SOURCE_RANDOM, s.sourceStateTrace, "battle.P7.skill" + p7SkillId);
+        try {
+            p7DamageResult = p7Attacker.damageResultTo(p7Target);
+        } finally {
+            BattleUnit.clearRandomTrace();
+        }
         p7Damage = Math.max(1, p7DamageResult.damage);
         p7Target.damage(p7Damage);
         setP7BaseState(p7Target == player, p7Target.alive() ? 2 : 3);
@@ -2666,10 +3073,26 @@ final class SourceBattleRuntime implements Blocking {
         clearP7RenderState(s);
         if (isBunnyCaptureBattle() && currentActorPlayer && !bunnyTutorialShown && enemy.hp <= enemy.maxHp / 2) {
             bunnyTutorialShown = true;
+            bunnyTutorialWeakPromptActive = true;
+            bunnyTutorialFirstCatchPending = true;
+            setBunnyTutorialState(s, 0, 1, "game.d.l() V=0->1 Bunny HP <= 50%");
             s.battleCommandIndex = 1;
+            s.text = TextBox.taskTip(VqsvText.Battle.BUNNY_WEAK);
             syncRenderState(s, VqsvText.Battle.BUNNY_WEAK);
-            s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial game.d.l(): HP<=50%, next P20 selects catch and opens P21; P17 animation still partial");
-            enterCommandState(s, VqsvText.Battle.BUNNY_WEAK, RESOLVE_WAIT);
+            s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial game.d.l(): HP<=50%, "
+                    + "taskTip.ui weak prompt before P20 catch cursor; P17 animation still partial");
+            enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.BUNNY_WEAK, SHORT_WAIT);
+            return false;
+        }
+        if (isBunnyCaptureBattle() && !currentActorPlayer && bunnyTutorialRetryPromptAfterEnemy) {
+            bunnyTutorialRetryPromptAfterEnemy = false;
+            bunnyTutorialRetryPromptActive = true;
+            setBunnyTutorialState(s, 0, 6, "game.d.l() V=5->6 after Bunny counterattack retry taskTip");
+            s.text = TextBox.taskTip(VqsvText.Battle.BUNNY_RETRY_TAT_TRUNG_CAU);
+            syncRenderState(s, VqsvText.Battle.BUNNY_RETRY_TAT_TRUNG_CAU);
+            s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial U=0,V=5->6 "
+                    + "after enemy P7 counterattack, taskTip retry Tat Trung Cau");
+            enterState(s, BattleRuntimeState.P1_DISPATCH, VqsvText.Battle.BUNNY_RETRY_TAT_TRUNG_CAU, SHORT_WAIT);
             return false;
         }
         if (!p7Target.alive()) {
@@ -2857,6 +3280,7 @@ final class SourceBattleRuntime implements Blocking {
         if (row == null || p7Attacker == null) {
             return;
         }
+        BattleUnit.setSourceRandomTrace(SOURCE_RANDOM, s.sourceStateTrace, "battle.P7.skill" + p7SkillId);
         int heal = 0;
         int buffId = -1;
         SourceBattleUnit buffOwner = p7Attacker;
@@ -2882,7 +3306,8 @@ final class SourceBattleRuntime implements Blocking {
             case 52:
             case 58:
                 leechRollPassed = p7DamageApplied && p7Damage > 0
-                        && (p7Attacker.battleUnit == null || p7Attacker.battleUnit.rollSourceChance(30));
+                        && (p7Attacker.battleUnit == null
+                        || p7Attacker.battleUnit.rollSourceChance("skill52_58.leechGate", 30));
                 if (leechRollPassed) {
                     heal = Math.max(0, p7Damage * row.chanceOrParam / 100);
                 }
@@ -2918,6 +3343,7 @@ final class SourceBattleRuntime implements Blocking {
             p7PostEffectPlayerSide = buffOwner == player;
         }
         applyP7SourcePostDamageModifiers();
+        BattleUnit.clearRandomTrace();
         if (p7Attacker.hp < attackerHpBefore) {
             p7PostEffectText = "-" + (attackerHpBefore - p7Attacker.hp);
             p7PostEffectPlayerSide = p7Attacker == player;
@@ -2949,7 +3375,7 @@ final class SourceBattleRuntime implements Blocking {
         BattleUnit targetUnit = p7Target.battleUnit;
         if (attackerUnit.hasSourceFormStatus(8)) {
             int chance = attackerUnit.sourceStatusParam(8, 5, 0);
-            if (attackerUnit.rollSourceChance(chance)) {
+            if (attackerUnit.rollSourceChance("damage.form8", chance)) {
                 int heal = Math.max(0, p7Damage * attackerUnit.sourceStatusParam(8, 6, 0) / 100);
                 attackerUnit.heal(heal);
                 p7Attacker.hp = attackerUnit.hp();
@@ -3093,9 +3519,14 @@ final class SourceBattleRuntime implements Blocking {
         if (countdown()) {
             return false;
         }
+        if (tickWinExpLevelUp(s)) {
+            return false;
+        }
         int result = isBunnyCaptureBattle() ? forcedResultIndex : 0;
         s.battleResultIndex = result;
         s.battleBranchTarget = resolveBranch(s.battleResultIndex);
+        persistActivePlayerPet(s, "P8 win");
+        s.battleLevelUpView = VqsvBattleLevelUpView.EMPTY;
         syncRenderState(s, battleWinLog());
         s.sourceStateTrace.add("PORTED/PARTIAL battle P8 resultIndex="
                 + s.battleResultIndex + " branch=" + s.battleBranchTarget
@@ -3103,6 +3534,210 @@ final class SourceBattleRuntime implements Blocking {
                 + " enemyHp=" + enemy.hp + "/" + enemy.maxHp);
         enterState(s, BattleRuntimeState.EXIT_FADE, s.battleLog, EXIT_WAIT);
         return false;
+    }
+
+    private boolean tickWinExpLevelUp(VqsvIntroDemo.Scene s) {
+        if (!expPrepared) {
+            prepareWinExp(s);
+        }
+        if (!expEligible || player == null || player.battleUnit == null) {
+            return false;
+        }
+        BattleUnit unit = player.battleUnit;
+        if (expLearningSkill) {
+            return tickLevelUpSkillLearn(s, unit);
+        }
+        if (expLevelUpPending && !expLevelUpApplied) {
+            expOldStats = unit.sourceVisibleStats();
+            unit.sourceLevelUpOnce();
+            expNewStats = unit.sourceVisibleStats();
+            expDisplayValue = Math.min(unit.exp, unit.nextLevelEnergy());
+            expLevelUpApplied = true;
+            expLearnSkillIds = unit.sourceCanLearnAfterLevelUp() ? unit.sourceLearnCandidateSkillIds() : new int[0];
+            expHoldTicks = 40;
+            syncPlayerAfterExp(s, unit);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P22 game.h.an/ao levelUp species="
+                    + unit.speciesId + " level=" + unit.level
+                    + " exp=" + unit.exp + "/" + unit.nextLevelEnergy()
+                    + " oldStats=" + Arrays.toString(expOldStats)
+                    + " newStats=" + Arrays.toString(expNewStats)
+                    + " learnSkills=" + Arrays.toString(expLearnSkillIds)
+                    + " evolution-queue=PENDING");
+        }
+        if (expLevelUpApplied) {
+            s.battleUiMode = "levelup";
+            s.battleLevelUpView = levelUpView(s, unit, true);
+            if (s.key0 || expHoldTicks-- <= 0) {
+                s.key0 = false;
+                if (expLearnSkillIds.length > 0) {
+                    prepareLevelUpSkillMenu(s);
+                    expLearningSkill = true;
+                    expLevelUpApplied = false;
+                    return true;
+                }
+                if (unit.canSourceLevelUp()) {
+                    expLevelUpApplied = false;
+                    expLevelUpPending = true;
+                    return true;
+                }
+                expEligible = false;
+                persistActivePlayerPet(s, "P8 levelUp");
+                return false;
+            }
+            return true;
+        }
+        int target = Math.min(unit.exp, unit.nextLevelEnergy());
+        expDisplayValue = Math.min(target, expDisplayValue + 8);
+        s.battleUiMode = "levelup";
+        s.battleLevelUpView = levelUpView(s, unit, false);
+        if (expDisplayValue >= target) {
+            if (unit.canSourceLevelUp()) {
+                expLevelUpPending = true;
+                return true;
+            }
+            if (s.key0 || expHoldTicks++ >= 10) {
+                s.key0 = false;
+                expEligible = false;
+                persistActivePlayerPet(s, "P8 exp");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean tickLevelUpSkillLearn(VqsvIntroDemo.Scene s, BattleUnit unit) {
+        if (expLearningConfirm) {
+            s.battleUiMode = "warning";
+            if (s.key0) {
+                s.key0 = false;
+                boolean learned = unit.learnSourceSkill(expSelectedLearnSkill);
+                syncPlayerAfterExp(s, unit);
+                s.sourceStateTrace.add("PORTED/PARTIAL battle P23 game.h.aq learn skill="
+                        + expSelectedLearnSkill + " learned=" + learned
+                        + " skills=" + Arrays.toString(Arrays.copyOf(unit.skillIds, unit.skillCount)));
+                expLearningSkill = false;
+                expLearningConfirm = false;
+                expSelectedLearnSkill = -1;
+                expLearnSkillIds = new int[0];
+                if (unit.canSourceLevelUp()) {
+                    expLevelUpPending = true;
+                    return true;
+                }
+                expEligible = false;
+                persistActivePlayerPet(s, "P23 learn skill");
+                return false;
+            }
+            return true;
+        }
+        s.battleUiMode = "choiceskill";
+        MenuAction action = handleSkillInput(s);
+        if (action == MenuAction.BACK) {
+            s.sourceStateTrace.add("APPROX battle P23 choiceskill back/skip; source aq() back path not proven");
+            expLearningSkill = false;
+            expEligible = false;
+            persistActivePlayerPet(s, "P23 learn skill skipped");
+            return false;
+        }
+        if (action != MenuAction.CONFIRM) {
+            syncRenderState(s, VqsvText.Battle.LEVEL_UP_LEARN_PENDING);
+            return true;
+        }
+        if (s.battleSkillIds.length == 0) {
+            expLearningSkill = false;
+            return true;
+        }
+        int index = Math.max(0, Math.min(s.battleSkillIndex, s.battleSkillIds.length - 1));
+        expSelectedLearnSkill = s.battleSkillIds[index];
+        BattleSkillRow row = VqsvBattleTables.instance().skill(expSelectedLearnSkill);
+        s.battleWarningTitle = VqsvText.Battle.LEARN_SKILL_PREFIX
+                + (row == null ? "Skill " + expSelectedLearnSkill : row.name("Skill " + expSelectedLearnSkill));
+        s.battleWarningPrompt = VqsvText.Battle.WARNING_PROMPT;
+        s.battleUiMode = "warning";
+        expLearningConfirm = true;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P23 game.h.aq confirm prompt skill="
+                + expSelectedLearnSkill + " candidates=" + Arrays.toString(expLearnSkillIds));
+        return true;
+    }
+
+    private void prepareLevelUpSkillMenu(VqsvIntroDemo.Scene s) {
+        s.battleUiMode = "choiceskill";
+        s.battleSkillIndex = 0;
+        s.battleSkillScroll = 0;
+        s.battleSkillIds = Arrays.copyOf(expLearnSkillIds, expLearnSkillIds.length);
+        s.battleSkillNames = new String[s.battleSkillIds.length];
+        s.battleSkillPpLabels = new String[s.battleSkillIds.length];
+        for (int i = 0; i < s.battleSkillIds.length; i++) {
+            BattleSkillRow row = VqsvBattleTables.instance().skill(s.battleSkillIds[i]);
+            s.battleSkillNames[i] = row == null ? "Skill " + s.battleSkillIds[i]
+                    : row.name("Skill " + s.battleSkillIds[i]);
+            s.battleSkillPpLabels[i] = row == null ? "" : String.valueOf(row.ppMax);
+        }
+        updateSkillScrollAndDescription(s);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P23 game.h.ap choiceskill.ui candidates="
+                + Arrays.toString(s.battleSkillIds));
+    }
+
+    private void prepareWinExp(VqsvIntroDemo.Scene s) {
+        expPrepared = true;
+        expEligible = enemy != null && enemy.hp <= 0 && player != null && player.battleUnit != null
+                && !isBunnyCaptureBattle();
+        if (!expEligible) {
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P8 EXP skipped eligible=false enemyHp="
+                    + (enemy == null ? -1 : enemy.hp) + " bunny=" + isBunnyCaptureBattle());
+            return;
+        }
+        BattleUnit unit = player.battleUnit;
+        expAward = sourceExpAward(enemy, unit, 1);
+        expOldStats = unit.sourceVisibleStats();
+        unit.addSourceExp(expAward);
+        expNewStats = unit.sourceVisibleStats();
+        expDisplayValue = Math.max(0, unit.exp - expAward);
+        expHoldTicks = 0;
+        syncPlayerAfterExp(s, unit);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.d.h exp active-only species="
+                + unit.speciesId + " enemySpecies=" + enemy.speciesId
+                + " enemyLevel=" + enemy.level + " award=" + expAward
+                + " exp=" + expDisplayValue + "->" + unit.exp + "/" + unit.nextLevelEnergy()
+                + " participants=1 share/passive-exp=PENDING");
+    }
+
+    private int sourceExpAward(SourceBattleUnit defeated, BattleUnit participant, int participantCount) {
+        int enemyLevel = Math.max(1, defeated.level);
+        int quality = Math.max(1, Math.min(5, defeated.nature));
+        int[] aG = {10, 11, 12, 13, 15};
+        int[] aH = {10, 12, 13, 14, 15, 16};
+        int[] aI = {105, 100, 80, 60, 40, 20, 5};
+        int base = (((enemyLevel << 1) * enemyLevel + 50) * aG[quality - 1] / 10) + 400;
+        int diff = Math.max(1, participant.level) - enemyLevel;
+        int levelFactor;
+        if (diff >= 6) {
+            levelFactor = aI[6];
+        } else if (diff > 0) {
+            levelFactor = aI[diff];
+        } else if (diff == 0) {
+            levelFactor = aI[1];
+        } else {
+            levelFactor = aI[0];
+        }
+        int count = Math.max(1, Math.min(6, participantCount));
+        return Math.max(0, base / count * aH[count - 1] * levelFactor / 1000);
+    }
+
+    private VqsvBattleLevelUpView levelUpView(VqsvIntroDemo.Scene s, BattleUnit unit, boolean leveled) {
+        int expMax = unit.nextLevelEnergy();
+        int shown = Math.max(0, Math.min(expDisplayValue, expMax));
+        return new VqsvBattleLevelUpView(true, leveled, player.name, player.visualId, player.element,
+                unit.level, shown, expMax, shown * 100 / Math.max(1, expMax),
+                expOldStats, expNewStats,
+                leveled && expLearnSkillIds.length > 0 ? VqsvText.Battle.LEVEL_UP_LEARN_PENDING : "");
+    }
+
+    private void syncPlayerAfterExp(VqsvIntroDemo.Scene s, BattleUnit unit) {
+        if (!s.sourcePets.isEmpty()) {
+            s.sourcePets.get(0).persistBattleUnit(unit);
+        }
+        player = unit.toRenderUnit(true);
+        syncRenderState(s, battleWinLog());
     }
 
     private boolean tickLose(VqsvIntroDemo.Scene s) {
@@ -3118,6 +3753,7 @@ final class SourceBattleRuntime implements Blocking {
         int result = Math.max(0, forcedResultIndex);
         s.battleResultIndex = result;
         s.battleBranchTarget = resolveBranch(s.battleResultIndex);
+        persistActivePlayerPet(s, "P9 lose");
         syncRenderState(s, VqsvText.Battle.NEIL_LOST + s.battleResultIndex);
         s.sourceStateTrace.add("PORTED/PARTIAL battle P9 resultIndex="
                 + s.battleResultIndex + " branch=" + s.battleBranchTarget
@@ -3214,6 +3850,17 @@ final class SourceBattleRuntime implements Blocking {
         return VqsvText.Battle.NEIL_LOST + 0;
     }
 
+    private void setBunnyTutorialState(VqsvIntroDemo.Scene s, int u, int v, String reason) {
+        bunnyTutorialU = u;
+        bunnyTutorialV = v;
+        s.battleTutorialU = u;
+        s.battleTutorialV = v;
+        if (isBunnyCaptureBattle()) {
+            s.sourceStateTrace.add("PORTED/PARTIAL bunny tutorial state U=" + u
+                    + " V=" + v + " reason=" + reason);
+        }
+    }
+
     private void syncRenderState(VqsvIntroDemo.Scene s, String log) {
         s.battleEnemyName = enemy.name;
         s.battleEnemyLevel = enemy.level;
@@ -3242,6 +3889,46 @@ final class SourceBattleRuntime implements Blocking {
         }
         s.battleTurn = turn;
         s.battleLog = log;
+        syncBattleMarkerState(s);
+    }
+
+    private void syncBattleMarkerState(VqsvIntroDemo.Scene s) {
+        short[] row = VqsvBattleAnimationTables.instance().posRow(sourceCposGroup());
+        if (row.length >= 8) {
+            s.battleEnemyMarkerX = row[2];
+            s.battleEnemyMarkerY = row[3];
+            s.battlePlayerMarkerX = row[6];
+            s.battlePlayerMarkerY = row[7];
+        } else {
+            short[] enemyCpos = VqsvBattleAnimationTables.instance().cposRow(sourceCposGroup(), 0);
+            short[] playerCpos = VqsvBattleAnimationTables.instance().cposRow(sourceCposGroup(), 1);
+            if (enemyCpos.length >= 4) {
+                int at = enemyCpos.length - 2;
+                s.battleEnemyMarkerX = enemyCpos[at];
+                s.battleEnemyMarkerY = enemyCpos[at + 1];
+            }
+            if (playerCpos.length >= 4) {
+                int at = playerCpos.length - 2;
+                s.battlePlayerMarkerX = playerCpos[at];
+                s.battlePlayerMarkerY = playerCpos[at + 1];
+            }
+        }
+        s.battleGroundMarkersVisible = state != BattleRuntimeState.EXIT_FADE
+                && state != BattleRuntimeState.DONE;
+        s.battleActiveMarkerVisible = state != BattleRuntimeState.P0_ENTRY
+                && state != BattleRuntimeState.P1_DISPATCH
+                && state != BattleRuntimeState.P8_WIN
+                && state != BattleRuntimeState.P9_LOSE
+                && state != BattleRuntimeState.EXIT_FADE
+                && state != BattleRuntimeState.DONE;
+        s.battleActiveMarkerPlayerSide = currentActorPlayer
+                || state == BattleRuntimeState.P20_COMMAND
+                || state == BattleRuntimeState.P3_SKILL_LIST
+                || state == BattleRuntimeState.P6_TARGET_SELECT
+                || state == BattleRuntimeState.P21_CATCH_LIST
+                || state == BattleRuntimeState.P4_ITEM_LIST
+                || state == BattleRuntimeState.P16_ITEM_TARGET
+                || state == BattleRuntimeState.P5_PET_SWITCH;
     }
 
     private void setHp(SourceBattleUnit unit, int hp) {
@@ -3251,6 +3938,22 @@ final class SourceBattleRuntime implements Blocking {
         } else {
             unit.hp = Math.max(0, Math.min(unit.maxHp, hp));
         }
+    }
+
+    private void persistActivePlayerPet(VqsvIntroDemo.Scene s, String reason) {
+        if (playerPetPersistedOnExit || s.sourcePets.isEmpty() || player == null || player.battleUnit == null) {
+            return;
+        }
+        s.sourcePets.get(0).persistBattleUnit(player.battleUnit);
+        playerPetPersistedOnExit = true;
+        int[] payload = s.sourcePets.get(0).sourcePayload;
+        int hp = payload != null && payload.length > 6 ? payload[6] : -1;
+        int skillCount = payload != null && payload.length > 9 ? payload[9] : 0;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle pet persistence game.d " + reason
+                + " -> source party slot0 P() species=" + s.sourcePets.get(0).speciesId
+                + " hpPayload6=" + hp
+                + " skillCount=" + skillCount
+                + " pending full game.d.x vector damage-delta parity");
     }
 
     private boolean isKidnappingBattle() {

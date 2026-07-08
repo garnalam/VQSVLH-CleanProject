@@ -19,6 +19,9 @@ final class VqsvText {
         static final String ITEM_BAG_FULL = "Ba l\u00f4 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ea1o c\u1ee5 n\u00e0y";
         static final String PROMPT_PRESS_0 = "Nh\u1ea5n n\u00fat 0 \u0111\u1ec3 ti\u1ebfp t\u1ee5c";
         static final String SMOKE_SANDWICH_X10 = "B\u00e1nh Sandwich x 10";
+        static final String SAVE_PROMPT = "B\u1ea1n c\u00f3 mu\u1ed1n l\u01b0u tr\u1eef kh\u00f4ng?";
+        static final String SAVE_IN_PROGRESS = "\u0110ang l\u01b0u...";
+        static final String SAVE_SUCCESS = "L\u01b0u th\u00e0nh c\u00f4ng";
     }
 
     static final class Battle {
@@ -92,12 +95,16 @@ final class VqsvText {
         static final String PETSTATE_DEFENSE = "Ph\u00f2ng";
         static final String PETSTATE_SPEED = "Min";
         static final String PETSTATE_CARRYING = "Mang theo";
+        static final String LEVEL_UP_TITLE = "Th\u0103ng c\u1ea5p";
+        static final String LEVEL_UP_LEARN_PENDING = "C\u00f3 th\u1ec3 h\u1ecdc t\u1eadp k\u1ef9 n\u0103ng m\u1edbi";
+        static final String LEARN_SKILL_PREFIX = "H\u1ecdc t\u1eadp";
         static final String NO_SHOP_ITEMS = "Kh\u00f4ng c\u00f3 \u0111\u1ea1o c\u1ee5 b\u00e1n";
         static final String NOT_ENOUGH_MONEY = "Kim ti\u1ec1n kh\u00f4ng \u0111\u1ee7";
         static final String DAMAGE = " g\u00e2y ";
         static final String DAMAGE_SUFFIX = " s\u00e1t th\u01b0\u01a1ng";
         static final String NEIL_LOST = "Neil th\u1ea5t th\u1ee7, result ";
-        static final String BUNNY_WEAK = "Bunny b\u1ecb th\u01b0\u01a1ng, d\u00f9ng phong \u1ea5n c\u1ea7u";
+        static final String BUNNY_WEAK = "Di L\u1eb7c th\u1ecf th\u1ecf \u0111\u00e3 b\u1ecb th\u01b0\u01a1ng, nhanh s\u1eed d\u1ee5ng phong \u1ea5n c\u1ea7u";
+        static final String BUNNY_RETRY_TAT_TRUNG_CAU = "\u0110\u00e1ng ti\u1ebfc \u0111\u00e3 b\u1eaft tr\u01b0\u1ee3t, th\u1eed d\u00f9ng lo\u1ea1i x\u1ecbn T\u1ea5t tr\u00fang c\u1ea7u xem sao!";
         static final String BALL_CHOSEN = "\u0110\u00e3 ch\u1ecdn phong \u1ea5n c\u1ea7u";
         static final String BUNNY_CAUGHT = "B\u1eaft \u0111\u01b0\u1ee3c Bunny, result ";
         static final String ELDER_DONE = "Tr\u1eadn s\u00e1t h\u1ea1ch ho\u00e0n t\u1ea5t";

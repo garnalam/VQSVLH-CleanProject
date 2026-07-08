@@ -30,7 +30,7 @@ Verified facts:
 | `game.d.e(byte)` | q1/q4 create `ah` type 8 secondary effect using source short arrays and enemy sprite id | PORTED/PARTIAL |
 | `game.d` P17 tick | runs phase `q=0..4`; success is q=3, fail is q=4; phase timing is now driven by sprite-frame end plus `ah` duration | PORTED/PARTIAL |
 | `game.g.y()` | storage result: active bag `<6` => 0, bank `<100` => 1, otherwise 2 | PORTED |
-| `game.d.b(int itemId)` | catch chance formula: HP threshold, ball param `[6]`, target quality, status multiplier, attacker status 11, relation class `[22]`, level cap, clamp `1..100`; item 0 returns 100 | PORTED/PARTIAL |
+| `game.d.b(int itemId)` | catch chance formula: HP threshold, ball param `[6]`, target quality, status multiplier, attacker status 11, relation class `[22]`, level cap, clamp `1..100`; item 0 returns 100 | PORTED |
 | `sprite.mid` | row `269,309` | PORTED |
 | Asset files | `spr_269_all(r)` and decoded `img_309` exist | PORTED |
 

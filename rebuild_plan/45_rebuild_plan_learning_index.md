@@ -1,6 +1,6 @@
 # Rebuild Plan Learning Index
 
-Date: 2026-07-03
+Date: 2026-07-08
 
 This is the recommended reading path through `rebuild_plan` for a new dev chat.
 It groups the existing documents by purpose so the new chat does not read them
@@ -8,27 +8,33 @@ randomly and miss the current truth.
 
 ## Start Here
 
-1. `42_new_dev_chat_handoff_after_refactor.md`
+1. `102_new_dev_chat_handoff_battle_engine_after_levelup.md`
+   - latest battle-engine handoff after catch, petstate, save, EXP/levelUp,
+     and learn-skill slices
+   - includes current rules, required reading, current status, next target, and
+     compulsory entry exercise
+
+2. `42_new_dev_chat_handoff_after_refactor.md`
    - current handoff after source split/refactor
    - prime directive, current layout, commands, known remaining work
 
-2. `43_project_layout_and_java_architecture.md`
+3. `43_project_layout_and_java_architecture.md`
    - current Java source structure and project layout
    - explains which files are framework, script, runtime, or hotspot
 
-3. `44_new_dev_chat_training_and_exercises.md`
+4. `44_new_dev_chat_training_and_exercises.md`
    - copy-paste prompt, required exercises, answer rubric, first safe tasks
 
-4. `47_battle_scripts_refactor_audit.md`
+5. `47_battle_scripts_refactor_audit.md`
    - latest small refactor audit for moving Bunny/elder battle factory wrappers
      into `VqsvBattleScripts.java`
 
-5. `48_intro_demo_remaining_scene_audit.md`
+6. `48_intro_demo_remaining_scene_audit.md`
    - latest audit-only map of what remains in `VqsvIntroDemo.Scene`
    - classifies remaining areas as `KEEP_CORE`, `MOVE_SAFE`, `MOVE_LATER`,
      and `DO_NOT_TOUCH_YET`
 
-6. `49_scene_tick_input_runner_audit.md`
+7. `49_scene_tick_input_runner_audit.md`
    - audit-only map of `press0`, `click`, `setMoveKey`, and `tick`
    - documents why input/tick runner has not been moved yet
 
@@ -113,12 +119,15 @@ randomly and miss the current truth.
 
 These are not the latest entrypoint anymore. Prefer `42`, `43`, and `44` first.
 
+For battle-engine continuation, prefer `102` first. `81` is superseded and only
+historical.
+
 ## How To Use The Index
 
 For a new dev chat:
 
-1. Read `42`, `43`, `44`.
-2. Answer the exercises in `44`.
+1. If the task is battle-engine work, read `102` first and answer its exercise.
+2. If the task is general refactor/scene work, read `42`, `43`, `44`.
 3. Read only the audit docs relevant to the chosen task.
 4. Before coding, state:
    - exact source files used
@@ -131,15 +140,15 @@ For a new dev chat:
 | Area | Status | Primary docs |
 |---|---|---|
 | Intro/scene0 | PORTED/APPROX, user-approved baseline | `40`, `42`, `43` |
-| Scene1 room3 entry | PORTED/APPROX + battle pending | `22`, `40`, `41` |
+| Scene1 room3 entry | PORTED/APPROX + battle partial | `22`, `40`, `102` |
 | Scene1 room0 group0 | PORTED/APPROX | `28`, `31`, `40` |
-| Room1 Bunny path | PORTED/APPROX + battle pending | `32`, `33`, `41` |
+| Room1 Bunny path | PORTED/APPROX + battle PORTED/PARTIAL | `32`, `33`, `92`, `102` |
 | Return room0 actor52/group2 | PORTED/APPROX | `35`, `40` |
 | Pet selection group3 | PORTED/APPROX | `36`, `40` |
-| Elder battle/reward group6 | PORTED/APPROX + battle pending | `37`, `41` |
+| Elder battle/reward group6 | PORTED/APPROX + battle PORTED/PARTIAL | `37`, `41`, `102` |
 | Post-group6 free world | PORTED/APPROX slice | `38`, `39` |
-| Full battle engine | PENDING | `41` |
-| Full UI runtime | PENDING | `40`, `41` |
+| Full battle engine | PARTIAL, active route smoke-covered in many slices | `74..102` |
+| Full UI runtime | PENDING/PARTIAL, source-shaped battle/world widgets only | `84`, `97`, `99..102` |
 | Generic event runner | PENDING | `42`, `43` |
 
 ## Recent Cleanup Status

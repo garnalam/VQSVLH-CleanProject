@@ -1,13 +1,66 @@
+import com.vqsv.rebuild.core.GameConfig;
+import com.vqsv.rebuild.input.InputSnapshot;
+import com.vqsv.rebuild.resource.AssetPaths;
+import com.vqsv.rebuild.state.BootFlowState;
+import com.vqsv.rebuild.state.GameStateMachine;
+
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.HashSet;
 
 final class VqsvSmokeHarness {
     private static final int W = VqsvIntroDemo.W;
     private static final int H = VqsvIntroDemo.H;
 
     private VqsvSmokeHarness() {
+    }
+
+    private static void seedInitialDienMieu(VqsvIntroDemo.Scene s, String reason) {
+        VqsvSourceStoryState.ensureInitialDienMieu(s, reason);
+    }
+
+    private static void assertActiveSourcePet(VqsvIntroDemo.Scene s, int speciesId, String label) {
+        if (s.sourcePets.isEmpty() || s.sourcePets.get(0).speciesId != speciesId) {
+            throw new IllegalStateException(label + " active pet mismatch expectedSpecies="
+                    + speciesId + " pets=" + s.sourcePets.size()
+                    + " actual=" + (s.sourcePets.isEmpty() ? -1 : s.sourcePets.get(0).speciesId)
+                    + " trace=" + tailTrace(s, 12));
+        }
+        if ("Neil".equals(s.battlePlayerName)) {
+            throw new IllegalStateException(label + " must not render Neil fallback"
+                    + " battlePlayerName=" + s.battlePlayerName
+                    + " trace=" + tailTrace(s, 12));
+        }
+        s.sourceStateTrace.add("SMOKE verified " + label + " active species=" + speciesId
+                + " battlePlayer=" + s.battlePlayerName);
+    }
+
+    private static int payloadHp(SourcePetState pet) {
+        return pet != null && pet.sourcePayload != null && pet.sourcePayload.length > 6
+                ? pet.sourcePayload[6] : -1;
+    }
+
+    private static void assertPayloadHp(SourcePetState pet, int expected, String label) {
+        int actual = payloadHp(pet);
+        if (actual != expected) {
+            throw new IllegalStateException(label + " payload HP mismatch expected="
+                    + expected + " actual=" + actual);
+        }
+    }
+
+    private static SourcePetState findSourcePet(VqsvIntroDemo.Scene s, int speciesId) {
+        for (SourcePetState pet : s.sourcePets) {
+            if (pet.speciesId == speciesId) {
+                return pet;
+            }
+        }
+        return null;
+    }
+
+    private static int sourceMaxHp(SourcePetState pet) {
+        return BattleUnit.fromSourcePet(pet, (byte) 0).maxHp();
     }
 
     static void tickSceneFastForward(VqsvIntroDemo.Scene s, int ticks) {
@@ -60,6 +113,89 @@ final class VqsvSmokeHarness {
             throw new IllegalStateException("Battle state " + stateName
                     + " not reached in " + maxTicks + " ticks, current=" + s.battleStateName);
         }
+    }
+
+    private static void tickUntilBattleEntryOffset(VqsvIntroDemo.Scene s, boolean playerSide, int maxTicks) {
+        int guard = 0;
+        while (guard++ < maxTicks) {
+            s.tick();
+            boolean active = playerSide
+                    ? s.battleP7PlayerOffsetX != 0 || s.battleP7PlayerOffsetY != 0
+                    : s.battleP7EnemyOffsetX != 0 || s.battleP7EnemyOffsetY != 0;
+            if ("P0".equals(s.battleStateName) && active && battleEntryActorVisible(s, playerSide)) {
+                s.sourceStateTrace.add("SMOKE verified battle P0 cpos "
+                        + (playerSide ? "player" : "enemy")
+                        + " offset=("
+                        + (playerSide ? s.battleP7PlayerOffsetX : s.battleP7EnemyOffsetX)
+                        + ","
+                        + (playerSide ? s.battleP7PlayerOffsetY : s.battleP7EnemyOffsetY)
+                        + ")");
+                return;
+            }
+        }
+        throw new IllegalStateException("Battle entry cpos visible offset not reached side="
+                + (playerSide ? "player" : "enemy")
+                + " state=" + s.battleStateName
+                + " playerOffset=" + s.battleP7PlayerOffsetX + "," + s.battleP7PlayerOffsetY
+                + " enemyOffset=" + s.battleP7EnemyOffsetX + "," + s.battleP7EnemyOffsetY
+                + " trace=" + tailTrace(s, 12));
+    }
+
+    private static boolean battleEntryActorVisible(VqsvIntroDemo.Scene s, boolean playerSide) {
+        int x = (playerSide ? 18 : 132) + (playerSide ? s.battleP7PlayerOffsetX : s.battleP7EnemyOffsetX);
+        int y = (playerSide ? 140 : 70) + (playerSide ? s.battleP7PlayerOffsetY : s.battleP7EnemyOffsetY);
+        int w = playerSide ? 96 : 96;
+        int h = playerSide ? 95 : 118;
+        return x < W && x + w > 0 && y < H && y + h > 0;
+    }
+
+    private static void tickUntilBattleCatchPhase(VqsvIntroDemo.Scene s, int phase, int maxTicks) {
+        int guard = 0;
+        while (guard++ < maxTicks) {
+            if ("P17".equals(s.battleStateName) && s.battleCatchPhase == phase) {
+                s.sourceStateTrace.add("SMOKE verified battle P17 catch phase q=" + phase
+                        + " item=" + s.battleCatchItemId
+                        + " caught=" + s.battleCatchCaught
+                        + " effect=" + s.battleCatchEffectVisible
+                        + " cursor=" + s.battleCatchAnimCursor);
+                return;
+            }
+            s.tick();
+        }
+        throw new IllegalStateException("Battle catch phase q=" + phase
+                + " not reached in " + maxTicks
+                + " ticks state=" + s.battleStateName
+                + " currentPhase=" + s.battleCatchPhase
+                + " item=" + s.battleCatchItemId
+                + " caught=" + s.battleCatchCaught
+                + " effect=" + s.battleCatchEffectVisible
+                + " trace=" + tailTrace(s, 16));
+    }
+
+    private static void tickUntilBattleCatchPhaseCursor(VqsvIntroDemo.Scene s, int phase, int minCursor, int maxTicks) {
+        int guard = 0;
+        while (guard++ < maxTicks) {
+            if ("P17".equals(s.battleStateName)
+                    && s.battleCatchPhase == phase
+                    && s.battleCatchAnimCursor >= minCursor) {
+                s.sourceStateTrace.add("SMOKE verified battle P17 catch phase q=" + phase
+                        + " cursor>=" + minCursor
+                        + " actual=" + s.battleCatchAnimCursor
+                        + " item=" + s.battleCatchItemId
+                        + " caught=" + s.battleCatchCaught);
+                return;
+            }
+            s.tick();
+        }
+        throw new IllegalStateException("Battle catch phase q=" + phase
+                + " cursor>=" + minCursor
+                + " not reached in " + maxTicks
+                + " ticks state=" + s.battleStateName
+                + " currentPhase=" + s.battleCatchPhase
+                + " cursor=" + s.battleCatchAnimCursor
+                + " item=" + s.battleCatchItemId
+                + " caught=" + s.battleCatchCaught
+                + " trace=" + tailTrace(s, 16));
     }
 
     private static void tickUntilAnyBattleState(VqsvIntroDemo.Scene s, int maxTicks, String... stateNames) {
@@ -261,6 +397,111 @@ final class VqsvSmokeHarness {
                 }
                 s.text = TextBox.taskTip(VqsvText.Scene1Room0Group0.TASK_BUNNY);
                 revealCheckpointText(s, 80);
+            } else if ("room1_bunny_save_prompt".equals(checkpoint)) {
+                setupRoom1BunnySavePoint(s);
+                Blocking prompt = new VqsvSavePromptBlocking();
+                prompt.tick(s);
+            } else if ("room1_bunny_save_success".equals(checkpoint)) {
+                setupRoom1BunnySavePoint(s);
+                Blocking prompt = new VqsvSavePromptBlocking();
+                prompt.tick(s);
+                s.key0 = true;
+                prompt.tick(s);
+                if (!VqsvSaveRuntime.hasSave() || !VqsvText.Common.SAVE_SUCCESS.equals(s.savePromptStatus)) {
+                    throw new IllegalStateException("Expected save success status hasSave="
+                            + VqsvSaveRuntime.hasSave() + " status=" + s.savePromptStatus
+                            + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("room1_bunny_save_resume_state".equals(checkpoint)) {
+                setupRoom1BunnySavePoint(s);
+                VqsvSaveRuntime.save(s);
+                s.loadScene1Room0(199, 218);
+                s.setPlayerPositionApprox(199, 218);
+                s.eventIndex = 0;
+                if (!VqsvSaveRuntime.loadInto(s)) {
+                    throw new IllegalStateException("Expected save load success");
+                }
+                if (s.currentSceneId != 1 || s.currentRoomIndex != 1
+                        || s.eventIndex != 123) {
+                    throw new IllegalStateException("Bad resume target scene=" + s.currentSceneId
+                            + " room=" + s.currentRoomIndex + " eventIndex=" + s.eventIndex);
+                }
+                if (s.sourcePets.isEmpty() || VqsvSourceOps.sourceItemCount(s, 1) < 2
+                        || VqsvSourceOps.sourceItemCount(s, 4) < 5) {
+                    throw new IllegalStateException("Bad resume inventory pets=" + s.sourcePets.size()
+                            + " ball=" + VqsvSourceOps.sourceItemCount(s, 1)
+                            + " sandwich=" + VqsvSourceOps.sourceItemCount(s, 4));
+                }
+            } else if ("world_petstate_ui_source_party".equals(checkpoint)
+                    || "world_petstate_ui_bunny_selected".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke world petstate");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickBattleAutoUntilDone(s, 3000);
+                SourcePetState bunny = findSourcePet(s, 34);
+                if (bunny == null || payloadHp(bunny) <= 0 || payloadHp(bunny) >= sourceMaxHp(bunny)) {
+                    throw new IllegalStateException("Expected caught low-HP Bunny before world petstate, bunny="
+                            + bunny + " trace=" + tailTrace(s, 16));
+                }
+                s.loadScene1Room1(370, 176);
+                s.setPlayerPositionApprox(374, 180);
+                s.worldUi.visible = true;
+                s.openWorldPetstate();
+                if ("world_petstate_ui_bunny_selected".equals(checkpoint)) {
+                    s.battleMenuIndex = 1;
+                }
+                if (!s.worldPetstateVisible || s.battlePetStateRows.length < 2) {
+                    throw new IllegalStateException("World petstate did not open rows="
+                            + s.battlePetStateRows.length + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("boot_title_continue_with_save".equals(checkpoint)) {
+                setupRoom1BunnySavePoint(s);
+                VqsvSaveRuntime.save(s);
+                AssetPaths assets = AssetPaths.fromWorkingTree(GameConfig.defaultConfig());
+                BootFlowState boot = new BootFlowState(assets);
+                GameStateMachine states = new GameStateMachine();
+                states.replace(boot);
+                tickBoot(boot, states, 20, emptyBootInput());
+                tickBoot(boot, states, 20, emptyBootInput());
+                boot.tick(bootInput(KeyEvent.VK_RIGHT), states);
+                if (!"TITLE_MENU".equals(boot.phaseName()) || !boot.saveAvailableForSmoke()
+                        || !"Ch\u01a1i ti\u1ebfp".equals(boot.selectedMenuLabelForSmoke())) {
+                    throw new IllegalStateException("Boot continue menu mismatch phase="
+                            + boot.phaseName()
+                            + " save=" + boot.saveAvailableForSmoke()
+                            + " label=" + boot.selectedMenuLabelForSmoke());
+                }
+                BufferedImage menu = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D menuGraphics = menu.createGraphics();
+                boot.render(menuGraphics);
+                menuGraphics.dispose();
+                ImageIO.write(menu, "png", new java.io.File(outPath));
+                boot.tick(bootInput(KeyEvent.VK_SPACE), states);
+                if (!"LegacyIntroDemoState".equals(states.currentStateNameForSmoke())) {
+                    throw new IllegalStateException("Boot continue did not route to save loader state="
+                            + states.currentStateNameForSmoke());
+                }
+                System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                        + " label=" + boot.selectedMenuLabelForSmoke()
+                        + " routed=" + states.currentStateNameForSmoke());
+                return;
+            } else if ("room1_bunny_op32_flash_transition".equals(checkpoint)) {
+                s.loadScene1Room1(370, 176);
+                s.setPlayerPositionApprox(374, 180);
+                Blocking battle = VqsvBattleScripts.room1BunnyBattleCaptureRuntime(s);
+                for (int i = 0; i < 13; i++) {
+                    if (battle.tick(s)) {
+                        throw new IllegalStateException("Battle transition completed before flash smoke");
+                    }
+                    s.effect.tick();
+                }
+                if (s.battleOverlayTicks > 0 || !traceContains(s, "sourceEffect=6")) {
+                    throw new IllegalStateException("Expected source op32 flash before battle overlay battleTicks="
+                            + s.battleOverlayTicks
+                            + " trace=" + tailTrace(s, 12));
+                }
             } else if ("return_room0_transition".equals(checkpoint)) {
                 s.loadScene1Room1(370, 176);
                 placePlayerForActorMaskSmoke(s, 37, true, 3);
@@ -316,13 +557,16 @@ final class VqsvSmokeHarness {
                 }
             } else if ("battle_kidnapping".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Sophie kidnapping battle");
                 s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
                         new int[]{1, 1}, new int[]{0, 2}, new int[]{78, 78, 0});
                 for (int i = 0; i < 50; i++) {
                     s.tick();
                 }
+                assertActiveSourcePet(s, 68, "Sophie battle initial Dien Mieu");
             } else if ("battle_kidnapping_result".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Sophie kidnapping result");
                 s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
                         new int[]{1, 1}, new int[]{0, 2}, new int[]{78, 78, 0});
                 for (int i = 0; i < 80; i++) {
@@ -330,19 +574,47 @@ final class VqsvSmokeHarness {
                 }
             } else if ("battle_bunny_capture".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny capture");
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 for (int i = 0; i < 140; i++) {
                     s.tick();
                 }
+            } else if ("battle_entry_enemy_cpos".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleEntryOffset(s, false, 160);
+            } else if ("battle_entry_player_cpos".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleEntryOffset(s, true, 180);
+            } else if ("battle_entry_both_landed".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 180);
+                if (!s.battleGroundMarkersVisible || !s.battleActiveMarkerVisible
+                        || !s.battleActiveMarkerPlayerSide) {
+                    throw new IllegalStateException("Expected landed battle markers under both actors, ground="
+                            + s.battleGroundMarkersVisible
+                            + " active=" + s.battleActiveMarkerVisible
+                            + " activePlayer=" + s.battleActiveMarkerPlayerSide);
+                }
             } else if ("battle_bunny_command_ui".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny command UI");
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 tickUntilBattleState(s, "P20", 120);
+                assertActiveSourcePet(s, 68, "Bunny command UI initial Dien Mieu");
             } else if ("battle_bunny_p3_skill_list".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
-                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                seedInitialDienMieu(s, "smoke Bunny P3 skill list");
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 tickUntilBattleState(s, "P20", 120);
@@ -351,6 +623,7 @@ final class VqsvSmokeHarness {
                 tickUntilBattleState(s, "P3", 80);
             } else if ("battle_bunny_capture_result".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny capture result");
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 for (int i = 0; i < 190; i++) {
@@ -674,6 +947,86 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Expected P12 debuff0 tick death to route P8, state="
                             + s.battleStateName + " enemyHp=" + s.battleEnemyHp
                             + " trace=" + tailTrace(s, 14));
+                }
+            } else if ("battle_exp_levelup_ui".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 0, 5, 3, 2, 1, 45);
+                pet.sourcePayload[7] = BattleUnit.sourceLevelThreshold(6) - 10;
+                s.sourcePets.add(pet);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{0, 1, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                int guard = 0;
+                while ((!"P8".equals(s.battleStateName)
+                        || !"levelup".equals(s.battleUiMode)
+                        || s.battleLevelUpView == null
+                        || !s.battleLevelUpView.leveled)
+                        && guard++ < 620) {
+                    s.tick();
+                }
+                if (!"P8".equals(s.battleStateName)
+                        || !"levelup".equals(s.battleUiMode)
+                        || s.battleLevelUpView == null
+                        || !s.battleLevelUpView.leveled
+                        || s.sourcePets.get(0).level <= 5) {
+                    throw new IllegalStateException("Expected P8 levelUp UI, state="
+                            + s.battleStateName + " mode=" + s.battleUiMode
+                            + " level=" + s.sourcePets.get(0).level
+                            + " view=" + (s.battleLevelUpView == null ? "null" : s.battleLevelUpView.visible)
+                            + " trace=" + tailTrace(s, 18));
+                }
+            } else if ("battle_exp_levelup_choiceskill_ui".equals(checkpoint)
+                    || "battle_exp_levelup_learn_skill_done".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = new SourcePetState(0, 0, 10, 3, 2, 0, -1);
+                pet.sourcePayload[7] = BattleUnit.sourceLevelThreshold(11) - 10;
+                s.sourcePets.add(pet);
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{0, 1, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
+                int guard = 0;
+                while ((!"P8".equals(s.battleStateName)
+                        || !"levelup".equals(s.battleUiMode)
+                        || s.battleLevelUpView == null
+                        || !s.battleLevelUpView.leveled)
+                        && guard++ < 620) {
+                    s.tick();
+                }
+                s.press0();
+                guard = 0;
+                while (!"choiceskill".equals(s.battleUiMode) && guard++ < 80) {
+                    s.tick();
+                }
+                if (!"choiceskill".equals(s.battleUiMode)
+                        || s.battleSkillIds.length == 0
+                        || !traceContains(s, "P23 game.h.ap choiceskill.ui")) {
+                    throw new IllegalStateException("Expected level-up choiceskill UI, mode="
+                            + s.battleUiMode + " skills=" + java.util.Arrays.toString(s.battleSkillIds)
+                            + " trace=" + tailTrace(s, 18));
+                }
+                if ("battle_exp_levelup_learn_skill_done".equals(checkpoint)) {
+                    int learnedSkill = s.battleSkillIds[0];
+                    s.press0();
+                    guard = 0;
+                    while (!"warning".equals(s.battleUiMode) && guard++ < 40) {
+                        s.tick();
+                    }
+                    s.press0();
+                    guard = 0;
+                    while (!traceContains(s, "P23 game.h.aq learn skill=" + learnedSkill)
+                            && guard++ < 80) {
+                        s.tick();
+                    }
+                    if (!sourcePetHasSkill(s.sourcePets.get(0), learnedSkill)) {
+                        throw new IllegalStateException("Expected learned skill in payload skill="
+                                + learnedSkill + " payload="
+                                + java.util.Arrays.toString(s.sourcePets.get(0).sourcePayload)
+                                + " trace=" + tailTrace(s, 18));
+                    }
                 }
             } else if ("battle_p13_queue_death_to_p5".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
@@ -1156,22 +1509,26 @@ final class VqsvSmokeHarness {
                 }
             } else if ("battle_bunny_catch_p21".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
-                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                seedInitialDienMieu(s, "smoke Bunny P21");
+                seedRoom0Group0BunnyRewards(s);
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 tickUntilBattleState(s, "P20", 120);
                 s.battleClickX = 56;
                 s.battleClickY = 300;
                 tickUntilBattleState(s, "P21", 80);
+                assertBattleMenuIds(s, "Bunny route P21 ball list", new int[]{0, 1});
             } else if ("battle_bunny_catch_p17_anim_or_result".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
-                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                seedInitialDienMieu(s, "smoke Bunny P17");
+                seedRoom0Group0BunnyRewards(s);
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 tickUntilBattleState(s, "P20", 120);
                 s.battleClickX = 56;
                 s.battleClickY = 300;
                 tickUntilBattleState(s, "P21", 80);
+                assertBattleMenuIds(s, "Bunny route P21 ball list before P17", new int[]{0, 1});
                 for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
                     s.press0();
                     s.tick();
@@ -1182,8 +1539,8 @@ final class VqsvSmokeHarness {
                 }
             } else if ("battle_bunny_after_catch_route".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
-                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
-                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                seedInitialDienMieu(s, "smoke Bunny after catch route");
+                seedRoom0Group0BunnyRewards(s);
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 tickBattleAutoUntilDone(s, 3000);
@@ -1191,14 +1548,154 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Bunny catch route mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
                 }
+                if (s.battleTutorialU != -1 || s.battleTutorialV != 0) {
+                    throw new IllegalStateException("Bunny tutorial cleanup mismatch U="
+                            + s.battleTutorialU + " V=" + s.battleTutorialV
+                            + " trace=" + tailTrace(s, 16));
+                }
                 s.text = TextBox.taskTip(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER);
                 revealCheckpointText(s, 90);
+            } else if ("battle_bunny_weak_prompt_tasktip".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny weak prompt");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                driveBunnyTutorialUntilWeakPrompt(s, 2200);
+                revealCheckpointText(s, 18);
+                if (s.text == null || s.text.sourceUiKind != TextBox.SOURCE_TASKTIP
+                        || !s.text.text.contains("phong \u1ea5n c\u1ea7u")
+                        || s.battleTutorialU != 0 || s.battleTutorialV != 1) {
+                    throw new IllegalStateException("Bunny weak prompt mismatch text="
+                            + (s.text == null ? "null" : s.text.text)
+                            + " kind=" + (s.text == null ? -1 : s.text.sourceUiKind)
+                            + " U=" + s.battleTutorialU + " V=" + s.battleTutorialV
+                            + " state=" + s.battleStateName
+                            + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_bunny_first_catch_forced_fail".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny first catch forced fail");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                driveBunnyTutorialUntilFirstCatchP17(s, 2500);
+                if (s.battleCatchItemId != 1 || s.battleCatchCaught
+                        || s.battleTutorialU != 0 || s.battleTutorialV != 5) {
+                    throw new IllegalStateException("Bunny first catch force-fail mismatch item="
+                            + s.battleCatchItemId + " caught=" + s.battleCatchCaught
+                            + " U=" + s.battleTutorialU + " V=" + s.battleTutorialV
+                            + " state=" + s.battleStateName + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_bunny_first_catch_fail_escape_effect".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny first catch fail escape");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                driveBunnyTutorialUntilFirstCatchP17(s, 2500);
+                tickUntilBattleCatchPhase(s, 4, 260);
+                if (s.battleCatchItemId != 1 || s.battleCatchCaught
+                        || !s.battleCatchEffectVisible) {
+                    throw new IllegalStateException("Bunny forced fail escape effect mismatch item="
+                            + s.battleCatchItemId + " caught=" + s.battleCatchCaught
+                            + " phase=" + s.battleCatchPhase
+                            + " effect=" + s.battleCatchEffectVisible
+                            + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_bunny_first_fail_enemy_counterattack".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny first fail enemy counterattack");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                driveBunnyTutorialUntilEnemyCounterAfterFirstFail(s, 4000);
+                if (!"P7".equals(s.battleStateName) || s.battleP7AttackerPlayerSide
+                        || !s.battleP7TargetPlayerSide || !s.battleP7DamageVisible
+                        || s.battleTutorialU != 0 || s.battleTutorialV != 5) {
+                    throw new IllegalStateException("Bunny first fail should allow enemy P7 counterattack before retry prompt"
+                            + " state=" + s.battleStateName
+                            + " attackerPlayer=" + s.battleP7AttackerPlayerSide
+                            + " targetPlayer=" + s.battleP7TargetPlayerSide
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " U=" + s.battleTutorialU + " V=" + s.battleTutorialV
+                            + " trace=" + tailTrace(s, 20));
+                }
+            } else if ("battle_bunny_first_catch_q2_rumble".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny first catch rumble");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                driveBunnyTutorialUntilFirstCatchP17(s, 2500);
+                tickUntilBattleCatchPhaseCursor(s, 2, 1, 260);
+                if (s.battleCatchItemId != 1 || s.battleCatchCaught) {
+                    throw new IllegalStateException("Bunny forced fail q2 rumble mismatch item="
+                            + s.battleCatchItemId + " caught=" + s.battleCatchCaught
+                            + " phase=" + s.battleCatchPhase
+                            + " cursor=" + s.battleCatchAnimCursor
+                            + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_bunny_pre_p17_rng_trace".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny pre-P17 RNG trace");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                driveBunnyTutorialUntilFirstCatchP17(s, 2500);
+                String trace = tailTrace(s, 80);
+                if (!trace.contains("RNG TRACE battle.P7.skill")
+                        || !trace.contains(".damage.crit helper=ae.a(int)")
+                        || !trace.contains(".damage.jitter helper=ae.a(int)")
+                        || !trace.contains("RNG TRACE battle.P17.catch helper=ae.a(int)")
+                        || s.battleCatchItemId != 1
+                        || s.battleCatchCaught) {
+                    throw new IllegalStateException("Bunny pre-P17 RNG trace mismatch item="
+                            + s.battleCatchItemId + " caught=" + s.battleCatchCaught
+                            + " trace=" + trace);
+                }
+                System.out.println("smoke-rng-trace-order " + rngTraceSummary(s));
+                s.sourceStateTrace.add("SMOKE verified Bunny pre-P17 source RNG trace includes damage.crit, damage.jitter, P17 catch");
+            } else if ("battle_bunny_retry_p21_item0".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny retry P21");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                driveBunnyTutorialUntilRetryP21(s, 3500);
+                assertBattleMenuIds(s, "Bunny retry P21 ball list", new int[]{0, 1});
+                int selectedId = s.battleMenuIds.length == 0 ? -1 : s.battleMenuIds[s.battleMenuIndex];
+                if (selectedId != 0 || s.battleTutorialU != 0 || s.battleTutorialV != 7) {
+                    throw new IllegalStateException("Bunny retry P21 selected item mismatch selected="
+                            + selectedId + " menuIndex=" + s.battleMenuIndex
+                            + " ids=" + java.util.Arrays.toString(s.battleMenuIds)
+                            + " U=" + s.battleTutorialU + " V=" + s.battleTutorialV
+                            + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_bunny_retry_prompt_tasktip".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny retry prompt");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                driveBunnyTutorialUntilRetryPrompt(s, 3500);
+                revealCheckpointText(s, 18);
+                if (s.text == null || s.text.sourceUiKind != TextBox.SOURCE_TASKTIP
+                        || !s.text.text.contains("T\u1ea5t tr\u00fang c\u1ea7u")) {
+                    throw new IllegalStateException("Bunny retry prompt mismatch text="
+                            + (s.text == null ? "null" : s.text.text)
+                            + " kind=" + (s.text == null ? -1 : s.text.sourceUiKind)
+                            + " state=" + s.battleStateName
+                            + " trace=" + tailTrace(s, 16));
+                }
             } else if ("battle_catch_fail_or_warning".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
                 s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
-                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
                         new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(99);
+                s.current = runtime;
                 tickUntilBattleState(s, "P20", 120);
                 s.battleClickX = 56;
                 s.battleClickY = 300;
@@ -1208,35 +1705,237 @@ final class VqsvSmokeHarness {
                     s.tick();
                 }
                 tickUntilBattleState(s, "P17", 80);
+                if (s.battleCatchRoll != 99 || s.battleCatchCaught) {
+                    throw new IllegalStateException("Catch generic roll-fail mismatch chance="
+                            + s.battleCatchChance + " roll=" + s.battleCatchRoll
+                            + " caught=" + s.battleCatchCaught
+                            + " trace=" + tailTrace(s, 12));
+                }
                 for (int i = 0; i < 58 && "P17".equals(s.battleStateName); i++) {
                     s.tick();
                 }
+            } else if ("battle_catch_generic_roll_success".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(0);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P17", 80);
+                if (s.battleCatchRoll != 0 || !s.battleCatchCaught) {
+                    throw new IllegalStateException("Catch generic roll-success mismatch chance="
+                            + s.battleCatchChance + " roll=" + s.battleCatchRoll
+                            + " caught=" + s.battleCatchCaught
+                            + " trace=" + tailTrace(s, 12));
+                }
+                for (int i = 0; i < 18; i++) {
+                    s.tick();
+                }
+            } else if ("battle_catch_success_flash_phase".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(0);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P17", 80);
+                tickUntilBattleCatchPhase(s, 3, 260);
+                if (s.battleCatchItemId != 0 || !s.battleCatchCaught) {
+                    throw new IllegalStateException("Catch success q3 mismatch item="
+                            + s.battleCatchItemId + " caught=" + s.battleCatchCaught
+                            + " phase=" + s.battleCatchPhase
+                            + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_catch_success_q3_flash_mid".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(0);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P17", 80);
+                tickUntilBattleCatchPhaseCursor(s, 3, 1, 260);
+                if (s.battleCatchItemId != 0 || !s.battleCatchCaught) {
+                    throw new IllegalStateException("Catch success q3 flash mid mismatch item="
+                            + s.battleCatchItemId + " caught=" + s.battleCatchCaught
+                            + " phase=" + s.battleCatchPhase
+                            + " cursor=" + s.battleCatchAnimCursor
+                            + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_rng_trace_p17_catch".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                long seed = 0x56515356L;
+                java.util.Random expected = new java.util.Random(seed);
+                int raw = expected.nextInt();
+                int expectedRoll = (raw >>> 1) % 100;
+                runtime.debugSetSourceRandomSeedForSmoke(seed);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P17", 80);
+                if (s.battleCatchRoll != expectedRoll
+                        || !traceContains(s, "RNG TRACE battle.P17.catch helper=ae.a(int) bound=100 raw=" + raw)
+                        || !traceContains(s, "return=" + expectedRoll)
+                        || !traceContains(s, "seed=" + seed)) {
+                    throw new IllegalStateException("P17 RNG trace mismatch expectedRoll=" + expectedRoll
+                            + " actual=" + s.battleCatchRoll
+                            + " trace=" + tailTrace(s, 14));
+                }
+                s.sourceStateTrace.add("SMOKE verified P17 RNG trace seed=" + seed
+                        + " raw=" + raw + " return=" + expectedRoll);
+                for (int i = 0; i < 18; i++) {
+                    s.tick();
+                }
+            } else if ("battle_catch_chance_status_multipliers".equals(checkpoint)) {
+                VqsvIntroDemo.Scene base = setupCatchChanceStatusMenu(-1, false);
+                VqsvIntroDemo.Scene debuff1 = setupCatchChanceStatusMenu(1, false);
+                VqsvIntroDemo.Scene debuff2 = setupCatchChanceStatusMenu(2, false);
+                VqsvIntroDemo.Scene debuff10 = setupCatchChanceStatusMenu(10, false);
+                VqsvIntroDemo.Scene form11 = setupCatchChanceStatusMenu(-1, true);
+                int baseChance = catchMenuChanceForItem(base, 1);
+                int debuff1Chance = catchMenuChanceForItem(debuff1, 1);
+                int debuff2Chance = catchMenuChanceForItem(debuff2, 1);
+                int debuff10Chance = catchMenuChanceForItem(debuff10, 1);
+                int form11Chance = catchMenuChanceForItem(form11, 1);
+                if (!(debuff1Chance > baseChance
+                        && debuff2Chance >= debuff1Chance
+                        && debuff10Chance == debuff2Chance
+                        && form11Chance >= debuff2Chance)) {
+                    throw new IllegalStateException("Catch status multiplier mismatch base="
+                            + baseChance + " debuff1=" + debuff1Chance
+                            + " debuff2=" + debuff2Chance
+                            + " debuff10=" + debuff10Chance
+                            + " form11=" + form11Chance);
+                }
+                s = form11;
+                s.sourceStateTrace.add("SMOKE verified catchChance status multipliers base="
+                        + baseChance + " debuff1=" + debuff1Chance
+                        + " debuff2=" + debuff2Chance
+                        + " debuff10=" + debuff10Chance
+                        + " form11=" + form11Chance);
+            } else if ("battle_catch_missing_count_warning".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 0, 0, false));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                for (int i = 0; i < 18 && !"WARN".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "WARN", 80);
+                String trace = tailTrace(s, 12);
+                if (!VqsvText.Battle.NO_BALLS.equals(s.battleWarningTitle)
+                        || !trace.contains("P101/SMS path remains PENDING")) {
+                    throw new IllegalStateException("Catch missing-count warning mismatch title="
+                            + s.battleWarningTitle + " trace=" + trace);
+                }
+            } else if ("battle_catch_not_allowed_warning".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{2, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "WARN", 80);
+                if (!VqsvText.Battle.CATCH_NOT_ALLOWED.equals(s.battleWarningTitle)) {
+                    throw new IllegalStateException("Catch forbidden warning mismatch title="
+                            + s.battleWarningTitle + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_catch_storage_bag".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(0);
+                s.current = runtime;
+                runCatchToOpenBox(s, 3000);
+                if (s.sourcePets.size() != 2 || s.sourcePetBank.size() != 0) {
+                    throw new IllegalStateException("Catch bag storage mismatch bag="
+                            + s.sourcePets.size() + " bank=" + s.sourcePetBank.size());
+                }
+                assertOpenBoxText(s, VqsvText.Battle.CATCH_SUCCESS + s.battleEnemyName,
+                        "Catch bag success openbox");
+                revealCheckpointText(s, 120);
             } else if ("battle_catch_storage_bank".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 seedSourcePets(s, 6);
                 s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
-                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
                         new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
-                runCatchToDone(s, 3000);
+                runtime.debugSetNextCatchRollForSmoke(0);
+                s.current = runtime;
+                runCatchToOpenBox(s, 3000);
                 if (s.sourcePets.size() != 6 || s.sourcePetBank.size() != 1) {
                     throw new IllegalStateException("Catch bank storage mismatch bag="
                             + s.sourcePets.size() + " bank=" + s.sourcePetBank.size());
                 }
-                s.text = TextBox.openBox(VqsvText.Battle.CATCH_SENT_BANK);
+                assertOpenBoxText(s, VqsvText.Battle.CATCH_SUCCESS + s.battleEnemyName,
+                        "Catch bank first success openbox");
+                closeOpenBoxAndWaitForNextOpenBox(s, 300);
+                assertOpenBoxText(s, VqsvText.Battle.CATCH_SENT_BANK,
+                        "Catch bank second notice openbox");
                 revealCheckpointText(s, 120);
             } else if ("battle_catch_storage_full_release".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 seedSourcePets(s, 6);
                 seedSourceBank(s, 100);
                 s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
-                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
                         new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
-                runCatchToDone(s, 3000);
+                runtime.debugSetNextCatchRollForSmoke(0);
+                s.current = runtime;
+                runCatchToOpenBox(s, 3000);
                 if (s.sourcePets.size() != 6 || s.sourcePetBank.size() != 100) {
                     throw new IllegalStateException("Catch full storage mismatch bag="
                             + s.sourcePets.size() + " bank=" + s.sourcePetBank.size());
                 }
-                s.text = TextBox.openBox(VqsvText.Battle.CATCH_RELEASED_FULL);
+                assertOpenBoxText(s, VqsvText.Battle.CATCH_RELEASED_FULL,
+                        "Catch full release openbox");
                 revealCheckpointText(s, 120);
             } else if ("battle_elder_item_p4".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
@@ -1248,6 +1947,11 @@ final class VqsvSmokeHarness {
                 s.battleClickX = 98;
                 s.battleClickY = 300;
                 tickUntilBattleState(s, "P4", 80);
+                if (s.battleMenuDescriptions.length == 0
+                        || s.battleMenuDescriptions[Math.max(0, s.battleMenuIndex)].isEmpty()) {
+                    throw new IllegalStateException("Expected P4 choice.ui widget 53 item description, descriptions="
+                            + java.util.Arrays.toString(s.battleMenuDescriptions));
+                }
             } else if ("battle_elder_item_target_p16".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -1423,6 +2127,21 @@ final class VqsvSmokeHarness {
                             + s.battleStateName + " warning=" + s.battleWarningTitle
                             + " trace=" + tailTrace(s, 12));
                 }
+            } else if ("battle_p5_forced_menu_visibility".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugQueueDebuffForSmoke(s, true, 0, 40, 1, 1, 3);
+                tickUntilBattleState(s, "P5", 260);
+                if (!java.util.Arrays.equals(s.battleMenuIds, new int[]{0, 1})) {
+                    throw new IllegalStateException("Expected forced P5 visible rows [0,1], ids="
+                            + java.util.Arrays.toString(s.battleMenuIds)
+                            + " trace=" + tailTrace(s, 12));
+                }
             } else if ("battle_p5_forced_replacement_success".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -1433,17 +2152,42 @@ final class VqsvSmokeHarness {
                 tickUntilBattleState(s, "P20", 120);
                 runtime.debugQueueDebuffForSmoke(s, true, 0, 40, 1, 1, 3);
                 tickUntilBattleState(s, "P5", 260);
-                if (s.battleMenuIds.length != 1 || s.battleMenuIds[0] != 1) {
-                    throw new IllegalStateException("Expected forced P5 to list only reserve alive pet, ids="
+                if (!java.util.Arrays.equals(s.battleMenuIds, new int[]{0, 1})) {
+                    throw new IllegalStateException("Expected forced P5 to keep source visible rows [0,1], ids="
                             + java.util.Arrays.toString(s.battleMenuIds)
                             + " trace=" + tailTrace(s, 12));
                 }
+                s.battleMenuIndex = 1;
                 press0UntilAnyBattleState(s, 100, "P1", "WARN");
                 if (!"P1".equals(s.battleStateName)
                         || s.sourcePets.get(0).speciesId != 92
                         || !traceContains(s, "forced=true")) {
                     throw new IllegalStateException("Expected forced P5 replacement to species92, state="
                             + s.battleStateName + " species0=" + s.sourcePets.get(0).speciesId
+                            + " trace=" + tailTrace(s, 14));
+                }
+            } else if ("battle_p5_forced_dead_warning".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                runtime.debugQueueDebuffForSmoke(s, true, 0, 40, 1, 1, 3);
+                tickUntilBattleState(s, "P5", 260);
+                if (!java.util.Arrays.equals(s.battleMenuIds, new int[]{0, 1})) {
+                    throw new IllegalStateException("Expected forced P5 visible rows before dead warning, ids="
+                            + java.util.Arrays.toString(s.battleMenuIds)
+                            + " trace=" + tailTrace(s, 12));
+                }
+                s.battleMenuIndex = 0;
+                press0UntilAnyBattleState(s, 100, "P1", "WARN");
+                if (!"WARN".equals(s.battleStateName)
+                        || !VqsvText.Battle.PET_CANNOT_BATTLE.equals(s.battleWarningTitle)
+                        || !traceContains(s, "validation=0 dead selectedIndex=0 forced=true")) {
+                    throw new IllegalStateException("Expected forced P5 dead active warning, state="
+                            + s.battleStateName + " warning=" + s.battleWarningTitle
                             + " trace=" + tailTrace(s, 14));
                 }
             } else if ("battle_elder_shop_p11".equals(checkpoint)) {
@@ -1475,9 +2219,11 @@ final class VqsvSmokeHarness {
                 }
             } else if ("route_sophie_after_battle_branch".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Sophie route branch");
                 s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
                         new int[]{1, 1}, new int[]{0, 2}, new int[]{78, 78, 0});
                 tickCurrentUntilDone(s, 500);
+                assertActiveSourcePet(s, 68, "Sophie route initial Dien Mieu");
                 if (s.battleResultIndex != 0 || s.battleBranchTarget != 78) {
                     throw new IllegalStateException("Sophie battle branch mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
@@ -1488,19 +2234,122 @@ final class VqsvSmokeHarness {
                 revealCheckpointText(s, 120);
             } else if ("route_bunny_after_battle_task".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
-                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
-                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                seedInitialDienMieu(s, "smoke Bunny route task");
+                seedRoom0Group0BunnyRewards(s);
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 tickBattleAutoUntilDone(s, 3000);
+                assertActiveSourcePet(s, 68, "Bunny route initial Dien Mieu");
                 if (s.battleResultIndex != -1 || s.battleBranchTarget != -1) {
                     throw new IllegalStateException("Bunny battle branch mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
+                }
+                if (s.battleTutorialU != -1 || s.battleTutorialV != 0) {
+                    throw new IllegalStateException("Bunny tutorial cleanup mismatch U="
+                            + s.battleTutorialU + " V=" + s.battleTutorialV
+                            + " trace=" + tailTrace(s, 16));
                 }
                 s.op23MarkEventComplete(1, 0, 1);
                 s.op14CompleteEvent(1, 1, 0);
                 s.text = TextBox.taskTip(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER);
                 revealCheckpointText(s, 90);
+            } else if ("battle_sophie_loss_persists_dien_mieu_ko".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Sophie pet persistence");
+                s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
+                        new int[]{1, 1}, new int[]{0, 2}, new int[]{78, 78, 0});
+                tickCurrentUntilDone(s, 500);
+                assertActiveSourcePet(s, 68, "Sophie loss persisted Dien Mieu");
+                assertPayloadHp(s.sourcePets.get(0), 0, "Sophie loss active Dien Mieu");
+                if (!traceContains(s, "battle pet persistence game.d P9 lose")) {
+                    throw new IllegalStateException("Expected P9 pet persistence trace, trace="
+                            + tailTrace(s, 16));
+                }
+            } else if ("op39_refresh_restores_pet_hp_pp".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                SourcePetState pet = VqsvSourceStoryState.initialDienMieuPet();
+                pet.skillCooldowns[0] = 0;
+                pet.skillCooldowns[1] = 0;
+                pet.sourcePayload = pet.toSourcePayload();
+                pet.sourcePayload[6] = 0;
+                s.sourcePets.add(pet);
+                s.op39RefreshPets();
+                int maxHp = sourceMaxHp(s.sourcePets.get(0));
+                int pp0 = VqsvBattleTables.instance().skill(40).ppMax;
+                int pp1 = VqsvBattleTables.instance().skill(45).ppMax;
+                assertPayloadHp(s.sourcePets.get(0), maxHp, "op39 recovered Dien Mieu");
+                if (s.sourcePets.get(0).skillCooldowns[0] != pp0
+                        || s.sourcePets.get(0).skillCooldowns[1] != pp1) {
+                    throw new IllegalStateException("op39 PP restore mismatch pp="
+                            + s.sourcePets.get(0).skillCooldowns[0] + ","
+                            + s.sourcePets.get(0).skillCooldowns[1]
+                            + " expected=" + pp0 + "," + pp1);
+                }
+                s.text = TextBox.taskTip("SMOKE op39 pet HP/PP restored");
+                revealCheckpointText(s, 40);
+            } else if ("battle_bunny_caught_pet_low_hp_state".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny caught low HP state");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickBattleAutoUntilDone(s, 3000);
+                SourcePetState bunny = findSourcePet(s, 34);
+                if (bunny == null) {
+                    throw new IllegalStateException("Caught Bunny not found pets=" + s.sourcePets.size()
+                            + " trace=" + tailTrace(s, 16));
+                }
+                int hp = payloadHp(bunny);
+                int maxHp = sourceMaxHp(bunny);
+                if (hp <= 0 || hp >= maxHp) {
+                    throw new IllegalStateException("Caught Bunny should keep low non-full HP, hp="
+                            + hp + "/" + maxHp + " trace=" + tailTrace(s, 18));
+                }
+                s.sourceStateTrace.add("SMOKE verified caught Bunny low HP payload="
+                        + hp + "/" + maxHp);
+                s.text = TextBox.taskTip(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER);
+                revealCheckpointText(s, 90);
+            } else if ("battle_bunny_caught_pet_p5_low_hp".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke Bunny caught P5 low HP");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickBattleAutoUntilDone(s, 3000);
+                SourcePetState bunny = findSourcePet(s, 34);
+                if (bunny == null) {
+                    throw new IllegalStateException("Caught Bunny not found before P5");
+                }
+                int bunnyHp = payloadHp(bunny);
+                int bunnyMaxHp = sourceMaxHp(bunny);
+                s.sourcePets.add(new SourcePetState(2, 17, 7, 3, 2, 10, 45));
+                if (s.sourcePets.size() != 3) {
+                    throw new IllegalStateException("Expected three pets after starter simulation, pets="
+                            + s.sourcePets.size());
+                }
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 137;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P5", 80);
+                int bunnyRow = -1;
+                for (int i = 0; i < s.battleMenuIds.length; i++) {
+                    if (s.battleMenuIds[i] == 1) {
+                        bunnyRow = i;
+                        break;
+                    }
+                }
+                if (bunnyRow < 0 || !s.battleMenuValues[bunnyRow].contains(bunnyHp + "/" + bunnyMaxHp)) {
+                    throw new IllegalStateException("P5 should show caught Bunny low HP row, ids="
+                            + java.util.Arrays.toString(s.battleMenuIds)
+                            + " values=" + java.util.Arrays.toString(s.battleMenuValues)
+                            + " expected=" + bunnyHp + "/" + bunnyMaxHp
+                            + " trace=" + tailTrace(s, 18));
+                }
+                s.battleMenuIndex = bunnyRow;
+                s.sourceStateTrace.add("SMOKE verified P5 caught Bunny low HP row="
+                        + s.battleMenuValues[bunnyRow]);
             } else if ("route_elder_after_battle_reward_state".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -1551,11 +2400,26 @@ final class VqsvSmokeHarness {
     static void setupLiveCheckpoint(VqsvIntroDemo.Scene s, String checkpoint) {
         s.eventIndex = s.events.size();
         if ("battle_bunny_command_ui".equals(checkpoint)) {
-            s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
-            s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+            seedInitialDienMieu(s, "live Bunny command UI");
+            seedRoom0Group0BunnyRewards(s);
             s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                     new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
             tickUntilBattleState(s, "P20", 120);
+        } else if ("battle_bunny_catch_p21".equals(checkpoint)) {
+            seedInitialDienMieu(s, "live Bunny P21");
+            seedRoom0Group0BunnyRewards(s);
+            s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                    new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+            tickUntilBattleState(s, "P20", 120);
+            s.battleClickX = 56;
+            s.battleClickY = 300;
+            tickUntilBattleState(s, "P21", 80);
+        } else if ("battle_bunny_catch_p17".equals(checkpoint)) {
+            seedInitialDienMieu(s, "live Bunny P17");
+            seedRoom0Group0BunnyRewards(s);
+            s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                    new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+            driveBunnyTutorialUntilFirstCatchP17(s, 2500);
         } else if ("battle_elder_command_ui".equals(checkpoint)) {
             s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
             s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
@@ -1634,6 +2498,124 @@ final class VqsvSmokeHarness {
         }
         tickUntilBattleState(s, "P17", 80);
         tickCurrentUntilDone(s, maxTicks);
+    }
+
+    private static void runCatchToOpenBox(VqsvIntroDemo.Scene s, int maxTicks) {
+        tickUntilBattleState(s, "P20", 120);
+        s.battleClickX = 56;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P21", 80);
+        for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+            s.press0();
+            s.tick();
+        }
+        tickUntilBattleState(s, "P17", 80);
+        int guard = 0;
+        while (guard++ < maxTicks) {
+            if (s.text != null && s.text.sourceUiKind == TextBox.SOURCE_OPENBOX) {
+                return;
+            }
+            s.tick();
+        }
+        throw new IllegalStateException("Catch openbox not reached state=" + s.battleStateName
+                + " result=" + s.battleResultIndex
+                + " text=" + (s.text == null ? "null" : s.text.text)
+                + " trace=" + tailTrace(s, 18));
+    }
+
+    private static void closeOpenBoxAndWaitForNextOpenBox(VqsvIntroDemo.Scene s, int maxTicks) {
+        if (s.text == null || s.text.sourceUiKind != TextBox.SOURCE_OPENBOX) {
+            throw new IllegalStateException("No openbox to close text="
+                    + (s.text == null ? "null" : s.text.text));
+        }
+        String firstText = s.text.text;
+        revealCheckpointText(s, 120);
+        int guard = 0;
+        while (s.text != null && firstText.equals(s.text.text) && guard++ < maxTicks) {
+            s.press0();
+            s.tick();
+        }
+        if (s.text != null && s.text.sourceUiKind == TextBox.SOURCE_OPENBOX
+                && !firstText.equals(s.text.text)) {
+            return;
+        }
+        throw new IllegalStateException("Next openbox not reached state=" + s.battleStateName
+                + " text=" + (s.text == null ? "null" : s.text.text)
+                + " trace=" + tailTrace(s, 18));
+    }
+
+    private static void assertOpenBoxText(VqsvIntroDemo.Scene s, String expected, String label) {
+        String actual = s.text == null ? null : s.text.text;
+        if (s.text == null || s.text.sourceUiKind != TextBox.SOURCE_OPENBOX
+                || !TextBox.decodeMojibake(expected).equals(actual)) {
+            throw new IllegalStateException(label + " mismatch expected="
+                    + TextBox.decodeMojibake(expected)
+                    + " actual=" + actual
+                    + " kind=" + (s.text == null ? -1 : s.text.sourceUiKind)
+                    + " state=" + s.battleStateName
+                    + " trace=" + tailTrace(s, 18));
+        }
+        s.sourceStateTrace.add("SMOKE verified " + label + " text=" + actual);
+    }
+
+    private static void setupRoom1BunnySavePoint(VqsvIntroDemo.Scene s) {
+        s.eventIndex = 123;
+        s.loadScene1Room1(370, 176);
+        s.setPlayerPositionApprox(374, 180);
+        seedInitialDienMieu(s, "smoke save point after elder Bunny task");
+        s.sourceBagItems.put(1, new BagItem(1, 2, 0, false));
+        s.sourceBagItems.put(4, new BagItem(4, 5, 1, false));
+        s.op39RefreshPets();
+        s.sourceGameCF = false;
+        s.op14CompleteEvent(1, 0, 0);
+        s.sourceStateTrace.add("SMOKE setup room1 Bunny save point eventIndex=" + s.eventIndex);
+    }
+
+    private static void tickBoot(BootFlowState state, GameStateMachine states, int count, InputSnapshot input) {
+        for (int index = 0; index < count; index++) {
+            state.tick(input, states);
+        }
+    }
+
+    private static InputSnapshot emptyBootInput() {
+        return new InputSnapshot(new HashSet<>(), new HashSet<>());
+    }
+
+    private static InputSnapshot bootInput(int keyCode) {
+        HashSet<Integer> pressed = new HashSet<>();
+        pressed.add(keyCode);
+        return new InputSnapshot(pressed, pressed);
+    }
+
+    private static VqsvIntroDemo.Scene setupCatchChanceStatusMenu(int targetDebuffId, boolean attackerForm11) {
+        VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+        s.eventIndex = s.events.size();
+        s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+        s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+        SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+        s.current = runtime;
+        tickUntilBattleState(s, "P20", 120);
+        runtime.debugSetCatchStatusForSmoke(s, targetDebuffId, attackerForm11);
+        s.battleClickX = 56;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P21", 80);
+        return s;
+    }
+
+    private static int catchMenuChanceForItem(VqsvIntroDemo.Scene s, int itemId) {
+        for (int i = 0; i < s.battleMenuIds.length; i++) {
+            if (s.battleMenuIds[i] == itemId) {
+                String value = i < s.battleMenuValues.length ? s.battleMenuValues[i] : "";
+                if (!value.endsWith("%")) {
+                    throw new IllegalStateException("Catch chance value missing percent item="
+                            + itemId + " value=" + value);
+                }
+                return Integer.parseInt(value.substring(0, value.length() - 1));
+            }
+        }
+        throw new IllegalStateException("Catch chance item not listed item=" + itemId
+                + " ids=" + java.util.Arrays.toString(s.battleMenuIds));
     }
 
     private static SourceBattleRuntime setupElderItemBattle(VqsvIntroDemo.Scene s, int itemId,
@@ -1820,6 +2802,9 @@ final class VqsvSmokeHarness {
             if (s.current == null) {
                 return;
             }
+            if (s.text != null && s.text.readyForKey) {
+                s.press0();
+            }
             if ("P20".equals(s.battleStateName)) {
                 if (s.battleCommandIndex == 1) {
                     s.battleClickX = 56;
@@ -1843,6 +2828,150 @@ final class VqsvSmokeHarness {
                 + " command=" + s.battleCommandIndex);
     }
 
+    private static void driveBunnyTutorialUntilFirstCatchP17(VqsvIntroDemo.Scene s, int maxTicks) {
+        for (int i = 0; i < maxTicks; i++) {
+            if ("P17".equals(s.battleStateName) && s.battleCatchItemId == 1) {
+                return;
+            }
+            driveBunnyTutorialOneTick(s);
+        }
+        throw new IllegalStateException("Bunny first P17 not reached state=" + s.battleStateName
+                + " item=" + s.battleCatchItemId
+                + " caught=" + s.battleCatchCaught
+                + " trace=" + tailTrace(s, 16));
+    }
+
+    private static void driveBunnyTutorialUntilRetryP21(VqsvIntroDemo.Scene s, int maxTicks) {
+        boolean sawFirstP17 = false;
+        for (int i = 0; i < maxTicks; i++) {
+            if ("P17".equals(s.battleStateName) && s.battleCatchItemId == 1) {
+                sawFirstP17 = true;
+                if (s.battleCatchCaught) {
+                    throw new IllegalStateException("Bunny first P17 unexpectedly caught trace="
+                            + tailTrace(s, 16));
+                }
+            }
+            if (sawFirstP17 && "P21".equals(s.battleStateName)
+                    && s.battleMenuIds.length > 0
+                    && s.battleMenuIds[s.battleMenuIndex] == 0) {
+                return;
+            }
+            driveBunnyTutorialOneTick(s);
+        }
+        throw new IllegalStateException("Bunny retry P21 not reached state=" + s.battleStateName
+                + " ids=" + java.util.Arrays.toString(s.battleMenuIds)
+                + " index=" + s.battleMenuIndex
+                + " trace=" + tailTrace(s, 16));
+    }
+
+    private static void driveBunnyTutorialUntilRetryPrompt(VqsvIntroDemo.Scene s, int maxTicks) {
+        boolean sawFirstP17 = false;
+        for (int i = 0; i < maxTicks; i++) {
+            if ("P17".equals(s.battleStateName) && s.battleCatchItemId == 1) {
+                sawFirstP17 = true;
+            }
+            if (sawFirstP17 && s.text != null && s.text.sourceUiKind == TextBox.SOURCE_TASKTIP) {
+                return;
+            }
+            driveBunnyTutorialOneTick(s);
+        }
+        throw new IllegalStateException("Bunny retry taskTip not reached state=" + s.battleStateName
+                + " text=" + (s.text == null ? "null" : s.text.text)
+                + " trace=" + tailTrace(s, 16));
+    }
+
+    private static void driveBunnyTutorialUntilWeakPrompt(VqsvIntroDemo.Scene s, int maxTicks) {
+        for (int i = 0; i < maxTicks; i++) {
+            if (s.text != null && s.text.sourceUiKind == TextBox.SOURCE_TASKTIP
+                    && s.text.text.contains("phong \u1ea5n c\u1ea7u")) {
+                return;
+            }
+            driveBunnyTutorialOneTickNoTextConfirm(s);
+        }
+        throw new IllegalStateException("Bunny weak taskTip not reached state=" + s.battleStateName
+                + " text=" + (s.text == null ? "null" : s.text.text)
+                + " U=" + s.battleTutorialU + " V=" + s.battleTutorialV
+                + " trace=" + tailTrace(s, 16));
+    }
+
+    private static void driveBunnyTutorialUntilEnemyCounterAfterFirstFail(VqsvIntroDemo.Scene s, int maxTicks) {
+        boolean sawFirstP17 = false;
+        boolean sawFailedCatch = false;
+        for (int i = 0; i < maxTicks; i++) {
+            if ("P17".equals(s.battleStateName) && s.battleCatchItemId == 1) {
+                sawFirstP17 = true;
+                if (!s.battleCatchCaught && s.battleCatchPhase == 4) {
+                    sawFailedCatch = true;
+                }
+            }
+            if (sawFirstP17 && sawFailedCatch
+                    && "P7".equals(s.battleStateName)
+                    && !s.battleP7AttackerPlayerSide
+                    && s.battleP7TargetPlayerSide
+                    && s.battleP7DamageVisible) {
+                return;
+            }
+            driveBunnyTutorialOneTick(s);
+        }
+        throw new IllegalStateException("Bunny enemy counterattack after first fail not reached state="
+                + s.battleStateName
+                + " phase=" + s.battleCatchPhase
+                + " attackerPlayer=" + s.battleP7AttackerPlayerSide
+                + " targetPlayer=" + s.battleP7TargetPlayerSide
+                + " damageVisible=" + s.battleP7DamageVisible
+                + " text=" + (s.text == null ? "null" : s.text.text)
+                + " trace=" + tailTrace(s, 20));
+    }
+
+    private static void driveBunnyTutorialOneTick(VqsvIntroDemo.Scene s) {
+        if (s.text != null && s.text.readyForKey) {
+            s.press0();
+        }
+        driveBunnyTutorialOneTickNoTextConfirm(s);
+    }
+
+    private static void driveBunnyTutorialOneTickNoTextConfirm(VqsvIntroDemo.Scene s) {
+        if ("P20".equals(s.battleStateName)) {
+            s.battleClickX = s.battleCommandIndex == 1 ? 56 : 20;
+            s.battleClickY = 300;
+        } else if ("P3".equals(s.battleStateName)
+                || "P6".equals(s.battleStateName)
+                || "P21".equals(s.battleStateName)
+                || "WARN".equals(s.battleStateName)) {
+            s.press0();
+        }
+        s.tick();
+    }
+
+    private static void seedRoom0Group0BunnyRewards(VqsvIntroDemo.Scene s) {
+        s.op17Item(0, 0, 1);
+        s.text = null;
+        s.op17Item(0, 1, 2);
+        s.text = null;
+        s.op17Item(0, 4, 5);
+        s.text = null;
+        s.sourceStateTrace.add("SMOKE source route room0 group0 rewards before Bunny P21 ballCounts=["
+                + VqsvSourceOps.sourceItemCount(s, 0) + ","
+                + VqsvSourceOps.sourceItemCount(s, 1) + "]");
+    }
+
+    private static void assertBattleMenuIds(VqsvIntroDemo.Scene s, String label, int[] expected) {
+        if (!java.util.Arrays.equals(s.battleMenuIds, expected)) {
+            throw new IllegalStateException(label + " mismatch expected="
+                    + java.util.Arrays.toString(expected)
+                    + " actual=" + java.util.Arrays.toString(s.battleMenuIds)
+                    + " names=" + java.util.Arrays.toString(s.battleMenuNames)
+                    + " values=" + java.util.Arrays.toString(s.battleMenuValues)
+                    + " counts=[" + VqsvSourceOps.sourceItemCount(s, 0)
+                    + "," + VqsvSourceOps.sourceItemCount(s, 1) + "]"
+                    + " trace=" + tailTrace(s, 12));
+        }
+        s.sourceStateTrace.add("SMOKE verified " + label + " menuIds="
+                + java.util.Arrays.toString(s.battleMenuIds)
+                + " counts=[" + VqsvSourceOps.sourceItemCount(s, 0)
+                + "," + VqsvSourceOps.sourceItemCount(s, 1) + "]");
+    }
+
     private static void seedSourcePets(VqsvIntroDemo.Scene s, int count) {
         for (int i = 0; i < count; i++) {
             s.sourcePets.add(new SourcePetState(i, 17 + i, 7, 3, 2, 10, 45));
@@ -1855,9 +2984,32 @@ final class VqsvSmokeHarness {
         }
     }
 
+    private static boolean sourcePetHasSkill(SourcePetState pet, int skillId) {
+        if (pet == null || pet.sourcePayload == null || pet.sourcePayload.length <= 10) {
+            return false;
+        }
+        int count = Math.max(0, pet.sourcePayload[9]);
+        for (int i = 0; i < count && 10 + i < pet.sourcePayload.length; i++) {
+            if (pet.sourcePayload[10 + i] == skillId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static String tailTrace(VqsvIntroDemo.Scene s, int count) {
         int start = Math.max(0, s.sourceStateTrace.size() - count);
         return s.sourceStateTrace.subList(start, s.sourceStateTrace.size()).toString();
+    }
+
+    private static String rngTraceSummary(VqsvIntroDemo.Scene s) {
+        java.util.ArrayList<String> entries = new java.util.ArrayList<>();
+        for (String line : s.sourceStateTrace) {
+            if (line.contains("RNG TRACE ")) {
+                entries.add(line);
+            }
+        }
+        return entries.toString();
     }
 
     private static int driveKeyCode(char dir) {

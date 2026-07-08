@@ -55,8 +55,10 @@ final class Scene1Room0Group0Script {
                 s.markWorldTransition(1, 1, 37);
                 s.loadScene1Room1(s.transitionCenterX, s.transitionCenterY);
                 s.placePlayerAtTransitionActorApprox(37, 16);
-                return new Op13FreeWorldTrigger(1, 1, 0, 370, 176, 80, 32);
+                return null;
             });
+            e.add(s -> new VqsvSavePromptBlocking());
+            e.add(s -> new Op13FreeWorldTrigger(1, 1, 0, 370, 176, 80, 32));
     }
 
 }

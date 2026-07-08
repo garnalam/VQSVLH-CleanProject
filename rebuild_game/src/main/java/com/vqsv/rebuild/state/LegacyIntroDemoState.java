@@ -13,11 +13,24 @@ public final class LegacyIntroDemoState implements GameState {
     private final Method press0;
 
     public LegacyIntroDemoState() {
+        this(false);
+    }
+
+    public LegacyIntroDemoState(boolean loadSave) {
         try {
             Class<?> sceneClass = Class.forName("VqsvIntroDemo$Scene");
             Constructor<?> constructor = sceneClass.getDeclaredConstructor();
             constructor.setAccessible(true);
             this.scene = constructor.newInstance();
+            if (loadSave) {
+                Class<?> saveClass = Class.forName("VqsvSaveRuntime");
+                Method loadInto = saveClass.getDeclaredMethod("loadInto", sceneClass);
+                loadInto.setAccessible(true);
+                Boolean loaded = (Boolean) loadInto.invoke(null, this.scene);
+                if (!loaded.booleanValue()) {
+                    throw new IllegalStateException("No compatible VQSV rebuild save found");
+                }
+            }
             this.tick = sceneClass.getDeclaredMethod("tick");
             this.render = sceneClass.getDeclaredMethod("render", Graphics2D.class);
             this.press0 = sceneClass.getDeclaredMethod("press0");

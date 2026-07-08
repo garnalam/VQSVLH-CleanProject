@@ -79,8 +79,12 @@ final class FontBitmap {
         s = TextBox.decodeMojibake(s);
         int w = 0;
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '#' && i + 6 < s.length()) {
+            if (isHexColorTag(s, i)) {
                 i += 6;
+                continue;
+            }
+            if (isSourceColorTag(s, i)) {
+                i += 1;
                 continue;
             }
             w += charWidth(s.charAt(i));
@@ -139,11 +143,17 @@ final class FontBitmap {
         int softLimit = maxWidth - spaceWord;
         for (int i = 0; i < s.length() && shown < visibleChars; i++) {
             char ch = s.charAt(i);
-            if (ch == '#' && i + 6 < s.length()) {
+            if (isHexColorTag(s, i)) {
                 String hex = s.substring(i + 1, i + 7);
                 color = Integer.parseInt(hex, 16);
                 g.setColor(new Color(color));
                 i += 6;
+                continue;
+            }
+            if (isSourceColorTag(s, i)) {
+                color = sourceTagColor(s.charAt(i + 1), color);
+                g.setColor(new Color(color));
+                i += 1;
                 continue;
             }
             int cw = charWidth(ch);
@@ -170,17 +180,50 @@ final class FontBitmap {
         int shown = 0;
         for (int i = 0; i < s.length() && shown < visibleChars; i++) {
             char ch = s.charAt(i);
-            if (ch == '#' && i + 6 < s.length()) {
+            if (isHexColorTag(s, i)) {
                 String hex = s.substring(i + 1, i + 7);
                 color = Integer.parseInt(hex, 16);
                 g.setColor(new Color(color));
                 i += 6;
                 continue;
             }
+            if (isSourceColorTag(s, i)) {
+                color = sourceTagColor(s.charAt(i + 1), defaultColor);
+                g.setColor(new Color(color));
+                i += 1;
+                continue;
+            }
             drawChar(g, ch, cx, y);
             cx += charWidth(ch);
             shown++;
         }
+    }
+
+    private static boolean isHexColorTag(String s, int i) {
+        if (i < 0 || i + 6 >= s.length() || s.charAt(i) != '#') {
+            return false;
+        }
+        for (int j = i + 1; j <= i + 6; j++) {
+            char ch = s.charAt(j);
+            if (!(ch >= '0' && ch <= '9')
+                    && !(ch >= 'a' && ch <= 'f')
+                    && !(ch >= 'A' && ch <= 'F')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isSourceColorTag(String s, int i) {
+        return i >= 0 && i + 1 < s.length() && s.charAt(i) == '#'
+                && s.charAt(i + 1) >= '0' && s.charAt(i + 1) <= '2';
+    }
+
+    private static int sourceTagColor(char tag, int defaultColor) {
+        if (tag == '2') {
+            return 0xD85A00;
+        }
+        return defaultColor;
     }
 }
 
@@ -362,6 +405,9 @@ final class TextBox {
             sourceUiAnim.tickHoldLast();
         }
         if (sourceUiKind != SOURCE_NONE) {
+            if (!sourceUiTextReady()) {
+                return;
+            }
             tickSourceUiText(font);
             return;
         }
@@ -380,19 +426,9 @@ final class TextBox {
     void tickSourceUiText(FontBitmap font) {
         int total = visibleLength(currentText());
         visibleChars = total;
-        int textWidth = font.taggedWidth(currentText());
         if (!sourceTextInitialized) {
-            sourceTextOffset = textWidth > w ? -w / 2 : 0;
+            sourceTextOffset = 0;
             sourceTextInitialized = true;
-        }
-        if (textWidth > w) {
-            int endOffset = textWidth - w;
-            if (sourceTextOffset < endOffset) {
-                sourceTextOffset = Math.min(endOffset, sourceTextOffset + 2);
-                doneTicks = 0;
-                readyForKey = false;
-                return;
-            }
         }
         doneTicks++;
         if (waitKey && doneTicks > 10) {
@@ -448,15 +484,85 @@ final class TextBox {
     }
 
     void renderSourceUiText(Graphics2D g, FontBitmap font) {
+        if (!sourceUiTextReady()) {
+            return;
+        }
         Shape oldClip = g.getClip();
         g.clipRect(x, y, w, h);
         int textWidth = font.taggedWidth(currentText());
         int align = sourceUiKind == SOURCE_TASKTIP ? TASKTIP_TEXT_ALIGN : OPENBOX_TEXT_ALIGN;
         int color = sourceUiKind == SOURCE_TASKTIP ? TASKTIP_TEXT_COLOR : OPENBOX_TEXT_COLOR;
-        int drawX = textWidth > w ? x - sourceTextOffset
-                : align == 4 ? x + (w - textWidth) / 2 : x;
-        font.drawTaggedLine(g, currentText(), drawX, y, visibleLength(currentText()), color);
+        if (textWidth > w) {
+            String[] lines = splitSourceUiLines(font, currentText());
+            for (int i = 0; i < lines.length; i++) {
+                int lineWidth = font.taggedWidth(lines[i]);
+                int drawX = align == 4 ? x + Math.max(0, (w - lineWidth) / 2) : x;
+                int drawY = lines.length > 1 ? y - 1 + i * font.height : y;
+                font.drawTaggedLine(g, lines[i], drawX, drawY,
+                        visibleLength(lines[i]), color);
+            }
+        } else {
+            int drawX = align == 4 ? x + (w - textWidth) / 2 : x;
+            font.drawTaggedLine(g, currentText(), drawX, y, visibleLength(currentText()), color);
+        }
         g.setClip(oldClip);
+    }
+
+    String[] splitSourceUiLines(FontBitmap font, String source) {
+        String text = source == null ? "" : source.trim();
+        int totalWidth = font.taggedWidth(text);
+        if (totalWidth <= w) {
+            return new String[]{text};
+        }
+        int lineLimit = Math.max(1, w - 8);
+        int best = -1;
+        int bestScore = Integer.MAX_VALUE;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) != ' ') {
+                continue;
+            }
+            String left = text.substring(0, i).trim();
+            String right = text.substring(i + 1).trim();
+            if (left.isEmpty() || right.isEmpty()) {
+                continue;
+            }
+            int leftWidth = font.taggedWidth(left);
+            int rightWidth = font.taggedWidth(right);
+            if (leftWidth > lineLimit || rightWidth > lineLimit) {
+                continue;
+            }
+            int score = Math.abs(leftWidth - rightWidth);
+            if (score < bestScore) {
+                bestScore = score;
+                best = i;
+            }
+        }
+        if (best >= 0) {
+            return new String[]{text.substring(0, best).trim(), text.substring(best + 1).trim()};
+        }
+        int split = fallbackSourceUiSplit(font, text);
+        return new String[]{text.substring(0, split).trim(), text.substring(split).trim()};
+    }
+
+    int fallbackSourceUiSplit(FontBitmap font, String text) {
+        int split = Math.max(1, text.length() / 2);
+        int width = 0;
+        for (int i = 0; i < text.length(); i++) {
+            width += font.charWidth(text.charAt(i));
+            if (width >= w && i > 0) {
+                split = i;
+                break;
+            }
+        }
+        return Math.max(1, Math.min(text.length() - 1, split));
+    }
+
+    boolean sourceUiTextReady() {
+        if (sourceUiAnim == null) {
+            return false;
+        }
+        int readyCursor = sourceUiKind == SOURCE_TASKTIP ? 4 : 3;
+        return sourceUiAnim.cursor >= readyCursor;
     }
 
     static String visibleTaggedPrefix(String s, int visible) {
@@ -527,13 +633,35 @@ final class TextBox {
     static int visibleLength(String s) {
         int n = 0;
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '#' && i + 6 < s.length()) {
+            if (isHexColorTag(s, i)) {
                 i += 6;
+            } else if (isSourceColorTag(s, i)) {
+                i += 1;
             } else {
                 n++;
             }
         }
         return n;
+    }
+
+    static boolean isHexColorTag(String s, int i) {
+        if (i < 0 || i + 6 >= s.length() || s.charAt(i) != '#') {
+            return false;
+        }
+        for (int j = i + 1; j <= i + 6; j++) {
+            char ch = s.charAt(j);
+            if (!(ch >= '0' && ch <= '9')
+                    && !(ch >= 'a' && ch <= 'f')
+                    && !(ch >= 'A' && ch <= 'F')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static boolean isSourceColorTag(String s, int i) {
+        return i >= 0 && i + 1 < s.length() && s.charAt(i) == '#'
+                && s.charAt(i + 1) >= '0' && s.charAt(i + 1) <= '2';
     }
 
     static List<String> paginateTagged(FontBitmap font, String s, int maxWidth, int maxLines) {

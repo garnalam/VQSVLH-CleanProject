@@ -114,7 +114,7 @@ final class SourceBattleUnit {
 
     static SourceBattleUnit playerFromSourcePets(List<SourcePetState> pets) {
         if (pets.isEmpty()) {
-            return BattleUnit.neilFallback().toRenderUnit(true);
+            throw new IllegalStateException("SourceBattleUnit requires at least one source pet");
         }
         return BattleUnit.fromSourcePet(pets.get(0), (byte) 0).toRenderUnit(true);
     }
@@ -294,6 +294,7 @@ final class SourcePetState {
                 skillCooldowns[i] = sourceSkillCooldown(skillIds[i]);
             }
         }
+        sourcePayload = toSourcePayload();
         refreshCount++;
     }
 
@@ -316,7 +317,7 @@ final class SourcePetState {
         payload[3] = -1;
         payload[4] = arg3;
         payload[5] = arg4;
-        payload[6] = -1;
+        payload[6] = sourceMaxHp();
         payload[7] = 0;
         payload[8] = 0;
         payload[9] = skillCount;
@@ -330,6 +331,18 @@ final class SourcePetState {
             out++;
         }
         return payload;
+    }
+
+    private int sourceMaxHp() {
+        BattleSpeciesRow row = VqsvBattleTables.instance().species(speciesId);
+        if (row == null || !row.validForBattle()) {
+            return Math.max(1, 80 + Math.max(1, level) * 4);
+        }
+        int quality = arg3 <= 0 ? 3 : arg3;
+        if (sourcePayload != null && sourcePayload.length > 4 && sourcePayload[4] > 0) {
+            quality = sourcePayload[4];
+        }
+        return Math.max(1, row.statHp(Math.max(1, level), quality));
     }
 
     void persistBattleUnit(BattleUnit battle) {

@@ -1,9 +1,11 @@
 import java.util.Arrays;
-import java.util.Random;
 
 final class BattleUnit {
-    private static final Random BATTLE_RANDOM = new Random(0x56515356L);
+    private static final VqsvSourceRandom FALLBACK_DAMAGE_RANDOM = VqsvSourceRandom.lazySourceSeeded();
     private static final int[] SOURCE_FINAL_VISUAL_BY_ELEMENT = {-1, -1, -1, -1, -1, -1, -1};
+    private static VqsvSourceRandom activeDamageRandom = FALLBACK_DAMAGE_RANDOM;
+    private static java.util.List<String> randomTrace;
+    private static String randomTraceContext = "";
 
     static final int STAT_QUALITY = 0;
     static final int STAT_HP = 1;
@@ -53,7 +55,7 @@ final class BattleUnit {
 
     static BattleUnit playerFromSourcePets(java.util.List<SourcePetState> pets) {
         if (pets.isEmpty()) {
-            return neilFallback();
+            throw new IllegalStateException("BattleUnit requires at least one source pet");
         }
         BattleUnit unit = fromSourcePet(pets.get(0), (byte) 0);
         unit.ownerSide = 0;
@@ -62,7 +64,7 @@ final class BattleUnit {
 
     static BattleUnit fromSourcePet(SourcePetState pet, byte ownerSide) {
         if (pet == null) {
-            return neilFallback();
+            throw new IllegalArgumentException("Source pet cannot be null");
         }
         short form = -1;
         short quality = (short) (pet.arg3 <= 0 ? 3 : pet.arg3);
@@ -89,21 +91,6 @@ final class BattleUnit {
                 unit.exp = pet.sourcePayload[7];
             }
         }
-        return unit;
-    }
-
-    static BattleUnit neilFallback() {
-        BattleUnit unit = new BattleUnit();
-        unit.speciesId = -1;
-        unit.level = 1;
-        unit.ownerSide = 0;
-        unit.visualSpriteId = -1;
-        unit.baseStats[STAT_QUALITY] = 3;
-        unit.baseStats[STAT_HP] = 120;
-        unit.baseStats[STAT_ATTACK] = 22;
-        unit.baseStats[STAT_DEFENSE] = 12;
-        unit.baseStats[STAT_SPEED] = 10;
-        unit.copyBaseToCurrent();
         return unit;
     }
 
@@ -305,7 +292,7 @@ final class BattleUnit {
             BattleStatusRow status = VqsvBattleTables.instance().status(4);
             critChance += statusParam(status, 5, 0);
         }
-        if (randomPercent() <= critChance) {
+        if (randomPercent("damage.crit") <= critChance) {
             raw = raw * 3 / 2;
             critFlag = 1;
         }
@@ -349,7 +336,7 @@ final class BattleUnit {
         if (hasDebuff(6)) {
             damage -= damage * debuffSlots[6][1] / 100;
         }
-        if (target.hasBuff(6) && randomPercent() <= buffSlots[6][1]) {
+        if (target.hasBuff(6) && randomPercent("damage.buff6") <= buffSlots[6][1]) {
             damage = damage * buffSlots[6][2] / 100;
         }
         if (hasBuff(8)) {
@@ -374,7 +361,7 @@ final class BattleUnit {
         if (damage <= 0) {
             damage = 1;
         } else {
-            int jitterRoll = randomPercent();
+            int jitterRoll = randomPercent("damage.jitter");
             int delta = (damage << 1) / 100;
             if (jitterRoll > 50) {
                 if (delta <= 0) {
@@ -388,7 +375,7 @@ final class BattleUnit {
             }
         }
 
-        if (target.hasBuff(5) && randomPercent() <= target.buffSlots[5][1]) {
+        if (target.hasBuff(5) && randomPercent("damage.buff5") <= target.buffSlots[5][1]) {
             effectScratch[5] = toShort(damage);
         }
         return new BattleDamageResult(damage, critFlag, appliedDebuffId);
@@ -403,7 +390,11 @@ final class BattleUnit {
     }
 
     boolean rollSourceChance(int chance) {
-        return randomPercent() <= chance;
+        return rollSourceChance("source.chance", chance);
+    }
+
+    boolean rollSourceChance(String label, int chance) {
+        return randomPercent(label) <= chance;
     }
 
     int sourceStatusParam(int statusId, int index, int fallback) {
@@ -817,10 +808,117 @@ final class BattleUnit {
     }
 
     int nextLevelEnergy() {
+        return sourceLevelThreshold(level >= 50 ? 50 : level + 1);
+    }
+
+    int[] sourceVisibleStats() {
+        return new int[]{
+                baseStats[STAT_HP],
+                baseStats[STAT_ATTACK],
+                baseStats[STAT_DEFENSE],
+                baseStats[STAT_SPEED]
+        };
+    }
+
+    boolean canSourceLevelUp() {
+        return level < 50 && exp >= nextLevelEnergy();
+    }
+
+    void addSourceExp(int amount) {
         if (level >= 50) {
+            return;
+        }
+        exp = Math.max(0, exp + Math.max(0, amount));
+    }
+
+    int[] sourceLearnCandidateSkillIds() {
+        BattleSpeciesRow species = VqsvBattleTables.instance().species(speciesId);
+        if (species == null || species.learnGroup < 0) {
+            return new int[0];
+        }
+        java.util.ArrayList<Integer> out = new java.util.ArrayList<>();
+        int firstSkill = Math.max(0, species.element) * 10;
+        short[] thresholdRow = VqsvBattleTables.instance().row(8, species.learnGroup);
+        int tier = learnTierForLevel(level);
+        int maxLearnTier = thresholdRow == null || tier >= thresholdRow.length ? Integer.MIN_VALUE : thresholdRow[tier];
+        for (int id = firstSkill; id < firstSkill + 10; id++) {
+            BattleSkillRow row = VqsvBattleTables.instance().skill(id);
+            if (row == null || row.learnTier > maxLearnTier || hasSourceSkill(id)) {
+                continue;
+            }
+            out.add(id);
+        }
+        int[] ids = new int[out.size()];
+        for (int i = 0; i < out.size(); i++) {
+            ids[i] = out.get(i);
+        }
+        return ids;
+    }
+
+    boolean sourceCanLearnAfterLevelUp() {
+        return skillCount < skillIds.length && skillCount < level / 10 + 1
+                && sourceLearnCandidateSkillIds().length > 0;
+    }
+
+    boolean learnSourceSkill(int skillId) {
+        if (skillCount >= skillIds.length || hasSourceSkill(skillId)) {
+            return false;
+        }
+        addSkill(skillId);
+        return true;
+    }
+
+    void sourceLevelUpOnce() {
+        if (!canSourceLevelUp()) {
+            return;
+        }
+        int hpBefore = hp();
+        level++;
+        exp = Math.max(0, exp - sourceLevelThreshold(level));
+        refreshBaseStatsForCurrentLevel();
+        restoreSkillPpToSourceMax();
+        setHp(hpBefore);
+    }
+
+    static int sourceLevelThreshold(int sourceLevel) {
+        if (sourceLevel >= 50) {
             return 37300;
         }
-        return Math.max(1, (level + 1) * 15 * (level + 1) - 200);
+        return Math.max(1, sourceLevel * 15 * sourceLevel - 200);
+    }
+
+    private void refreshBaseStatsForCurrentLevel() {
+        BattleSpeciesRow row = VqsvBattleTables.instance().species(speciesId);
+        short quality = baseStats[STAT_QUALITY] <= 0 ? 3 : baseStats[STAT_QUALITY];
+        short form = baseStats[STAT_FORM];
+        short sideFlag = baseStats[STAT_SIDE_FLAG];
+        if (row == null || !row.validForBattle()) {
+            baseStats[STAT_HP] = toShort(80 + level * 4);
+            baseStats[STAT_ATTACK] = toShort(18 + level);
+            baseStats[STAT_DEFENSE] = toShort(8 + level / 2);
+            baseStats[STAT_SPEED] = 8;
+        } else {
+            baseStats[STAT_HP] = toShort(row.statHp(level, quality));
+            baseStats[STAT_ATTACK] = toShort(row.statAttack(level, quality));
+            baseStats[STAT_DEFENSE] = toShort(row.statDefense(level, quality));
+            baseStats[STAT_SPEED] = toShort(row.statSpeed(level, quality));
+        }
+        baseStats[STAT_QUALITY] = quality;
+        baseStats[STAT_FORM] = form;
+        baseStats[STAT_SIDE_FLAG] = sideFlag;
+        applyNatureType(natureType);
+        restoreMutableStats();
+        reapplyActiveStatEffects();
+    }
+
+    private void restoreSkillPpToSourceMax() {
+        for (int i = 0; i < skillIds.length; i++) {
+            if (skillIds[i] == -1) {
+                continue;
+            }
+            BattleSkillRow row = VqsvBattleTables.instance().skill(skillIds[i]);
+            skillPp[i] = toShort(row == null ? skillPp[i] : row.ppMax);
+        }
     }
 
     private void copyBaseToCurrent() {
@@ -904,15 +1002,22 @@ final class BattleUnit {
         if (skillCount >= skillIds.length) {
             return;
         }
-        for (int i = 0; i < skillIds.length; i++) {
-            if (skillIds[i] == skillId) {
-                return;
-            }
+        if (hasSourceSkill(skillId)) {
+            return;
         }
         BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
         skillIds[skillCount] = (byte) skillId;
         skillPp[skillCount] = toShort(row == null ? 1 : row.ppMax);
         skillCount++;
+    }
+
+    private boolean hasSourceSkill(int skillId) {
+        for (int i = 0; i < skillIds.length; i++) {
+            if (skillIds[i] == skillId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private int firstUsableSkillId() {
@@ -959,12 +1064,12 @@ final class BattleUnit {
         int chance = explicitChance;
         if (target.hasFormStatus((byte) 3)) {
             BattleStatusRow status = VqsvBattleTables.instance().status(3);
-            if (randomPercent() > chance * (100 - statusParam(status, 5, 0)) / 100) {
+            if (randomPercent("damage.debuff") > chance * (100 - statusParam(status, 5, 0)) / 100) {
                 return -1;
             }
         } else if (target.hasBuff(14)) {
             return -1;
-        } else if (chance != -1 && randomPercent() > chance) {
+        } else if (chance != -1 && randomPercent("damage.debuff") > chance) {
             return -1;
         }
 
@@ -1066,11 +1171,31 @@ final class BattleUnit {
 
     static void resetSourceBattleHooksForChecks() {
         Arrays.fill(SOURCE_FINAL_VISUAL_BY_ELEMENT, -1);
-        BATTLE_RANDOM.setSeed(0x56515356L);
+        FALLBACK_DAMAGE_RANDOM.setSeed(0x56515356L);
+        activeDamageRandom = FALLBACK_DAMAGE_RANDOM;
+        randomTrace = null;
+        randomTraceContext = "";
     }
 
     static void setDamageRandomSeedForChecks(long seed) {
-        BATTLE_RANDOM.setSeed(seed);
+        FALLBACK_DAMAGE_RANDOM.setSeed(seed);
+        activeDamageRandom = FALLBACK_DAMAGE_RANDOM;
+    }
+
+    static void setRandomTrace(java.util.List<String> trace, String context) {
+        setSourceRandomTrace(FALLBACK_DAMAGE_RANDOM, trace, context);
+    }
+
+    static void setSourceRandomTrace(VqsvSourceRandom sourceRandom, java.util.List<String> trace, String context) {
+        activeDamageRandom = sourceRandom == null ? FALLBACK_DAMAGE_RANDOM : sourceRandom;
+        randomTrace = trace;
+        randomTraceContext = context == null ? "" : context;
+    }
+
+    static void clearRandomTrace() {
+        activeDamageRandom = FALLBACK_DAMAGE_RANDOM;
+        randomTrace = null;
+        randomTraceContext = "";
     }
 
     private static int statusParam(BattleStatusRow row, int index, int fallback) {
@@ -1088,8 +1213,9 @@ final class BattleUnit {
         return tier;
     }
 
-    private static int randomPercent() {
-        return BATTLE_RANDOM.nextInt(100);
+    private static int randomPercent(String label) {
+        String fullLabel = randomTraceContext.isEmpty() ? label : randomTraceContext + "." + label;
+        return activeDamageRandom.a(fullLabel, 100, randomTrace);
     }
 
     private static boolean beats(int a, int b) {

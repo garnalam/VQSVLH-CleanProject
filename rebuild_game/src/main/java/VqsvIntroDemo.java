@@ -212,9 +212,11 @@ public final class VqsvIntroDemo extends JPanel {
         String battleMenuAction = "";
         String[] battleMenuNames = new String[0];
         String[] battleMenuValues = new String[0];
+        String[] battleMenuDescriptions = new String[0];
         int[] battleMenuIds = new int[0];
         int[] battleMenuIconIds = new int[0];
         int battleMenuIndex = 0;
+        VqsvBattlePetStateView[] battlePetStateRows = VqsvBattlePetStateView.EMPTY_ARRAY;
         String[] battleSkillNames = new String[0];
         String[] battleSkillPpLabels = new String[0];
         int[] battleSkillIds = new int[0];
@@ -252,6 +254,13 @@ public final class VqsvIntroDemo extends JPanel {
         int battleP7PlayerOffsetY = 0;
         int battleP7EnemyOffsetX = 0;
         int battleP7EnemyOffsetY = 0;
+        boolean battleGroundMarkersVisible = false;
+        boolean battleActiveMarkerVisible = false;
+        boolean battleActiveMarkerPlayerSide = false;
+        int battleEnemyMarkerX = 144;
+        int battleEnemyMarkerY = 85;
+        int battlePlayerMarkerX = 36;
+        int battlePlayerMarkerY = 206;
         boolean battleLVisible = false;
         boolean battleLPlayerSide = false;
         boolean battleLDrawAfter = false;
@@ -292,6 +301,7 @@ public final class VqsvIntroDemo extends JPanel {
         int battleCatchAnimCursor = 0;
         int battleCatchItemId = -1;
         int battleCatchChance = 0;
+        int battleCatchRoll = -1;
         boolean battleCatchCaught = false;
         boolean battleCatchVisible = false;
         boolean battleCatchEffectVisible = false;
@@ -319,16 +329,26 @@ public final class VqsvIntroDemo extends JPanel {
         int battlePlayerEnergy;
         int battlePlayerMaxEnergy = 1;
         boolean battleCaptureTutorial;
+        int battleTutorialU = -1;
+        int battleTutorialV = 0;
+        VqsvBattleLevelUpView battleLevelUpView = VqsvBattleLevelUpView.EMPTY;
         int sourceMoney;
         int sourceBadges;
         final Map<Integer, BagItem> sourceBagItems = VqsvSourceOps.initialSourceBagItems();
         final Map<Integer, SourceSpecialReward> sourceSpecialRewards = VqsvSourceOps.initialSourceSpecialRewards();
-        private final VqsvEventState eventState = new VqsvEventState();
+        final VqsvEventState eventState = new VqsvEventState();
         final List<SourcePetState> sourcePets = new ArrayList<>();
         final List<SourcePetState> sourcePetBank = new ArrayList<>();
         final List<String> sourceStateTrace = eventState.trace;
         boolean sourceGameCF = false;
         int sourcePetRefreshOps = 0;
+        boolean savePromptVisible = false;
+        String savePromptMessage = "";
+        String savePromptStatus = "";
+        int savePromptSelected = 0;
+        int savePromptClickX = -1;
+        int savePromptClickY = -1;
+        boolean worldPetstateVisible = false;
 
         void press0() {
             key0 = true;
@@ -341,6 +361,21 @@ public final class VqsvIntroDemo extends JPanel {
                 battleClickX = x;
                 battleClickY = y;
                 key0 = true;
+                return;
+            }
+            if (savePromptVisible) {
+                savePromptClickX = x;
+                savePromptClickY = y;
+                key0 = true;
+                return;
+            }
+            if (worldPetstateVisible) {
+                clickWorldPetstate(x, y);
+                key0 = true;
+                return;
+            }
+            if (worldUi.visible && useMap && x <= 44 && y >= 296) {
+                openWorldPetstate();
                 return;
             }
             if (choice != null && choice.click(x, y)) {
@@ -388,6 +423,13 @@ public final class VqsvIntroDemo extends JPanel {
                     text = null;
                 }
             }
+            if (worldPetstateVisible) {
+                tickWorldPetstate();
+                key0 = false;
+                keyUp = false;
+                keyDown = false;
+                return;
+            }
             for (int i = tempSprites.size() - 1; i >= 0; i--) {
                 if (tempSprites.get(i).tick(this)) {
                     tempSprites.remove(i);
@@ -427,6 +469,64 @@ public final class VqsvIntroDemo extends JPanel {
 
         void render(Graphics2D g) {
             VqsvSceneView.render(this, g);
+        }
+
+        void openWorldPetstate() {
+            worldPetstateVisible = true;
+            battleMenuTitle = VqsvText.Battle.PETSTATE_TITLE;
+            battleMenuSubtitle = "";
+            battleMenuAction = "";
+            battleMenuNames = new String[sourcePets.size()];
+            battleMenuValues = new String[sourcePets.size()];
+            battleMenuDescriptions = new String[0];
+            battleMenuIds = new int[sourcePets.size()];
+            battleMenuIconIds = new int[sourcePets.size()];
+            battlePetStateRows = new VqsvBattlePetStateView[6];
+            for (int i = 0; i < sourcePets.size(); i++) {
+                SourceBattleUnit unit = SourceBattleUnit.playerFromSourcePets(sourcePets.subList(i, i + 1));
+                battleMenuIds[i] = i;
+                battleMenuIconIds[i] = -1;
+                battleMenuNames[i] = unit.name;
+                battleMenuValues[i] = (unit.alive() ? "lv" + unit.level : "KO")
+                        + " " + unit.hp + "/" + unit.maxHp;
+            }
+            if (battleMenuIndex < 0 || battleMenuIndex >= sourcePets.size()) {
+                battleMenuIndex = 0;
+            }
+            for (int row = 0; row < battlePetStateRows.length; row++) {
+                if (row < sourcePets.size()) {
+                    battlePetStateRows[row] = VqsvBattlePetStateView.fromPet(row, row, sourcePets.get(row), row == 0);
+                } else {
+                    battlePetStateRows[row] = VqsvBattlePetStateView.empty(row);
+                }
+            }
+            sourceStateTrace.add("PORTED/PARTIAL world petstate.ui open owner=game.k rows="
+                    + java.util.Arrays.toString(battleMenuIds));
+        }
+
+        private void tickWorldPetstate() {
+            if (keyUp && battleMenuIndex > 0) {
+                battleMenuIndex--;
+            } else if (keyDown && battleMenuIndex < battleMenuIds.length - 1) {
+                battleMenuIndex++;
+            }
+            if (key0) {
+                worldPetstateVisible = false;
+                sourceStateTrace.add("PORTED/PARTIAL world petstate.ui close");
+            }
+        }
+
+        private void clickWorldPetstate(int x, int y) {
+            for (int row = 0; row < Math.min(6, battleMenuIds.length); row++) {
+                int rowY = 86 + row * 15;
+                if (x >= 43 && x <= 103 && y >= rowY && y <= rowY + 14) {
+                    battleMenuIndex = row;
+                    return;
+                }
+            }
+            if (x >= 150 && y >= 235) {
+                worldPetstateVisible = false;
+            }
         }
 
         void setCameraCenter(int cx, int cy) {
