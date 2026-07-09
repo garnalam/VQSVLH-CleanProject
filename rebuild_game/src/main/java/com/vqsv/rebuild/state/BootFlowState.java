@@ -1,5 +1,6 @@
 package com.vqsv.rebuild.state;
 
+import com.vqsv.rebuild.audio.VqsvMusicPlayer;
 import com.vqsv.rebuild.core.GameConfig;
 import com.vqsv.rebuild.input.InputSnapshot;
 import com.vqsv.rebuild.resource.AssetPaths;
@@ -42,6 +43,7 @@ public final class BootFlowState implements GameState {
     private boolean menuParticlesPaused;
     private int menuParticlePauseTicks;
     private boolean saveAvailable;
+    private boolean musicEnabled;
 
     public BootFlowState(AssetPaths assets) {
         this.assets = assets;
@@ -70,9 +72,10 @@ public final class BootFlowState implements GameState {
                 }
                 break;
             case MUSIC_PROMPT:
-                if (input.softLeftPressed() || input.softRightPressed() || input.confirmPressed()) {
-                    switchPhase(Phase.TITLE_MENU);
-                    resetMenuParticles();
+                if (input.softLeftPressed() || input.confirmPressed()) {
+                    chooseMusic(true);
+                } else if (input.softRightPressed()) {
+                    chooseMusic(false);
                 }
                 break;
             case TITLE_MENU:
@@ -112,19 +115,25 @@ public final class BootFlowState implements GameState {
         return menuLabels() == MENU_WITH_SAVE;
     }
 
+    public boolean musicEnabledForSmoke() {
+        return musicEnabled;
+    }
+
     private void updateTitleMenu(InputSnapshot input, GameStateMachine states) {
         if (input.wasPressed(KeyEvent.VK_UP) || input.wasPressed(KeyEvent.VK_NUMPAD8)
-                || input.wasPressed(KeyEvent.VK_8)) {
-            selectedMenu--;
-            if (selectedMenu < 0) {
-                selectedMenu = menuLabels().length - 1;
-            }
+                || input.wasPressed(KeyEvent.VK_8)
+                || input.wasPressed(KeyEvent.VK_LEFT) || input.wasPressed(KeyEvent.VK_NUMPAD4)
+                || input.wasPressed(KeyEvent.VK_4)) {
+            previousMenu();
         } else if (input.wasPressed(KeyEvent.VK_DOWN) || input.wasPressed(KeyEvent.VK_NUMPAD2)
-                || input.wasPressed(KeyEvent.VK_2)) {
-            selectedMenu++;
-            if (selectedMenu >= menuLabels().length) {
-                selectedMenu = 0;
-            }
+                || input.wasPressed(KeyEvent.VK_2)
+                || input.wasPressed(KeyEvent.VK_RIGHT) || input.wasPressed(KeyEvent.VK_NUMPAD6)
+                || input.wasPressed(KeyEvent.VK_6)) {
+            nextMenu();
+        } else if (clickedPreviousMenu(input)) {
+            previousMenu();
+        } else if (clickedNextMenu(input)) {
+            nextMenu();
         } else if (input.confirmPressed() || clickedSelectedMenu(input)) {
             if (saveAvailable && selectedMenu == 0) {
                 states.replace(new LegacyIntroDemoState(true));
@@ -152,6 +161,31 @@ public final class BootFlowState implements GameState {
             }
         }
         return saveAvailable ? MENU_WITH_SAVE : MENU_WITHOUT_SAVE;
+    }
+
+    private void chooseMusic(boolean enabled) {
+        musicEnabled = enabled;
+        if (enabled) {
+            VqsvMusicPlayer.startLoop(assets, "0");
+        } else {
+            VqsvMusicPlayer.stop();
+        }
+        switchPhase(Phase.TITLE_MENU);
+        resetMenuParticles();
+    }
+
+    private void previousMenu() {
+        selectedMenu--;
+        if (selectedMenu < 0) {
+            selectedMenu = menuLabels().length - 1;
+        }
+    }
+
+    private void nextMenu() {
+        selectedMenu++;
+        if (selectedMenu >= menuLabels().length) {
+            selectedMenu = 0;
+        }
     }
 
     private int menuLabelsLength() {
@@ -267,8 +301,24 @@ public final class BootFlowState implements GameState {
 
     private boolean clickedSelectedMenu(InputSnapshot input) {
         return input.pointerPressed()
-                && input.pointerX() >= 40
-                && input.pointerX() <= 200
+                && input.pointerX() > 80
+                && input.pointerX() < 160
+                && input.pointerY() >= GameConfig.LOGICAL_HEIGHT - 42
+                && input.pointerY() <= GameConfig.LOGICAL_HEIGHT;
+    }
+
+    private boolean clickedPreviousMenu(InputSnapshot input) {
+        return input.pointerPressed()
+                && input.pointerX() >= 0
+                && input.pointerX() <= 80
+                && input.pointerY() >= GameConfig.LOGICAL_HEIGHT - 42
+                && input.pointerY() <= GameConfig.LOGICAL_HEIGHT;
+    }
+
+    private boolean clickedNextMenu(InputSnapshot input) {
+        return input.pointerPressed()
+                && input.pointerX() >= 160
+                && input.pointerX() < GameConfig.LOGICAL_WIDTH
                 && input.pointerY() >= GameConfig.LOGICAL_HEIGHT - 42
                 && input.pointerY() <= GameConfig.LOGICAL_HEIGHT;
     }

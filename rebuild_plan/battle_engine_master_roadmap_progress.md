@@ -32,9 +32,9 @@ numbers. The roadmap order is unchanged; only document numbers are shifted.
 | Phase 5 | Item/Catch/Pet Switch Full Behavior | PARTIAL/APPROX | P21/P17/P4/P16/P5 are source-shaped and smoke-covered for current routes; catch/petstate UI still partial | Continue from `79`, `82..99`; next choose a small missing consumer, not broad polish. |
 | Phase 6 | P7 Effect Animation Engine | CLOSED FOR CURRENT ROUTES / PORTED-PARTIAL | `134..142`; P7 effect chunks, damage text/HP tween, death state, queue/follow-up branches smoke-covered | Do not reopen without original capture or a concrete source-route mismatch. |
 | Phase 7 | Actor Motion / Hit / Recover / Dead | CLOSED FOR CURRENT ROUTES / PORTED-PARTIAL | `135..142`; synthetic recoil removed, state 1/2 source-asset compare, state 3 death timing/hidden actor smoke-covered | Exact MIDP pixel parity remains future capture work. |
-| Phase 8 | Battle Entry/Exit + Event Integration | PARTIAL / NEXT ACTIVE | Sophie/Bunny/Elder route regressions pass; P8/P22/P23 EXP/levelUp/learn-skill source-shaped | Audit next event/UI consumer before new code. |
-| Phase 9 | Broad Skill Coverage | PARTIAL | `72` classifies skills, but coverage/smoke matrix not complete | Later create `83_battle_skill_coverage_matrix.md`. |
-| Phase 10 | Regression Suite | PARTIAL | Many smoke images/checks exist, but no single full battle regression suite | Later create `84_battle_regression_suite_matrix.md`. |
+| Phase 8 | Battle Entry/Exit + Event Integration | CLOSED FOR CURRENT MANUAL ROUTES / PORTED-PARTIAL | `143..154`; Sophie/Bunny/Elder route regressions pass, op47/downstream/save/world-resume wrappers cover current manual boundaries | Do not build generic decoded event VM unless a source-backed design task is chosen. |
+| Phase 9 | Broad Skill Coverage | NEXT ACTIVE / PARTIAL | `72` classifies skills, but coverage/smoke matrix is not complete | Start with `155`, then create `156_battle_phase9_skill_coverage_matrix.md`. |
+| Phase 10 | Regression Suite | CLOSED / PARTIAL | `191_battle_phase10c_regression_suite_matrix.md`, `192_battle_phase10_closeout.md`; `--smoke-suite battle_quick` passes 14/14 checkpoints | Use `battle_quick` after every battle code change; expand focused suites only when needed. |
 
 ## Phase 1 Progress Against Roadmap
 
@@ -238,30 +238,24 @@ Recommended ordering now:
 
 ## Immediate Next Step
 
-Continue from the closed-for-current-routes P7/Phase 6 slice, generalized
-P12/P13 queue, P16 item behavior parity, P5 pet switch parity, P15 cpos slice,
-P21/P17 Bunny/catch slices, petstate/save slices, and P8/P22/P23
-EXP/levelUp/learn-skill slices:
+Phase 8 current-route wrappers are closed in `150..154`:
 
-- Enemy-party/P15 data model now exists at current rebuild granularity.
-- P16 now validates and applies `game.b.x/w` item behavior `1..6` through
-  selected active/reserve pet targets; HP/PP payload persistence is wired for
-  current rebuild state.
-- Next roadmap-consistent target remains Phase 8 battle entry/exit/event
-  integration. Audits `143`/`144` completed Bunny/Elder descriptor and op47
-  wrapper coverage; audit `145` completed Sophie descriptor/op47 coverage.
-- Remaining missing consumers for later Phase 8/9 work:
-  - evolution queue `game.b.J()` -> `game.k.H/L/I` and its UI/effects;
-  - full EXP participant/share vector `game.d.x` and passive EXP share;
-  - exact `msgwarm.ui`/`choiceskill.ui` widget runtime;
-  - remaining catch/P17 pixel parity and full RNG route parity;
-  - remaining active-effect/skill consumers with real source callers.
-- Do not port AH type7 for active queue unless a source path outside current
-  `ai` gate proves it is called; in P12/P13 it is currently NOT-CALLED.
-- Recommended next concrete work: audit whether room1 group1 save prompt can be
-  source-shaped as its own `op15/op56/op46/op14` group wrapper without changing
-  save payload/RMS parity. Do not change `battleBranchTarget` semantics, do not
-  mutate `Scene.eventIndex`, and do not create a full decoded event VM without a
-  source-backed slice.
-- Do not jump to broad UI polish or new effects until those state consumers are
-  wired.
+- room1 save -> Bunny `op13`;
+- Bunny group0 complete -> room0 transition;
+- Elder group6 complete -> post-group6 free-world.
+
+Next roadmap-consistent target is now Phase 9 broad skill coverage:
+
+```text
+Create 156_battle_phase9_skill_coverage_matrix.md.
+```
+
+Rules for the next step:
+
+- Do not code a skill before the Phase 9 matrix exists.
+- Do not reopen P7 visual parity without a selected skill/source route that
+  proves the need.
+- Do not port `SOURCE_SWITCH_GAP` skills by guessing from `aq.c[1]` rows.
+- Keep route regressions for Sophie/Bunny/Elder after every Phase 9 code slice.
+- Generic decoded event VM remains out of scope unless a separate source-backed
+  design task is chosen.

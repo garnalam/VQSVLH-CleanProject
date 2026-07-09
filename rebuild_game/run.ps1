@@ -1,13 +1,14 @@
 param(
-    [string]$ModulesRoot = ""
+    [string]$ModulesRoot = "",
+    [switch]$NoBuild
 )
 
 $ErrorActionPreference = "Stop"
 
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$JarPath = Join-Path $ProjectRoot "build\libs\vqsv-rebuild-skeleton.jar"
+$JarPath = Join-Path $ProjectRoot "build\libs\vqsv-liet-hoa-rebuild.jar"
 
-if (!(Test-Path $JarPath)) {
+if (!$NoBuild -or !(Test-Path $JarPath)) {
     & (Join-Path $ProjectRoot "build.ps1")
 }
 

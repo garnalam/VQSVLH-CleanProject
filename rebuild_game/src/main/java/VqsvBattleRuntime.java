@@ -194,6 +194,12 @@ final class SourceBattleRuntime implements Blocking {
     private int p7Ticks = 0;
     private int p7Damage = 0;
     private BattleDamageResult p7DamageResult;
+    private boolean p7AttackHit = true;
+    private int p7MissChance;
+    private int p7HitRoll = -1;
+    private int debugNextP7HitRoll = -1;
+    private int debugNextLeechRoll = -1;
+    private int debugNextFollowUpRoll = -1;
     private boolean p7PostEffectApplied;
     private String p7PostEffectText = "";
     private boolean p7PostEffectPlayerSide;
@@ -1157,6 +1163,7 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (commandConfirmQueued || s.key0) {
             commandConfirmQueued = false;
+            s.key0 = false;
             return true;
         }
         return false;
@@ -1199,11 +1206,13 @@ final class SourceBattleRuntime implements Blocking {
         s.battleClickX = -1;
         s.battleClickY = -1;
         if (clickedBack) {
+            s.key0 = false;
             return MenuAction.BACK;
         }
         if (clicked >= 0 && clicked < s.battleMenuNames.length) {
             s.battleMenuIndex = clicked;
             syncMenuScroll(s);
+            s.key0 = false;
             return MenuAction.CONFIRM;
         }
 
@@ -1212,16 +1221,30 @@ final class SourceBattleRuntime implements Blocking {
         wasUpPressed = s.keyUp;
         wasDownPressed = s.keyDown;
         if (upEdge && s.battleMenuNames.length > 0) {
-            s.battleMenuIndex = (s.battleMenuIndex + s.battleMenuNames.length - 1) % s.battleMenuNames.length;
-            syncMenuScroll(s);
+            if ("choice".equals(s.battleUiMode)) {
+                s.battleChoiceUi = s.battleChoiceUi.moveUpSource();
+                syncLegacyMenuFromChoice(s);
+            } else {
+                s.battleMenuIndex = (s.battleMenuIndex + s.battleMenuNames.length - 1) % s.battleMenuNames.length;
+                syncMenuScroll(s);
+            }
             return MenuAction.NONE;
         }
         if (downEdge && s.battleMenuNames.length > 0) {
-            s.battleMenuIndex = (s.battleMenuIndex + 1) % s.battleMenuNames.length;
-            syncMenuScroll(s);
+            if ("choice".equals(s.battleUiMode)) {
+                s.battleChoiceUi = s.battleChoiceUi.moveDownSource();
+                syncLegacyMenuFromChoice(s);
+            } else {
+                s.battleMenuIndex = (s.battleMenuIndex + 1) % s.battleMenuNames.length;
+                syncMenuScroll(s);
+            }
             return MenuAction.NONE;
         }
-        return s.key0 ? MenuAction.CONFIRM : MenuAction.NONE;
+        if (s.key0) {
+            s.key0 = false;
+            return MenuAction.CONFIRM;
+        }
+        return MenuAction.NONE;
     }
 
     private int menuIndexAt(VqsvIntroDemo.Scene s, int x, int y) {
@@ -1250,6 +1273,15 @@ final class SourceBattleRuntime implements Blocking {
             s.battleMenuScroll = s.battleMenuIndex - 4;
         }
         s.battleMenuScroll = Math.max(0, Math.min(maxScroll, s.battleMenuScroll));
+        if ("choice".equals(s.battleUiMode)) {
+            s.battleChoiceUi = s.battleChoiceUi.withSourceCursor(s.battleMenuIndex, s.battleMenuScroll);
+            syncLegacyMenuFromChoice(s);
+        }
+    }
+
+    private void syncLegacyMenuFromChoice(VqsvIntroDemo.Scene s) {
+        s.battleMenuIndex = s.battleChoiceUi.selectedIndex;
+        s.battleMenuScroll = s.battleChoiceUi.scroll;
     }
 
     private MenuAction handleSkillInput(VqsvIntroDemo.Scene s) {
@@ -1259,11 +1291,13 @@ final class SourceBattleRuntime implements Blocking {
         s.battleClickX = -1;
         s.battleClickY = -1;
         if (clickedBack) {
+            s.key0 = false;
             return MenuAction.BACK;
         }
         if (clicked >= 0) {
             s.battleSkillIndex = clicked;
             updateSkillScrollAndDescription(s);
+            s.key0 = false;
             return MenuAction.CONFIRM;
         }
 
@@ -1281,7 +1315,11 @@ final class SourceBattleRuntime implements Blocking {
             updateSkillScrollAndDescription(s);
             return MenuAction.NONE;
         }
-        return s.key0 ? MenuAction.CONFIRM : MenuAction.NONE;
+        if (s.key0) {
+            s.key0 = false;
+            return MenuAction.CONFIRM;
+        }
+        return MenuAction.NONE;
     }
 
     private int skillIndexAt(int x, int y, VqsvIntroDemo.Scene s) {
@@ -1358,6 +1396,7 @@ final class SourceBattleRuntime implements Blocking {
         for (int i = 0; i < s.battleMenuIds.length; i++) {
             if (s.battleMenuIds[i] == itemId) {
                 s.battleMenuIndex = i;
+                syncMenuScroll(s);
                 return;
             }
         }
@@ -1577,6 +1616,8 @@ final class SourceBattleRuntime implements Blocking {
         if (s.battleMenuIndex < 0 || s.battleMenuIndex >= s.battleMenuNames.length) {
             s.battleMenuIndex = 0;
         }
+        s.battleChoiceUi = VqsvChoiceUiView.battle(title, subtitle, action,
+                names, values, descriptions, ids, icons, s.battleMenuIndex, s.battleMenuScroll);
         syncMenuScroll(s);
     }
 
@@ -1799,10 +1840,14 @@ final class SourceBattleRuntime implements Blocking {
         s.battleClickY = -1;
         if (clickedBack || s.keyLeft && !wasLeftPressed && targetUnits.length <= 1) {
             wasLeftPressed = s.keyLeft;
+            if (clickedBack) {
+                s.key0 = false;
+            }
             return clickedBack ? MenuAction.BACK : MenuAction.NONE;
         }
         if (clicked >= 0) {
             selectedTargetIndex = clicked;
+            s.key0 = false;
             return MenuAction.CONFIRM;
         }
         boolean previousEdge = (s.keyLeft && !wasLeftPressed) || (s.keyUp && !wasUpPressed);
@@ -1819,7 +1864,11 @@ final class SourceBattleRuntime implements Blocking {
             selectedTargetIndex = (selectedTargetIndex + 1) % targetUnits.length;
             return MenuAction.NONE;
         }
-        return s.key0 ? MenuAction.CONFIRM : MenuAction.NONE;
+        if (s.key0) {
+            s.key0 = false;
+            return MenuAction.CONFIRM;
+        }
+        return MenuAction.NONE;
     }
 
     private int targetIndexAt(int x, int y) {
@@ -1846,6 +1895,8 @@ final class SourceBattleRuntime implements Blocking {
         selectedTarget = targetUnits[selectedTargetIndex];
         if (player.battleUnit != null && selectedTarget != null && selectedTarget.battleUnit != null) {
             player.battleUnit.selectSkill(selectedSkillId, selectedTarget.battleUnit);
+            player.battleUnit.selectedTargetSlot = (byte) (selectedTargetIndex < targetSlots.length
+                    ? targetSlots[selectedTargetIndex] : -1);
         }
         syncTargetRenderState(s);
         s.sourceStateTrace.add("PORTED battle P6/game.d.i target confirm skill=" + selectedSkillId
@@ -2194,6 +2245,7 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private void openCatchResultBox(VqsvIntroDemo.Scene s, String message, String sourceReason) {
+        s.battleOpenBox = VqsvOpenBoxView.of(message);
         s.text = TextBox.openBox(message);
         catchOpenBoxState = catchStorageResult == 1 ? 2 : 1;
         s.sourceStateTrace.add("PORTED/PARTIAL battle P17 " + sourceReason
@@ -2210,6 +2262,7 @@ final class SourceBattleRuntime implements Blocking {
                 s.key0 = false;
                 if (s.text.disposed) {
                     s.text = null;
+                    s.battleOpenBox = VqsvOpenBoxView.EMPTY;
                 }
             }
             if (s.text != null) {
@@ -2218,6 +2271,7 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (catchOpenBoxState == 2) {
             catchOpenBoxState = 4;
+            s.battleOpenBox = VqsvOpenBoxView.of(VqsvText.Battle.CATCH_SENT_BANK);
             s.text = TextBox.openBox(VqsvText.Battle.CATCH_SENT_BANK);
             s.sourceStateTrace.add("PORTED/PARTIAL battle P17 S.f=2->4 second openbox.ui bank notice");
             return false;
@@ -2226,6 +2280,7 @@ final class SourceBattleRuntime implements Blocking {
             s.sourceStateTrace.add("PORTED/PARTIAL battle P17 S.ax() closed f="
                     + catchOpenBoxState + " -> game.i.a().a(10)/battle exit");
             catchOpenBoxState = 0;
+            s.battleOpenBox = VqsvOpenBoxView.EMPTY;
             return true;
         }
         return false;
@@ -2692,6 +2747,17 @@ final class SourceBattleRuntime implements Blocking {
                 + " displayHp=" + enemyDisplayHp);
     }
 
+    void debugSetPlayerHpForSmoke(VqsvIntroDemo.Scene s, int hp) {
+        if (player == null || player.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires an entered source battle player");
+        }
+        setHp(player, hp);
+        playerDisplayHp = player.hp;
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle debug player hp=" + player.hp + "/" + player.maxHp
+                + " displayHp=" + playerDisplayHp);
+    }
+
     void debugEnemyPartyForSmoke(VqsvIntroDemo.Scene s, int[][] encounterRows) {
         if (!entered) {
             enterBattle(s);
@@ -2729,6 +2795,221 @@ final class SourceBattleRuntime implements Blocking {
                 + debuffId + " value=" + value + " skill=" + sourceSkill);
     }
 
+    void debugEnemyDebuffForFormulaSmoke(VqsvIntroDemo.Scene s, int debuffId, int value, int sourceSkill) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (enemy == null || enemy.battleUnit == null) {
+            throw new IllegalStateException("Formula smoke requires enemy battle unit");
+        }
+        BattleUnit unit = enemy.battleUnit;
+        unit.debuffSlots[debuffId][0] = 3;
+        unit.debuffSlots[debuffId][1] = (short) value;
+        unit.debuffSlots[debuffId][3] = (short) sourceSkill;
+        unit.debuffSlots[debuffId][4] = 1;
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle Phase9C enemy debuff prepared id="
+                + debuffId + " value=" + value + " skill=" + sourceSkill);
+    }
+
+    void debugStatusIconForSmoke(VqsvIntroDemo.Scene s, boolean playerSide,
+                                 int bank, int effectId, int duration, int value, int sourceSkill) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        SourceBattleUnit sourceUnit = playerSide ? player : enemy;
+        if (sourceUnit == null || sourceUnit.battleUnit == null) {
+            throw new IllegalStateException("Status icon smoke requires entered battle unit");
+        }
+        BattleUnit unit = sourceUnit.battleUnit;
+        if (bank == 0) {
+            unit.buffSlots[effectId][0] = (short) duration;
+            unit.buffSlots[effectId][1] = (short) value;
+            unit.buffSlots[effectId][3] = (short) sourceSkill;
+            unit.buffSlots[effectId][4] = 1;
+        } else if (bank == 1) {
+            unit.debuffSlots[effectId][0] = (short) duration;
+            unit.debuffSlots[effectId][1] = (short) value;
+            unit.debuffSlots[effectId][3] = (short) sourceSkill;
+            unit.debuffSlots[effectId][4] = 1;
+        } else {
+            throw new IllegalArgumentException("Status icon smoke bank must be 0 or 1, got " + bank);
+        }
+        unit.addActiveEffect(bank, effectId);
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle Phase10A status icon prepared side="
+                + (playerSide ? "player" : "enemy")
+                + " bank=" + bank
+                + " id=" + effectId
+                + " duration=" + duration
+                + " sourceSkill=" + sourceSkill);
+    }
+
+    boolean debugEnemyHasDebuffForSmoke(int debuffId) {
+        return enemy != null && enemy.battleUnit != null && enemy.battleUnit.hasDebuff(debuffId);
+    }
+
+    boolean debugPlayerHasDebuffForSmoke(int debuffId) {
+        return player != null && player.battleUnit != null && player.battleUnit.hasDebuff(debuffId);
+    }
+
+    int debugEnemyTryDebuffPlayerForSmoke(VqsvIntroDemo.Scene s, int skillId, int debuffId) {
+        if (enemy == null || enemy.battleUnit == null || player == null || player.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires entered player/enemy units");
+        }
+        enemy.battleUnit.selectedSkillId = (byte) skillId;
+        enemy.battleUnit.target = player.battleUnit;
+        BattleUnit.setNextDebuffRollForChecks(0);
+        BattleUnit.setSourceRandomTrace(SOURCE_RANDOM, s.sourceStateTrace, "battle.Phase9Z.block.skill" + skillId);
+        BattleDamageResult result = enemy.battleUnit.computeDamage(player.battleUnit);
+        BattleUnit.clearRandomTrace();
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle Phase9Z enemy debuff attempt skill=" + skillId
+                + " expectedDebuff=" + debuffId
+                + " appliedDebuff=" + result.appliedDebuffId
+                + " playerHasBuff14=" + player.battleUnit.hasBuff(14)
+                + " playerHasDebuff=" + player.battleUnit.hasDebuff(debuffId));
+        return result.appliedDebuffId;
+    }
+
+    int debugEnemyAttackPlayerReflectHookForSmoke(VqsvIntroDemo.Scene s) {
+        if (enemy == null || enemy.battleUnit == null || player == null || player.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires entered player/enemy units");
+        }
+        enemy.battleUnit.selectedSkillId = 10;
+        enemy.battleUnit.target = player.battleUnit;
+        SOURCE_RANDOM.setSeed(3L);
+        BattleUnit.setSourceRandomTrace(SOURCE_RANDOM, s.sourceStateTrace, "battle.Phase9AA.buff5Reflect");
+        BattleDamageResult result = enemy.battleUnit.computeDamage(player.battleUnit);
+        BattleUnit.clearRandomTrace();
+        int reflected = enemy.battleUnit.consumeStoredReflectDamage();
+        if (reflected > 0) {
+            enemy.battleUnit.damage(reflected);
+        }
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle Phase9AA buff5 reflect hook skill=34"
+                + " enemySkill=10"
+                + " damage=" + result.damage
+                + " reflected=" + reflected
+                + " playerHasBuff5=" + player.battleUnit.hasBuff(5)
+                + " playerBuff5Chance=" + player.battleUnit.buffSlots[5][1]
+                + " source=game.b.b(target) K[5] + game.d.q consume");
+        return reflected;
+    }
+
+    int debugEnemyAttackPlayerBuff6ReductionForSmoke(VqsvIntroDemo.Scene s) {
+        if (enemy == null || enemy.battleUnit == null || player == null || player.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires entered player/enemy units");
+        }
+        enemy.battleUnit.selectedSkillId = 10;
+        enemy.battleUnit.target = player.battleUnit;
+        enemy.battleUnit.clearSourceBuffForSwitch(6);
+        SOURCE_RANDOM.setSeed(12L);
+        BattleUnit.setSourceRandomTrace(SOURCE_RANDOM, s.sourceStateTrace, "battle.Phase9AA.buff6Baseline");
+        int baseline = enemy.battleUnit.computeDamage(player.battleUnit).damage;
+        BattleUnit.clearRandomTrace();
+        enemy.battleUnit.applySourceBuff(6, 0, 35);
+        SOURCE_RANDOM.setSeed(12L);
+        BattleUnit.setSourceRandomTrace(SOURCE_RANDOM, s.sourceStateTrace, "battle.Phase9AA.buff6Reduced");
+        int reduced = enemy.battleUnit.computeDamage(player.battleUnit).damage;
+        BattleUnit.clearRandomTrace();
+        syncRenderState(s, s.battleLog);
+        int delta = baseline - reduced;
+        s.sourceStateTrace.add("SMOKE battle Phase9AA buff6 source-odd hook skill=35"
+                + " enemySkill=10"
+                + " baseline=" + baseline
+                + " reduced=" + reduced
+                + " delta=" + delta
+                + " playerHasBuff6=" + player.battleUnit.hasBuff(6)
+                + " enemyBuff6Chance=" + enemy.battleUnit.buffSlots[6][1]
+                + " enemyBuff6Percent=" + enemy.battleUnit.buffSlots[6][2]
+                + " source=game.b.b(target) checks target.m(6) but reads attacker.v[6]");
+        return delta;
+    }
+
+    void debugEnemyFormStatusForSmoke(VqsvIntroDemo.Scene s, int statusId) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (enemy == null || enemy.battleUnit == null) {
+            throw new IllegalStateException("Formula smoke requires enemy battle unit");
+        }
+        enemy.battleUnit.baseStats[BattleUnit.STAT_FORM] = (short) statusId;
+        s.sourceStateTrace.add("SMOKE battle Phase9E enemy form status="
+                + statusId + " source=game.b.f(byte)");
+    }
+
+    void debugEnemyBuffForFormulaSmoke(VqsvIntroDemo.Scene s, int buffId, int value, int sourceSkill) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (enemy == null || enemy.battleUnit == null) {
+            throw new IllegalStateException("Formula smoke requires enemy battle unit");
+        }
+        BattleUnit unit = enemy.battleUnit;
+        unit.buffSlots[buffId][0] = 3;
+        unit.buffSlots[buffId][1] = (short) value;
+        unit.buffSlots[buffId][3] = (short) sourceSkill;
+        unit.buffSlots[buffId][4] = 1;
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle Phase9C enemy buff prepared id="
+                + buffId + " value=" + value + " skill=" + sourceSkill);
+    }
+
+    void debugEnemySourceBuffForClearSmoke(VqsvIntroDemo.Scene s, int buffId, int value, int sourceSkill) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (enemy == null || enemy.battleUnit == null) {
+            throw new IllegalStateException("Clear-buff smoke requires enemy battle unit");
+        }
+        enemy.battleUnit.applySourceBuff(buffId, value, sourceSkill);
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle Phase9N enemy source buff prepared id="
+                + buffId + " value=" + value + " skill=" + sourceSkill
+                + " activeSlot=" + enemy.battleUnit.activeBuffSlot(buffId));
+    }
+
+    boolean debugEnemyHasBuffForSmoke(int buffId) {
+        return enemy != null && enemy.battleUnit != null && enemy.battleUnit.hasBuff(buffId);
+    }
+
+    int debugEnemyActiveBuffSlotForSmoke(int buffId) {
+        return enemy != null && enemy.battleUnit != null ? enemy.battleUnit.activeBuffSlot(buffId) : -1;
+    }
+
+    int debugEnemyBuffValueForSmoke(int buffId) {
+        return enemy != null && enemy.battleUnit != null
+                && buffId >= 0 && buffId < enemy.battleUnit.buffSlots.length
+                ? enemy.battleUnit.buffSlots[buffId][1] : Integer.MIN_VALUE;
+    }
+
+    boolean debugPlayerHasBuffForSmoke(int buffId) {
+        return player != null && player.battleUnit != null && player.battleUnit.hasBuff(buffId);
+    }
+
+    int debugPlayerActiveBuffSlotForSmoke(int buffId) {
+        return player != null && player.battleUnit != null ? player.battleUnit.activeBuffSlot(buffId) : -1;
+    }
+
+    int debugPlayerBuffValueForSmoke(int buffId) {
+        return player != null && player.battleUnit != null
+                && buffId >= 0 && buffId < player.battleUnit.buffSlots.length
+                ? player.battleUnit.buffSlots[buffId][1] : Integer.MIN_VALUE;
+    }
+
+    int debugPlayerBaseStatForSmoke(int statId) {
+        return player != null && player.battleUnit != null
+                && statId >= 0 && statId < player.battleUnit.baseStats.length
+                ? player.battleUnit.baseStats[statId] : Integer.MIN_VALUE;
+    }
+
+    int debugPlayerCurrentStatForSmoke(int statId) {
+        return player != null && player.battleUnit != null
+                && statId >= 0 && statId < player.battleUnit.currentStats.length
+                ? player.battleUnit.currentStats[statId] : Integer.MIN_VALUE;
+    }
+
     void debugEnemyBuff11ForPetSwitchSmoke(VqsvIntroDemo.Scene s) {
         if (!entered) {
             enterBattle(s);
@@ -2747,8 +3028,85 @@ final class SourceBattleRuntime implements Blocking {
         debugNextCatchRoll = Math.max(0, Math.min(99, roll));
     }
 
+    int debugCatchChanceForSmoke(int itemId) {
+        if (!entered) {
+            throw new IllegalStateException("Battle smoke hook requires an entered source battle");
+        }
+        return catchChance(itemId);
+    }
+
     void debugSetSourceRandomSeedForSmoke(long seed) {
         SOURCE_RANDOM.setSeed(seed);
+    }
+
+    void debugSetNextP7HitRollForSmoke(int roll) {
+        debugNextP7HitRoll = Math.max(0, Math.min(99, roll));
+    }
+
+    void debugSetNextLeechRollForSmoke(int roll) {
+        debugNextLeechRoll = Math.max(0, Math.min(99, roll));
+    }
+
+    void debugSetNextFollowUpRollForSmoke(int roll) {
+        debugNextFollowUpRoll = Math.max(0, Math.min(99, roll));
+    }
+
+    void debugSetNextDamageDebuffRollForSmoke(int roll) {
+        BattleUnit.setNextDebuffRollForChecks(roll);
+    }
+
+    void debugSetPlayerSpeedForSmoke(VqsvIntroDemo.Scene s, int speed) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (player == null || player.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires player battle unit");
+        }
+        int safe = Math.max(0, Math.min(Short.MAX_VALUE, speed));
+        player.battleUnit.currentStats[BattleUnit.STAT_SPEED] = (short) safe;
+        s.sourceStateTrace.add("SMOKE battle debug player speed=" + safe
+                + " source=game.b.d[4] crit/miss setup");
+    }
+
+    void debugSetPlayerAttackForSmoke(VqsvIntroDemo.Scene s, int attack) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (player == null || player.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires player battle unit");
+        }
+        int safe = Math.max(0, Math.min(Short.MAX_VALUE, attack));
+        player.battleUnit.currentStats[BattleUnit.STAT_ATTACK] = (short) safe;
+        player.battleUnit.baseStats[BattleUnit.STAT_ATTACK] = (short) safe;
+        s.sourceStateTrace.add("SMOKE battle debug player attack=" + safe
+                + " source=game.b.d[2]/c[2] formula setup");
+    }
+
+    void debugSetEnemyDefenseForSmoke(VqsvIntroDemo.Scene s, int defense) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (enemy == null || enemy.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires enemy battle unit");
+        }
+        int safe = Math.max(0, Math.min(Short.MAX_VALUE, defense));
+        enemy.battleUnit.currentStats[BattleUnit.STAT_DEFENSE] = (short) safe;
+        enemy.battleUnit.baseStats[BattleUnit.STAT_DEFENSE] = (short) safe;
+        s.sourceStateTrace.add("SMOKE battle debug enemy defense=" + safe
+                + " source=game.b.d[3]/c[3] formula setup");
+    }
+
+    void debugSetEnemySpeedForSmoke(VqsvIntroDemo.Scene s, int speed) {
+        if (!entered) {
+            enterBattle(s);
+        }
+        if (enemy == null || enemy.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires enemy battle unit");
+        }
+        int safe = Math.max(0, Math.min(Short.MAX_VALUE, speed));
+        enemy.battleUnit.currentStats[BattleUnit.STAT_SPEED] = (short) safe;
+        s.sourceStateTrace.add("SMOKE battle debug enemy speed=" + safe
+                + " source=game.b.d[4] miss setup");
     }
 
     void debugSetPlayerBuff12KForSmoke(VqsvIntroDemo.Scene s, int kValue) {
@@ -2760,6 +3118,10 @@ final class SourceBattleRuntime implements Blocking {
         s.sourceStateTrace.add("SMOKE battle debug player buff12 K12="
                 + player.battleUnit.effectScratch[12]
                 + " source=game.b.o(12)/game.d.q follow-up");
+    }
+
+    int debugPlayerK12ForSmoke() {
+        return player != null && player.battleUnit != null ? player.battleUnit.effectScratch[12] : Integer.MIN_VALUE;
     }
 
     void debugSetCatchStatusForSmoke(VqsvIntroDemo.Scene s, int targetDebuffId, boolean attackerForm11) {
@@ -2899,8 +3261,7 @@ final class SourceBattleRuntime implements Blocking {
             applyP7Damage(s);
             p7Phase = 2;
             p7Ticks = 0;
-            syncP7RenderState(s, p7Attacker.name + VqsvText.Battle.DAMAGE
-                    + p7Damage + VqsvText.Battle.DAMAGE_SUFFIX);
+            syncP7RenderState(s, p7Phase2BattleLog());
             return false;
         }
         if (p7Phase == 2) {
@@ -2960,6 +3321,9 @@ final class SourceBattleRuntime implements Blocking {
         p7Ticks = 0;
         p7Damage = 0;
         p7DamageResult = null;
+        p7AttackHit = true;
+        p7MissChance = 0;
+        p7HitRoll = -1;
         p7PostEffectApplied = false;
         p7PostEffectText = "";
         p7PostEffectPlayerSide = false;
@@ -3048,7 +3412,8 @@ final class SourceBattleRuntime implements Blocking {
         int speffectId = p7EffectValue(2);
         p7SpeffectRow = VqsvBattleAnimationTables.instance().speffectRow(speffectId);
         p7SpecialType = p7SpeffectRow.length == 0 ? -1 : p7SpeffectRow[0];
-        boolean ported = p7SpecialType == 9 || p7SpecialType == 1;
+        boolean ported = p7SpecialType == 9 || p7SpecialType == 1 || p7SpecialType == 7 || p7SpecialType == 8
+                || p7SpecialType == 12;
         s.sourceStateTrace.add((ported ? "PORTED/PARTIAL" : "PENDING")
                 + " battle P7 speffect skill=" + p7SkillId
                 + " chunk=" + p7EffectChunk
@@ -3064,6 +3429,15 @@ final class SourceBattleRuntime implements Blocking {
             }
             if (p7SpecialType == 1 && p7SpeffectRow.length >= 3) {
                 return Math.max(1, p7SpeffectRow[2]);
+            }
+            if (p7SpecialType == 7 && p7SpeffectRow.length >= 3) {
+                return Math.max(1, p7SpeffectRow[2]);
+            }
+            if (p7SpecialType == 8 && p7SpeffectRow.length >= 3) {
+                return Math.max(1, p7SpeffectRow[2]);
+            }
+            if (p7SpecialType == 12 && p7SpeffectRow.length >= 6) {
+                return Math.max(1, p7SpeffectRow[5]);
             }
         }
         return P7_START_TICKS;
@@ -3284,6 +3658,13 @@ final class SourceBattleRuntime implements Blocking {
         return index >= 0 && index < p7EffectRow.length ? p7EffectRow[index] : -1;
     }
 
+    private String p7Phase2BattleLog() {
+        if (!p7AttackHit) {
+            return VqsvText.Battle.DODGE;
+        }
+        return p7Attacker.name + VqsvText.Battle.DAMAGE + p7Damage + VqsvText.Battle.DAMAGE_SUFFIX;
+    }
+
     private void applyP7Damage(VqsvIntroDemo.Scene s) {
         if (p7DamageApplied) {
             return;
@@ -3295,11 +3676,21 @@ final class SourceBattleRuntime implements Blocking {
             BattleUnit.clearRandomTrace();
         }
         p7Damage = Math.max(1, p7DamageResult.damage);
-        p7Target.damage(p7Damage);
+        p7MissChance = sourceP7MissChance(s);
+        p7HitRoll = sourceP7HitRoll(s);
+        p7AttackHit = p7HitRoll >= p7MissChance;
+        if (p7AttackHit) {
+            p7Target.damage(p7Damage);
+            setP7BaseState(s, p7Target == player, 2);
+        }
         startP7HpTween(p7Target == player);
-        setP7BaseState(s, p7Target == player, 2);
         markP7ActionUsed();
         p7DamageApplied = true;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P7 hitroll skill=" + p7SkillId
+                + " roll=" + p7HitRoll
+                + " missChance=" + p7MissChance
+                + " hit=" + p7AttackHit
+                + " source=game.d case7 ae.a(100)>=missChance");
         s.sourceStateTrace.add("PORTED/PARTIAL battle P7 damage frame skill=" + p7SkillId
                 + " damage=" + p7Damage
                 + " critFlag=" + p7DamageResult.critFlag
@@ -3307,7 +3698,50 @@ final class SourceBattleRuntime implements Blocking {
                 + " debuffText=" + p7DebuffText()
                 + " target=" + p7Target.name
                 + " hp=" + p7Target.hp + "/" + p7Target.maxHp
+                + " hit=" + p7AttackHit
                 + " bloodRow0Len=" + VqsvBattleAnimationTables.instance().bloodRow(0).length);
+    }
+
+    private int sourceP7MissChance(VqsvIntroDemo.Scene s) {
+        if (p7Attacker == null || p7Target == null
+                || p7Attacker.battleUnit == null || p7Target.battleUnit == null) {
+            return 0;
+        }
+        BattleUnit attacker = p7Attacker.battleUnit;
+        BattleUnit target = p7Target.battleUnit;
+        int attackerSpeed = attacker.currentStats[BattleUnit.STAT_SPEED];
+        int sourceAttackerSpeed = attackerSpeed;
+        if (attacker.hasDebuff(4)) {
+            sourceAttackerSpeed = attackerSpeed - attacker.debuffSlots[4][1];
+        }
+        int missChance = (target.currentStats[BattleUnit.STAT_SPEED] - sourceAttackerSpeed) << 1;
+        if (attacker.hasSourceFormStatus(9)) {
+            missChance = 0;
+        }
+        if (missChance <= 0) {
+            missChance = 0;
+        } else if (missChance >= 20) {
+            missChance = 20;
+        }
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P7 missChance skill=" + p7SkillId
+                + " targetSpeed=" + target.currentStats[BattleUnit.STAT_SPEED]
+                + " attackerSpeed=" + attackerSpeed
+                + " debuff4Value=" + (attacker.hasDebuff(4) ? attacker.debuffSlots[4][1] : 0)
+                + " form9=" + attacker.hasSourceFormStatus(9)
+                + " missChance=" + missChance
+                + " passive4=PENDING");
+        return missChance;
+    }
+
+    private int sourceP7HitRoll(VqsvIntroDemo.Scene s) {
+        if (debugNextP7HitRoll >= 0) {
+            int roll = debugNextP7HitRoll;
+            debugNextP7HitRoll = -1;
+            s.sourceStateTrace.add("SMOKE battle P7 forced hitroll roll=" + roll
+                    + " source=game.d case7 ae.a(100)");
+            return roll;
+        }
+        return SOURCE_RANDOM.a("battle.P7.skill" + p7SkillId + ".hitroll", 100, s.sourceStateTrace);
     }
 
     private void startP7HpTween(boolean playerSide) {
@@ -3364,6 +3798,9 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private int p7DamageTextFrameCount() {
+        if (!p7AttackHit) {
+            return Math.max(1, VqsvBattleAnimationTables.instance().bloodRow(1).length / 2);
+        }
         int frames = VqsvBattleAnimationTables.instance().bloodRow(0).length / 2;
         if (p7DamageResult != null && p7DamageResult.appliedDebuffId >= 0) {
             frames = Math.max(frames, VqsvBattleAnimationTables.instance().bloodRow(1).length / 2);
@@ -3487,7 +3924,7 @@ final class SourceBattleRuntime implements Blocking {
         if (p7SkillId == 63 || p7SkillId == 69) {
             BattleSkillRow row = VqsvBattleTables.instance().skill(p7SkillId);
             int chance = row == null ? 0 : Math.max(0, row.chanceOrParam);
-            int roll = SOURCE_RANDOM.a("battle.P7.q.followup.skill" + p7SkillId, 100, s.sourceStateTrace);
+            int roll = sourceP7FollowUpRoll(s);
             if (roll <= chance) {
                 currentActorPlayer = p7Attacker == player;
                 s.sourceStateTrace.add("PORTED/PARTIAL battle P7 game.d.q follow-up P2 from skill="
@@ -3500,6 +3937,17 @@ final class SourceBattleRuntime implements Blocking {
                     + p7SkillId + " roll=" + roll + " chance=" + chance);
         }
         return false;
+    }
+
+    private int sourceP7FollowUpRoll(VqsvIntroDemo.Scene s) {
+        if (debugNextFollowUpRoll >= 0) {
+            int roll = debugNextFollowUpRoll;
+            debugNextFollowUpRoll = -1;
+            s.sourceStateTrace.add("SMOKE battle P7 forced follow-up roll=" + roll
+                    + " source=game.d.q ae.a(100)");
+            return roll;
+        }
+        return SOURCE_RANDOM.a("battle.P7.q.followup.skill" + p7SkillId, 100, s.sourceStateTrace);
     }
 
     private void syncP7RenderState(VqsvIntroDemo.Scene s, String log) {
@@ -3534,15 +3982,17 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7ActorEffectState = s.battleP7ActorEffectVisible ? p7ActorAnimation.state : 0;
         s.battleP7ActorEffectCursor = s.battleP7ActorEffectVisible ? p7ActorAnimation.cursor() : 0;
         s.battleP7DamageVisible = p7Phase == 2 && p7DamageTextActive();
-        s.battleP7DamageText = s.battleP7DamageVisible ? "-" + p7Damage : "";
-        s.battleP7DamageCritical = s.battleP7DamageVisible && p7DamageResult != null
+        s.battleP7DamageText = s.battleP7DamageVisible && p7AttackHit ? "-" + p7Damage : "";
+        s.battleP7DamageCritical = s.battleP7DamageVisible && p7AttackHit && p7DamageResult != null
                 && p7DamageResult.critFlag == 1;
-        s.battleP7DebuffText = s.battleP7DamageVisible ? p7DebuffText() : "";
+        s.battleP7DebuffText = s.battleP7DamageVisible && p7AttackHit ? p7DebuffText() : "";
+        s.battleP7MissText = s.battleP7DamageVisible && !p7AttackHit ? VqsvText.Battle.DODGE : "";
         s.battleP7PostEffectVisible = p7Phase == 3 && !p7PostEffectText.isEmpty();
         s.battleP7PostEffectPlayerSide = p7PostEffectPlayerSide;
         s.battleP7PostEffectText = s.battleP7PostEffectVisible ? p7PostEffectText : "";
         boolean showSpecial = p7Phase == 1
-                && (p7SpecialType == 9 || p7SpecialType == 1)
+                && (p7SpecialType == 9 || p7SpecialType == 1 || p7SpecialType == 7 || p7SpecialType == 8
+                || p7SpecialType == 12)
                 && p7SpecialActive
                 && p7SpecialTicks <= p7CurrentEffectDuration();
         s.battleP7SpecialVisible = showSpecial;
@@ -3599,6 +4049,7 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7DamageText = "";
         s.battleP7DamageCritical = false;
         s.battleP7DebuffText = "";
+        s.battleP7MissText = "";
         s.battleP7PostEffectVisible = false;
         s.battleP7PostEffectPlayerSide = false;
         s.battleP7PostEffectText = "";
@@ -3666,9 +4117,7 @@ final class SourceBattleRuntime implements Blocking {
                 break;
             case 52:
             case 58:
-                leechRollPassed = p7DamageApplied && p7Damage > 0
-                        && (p7Attacker.battleUnit == null
-                        || p7Attacker.battleUnit.rollSourceChance("skill52_58.leechGate", 30));
+                leechRollPassed = sourceP7LeechRollPassed(s);
                 if (leechRollPassed) {
                     heal = Math.max(0, p7Damage * row.chanceOrParam / 100);
                 }
@@ -3724,7 +4173,29 @@ final class SourceBattleRuntime implements Blocking {
         }
     }
 
+    private boolean sourceP7LeechRollPassed(VqsvIntroDemo.Scene s) {
+        int roll;
+        if (debugNextLeechRoll >= 0) {
+            roll = debugNextLeechRoll;
+            debugNextLeechRoll = -1;
+            s.sourceStateTrace.add("SMOKE battle P7 forced leech roll=" + roll
+                    + " source=game.d case7 skill52/58 aa gate ae.a(100)");
+        } else {
+            roll = SOURCE_RANDOM.a("battle.P7.skill52_58.leechGate", 100, s.sourceStateTrace);
+        }
+        boolean passed = roll <= 30;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P7 source aa skill=" + p7SkillId
+                + " roll=" + roll
+                + " passed=" + passed
+                + " hit=" + p7AttackHit
+                + " source=game.d case7 sets aa before miss gate; game.d.q checks aa only");
+        return passed;
+    }
+
     private void applyP7SourcePostDamageModifiers() {
+        if (!p7AttackHit) {
+            return;
+        }
         if (p7Attacker == null || p7Attacker.battleUnit == null || p7Target == null || p7Target.battleUnit == null) {
             return;
         }
@@ -4031,6 +4502,7 @@ final class SourceBattleRuntime implements Blocking {
                 + (row == null ? "Skill " + expSelectedLearnSkill : row.name("Skill " + expSelectedLearnSkill));
         s.battleWarningPrompt = VqsvText.Battle.WARNING_PROMPT;
         s.battleUiMode = "warning";
+        s.battleMsgWarm = VqsvMsgWarmView.of(s.battleWarningTitle, s.battleWarningPrompt);
         s.text = TextBox.msgWarm(s.battleWarningTitle, s.battleWarningPrompt);
         expLearningConfirm = true;
         s.sourceStateTrace.add("PORTED/PARTIAL battle P23 game.h.aq confirm prompt skill="
@@ -4590,6 +5062,7 @@ final class SourceBattleRuntime implements Blocking {
         s.battleUiMode = "warning";
         s.battleWarningTitle = message;
         s.battleWarningPrompt = VqsvText.Battle.WARNING_PROMPT;
+        s.battleMsgWarm = VqsvMsgWarmView.of(message, s.battleWarningPrompt);
         s.text = TextBox.msgWarm(message, VqsvText.Battle.WARNING_PROMPT);
         s.sourceStateTrace.add("PORTED battle warning uses game.h.E()/a(text,prompt) /data/ui/msgwarm.ui"
                 + " return=" + returnState.label);
@@ -4661,7 +5134,44 @@ final class SourceBattleRuntime implements Blocking {
         }
         s.battleTurn = turn;
         s.battleLog = log;
+        s.battlePlayerStatusCount = syncStatusSlots(player.battleUnit,
+                s.battlePlayerStatusIconCells, s.battlePlayerStatusDurationCells);
+        s.battleEnemyStatusCount = syncStatusSlots(enemy.battleUnit,
+                s.battleEnemyStatusIconCells, s.battleEnemyStatusDurationCells);
         syncBattleMarkerState(s);
+    }
+
+    private static int syncStatusSlots(BattleUnit unit, int[] iconCells, int[] durationCells) {
+        Arrays.fill(iconCells, 0);
+        Arrays.fill(durationCells, 145);
+        if (unit == null) {
+            return 0;
+        }
+        int visible = 0;
+        for (int slot = 0; slot < 3 && visible < 6; slot++) {
+            int buffId = statusQueueId(unit, 0, slot);
+            if (buffId >= 0 && buffId < unit.buffSlots.length && unit.buffSlots[buffId][0] > 0) {
+                iconCells[visible] = buffId + 12;
+                durationCells[visible] = 134 + unit.buffSlots[buffId][0];
+                visible++;
+            }
+            int debuffId = statusQueueId(unit, 1, slot);
+            if (visible < 6 && debuffId >= 0 && debuffId < unit.debuffSlots.length
+                    && unit.debuffSlots[debuffId][0] > 0) {
+                iconCells[visible] = debuffId + 1;
+                durationCells[visible] = 134 + unit.debuffSlots[debuffId][0];
+                visible++;
+            }
+        }
+        return visible;
+    }
+
+    private static int statusQueueId(BattleUnit unit, int bank, int slot) {
+        if (bank < 0 || bank >= unit.activeEffectQueue.length
+                || slot < 0 || slot >= unit.activeEffectQueue[bank].length) {
+            return -1;
+        }
+        return unit.activeEffectQueue[bank][slot];
     }
 
     private boolean sourceOwnsSpecies(VqsvIntroDemo.Scene s, int speciesId) {

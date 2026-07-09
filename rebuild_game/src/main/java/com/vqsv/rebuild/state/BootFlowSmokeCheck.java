@@ -1,5 +1,6 @@
 package com.vqsv.rebuild.state;
 
+import com.vqsv.rebuild.audio.VqsvMusicPlayer;
 import com.vqsv.rebuild.core.GameConfig;
 import com.vqsv.rebuild.input.InputSnapshot;
 import com.vqsv.rebuild.resource.AssetPaths;
@@ -28,10 +29,39 @@ public final class BootFlowSmokeCheck {
         lines.add("bootFlowAfterCwaLogo=" + state.phaseName());
         state.tick(input(KeyEvent.VK_RIGHT), states);
         lines.add("bootFlowAfterMusicChoice=" + state.phaseName());
+        if (state.musicEnabledForSmoke()) {
+            throw new IllegalStateException("RIGHT music choice should disable music");
+        }
+        String firstTitle = state.selectedMenuLabelForSmoke();
+        state.tick(input(KeyEvent.VK_RIGHT), states);
+        String nextTitle = state.selectedMenuLabelForSmoke();
+        if (firstTitle.equals(nextTitle)) {
+            throw new IllegalStateException("Title menu RIGHT did not change selection label=" + firstTitle);
+        }
+        state.tick(input(KeyEvent.VK_LEFT), states);
+        if (!firstTitle.equals(state.selectedMenuLabelForSmoke())) {
+            throw new IllegalStateException("Title menu LEFT did not return selection expected="
+                    + firstTitle + " actual=" + state.selectedMenuLabelForSmoke());
+        }
+        lines.add("bootFlowTitleMenuLeftRight=verified:" + firstTitle + "->" + nextTitle);
+        state.tick(pointer(220, 300), states);
+        if (firstTitle.equals(state.selectedMenuLabelForSmoke())) {
+            throw new IllegalStateException("Title menu pointer right did not change selection label=" + firstTitle);
+        }
+        state.tick(pointer(20, 300), states);
+        if (!firstTitle.equals(state.selectedMenuLabelForSmoke())) {
+            throw new IllegalStateException("Title menu pointer left did not return selection expected="
+                    + firstTitle + " actual=" + state.selectedMenuLabelForSmoke());
+        }
+        lines.add("bootFlowTitleMenuPointerLeftRight=verified");
+        VqsvMusicPlayer.stop();
         BootFlowState clickState = new BootFlowState(paths);
         tick(clickState, states, 40, emptyInput());
         clickState.tick(pointer(220, 300), states);
         lines.add("bootFlowPointerMusicChoice=" + clickState.phaseName());
+        if (clickState.musicEnabledForSmoke()) {
+            throw new IllegalStateException("Pointer right music choice should disable music");
+        }
 
         BufferedImage image = new BufferedImage(GameConfig.LOGICAL_WIDTH, GameConfig.LOGICAL_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();

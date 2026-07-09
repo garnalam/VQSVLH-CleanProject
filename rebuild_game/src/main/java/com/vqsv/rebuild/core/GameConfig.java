@@ -28,7 +28,7 @@ public final class GameConfig {
         Path modulesRoot = override == null || override.isBlank()
                 ? projectRoot.resolve("..").resolve("modules").normalize()
                 : Path.of(override).toAbsolutePath().normalize();
-        return new GameConfig("VQSV Rebuild Skeleton", 2, ORIGINAL_TICK_MILLIS, projectRoot, modulesRoot);
+        return new GameConfig("VQSV Liet Hoa Rebuild", 2, ORIGINAL_TICK_MILLIS, projectRoot, modulesRoot);
     }
 
     private static Path detectProjectRoot() {

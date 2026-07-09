@@ -669,7 +669,7 @@ Passing answer:
 
 - If `129` does not exist, write it first.
 - Must choose a source-called effect row, not a decorative animation.
- 
+
 ### Exercise D - Report Format After Every Slice
 
 Every final report must include:

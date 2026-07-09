@@ -349,7 +349,10 @@ final class TextBox {
     }
 
     static TextBox openBox(String text) {
-        return new TextBox(OPENBOX_TEXT_X, OPENBOX_TEXT_Y, OPENBOX_TEXT_W, OPENBOX_TEXT_H, text, SOURCE_OPENBOX);
+        VqsvUiLayout layout = VqsvUiLayout.load("openbox.ui");
+        return new TextBox(layout.x(2, OPENBOX_TEXT_X), layout.y(2, OPENBOX_TEXT_Y),
+                layout.w(2, OPENBOX_TEXT_W), layout.h(2, OPENBOX_TEXT_H),
+                text, SOURCE_OPENBOX);
     }
 
     static TextBox taskTip(String text) {
@@ -535,10 +538,15 @@ final class TextBox {
             return;
         }
         if (sourceUiKind == SOURCE_OPENBOX) {
+            VqsvUiLayout layout = VqsvUiLayout.load("openbox.ui");
+            VqsvUiLayout.UiWidget textWidget = layout.widget(2);
             int[] rect = openBoxSpriteRect();
             int textY = rect[1] + Math.max(0, (rect[3] - font.height) / 2);
-            drawSourceUiLine(g, font, currentText(), OPENBOX_TEXT_X, textY,
-                    OPENBOX_TEXT_W, rect[3], OPENBOX_TEXT_ALIGN, OPENBOX_TEXT_COLOR);
+            drawSourceUiLine(g, font, currentText(),
+                    layout.x(2, OPENBOX_TEXT_X), textY,
+                    layout.w(2, OPENBOX_TEXT_W), rect[3],
+                    textWidget == null ? OPENBOX_TEXT_ALIGN : textWidget.b,
+                    widgetTextColor(textWidget, OPENBOX_TEXT_COLOR));
             return;
         }
         Shape oldClip = g.getClip();
@@ -646,21 +654,31 @@ final class TextBox {
 
     void renderOpenBoxFrame(Graphics2D g) {
         if (sourceUiAnim != null) {
-            sourceUiAnim.drawAligned(g, OPENBOX_FRAME_X, OPENBOX_FRAME_Y, OPENBOX_FRAME_W,
-                    OPENBOX_FRAME_H_SOURCE, OPENBOX_FRAME_ALIGN, 0);
+            VqsvUiLayout layout = VqsvUiLayout.load("openbox.ui");
+            VqsvUiLayout.UiWidget frame = layout.widget(1);
+            sourceUiAnim.drawAligned(g, layout.x(1, OPENBOX_FRAME_X), layout.y(1, OPENBOX_FRAME_Y),
+                    layout.w(1, OPENBOX_FRAME_W),
+                    frame == null ? OPENBOX_FRAME_H_SOURCE : frame.h,
+                    frame == null ? OPENBOX_FRAME_ALIGN : frame.b, 0);
         }
     }
 
     int[] openBoxSpriteRect() {
+        VqsvUiLayout layout = VqsvUiLayout.load("openbox.ui");
+        VqsvUiLayout.UiWidget frame = layout.widget(1);
+        int frameX = layout.x(1, OPENBOX_FRAME_X);
+        int frameY = layout.y(1, OPENBOX_FRAME_Y);
+        int frameW = layout.w(1, OPENBOX_FRAME_W);
+        int frameH = frame == null ? OPENBOX_FRAME_H_SOURCE : frame.h;
         if (sourceUiAnim == null) {
-            return new int[]{OPENBOX_FRAME_X, OPENBOX_FRAME_Y, OPENBOX_FRAME_W, OPENBOX_TEXT_H};
+            return new int[]{frameX, frameY, frameW, OPENBOX_TEXT_H};
         }
         int[] bounds = sourceUiAnim.animationBounds(9);
         if (bounds == null) {
-            return new int[]{OPENBOX_FRAME_X, OPENBOX_FRAME_Y, OPENBOX_FRAME_W, OPENBOX_TEXT_H};
+            return new int[]{frameX, frameY, frameW, OPENBOX_TEXT_H};
         }
-        int drawX = OPENBOX_FRAME_X + (OPENBOX_FRAME_W - bounds[2]) / 2 - bounds[0];
-        int drawY = OPENBOX_FRAME_Y + (OPENBOX_FRAME_H_SOURCE - bounds[3]) / 2 - bounds[1];
+        int drawX = frameX + (frameW - bounds[2]) / 2 - bounds[0];
+        int drawY = frameY + (frameH - bounds[3]) / 2 - bounds[1];
         return new int[]{drawX, drawY, bounds[2], bounds[3]};
     }
 

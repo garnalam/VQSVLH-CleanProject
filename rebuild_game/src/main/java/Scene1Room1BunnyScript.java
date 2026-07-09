@@ -28,7 +28,8 @@ final class Scene1Room1BunnyScript {
                 s.sourceStateTrace.add("PORTED op86 gate preview [1,1,0]="
                         + s.sourceEventState(1, 1, 0)
                         + " complete=" + s.sourceEventStateComplete(1, 1, 0));
-                return new ActorTransitionFreeWorldTrigger(1, 1, 37, 3, 1, 0, 30);
+                return VqsvWorldResumeDescriptor.SCENE1_ROOM1_AFTER_BUNNY_TO_ROOM0.wrap(
+                        new ActorTransitionFreeWorldTrigger(1, 1, 37, 3, 1, 0, 30));
             });
     }
 

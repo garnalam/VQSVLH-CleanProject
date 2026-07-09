@@ -1,6 +1,6 @@
-# VQSV Rebuild Game
+# VQSV Liet Hoa Rebuild
 
-Skeleton Java project for rebuilding `Vuong Quoc Sung Vat - Liet Hoa` from decoded source and resources.
+Java rebuild of `Vuong Quoc Sung Vat - Liet Hoa` from decoded source and resources.
 
 This project lives next to `modules` by default:
 
@@ -17,8 +17,8 @@ Runtime code resolves the default asset/source root as `..\modules` relative to 
 - `src/main/java/com/vqsv/rebuild`: new rebuild source.
 - `src/main/java/com/vqsv/rebuild/resource`: asset locator and binary reader foundation.
 - `build.ps1`: compile Java sources and create a runnable JAR.
-- `run.ps1`: build if needed and run the skeleton.
-- `build/libs/vqsv-rebuild-skeleton.jar`: generated output.
+- `run.ps1`: build if needed and run the official local test build.
+- `build/libs/vqsv-liet-hoa-rebuild.jar`: generated release-test output.
 
 ## Asset Root
 
@@ -37,7 +37,7 @@ powershell -ExecutionPolicy Bypass -File .\run.ps1 -ModulesRoot "C:\path\to\modu
 Or with Java directly:
 
 ```powershell
-java "-Dvqsv.modules=C:\path\to\ResourcesVQSV\modules" -jar .\build\libs\vqsv-rebuild-skeleton.jar
+java "-Dvqsv.modules=C:\path\to\ResourcesVQSV\modules" -jar .\build\libs\vqsv-liet-hoa-rebuild.jar
 ```
 
 ## Resource Foundation
@@ -61,14 +61,24 @@ cd <ResourcesVQSV>\rebuild_game
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
-## Run
+## Official Local Test Build
 
 ```powershell
 cd <ResourcesVQSV>\rebuild_game
 powershell -ExecutionPolicy Bypass -File .\run.ps1
 ```
 
-The first screen only proves that the runtime loop and asset locator work. Real modules should be ported in this order:
+This is the single player-facing test path. It rebuilds the official jar before launching so the test build includes the latest source changes. Do not use `VqsvIntroDemo --play-*` for normal testing; those entrypoints are dev/checkpoint helpers only.
+
+To launch an already-built jar without rebuilding:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run.ps1 -NoBuild
+```
+
+Current rebuild status is still partial and source-backed by module data, but this launcher is the canonical build to test.
+
+Historical porting order:
 
 1. MIDP-like runtime/input/state layer.
 2. Resource loader and renderer primitives.
@@ -79,5 +89,9 @@ The first screen only proves that the runtime loop and asset locator work. Real 
 ## Non-GUI Check
 
 ```powershell
-java "-Dvqsv.modules=..\modules" -jar .\build\libs\vqsv-rebuild-skeleton.jar --check
+java "-Dvqsv.modules=..\modules" -jar .\build\libs\vqsv-liet-hoa-rebuild.jar --check
 ```
+
+## Dev-Only Smoke
+
+`VqsvIntroDemo --smoke-checkpoint` and `VqsvIntroDemo --smoke-suite` are headless developer tools for PNG/checkpoint verification. They are not the official play-test launcher.

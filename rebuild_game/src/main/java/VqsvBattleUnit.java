@@ -6,6 +6,7 @@ final class BattleUnit {
     private static VqsvSourceRandom activeDamageRandom = FALLBACK_DAMAGE_RANDOM;
     private static java.util.List<String> randomTrace;
     private static String randomTraceContext = "";
+    private static int debugNextDebuffRoll = -1;
 
     static final int STAT_QUALITY = 0;
     static final int STAT_HP = 1;
@@ -306,6 +307,14 @@ final class BattleUnit {
             effectId = -1;
         } else if (isPowerPercentSkill(skillId)) {
             damage = raw * skill.powerPercent / 100;
+            if (randomTrace != null) {
+                randomTrace.add("PORTED battle formula POWER_PERCENT skill=" + skillId
+                        + " raw=" + raw
+                        + " powerPercent=" + skill.powerPercent
+                        + " damageBeforeModifiers=" + damage
+                        + " effectId=" + effectId
+                        + " source=game.b.b(target) direct switch");
+            }
         } else if (skillId == 1 || skillId == 7) {
             int divisor = skill.chanceOrParam == 0 ? 1 : skill.chanceOrParam;
             damage = raw * skill.powerPercent / 100 + raw / divisor;
@@ -322,6 +331,13 @@ final class BattleUnit {
         } else if (skillId == 53 || skillId == 59) {
             damage = raw * (skill.chanceOrParam - hpPercent()) / 100;
         } else {
+            if (isBytecodeDefaultRawDamageSkill(skillId) && randomTrace != null) {
+                randomTrace.add("PORTED battle formula BYTECODE_DEFAULT_RAW_DAMAGE skill=" + skillId
+                        + " raw=" + raw
+                        + " powerPercentIgnored=" + skill.powerPercent
+                        + " effectIdIgnored=" + skill.effectId
+                        + " source=javap game.b.b(target) tableswitch -> 706 default");
+            }
             effectId = -1;
         }
 
@@ -379,6 +395,20 @@ final class BattleUnit {
             effectScratch[5] = toShort(damage);
         }
         return new BattleDamageResult(damage, critFlag, appliedDebuffId);
+    }
+
+    private static boolean isBytecodeDefaultRawDamageSkill(int skillId) {
+        switch (skillId) {
+            case 21:
+            case 27:
+            case 42:
+            case 48:
+            case 62:
+            case 67:
+                return true;
+            default:
+                return false;
+        }
     }
 
     int sourceBaseAttackForCurrentTarget() {
@@ -1190,6 +1220,10 @@ final class BattleUnit {
         activeDamageRandom = FALLBACK_DAMAGE_RANDOM;
     }
 
+    static void setNextDebuffRollForChecks(int roll) {
+        debugNextDebuffRoll = Math.max(0, Math.min(99, roll));
+    }
+
     static void setRandomTrace(java.util.List<String> trace, String context) {
         setSourceRandomTrace(FALLBACK_DAMAGE_RANDOM, trace, context);
     }
@@ -1223,6 +1257,16 @@ final class BattleUnit {
 
     private static int randomPercent(String label) {
         String fullLabel = randomTraceContext.isEmpty() ? label : randomTraceContext + "." + label;
+        if (label.endsWith("damage.debuff") && debugNextDebuffRoll >= 0) {
+            int roll = debugNextDebuffRoll;
+            debugNextDebuffRoll = -1;
+            if (randomTrace != null) {
+                randomTrace.add("SMOKE battle forced damage.debuff roll=" + roll
+                        + " label=" + fullLabel
+                        + " source=game.b.b(target) ae.a(100)");
+            }
+            return roll;
+        }
         return activeDamageRandom.a(fullLabel, 100, randomTrace);
     }
 

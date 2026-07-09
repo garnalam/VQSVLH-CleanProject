@@ -44,6 +44,12 @@ public final class VqsvIntroDemo extends JPanel {
             VqsvSmokeHarness.runSmokeCheckpoint(checkpoint, out);
             return;
         }
+        if (args.length > 0 && "--smoke-suite".equals(args[0])) {
+            String suite = args.length > 1 ? args[1] : "battle_quick";
+            String outDir = args.length > 2 ? args[2] : "build/smoke/suites/" + suite;
+            VqsvSmokeHarness.runSmokeSuite(suite, outDir);
+            return;
+        }
         if (args.length > 0 && "--play-at".equals(args[0])) {
             int ticks = args.length > 1 ? Integer.parseInt(args[1]) : 0;
             openWindow(ticks);
@@ -221,6 +227,7 @@ public final class VqsvIntroDemo extends JPanel {
         int[] battleMenuIconIds = new int[0];
         int battleMenuIndex = 0;
         int battleMenuScroll = 0;
+        VqsvChoiceUiView battleChoiceUi = VqsvChoiceUiView.EMPTY;
         VqsvBattlePetStateView[] battlePetStateRows = VqsvBattlePetStateView.EMPTY_ARRAY;
         String[] battleSkillNames = new String[0];
         String[] battleSkillPpLabels = new String[0];
@@ -244,6 +251,7 @@ public final class VqsvIntroDemo extends JPanel {
         String battleP7DamageText = "";
         boolean battleP7DamageCritical = false;
         String battleP7DebuffText = "";
+        String battleP7MissText = "";
         boolean battleP7PostEffectVisible = false;
         boolean battleP7PostEffectPlayerSide = false;
         String battleP7PostEffectText = "";
@@ -303,8 +311,16 @@ public final class VqsvIntroDemo extends JPanel {
         int battleActiveQueueBuffId = -1;
         int battleActiveQueueSegment = -1;
         int battleActiveQueueTicks = 0;
+        int battlePlayerStatusCount = 0;
+        int[] battlePlayerStatusIconCells = new int[6];
+        int[] battlePlayerStatusDurationCells = new int[]{145, 145, 145, 145, 145, 145};
+        int battleEnemyStatusCount = 0;
+        int[] battleEnemyStatusIconCells = new int[6];
+        int[] battleEnemyStatusDurationCells = new int[]{145, 145, 145, 145, 145, 145};
         String battleWarningTitle = "";
         String battleWarningPrompt = "";
+        VqsvMsgWarmView battleMsgWarm = VqsvMsgWarmView.EMPTY;
+        VqsvOpenBoxView battleOpenBox = VqsvOpenBoxView.EMPTY;
         int battleCatchSpriteId = -1;
         int battleCatchPhase = -1;
         int battleCatchTicks = 0;

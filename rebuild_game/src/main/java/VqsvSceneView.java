@@ -186,15 +186,44 @@ final class VqsvSceneView {
     }
 
     private static void renderSavePrompt(VqsvIntroDemo.Scene s, Graphics2D g) {
+        VqsvUiLayout layout = VqsvUiLayout.load("msgtip.ui");
         SpriteAnim ui = SpriteAnim.load(257);
-        drawCellTopLeft(ui, g, 124, 50, 137);
+        VqsvUiLayout.UiWidget frame = layout.widget(1);
+        int frameCell = frame != null && frame.altId >= 0 ? frame.altId : 124;
+        drawCellTopLeft(ui, g, frameCell, layout.x(1, 51), layout.y(1, 134));
         String message = s.savePromptStatus == null || s.savePromptStatus.isEmpty()
                 ? s.savePromptMessage : s.savePromptStatus;
-        int textWidth = s.font.width(message);
-        s.font.drawTaggedLine(g, message, 50 + (150 - textWidth) / 2, 153,
-                TextBox.visibleLength(TextBox.decodeMojibake(message)), 0x1c6c91);
-        drawConfirmSoftkey(g, 0, 296, true);
-        drawConfirmSoftkey(g, 216, 296, false);
+        drawSavePromptText(s, g, message, layout);
+        if (s.savePromptStatus == null || s.savePromptStatus.isEmpty()) {
+            drawSavePromptWidgetCell(ui, g, layout, 4, 75, 1, 298);
+            drawSavePromptWidgetCell(ui, g, layout, 3, 133, 218, 298);
+        }
+    }
+
+    private static void drawSavePromptText(VqsvIntroDemo.Scene s, Graphics2D g, String message,
+                                           VqsvUiLayout layout) {
+        VqsvUiLayout.UiWidget text = layout.widget(2);
+        int x = layout.x(2, 56);
+        int y = layout.y(2, 137);
+        int w = layout.w(2, 138);
+        int h = layout.h(2, 16);
+        int color = text == null || text.lColor == 0 || text.lColor == -1
+                ? 0x1c6c91 : text.lColor & 0xffffff;
+        java.awt.Shape oldClip = g.getClip();
+        g.clipRect(x, y, w, Math.max(1, h));
+        String decoded = TextBox.decodeMojibake(message);
+        int textWidth = s.font.taggedWidth(decoded);
+        int drawX = x + Math.max(0, (w - textWidth) / 2);
+        s.font.drawTaggedLine(g, decoded, drawX, y,
+                TextBox.visibleLength(decoded), color);
+        g.setClip(oldClip);
+    }
+
+    private static void drawSavePromptWidgetCell(SpriteAnim ui, Graphics2D g, VqsvUiLayout layout,
+                                                 int widgetId, int fallbackCell, int fallbackX, int fallbackY) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        int cell = widget != null && widget.altId >= 0 ? widget.altId : fallbackCell;
+        drawCellTopLeft(ui, g, cell, layout.x(widgetId, fallbackX), layout.y(widgetId, fallbackY));
     }
 
     private static void drawCellTopLeft(SpriteAnim ui, Graphics2D g, int cellId, int x, int y) {

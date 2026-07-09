@@ -8,6 +8,7 @@ public enum ResourceKind {
     SCRIPT("script"),
     FONT("root_misc"),
     UI("ui"),
+    SOUND("sound"),
     EVENT("event");
 
     private final String folderName;

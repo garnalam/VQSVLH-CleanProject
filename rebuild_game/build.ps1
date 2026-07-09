@@ -9,7 +9,8 @@ $BuildDir = Join-Path $ProjectRoot "build"
 $ClassesDir = Join-Path $BuildDir "classes"
 $LibDir = Join-Path $BuildDir "libs"
 $ManifestPath = Join-Path $BuildDir "MANIFEST.MF"
-$JarPath = Join-Path $LibDir "vqsv-rebuild-skeleton.jar"
+$ReleaseJarName = "vqsv-liet-hoa-rebuild.jar"
+$JarPath = Join-Path $LibDir $ReleaseJarName
 
 $JarTool = "jar"
 if ($env:JAVA_HOME) {
@@ -29,6 +30,8 @@ if (!(Test-Path $ModulesRoot)) {
 
 Remove-Item -Recurse -Force $ClassesDir -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $ClassesDir, $LibDir | Out-Null
+Remove-Item -Force (Join-Path $LibDir "vqsv-rebuild-skeleton.jar") -ErrorAction SilentlyContinue
+Remove-Item -Force $JarPath -ErrorAction SilentlyContinue
 
 $Sources = Get-ChildItem -Path (Join-Path $ProjectRoot "src\main\java") -Filter "*.java" -Recurse | ForEach-Object { $_.FullName }
 if ($Sources.Count -eq 0) {
@@ -45,7 +48,7 @@ if (Test-Path $ResourcesDir) {
 @"
 Manifest-Version: 1.0
 Main-Class: com.vqsv.rebuild.Main
-Implementation-Title: VQSV Rebuild Skeleton
+Implementation-Title: VQSV Liet Hoa Rebuild
 Implementation-Version: 0.1.0
 
 "@ | Set-Content -Path $ManifestPath -Encoding ASCII

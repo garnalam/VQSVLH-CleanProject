@@ -348,7 +348,8 @@ final class VqsvBattleRenderer {
         drawBattleUiText(g, font, layout, 58, s.battleEnemyPowerPercent + "%",
                 battlePercentColor(s.battleEnemyPowerPercent), s.battleAnimationTick);
         drawStatusSlots(g, layout.x(32, 2), layout.y(32, 25),
-                layout.x(49, 10), layout.y(49, 30), false);
+                layout.x(49, 10), layout.y(49, 30), false,
+                s.battleEnemyStatusIconCells, s.battleEnemyStatusDurationCells);
 
         drawBattleUiText(g, font, layout, 12, s.battlePlayerName, Color.WHITE, s.battleAnimationTick);
         drawBattleUiText(g, font, layout, 13, "lv" + s.battlePlayerLevel, Color.WHITE, s.battleAnimationTick);
@@ -365,9 +366,12 @@ final class VqsvBattleRenderer {
         drawBattleUiText(g, font, layout, 59, s.battlePlayerPowerPercent + "%",
                 battlePercentColor(s.battlePlayerPowerPercent), s.battleAnimationTick);
         drawStatusSlots(g, layout.x(26, 226), layout.y(26, 221),
-                layout.x(43, 234), layout.y(43, 226), true);
+                layout.x(43, 234), layout.y(43, 226), true,
+                s.battlePlayerStatusIconCells, s.battlePlayerStatusDurationCells);
 
-        drawBattleUiText(g, font, layout, 10, s.battleLog, Color.WHITE, s.battleAnimationTick);
+        if (Boolean.getBoolean("vqsv.battle.debugLog.visible")) {
+            drawBattleUiText(g, font, layout, 10, s.battleLog, Color.WHITE, s.battleAnimationTick);
+        }
         if (s.battleCaptureTutorial) {
             drawBattleUiText(g, font, layout, 4, VqsvText.Battle.CAPTURE_LABEL,
                     new Color(0xfff9b1), s.battleAnimationTick);
@@ -426,77 +430,103 @@ final class VqsvBattleRenderer {
 
     private static void drawChoiceOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
         VqsvUiLayout layout = VqsvUiLayout.load("choice.ui");
-        drawChoiceStaticWidgets(g, font, layout, s);
-        int start = Math.max(0, Math.min(s.battleMenuScroll, Math.max(0, s.battleMenuNames.length - 5)));
-        int visibleRows = Math.min(5, Math.max(0, s.battleMenuNames.length - start));
+        VqsvChoiceUiView choice = s.battleChoiceUi == null || s.battleChoiceUi == VqsvChoiceUiView.EMPTY
+                ? VqsvChoiceUiView.fromScene(s)
+                : s.battleChoiceUi;
+        if (choice.selectedIndex != s.battleMenuIndex || choice.scroll != s.battleMenuScroll) {
+            choice = choice.withSourceCursor(s.battleMenuIndex, s.battleMenuScroll);
+        }
+        drawChoiceStaticWidgets(g, font, layout, choice, s.battleAnimationTick);
+        int start = choice.visibleStart();
+        int visibleRows = choice.visibleCount();
         for (int row = 0; row < visibleRows; row++) {
             int i = start + row;
-            boolean selected = i == s.battleMenuIndex;
+            boolean selected = i == choice.selectedIndex;
             int frameId = 11 + row * 5;
             int iconId = 54 + row;
             int nameId = 13 + row * 5;
             int valueId = 14 + row * 5;
-            drawSourceWidgetCell(g, layout, frameId, selected, true);
+            if (choice.widgetVisible(frameId)) {
+                drawSourceWidgetCell(g, layout, frameId, selected, true);
+            }
             Color color = selected
                     ? widgetTextColor(layout.widget(nameId), true, new Color(0xfff16a))
                     : widgetTextColor(layout.widget(nameId), false, SOURCE_UI_TEXT);
-            if (i < s.battleMenuIconIds.length && s.battleMenuIconIds[i] >= 0) {
-                drawSpriteCellTopLeft(g, 258, s.battleMenuIconIds[i],
+            if (choice.widgetVisible(iconId) && choice.rowIconVisible(row)) {
+                drawSpriteCellTopLeft(g, VqsvChoiceUiView.ROW_ICON_SPRITE_ID, choice.rowIconCell(row),
                         layout.x(iconId, 54), layout.y(iconId, 95 + row * 15));
             }
-            drawSourceWidgetText(g, font, s.battleMenuNames[i],
-                    layout.x(nameId, 77), layout.y(nameId, 97 + row * 15),
-                    layout.w(nameId, 72), sourceWidgetHeight(layout.widget(nameId)),
-                    color, s.battleAnimationTick, layout.widget(nameId) == null ? 3 : layout.widget(nameId).b);
-            String value = i < s.battleMenuValues.length ? s.battleMenuValues[i] : "";
-            VqsvUiLayout.UiWidget valueWidget = layout.widget(valueId);
-            drawSourceWidgetText(g, font, value,
-                    layout.x(valueId, 141), layout.y(valueId, 97 + row * 15),
-                    layout.w(valueId, 36), sourceWidgetHeight(valueWidget),
-                    widgetTextColor(valueWidget, selected, color), s.battleAnimationTick,
-                    valueWidget == null ? 4 : valueWidget.b);
+            if (choice.widgetVisible(nameId)) {
+                drawSourceWidgetText(g, font, choice.widgetText(nameId, ""),
+                        layout.x(nameId, 77), layout.y(nameId, 97 + row * 15),
+                        layout.w(nameId, 72), sourceWidgetHeight(layout.widget(nameId)),
+                        color, s.battleAnimationTick, layout.widget(nameId) == null ? 3 : layout.widget(nameId).b);
+            }
+            if (choice.widgetVisible(valueId)) {
+                VqsvUiLayout.UiWidget valueWidget = layout.widget(valueId);
+                drawSourceWidgetText(g, font, choice.widgetText(valueId, ""),
+                        layout.x(valueId, 141), layout.y(valueId, 97 + row * 15),
+                        layout.w(valueId, 36), sourceWidgetHeight(valueWidget),
+                        widgetTextColor(valueWidget, selected, color), s.battleAnimationTick,
+                        valueWidget == null ? 4 : valueWidget.b);
+            }
         }
-        if (s.battleMenuNames.length > 5) {
+        if (choice.size() > 5) {
             VqsvUiLayout.UiWidget track = layout.widget(50);
             drawSourceWidgetFill(g, layout, 50, 72, 0x51d8e9);
-            int selected = Math.max(0, Math.min(s.battleMenuIndex, s.battleMenuNames.length - 1));
             int trackY = track == null ? 98 : track.y;
             int trackH = 72;
-            int knobY = trackY + selected * trackH / s.battleMenuNames.length;
+            int knobY = choice.scrollbarThumbY(trackY, trackH);
             VqsvUiLayout.UiWidget knob = layout.widget(51);
             drawSourceUiFill(g, layout.x(51, 183), knobY, layout.w(51, 4), 8,
                     widgetFillColor(knob, false, new Color(0xc6f3ff)).getRGB() & 0xffffff);
         }
-        if (s.battleMenuNames.length == 0) {
+        if (choice.size() == 0) {
             drawTinyBattleText(g, font, "...", 105, 136, 40, SOURCE_UI_TEXT);
         }
-        if ("Pokemon ball".equals(TextBox.decodeMojibake(s.battleMenuTitle))) {
+        if (choice.widgetVisible(52) && choice.isCatchMenu()) {
             drawSourceWidgetCell(g, layout, 52, false, false);
-            drawChoiceDescription(g, font, layout, selectedCatchCountText(s), s.battleAnimationTick);
+            drawChoiceDescription(g, font, layout, selectedCatchCountText(s, choice), s.battleAnimationTick);
         } else {
-            String description = selectedMenuDescription(s);
-            if (!description.isEmpty()) {
+            String description = choice.selectedDescription();
+            if (choice.widgetVisible(52) && !description.isEmpty()) {
                 drawSourceWidgetCell(g, layout, 52, false, false);
                 drawChoiceDescription(g, font, layout, description, s.battleAnimationTick);
             }
         }
-        String action = s.battleMenuAction == null || s.battleMenuAction.isEmpty()
-                ? layout.text(5, "")
-                : s.battleMenuAction;
-        drawChoiceText(g, font, layout, 5, action, SOURCE_UI_TEXT, s.battleAnimationTick);
-        drawChoiceText(g, font, layout, 6, layout.text(6, "Quay l\u1ea1i"),
-                SOURCE_UI_TEXT, s.battleAnimationTick);
+        if (choice.widgetVisible(5)) {
+            drawChoiceText(g, font, layout, 5, choice.widgetText(5, layout.text(5, "")),
+                    SOURCE_UI_TEXT, s.battleAnimationTick);
+        }
+        if (choice.widgetVisible(6)) {
+            drawChoiceText(g, font, layout, 6, choice.widgetText(6, layout.text(6, "Quay l\u1ea1i")),
+                    SOURCE_UI_TEXT, s.battleAnimationTick);
+        }
+        if (choice.widgetVisible(59)) {
+            drawSourceWidgetCell(g, layout, 59, false, false);
+            drawChoiceText(g, font, layout, 59, choice.widgetText(59, layout.text(59, "")),
+                    SOURCE_UI_TEXT, s.battleAnimationTick);
+        }
+        if (choice.widgetVisible(60)) {
+            drawSourceWidgetCell(g, layout, 60, false, false);
+            drawChoiceText(g, font, layout, 60, choice.widgetText(60, layout.text(60, "Quay l\u1ea1i")),
+                    SOURCE_UI_TEXT, s.battleAnimationTick);
+        }
     }
 
     private static void drawChoiceStaticWidgets(Graphics2D g, FontBitmap font,
-                                                VqsvUiLayout layout, VqsvIntroDemo.Scene s) {
+                                                VqsvUiLayout layout, VqsvChoiceUiView choice, int tick) {
         drawSourceWidgetFill(g, layout, 4, 8, 0xc6f1ff);
         drawSourceWidgetFill(g, layout, 2, 160, 0xbde4ef);
         drawSourceWidgetFill(g, layout, 3, 14, 0x82cafb);
         drawSourceWidgetCell(g, layout, 1, false, false);
         drawSourceWidgetFill(g, layout, 7, 82, 0xbde4ef);
-        drawChoiceText(g, font, layout, 8, s.battleMenuTitle, SOURCE_UI_TEXT, s.battleAnimationTick);
-        drawChoiceText(g, font, layout, 9, s.battleMenuSubtitle, SOURCE_UI_TEXT, s.battleAnimationTick);
+        if (choice.widgetVisible(8)) {
+            drawChoiceText(g, font, layout, 8, choice.widgetText(8, ""), SOURCE_UI_TEXT, tick);
+        }
+        if (choice.widgetVisible(9)) {
+            drawChoiceText(g, font, layout, 9, choice.widgetText(9, ""), SOURCE_UI_TEXT, tick);
+        }
     }
 
     private static void drawChoiceText(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
@@ -516,21 +546,11 @@ final class VqsvBattleRenderer {
                 sourceWidgetHeight(widget), Color.WHITE, tick, widget == null ? 0 : widget.b);
     }
 
-    private static String selectedMenuDescription(VqsvIntroDemo.Scene s) {
-        if (s.battleMenuDescriptions == null || s.battleMenuDescriptions.length == 0) {
-            return "";
-        }
-        int index = Math.max(0, Math.min(s.battleMenuIndex, s.battleMenuDescriptions.length - 1));
-        String text = s.battleMenuDescriptions[index];
-        return text == null ? "" : text;
-    }
-
-    private static String selectedCatchCountText(VqsvIntroDemo.Scene s) {
-        if (s.battleMenuIds.length == 0) {
+    private static String selectedCatchCountText(VqsvIntroDemo.Scene s, VqsvChoiceUiView choice) {
+        if (choice.size() == 0) {
             return "S\u1ed1 l\u01b0\u1ee3ng: 0 c\u00e1i ";
         }
-        int menuIndex = Math.max(0, Math.min(s.battleMenuIndex, s.battleMenuIds.length - 1));
-        BagItem item = s.sourceBagItems.get(s.battleMenuIds[menuIndex]);
+        BagItem item = s.sourceBagItems.get(choice.idAt(choice.selectedIndex));
         int count = item == null ? 0 : item.count;
         return "S\u1ed1 l\u01b0\u1ee3ng: " + count + " c\u00e1i ";
     }
@@ -1055,19 +1075,20 @@ final class VqsvBattleRenderer {
         int dy = bloodValue(damageBlood, damageFrame, 1);
         int x = s.battleP7TargetPlayerSide ? baseX + dx + 30 : baseX - dx - 30;
         int y = baseY + dy - 30;
-        if (s.battleP7Ticks < frameCount(damageBlood)) {
+        if (!s.battleP7DamageText.isEmpty() && s.battleP7Ticks < frameCount(damageBlood)) {
             Color damageColor = s.battleP7DamageCritical ? new Color(0xff5d3b) : new Color(0xfff16a);
             drawOutlinedTinyBattleText(g, font, s.battleP7DamageText, x - 14, y,
                     44, damageColor, new Color(0x3f0707));
         }
 
         short[] textBlood = VqsvBattleAnimationTables.instance().bloodRow(1);
-        if (!s.battleP7DebuffText.isEmpty() && s.battleP7Ticks < frameCount(textBlood)) {
+        String secondaryText = !s.battleP7MissText.isEmpty() ? s.battleP7MissText : s.battleP7DebuffText;
+        if (!secondaryText.isEmpty() && s.battleP7Ticks < frameCount(textBlood)) {
             int textFrame = bloodFrame(s.battleP7Ticks, textBlood);
             int textDy = bloodValue(textBlood, textFrame, 1);
             int textX = s.battleP7TargetPlayerSide ? baseX - 10 : baseX + 10;
             int textY = baseY + textDy - 30;
-            drawOutlinedTinyBattleText(g, font, s.battleP7DebuffText, textX - 22, textY,
+            drawOutlinedTinyBattleText(g, font, secondaryText, textX - 22, textY,
                     62, new Color(0xffffff), new Color(0x14344a));
         }
     }
@@ -1111,6 +1132,10 @@ final class VqsvBattleRenderer {
         if (sprite < 0) {
             return;
         }
+        if (s.battleP7SpecialType == 7) {
+            drawP7SpecialType7(g, s, sprite);
+            return;
+        }
         BufferedImage overlay = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
         Graphics2D og = overlay.createGraphics();
         if (s.battleP7SpecialOnPlayerSide) {
@@ -1134,7 +1159,60 @@ final class VqsvBattleRenderer {
     }
 
     private static boolean isSupportedP7SpecialType(int type) {
-        return type == 1 || type == 8 || type == 9 || type == 12;
+        return type == 1 || type == 7 || type == 8 || type == 9 || type == 12;
+    }
+
+    private static void drawP7SpecialType7(Graphics2D g, VqsvIntroDemo.Scene s, int sprite) {
+        short[] row = s.battleP7SpecialRow;
+        if (row.length < 8) {
+            return;
+        }
+        int state = s.battleP7SpecialOnPlayerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide;
+        int cursor = s.battleP7SpecialOnPlayerSide ? s.battleP7BaseCursorPlayerSide : s.battleP7BaseCursorEnemySide;
+        if (cursor < 0) {
+            cursor = idleCursor(sprite, state, s.battleAnimationTick);
+        }
+        int cellId = currentCellId(sprite, state, cursor);
+        if (cellId < 0) {
+            return;
+        }
+        SpriteAnim anim = SpriteAnim.load(sprite);
+        int[] bounds = anim.cellBounds(cellId);
+        if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
+            return;
+        }
+        BufferedImage base = renderSpriteCellImage(sprite, cellId, sourceBattleOrientation(s.battleP7SpecialOnPlayerSide));
+        if (base == null) {
+            return;
+        }
+        int originX = sourceBattleActorX(s, s.battleP7SpecialOnPlayerSide)
+                + sideOffsetX(s, s.battleP7SpecialOnPlayerSide);
+        int originY = sourceBattleActorY(s, s.battleP7SpecialOnPlayerSide)
+                + sideOffsetY(s, s.battleP7SpecialOnPlayerSide);
+        int x = originX + bounds[0];
+        int y = originY + bounds[1];
+        int interval = Math.max(1, row[3]);
+        boolean drawScaled = (Math.max(0, s.battleP7Ticks) / interval) % 2 == 0;
+        if (!drawScaled) {
+            g.drawImage(base, x, y, null);
+            return;
+        }
+        int scaleXNum = row.length > 4 ? row[4] : 1;
+        int scaleXDen = Math.max(1, row.length > 5 ? row[5] : 1);
+        int scaleYNum = row.length > 6 ? row[6] : scaleXNum;
+        int scaleYDen = Math.max(1, row.length > 7 ? row[7] : scaleXDen);
+        int scaledW = Math.max(1, bounds[2] * scaleXNum / scaleXDen);
+        int scaledH = Math.max(1, bounds[3] * scaleYNum / scaleYDen);
+        int dx = (bounds[2] - scaledW) / 2;
+        int dy = bounds[3] - scaledH;
+        Object old = g.getRenderingHint(RenderingHints.KEY_INTERPOLATION);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        g.drawImage(base, x + dx, y + dy, scaledW, scaledH, null);
+        if (old == null) {
+            g.getRenderingHints().remove(RenderingHints.KEY_INTERPOLATION);
+        } else {
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, old);
+        }
     }
 
     private static void drawP7SpecialType8(Graphics2D g, BufferedImage overlay, VqsvIntroDemo.Scene s) {
@@ -1187,6 +1265,17 @@ final class VqsvBattleRenderer {
         BufferedImage b1 = alphaCopy(overlay, Math.max(0, Math.min(255, row[3])));
         g.drawImage(b1, dx0 + dx1, dy0 - dy1, null);
         g.drawImage(b0, dx0, dy0, null);
+    }
+
+    private static int currentCellId(int spriteIndex, int state, int cursor) {
+        SpriteAnim anim = SpriteAnim.load(spriteIndex);
+        anim.setState(Math.max(0, state));
+        if (anim.data.anim == null || anim.data.anim.length == 0 || anim.data.anim[anim.state].length == 0) {
+            return -1;
+        }
+        short[] frames = anim.data.anim[anim.state];
+        int safeCursor = Math.max(0, Math.min(cursor, Math.max(0, frames.length / 2 - 1)));
+        return frames[safeCursor * 2 + 1];
     }
 
     private static void drawP7ActorEffect(Graphics2D g, VqsvIntroDemo.Scene s) {
@@ -1631,14 +1720,26 @@ final class VqsvBattleRenderer {
     }
 
     private static void drawWarningOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
-        drawSourceUiFill(g, 79, 109, 81, 7, 0xc6f3ff);
-        drawSourceUiFill(g, 79, 116, 81, 59, 0xbee6f2);
-        drawSourceUiFill(g, 79, 175, 81, 10, 0x6cc2fb);
-        drawSourceUiFill(g, 82, 116, 76, 54, 0x51d8e9);
-        drawBattleUiCellTopLeft(g, 128, 76, 106);
-        drawMarqueeTinyBattleText(g, font, s.battleWarningTitle, 85, 119, 70,
+        VqsvMsgWarmView view = s.battleMsgWarm == null || !s.battleMsgWarm.visible()
+                ? VqsvMsgWarmView.of(s.battleWarningTitle, s.battleWarningPrompt)
+                : s.battleMsgWarm;
+        VqsvUiLayout layout = VqsvUiLayout.load("msgwarm.ui");
+        drawSourceWidgetFill(g, layout, 1, 7, 0xc6f3ff);
+        drawSourceWidgetFill(g, layout, 2, 59, 0xbee6f2);
+        drawSourceWidgetFill(g, layout, 3, 10, 0x6cc2fb);
+        drawSourceWidgetFill(g, layout, 5, 54, 0x51d8e9);
+        drawBattleUiCellTopLeft(g, VqsvMsgWarmView.FRAME_SPRITE_CELL,
+                layout.x(VqsvMsgWarmView.FRAME_WIDGET_ID, 76),
+                layout.y(VqsvMsgWarmView.FRAME_WIDGET_ID, 106));
+        drawMarqueeTinyBattleText(g, font, view.widgetText(VqsvMsgWarmView.MESSAGE_WIDGET_ID),
+                layout.x(VqsvMsgWarmView.MESSAGE_WIDGET_ID, 85),
+                layout.y(VqsvMsgWarmView.MESSAGE_WIDGET_ID, 119),
+                layout.w(VqsvMsgWarmView.MESSAGE_WIDGET_ID, 70),
                 SOURCE_UI_TEXT, s.battleAnimationTick);
-        drawMarqueeTinyBattleText(g, font, s.battleWarningPrompt, 89, 168, 60,
+        drawMarqueeTinyBattleText(g, font, view.widgetText(VqsvMsgWarmView.PROMPT_WIDGET_ID),
+                layout.x(VqsvMsgWarmView.PROMPT_WIDGET_ID, 89),
+                layout.y(VqsvMsgWarmView.PROMPT_WIDGET_ID, 170),
+                layout.w(VqsvMsgWarmView.PROMPT_WIDGET_ID, 60),
                 SOURCE_UI_TEXT, s.battleAnimationTick);
     }
 
@@ -1762,12 +1863,21 @@ final class VqsvBattleRenderer {
         }
     }
 
-    private static void drawStatusSlots(Graphics2D g, int iconStartX, int iconY, int overlayStartX, int overlayY, boolean rightToLeft) {
+    private static void drawStatusSlots(Graphics2D g, int iconStartX, int iconY,
+                                        int overlayStartX, int overlayY, boolean rightToLeft,
+                                        int[] iconCells, int[] durationCells) {
         for (int i = 0; i < 6; i++) {
             int dx = rightToLeft ? -i * 15 : i * 15;
-            drawSpriteCellTopLeft(g, 325, 0, iconStartX + dx, iconY);
-            drawBattleUiCellTopLeft(g, 145, overlayStartX + dx, overlayY);
+            drawSpriteCellTopLeft(g, 325, statusCell(iconCells, i, 0), iconStartX + dx, iconY);
+            drawBattleUiCellTopLeft(g, statusCell(durationCells, i, 145), overlayStartX + dx, overlayY);
         }
+    }
+
+    private static int statusCell(int[] cells, int index, int fallback) {
+        if (cells == null || index < 0 || index >= cells.length) {
+            return fallback;
+        }
+        return cells[index];
     }
 
     private static void drawBattlePercent(Graphics2D g, FontBitmap font, int x, int y, int percent) {

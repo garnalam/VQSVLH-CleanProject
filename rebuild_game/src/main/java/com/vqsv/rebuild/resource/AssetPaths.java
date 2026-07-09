@@ -124,6 +124,10 @@ public final class AssetPaths {
         return uiOriginal(name);
     }
 
+    public Path soundOriginal(String name) {
+        return original(ResourceKind.SOUND, name);
+    }
+
     public Path eventDecoded(String name) {
         return modulesRoot.resolve("event").resolve("decoded").resolve(name);
     }

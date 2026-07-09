@@ -57,8 +57,9 @@ final class Scene1Room0Group0Script {
                 s.placePlayerAtTransitionActorApprox(37, 16);
                 return null;
             });
-            e.add(s -> new VqsvSavePromptBlocking());
-            e.add(s -> new Op13FreeWorldTrigger(1, 1, 0, 370, 176, 80, 32));
+            e.add(s -> new VqsvRoom1Group1SavePromptWrapper());
+            e.add(s -> VqsvWorldResumeDescriptor.SCENE1_ROOM1_AFTER_SAVE_TO_OP13.wrap(
+                    new Op13FreeWorldTrigger(1, 1, 0, 370, 176, 80, 32)));
     }
 
 }

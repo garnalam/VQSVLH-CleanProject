@@ -128,6 +128,7 @@ final class VqsvText {
         static final String NOT_ENOUGH_MONEY = "Kim ti\u1ec1n kh\u00f4ng \u0111\u1ee7";
         static final String DAMAGE = " g\u00e2y ";
         static final String DAMAGE_SUFFIX = " s\u00e1t th\u01b0\u01a1ng";
+        static final String DODGE = "N\u00e9 tr\u00e1nh";
         static final String NEIL_LOST = "Neil th\u1ea5t th\u1ee7, result ";
         static final String BUNNY_WEAK = "Di L\u1eb7c th\u1ecf th\u1ecf \u0111\u00e3 b\u1ecb th\u01b0\u01a1ng, nhanh s\u1eed d\u1ee5ng phong \u1ea5n c\u1ea7u";
         static final String BUNNY_RETRY_TAT_TRUNG_CAU = "\u0110\u00e1ng ti\u1ebfc \u0111\u00e3 b\u1eaft tr\u01b0\u1ee3t, th\u1eed d\u00f9ng lo\u1ea1i x\u1ecbn T\u1ea5t tr\u00fang c\u1ea7u xem sao!";

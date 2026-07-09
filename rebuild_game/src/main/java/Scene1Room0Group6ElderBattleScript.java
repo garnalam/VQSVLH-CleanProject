@@ -46,7 +46,8 @@ final class Scene1Room0Group6ElderBattleScript {
                 VqsvPostBattleDownstreamDescriptor.SCENE1_ROOM0_GROUP6_ELDER.traceAndAssert(s);
                 return null;
             });
-            e.add(s -> new Room0PostGroup6FreeWorld());
+            e.add(s -> VqsvWorldResumeDescriptor.SCENE1_ROOM0_AFTER_GROUP6_FREEWORLD.wrap(
+                    new Room0PostGroup6FreeWorld()));
     }
 }
 

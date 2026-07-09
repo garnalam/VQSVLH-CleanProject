@@ -66,7 +66,7 @@ public final class BootState implements GameState {
 
         graphics.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
         graphics.setColor(new Color(180, 210, 160));
-        graphics.drawString("Skeleton runtime is alive.", 16, 58);
+        graphics.drawString("Release runtime is alive.", 16, 58);
 
         graphics.setColor(assets.modulesRootExists() ? new Color(120, 220, 140) : new Color(240, 110, 100));
         graphics.drawString("modules: " + assets.modulesRoot(), 16, 82);

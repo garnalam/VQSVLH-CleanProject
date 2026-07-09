@@ -84,6 +84,7 @@ final class VqsvSaveRuntime {
         restoreBag(s, p);
         restorePets(p, "pet", s.sourcePets);
         restorePets(p, "bankPet", s.sourcePetBank);
+        repairKnownRouteSave(s);
         s.current = null;
         s.text = null;
         s.choice = null;
@@ -93,6 +94,18 @@ final class VqsvSaveRuntime {
                 + " scene=" + scene + " room=" + room + " eventIndex=" + s.eventIndex
                 + " pets=" + s.sourcePets.size());
         return true;
+    }
+
+    private static void repairKnownRouteSave(VqsvIntroDemo.Scene s) {
+        if (s.currentSceneId == 1 && s.currentRoomIndex == 1
+                && s.sourceEventStateComplete(1, 1, 1)
+                && !s.sourceEventStateComplete(1, 1, 0)
+                && !s.playerIntersectsSourceRect(370, 176, 80, 32)) {
+            s.setPlayerPositionApprox(374, 180);
+            s.setCameraCenter(374, 180);
+            s.sourceStateTrace.add("PORTED/PARTIAL save load unstuck room1 Bunny checkpoint"
+                    + " -> player=[374,180] op13=[370,176,80,32]");
+        }
     }
 
     private static void loadRoom(VqsvIntroDemo.Scene s, int scene, int room, int cameraX, int cameraY) {
