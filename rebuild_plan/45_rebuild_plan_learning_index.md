@@ -1,6 +1,6 @@
 # Rebuild Plan Learning Index
 
-Date: 2026-07-08
+Date: 2026-07-09
 
 This is the recommended reading path through `rebuild_plan` for a new dev chat.
 It groups the existing documents by purpose so the new chat does not read them
@@ -8,33 +8,38 @@ randomly and miss the current truth.
 
 ## Start Here
 
-1. `102_new_dev_chat_handoff_battle_engine_after_levelup.md`
-   - latest battle-engine handoff after catch, petstate, save, EXP/levelUp,
-     and learn-skill slices
-   - includes current rules, required reading, current status, next target, and
-     compulsory entry exercise
+1. `147_new_dev_chat_handoff_battle_phase8_event_integration.md`
+   - latest battle-engine handoff after Phase 8 op47/downstream descriptor
+     slices
+   - includes current rules, required reading, project structure, current
+     roadmap position, next target, and compulsory entry exercise
 
-2. `42_new_dev_chat_handoff_after_refactor.md`
+2. `102_new_dev_chat_handoff_battle_engine_after_levelup.md`
+   - older battle-engine handoff after catch, petstate, save, EXP/levelUp,
+     and learn-skill slices
+   - historical context only unless confirmed by `147` and the master roadmap
+
+3. `42_new_dev_chat_handoff_after_refactor.md`
    - current handoff after source split/refactor
    - prime directive, current layout, commands, known remaining work
 
-3. `43_project_layout_and_java_architecture.md`
+4. `43_project_layout_and_java_architecture.md`
    - current Java source structure and project layout
    - explains which files are framework, script, runtime, or hotspot
 
-4. `44_new_dev_chat_training_and_exercises.md`
+5. `44_new_dev_chat_training_and_exercises.md`
    - copy-paste prompt, required exercises, answer rubric, first safe tasks
 
-5. `47_battle_scripts_refactor_audit.md`
+6. `47_battle_scripts_refactor_audit.md`
    - latest small refactor audit for moving Bunny/elder battle factory wrappers
      into `VqsvBattleScripts.java`
 
-6. `48_intro_demo_remaining_scene_audit.md`
+7. `48_intro_demo_remaining_scene_audit.md`
    - latest audit-only map of what remains in `VqsvIntroDemo.Scene`
    - classifies remaining areas as `KEEP_CORE`, `MOVE_SAFE`, `MOVE_LATER`,
      and `DO_NOT_TOUCH_YET`
 
-7. `49_scene_tick_input_runner_audit.md`
+8. `49_scene_tick_input_runner_audit.md`
    - audit-only map of `press0`, `click`, `setMoveKey`, and `tick`
    - documents why input/tick runner has not been moved yet
 
@@ -119,14 +124,15 @@ randomly and miss the current truth.
 
 These are not the latest entrypoint anymore. Prefer `42`, `43`, and `44` first.
 
-For battle-engine continuation, prefer `102` first. `81` is superseded and only
-historical.
+For battle-engine continuation, prefer `147` first. `128`, `102`, and `81` are
+superseded and only historical unless the latest roadmap explicitly points back
+to them.
 
 ## How To Use The Index
 
 For a new dev chat:
 
-1. If the task is battle-engine work, read `102` first and answer its exercise.
+1. If the task is battle-engine work, read `147` first and answer its exercise.
 2. If the task is general refactor/scene work, read `42`, `43`, `44`.
 3. Read only the audit docs relevant to the chosen task.
 4. Before coding, state:
