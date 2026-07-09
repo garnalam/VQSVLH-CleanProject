@@ -145,6 +145,8 @@ final class SourceBattleRuntime implements Blocking {
     private SourceBattleUnit enemy;
     private SourceBattleUnit player;
     private int[] sourcePetOrder = new int[0];
+    private int playerDisplayHp;
+    private int enemyDisplayHp;
     private int turn;
     private boolean entered;
     private boolean currentActorPlayer;
@@ -197,6 +199,16 @@ final class SourceBattleRuntime implements Blocking {
     private boolean p7PostEffectPlayerSide;
     private boolean p7Prepared;
     private boolean p7DamageApplied;
+    private boolean p7HpTweenActive;
+    private boolean p7HpTweenPlayerSide;
+    private int p7HpTweenStep;
+    private int p7HpTweenAccum;
+    private int p7HpTweenDelay;
+    private boolean p7DeathEffectActive;
+    private boolean p7DeathEffectPlayerSide;
+    private int p7DeathEffectSpriteId = -1;
+    private int p7DeathEffectTicks;
+    private int p7DeathEffectDuration;
     private byte[] p7EffectRow = new byte[0];
     private short[] p7SpeffectRow = new short[0];
     private int p7EffectChunk;
@@ -221,8 +233,12 @@ final class SourceBattleRuntime implements Blocking {
     private short[] p7LEffectRow = new short[0];
     private boolean p7BaseHiddenPlayerSide;
     private boolean p7BaseHiddenEnemySide;
+    private boolean p7KoBaseHiddenPlayerSide;
+    private boolean p7KoBaseHiddenEnemySide;
     private int p7BaseStatePlayerSide;
     private int p7BaseStateEnemySide;
+    private int p7BaseStateStartTickPlayerSide;
+    private int p7BaseStateStartTickEnemySide;
     private P7ActorAnimation p7ActorAnimation;
     private SourceBattleUnit activeQueueUnit;
     private boolean activeQueuePlayerSide;
@@ -373,6 +389,8 @@ final class SourceBattleRuntime implements Blocking {
         activeEnemyIndex = 0;
         pendingEnemyReplacementIndex = -1;
         enemy = enemyParty[activeEnemyIndex];
+        p7KoBaseHiddenPlayerSide = false;
+        p7KoBaseHiddenEnemySide = false;
         if (s.sourcePets.isEmpty()) {
             throw new IllegalStateException("Source battle entered without player pet state; "
                     + "source game.k/game.g.I or op36/op87 setup must run before encounter="
@@ -381,6 +399,8 @@ final class SourceBattleRuntime implements Blocking {
         resetSourcePetOrder(s);
         setActiveSourcePetFlags(s, 0);
         player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
+        playerDisplayHp = player.hp;
+        enemyDisplayHp = enemy.hp;
         resetSourceExpVectors(s);
         addSourceExpParticipant(s, s.sourcePets.get(0), "battle entry active f[0]");
         s.worldEventActor = actorId;
@@ -390,6 +410,9 @@ final class SourceBattleRuntime implements Blocking {
         s.battleScriptLocksInput = flags.length > 1 && flags[1] == 0;
         s.battleMode = battleMode.length > 0 ? battleMode[0] : -1;
         s.battleBackgroundMode = battleMode.length > 1 ? battleMode[1] : -1;
+        s.battleBackgroundSnapshot = (s.useMap && s.mapRenderer != null)
+                ? VqsvSceneView.captureBattleBackground(s)
+                : null;
         s.battleResultIndex = -2;
         s.battleBranchTarget = resolveBranch(s.battleResultIndex);
         s.battleCaptureTutorial = isBunnyCaptureBattle();
@@ -410,6 +433,8 @@ final class SourceBattleRuntime implements Blocking {
                 + " sourcePetOrder=" + Arrays.toString(sourcePetOrder)
                 + " branchTargets=" + Arrays.toString(branchTargets)
                 + " sourceSlice=" + sourceBattleSlice
+                + " battleBackground=PORTED/PARTIAL game.k captures world renderer into game.d.c"
+                + " before game.i state 12; renderer falls back to black if snapshot missing"
                 + " states=P0/P20/P3/P6/P2/P7/P1/P8/P9; command UI/catch/items/animation still pending; "
                 + VqsvBattleTables.sourceSummary());
         entered = true;
@@ -2585,6 +2610,7 @@ final class SourceBattleRuntime implements Blocking {
         activeEnemyIndex = pendingEnemyReplacementIndex;
         pendingEnemyReplacementIndex = -1;
         enemy = enemyParty[activeEnemyIndex];
+        p7KoBaseHiddenEnemySide = false;
         enemyActionThisRound = false;
         enemyActiveQueueProcessedThisRound = false;
         targetUnits = new SourceBattleUnit[0];
@@ -2655,6 +2681,17 @@ final class SourceBattleRuntime implements Blocking {
         enterState(s, BattleRuntimeState.P1_DISPATCH, s.battleLog, 0);
     }
 
+    void debugSetEnemyHpForSmoke(VqsvIntroDemo.Scene s, int hp) {
+        if (enemy == null || enemy.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires an entered source battle enemy");
+        }
+        setHp(enemy, hp);
+        enemyDisplayHp = enemy.hp;
+        syncRenderState(s, s.battleLog);
+        s.sourceStateTrace.add("SMOKE battle debug enemy hp=" + enemy.hp + "/" + enemy.maxHp
+                + " displayHp=" + enemyDisplayHp);
+    }
+
     void debugEnemyPartyForSmoke(VqsvIntroDemo.Scene s, int[][] encounterRows) {
         if (!entered) {
             enterBattle(s);
@@ -2712,6 +2749,17 @@ final class SourceBattleRuntime implements Blocking {
 
     void debugSetSourceRandomSeedForSmoke(long seed) {
         SOURCE_RANDOM.setSeed(seed);
+    }
+
+    void debugSetPlayerBuff12KForSmoke(VqsvIntroDemo.Scene s, int kValue) {
+        if (player == null || player.battleUnit == null) {
+            throw new IllegalStateException("Battle smoke hook requires an entered source battle player");
+        }
+        player.battleUnit.applySourceBuff(12, -1, 65);
+        player.battleUnit.effectScratch[12] = (short) Math.max(0, Math.min(2, kValue));
+        s.sourceStateTrace.add("SMOKE battle debug player buff12 K12="
+                + player.battleUnit.effectScratch[12]
+                + " source=game.b.o(12)/game.d.q follow-up");
     }
 
     void debugSetCatchStatusForSmoke(VqsvIntroDemo.Scene s, int targetDebuffId, boolean attackerForm11) {
@@ -2857,11 +2905,30 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (p7Phase == 2) {
             p7Ticks++;
+            tickP7HpTween();
             if (p7Ticks == P7_DAMAGE_TICKS / 2 && p7Target.alive()) {
-                setP7BaseState(p7Target == player, 0);
+                setP7BaseState(s, p7Target == player, 0);
             }
             syncP7RenderState(s, s.battleLog);
-            if (p7Ticks < P7_DAMAGE_TICKS) {
+            if (p7DamageTextActive() || p7HpTweenActive) {
+                return false;
+            }
+            if (p7Target != null && !p7Target.alive() && !p7DeathEffectActive) {
+                startP7DeathEffect(s, p7Target == player);
+                syncP7RenderState(s, s.battleLog);
+                return false;
+            }
+            if (p7DeathEffectActive) {
+                tickP7DeathEffect();
+                syncP7RenderState(s, s.battleLog);
+                if (p7DeathEffectActive) {
+                    return false;
+                }
+            }
+            if (p7Target != null && !p7Target.alive()) {
+                p7Phase = 3;
+                p7Ticks = 0;
+                syncP7RenderState(s, s.battleLog);
                 return false;
             }
             applyP7PostSkillEffects(s);
@@ -2897,6 +2964,16 @@ final class SourceBattleRuntime implements Blocking {
         p7PostEffectText = "";
         p7PostEffectPlayerSide = false;
         p7DamageApplied = false;
+        p7HpTweenActive = false;
+        p7HpTweenPlayerSide = false;
+        p7HpTweenStep = 0;
+        p7HpTweenAccum = 0;
+        p7HpTweenDelay = 0;
+        p7DeathEffectActive = false;
+        p7DeathEffectPlayerSide = false;
+        p7DeathEffectSpriteId = -1;
+        p7DeathEffectTicks = 0;
+        p7DeathEffectDuration = 0;
         p7Prepared = true;
         clearP7RenderState(s);
     }
@@ -2942,7 +3019,7 @@ final class SourceBattleRuntime implements Blocking {
         p7ActorAnimation = preservedActorAnimation;
         prepareP7SpecialEffect(s);
         if ("initial".equals(reason)) {
-            setP7BaseState(p7Attacker == player, p7EffectValue(0) == 0 ? 1 : 0);
+            setP7BaseState(s, p7Attacker == player, p7EffectValue(0) == 0 ? 1 : 0);
         }
         if (p7EffectValue(1) == 1) {
             p7SpecialPrepared = true;
@@ -3025,7 +3102,7 @@ final class SourceBattleRuntime implements Blocking {
         }
         int stateTrigger = p7EffectValue(5);
         if (stateTrigger != -1 && p7ActorAnimation.frame(stateTrigger)) {
-            setP7BaseState(p7ActorAnimation.playerSide, p7EffectValue(6));
+            setP7BaseState(s, p7ActorAnimation.playerSide, p7EffectValue(6));
             p7SourceK = 0;
             s.sourceStateTrace.add("PORTED battle P7 chunk[5]/[6] state trigger skill=" + p7SkillId
                     + " chunk=" + p7SourceJ
@@ -3079,7 +3156,7 @@ final class SourceBattleRuntime implements Blocking {
             if (p7SourceJ == 0) {
                 p7FlagN = true;
             }
-            setP7BaseState(p7Attacker == player, 0);
+            setP7BaseState(s, p7Attacker == player, 0);
             p7SpecialActive = true;
             p7SpecialTicks = 0;
             p7SourceL = p7SourceJ;
@@ -3124,12 +3201,14 @@ final class SourceBattleRuntime implements Blocking {
         return p7SourceI < p7EffectRow.length / 7;
     }
 
-    private void setP7BaseState(boolean playerSide, int state) {
+    private void setP7BaseState(VqsvIntroDemo.Scene s, boolean playerSide, int state) {
         int safe = Math.max(0, state);
         if (playerSide) {
             p7BaseStatePlayerSide = safe;
+            p7BaseStateStartTickPlayerSide = s.battleAnimationTick;
         } else {
             p7BaseStateEnemySide = safe;
+            p7BaseStateStartTickEnemySide = s.battleAnimationTick;
         }
     }
 
@@ -3217,7 +3296,8 @@ final class SourceBattleRuntime implements Blocking {
         }
         p7Damage = Math.max(1, p7DamageResult.damage);
         p7Target.damage(p7Damage);
-        setP7BaseState(p7Target == player, p7Target.alive() ? 2 : 3);
+        startP7HpTween(p7Target == player);
+        setP7BaseState(s, p7Target == player, 2);
         markP7ActionUsed();
         p7DamageApplied = true;
         s.sourceStateTrace.add("PORTED/PARTIAL battle P7 damage frame skill=" + p7SkillId
@@ -3228,6 +3308,110 @@ final class SourceBattleRuntime implements Blocking {
                 + " target=" + p7Target.name
                 + " hp=" + p7Target.hp + "/" + p7Target.maxHp
                 + " bloodRow0Len=" + VqsvBattleAnimationTables.instance().bloodRow(0).length);
+    }
+
+    private void startP7HpTween(boolean playerSide) {
+        p7HpTweenPlayerSide = playerSide;
+        int display = playerSide ? playerDisplayHp : enemyDisplayHp;
+        int actual = playerSide ? player.hp : enemy.hp;
+        p7HpTweenStep = Math.max(1, Math.abs(display - actual) / 11);
+        p7HpTweenAccum = 0;
+        p7HpTweenDelay = 0;
+        p7HpTweenActive = display != actual;
+    }
+
+    private void tickP7HpTween() {
+        if (!p7HpTweenActive) {
+            return;
+        }
+        int display = p7HpTweenPlayerSide ? playerDisplayHp : enemyDisplayHp;
+        int actual = p7HpTweenPlayerSide ? player.hp : enemy.hp;
+        if (display == actual) {
+            p7HpTweenActive = false;
+            p7HpTweenStep = 0;
+            p7HpTweenAccum = 0;
+            p7HpTweenDelay = 0;
+            return;
+        }
+        p7HpTweenDelay++;
+        if (p7HpTweenDelay < 4) {
+            return;
+        }
+        p7HpTweenAccum += p7HpTweenStep;
+        if (display < actual) {
+            display = Math.min(actual, display + p7HpTweenAccum);
+        } else {
+            display = Math.max(actual, display - p7HpTweenAccum);
+        }
+        if (p7HpTweenPlayerSide) {
+            playerDisplayHp = display;
+        } else {
+            enemyDisplayHp = display;
+        }
+        if (display == actual) {
+            p7HpTweenActive = false;
+            p7HpTweenStep = 0;
+            p7HpTweenAccum = 0;
+            p7HpTweenDelay = 0;
+        }
+    }
+
+    private boolean p7DamageTextActive() {
+        if (!p7DamageApplied) {
+            return false;
+        }
+        return p7Ticks < p7DamageTextFrameCount();
+    }
+
+    private int p7DamageTextFrameCount() {
+        int frames = VqsvBattleAnimationTables.instance().bloodRow(0).length / 2;
+        if (p7DamageResult != null && p7DamageResult.appliedDebuffId >= 0) {
+            frames = Math.max(frames, VqsvBattleAnimationTables.instance().bloodRow(1).length / 2);
+        }
+        return Math.max(1, frames);
+    }
+
+    private void startP7DeathEffect(VqsvIntroDemo.Scene s, boolean playerSide) {
+        SourceBattleUnit unit = playerSide ? player : enemy;
+        if (unit == null) {
+            return;
+        }
+        setP7BaseState(s, playerSide, 3);
+        setP7BaseHidden(playerSide, true);
+        if (playerSide) {
+            p7KoBaseHiddenPlayerSide = true;
+        } else {
+            p7KoBaseHiddenEnemySide = true;
+        }
+        p7DeathEffectActive = true;
+        p7DeathEffectPlayerSide = playerSide;
+        p7DeathEffectSpriteId = unit.visualId;
+        p7DeathEffectTicks = 0;
+        p7DeathEffectDuration = p7DeathEffectDuration(unit.visualId);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P7 U() death state3 AH type16 start"
+                + " side=" + (playerSide ? "player" : "enemy")
+                + " visual=" + p7DeathEffectSpriteId
+                + " duration=" + p7DeathEffectDuration
+                + " sourceRow=[16,x,y,sprite,0,dir,0,0,4]");
+    }
+
+    private void tickP7DeathEffect() {
+        if (!p7DeathEffectActive) {
+            return;
+        }
+        p7DeathEffectTicks++;
+        if (p7DeathEffectTicks >= p7DeathEffectDuration) {
+            p7DeathEffectActive = false;
+        }
+    }
+
+    private int p7DeathEffectDuration(int spriteId) {
+        SpriteAnim anim = SpriteAnim.load(spriteId);
+        int[] bounds = anim.animationBounds(0);
+        if (bounds == null || bounds[3] <= 0) {
+            return 8;
+        }
+        return Math.max(4, bounds[3] / 4);
     }
 
     private boolean finishP7(VqsvIntroDemo.Scene s) {
@@ -3257,6 +3441,7 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         if (!p7Target.alive()) {
+            consumeP7FollowUpDeadTargetMarker(s);
             if (currentActorPlayer && p7Target == enemy && prepareEnemyReplacement(s)) {
                 return false;
             }
@@ -3265,7 +3450,55 @@ final class SourceBattleRuntime implements Blocking {
                     SHORT_WAIT);
             return false;
         }
+        if (tryEnterP7FollowUpAction(s)) {
+            return false;
+        }
         enterState(s, BattleRuntimeState.P1_DISPATCH, s.battleLog, SHORT_WAIT);
+        return false;
+    }
+
+    private void consumeP7FollowUpDeadTargetMarker(VqsvIntroDemo.Scene s) {
+        if (p7Attacker == null || p7Attacker.battleUnit == null) {
+            return;
+        }
+        if ((p7SkillId == 63 || p7SkillId == 69)
+                && p7Attacker.battleUnit.hasBuff(12)
+                && p7Attacker.battleUnit.effectScratch[12] > 0) {
+            p7Attacker.battleUnit.effectScratch[12] = (short) Math.max(0,
+                    p7Attacker.battleUnit.effectScratch[12] - 1);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P7 game.d.q skill63/69 dead-target "
+                    + "decrement K12=" + p7Attacker.battleUnit.effectScratch[12]);
+        }
+    }
+
+    private boolean tryEnterP7FollowUpAction(VqsvIntroDemo.Scene s) {
+        if (p7Attacker == null || p7Attacker.battleUnit == null || p7Target == null || !p7Target.alive()) {
+            return false;
+        }
+        if (p7Attacker.battleUnit.hasBuff(12) && p7Attacker.battleUnit.effectScratch[12] == 2) {
+            p7Attacker.battleUnit.effectScratch[12] = 1;
+            currentActorPlayer = p7Attacker == player;
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P7 game.d.q follow-up P2 from buff12 K12=2->1"
+                    + " actor=" + p7Attacker.name
+                    + " targetAlive=" + p7Target.alive());
+            enterState(s, BattleRuntimeState.P2_SELECT_EXECUTE, p7SkillName(), SHORT_WAIT);
+            return true;
+        }
+        if (p7SkillId == 63 || p7SkillId == 69) {
+            BattleSkillRow row = VqsvBattleTables.instance().skill(p7SkillId);
+            int chance = row == null ? 0 : Math.max(0, row.chanceOrParam);
+            int roll = SOURCE_RANDOM.a("battle.P7.q.followup.skill" + p7SkillId, 100, s.sourceStateTrace);
+            if (roll <= chance) {
+                currentActorPlayer = p7Attacker == player;
+                s.sourceStateTrace.add("PORTED/PARTIAL battle P7 game.d.q follow-up P2 from skill="
+                        + p7SkillId + " roll=" + roll + " chance=" + chance
+                        + " actor=" + p7Attacker.name);
+                enterState(s, BattleRuntimeState.P2_SELECT_EXECUTE, p7SkillName(), SHORT_WAIT);
+                return true;
+            }
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P7 game.d.q no follow-up skill="
+                    + p7SkillId + " roll=" + roll + " chance=" + chance);
+        }
         return false;
     }
 
@@ -3279,10 +3512,17 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7EffectOnPlayerSide = effectOnTarget ? s.battleP7TargetPlayerSide : s.battleP7AttackerPlayerSide;
         s.battleP7EffectAnimState = p7ActorAnimation != null ? p7ActorAnimation.state : 0;
         s.battleP7EffectAnimCursor = p7EffectAnimCursor();
-        s.battleP7BaseHiddenPlayerSide = p7BaseHiddenPlayerSide;
-        s.battleP7BaseHiddenEnemySide = p7BaseHiddenEnemySide;
+        s.battleP7BaseHiddenPlayerSide = p7BaseHiddenPlayerSide || p7KoBaseHiddenPlayerSide;
+        s.battleP7BaseHiddenEnemySide = p7BaseHiddenEnemySide || p7KoBaseHiddenEnemySide;
         s.battleP7BaseStatePlayerSide = p7BaseStatePlayerSide;
         s.battleP7BaseStateEnemySide = p7BaseStateEnemySide;
+        s.battleP7BaseCursorPlayerSide = p7BaseCursor(s, true);
+        s.battleP7BaseCursorEnemySide = p7BaseCursor(s, false);
+        s.battleP7DeathEffectVisible = p7DeathEffectActive;
+        s.battleP7DeathEffectPlayerSide = p7DeathEffectActive && p7DeathEffectPlayerSide;
+        s.battleP7DeathEffectSpriteId = p7DeathEffectActive ? p7DeathEffectSpriteId : -1;
+        s.battleP7DeathEffectTick = p7DeathEffectActive ? p7DeathEffectTicks : 0;
+        s.battleP7DeathEffectDuration = p7DeathEffectActive ? p7DeathEffectDuration : 0;
         syncP7MotionOffsets(s);
         syncP7LEffectRenderState(s);
         s.battleP7ActorEffectVisible = p7Phase == 1
@@ -3293,7 +3533,7 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7ActorEffectSpriteId = s.battleP7ActorEffectVisible ? p7ActorAnimation.spriteId : -1;
         s.battleP7ActorEffectState = s.battleP7ActorEffectVisible ? p7ActorAnimation.state : 0;
         s.battleP7ActorEffectCursor = s.battleP7ActorEffectVisible ? p7ActorAnimation.cursor() : 0;
-        s.battleP7DamageVisible = p7Phase == 2 && p7DamageApplied;
+        s.battleP7DamageVisible = p7Phase == 2 && p7DamageTextActive();
         s.battleP7DamageText = s.battleP7DamageVisible ? "-" + p7Damage : "";
         s.battleP7DamageCritical = s.battleP7DamageVisible && p7DamageResult != null
                 && p7DamageResult.critFlag == 1;
@@ -3329,14 +3569,19 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7Ticks = 0;
         s.battleP7EffectAnimState = -1;
         s.battleP7EffectAnimCursor = 0;
-        s.battleP7BaseHiddenPlayerSide = false;
-        s.battleP7BaseHiddenEnemySide = false;
+        s.battleP7BaseHiddenPlayerSide = p7KoBaseHiddenPlayerSide;
+        s.battleP7BaseHiddenEnemySide = p7KoBaseHiddenEnemySide;
         s.battleP7BaseStatePlayerSide = 0;
         s.battleP7BaseStateEnemySide = 0;
         s.battleP7PlayerOffsetX = 0;
         s.battleP7PlayerOffsetY = 0;
         s.battleP7EnemyOffsetX = 0;
         s.battleP7EnemyOffsetY = 0;
+        s.battleP7DeathEffectVisible = false;
+        s.battleP7DeathEffectPlayerSide = false;
+        s.battleP7DeathEffectSpriteId = -1;
+        s.battleP7DeathEffectTick = 0;
+        s.battleP7DeathEffectDuration = 0;
         s.battleLVisible = false;
         s.battleLPlayerSide = false;
         s.battleLDrawAfter = false;
@@ -3377,51 +3622,6 @@ final class SourceBattleRuntime implements Blocking {
         s.battleP7PlayerOffsetY = 0;
         s.battleP7EnemyOffsetX = 0;
         s.battleP7EnemyOffsetY = 0;
-        if (p7ActorAnimation != null && p7ActorAnimation.started() && !p7ActorAnimation.stopped()) {
-            return;
-        }
-        if (p7Phase == 1 && p7Attacker != null) {
-            int amp = lungeAmplitude(p7Ticks);
-            if (amp > 0) {
-                if (p7Attacker == player) {
-                    s.battleP7PlayerOffsetX = amp;
-                    s.battleP7PlayerOffsetY = -amp / 2;
-                } else {
-                    s.battleP7EnemyOffsetX = -amp;
-                    s.battleP7EnemyOffsetY = amp / 2;
-                }
-            }
-        } else if (p7Phase == 2 && p7Target != null && p7DamageApplied) {
-            int amp = recoilAmplitude(p7Ticks);
-            if (amp > 0) {
-                int dir = p7Target == player ? -1 : 1;
-                int x = (p7Ticks % 2 == 0 ? amp : -amp) * dir;
-                int y = Math.max(0, amp / 2);
-                if (p7Target == player) {
-                    s.battleP7PlayerOffsetX = x;
-                    s.battleP7PlayerOffsetY = y;
-                } else {
-                    s.battleP7EnemyOffsetX = x;
-                    s.battleP7EnemyOffsetY = -y;
-                }
-            }
-        }
-    }
-
-    private int lungeAmplitude(int tick) {
-        if (tick <= 0 || tick > 8) {
-            return 0;
-        }
-        int[] sourceShaped = {0, 2, 5, 8, 10, 8, 5, 2, 0};
-        return sourceShaped[Math.max(0, Math.min(sourceShaped.length - 1, tick))];
-    }
-
-    private int recoilAmplitude(int tick) {
-        if (tick <= 0 || tick > 8) {
-            return 0;
-        }
-        int[] sourceShaped = {0, 5, 4, 3, 3, 2, 2, 1, 0};
-        return sourceShaped[Math.max(0, Math.min(sourceShaped.length - 1, tick))];
     }
 
     private String p7DebuffText() {
@@ -3571,7 +3771,7 @@ final class SourceBattleRuntime implements Blocking {
         if (speffectId < 0) {
             return;
         }
-        int cursor = battleSpriteCursor(p7Attacker.visualId, 1, s.battleAnimationTick);
+        int cursor = p7BaseCursor(s, p7Attacker == player);
         if (cursor != 1) {
             return;
         }
@@ -3606,6 +3806,15 @@ final class SourceBattleRuntime implements Blocking {
 
     private int p7BaseStateFor(boolean playerSide) {
         return playerSide ? p7BaseStatePlayerSide : p7BaseStateEnemySide;
+    }
+
+    private int p7BaseCursor(VqsvIntroDemo.Scene s, boolean playerSide) {
+        SourceBattleUnit unit = playerSide ? player : enemy;
+        if (unit == null || unit.visualId < 0) {
+            return -1;
+        }
+        int startTick = playerSide ? p7BaseStateStartTickPlayerSide : p7BaseStateStartTickEnemySide;
+        return battleSpriteCursor(unit.visualId, p7BaseStateFor(playerSide), s.battleAnimationTick - startTick);
     }
 
     private int p7LEffectFrameCount() {
@@ -4331,6 +4540,7 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         s.battleOverlayTicks = 0;
+        s.battleBackgroundSnapshot = null;
         enterState(s, BattleRuntimeState.DONE, s.battleLog, 0);
         return true;
     }
@@ -4419,18 +4629,23 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private void syncRenderState(VqsvIntroDemo.Scene s, String log) {
+        if (!(p7Phase == 2 && p7DamageApplied)) {
+            playerDisplayHp = player.hp;
+            enemyDisplayHp = enemy.hp;
+        }
         s.battleEnemyName = enemy.name;
         s.battleEnemyLevel = enemy.level;
         s.battleEnemyVisualId = enemy.visualId;
         s.battleEnemyElement = enemy.element;
+        s.battleEnemyOwnedSpecies = sourceOwnsSpecies(s, enemy.speciesId);
         s.battleEnemyMaxHp = enemy.maxHp;
-        s.battleEnemyHp = enemy.hp;
+        s.battleEnemyHp = Math.max(0, Math.min(enemy.maxHp, enemyDisplayHp));
         s.battlePlayerName = player.name;
         s.battlePlayerLevel = player.level;
         s.battlePlayerVisualId = player.visualId;
         s.battlePlayerElement = player.element;
         s.battlePlayerMaxHp = player.maxHp;
-        s.battlePlayerHp = player.hp;
+        s.battlePlayerHp = Math.max(0, Math.min(player.maxHp, playerDisplayHp));
         s.battlePlayerEnergy = 0;
         s.battlePlayerMaxEnergy = player.nextLevelEnergy();
         byte relation = player.elementRelationTo(enemy);
@@ -4449,16 +4664,33 @@ final class SourceBattleRuntime implements Blocking {
         syncBattleMarkerState(s);
     }
 
+    private boolean sourceOwnsSpecies(VqsvIntroDemo.Scene s, int speciesId) {
+        for (SourcePetState pet : s.sourcePets) {
+            if (pet.speciesId == speciesId) {
+                return true;
+            }
+        }
+        for (SourcePetState pet : s.sourcePetBank) {
+            if (pet.speciesId == speciesId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void syncBattleMarkerState(VqsvIntroDemo.Scene s) {
         short[] row = VqsvBattleAnimationTables.instance().posRow(sourceCposGroup());
-        if (row.length >= 8) {
-            s.battleEnemyMarkerX = row[2];
-            s.battleEnemyMarkerY = row[3];
-            s.battlePlayerMarkerX = row[6];
-            s.battlePlayerMarkerY = row[7];
+        int enemyAt = sourcePosQuadOffset(false);
+        int playerAt = sourcePosQuadOffset(true);
+        if (row.length >= enemyAt + 4 && row.length >= playerAt + 4) {
+            s.battleEnemyMarkerX = row[enemyAt + 2];
+            s.battleEnemyMarkerY = row[enemyAt + 3];
+            s.battlePlayerMarkerX = row[playerAt + 2];
+            s.battlePlayerMarkerY = row[playerAt + 3];
         } else {
             short[] enemyCpos = VqsvBattleAnimationTables.instance().cposRow(sourceCposGroup(), 0);
-            short[] playerCpos = VqsvBattleAnimationTables.instance().cposRow(sourceCposGroup(), 1);
+            short[] playerCpos = VqsvBattleAnimationTables.instance().cposRow(sourceCposGroup(),
+                    sourceCposGroup() == 1 ? 2 : 1);
             if (enemyCpos.length >= 4) {
                 int at = enemyCpos.length - 2;
                 s.battleEnemyMarkerX = enemyCpos[at];
@@ -4486,6 +4718,13 @@ final class SourceBattleRuntime implements Blocking {
                 || state == BattleRuntimeState.P4_ITEM_LIST
                 || state == BattleRuntimeState.P16_ITEM_TARGET
                 || state == BattleRuntimeState.P5_PET_SWITCH;
+    }
+
+    private int sourcePosQuadOffset(boolean playerSide) {
+        if (sourceCposGroup() == 1) {
+            return playerSide ? 8 : 0;
+        }
+        return playerSide ? 4 : 0;
     }
 
     private void setHp(SourceBattleUnit unit, int hp) {

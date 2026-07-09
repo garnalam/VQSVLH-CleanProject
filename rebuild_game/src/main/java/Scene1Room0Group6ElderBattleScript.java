@@ -20,6 +20,7 @@ final class Scene1Room0Group6ElderBattleScript {
             e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_ATTACK, 1));
             e.add(s -> { s.op67SetBattleActor(52); return null; });
             e.add(VqsvBattleScripts::room0Group6ElderBattleRuntime);
+            e.add(s -> { VqsvBattleEventDescriptor.SCENE1_ROOM0_GROUP6_ELDER.consumeOp47(s); return null; });
             e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_REWARD, 1));
             e.add(s -> s.op31CurrencyReward(0, 0, 500));
             e.add(s -> s.op17Item(0, 4, 10));
@@ -40,7 +41,11 @@ final class Scene1Room0Group6ElderBattleScript {
                 s.text = TextBox.openBox(VqsvText.Scene1Room0Group6.FREE_WORLD);
                 return VqsvSceneScriptSupport.waitForText();
             });
-            e.add(s -> { s.op14CompleteEvent(1, 0, 6); return null; });
+            e.add(s -> {
+                s.op14CompleteEvent(1, 0, 6);
+                VqsvPostBattleDownstreamDescriptor.SCENE1_ROOM0_GROUP6_ELDER.traceAndAssert(s);
+                return null;
+            });
             e.add(s -> new Room0PostGroup6FreeWorld());
     }
 }

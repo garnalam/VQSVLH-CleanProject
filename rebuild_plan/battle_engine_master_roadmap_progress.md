@@ -30,9 +30,9 @@ numbers. The roadmap order is unchanged; only document numbers are shifted.
 | Phase 3 | `game.h` Command/UI Runtime | PARTIAL | UI exists source-shaped, not full widget runtime | After Phase 2, create `75_battle_ui_game_h_widget_matrix.md`. |
 | Phase 4 | Damage Formula + Buff/Debuff | PARTIAL | `BattleUnit.computeDamage()` exists; buff/debuff lifecycle missing | After Phase 2/3 matrix, create `76_battle_damage_status_formula_full_matrix.md`, then code buff/debuff. |
 | Phase 5 | Item/Catch/Pet Switch Full Behavior | PARTIAL/APPROX | P21/P17/P4/P16/P5 are source-shaped and smoke-covered for current routes; catch/petstate UI still partial | Continue from `79`, `82..99`; next choose a small missing consumer, not broad polish. |
-| Phase 6 | P7 Effect Animation Engine | PARTIAL | Existing docs `56..62`, skill 15/45 slices, AH type 1/9, L effects | Later create `78_battle_effect_mid_full_matrix.md`, `79_battle_speffect_ah_full_matrix.md`, `80_battle_blood_bufdebuf_matrix.md`. |
-| Phase 7 | Actor Motion / Hit / Recover / Dead | PARTIAL | Existing docs `63..69`; some L and actor `u` slices ported | Later create `81_battle_actor_motion_state_matrix.md`. |
-| Phase 8 | Battle Entry/Exit + Event Integration | PARTIAL | Sophie/Bunny/Elder route regressions pass; P8/P22/P23 EXP/levelUp/learn-skill source-shaped | Audit next event/UI consumer before new code. |
+| Phase 6 | P7 Effect Animation Engine | CLOSED FOR CURRENT ROUTES / PORTED-PARTIAL | `134..142`; P7 effect chunks, damage text/HP tween, death state, queue/follow-up branches smoke-covered | Do not reopen without original capture or a concrete source-route mismatch. |
+| Phase 7 | Actor Motion / Hit / Recover / Dead | CLOSED FOR CURRENT ROUTES / PORTED-PARTIAL | `135..142`; synthetic recoil removed, state 1/2 source-asset compare, state 3 death timing/hidden actor smoke-covered | Exact MIDP pixel parity remains future capture work. |
+| Phase 8 | Battle Entry/Exit + Event Integration | PARTIAL / NEXT ACTIVE | Sophie/Bunny/Elder route regressions pass; P8/P22/P23 EXP/levelUp/learn-skill source-shaped | Audit next event/UI consumer before new code. |
 | Phase 9 | Broad Skill Coverage | PARTIAL | `72` classifies skills, but coverage/smoke matrix not complete | Later create `83_battle_skill_coverage_matrix.md`. |
 | Phase 10 | Regression Suite | PARTIAL | Many smoke images/checks exist, but no single full battle regression suite | Later create `84_battle_regression_suite_matrix.md`. |
 
@@ -191,6 +191,39 @@ Recommended ordering now:
    `101_battle_levelup_learn_skill_evolution_audit.md`: candidate skill list
    from `game.b.F()`, `choiceskill.ui`, confirm prompt, and payload skill add.
    Evolution queue from `game.b.J()` remains PENDING.
+19. P7/Phase 6 has been closed for current routes in
+   `142_battle_p7_phase6_closeout_and_next_phase.md`. Recent P7 slices cover
+   source-asset state 1/2 compare, HP tween and `blood.mid` text timing,
+   death state 3/AH type16 source-shaped timing, dead actor hidden lifetime,
+   P7 -> P12/P13 queue order, and `game.d.q()` buff12/skill63 follow-up
+   branches. Remaining debt is original-client pixel parity and broad
+   rare-route skill coverage, not a blocker for Phase 8.
+20. Phase 8 entry/exit/event integration audit and first bridge slice are in
+   `143_battle_phase8_entry_exit_event_integration_audit.md`. Source chain is
+   mapped as `op67/op37 -> op32 -> game.i state12/13 -> game.d P8/P9/P22/P23
+   -> world state10 -> op47`. Bunny and Elder now use a source-backed
+   `BattleEventDescriptor` for op37/op32/op47 data. Current routes are
+   PORTED/PARTIAL, while generic decoded-event `op47` consumption remains
+   APPROX/PENDING.
+21. The tiny `op47` consumer wrapper has been source-audited and implemented
+   for Bunny/Elder in `144_battle_phase8_op47_consumer_wrapper_audit.md`. Key
+   rule: source computes `sourceCursor = op47Args[l] - 2`, while current rebuild
+   `battleBranchTarget` intentionally remains the raw logical target such as
+   Elder `10` or Sophie `78`. The wrapper traces/asserts both values without
+   mutating `Scene.eventIndex`.
+22. Sophie room3 group0 descriptor/op47 coverage is implemented and verified in
+   `145_battle_phase8_sophie_descriptor_op47_audit.md`. Source records are
+   `op67 [56]`, `op37 [5,20,4]`, `op52 [1,1]`, `op32 [0,2]`,
+   `op47 [78,78,0]`. `SCENE1_ROOM3_GROUP0_SOPHIE` now drives
+   `Scene1Room3EntryScript` and focused smoke asserts
+   `op47 result=0 rawTarget=78 sourceCursor=76`, while keeping
+   `battleBranchTarget=78` and no `eventIndex` mutation.
+23. Post-op47 downstream consumers are audited in
+   `146_battle_phase8_post_op47_downstream_consumer_audit.md`. Current
+   task/reward/save/free-world return behavior is source-aligned for current
+   routes but still manual route-script driven. Descriptor/trace-only coverage
+   for Bunny/Elder downstream consumers is implemented and verified; no generic
+   event VM was added.
 
 ## Phase Dependency Rules
 
@@ -205,16 +238,19 @@ Recommended ordering now:
 
 ## Immediate Next Step
 
-Continue from the implemented P7/q, generalized P12/P13 queue, P16 item
-behavior parity, P5 pet switch parity, P15 cpos slice, P21/P17 Bunny/catch
-slices, petstate/save slices, and P8/P22/P23 EXP/levelUp/learn-skill slices:
+Continue from the closed-for-current-routes P7/Phase 6 slice, generalized
+P12/P13 queue, P16 item behavior parity, P5 pet switch parity, P15 cpos slice,
+P21/P17 Bunny/catch slices, petstate/save slices, and P8/P22/P23
+EXP/levelUp/learn-skill slices:
 
 - Enemy-party/P15 data model now exists at current rebuild granularity.
 - P16 now validates and applies `game.b.x/w` item behavior `1..6` through
   selected active/reserve pet targets; HP/PP payload persistence is wired for
   current rebuild state.
-- Next roadmap-consistent target should be selected by source audit from the
-  remaining missing consumers:
+- Next roadmap-consistent target remains Phase 8 battle entry/exit/event
+  integration. Audits `143`/`144` completed Bunny/Elder descriptor and op47
+  wrapper coverage; audit `145` completed Sophie descriptor/op47 coverage.
+- Remaining missing consumers for later Phase 8/9 work:
   - evolution queue `game.b.J()` -> `game.k.H/L/I` and its UI/effects;
   - full EXP participant/share vector `game.d.x` and passive EXP share;
   - exact `msgwarm.ui`/`choiceskill.ui` widget runtime;
@@ -222,8 +258,10 @@ slices, petstate/save slices, and P8/P22/P23 EXP/levelUp/learn-skill slices:
   - remaining active-effect/skill consumers with real source callers.
 - Do not port AH type7 for active queue unless a source path outside current
   `ai` gate proves it is called; in P12/P13 it is currently NOT-CALLED.
-- Recommended next concrete work: create an audit for the next user-visible
-  source consumer before coding. If continuing from level-up, audit the
-  evolution queue and its UI path first; do not guess the animation/UI.
+- Recommended next concrete work: audit whether room1 group1 save prompt can be
+  source-shaped as its own `op15/op56/op46/op14` group wrapper without changing
+  save payload/RMS parity. Do not change `battleBranchTarget` semantics, do not
+  mutate `Scene.eventIndex`, and do not create a full decoded event VM without a
+  source-backed slice.
 - Do not jump to broad UI polish or new effects until those state consumers are
   wired.

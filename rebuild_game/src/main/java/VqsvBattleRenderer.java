@@ -25,10 +25,6 @@ final class VqsvBattleRenderer {
     private static final int PLAYER_RECT_H = 95;
     private static final int JAVA_ME_EFFECT_TRANSPARENT_KEY = 0x00ffffff;
     private static final Color SOURCE_UI_TEXT = new Color(0x1c6c91);
-    private static final int[] BLOOD_ROW0 = {
-            0, 0, -5, -7, -7, -11, -10, -16, -12, -18, -16, -21,
-            -18, -19, -22, -15, -28, -8, -30, -10, -32, -8
-    };
     private static final Map<Integer, BufferedImage> TEX_CACHE = new HashMap<>();
 
     private VqsvBattleRenderer() {
@@ -45,12 +41,7 @@ final class VqsvBattleRenderer {
         boolean petstateMode = "petstate".equals(s.battleUiMode);
         boolean levelUpMode = "levelup".equals(s.battleUiMode);
         boolean fullOverlayMode = petstateMode || levelUpMode;
-        g.setColor(new Color(9, 42, 58));
-        g.fillRect(0, 0, W, H);
-        g.setColor(new Color(22, 82, 94));
-        g.fillRect(0, 72, W, 92);
-        g.setColor(new Color(17, 54, 82));
-        g.fillRect(0, 164, W, 71);
+        drawBattleBackground(g, s);
         if (!fullOverlayMode) {
             drawBattleUiCellTopLeft(g, 92, 0, 0);
             drawBattleUiCellTopLeft(g, 93, 0, 235);
@@ -61,17 +52,17 @@ final class VqsvBattleRenderer {
             drawState1LEffect(g, s);
         }
         if (!s.battleEnemyHiddenByCatch && !s.battleP7BaseHiddenEnemySide) {
-            drawBattleSprite(g, s.battleEnemyVisualId,
-                    ENEMY_RECT_X + enemyOffsetX(s), ENEMY_RECT_Y + enemyOffsetY(s),
-                    ENEMY_RECT_W, ENEMY_RECT_H, 7, 0,
+            drawBattleSpriteAtSource(g, s.battleEnemyVisualId,
+                    sourceBattleActorX(s, false) + enemyOffsetX(s),
+                    sourceBattleActorY(s, false) + enemyOffsetY(s), sourceBattleOrientation(false),
                     s.battleP7BaseStateEnemySide,
                     baseCursor(s.battleEnemyVisualId, s.battleP7BaseStateEnemySide,
                             s.battleP7BaseCursorEnemySide, s.battleAnimationTick));
         }
         if (!s.battleP7BaseHiddenPlayerSide) {
-            drawBattleSprite(g, s.battlePlayerVisualId,
-                    PLAYER_RECT_X + playerOffsetX(s), PLAYER_RECT_Y + playerOffsetY(s),
-                    PLAYER_RECT_W, PLAYER_RECT_H, 7, 0,
+            drawBattleSpriteAtSource(g, s.battlePlayerVisualId,
+                    sourceBattleActorX(s, true) + playerOffsetX(s),
+                    sourceBattleActorY(s, true) + playerOffsetY(s), sourceBattleOrientation(true),
                     s.battleP7BaseStatePlayerSide,
                     baseCursor(s.battlePlayerVisualId, s.battleP7BaseStatePlayerSide,
                             s.battleP7BaseCursorPlayerSide, s.battleAnimationTick));
@@ -80,6 +71,7 @@ final class VqsvBattleRenderer {
             drawState1LEffect(g, s);
         }
         drawP7ActorEffect(g, s);
+        drawP7DeathEffect(g, s);
         drawP7SpecialEffect(g, s);
 
         if (!fullOverlayMode) {
@@ -90,31 +82,7 @@ final class VqsvBattleRenderer {
         }
 
         if (!fullOverlayMode) {
-            s.font.drawTagged(g, "#FFFFFF" + s.battleEnemyName, 3, 2, 58, s.battleEnemyName.length());
-            s.font.drawTagged(g, "#FFFFFFlv" + s.battleEnemyLevel, 64, 2, 36, 4);
-            drawSourceHpBar(g, 5, 16, 82, hpPercent(s.battleEnemyHp, s.battleEnemyMaxHp));
-            String enemyHp = s.battleEnemyHp + "/" + s.battleEnemyMaxHp;
-            s.font.drawTagged(g, "#fff9b1" + enemyHp, 16, 13, 72, enemyHp.length());
-            drawBattleUiCellTopLeft(g, 94 + Math.max(0, s.battleEnemyElement), 92, 2);
-            drawBattlePercent(g, s.font, 124, 2, s.battleEnemyPowerPercent);
-            drawStatusSlots(g, 2, 25, 10, 30, false);
-
-            s.font.drawTagged(g, "#FFFFFF" + s.battlePlayerName, 153, 238, 58, s.battlePlayerName.length());
-            s.font.drawTagged(g, "#FFFFFFlv" + s.battlePlayerLevel, 214, 238, 26, 4);
-            drawSourceHpBar(g, 153, 252, 82, hpPercent(s.battlePlayerHp, s.battlePlayerMaxHp));
-            String playerHp = s.battlePlayerHp + "/" + s.battlePlayerMaxHp;
-            s.font.drawTagged(g, "#fff9b1" + playerHp, 167, 249, 66, playerHp.length());
-            String playerEnergy = s.battlePlayerEnergy + "/" + s.battlePlayerMaxEnergy;
-            s.font.drawTagged(g, "#fff9b1" + playerEnergy, 81, 258, 72, playerEnergy.length());
-            drawBattleUiCellTopLeft(g, 94 + Math.max(0, s.battlePlayerElement), 139, 249);
-            drawBattlePercent(g, s.font, 104, 248, s.battlePlayerPowerPercent);
-            drawStatusSlots(g, 226, 221, 234, 226, true);
-
-            s.font.drawTagged(g, "#FFFFFF" + s.battleLog, 158, 260, 76, s.battleLog.length());
-            if (s.battleCaptureTutorial) {
-                s.font.drawTagged(g, "#fff9b1" + VqsvText.Battle.CAPTURE_LABEL, 48, 299, 28,
-                        VqsvText.Battle.CAPTURE_LABEL.length());
-            }
+            drawBattleHudWidgets(g, s.font, s);
         }
         if ("choice".equals(s.battleUiMode)) {
             drawChoiceOverlay(g, s.font, s);
@@ -142,6 +110,25 @@ final class VqsvBattleRenderer {
 
     private static boolean hasSourceTextBox(VqsvIntroDemo.Scene s, int sourceUiKind) {
         return s.text != null && s.text.sourceUiKind == sourceUiKind;
+    }
+
+    private static void drawBattleBackground(Graphics2D g, VqsvIntroDemo.Scene s) {
+        if (s.battleBackgroundSnapshot != null) {
+            g.drawImage(s.battleBackgroundSnapshot, 0, 0, null);
+            g.setColor(new Color(0, 0, 0, 140));
+            g.fillRect(0, 0, W, H);
+            return;
+        }
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, W, H);
+    }
+
+    private static void clearBattleBackgroundRegion(Graphics2D g, VqsvIntroDemo.Scene s,
+                                                    int x, int y, int w, int h) {
+        Shape oldClip = g.getClip();
+        g.clipRect(x, y, w, h);
+        drawBattleBackground(g, s);
+        g.setClip(oldClip);
     }
 
     private static void drawBattleUiCellTopLeft(Graphics2D g, int cellId, int x, int y) {
@@ -179,68 +166,94 @@ final class VqsvBattleRenderer {
         SpriteAnim marker = SpriteAnim.load(294);
         marker.setState(0);
         marker.cursor = 0;
-        drawFootMarker(g, marker, s, false);
-        drawFootMarker(g, marker, s, true);
+        drawSourceMarker(g, marker, s, false, false);
+        drawSourceMarker(g, marker, s, true, false);
         if (!s.battleActiveMarkerVisible) {
             return;
         }
         marker.setState(1);
         marker.cursor = Math.max(0, (s.battleAnimationTick / 2) % 2);
-        drawFootMarker(g, marker, s, s.battleActiveMarkerPlayerSide);
+        drawSourceMarker(g, marker, s, s.battleActiveMarkerPlayerSide, true);
     }
 
-    private static void drawFootMarker(Graphics2D g, SpriteAnim marker, VqsvIntroDemo.Scene s, boolean playerSide) {
-        int[] delta = sourceMarkerDelta(s, playerSide);
-        int x = battleSlotAnchorX(s, playerSide) + delta[0];
-        int y = battleSlotAnchorY(s, playerSide) + delta[1];
+    private static void drawSourceMarker(Graphics2D g, SpriteAnim marker, VqsvIntroDemo.Scene s,
+                                         boolean playerSide, boolean activeMarker) {
+        int x = sourceBattleMarkerX(s, playerSide) + sideOffsetX(s, playerSide);
+        int y = sourceBattleMarkerY(s, playerSide) + sideOffsetY(s, playerSide);
+        if (activeMarker) {
+            x = (playerSide ? s.battlePlayerMarkerX : s.battleEnemyMarkerX)
+                    + sideOffsetX(s, playerSide);
+            y = (playerSide ? s.battlePlayerMarkerY : s.battleEnemyMarkerY)
+                    + sideOffsetY(s, playerSide);
+        }
         marker.draw(g, x, y, 0);
     }
 
-    private static int[] sourceMarkerDelta(VqsvIntroDemo.Scene s, boolean playerSide) {
+    private static int sourceBattleActorX(VqsvIntroDemo.Scene s, boolean playerSide) {
         short[] row = VqsvBattleAnimationTables.instance().posRow(sourceCposGroup(s));
-        if (row.length >= 8) {
-            if (playerSide) {
-                return new int[]{row[6] - row[4], row[7] - row[5]};
-            }
-            return new int[]{row[2] - row[0], row[3] - row[1]};
+        int at = sourcePosQuadOffset(s, playerSide);
+        if (row.length >= at + 4) {
+            return row[at];
         }
-        return playerSide ? new int[]{-34, -17} : new int[]{-33, -18};
+        return playerSide ? 70 : 177;
+    }
+
+    private static int sourceBattleActorY(VqsvIntroDemo.Scene s, boolean playerSide) {
+        short[] row = VqsvBattleAnimationTables.instance().posRow(sourceCposGroup(s));
+        int at = sourcePosQuadOffset(s, playerSide);
+        if (row.length >= at + 4) {
+            return row[at + 1];
+        }
+        return playerSide ? 223 : 103;
+    }
+
+    private static int sourceBattleMarkerX(VqsvIntroDemo.Scene s, boolean playerSide) {
+        short[] row = VqsvBattleAnimationTables.instance().posRow(sourceCposGroup(s));
+        int at = sourcePosQuadOffset(s, playerSide);
+        if (row.length >= at + 4) {
+            return row[at + 2];
+        }
+        return playerSide ? 36 : 144;
+    }
+
+    private static int sourceBattleMarkerY(VqsvIntroDemo.Scene s, boolean playerSide) {
+        short[] row = VqsvBattleAnimationTables.instance().posRow(sourceCposGroup(s));
+        int at = sourcePosQuadOffset(s, playerSide);
+        if (row.length >= at + 4) {
+            return row[at + 3];
+        }
+        return playerSide ? 206 : 85;
+    }
+
+    private static int sourcePosQuadOffset(VqsvIntroDemo.Scene s, boolean playerSide) {
+        if (sourceCposGroup(s) == 1) {
+            return playerSide ? 8 : 0;
+        }
+        return playerSide ? 4 : 0;
     }
 
     private static int sourceCposGroup(VqsvIntroDemo.Scene s) {
         return s.battleMode == 0 ? (s.battleBackgroundMode == 1 ? 2 : 0) : 1;
     }
 
+    private static int sourceBattleOrientation(boolean playerSide) {
+        return playerSide ? 0 : 1;
+    }
+
     private static int battleSpriteAnchorX(VqsvIntroDemo.Scene s, boolean playerSide) {
-        int sprite = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
-        int rectX = playerSide ? PLAYER_RECT_X + playerOffsetX(s) : ENEMY_RECT_X + enemyOffsetX(s);
-        int rectW = playerSide ? PLAYER_RECT_W : ENEMY_RECT_W;
-        return battleSpriteAnchor(sprite, playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide,
-                rectX, rectW, true);
+        return sourceBattleActorX(s, playerSide) + sideOffsetX(s, playerSide);
     }
 
     private static int battleSpriteAnchorY(VqsvIntroDemo.Scene s, boolean playerSide) {
-        int sprite = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
-        int rectY = playerSide ? PLAYER_RECT_Y + playerOffsetY(s) : ENEMY_RECT_Y + enemyOffsetY(s);
-        int rectH = playerSide ? PLAYER_RECT_H : ENEMY_RECT_H;
-        return battleSpriteAnchor(sprite, playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide,
-                rectY, rectH, false);
+        return sourceBattleActorY(s, playerSide) + sideOffsetY(s, playerSide);
     }
 
     private static int battleSlotAnchorX(VqsvIntroDemo.Scene s, boolean playerSide) {
-        int sprite = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
-        int rectX = playerSide ? PLAYER_RECT_X : ENEMY_RECT_X;
-        int rectW = playerSide ? PLAYER_RECT_W : ENEMY_RECT_W;
-        return battleSpriteAnchor(sprite, playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide,
-                rectX, rectW, true);
+        return sourceBattleActorX(s, playerSide);
     }
 
     private static int battleSlotAnchorY(VqsvIntroDemo.Scene s, boolean playerSide) {
-        int sprite = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
-        int rectY = playerSide ? PLAYER_RECT_Y : ENEMY_RECT_Y;
-        int rectH = playerSide ? PLAYER_RECT_H : ENEMY_RECT_H;
-        return battleSpriteAnchor(sprite, playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide,
-                rectY, rectH, false);
+        return sourceBattleActorY(s, playerSide);
     }
 
     private static int battleSpriteAnchor(int spriteIndex, int state, int rectPos, int rectSize, boolean xAxis) {
@@ -277,6 +290,19 @@ final class VqsvBattleRenderer {
         anim.drawAligned(g, x, y, w, h, align, orientation);
     }
 
+    private static void drawBattleSpriteAtSource(Graphics2D g, int spriteIndex, int x, int y,
+                                                 int orientation, int state, int cursor) {
+        if (spriteIndex < 0) {
+            return;
+        }
+        SpriteAnim anim = SpriteAnim.load(spriteIndex);
+        anim.setState(Math.max(0, state));
+        int frames = anim.data.anim == null || anim.data.anim.length == 0
+                ? 0 : anim.data.anim[anim.state].length / 2;
+        anim.cursor = Math.max(0, Math.min(cursor, Math.max(0, frames - 1)));
+        anim.draw(g, x, y, orientation);
+    }
+
     private static void drawBattlePanel(Graphics2D g, int x, int y, int w, int h, boolean fill) {
         if (fill) {
             g.setColor(new Color(0, 0, 0, 150));
@@ -300,6 +326,102 @@ final class VqsvBattleRenderer {
             drawTinyBattleText(g, font, labels[i][0], textXs[i], 299, 34, color);
             drawTinyBattleText(g, font, labels[i][1], textXs[i], 309, 34, color);
         }
+    }
+
+    private static void drawBattleHudWidgets(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
+        VqsvUiLayout layout = VqsvUiLayout.load("battle.ui");
+
+        drawBattleUiText(g, font, layout, 15, s.battleEnemyName, Color.WHITE, s.battleAnimationTick);
+        drawBattleUiText(g, font, layout, 16, "lv" + s.battleEnemyLevel, Color.WHITE, s.battleAnimationTick);
+        drawSourcePercentLayer(g, layout, 42, hpPercent(s.battleEnemyHp, s.battleEnemyMaxHp), 8);
+        drawSourcePercentLayer(g, layout, 56, hpPercent(s.battleEnemyHp, s.battleEnemyMaxHp), 8);
+        drawSourcePercentLayer(g, layout, 14, hpPercent(s.battleEnemyHp, s.battleEnemyMaxHp), 8);
+        drawBattleUiText(g, font, layout, 39, s.battleEnemyHp + "/" + s.battleEnemyMaxHp,
+                new Color(0xfff9b1), s.battleAnimationTick);
+        drawBattleUiCellTopLeft(g, 94 + Math.max(0, s.battleEnemyElement),
+                layout.x(18, 92), layout.y(18, 2));
+        if (s.battleEnemyOwnedSpecies) {
+            drawBattleUiCellTopLeft(g, 101, layout.x(19, 97), layout.y(19, 14));
+        } else {
+            clearBattleBackgroundRegion(g, s, layout.x(19, 97) - 1, layout.y(19, 14) - 1, 15, 15);
+        }
+        drawBattleUiText(g, font, layout, 58, s.battleEnemyPowerPercent + "%",
+                battlePercentColor(s.battleEnemyPowerPercent), s.battleAnimationTick);
+        drawStatusSlots(g, layout.x(32, 2), layout.y(32, 25),
+                layout.x(49, 10), layout.y(49, 30), false);
+
+        drawBattleUiText(g, font, layout, 12, s.battlePlayerName, Color.WHITE, s.battleAnimationTick);
+        drawBattleUiText(g, font, layout, 13, "lv" + s.battlePlayerLevel, Color.WHITE, s.battleAnimationTick);
+        drawSourcePercentLayer(g, layout, 41, hpPercent(s.battlePlayerHp, s.battlePlayerMaxHp), 8);
+        drawSourcePercentLayer(g, layout, 55, hpPercent(s.battlePlayerHp, s.battlePlayerMaxHp), 8);
+        drawSourcePercentLayer(g, layout, 11, hpPercent(s.battlePlayerHp, s.battlePlayerMaxHp), 8);
+        drawBattleUiText(g, font, layout, 38, s.battlePlayerHp + "/" + s.battlePlayerMaxHp,
+                new Color(0xfff9b1), s.battleAnimationTick);
+        drawSourcePercentLayer(g, layout, 9, hpPercent(s.battlePlayerEnergy, s.battlePlayerMaxEnergy), 8);
+        drawBattleUiText(g, font, layout, 40, s.battlePlayerEnergy + "/" + s.battlePlayerMaxEnergy,
+                new Color(0xfff9b1), s.battleAnimationTick);
+        drawBattleUiCellTopLeft(g, 94 + Math.max(0, s.battlePlayerElement),
+                layout.x(17, 139), layout.y(17, 249));
+        drawBattleUiText(g, font, layout, 59, s.battlePlayerPowerPercent + "%",
+                battlePercentColor(s.battlePlayerPowerPercent), s.battleAnimationTick);
+        drawStatusSlots(g, layout.x(26, 226), layout.y(26, 221),
+                layout.x(43, 234), layout.y(43, 226), true);
+
+        drawBattleUiText(g, font, layout, 10, s.battleLog, Color.WHITE, s.battleAnimationTick);
+        if (s.battleCaptureTutorial) {
+            drawBattleUiText(g, font, layout, 4, VqsvText.Battle.CAPTURE_LABEL,
+                    new Color(0xfff9b1), s.battleAnimationTick);
+        }
+    }
+
+    private static void drawBattleUiText(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                         int widgetId, String text, Color fallback, int tick) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget == null) {
+            return;
+        }
+        drawSourceWidgetText(g, font, text, widget.x, widget.y,
+                Math.max(1, widget.w), sourceWidgetHeight(widget),
+                widgetTextColor(widget, false, fallback), tick, widget.b);
+    }
+
+    private static void drawSourcePercentLayer(Graphics2D g, VqsvUiLayout layout,
+                                               int widgetId, int percent, int fallbackHeight) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget == null) {
+            return;
+        }
+        int height = sourceWidgetHeight(widget);
+        if (height <= 0) {
+            height = fallbackHeight;
+        }
+        int width = Math.max(1, widget.w);
+        fillSourceColor(g, widget.jColor, widget.x, widget.y, width, height);
+        drawSourceRect(g, widget.kColor, widget.x, widget.y, width, height);
+        int fill = Math.max(0, Math.min(width, percent * width / 100));
+        if (fill > 1 && height > 1) {
+            fillSourceColor(g, widget.lColor, widget.x + 1, widget.y + 1, fill - 1, height - 1);
+        }
+    }
+
+    private static void fillSourceColor(Graphics2D g, int argb, int x, int y, int w, int h) {
+        if (w <= 0 || h <= 0 || (argb >> 24) == 0) {
+            return;
+        }
+        g.setColor(new Color(argb, true));
+        g.fillRect(x, y, w, h);
+    }
+
+    private static void drawSourceRect(Graphics2D g, int argb, int x, int y, int w, int h) {
+        if (w <= 0 || h <= 0 || (argb >> 24) == 0) {
+            return;
+        }
+        g.setColor(new Color(argb, true));
+        g.drawRect(x, y, w, h);
+    }
+
+    private static Color battlePercentColor(int percent) {
+        return percent > 100 ? new Color(0xfff1a0) : percent < 100 ? new Color(0xb8d8ff) : Color.WHITE;
     }
 
     private static void drawChoiceOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
@@ -925,20 +1047,49 @@ final class VqsvBattleRenderer {
     }
 
     private static void drawP7Damage(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
-        int baseX = (s.battleP7TargetPlayerSide ? 64 : 176) + sideOffsetX(s, s.battleP7TargetPlayerSide);
-        int baseY = (s.battleP7TargetPlayerSide ? 128 : 58) + sideOffsetY(s, s.battleP7TargetPlayerSide);
-        int frame = Math.max(0, Math.min(BLOOD_ROW0.length / 2 - 1, s.battleP7Ticks));
-        int dx = BLOOD_ROW0[frame * 2];
-        int dy = BLOOD_ROW0[frame * 2 + 1];
-        int x = s.battleP7TargetPlayerSide ? baseX - dx - 30 : baseX + dx + 30;
+        int baseX = sourceBattleActorX(s, s.battleP7TargetPlayerSide);
+        int baseY = sourceBattleActorY(s, s.battleP7TargetPlayerSide);
+        short[] damageBlood = VqsvBattleAnimationTables.instance().bloodRow(0);
+        int damageFrame = bloodFrame(s.battleP7Ticks, damageBlood);
+        int dx = bloodValue(damageBlood, damageFrame, 0);
+        int dy = bloodValue(damageBlood, damageFrame, 1);
+        int x = s.battleP7TargetPlayerSide ? baseX + dx + 30 : baseX - dx - 30;
         int y = baseY + dy - 30;
-        Color damageColor = s.battleP7DamageCritical ? new Color(0xff5d3b) : new Color(0xfff16a);
-        drawOutlinedTinyBattleText(g, font, s.battleP7DamageText, x - 14, y,
-                44, damageColor, new Color(0x3f0707));
-        if (!s.battleP7DebuffText.isEmpty()) {
-            drawOutlinedTinyBattleText(g, font, s.battleP7DebuffText, x - 22, y + 10,
+        if (s.battleP7Ticks < frameCount(damageBlood)) {
+            Color damageColor = s.battleP7DamageCritical ? new Color(0xff5d3b) : new Color(0xfff16a);
+            drawOutlinedTinyBattleText(g, font, s.battleP7DamageText, x - 14, y,
+                    44, damageColor, new Color(0x3f0707));
+        }
+
+        short[] textBlood = VqsvBattleAnimationTables.instance().bloodRow(1);
+        if (!s.battleP7DebuffText.isEmpty() && s.battleP7Ticks < frameCount(textBlood)) {
+            int textFrame = bloodFrame(s.battleP7Ticks, textBlood);
+            int textDy = bloodValue(textBlood, textFrame, 1);
+            int textX = s.battleP7TargetPlayerSide ? baseX - 10 : baseX + 10;
+            int textY = baseY + textDy - 30;
+            drawOutlinedTinyBattleText(g, font, s.battleP7DebuffText, textX - 22, textY,
                     62, new Color(0xffffff), new Color(0x14344a));
         }
+    }
+
+    private static int bloodFrame(int tick, short[] row) {
+        int frames = row == null ? 0 : row.length / 2;
+        if (frames <= 0) {
+            return 0;
+        }
+        return Math.max(0, Math.min(frames - 1, tick));
+    }
+
+    private static int frameCount(short[] row) {
+        return row == null ? 0 : row.length / 2;
+    }
+
+    private static int bloodValue(short[] row, int frame, int axis) {
+        int index = frame * 2 + axis;
+        if (row == null || index < 0 || index >= row.length) {
+            return 0;
+        }
+        return row[index];
     }
 
     private static void drawP7PostEffect(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
@@ -1051,6 +1202,46 @@ final class VqsvBattleRenderer {
                     132 + enemyOffsetX(s), 70 + enemyOffsetY(s), 96, 118, 7, 0,
                     s.battleP7ActorEffectState, s.battleP7ActorEffectCursor);
         }
+    }
+
+    private static void drawP7DeathEffect(Graphics2D g, VqsvIntroDemo.Scene s) {
+        if (!s.battleP7DeathEffectVisible || s.battleP7DeathEffectSpriteId < 0) {
+            return;
+        }
+        SpriteAnim sprite = SpriteAnim.load(s.battleP7DeathEffectSpriteId);
+        int[] bounds = sprite.cellBounds(0);
+        if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
+            return;
+        }
+        BufferedImage image = renderSpriteCellImage(s.battleP7DeathEffectSpriteId, 0,
+                s.battleP7DeathEffectPlayerSide ? 0 : 1);
+        if (image == null) {
+            return;
+        }
+        int duration = Math.max(1, s.battleP7DeathEffectDuration);
+        int tick = Math.max(0, Math.min(duration, s.battleP7DeathEffectTick));
+        int strips = 4;
+        int stripHeight = Math.max(1, image.getHeight() / strips);
+        BufferedImage out = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        for (int y = 0; y < image.getHeight(); y++) {
+            int strip = Math.min(strips - 1, y / stripHeight);
+            int stripStart = strip * duration / strips;
+            boolean faded = tick >= stripStart;
+            int alpha = faded ? Math.max(0, 255 - (tick - stripStart) * 255 / duration) : 255;
+            for (int x = 0; x < image.getWidth(); x++) {
+                int argb = image.getRGB(x, y);
+                int a = argb >>> 24;
+                if (a == 0) {
+                    continue;
+                }
+                out.setRGB(x, y, (Math.min(a, alpha) << 24) | (argb & 0xFFFFFF));
+            }
+        }
+        int x = sourceBattleActorX(s, s.battleP7DeathEffectPlayerSide)
+                + sideOffsetX(s, s.battleP7DeathEffectPlayerSide) + bounds[0];
+        int y = sourceBattleActorY(s, s.battleP7DeathEffectPlayerSide)
+                + sideOffsetY(s, s.battleP7DeathEffectPlayerSide) + bounds[1];
+        g.drawImage(out, x, y, null);
     }
 
     private static void drawState1LEffect(Graphics2D g, VqsvIntroDemo.Scene s) {
@@ -1521,7 +1712,8 @@ final class VqsvBattleRenderer {
         int[] bounds = enemy.cellBounds(0);
         if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
             drawBattleSprite(g, s.battleEnemyVisualId,
-                    132 + s.battleCatchEffectDx, 70 + s.battleCatchEffectDy,
+                    ENEMY_RECT_X + enemyOffsetX(s) + s.battleCatchEffectDx,
+                    ENEMY_RECT_Y + enemyOffsetY(s) + s.battleCatchEffectDy,
                     96, 118, 7, 0);
             return;
         }
@@ -1536,8 +1728,14 @@ final class VqsvBattleRenderer {
         int scale10 = Math.max(1, s.battleCatchEffectScale10);
         int scaledW = Math.max(1, source.getWidth() * scale10 / 10);
         int scaledH = Math.max(1, source.getHeight() * scale10 / 10);
-        int x = 132 + (96 - scaledW) / 2 + s.battleCatchEffectDx;
-        int y = 70 + 118 - scaledH + s.battleCatchEffectDy;
+        int originX = battleSpriteAnchor(s.battleEnemyVisualId, s.battleP7BaseStateEnemySide,
+                ENEMY_RECT_X + enemyOffsetX(s), ENEMY_RECT_W, true);
+        int originY = battleSpriteAnchor(s.battleEnemyVisualId, s.battleP7BaseStateEnemySide,
+                ENEMY_RECT_Y + enemyOffsetY(s), ENEMY_RECT_H, false);
+        int scaledSourceOriginX = bounds[0] * scale10 / 10;
+        int scaledSourceOriginY = bounds[1] * scale10 / 10;
+        int x = originX + scaledSourceOriginX + s.battleCatchEffectDx;
+        int y = originY + scaledSourceOriginY + s.battleCatchEffectDy;
         Object old = g.getRenderingHint(RenderingHints.KEY_INTERPOLATION);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
         g.drawImage(source, x, y, scaledW, scaledH, null);

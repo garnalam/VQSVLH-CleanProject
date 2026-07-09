@@ -81,6 +81,7 @@ Still partial:
   - state `0` under both battle actors;
   - state `1` under the active actor.
 - Follow-up fix: renderer no longer centers marker from fixed actor rectangles. It applies the source `pos.mid` marker-vs-actor delta to the current rebuild sprite anchor, so different pet sprite bounds keep the ground/platform under the pet feet.
+- Follow-up P7 slices: `134_battle_p7_hit_recoil_blood_timing.md` ports `blood.mid` row lookup and `game.d.c(Graphics)` side-based damage/debuff text placement. `135_battle_p7_actor_recoil_source_audit.md` proves `S.a/S.b` is HP tween, not recoil, and removes non-source synthetic lunge/recoil offsets.
 
 ## Status
 
@@ -91,7 +92,7 @@ Still partial:
 | Extra marker state `2` | PENDING | Source has `al[d.length + 1]`; not rendered yet. |
 | HP HUD | PARTIAL | Still hardcoded renderer, not full battle.ui widget runtime. |
 | Battle background | UNKNOWN/PENDING | Need trace for `game.d.c` background image / world capture. |
-| P7 hit/recoil/damage visual | PARTIAL | Damage exists; exact actor/recoil/blood timing not complete. |
+| P7 hit/recoil/damage visual | PORTED/PARTIAL | `blood.mid` placement/timing tightened in audit 134; synthetic P7 offsets removed in audit 135. Exact sprite frame parity and original-vs-rebuild pixel compare remain pending. |
 
 ## Verification
 
@@ -109,4 +110,4 @@ Still partial:
 
 1. Audit/fix battle HUD HP from `game.h` + `/data/ui/battle.ui`.
 2. Audit/fix battle background source `game.d.c`.
-3. Tighten P7 visual timing: actor state `2` hit/recoil, `blood.mid` damage flyout, HP bar update frame.
+3. Audit/port default-package `d.d()/d.e()` sprite frame cursor timing for P7 state `1`/`2`.

@@ -91,12 +91,8 @@ final class Scene1Room3EntryScript {
             e.add(s -> new ActionSet(new int[]{53, 56, 49}, new int[]{0, 0, 0}, new int[]{0, 0, 0}));
             e.add(VqsvSceneScriptSupport.dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[24]));
             e.add(VqsvSceneScriptSupport.dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[25]));
-            e.add(s -> new SourceBattleRuntime(
-                    56,
-                    new int[]{5, 20, 4},
-                    new int[]{1, 1},
-                    new int[]{0, 2},
-                    new int[]{78, 78, 0}));
+            e.add(s -> VqsvBattleEventDescriptor.SCENE1_ROOM3_GROUP0_SOPHIE.runtime(s, 0));
+            e.add(s -> { VqsvBattleEventDescriptor.SCENE1_ROOM3_GROUP0_SOPHIE.consumeOp47(s); return null; });
             e.add(s -> { VqsvSceneScriptSupport.hide(s, new int[]{50}); return null; });
             e.add(VqsvSceneScriptSupport.dialog("??", VqsvText.Scene1Room3BeforeTenYears.TEXT[26]));
             e.add(VqsvSceneScriptSupport.dialog("Sophie", VqsvText.Scene1Room3BeforeTenYears.TEXT[27]));

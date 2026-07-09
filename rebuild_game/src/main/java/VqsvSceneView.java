@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.awt.Stroke;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -10,26 +12,7 @@ final class VqsvSceneView {
     }
 
     static void render(VqsvIntroDemo.Scene s, Graphics2D g) {
-        g.setColor(s.useMap ? Color.BLACK : new Color(8, 16, 80));
-        g.fillRect(0, 0, VqsvIntroDemo.W, VqsvIntroDemo.H);
-        if (s.useMap) {
-            renderMapLayer(s, g, 1);
-            renderMapLayer(s, g, 2);
-        }
-
-        renderActorLayer(s, g, 2, false);
-        renderActorLayer(s, g, 1, true);
-        renderPlayer(s, g);
-        for (TempSprite sprite : s.tempSprites) {
-            sprite.render(g, s);
-        }
-        if (s.useMap) {
-            renderMapLayer(s, g, 3);
-        }
-        renderActorLayer(s, g, 0, false);
-
-        s.effect.renderParticles(g);
-        s.effect.renderOverlay(g);
+        renderWorld(s, g, true, true, true, false);
         VqsvBattleRenderer.render(s, g);
         if (s.battleOverlayTicks <= 0) {
             s.worldUi.render(g, s.useMap);
@@ -48,6 +31,51 @@ final class VqsvSceneView {
         }
         if (s.savePromptVisible) {
             renderSavePrompt(s, g);
+        }
+    }
+
+    static BufferedImage captureBattleBackground(VqsvIntroDemo.Scene s) {
+        BufferedImage image = new BufferedImage(VqsvIntroDemo.W, VqsvIntroDemo.H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = image.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        renderWorld(s, g, false, false, false, true);
+        g.dispose();
+        return image;
+    }
+
+    private static void renderWorld(VqsvIntroDemo.Scene s, Graphics2D g,
+                                    boolean renderEffects, boolean renderTempSprites,
+                                    boolean renderActors, boolean renderSceneryActors) {
+        g.setColor(s.useMap ? Color.BLACK : new Color(8, 16, 80));
+        g.fillRect(0, 0, VqsvIntroDemo.W, VqsvIntroDemo.H);
+        if (s.useMap) {
+            renderMapLayer(s, g, 1);
+            renderMapLayer(s, g, 2);
+        }
+
+        if (renderActors || renderSceneryActors) {
+            renderActorLayer(s, g, 2, false, renderSceneryActors && !renderActors);
+            renderActorLayer(s, g, 1, true, renderSceneryActors && !renderActors);
+        }
+        if (renderActors) {
+            renderPlayer(s, g);
+        }
+        if (renderTempSprites) {
+            for (TempSprite sprite : s.tempSprites) {
+                sprite.render(g, s);
+            }
+        }
+        if (s.useMap) {
+            renderMapLayer(s, g, 3);
+        }
+        if (renderActors || renderSceneryActors) {
+            renderActorLayer(s, g, 0, false, renderSceneryActors && !renderActors);
+        }
+
+        if (renderEffects) {
+            s.effect.renderParticles(g);
+            s.effect.renderOverlay(g);
         }
     }
 
@@ -131,10 +159,11 @@ final class VqsvSceneView {
         }
     }
 
-    private static void renderActorLayer(VqsvIntroDemo.Scene s, Graphics2D g, int layer, boolean sortByY) {
+    private static void renderActorLayer(VqsvIntroDemo.Scene s, Graphics2D g,
+                                         int layer, boolean sortByY, boolean sceneryOnly) {
         ArrayList<Actor> draw = new ArrayList<>();
         for (Actor a : s.actors) {
-            if (a != null && a.visible && a.layer == layer) {
+            if (a != null && a.visible && a.layer == layer && (!sceneryOnly || a.variant == 0)) {
                 draw.add(a);
             }
         }

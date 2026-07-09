@@ -204,6 +204,7 @@ public final class VqsvIntroDemo extends JPanel {
         int battleResultIndex = -1;
         int battleBranchTarget = -1;
         int battleOverlayTicks = 0;
+        BufferedImage battleBackgroundSnapshot;
         String battleEnemyName = "";
         String battlePlayerName = "";
         String battleLog = "";
@@ -258,6 +259,11 @@ public final class VqsvIntroDemo extends JPanel {
         int battleP7PlayerOffsetY = 0;
         int battleP7EnemyOffsetX = 0;
         int battleP7EnemyOffsetY = 0;
+        boolean battleP7DeathEffectVisible = false;
+        boolean battleP7DeathEffectPlayerSide = false;
+        int battleP7DeathEffectSpriteId = -1;
+        int battleP7DeathEffectTick = 0;
+        int battleP7DeathEffectDuration = 0;
         boolean battleGroundMarkersVisible = false;
         boolean battleActiveMarkerVisible = false;
         boolean battleActiveMarkerPlayerSide = false;
@@ -319,6 +325,7 @@ public final class VqsvIntroDemo extends JPanel {
         int battlePlayerVisualId;
         int battleEnemyElement;
         int battlePlayerElement;
+        boolean battleEnemyOwnedSpecies = false;
         int battleEnemyPowerPercent = 100;
         int battlePlayerPowerPercent = 100;
         int battleEnemyMaxHp;

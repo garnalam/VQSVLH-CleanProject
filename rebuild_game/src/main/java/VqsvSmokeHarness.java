@@ -21,6 +21,12 @@ final class VqsvSmokeHarness {
         VqsvSourceStoryState.ensureInitialDienMieu(s, reason);
     }
 
+    private static void setupBunnyMapBackedBattleEntry(VqsvIntroDemo.Scene s) {
+        s.loadScene1Room1(370, 176);
+        s.eventIndex = s.events.size();
+        s.setPlayerPositionApprox(374, 180);
+    }
+
     private static void assertActiveSourcePet(VqsvIntroDemo.Scene s, int speciesId, String label) {
         if (s.sourcePets.isEmpty() || s.sourcePets.get(0).speciesId != speciesId) {
             throw new IllegalStateException(label + " active pet mismatch expectedSpecies="
@@ -35,6 +41,30 @@ final class VqsvSmokeHarness {
         }
         s.sourceStateTrace.add("SMOKE verified " + label + " active species=" + speciesId
                 + " battlePlayer=" + s.battlePlayerName);
+    }
+
+    private static void assertEnemyOwnedMarker(VqsvIntroDemo.Scene s, boolean expected, String label) {
+        if (s.battleEnemyOwnedSpecies != expected) {
+            throw new IllegalStateException(label + " enemy owned marker mismatch expected="
+                    + expected + " actual=" + s.battleEnemyOwnedSpecies
+                    + " enemy=" + s.battleEnemyName
+                    + " pets=" + s.sourcePets.size()
+                    + " bankPets=" + s.sourcePetBank.size()
+                    + " trace=" + tailTrace(s, 12));
+        }
+        s.sourceStateTrace.add("SMOKE verified " + label
+                + " enemyOwned=" + s.battleEnemyOwnedSpecies
+                + " source=game.h.b -> game.g.a(element,species)==2");
+    }
+
+    private static void assertBattleSnapshot(VqsvIntroDemo.Scene s, String label) {
+        if (s.battleBackgroundSnapshot == null) {
+            throw new IllegalStateException(label + " expected map-backed game.d.c snapshot"
+                    + " useMap=" + s.useMap
+                    + " mapRenderer=" + (s.mapRenderer == null ? "null" : "present")
+                    + " trace=" + tailTrace(s, 12));
+        }
+        s.sourceStateTrace.add("SMOKE verified " + label + " game.d.c snapshot present");
     }
 
     private static int payloadHp(SourcePetState pet) {
@@ -231,6 +261,76 @@ final class VqsvSmokeHarness {
                 + " trace=" + tailTrace(s, 16));
     }
 
+    private static void tickUntilCatchType8Step(VqsvIntroDemo.Scene s, int phase,
+                                                int scale10, int dx, int dy, int maxTicks) {
+        int guard = 0;
+        while (guard++ < maxTicks) {
+            if ("P17".equals(s.battleStateName)
+                    && s.battleCatchPhase == phase
+                    && s.battleCatchEffectVisible
+                    && s.battleCatchEffectScale10 == scale10
+                    && s.battleCatchEffectDx == dx
+                    && s.battleCatchEffectDy == dy) {
+                s.sourceStateTrace.add("SMOKE verified ah type8 P17 q=" + phase
+                        + " scale10=" + scale10
+                        + " dx=" + dx
+                        + " dy=" + dy
+                        + " source=ah.e case8 l.b(l.a(...),1,50)");
+                return;
+            }
+            s.tick();
+        }
+        throw new IllegalStateException("P17 ah type8 step not reached phase=" + phase
+                + " expected=[" + scale10 + "," + dx + "," + dy + "]"
+                + " state=" + s.battleStateName
+                + " currentPhase=" + s.battleCatchPhase
+                + " visible=" + s.battleCatchEffectVisible
+                + " actual=[" + s.battleCatchEffectScale10
+                + "," + s.battleCatchEffectDx
+                + "," + s.battleCatchEffectDy + "]"
+                + " trace=" + tailTrace(s, 18));
+    }
+
+    private static void assertSprite269TimingMatrix(VqsvIntroDemo.Scene s) {
+        SpriteAnim anim = SpriteAnim.load(269);
+        if (anim.data.frames.length != 30 || anim.data.cells.length != 54 || anim.data.anim.length != 5) {
+            throw new IllegalStateException("Sprite 269 source matrix mismatch frames="
+                    + anim.data.frames.length + " cells=" + anim.data.cells.length
+                    + " anims=" + anim.data.anim.length);
+        }
+        short[][] expected = new short[][]{
+                {1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 7, 1, 8},
+                {1, 9},
+                {1, 10, 1, 11, 2, 12, 2, 13, 1, 14, 1, 15, 1, 14, 1, 16, 1, 14, 1, 15,
+                        1, 14, 1, 16, 1, 14, 1, 15, 1, 14, 1, 16, 2, 17, 2, 12, 2, 18, 1, 10},
+                {1, 19, 1, 20, 1, 21, 1, 22, 1, 23, 1, 24, 1, 25, 1, 26, 1, 27, 1, 28, 5, 23},
+                {1, 29, 1, 30, 1, 31, 1, 32, 1, 33, 3, 34, 1, 35, 1, 36, 1, 37, 1, 38,
+                        1, 39, 1, 40, 1, 39, 1, 41, 1, 39, 1, 40, 1, 39, 1, 41, 1, 39, 1, 40,
+                        1, 39, 1, 41, 1, 42, 1, 37, 1, 43, 1, 35, 1, 44, 1, 45, 1, 46, 1, 47,
+                        1, 48, 1, 49, 1, 50, 1, 51, 1, 52, 1, 53, 1, 48}
+        };
+        int[] sourceTicks = new int[expected.length];
+        for (int i = 0; i < expected.length; i++) {
+            if (!java.util.Arrays.equals(anim.data.anim[i], expected[i])) {
+                throw new IllegalStateException("Sprite 269 anim state " + i
+                        + " mismatch expected=" + java.util.Arrays.toString(expected[i])
+                        + " actual=" + java.util.Arrays.toString(anim.data.anim[i]));
+            }
+            for (int j = 0; j < expected[i].length; j += 2) {
+                sourceTicks[i] += Math.max(1, expected[i][j]);
+            }
+        }
+        int[] expectedTicks = new int[]{8, 1, 25, 15, 39};
+        if (!java.util.Arrays.equals(sourceTicks, expectedTicks)) {
+            throw new IllegalStateException("Sprite 269 source tick totals mismatch expected="
+                    + java.util.Arrays.toString(expectedTicks)
+                    + " actual=" + java.util.Arrays.toString(sourceTicks));
+        }
+        s.sourceStateTrace.add("SMOKE verified sprite269 source anim matrix q0..q4 frames=[8,1,20,11,37]"
+                + " sourceTicks=" + java.util.Arrays.toString(sourceTicks)
+                + " sourceEndCheck=game.d.e() q>=r-1, tick=game.d.d()");
+    }
+
     private static void tickUntilAnyBattleState(VqsvIntroDemo.Scene s, int maxTicks, String... stateNames) {
         int guard = 0;
         while (!isBattleState(s, stateNames) && guard++ < maxTicks) {
@@ -262,6 +362,15 @@ final class VqsvSmokeHarness {
             }
         }
         return false;
+    }
+
+    private static int traceIndex(VqsvIntroDemo.Scene s, String needle) {
+        for (int i = 0; i < s.sourceStateTrace.size(); i++) {
+            if (s.sourceStateTrace.get(i).contains(needle)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static int traceCount(VqsvIntroDemo.Scene s, String needle) {
@@ -619,6 +728,10 @@ final class VqsvSmokeHarness {
                             + s.battleOverlayTicks
                             + " trace=" + tailTrace(s, 12));
                 }
+                if (!traceContains(s, "BattleEventDescriptor scene1 room1 group0 Bunny")) {
+                    throw new IllegalStateException("Expected Bunny battle descriptor trace, trace="
+                            + tailTrace(s, 12));
+                }
             } else if ("return_room0_transition".equals(checkpoint)) {
                 s.loadScene1Room1(370, 176);
                 placePlayerForActorMaskSmoke(s, 37, true, 3);
@@ -723,29 +836,42 @@ final class VqsvSmokeHarness {
                             + " activePlayer=" + s.battleActiveMarkerPlayerSide);
                 }
             } else if ("battle_bunny_command_ui".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
+                setupBunnyMapBackedBattleEntry(s);
                 seedInitialDienMieu(s, "smoke Bunny command UI");
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 tickUntilBattleState(s, "P20", 120);
+                assertBattleSnapshot(s, "Bunny command UI");
                 assertActiveSourcePet(s, 68, "Bunny command UI initial Dien Mieu");
+                assertEnemyOwnedMarker(s, false, "Bunny command UI not yet owned");
+            } else if ("battle_bunny_owned_marker".equals(checkpoint)) {
+                setupBunnyMapBackedBattleEntry(s);
+                seedInitialDienMieu(s, "smoke Bunny owned marker");
+                s.sourcePets.add(new SourcePetState(1, 34, 5, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickUntilBattleState(s, "P20", 120);
+                assertBattleSnapshot(s, "Bunny owned marker");
+                assertEnemyOwnedMarker(s, true, "Bunny command UI already owned");
             } else if ("battle_bunny_p3_skill_list".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
+                setupBunnyMapBackedBattleEntry(s);
                 seedInitialDienMieu(s, "smoke Bunny P3 skill list");
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 tickUntilBattleState(s, "P20", 120);
+                assertBattleSnapshot(s, "Bunny P3 skill list");
                 s.battleClickX = 20;
                 s.battleClickY = 300;
                 tickUntilBattleState(s, "P3", 80);
             } else if ("battle_bunny_capture_result".equals(checkpoint)) {
-                s.eventIndex = s.events.size();
+                setupBunnyMapBackedBattleEntry(s);
                 seedInitialDienMieu(s, "smoke Bunny capture result");
                 s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                         new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
                 for (int i = 0; i < 190; i++) {
                     s.tick();
                 }
+                assertBattleSnapshot(s, "Bunny capture result");
             } else if ("battle_elder".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -760,6 +886,51 @@ final class VqsvSmokeHarness {
                 s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
                         new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
                 tickUntilBattleState(s, "P20", 120);
+            } else if ("battle_hud_battle_ui_source_bars".equals(checkpoint)) {
+                assertBattleUiBinaryLayout("battle HUD");
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                s.battlePlayerEnergy = Math.max(1, s.battlePlayerMaxEnergy);
+                s.sourceStateTrace.add("SMOKE renderer-only battle.ui energy #P fill stress"
+                        + " energy=" + s.battlePlayerEnergy + "/" + s.battlePlayerMaxEnergy);
+                assertRenderedColorPixels(s, "battle.ui enemy hp #P layer", 6, 17, 80, 6, 0xff6718, 80);
+                assertRenderedColorPixels(s, "battle.ui player hp #P layer", 154, 253, 80, 6, 0xff6718, 80);
+                assertRenderedColorPixels(s, "battle.ui player energy #P layer", 30, 262, 198, 6, 0x00ffb4, 120);
+            } else if ("battle_background_game_d_c_snapshot".equals(checkpoint)) {
+                s.loadScene1Room1(370, 176);
+                s.eventIndex = s.events.size();
+                s.setPlayerPositionApprox(374, 180);
+                seedInitialDienMieu(s, "smoke battle background game.d.c snapshot");
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickUntilBattleState(s, "P20", 120);
+                if (s.battleBackgroundSnapshot == null) {
+                    throw new IllegalStateException("battle background snapshot missing for map-backed battle"
+                            + " trace=" + tailTrace(s, 16));
+                }
+                assertRenderedVisiblePixels(s, "game.d.c captured world snapshot",
+                        0, 88, 80, 72, 500);
+                assertRenderedDarkerThanSnapshot(s, "game.d.c battle darkened snapshot",
+                        0, 88, 80, 72, 18);
+            } else if ("battle_background_room0_village_snapshot".equals(checkpoint)) {
+                s.loadScene1Room0(199, 218);
+                s.eventIndex = s.events.size();
+                s.setPlayerPositionApprox(199, 218);
+                seedInitialDienMieu(s, "smoke battle background room0 village snapshot");
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                if (s.battleBackgroundSnapshot == null) {
+                    throw new IllegalStateException("battle background snapshot missing for room0 village battle"
+                            + " trace=" + tailTrace(s, 16));
+                }
+                assertRenderedVisiblePixels(s, "game.d.c room0 village snapshot",
+                        0, 88, 80, 72, 500);
+                assertRenderedDarkerThanSnapshot(s, "game.d.c room0 village darkened snapshot",
+                        0, 88, 80, 72, 18);
             } else if ("battle_elder_p3_skill_list".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -827,12 +998,37 @@ final class VqsvSmokeHarness {
                             + " state=" + s.battleP7ActorEffectState
                             + " playerSide=" + s.battleP7ActorEffectOnPlayerSide);
                 }
+            } else if ("battle_elder_p7_base_state1_local_cursor".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                tickUntilBattleP7Phase(s, 1, 80);
+                boolean side = s.battleP7AttackerPlayerSide;
+                int state = side ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide;
+                int cursor = side ? s.battleP7BaseCursorPlayerSide : s.battleP7BaseCursorEnemySide;
+                if (state != 1 || cursor != 1) {
+                    throw new IllegalStateException("Expected P7 attacker base state1 local cursor after phase entry, side="
+                            + (side ? "player" : "enemy") + " state=" + state + " cursor=" + cursor);
+                }
+            } else if ("battle_elder_p7_state1_attack_source_compare".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                tickUntilBattleP7Phase(s, 1, 80);
+                assertP7SourceSpriteFrame(s, "Elder P7 state1 attack", true, 1,
+                        s.battleP7BaseCursorPlayerSide, s.battlePlayerVisualId, 0);
+            } else if ("battle_elder_p7_state2_hit_source_compare".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                tickUntilBattleP7Phase(s, 2, 120);
+                assertP7SourceSpriteFrame(s, "Elder P7 state2 hit", false,
+                        s.battleP7BaseStateEnemySide, s.battleP7BaseCursorEnemySide,
+                        s.battleEnemyVisualId, 24);
             } else if ("battle_elder_p7_actor_u21_trigger_hit".equals(checkpoint)) {
                 enterElderP7FromFight(s);
                 tickUntilBattleP7Phase(s, 2, 120);
                 if (s.battleP7BaseStateEnemySide != 2 && s.battleP7BaseStateEnemySide != 3) {
                     throw new IllegalStateException("Expected target hit/dead base state after skill10 u action, state="
                             + s.battleP7BaseStateEnemySide);
+                }
+                if (s.battleP7BaseStateEnemySide == 2 && s.battleP7BaseCursorEnemySide != 0) {
+                    throw new IllegalStateException("Expected target hit state2 cursor reset, cursor="
+                            + s.battleP7BaseCursorEnemySide);
                 }
             } else if ("battle_elder_p7_actor_u21_recover".equals(checkpoint)) {
                 enterElderP7FromFight(s);
@@ -847,6 +1043,93 @@ final class VqsvSmokeHarness {
             } else if ("battle_elder_p7_damage_frame".equals(checkpoint)) {
                 enterElderP7FromFight(s);
                 tickUntilBattleP7Phase(s, 2, 120);
+            } else if ("battle_elder_p7_damage_hp_delay".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                tickUntilBattleP7Phase(s, 2, 120);
+                int hpBefore = s.battleEnemyHp;
+                if (hpBefore != s.battleEnemyMaxHp || !s.battleP7DamageVisible) {
+                    throw new IllegalStateException("Expected P7 damage phase to keep old enemy HUD HP initially, hp="
+                            + hpBefore + "/" + s.battleEnemyMaxHp
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " trace=" + tailTrace(s, 16));
+                }
+                for (int i = 0; i < 3; i++) {
+                    s.tick();
+                    if (s.battleEnemyHp != hpBefore) {
+                        throw new IllegalStateException("Expected source game.h.b G<4 HP delay, tick=" + i
+                                + " hp=" + s.battleEnemyHp + " initial=" + hpBefore
+                                + " trace=" + tailTrace(s, 16));
+                    }
+                }
+            } else if ("battle_elder_p7_damage_hp_tween_step".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                tickUntilBattleP7Phase(s, 2, 120);
+                int hpBefore = s.battleEnemyHp;
+                for (int i = 0; i < 4; i++) {
+                    s.tick();
+                }
+                if (s.battleEnemyHp >= hpBefore || !s.battleP7DamageVisible) {
+                    throw new IllegalStateException("Expected source game.h.b HP tween to start after delay, hpBefore="
+                            + hpBefore + " hpNow=" + s.battleEnemyHp
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_elder_p7_damage_text_lifecycle".equals(checkpoint)) {
+                enterElderP7FromFight(s);
+                tickUntilBattleP7Phase(s, 2, 120);
+                int guard = 0;
+                while ("P7".equals(s.battleStateName)
+                        && s.battleP7Phase == 2
+                        && s.battleP7DamageVisible
+                        && guard++ < 120) {
+                    s.tick();
+                }
+                if (guard >= 120 || s.battleP7DamageVisible) {
+                    throw new IllegalStateException("Expected blood.mid damage text lifecycle to complete, state="
+                            + s.battleStateName + " phase=" + s.battleP7Phase
+                            + " visible=" + s.battleP7DamageVisible
+                            + " trace=" + tailTrace(s, 16));
+                }
+            } else if ("battle_elder_p7_death_state3_effect_start".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+                ((SourceBattleRuntime) s.current).debugSetEnemyHpForSmoke(s, 1);
+                tickUntilBattleP7Phase(s, 2, 120);
+                int guard = 0;
+                while ("P7".equals(s.battleStateName)
+                        && !s.battleP7DeathEffectVisible
+                        && guard++ < 180) {
+                    s.tick();
+                }
+                if (!s.battleP7DeathEffectVisible
+                        || !s.battleP7BaseHiddenEnemySide
+                        || s.battleP7BaseStateEnemySide != 3
+                        || s.battleP7DeathEffectPlayerSide
+                        || s.battleP7DeathEffectSpriteId != s.battleEnemyVisualId) {
+                    throw new IllegalStateException("Expected P7 KO state3 AH type16 death effect, visible="
+                            + s.battleP7DeathEffectVisible
+                            + " hiddenEnemy=" + s.battleP7BaseHiddenEnemySide
+                            + " state=" + s.battleP7BaseStateEnemySide
+                            + " effectSidePlayer=" + s.battleP7DeathEffectPlayerSide
+                            + " effectSprite=" + s.battleP7DeathEffectSpriteId
+                            + " enemySprite=" + s.battleEnemyVisualId
+                            + " trace=" + tailTrace(s, 18));
+                }
+            } else if ("battle_elder_p7_death_to_p8_after_effect".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+                ((SourceBattleRuntime) s.current).debugSetEnemyHpForSmoke(s, 1);
+                int guard = 0;
+                boolean sawDeathEffect = false;
+                while (!"P8".equals(s.battleStateName) && guard++ < 420) {
+                    sawDeathEffect |= s.battleP7DeathEffectVisible;
+                    s.tick();
+                }
+                if (!"P8".equals(s.battleStateName) || !sawDeathEffect || !s.battleP7BaseHiddenEnemySide) {
+                    throw new IllegalStateException("Expected P7 death effect before P8, state="
+                            + s.battleStateName
+                            + " sawDeathEffect=" + sawDeathEffect
+                            + " hiddenEnemy=" + s.battleP7BaseHiddenEnemySide
+                            + " trace=" + tailTrace(s, 20));
+                }
             } else if ("battle_elder_p7_damage_result_debuff".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{1, 45}, 0);
                 tickUntilBattleP7Phase(s, 2, 140);
@@ -867,6 +1150,25 @@ final class VqsvSmokeHarness {
                 if (!s.battleP7PostEffectVisible || s.battleP7PostEffectText.isEmpty()) {
                     throw new IllegalStateException("Expected P7 q buff text, visible="
                             + s.battleP7PostEffectVisible + " text=" + s.battleP7PostEffectText);
+                }
+            } else if ("battle_p7_q_buff12_followup_p2".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+                tickUntilBattleP7Phase(s, 3, 220);
+                ((SourceBattleRuntime) s.current).debugSetPlayerBuff12KForSmoke(s, 2);
+                tickUntilBattleState(s, "P2", 120);
+                if (!traceContains(s, "follow-up P2 from buff12 K12=2->1")) {
+                    throw new IllegalStateException("Expected P7 q buff12 K12 follow-up P2, state="
+                            + s.battleStateName + " trace=" + tailTrace(s, 18));
+                }
+            } else if ("battle_p7_q_skill63_followup_p2".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{63, 45}, 0);
+                tickUntilBattleP7Phase(s, 3, 260);
+                ((SourceBattleRuntime) s.current).debugSetSourceRandomSeedForSmoke(18);
+                tickUntilBattleState(s, "P2", 160);
+                if (!traceContains(s, "follow-up P2 from skill=63")
+                        || !traceContains(s, "RNG TRACE battle.P7.q.followup.skill63")) {
+                    throw new IllegalStateException("Expected P7 q skill63 roll follow-up P2, state="
+                            + s.battleStateName + " trace=" + tailTrace(s, 18));
                 }
             } else if ("battle_p13_buff9_queue_start".equals(checkpoint)) {
                 enterElderP7WithSkillIndex(s, 1);
@@ -900,6 +1202,18 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Expected source-skipped buff9 queue to finish, state="
                             + s.battleStateName + " visible=" + s.battleActiveQueueVisible
                             + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_p7_to_p13_queue_order_skill45".equals(checkpoint)) {
+                enterElderP7WithSkillIndex(s, 1);
+                tickUntilTraceContains(s, "active queue apply bank=0 id=9", 420);
+                int post = traceIndex(s, "battle P7 game.d.q postEffect skill=45");
+                int queue = traceIndex(s, "battle P13 active queue source order count=");
+                int apply = traceIndex(s, "active queue apply bank=0 id=9");
+                if (post < 0 || queue < 0 || apply < 0 || !(post < queue && queue < apply)) {
+                    throw new IllegalStateException("Expected P7 skill45 postEffect before P13 active queue apply, "
+                            + "post=" + post + " queue=" + queue + " apply=" + apply
+                            + " state=" + s.battleStateName
+                            + " trace=" + tailTrace(s, 18));
                 }
             } else if ("battle_p12_debuff0_queue_start".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{1, 45}, 0);
@@ -941,6 +1255,18 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Expected P12/P13 debuff0 to finish, state="
                             + s.battleStateName + " visible=" + s.battleActiveQueueVisible
                             + " trace=" + tailTrace(s, 12));
+                }
+            } else if ("battle_p7_to_p12_queue_order_debuff0".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{1, 45}, 0);
+                tickUntilTraceContains(s, "active queue apply bank=1 id=0", 520);
+                int damage = traceIndex(s, "battle P7 damage frame skill=1");
+                int queue = traceIndex(s, "battle P12 active queue source order count=");
+                int apply = traceIndex(s, "active queue apply bank=1 id=0");
+                if (damage < 0 || queue < 0 || apply < 0 || !(damage < queue && queue < apply)) {
+                    throw new IllegalStateException("Expected P7 skill1 debuff damage before P12 active queue apply, "
+                            + "damage=" + damage + " queue=" + queue + " apply=" + apply
+                            + " state=" + s.battleStateName
+                            + " trace=" + tailTrace(s, 18));
                 }
             } else if ("battle_p12_debuff1_type12_special".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
@@ -2257,6 +2583,17 @@ final class VqsvSmokeHarness {
                 assertRenderedColorPixels(s, "choice.ui P21 body fill", 44, 78, 151, 160, 0xbde4ef, 1800);
                 assertRenderedColorPixels(s, "choice.ui P21 footer strip", 44, 238, 151, 14, 0x82cafb, 350);
                 assertRenderedColorPixels(s, "choice.ui P21 count text", 57, 180, 125, 12, 0xffffff, 6);
+            } else if ("battle_bunny_p7_state1_attack_source_compare".equals(checkpoint)) {
+                enterBunnyP7FromFight(s);
+                tickUntilBattleP7Phase(s, 1, 100);
+                assertP7SourceSpriteFrame(s, "Bunny P7 state1 attack", true, 1,
+                        s.battleP7BaseCursorPlayerSide, s.battlePlayerVisualId, 0);
+            } else if ("battle_bunny_p7_state2_hit_source_compare".equals(checkpoint)) {
+                enterBunnyP7FromFight(s);
+                tickUntilBattleP7Phase(s, 2, 140);
+                assertP7SourceSpriteFrame(s, "Bunny P7 state2 hit", false,
+                        s.battleP7BaseStateEnemySide, s.battleP7BaseCursorEnemySide,
+                        s.battleEnemyVisualId, 24);
             } else if ("battle_bunny_catch_p17_anim_or_result".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 seedInitialDienMieu(s, "smoke Bunny P17");
@@ -2528,6 +2865,30 @@ final class VqsvSmokeHarness {
                             + " cursor=" + s.battleCatchAnimCursor
                             + " trace=" + tailTrace(s, 16));
                 }
+            } else if ("battle_p17_sprite269_timing_matrix".equals(checkpoint)) {
+                assertSprite269TimingMatrix(s);
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(0, new BagItem(0, 1, 0, true));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(0);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                press0UntilAnyBattleState(s, 120, "P17");
+                if (s.battleCatchSpriteId != 269 || s.battleCatchItemId != 0 || !s.battleCatchCaught) {
+                    throw new IllegalStateException("Expected P17 to start with sprite269 item0 success, sprite="
+                            + s.battleCatchSpriteId + " item=" + s.battleCatchItemId
+                            + " caught=" + s.battleCatchCaught + " trace=" + tailTrace(s, 16));
+                }
+                tickUntilBattleCatchPhase(s, 1, 80);
+                tickUntilBattleCatchPhaseCursor(s, 2, 10, 120);
+                tickUntilBattleCatchPhaseCursor(s, 3, 10, 120);
+                s.sourceStateTrace.add("SMOKE verified battle P17 sprite269 runtime reaches q1/q2/q3"
+                        + " with source matrix timing guard cursor=" + s.battleCatchAnimCursor);
             } else if ("battle_rng_trace_p17_catch".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -2772,6 +3133,38 @@ final class VqsvSmokeHarness {
                             + " trace=" + tailTrace(s, 18));
                 }
                 s.sourceStateTrace.add("SMOKE verified battle P17 q1 draw order H then aj over hidden target");
+            } else if ("battle_p17_ah_type8_q1_capture_shrink".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(99);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                press0UntilAnyBattleState(s, 120, "P17");
+                tickUntilCatchType8Step(s, 1, 7, 0, -10, 160);
+                assertRenderedVisiblePixels(s, "P17 q1 ah type8 shrink target copy",
+                        120, 70, 100, 105, 80);
+            } else if ("battle_p17_ah_type8_q4_escape_effect".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
+                SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
+                runtime.debugSetNextCatchRollForSmoke(99);
+                s.current = runtime;
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                press0UntilAnyBattleState(s, 120, "P17");
+                tickUntilCatchType8Step(s, 4, 6, 0, -12, 360);
+                assertRenderedVisiblePixels(s, "P17 q4 ah type8 escape target copy",
+                        120, 70, 100, 110, 80);
             } else if ("battle_p17_q4_fail_restore_enemy".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -3298,13 +3691,21 @@ final class VqsvSmokeHarness {
             } else if ("route_sophie_after_battle_branch".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 seedInitialDienMieu(s, "smoke Sophie route branch");
-                s.current = new SourceBattleRuntime(56, new int[]{5, 20, 4},
-                        new int[]{1, 1}, new int[]{0, 2}, new int[]{78, 78, 0});
+                s.current = VqsvBattleEventDescriptor.SCENE1_ROOM3_GROUP0_SOPHIE.runtime(s, 0);
                 tickCurrentUntilDone(s, 500);
                 assertActiveSourcePet(s, 68, "Sophie route initial Dien Mieu");
                 if (s.battleResultIndex != 0 || s.battleBranchTarget != 78) {
                     throw new IllegalStateException("Sophie battle branch mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
+                }
+                if (!traceContains(s, "BattleEventDescriptor scene1 room3 group0 Sophie")) {
+                    throw new IllegalStateException("Expected Sophie battle descriptor trace, trace="
+                            + tailTrace(s, 16));
+                }
+                VqsvBattleEventDescriptor.SCENE1_ROOM3_GROUP0_SOPHIE.consumeOp47(s);
+                if (!traceContains(s, "op47 result=0 rawTarget=78 sourceCursor=76")) {
+                    throw new IllegalStateException("Expected Sophie op47 trace, trace="
+                            + tailTrace(s, 16));
                 }
                 s.text = TextBox.dialog(s.font, VqsvText.Common.UNKNOWN_SPEAKER,
                         VqsvText.Scene1Room3BeforeTenYears.TEXT[26],
@@ -3314,21 +3715,35 @@ final class VqsvSmokeHarness {
                 s.eventIndex = s.events.size();
                 seedInitialDienMieu(s, "smoke Bunny route task");
                 seedRoom0Group0BunnyRewards(s);
-                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
-                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                s.current = VqsvBattleEventDescriptor.SCENE1_ROOM1_GROUP0_BUNNY.runtime(s, -1);
                 tickBattleAutoUntilDone(s, 3000);
                 assertActiveSourcePet(s, 68, "Bunny route initial Dien Mieu");
                 if (s.battleResultIndex != -1 || s.battleBranchTarget != -1) {
                     throw new IllegalStateException("Bunny battle branch mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
                 }
+                if (!traceContains(s, "BattleEventDescriptor scene1 room1 group0 Bunny")) {
+                    throw new IllegalStateException("Expected Bunny battle descriptor trace, trace="
+                            + tailTrace(s, 16));
+                }
+                VqsvBattleEventDescriptor.SCENE1_ROOM1_GROUP0_BUNNY.consumeOp47(s);
+                if (!traceContains(s, "op47 skip result=-1")) {
+                    throw new IllegalStateException("Expected Bunny op47 skip trace, trace="
+                            + tailTrace(s, 16));
+                }
                 if (s.battleTutorialU != -1 || s.battleTutorialV != 0) {
                     throw new IllegalStateException("Bunny tutorial cleanup mismatch U="
                             + s.battleTutorialU + " V=" + s.battleTutorialV
                             + " trace=" + tailTrace(s, 16));
                 }
+                s.op56ActorVisibility(1, new int[]{50}, new int[]{0});
                 s.op23MarkEventComplete(1, 0, 1);
                 s.op14CompleteEvent(1, 1, 0);
+                VqsvPostBattleDownstreamDescriptor.SCENE1_ROOM1_GROUP0_BUNNY.traceAndAssert(s);
+                if (!traceContains(s, "PostBattleDownstreamDescriptor scene1 room1 group0 Bunny")) {
+                    throw new IllegalStateException("Expected Bunny downstream descriptor trace, trace="
+                            + tailTrace(s, 20));
+                }
                 s.text = TextBox.taskTip(VqsvText.Scene1Room1Group0.TASK_RETURN_ELDER);
                 revealCheckpointText(s, 90);
             } else if ("battle_sophie_loss_persists_dien_mieu_ko".equals(checkpoint)) {
@@ -3431,12 +3846,20 @@ final class VqsvSmokeHarness {
             } else if ("route_elder_after_battle_reward_state".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
-                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
-                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                s.current = VqsvBattleEventDescriptor.SCENE1_ROOM0_GROUP6_ELDER.runtime(s, 0);
                 tickBattleAutoUntilDone(s, 3000);
                 if (s.battleResultIndex != 0 || s.battleBranchTarget != 10) {
                     throw new IllegalStateException("Elder battle branch mismatch result="
                             + s.battleResultIndex + " branch=" + s.battleBranchTarget);
+                }
+                if (!traceContains(s, "BattleEventDescriptor scene1 room0 group6 Elder")) {
+                    throw new IllegalStateException("Expected Elder battle descriptor trace, trace="
+                            + tailTrace(s, 16));
+                }
+                VqsvBattleEventDescriptor.SCENE1_ROOM0_GROUP6_ELDER.consumeOp47(s);
+                if (!traceContains(s, "op47 result=0 rawTarget=10 sourceCursor=8")) {
+                    throw new IllegalStateException("Expected Elder op47 trace, trace="
+                            + tailTrace(s, 16));
                 }
                 s.op31CurrencyReward(0, 0, 500);
                 s.op17Item(0, 4, 10);
@@ -3445,6 +3868,11 @@ final class VqsvSmokeHarness {
                 s.op23MarkEventComplete(1, 0, 4);
                 s.op23MarkEventComplete(1, 0, 5);
                 s.op14CompleteEvent(1, 0, 6);
+                VqsvPostBattleDownstreamDescriptor.SCENE1_ROOM0_GROUP6_ELDER.traceAndAssert(s);
+                if (!traceContains(s, "PostBattleDownstreamDescriptor scene1 room0 group6 Elder")) {
+                    throw new IllegalStateException("Expected Elder downstream descriptor trace, trace="
+                            + tailTrace(s, 20));
+                }
                 s.text = TextBox.openBox(VqsvText.Scene1Room0Group6.FREE_WORLD);
                 revealCheckpointText(s, 90);
             } else {
@@ -3462,6 +3890,7 @@ final class VqsvSmokeHarness {
                     + " battleState=" + s.battleStateName
                     + " battleHp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
                     + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " enemyOwned=" + s.battleEnemyOwnedSpecies
                     + " battleLog=" + s.battleLog
                     + " state101=" + s.sourceEventState(1, 0, 1)
                     + " state110=" + s.sourceEventState(1, 1, 0)
@@ -3506,6 +3935,194 @@ final class VqsvSmokeHarness {
                 + " color=#" + Integer.toHexString(expected) + " count=" + count);
     }
 
+    private static void assertRenderedVisiblePixels(VqsvIntroDemo.Scene s, String label,
+                                                    int x, int y, int w, int h, int minPixels) {
+        BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        s.render(g);
+        g.dispose();
+        int count = 0;
+        for (int yy = Math.max(0, y); yy < Math.min(H, y + h); yy++) {
+            for (int xx = Math.max(0, x); xx < Math.min(W, x + w); xx++) {
+                int argb = img.getRGB(xx, yy);
+                int rgb = argb & 0xFFFFFF;
+                if ((argb >>> 24) != 0
+                        && rgb != 0x092a3a
+                        && rgb != 0x16525e
+                        && rgb != 0x113652
+                        && rgb != 0x000000) {
+                    count++;
+                }
+            }
+        }
+        if (count < minPixels) {
+            throw new IllegalStateException("Rendered visible-pixel assertion failed for " + label
+                    + " count=" + count
+                    + " min=" + minPixels
+                    + " region=[" + x + "," + y + "," + w + "," + h + "]"
+                    + " state=" + s.battleStateName
+                    + " phase=" + s.battleCatchPhase
+                    + " effect=[" + s.battleCatchEffectScale10
+                    + "," + s.battleCatchEffectDx
+                    + "," + s.battleCatchEffectDy + "]"
+                    + " colors=" + dominantRegionColors(img, x, y, w, h, 5)
+                    + " trace=" + tailTrace(s, 14));
+        }
+        s.sourceStateTrace.add("SMOKE pixel verified " + label + " visibleCount=" + count);
+    }
+
+    private static void assertRenderedDarkerThanSnapshot(VqsvIntroDemo.Scene s, String label,
+                                                         int x, int y, int w, int h, int minDelta) {
+        if (s.battleBackgroundSnapshot == null) {
+            throw new IllegalStateException(label + " missing source snapshot");
+        }
+        BufferedImage rendered = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = rendered.createGraphics();
+        s.render(g);
+        g.dispose();
+        long snapshotSum = 0;
+        long renderedSum = 0;
+        int count = 0;
+        for (int yy = Math.max(0, y); yy < Math.min(H, y + h); yy++) {
+            for (int xx = Math.max(0, x); xx < Math.min(W, x + w); xx++) {
+                int source = s.battleBackgroundSnapshot.getRGB(xx, yy);
+                int actual = rendered.getRGB(xx, yy);
+                if (((source >>> 24) == 0) || ((actual >>> 24) == 0)) {
+                    continue;
+                }
+                snapshotSum += brightness(source);
+                renderedSum += brightness(actual);
+                count++;
+            }
+        }
+        if (count == 0) {
+            throw new IllegalStateException(label + " no comparable pixels");
+        }
+        long snapshotAvg = snapshotSum / count;
+        long renderedAvg = renderedSum / count;
+        if (snapshotAvg - renderedAvg < minDelta) {
+            throw new IllegalStateException(label + " expected darker render, snapshotAvg="
+                    + snapshotAvg + " renderedAvg=" + renderedAvg + " minDelta=" + minDelta
+                    + " colors=" + dominantRegionColors(rendered, x, y, w, h, 5)
+                    + " trace=" + tailTrace(s, 14));
+        }
+        s.sourceStateTrace.add("SMOKE pixel verified " + label
+                + " snapshotAvg=" + snapshotAvg + " renderedAvg=" + renderedAvg);
+    }
+
+    private static void assertP7SourceSpriteFrame(VqsvIntroDemo.Scene s, String label,
+                                                  boolean playerSide, int expectedState,
+                                                  int expectedCursor, int expectedVisualId,
+                                                  int maxMismatch) {
+        int visual = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
+        int state = playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide;
+        int cursor = playerSide ? s.battleP7BaseCursorPlayerSide : s.battleP7BaseCursorEnemySide;
+        if (visual != expectedVisualId || state != expectedState || cursor != expectedCursor) {
+            throw new IllegalStateException(label + " state/cursor mismatch side="
+                    + (playerSide ? "player" : "enemy")
+                    + " expectedVisual=" + expectedVisualId + " actualVisual=" + visual
+                    + " expectedState=" + expectedState + " actualState=" + state
+                    + " expectedCursor=" + expectedCursor + " actualCursor=" + cursor
+                    + " trace=" + tailTrace(s, 16));
+        }
+
+        BufferedImage actual = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D actualG = actual.createGraphics();
+        s.render(actualG);
+        actualG.dispose();
+
+        BufferedImage expected = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D expectedG = expected.createGraphics();
+        SpriteAnim anim = SpriteAnim.load(visual);
+        anim.setState(expectedState);
+        int frames = anim.data.anim == null || anim.data.anim.length == 0
+                ? 0 : anim.data.anim[anim.state].length / 2;
+        anim.cursor = Math.max(0, Math.min(expectedCursor, Math.max(0, frames - 1)));
+        anim.draw(expectedG, smokeSourceBattleActorX(s, playerSide) + smokeSideOffsetX(s, playerSide),
+                smokeSourceBattleActorY(s, playerSide) + smokeSideOffsetY(s, playerSide),
+                playerSide ? 0 : 1);
+        expectedG.dispose();
+
+        int compared = 0;
+        int mismatch = 0;
+        for (int y = 0; y < H; y++) {
+            for (int x = 0; x < W; x++) {
+                int exp = expected.getRGB(x, y);
+                int alpha = exp >>> 24;
+                if (alpha < 250) {
+                    continue;
+                }
+                compared++;
+                if ((actual.getRGB(x, y) & 0xFFFFFF) != (exp & 0xFFFFFF)) {
+                    mismatch++;
+                }
+            }
+        }
+        if (compared < 8 || mismatch > maxMismatch) {
+            throw new IllegalStateException(label + " source sprite pixel compare failed"
+                    + " side=" + (playerSide ? "player" : "enemy")
+                    + " visual=" + visual
+                    + " state=" + state
+                    + " cursor=" + cursor
+                    + " compared=" + compared
+                    + " mismatch=" + mismatch
+                    + " maxMismatch=" + maxMismatch
+                    + " anchor=" + smokeSourceBattleActorX(s, playerSide)
+                    + "," + smokeSourceBattleActorY(s, playerSide)
+                    + " sourceCposGroup=" + smokeSourceCposGroup(s)
+                    + " trace=" + tailTrace(s, 18));
+        }
+        s.sourceStateTrace.add("SMOKE source-frame compare " + label
+                + " side=" + (playerSide ? "player" : "enemy")
+                + " visual=" + visual
+                + " state=" + state
+                + " cursor=" + cursor
+                + " compared=" + compared
+                + " mismatch=" + mismatch
+                + " source=SpriteAnim+pos/cpos");
+    }
+
+    private static int smokeSourceBattleActorX(VqsvIntroDemo.Scene s, boolean playerSide) {
+        short[] row = VqsvBattleAnimationTables.instance().posRow(smokeSourceCposGroup(s));
+        int at = smokeSourcePosQuadOffset(s, playerSide);
+        if (row.length >= at + 4) {
+            return row[at];
+        }
+        return playerSide ? 70 : 177;
+    }
+
+    private static int smokeSourceBattleActorY(VqsvIntroDemo.Scene s, boolean playerSide) {
+        short[] row = VqsvBattleAnimationTables.instance().posRow(smokeSourceCposGroup(s));
+        int at = smokeSourcePosQuadOffset(s, playerSide);
+        if (row.length >= at + 4) {
+            return row[at + 1];
+        }
+        return playerSide ? 223 : 103;
+    }
+
+    private static int smokeSourcePosQuadOffset(VqsvIntroDemo.Scene s, boolean playerSide) {
+        if (smokeSourceCposGroup(s) == 1) {
+            return playerSide ? 8 : 0;
+        }
+        return playerSide ? 4 : 0;
+    }
+
+    private static int smokeSourceCposGroup(VqsvIntroDemo.Scene s) {
+        return s.battleMode == 0 ? (s.battleBackgroundMode == 1 ? 2 : 0) : 1;
+    }
+
+    private static int smokeSideOffsetX(VqsvIntroDemo.Scene s, boolean playerSide) {
+        return playerSide ? s.battleP7PlayerOffsetX : s.battleP7EnemyOffsetX;
+    }
+
+    private static int smokeSideOffsetY(VqsvIntroDemo.Scene s, boolean playerSide) {
+        return playerSide ? s.battleP7PlayerOffsetY : s.battleP7EnemyOffsetY;
+    }
+
+    private static int brightness(int argb) {
+        return (((argb >> 16) & 0xff) + ((argb >> 8) & 0xff) + (argb & 0xff)) / 3;
+    }
+
     private static void assertPetStateBinaryLayout(String label) {
         VqsvUiLayout layout = VqsvUiLayout.load("petstate.ui");
         int[] required = {1, 2, 3, 4, 5, 6, 14, 16, 17, 48, 51, 65, 75, 76};
@@ -3518,6 +4135,24 @@ final class VqsvSmokeHarness {
         }
         if (!layout.binarySource || layout.widgetCount() < 70) {
             throw new IllegalStateException(label + " expected binary petstate.ui layout, source="
+                    + (layout.binarySource ? "binary" : "decoded")
+                    + " count=" + layout.widgetCount());
+        }
+    }
+
+    private static void assertBattleUiBinaryLayout(String label) {
+        VqsvUiLayout layout = VqsvUiLayout.load("battle.ui");
+        int[] required = {1, 2, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+                38, 39, 40, 41, 42, 55, 56, 57, 58, 59};
+        for (int id : required) {
+            if (layout.widget(id) == null) {
+                throw new IllegalStateException(label + " missing battle.ui widget id=" + id
+                        + " source=" + (layout.binarySource ? "binary" : "decoded")
+                        + " count=" + layout.widgetCount());
+            }
+        }
+        if (!layout.binarySource || layout.widgetCount() < 59) {
+            throw new IllegalStateException(label + " expected binary battle.ui layout, source="
                     + (layout.binarySource ? "binary" : "decoded")
                     + " count=" + layout.widgetCount());
         }
@@ -3541,12 +4176,14 @@ final class VqsvSmokeHarness {
     static void setupLiveCheckpoint(VqsvIntroDemo.Scene s, String checkpoint) {
         s.eventIndex = s.events.size();
         if ("battle_bunny_command_ui".equals(checkpoint)) {
+            setupBunnyMapBackedBattleEntry(s);
             seedInitialDienMieu(s, "live Bunny command UI");
             seedRoom0Group0BunnyRewards(s);
             s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
                     new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
             tickUntilBattleState(s, "P20", 120);
         } else if ("battle_bunny_catch_p21".equals(checkpoint)) {
+            setupBunnyMapBackedBattleEntry(s);
             seedInitialDienMieu(s, "live Bunny P21");
             seedRoom0Group0BunnyRewards(s);
             s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
@@ -3556,6 +4193,7 @@ final class VqsvSmokeHarness {
             s.battleClickY = 300;
             tickUntilBattleState(s, "P21", 80);
         } else if ("battle_bunny_catch_p17".equals(checkpoint)) {
+            setupBunnyMapBackedBattleEntry(s);
             seedInitialDienMieu(s, "live Bunny P17");
             seedRoom0Group0BunnyRewards(s);
             s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
@@ -3885,6 +4523,23 @@ final class VqsvSmokeHarness {
 
     private static void enterElderP7FromFight(VqsvIntroDemo.Scene s) {
         enterElderP7WithSkillIndex(s, 0);
+    }
+
+    private static void enterBunnyP7FromFight(VqsvIntroDemo.Scene s) {
+        s.eventIndex = s.events.size();
+        seedInitialDienMieu(s, "smoke Bunny P7 frame compare");
+        seedRoom0Group0BunnyRewards(s);
+        s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+        tickUntilBattleState(s, "P20", 120);
+        s.battleClickX = 20;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P3", 80);
+        for (int i = 0; i < 18 && !"P7".equals(s.battleStateName); i++) {
+            s.press0();
+            s.tick();
+        }
+        tickUntilBattleState(s, "P7", 120);
     }
 
     private static void enterElderP7WithSkillIndex(VqsvIntroDemo.Scene s, int skillIndex) {
