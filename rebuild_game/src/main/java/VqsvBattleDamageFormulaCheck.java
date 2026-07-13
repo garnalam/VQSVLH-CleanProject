@@ -179,17 +179,31 @@ final class VqsvBattleDamageFormulaCheck {
         assertEquals("item4 heal source formula includes paramB", 200, heal.hpAfter);
         assertEquals("item4 hp full validation", 2, unit.validateBattleItem(4));
 
+        unit.setHp(1);
+        BattleItemUseResult fullHeal = unit.applyBattleItem(5);
+        assertEquals("item5 heal source formula full", 200, fullHeal.hpAfter);
+
         unit.skillIds[0] = 10;
         unit.skillPp[0] = 0;
         assertEquals("item6 pp validate empty", -1, unit.validateBattleItem(6));
         BattleItemUseResult pp = unit.applyBattleItem(6);
         assertEquals("item6 pp restore", 25, pp.ppAfter);
 
+        unit.skillPp[0] = 0;
+        BattleItemUseResult ppFull = unit.applyBattleItem(7);
+        assertEquals("item7 pp restore source max", skillMaxPp(10), ppFull.ppAfter);
+
         unit.setHp(40);
         unit.skillPp[0] = 0;
         BattleItemUseResult both = unit.applyBattleItem(8);
         assertEquals("item8 hp restore", 190, both.hpAfter);
         assertEquals("item8 pp restore", 20, both.ppAfter);
+
+        unit.setHp(1);
+        unit.skillPp[0] = 0;
+        BattleItemUseResult bothFull = unit.applyBattleItem(9);
+        assertEquals("item9 hp restore full", 200, bothFull.hpAfter);
+        assertEquals("item9 pp restore source max", skillMaxPp(10), bothFull.ppAfter);
 
         unit.setHp(0);
         unit.skillPp[0] = 0;
@@ -199,12 +213,23 @@ final class VqsvBattleDamageFormulaCheck {
         assertEquals("item11 revive pp restore", 20, revive.ppAfter);
         assertEquals("item11 alive invalid", 1, unit.validateBattleItem(11));
 
+        unit.setHp(0);
+        unit.skillPp[0] = 0;
+        BattleItemUseResult reviveFull = unit.applyBattleItem(12);
+        assertEquals("item12 revive hp full", 200, reviveFull.hpAfter);
+        assertEquals("item12 revive pp source max", skillMaxPp(10), reviveFull.ppAfter);
+
         unit.debuffSlots[5][1] = 8;
         unit.debuffSlots[5][4] = 1;
         assertEquals("item10 clear debuff valid", -1, unit.validateBattleItem(10));
         BattleItemUseResult clear = unit.applyBattleItem(10);
         assertEquals("item10 clear debuffs", 0, clear.debuffsAfter);
         assertEquals("item10 no debuff invalid", 4, unit.validateBattleItem(10));
+    }
+
+    private static int skillMaxPp(int skillId) {
+        BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
+        return row == null ? 0 : row.ppMax;
     }
 
     private static void checkSourcePetVisualUsesSpeciesRow() {
@@ -220,7 +245,9 @@ final class VqsvBattleDamageFormulaCheck {
         BattleUnit.resetSourceBattleHooksForChecks();
         BattleUnit.setDamageRandomSeedForChecks(seed);
         attacker.selectedSkillId = (byte) skillId;
-        return attacker.computeDamage(target);
+        BattleDamageResult result = attacker.computeDamage(target);
+        result.commitPendingSideEffects();
+        return result;
     }
 
     private static BattleUnit unit(int speciesId, int attack, int defense) {

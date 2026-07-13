@@ -9,6 +9,10 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 
 final class VqsvSmokeHarness {
@@ -24,6 +28,8 @@ final class VqsvSmokeHarness {
             "battle_elder_p7_damage_frame",
             "battle_p7_hit_forced_direct_skill10",
             "battle_p7_miss_forced_skill10",
+            "battle_p7_miss_forced_debuff_no_commit",
+            "battle_p7_hit_forced_debuff_commit",
             "battle_p7_crit_forced_skill10",
             "battle_exp_normal_gain_no_levelup_anim",
             "battle_choice_ui_p4_wheel_hover_click_viewport",
@@ -32,6 +38,45 @@ final class VqsvSmokeHarness {
             "battle_choiceskill_mouse_wheel_scrollbar_no_confirm",
             "battle_choiceskill_mouse_wheel_hover_click_viewport",
             "battle_phase10a_status_icons_mixed_order",
+            "battle_status_buff0_producer_visual",
+            "battle_status_buff0_duration0_damage_hook",
+            "battle_status_buff0_expiry_clears_defense",
+            "battle_status_buff1_producer_visual",
+            "battle_status_buff1_forced_hit_damage_defense",
+            "battle_status_buff1_forced_miss_no_damage",
+            "battle_status_buff1_forced_crit_damage",
+            "battle_status_buff1_expiry_clears_damage_defense",
+            "battle_status_buff2_producer_visual",
+            "battle_status_buff2_forced_hit_reflect_defense",
+            "battle_status_buff2_forced_miss_no_reflect",
+            "battle_status_buff2_forced_crit_reflect",
+            "battle_status_buff2_expiry_clears_defense_reflect",
+            "battle_status_buff3_heal_tick",
+            "battle_status_buff3_producer_visual_apply_heal",
+            "battle_status_buff3_p12_body_visual_start",
+            "battle_status_buff3_p12_heal_tick",
+            "battle_status_buff3_expiry_clears_icon",
+            "battle_status_buff8_producer_visual",
+            "battle_status_buff8_pp_cost_damage_active",
+            "battle_status_buff8_expiry_clears_pp_damage",
+            "battle_status_buff10_attack_up_damage",
+            "battle_status_buff14_blocks_debuff",
+            "battle_status_debuff0_damage_tick",
+            "battle_status_debuff5_speed_down",
+            "battle_status_debuff7_defense_down",
+            "battle_status_debuff10_catch_multiplier",
+            "battle_status_form0_low_hp_attack_boost",
+            "battle_held_item1_attack_boost",
+            "battle_held_item2_defense_boost",
+            "battle_held_item3_debuff_resist",
+            "battle_held_item4_crit_window",
+            "battle_held_item5_exp_multiplier",
+            "battle_held_item6_reserve_exp_share",
+            "battle_held_item7_turn_priority",
+            "battle_held_item8_leech_heal",
+            "battle_held_item9_no_miss",
+            "battle_held_item10_hp_floor",
+            "battle_held_item11_catch_chance",
             "battle_phase10b_p7_type7_skill34_overlay",
             "battle_phase10b_p7_type8_skill12_overlay",
             "battle_phase10b_p7_type12_skill55_overlay"
@@ -512,6 +557,11 @@ final class VqsvSmokeHarness {
         return row == null ? fallback : VqsvBattleTables.get(row.raw, index, fallback);
     }
 
+    private static int sourceExpectedHeldItemParam(int itemId, int index, int fallback) {
+        BattleHeldItemRow row = VqsvBattleTables.instance().heldItem(itemId);
+        return row == null ? fallback : VqsvBattleTables.get(row.raw, index, fallback);
+    }
+
     private static int sourceExpectedPostExpPassiveHeal(int speciesId) {
         BattleSpeciesRow species = VqsvBattleTables.instance().species(speciesId);
         short[] passiveRow = VqsvBattleTables.instance().row(2, 0);
@@ -683,6 +733,7 @@ final class VqsvSmokeHarness {
         return checkpoint.startsWith("panel_gamemenu_")
                 || checkpoint.startsWith("panel_gamesystem_")
                 || checkpoint.startsWith("panel_petstate_")
+                || checkpoint.startsWith("panel_petsetting_")
                 || checkpoint.startsWith("panel_bag_")
                 || checkpoint.startsWith("panel_task_")
                 || checkpoint.startsWith("panel_petmap_")
@@ -1062,6 +1113,38 @@ final class VqsvSmokeHarness {
                 throw new IllegalStateException("Expected petstate source path trace, trace="
                         + tailTrace(s, 24));
             }
+            return;
+        }
+        if ("panel_petstate_held_item0_widget_59_60".equals(checkpoint)) {
+            openPanelPetstateForSmoke(s);
+            SourcePetState pet = s.sourcePets.get(0);
+            pet.sourcePayload = pet.toSourcePayload();
+            pet.sourcePayload[2] = 0;
+            s.sourceEquipmentItems.clear();
+            s.sourceEquipmentItems.add(new SourceEquipmentItem(0, true));
+            s.battleMenuIndex = 0;
+            s.openWorldPetstate();
+            BattleHeldItemRow held = VqsvBattleTables.instance().heldItem(0);
+            VqsvBattlePetStateView row = s.battlePetStateRows[0];
+            String expectedName = VqsvSourceOps.sourceEquipmentName(0);
+            int expectedIcon = VqsvSourceOps.sourceEquipmentIconCell(0);
+            if (!s.worldPetstateVisible
+                    || row.heldItemId != 0
+                    || row.heldItemIconId != expectedIcon
+                    || !expectedName.equals(row.heldItemName)
+                    || held == null
+                    || held.iconCell != expectedIcon) {
+                throw new IllegalStateException("Expected petstate widget 59/60 held item aq.c[3][0]"
+                        + " visible=" + s.worldPetstateVisible
+                        + " heldId=" + row.heldItemId
+                        + " icon=" + row.heldItemIconId + "/" + expectedIcon
+                        + " name=" + row.heldItemName + "/" + expectedName
+                        + " trace=" + tailTrace(s, 32));
+            }
+            s.sourceStateTrace.add("SMOKE verified petstate widget59/60 held item aq.c[3][0]"
+                    + " name=" + expectedName
+                    + " iconCell=" + expectedIcon
+                    + " source=game.h petstate uses sprite258 aq.c[3][c[5]][1]");
             return;
         }
         if ("panel_petstate_navigation".equals(checkpoint)) {
@@ -1628,6 +1711,10 @@ final class VqsvSmokeHarness {
             }
             return;
         }
+        if (checkpoint.startsWith("panel_petsetting_item")) {
+            handlePanelPetsettingItemBehaviorCheckpoint(s, checkpoint);
+            return;
+        }
         if ("panel_petstate_petsetting_equipment_choice_open".equals(checkpoint)) {
             openPanelEquipmentChoiceForSmoke(s);
             if (!s.sourceEquipmentChoiceVisible || s.worldPetstateVisible || s.sourcePetSettingVisible
@@ -1801,6 +1888,58 @@ final class VqsvSmokeHarness {
             }
             return;
         }
+        if ("panel_petstate_petsetting_equipment_save_load_qL".equals(checkpoint)) {
+            openPanelEquipmentChoiceForSmoke(s, 2);
+            s.key0 = true;
+            s.tick();
+            forceReadyText(s);
+            if (equipmentPayloadId(s.sourcePets.get(0)) != 2
+                    || s.sourceEquipmentItems.size() != 3
+                    || s.sourceEquipmentItems.get(0).equippedFlag
+                    || !s.sourceEquipmentItems.get(2).equippedFlag) {
+                throw new IllegalStateException("Expected equipment equip before save"
+                        + " pet0Eq=" + equipmentPayloadId(s.sourcePets.get(0))
+                        + " rows=" + s.sourceEquipmentItems.size()
+                        + " row0=" + (s.sourceEquipmentItems.size() > 0
+                        && s.sourceEquipmentItems.get(0).equippedFlag)
+                        + " row2=" + (s.sourceEquipmentItems.size() > 2
+                        && s.sourceEquipmentItems.get(2).equippedFlag)
+                        + " trace=" + tailTrace(s, 64));
+            }
+            if (!VqsvSaveRuntime.save(s)) {
+                throw new IllegalStateException("Expected equipment q.L save success trace="
+                        + tailTrace(s, 64));
+            }
+            s.sourceEquipmentItems.clear();
+            s.sourcePets.clear();
+            if (!VqsvSaveRuntime.loadInto(s)) {
+                throw new IllegalStateException("Expected equipment q.L load success");
+            }
+            if (s.sourceEquipmentItems.size() != 3
+                    || s.sourcePets.size() < 2
+                    || s.sourceEquipmentItems.get(0).equippedFlag
+                    || !s.sourceEquipmentItems.get(1).equippedFlag
+                    || !s.sourceEquipmentItems.get(2).equippedFlag
+                    || equipmentPayloadId(s.sourcePets.get(0)) != 2
+                    || equipmentPayloadId(s.sourcePets.get(1)) != 1) {
+                throw new IllegalStateException("Expected equipment q.L save/load restore"
+                        + " rows=" + s.sourceEquipmentItems.size()
+                        + " pets=" + s.sourcePets.size()
+                        + " row0=" + (s.sourceEquipmentItems.size() > 0
+                        && s.sourceEquipmentItems.get(0).equippedFlag)
+                        + " row1=" + (s.sourceEquipmentItems.size() > 1
+                        && s.sourceEquipmentItems.get(1).equippedFlag)
+                        + " row2=" + (s.sourceEquipmentItems.size() > 2
+                        && s.sourceEquipmentItems.get(2).equippedFlag)
+                        + " pet0Eq=" + (s.sourcePets.isEmpty() ? -99 : equipmentPayloadId(s.sourcePets.get(0)))
+                        + " pet1Eq=" + (s.sourcePets.size() < 2 ? -99 : equipmentPayloadId(s.sourcePets.get(1)))
+                        + " trace=" + tailTrace(s, 80));
+            }
+            s.sourceStateTrace.add("SMOKE verified source q.L equipment save/load rows and pet c[5] payload");
+            s.text = TextBox.taskTip("SMOKE q.L equipment save/load restored");
+            forceReadyText(s);
+            return;
+        }
         if ("panel_petstate_petsetting_skill_open".equals(checkpoint)) {
             openPanelSkillForSmoke(s);
             if (!s.sourceSkillVisible || s.worldPetstateVisible || s.sourcePetSettingVisible
@@ -1957,6 +2096,54 @@ final class VqsvSmokeHarness {
             if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
                     || s.panelRuntime.selected != 0) {
                 throw new IllegalStateException("Expected bag.ui item5..12 metadata render"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 32));
+            }
+            return;
+        }
+        if ("panel_bag_item0_4_metadata_source_backed".equals(checkpoint)) {
+            setupPanelSmokeWorld(s);
+            s.sourceBagItems.clear();
+            for (int itemId = 0; itemId <= 4; itemId++) {
+                SourceItem source = VqsvSourceOps.sourceItem(itemId);
+                BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+                if (row == null) {
+                    throw new IllegalStateException("Missing source item row aq.c[4][" + itemId + "]");
+                }
+                String expectedDescription = row.description("");
+                if (source.textId != row.nameTextId
+                        || source.iconCell != row.iconId
+                        || source.descriptionTextId != row.descriptionTextId
+                        || source.bagChannel != row.behavior
+                        || source.name.startsWith("Item ")
+                        || source.description.isEmpty()
+                        || !source.description.equals(expectedDescription)) {
+                    throw new IllegalStateException("Expected item " + itemId
+                            + " source-backed metadata source=["
+                            + source.textId + "," + source.iconCell + ","
+                            + source.descriptionTextId + "," + source.bagChannel
+                            + "] name=" + source.name
+                            + " descLen=" + source.description.length()
+                            + " row=[" + row.nameTextId + "," + row.iconId + ","
+                            + row.descriptionTextId + "," + row.behavior + "]"
+                            + " expectedDescLen=" + expectedDescription.length());
+                }
+                s.sourceBagItems.put(itemId, new BagItem(itemId, 1, source.bagChannel, false));
+            }
+            s.sourceStateTrace.add("SMOKE seed source-backed bag item metadata ids=0..4");
+            s.keyBack = true;
+            s.tick();
+            s.keyDown = true;
+            s.tick();
+            s.keyDown = true;
+            s.tick();
+            s.key0 = true;
+            s.tick();
+            if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 0) {
+                throw new IllegalStateException("Expected bag.ui item0..4 metadata render"
                         + " visible=" + s.panelRuntime.visible
                         + " mode=" + s.panelRuntime.modeName()
                         + " selected=" + s.panelRuntime.selected
@@ -2403,6 +2590,10 @@ final class VqsvSmokeHarness {
             }
             return;
         }
+        if (checkpoint.startsWith("panel_bag_state17_item")) {
+            handlePanelBagState17ItemBehaviorCheckpoint(s, checkpoint);
+            return;
+        }
         if ("panel_bag_item_cannot_use_warning".equals(checkpoint)) {
             openPanelBagForSmoke(s);
             int beforeCount = VqsvSourceOps.sourceItemCount(s, 0);
@@ -2460,12 +2651,15 @@ final class VqsvSmokeHarness {
             s.key0 = true;
             s.tick();
             forceReadyText(s);
+            SourceSpecialReward avoidSideEffect = s.sourceSpecialRewards.get(1);
             if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
                     || s.text == null
                     || !VqsvText.Battle.PANEL_BAG_AVOID_SUCCESS.equals(s.text.currentText())
                     || VqsvSourceOps.sourceItemCount(s, 13) != 0
                     || s.sourceAvoidMonsterTicks != duration
-                    || s.sourceAvoidMonsterElapsed != 0) {
+                    || s.sourceAvoidMonsterElapsed != 0
+                    || avoidSideEffect == null
+                    || avoidSideEffect.stackCount != 1) {
                 throw new IllegalStateException("Expected bag item13 success warning and source state"
                         + " visible=" + s.panelRuntime.visible
                         + " mode=" + s.panelRuntime.modeName()
@@ -2474,10 +2668,12 @@ final class VqsvSmokeHarness {
                         + " ticks=" + s.sourceAvoidMonsterTicks
                         + " duration=" + duration
                         + " elapsed=" + s.sourceAvoidMonsterElapsed
+                        + " qN1Stack=" + (avoidSideEffect == null ? -1 : avoidSideEffect.stackCount)
                         + " trace=" + tailTrace(s, 56));
             }
             if (!traceContains(s, "itemId=13 q.d(item,1,0)")
-                    || !traceContains(s, "q.x=aq.c[4][13][6]=" + duration)) {
+                    || !traceContains(s, "q.x=aq.c[4][13][6]=" + duration)
+                    || !traceContains(s, "q.c(1) stack=1")) {
                 throw new IllegalStateException("Expected item13 success source trace, trace="
                         + tailTrace(s, 56));
             }
@@ -2491,16 +2687,20 @@ final class VqsvSmokeHarness {
             forceReadyText(s);
             s.key0 = true;
             s.tick();
+            SourceSpecialReward avoidSideEffect = s.sourceSpecialRewards.get(1);
             if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
                     || s.text != null
                     || VqsvSourceOps.sourceItemCount(s, 13) != 0
-                    || s.sourceAvoidMonsterTicks != duration) {
+                    || s.sourceAvoidMonsterTicks != duration
+                    || avoidSideEffect == null
+                    || avoidSideEffect.stackCount != 1) {
                 throw new IllegalStateException("Expected item13 close to remain in bag"
                         + " visible=" + s.panelRuntime.visible
                         + " mode=" + s.panelRuntime.modeName()
                         + " text=" + (s.text == null ? "null" : s.text.currentText())
                         + " count=" + VqsvSourceOps.sourceItemCount(s, 13)
                         + " ticks=" + s.sourceAvoidMonsterTicks
+                        + " qN1Stack=" + (avoidSideEffect == null ? -1 : avoidSideEffect.stackCount)
                         + " trace=" + tailTrace(s, 60));
             }
             if (!traceContains(s, "bag msgwarm key=196640 close msgwarm.ui f=1->0")) {
@@ -2913,6 +3113,83 @@ final class VqsvSmokeHarness {
                 throw new IllegalStateException("Expected special reward5 ride.ui source trace, trace="
                         + tailTrace(s, 84));
             }
+            return;
+        }
+        if ("panel_bag_special_reward7_render".equals(checkpoint)) {
+            openPanelBagSpecialRewardForSmoke(s, 7, true, 2);
+            s.keyDown = true;
+            s.tick();
+            if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 1
+                    || s.text != null) {
+                throw new IllegalStateException("Expected special reward7 q.N row render"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " text=" + (s.text == null ? "null" : s.text.currentText())
+                        + " trace=" + tailTrace(s, 84));
+            }
+            if (!traceContains(s, "SMOKE seed source q.N special reward id=7")) {
+                throw new IllegalStateException("Expected special reward7 source trace, trace="
+                        + tailTrace(s, 84));
+            }
+            return;
+        }
+        if ("panel_bag_special_reward7_state19_petstate".equals(checkpoint)) {
+            openPanelBagSpecialRewardForSmoke(s, 7, true, 2);
+            s.sourcePets.clear();
+            s.sourcePets.add(new SourcePetState(0, 17, 50, 3, 2, 10, 45));
+            s.keyDown = true;
+            s.tick();
+            s.key0 = true;
+            s.tick();
+            if (s.panelRuntime.visible || !s.worldPetstateVisible
+                    || s.panelBagSpecialUseId != 7
+                    || !VqsvText.Battle.PETSTATE_USE.equals(s.battleMenuAction)) {
+                throw new IllegalStateException("Expected q.N case7 to open state19 petstate"
+                        + " panelVisible=" + s.panelRuntime.visible
+                        + " petstate=" + s.worldPetstateVisible
+                        + " specialId=" + s.panelBagSpecialUseId
+                        + " action=" + s.battleMenuAction
+                        + " trace=" + tailTrace(s, 100));
+            }
+            if (!traceContains(s, "q.N case7 this.s=specialId o.a(19) close bag.ui -> game.h.W petstate.ui")) {
+                throw new IllegalStateException("Expected state19 source trace, trace="
+                        + tailTrace(s, 100));
+            }
+            return;
+        }
+        if ("panel_bag_special_reward7_level_warning".equals(checkpoint)) {
+            openPanelBagSpecialRewardForSmoke(s, 7, true, 2);
+            s.sourcePets.clear();
+            s.sourcePets.add(new SourcePetState(0, 17, 49, 3, 2, 10, 45));
+            s.keyDown = true;
+            s.tick();
+            s.key0 = true;
+            s.tick();
+            s.key0 = true;
+            s.tick();
+            forceReadyText(s);
+            if (s.panelBagSpecialUseMessageMode != 2
+                    || s.text == null
+                    || !s.text.currentText().contains("50")) {
+                throw new IllegalStateException("Expected q.N case7 level warning msgwarm"
+                        + " mode=" + s.panelBagSpecialUseMessageMode
+                        + " text=" + (s.text == null ? "null" : s.text.currentText())
+                        + " trace=" + tailTrace(s, 100));
+            }
+            return;
+        }
+        if ("panel_bag_special_reward7_success_consume".equals(checkpoint)) {
+            runPanelBagSpecialUseSuccessSmoke(s, 7);
+            return;
+        }
+        if ("panel_bag_special_reward8_success_consume".equals(checkpoint)) {
+            runPanelBagSpecialUseSuccessSmoke(s, 8);
+            return;
+        }
+        if ("panel_bag_special_reward9_success_consume".equals(checkpoint)) {
+            runPanelBagSpecialUseSuccessSmoke(s, 9);
             return;
         }
         if ("panel_bag_special_reward5_ride_navigation".equals(checkpoint)) {
@@ -3679,6 +3956,313 @@ final class VqsvSmokeHarness {
         return new int[]{beforeHp, VqsvSourceOps.sourceItemCount(s, 4)};
     }
 
+    private static void handlePanelBagState17ItemBehaviorCheckpoint(VqsvIntroDemo.Scene s,
+                                                                     String checkpoint) {
+        String prefix = "panel_bag_state17_item";
+        int itemId = parsePanelItemCheckpointItemId(checkpoint, prefix);
+        String scenario = panelItemScenario(checkpoint, prefix, itemId);
+        openPanelBagSingleItemState17ForSmoke(s, itemId, 2);
+        SourcePetState pet = s.sourcePets.get(0);
+        preparePanelItemPetForScenario(pet, scenario);
+        s.openPanelBagState17Petstate(itemId);
+        PanelItemSnapshot before = snapshotPanelItem(s, pet, itemId);
+        s.key0 = true;
+        s.tick();
+        forceReadyText(s);
+        assertPanelBagState17ItemResult(s, itemId, scenario, before);
+    }
+
+    private static void handlePanelPetsettingItemBehaviorCheckpoint(VqsvIntroDemo.Scene s,
+                                                                     String checkpoint) {
+        String prefix = "panel_petsetting_item";
+        int itemId = parsePanelItemCheckpointItemId(checkpoint, prefix);
+        String scenario = panelItemScenario(checkpoint, prefix, itemId);
+        openPanelItemChoiceForBehaviorSmoke(s, itemId, 2, scenario);
+        SourcePetState pet = s.sourcePets.get(0);
+        PanelItemSnapshot before = snapshotPanelItem(s, pet, itemId);
+        s.key0 = true;
+        s.tick();
+        forceReadyText(s);
+        assertPanelPetsettingItemResult(s, itemId, scenario, before);
+    }
+
+    private static void openPanelItemChoiceForBehaviorSmoke(VqsvIntroDemo.Scene s, int itemId,
+                                                             int count, String scenario) {
+        openPanelPetstateForSmoke(s);
+        s.sourceBagItems.clear();
+        SourceItem item = VqsvSourceOps.sourceItem(itemId);
+        s.sourceBagItems.put(itemId, new BagItem(itemId, count, item.bagChannel, false));
+        SourcePetState pet = s.sourcePets.get(0);
+        preparePanelItemPetForScenario(pet, scenario);
+        s.battleMenuIndex = 0;
+        s.openWorldPetstate();
+        s.key0 = true;
+        s.tick();
+        if (!s.worldPetstateVisible || !s.sourcePetSettingVisible
+                || s.sourcePetSettingIndex != 0) {
+            throw new IllegalStateException("Could not open petsetting item row"
+                    + " worldPet=" + s.worldPetstateVisible
+                    + " petsetting=" + s.sourcePetSettingVisible
+                    + " index=" + s.sourcePetSettingIndex
+                    + " trace=" + tailTrace(s, 56));
+        }
+        s.key0 = true;
+        s.tick();
+        if (!s.sourceItemChoiceVisible || s.sourceItemChoiceItemIdAt(s.sourceItemChoiceIndex) != itemId) {
+            throw new IllegalStateException("Could not open source item choice for item=" + itemId
+                    + " visible=" + s.sourceItemChoiceVisible
+                    + " index=" + s.sourceItemChoiceIndex
+                    + " selectedItem=" + s.sourceItemChoiceItemIdAt(s.sourceItemChoiceIndex)
+                    + " rows=" + s.sourceItemChoiceSize()
+                    + " trace=" + tailTrace(s, 72));
+        }
+    }
+
+    private static int parsePanelItemCheckpointItemId(String checkpoint, String prefix) {
+        int start = prefix.length();
+        int end = checkpoint.indexOf('_', start);
+        if (end <= start) {
+            throw new IllegalArgumentException("Missing item id in checkpoint " + checkpoint);
+        }
+        return Integer.parseInt(checkpoint.substring(start, end));
+    }
+
+    private static String panelItemScenario(String checkpoint, String prefix, int itemId) {
+        String suffix = checkpoint.substring((prefix + itemId).length());
+        switch (suffix) {
+            case "_pp_restore_success_msg":
+                return "pp_restore";
+            case "_hp_pp_success_msg":
+                return "hp_pp";
+            case "_hp_heal_low_success_msg":
+                return "hp_heal_low";
+            case "_hp_heal_clamp_success_msg":
+                return "hp_heal_clamp";
+            case "_hp_heal_source_success_msg":
+                return "hp_heal_source";
+            case "_clear_debuff_success_msg":
+                return "clear_debuff";
+            case "_no_debuff_warning":
+                return "no_debuff_warning";
+            case "_revive_success_msg":
+                return "revive";
+            case "_both_full_warning7":
+                return "both_full_warning7";
+            default:
+                throw new IllegalArgumentException("Unknown panel item checkpoint scenario: " + checkpoint);
+        }
+    }
+
+    private static void preparePanelItemPetForScenario(SourcePetState pet, String scenario) {
+        pet.refreshFromSourceDb();
+        clearSourcePetDebuffs(pet);
+        if ("pp_restore".equals(scenario) || "hp_pp".equals(scenario) || "revive".equals(scenario)) {
+            pet.skillCooldowns[0] = 0;
+        }
+        pet.sourcePayload = pet.toSourcePayload();
+        if ("hp_pp".equals(scenario)) {
+            pet.sourcePayload[6] = Math.max(1, sourceMaxHp(pet) / 2);
+        } else if ("hp_heal_low".equals(scenario) || "hp_heal_source".equals(scenario)) {
+            pet.sourcePayload[6] = 10;
+        } else if ("hp_heal_clamp".equals(scenario)) {
+            pet.sourcePayload[6] = Math.max(1, sourceMaxHp(pet) - 5);
+        } else if ("revive".equals(scenario)) {
+            pet.sourcePayload[6] = 0;
+        } else {
+            pet.sourcePayload[6] = sourceMaxHp(pet);
+        }
+        if ("clear_debuff".equals(scenario)) {
+            pet.sourceDebuffSlots[5][0] = 3;
+            pet.sourceDebuffSlots[5][1] = 8;
+            pet.sourceDebuffSlots[5][3] = 32;
+            pet.sourceDebuffSlots[5][4] = 1;
+        }
+    }
+
+    private static void clearSourcePetDebuffs(SourcePetState pet) {
+        for (short[] slot : pet.sourceDebuffSlots) {
+            for (int i = 0; i < slot.length; i++) {
+                slot[i] = 0;
+            }
+        }
+    }
+
+    private static PanelItemSnapshot snapshotPanelItem(VqsvIntroDemo.Scene s, SourcePetState pet, int itemId) {
+        return new PanelItemSnapshot(payloadHp(pet), pet.skillCooldowns[0],
+                sourcePetDebuffCount(pet), VqsvSourceOps.sourceItemCount(s, itemId));
+    }
+
+    private static int sourcePetDebuffCount(SourcePetState pet) {
+        int count = 0;
+        for (short[] slot : pet.sourceDebuffSlots) {
+            if (slot[4] == 1) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static void assertPanelBagState17ItemResult(VqsvIntroDemo.Scene s, int itemId,
+                                                        String scenario, PanelItemSnapshot before) {
+        SourcePetState pet = s.sourcePets.get(0);
+        if ("no_debuff_warning".equals(scenario) || "both_full_warning7".equals(scenario)) {
+            String expectedText = "no_debuff_warning".equals(scenario)
+                    ? VqsvText.Battle.ITEM_NO_DEBUFF : VqsvText.Battle.ITEM_HP_PP_FULL;
+            int expectedValidation = "no_debuff_warning".equals(scenario) ? 4 : 7;
+            if (!s.worldPetstateVisible || s.panelRuntime.visible
+                    || s.panelBagState17ItemId != itemId
+                    || s.panelBagState17MessageMode != 1
+                    || s.text == null
+                    || !expectedText.equals(s.text.currentText())
+                    || VqsvSourceOps.sourceItemCount(s, itemId) != before.count) {
+                throw new IllegalStateException("Expected state17 item warning scenario=" + scenario
+                        + " item=" + itemId
+                        + " msgMode=" + s.panelBagState17MessageMode
+                        + " text=" + (s.text == null ? "null" : s.text.currentText())
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, itemId)
+                        + " beforeCount=" + before.count
+                        + " trace=" + tailTrace(s, 80));
+            }
+            if (!traceContains(s, "validation=" + expectedValidation)) {
+                throw new IllegalStateException("Expected state17 validation=" + expectedValidation
+                        + " trace=" + tailTrace(s, 80));
+            }
+            return;
+        }
+        assertPanelItemSuccessCommon(s, "state17", itemId, scenario, before,
+                s.panelBagState17MessageMode == 1
+                        && s.worldPetstateVisible
+                        && !s.panelRuntime.visible
+                        && s.panelBagState17ItemId == itemId
+                        && s.text != null
+                        && VqsvText.Battle.ITEM_USED.equals(s.text.currentText()));
+    }
+
+    private static void assertPanelPetsettingItemResult(VqsvIntroDemo.Scene s, int itemId,
+                                                        String scenario, PanelItemSnapshot before) {
+        if ("no_debuff_warning".equals(scenario) || "both_full_warning7".equals(scenario)) {
+            String expectedText = "no_debuff_warning".equals(scenario)
+                    ? VqsvText.Battle.ITEM_NO_DEBUFF : VqsvText.Battle.ITEM_HP_PP_FULL;
+            int expectedValidation = "no_debuff_warning".equals(scenario) ? 4 : 7;
+            if (!s.sourceItemChoiceVisible
+                    || s.sourceItemChoiceMessageMode != 3
+                    || s.text == null
+                    || !expectedText.equals(s.text.currentText())
+                    || VqsvSourceOps.sourceItemCount(s, itemId) != before.count) {
+                throw new IllegalStateException("Expected petsetting item warning scenario=" + scenario
+                        + " item=" + itemId
+                        + " visible=" + s.sourceItemChoiceVisible
+                        + " msgMode=" + s.sourceItemChoiceMessageMode
+                        + " text=" + (s.text == null ? "null" : s.text.currentText())
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, itemId)
+                        + " beforeCount=" + before.count
+                        + " trace=" + tailTrace(s, 80));
+            }
+            if (!traceContains(s, "validation=" + expectedValidation)) {
+                throw new IllegalStateException("Expected petsetting validation=" + expectedValidation
+                        + " trace=" + tailTrace(s, 80));
+            }
+            return;
+        }
+        assertPanelItemSuccessCommon(s, "petsetting", itemId, scenario, before,
+                !s.sourceItemChoiceVisible
+                        && s.worldPetstateVisible
+                        && s.sourceItemChoiceMessageMode == 4
+                        && s.text != null
+                        && VqsvText.Battle.ITEM_USED.equals(s.text.currentText()));
+    }
+
+    private static void assertPanelItemSuccessCommon(VqsvIntroDemo.Scene s, String owner,
+                                                     int itemId, String scenario,
+                                                     PanelItemSnapshot before, boolean uiOk) {
+        SourcePetState pet = s.sourcePets.get(0);
+        int afterHp = payloadHp(pet);
+        int afterPp = pet.skillCooldowns[0];
+        int afterDebuffs = sourcePetDebuffCount(pet);
+        int remaining = VqsvSourceOps.sourceItemCount(s, itemId);
+        boolean mutationOk;
+        if ("pp_restore".equals(scenario)) {
+            mutationOk = afterPp == expectedSourceItemPpAfter(pet, itemId, before.pp, false);
+        } else if ("hp_pp".equals(scenario)) {
+            mutationOk = afterHp == expectedSourceItemHpAfter(pet, itemId, before.hp)
+                    && afterPp == expectedSourceItemPpAfter(pet, itemId, before.pp, false);
+        } else if ("hp_heal_low".equals(scenario) || "hp_heal_clamp".equals(scenario)
+                || "hp_heal_source".equals(scenario)) {
+            int expectedHp = expectedSourceItemHpAfter(pet, itemId, before.hp);
+            mutationOk = afterHp == expectedHp
+                    && (!"hp_heal_low".equals(scenario) || afterHp < sourceMaxHp(pet))
+                    && (!"hp_heal_clamp".equals(scenario) || afterHp == sourceMaxHp(pet));
+        } else if ("clear_debuff".equals(scenario)) {
+            mutationOk = before.debuffs > 0 && afterDebuffs == 0;
+        } else if ("revive".equals(scenario)) {
+            mutationOk = before.hp == 0
+                    && afterHp == expectedSourceItemReviveHp(pet, itemId)
+                    && afterPp == expectedSourceItemPpAfter(pet, itemId, before.pp, true);
+        } else {
+            mutationOk = false;
+        }
+        if (!uiOk || !mutationOk || remaining != before.count - 1
+                || !traceContains(s, "game.b.w itemId=" + itemId)) {
+            throw new IllegalStateException("Expected " + owner + " item success scenario=" + scenario
+                    + " item=" + itemId
+                    + " hp=" + before.hp + "->" + afterHp
+                    + " pp=" + before.pp + "->" + afterPp
+                    + " debuffs=" + before.debuffs + "->" + afterDebuffs
+                    + " count=" + before.count + "->" + remaining
+                    + " uiOk=" + uiOk
+                    + " trace=" + tailTrace(s, 96));
+        }
+    }
+
+    private static int expectedSourceItemHpAfter(SourcePetState pet, int itemId, int beforeHp) {
+        BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+        if (row == null) {
+            throw new IllegalStateException("Missing source aq.c[4] item row " + itemId);
+        }
+        int heal = sourceMaxHp(pet) * row.paramA / 100 + row.paramB;
+        return Math.min(sourceMaxHp(pet), beforeHp + heal);
+    }
+
+    private static int expectedSourceItemReviveHp(SourcePetState pet, int itemId) {
+        BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+        if (row == null) {
+            throw new IllegalStateException("Missing source aq.c[4] item row " + itemId);
+        }
+        return Math.min(sourceMaxHp(pet), sourceMaxHp(pet) * row.paramA / 100 + row.paramB);
+    }
+
+    private static int expectedSourceItemPpAfter(SourcePetState pet, int itemId, int beforePp,
+                                                boolean reviveBehavior) {
+        BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+        if (row == null) {
+            throw new IllegalStateException("Missing source aq.c[4] item row " + itemId);
+        }
+        int amount = reviveBehavior || row.behavior == 3 ? row.paramC : row.paramA;
+        return Math.min(sourceSkillMaxPp(pet, 0), beforePp + Math.max(0, amount));
+    }
+
+    private static int sourceSkillMaxPp(SourcePetState pet, int slot) {
+        if (pet == null || slot < 0 || slot >= pet.skillIds.length || pet.skillIds[slot] < 0) {
+            return 0;
+        }
+        BattleSkillRow row = VqsvBattleTables.instance().skill(pet.skillIds[slot]);
+        return row == null ? 0 : row.ppMax;
+    }
+
+    private static final class PanelItemSnapshot {
+        final int hp;
+        final int pp;
+        final int debuffs;
+        final int count;
+
+        PanelItemSnapshot(int hp, int pp, int debuffs, int count) {
+            this.hp = hp;
+            this.pp = pp;
+            this.debuffs = debuffs;
+            this.count = count;
+        }
+    }
+
     private static void openPanelReleaseConfirmForSmoke(VqsvIntroDemo.Scene s) {
         openPanelPetstateForSmoke(s);
         s.key0 = true;
@@ -4152,6 +4736,39 @@ final class VqsvSmokeHarness {
         }
     }
 
+    private static void runPanelBagSpecialUseSuccessSmoke(VqsvIntroDemo.Scene s, int specialId) {
+        openPanelBagSpecialRewardForSmoke(s, specialId, true, 2);
+        s.sourcePets.clear();
+        SourcePetState pet = new SourcePetState(0, 17, 50, 3, 2, 10, 45);
+        s.sourcePets.add(pet);
+        s.keyDown = true;
+        s.tick();
+        s.key0 = true;
+        s.tick();
+        s.key0 = true;
+        s.tick();
+        forceReadyText(s);
+        SourceSpecialReward reward = s.sourceSpecialRewards.get(specialId);
+        BattleUnit after = BattleUnit.fromSourcePet(pet, (byte) 0);
+        if (s.panelBagSpecialUseMessageMode != 1
+                || pet.sourceSpecialUseId != specialId
+                || reward == null
+                || reward.stackCount != 1
+                || after.natureType != specialId) {
+            throw new IllegalStateException("Expected q.N case" + specialId
+                    + " success consume/source stat marker"
+                    + " msgMode=" + s.panelBagSpecialUseMessageMode
+                    + " specialUse=" + pet.sourceSpecialUseId
+                    + " stack=" + (reward == null ? -1 : reward.stackCount)
+                    + " nature=" + after.natureType
+                    + " trace=" + tailTrace(s, 120));
+        }
+        if (!traceContains(s, "q.e(s,b)=true game.b.i(" + specialId + ")")) {
+            throw new IllegalStateException("Expected q.e/game.b.i source trace for specialId="
+                    + specialId + ", trace=" + tailTrace(s, 120));
+        }
+    }
+
     private static void openPanelRideForSmoke(VqsvIntroDemo.Scene s, boolean unlockRides,
                                               int blockedRideIndex) {
         openPanelBagSpecialRewardForSmoke(s, 5, true, 0);
@@ -4338,6 +4955,15 @@ final class VqsvSmokeHarness {
             return;
         }
         if (runBattleP9P24SmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runRouteItemOwnershipSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runItemValidationWarningSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runAvoidMonsterWorldSmokeIfNeeded(checkpoint, outPath)) {
             return;
         }
         try {
@@ -5375,6 +6001,7 @@ final class VqsvSmokeHarness {
                 SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
                 runtime.debugSetPlayerSpeedForSmoke(s, 0);
                 runtime.debugSetEnemySpeedForSmoke(s, 200);
+                runtime.debugSetNextDamageCritRollForSmoke(99);
                 runtime.debugSetNextP7HitRollForSmoke(0);
                 tickUntilBattleP7Phase(s, 2, 140);
                 if (!s.battleP7DamageVisible
@@ -5391,16 +6018,73 @@ final class VqsvSmokeHarness {
                             + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
                             + " trace=" + tailTrace(s, 22));
                 }
+            } else if ("battle_p7_miss_forced_debuff_no_commit".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{2, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetPlayerSpeedForSmoke(s, 0);
+                runtime.debugSetEnemySpeedForSmoke(s, 200);
+                runtime.debugSetNextDamageCritRollForSmoke(99);
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(0);
+                tickUntilBattleP7Phase(s, 2, 160);
+                if (!s.battleP7DamageVisible
+                        || !VqsvText.Battle.DODGE.equals(s.battleP7MissText)
+                        || !s.battleP7DamageText.isEmpty()
+                        || !s.battleP7DebuffText.isEmpty()
+                        || s.battleEnemyHp != s.battleEnemyMaxHp
+                        || runtime.debugEnemyHasDebuffForSmoke(1)
+                        || !traceContains(s, "SMOKE battle forced damage.debuff roll=0")
+                        || !traceContains(s, "pendingDebuffId=1")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "sideEffectsCommitted=false")
+                        || !traceContains(s, "discarded pending side effects on miss")
+                        || !traceContains(s, "hit=false")) {
+                    throw new IllegalStateException("Expected forced miss with debuff skill to discard pending debuff,"
+                            + " visible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " missText=" + s.battleP7MissText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                            + " enemyHasDebuff1=" + runtime.debugEnemyHasDebuffForSmoke(1)
+                            + " trace=" + tailTrace(s, 36));
+                }
+            } else if ("battle_p7_hit_forced_debuff_commit".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{2, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextDamageCritRollForSmoke(99);
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 160);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || !s.battleP7MissText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(1)
+                        || !traceContains(s, "SMOKE battle forced damage.debuff roll=0")
+                        || !traceContains(s, "pendingDebuffId=1")
+                        || !traceContains(s, "appliedDebuffId=1")
+                        || !traceContains(s, "sideEffectsCommitted=true")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected forced hit with debuff skill to commit debuff,"
+                            + " visible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " missText=" + s.battleP7MissText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff1=" + runtime.debugEnemyHasDebuffForSmoke(1)
+                            + " trace=" + tailTrace(s, 36));
+                }
             } else if ("battle_p7_crit_forced_skill10".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{10, 45}, 0);
                 SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
-                runtime.debugSetPlayerSpeedForSmoke(s, 300);
+                runtime.debugSetNextDamageCritRollForSmoke(0);
                 runtime.debugSetNextP7HitRollForSmoke(99);
                 tickUntilBattleP7Phase(s, 2, 140);
                 if (!s.battleP7DamageVisible
                         || !s.battleP7DamageCritical
                         || s.battleP7DamageText.isEmpty()
+                        || !traceContains(s, "SMOKE battle forced damage.crit roll=0")
                         || !traceContains(s, "critFlag=1")
+                        || !traceContains(s, "sideEffectsCommitted=true")
                         || !traceContains(s, "hit=true")) {
                     throw new IllegalStateException("Expected forced crit P7 damage style, visible="
                             + s.battleP7DamageVisible
@@ -7053,6 +7737,8 @@ final class VqsvSmokeHarness {
                 assertRenderedVisiblePixels(s, "Phase10A mixed slot0", 2, 25, 14, 14, 10);
                 assertRenderedVisiblePixels(s, "Phase10A mixed slot1", 17, 25, 14, 14, 10);
                 assertRenderedVisiblePixels(s, "Phase10A mixed slot2", 32, 25, 14, 14, 10);
+            } else if (isBattleStatusEffectivenessCheckpoint(checkpoint)) {
+                handleBattleStatusEffectivenessCheckpoint(s, checkpoint);
             } else if ("battle_p12_debuff0_queue_start".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{1, 45}, 0);
                 tickUntilAnyBattleState(s, 360, "P12", "P13");
@@ -7860,7 +8546,8 @@ final class VqsvSmokeHarness {
                 s.sourceStateTrace.add("SMOKE verified SliceA two-participant EXP vector"
                         + " expectedA=" + expectedA + " expectedB=" + expectedB
                         + " checkpoint=" + checkpoint);
-            } else if ("battle_exp_vector_participant_form5_multiplier".equals(checkpoint)) {
+            } else if ("battle_exp_vector_participant_form5_multiplier".equals(checkpoint)
+                    || "battle_held_item5_exp_multiplier".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
                 pet.sourcePayload[2] = 5;
@@ -7871,20 +8558,23 @@ final class VqsvSmokeHarness {
                 s.current = runtime;
                 tickUntilBattleState(s, "P20", 120);
                 int expected = sourceExpectedExpAward(5, 1, 7, 1);
-                expected = expected * (sourceExpectedStatusParam(5, 5, 0) + 100) / 100;
+                expected = expected * (sourceExpectedHeldItemParam(5, 5, 0) + 100) / 100;
                 runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 1, 1);
-                tickUntilTraceContains(s, "form5Multiplier=true", 760);
+                tickUntilTraceContains(s, "heldItem5Multiplier=true", 760);
                 tickUntilTraceContains(s, "battle P8 game.h.a select game.d.j index=0/1", 760);
-                assertSourcePetExp(pet, expected, "SliceB participant f(5) multiplier");
-                s.sourceStateTrace.add("SMOKE verified SliceB participant f(5) multiplier expected=" + expected);
+                assertSourcePetExp(pet, expected, "Held item5 participant EXP multiplier");
+                s.sourceStateTrace.add("SMOKE verified held item5 Mật Phong Sào EXP multiplier expected=" + expected
+                        + " source=game.d.h direct x participant f(5)");
             } else if ("battle_exp_vector_reserve_form6_share".equals(checkpoint)
+                    || "battle_held_item6_reserve_exp_share".equals(checkpoint)
                     || "battle_exp_vector_global_state7_share".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 SourcePetState petA = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
                 SourcePetState petB = new SourcePetState(1, 92, 5, 3, 2, 10, 45);
                 petA.sourcePayload[7] = 0;
                 petB.sourcePayload[7] = 0;
-                if ("battle_exp_vector_reserve_form6_share".equals(checkpoint)) {
+                if ("battle_exp_vector_reserve_form6_share".equals(checkpoint)
+                        || "battle_held_item6_reserve_exp_share".equals(checkpoint)) {
                     petB.sourcePayload[2] = 6;
                 } else {
                     s.sourceGlobalState[7][0] = 2;
@@ -7905,7 +8595,7 @@ final class VqsvSmokeHarness {
                 assertSourcePetExp(petB, expectedB, "SliceB reserve share");
                 String expectedReason = "battle_exp_vector_global_state7_share".equals(checkpoint)
                         ? "reason=game.g.B[7][0]==2"
-                        : "reason=reserve f(6)";
+                        : "reason=heldItem6ReserveShare f(6)";
                 if (!traceContains(s, expectedReason)
                         || !traceContains(s, "levelFactorFromLastX=7")
                         || traceCount(s, "battle P8 game.d.X commit B->S") != 2) {
@@ -7915,8 +8605,9 @@ final class VqsvSmokeHarness {
                             + " expB=" + sourcePetExp(petB) + " expectedB=" + expectedB
                             + " trace=" + tailTrace(s, 32));
                 }
-                s.sourceStateTrace.add("SMOKE verified SliceB reserve/share expectedA="
-                        + expectedA + " expectedB=" + expectedB + " checkpoint=" + checkpoint);
+                s.sourceStateTrace.add("SMOKE verified held item6 reserve EXP share expectedA="
+                        + expectedA + " expectedB=" + expectedB + " checkpoint=" + checkpoint
+                        + " source=game.d.h reserve c(n3).f(6)");
             } else if ("battle_exp_consumer_x_clears_active_marker".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
@@ -9584,55 +10275,8 @@ final class VqsvSmokeHarness {
                 assertRenderedColorPixels(s, "P16 petstate.ui body fill", 46, 87, 151, 160, 0xbde4ef, 1800);
                 assertRenderedColorPixels(s, "P16 petstate.ui footer strip", 46, 247, 151, 13, 0x82cafb, 350);
                 assertRenderedColorPixels(s, "P16 petstate.ui row hp source bar", 73, 88, 26, 4, 0xfb7249, 40);
-            } else if ("battle_p16_item_heal_hp".equals(checkpoint)) {
-                setupElderItemBattle(s, 4, 1, 20, -1);
-                driveItemUse(s);
-                int expectedHp = Math.min(s.battlePlayerMaxHp, 20 + s.battlePlayerMaxHp * 50 / 100 + 50);
-                if (!traceContains(s, "P16 game.b.w item=4") || s.battlePlayerHp != expectedHp) {
-                    throw new IllegalStateException("Expected item4 HP heal to " + expectedHp + ", hp="
-                            + s.battlePlayerHp + " trace=" + tailTrace(s, 10));
-                }
-            } else if ("battle_p16_item_pp_restore".equals(checkpoint)) {
-                setupElderItemBattle(s, 6, 1, -1, 0);
-                driveItemUse(s);
-                if (!traceContains(s, "P16 game.b.w item=6")
-                        || s.sourcePets.get(0).skillCooldowns[0] != 25) {
-                    throw new IllegalStateException("Expected item6 PP restore to 25, pp="
-                            + s.sourcePets.get(0).skillCooldowns[0]
-                            + " trace=" + tailTrace(s, 10));
-                }
-            } else if ("battle_p16_item_hp_pp".equals(checkpoint)) {
-                setupElderItemBattle(s, 8, 1, 40, 0);
-                driveItemUse(s);
-                int expectedHp = Math.min(s.battlePlayerMaxHp, 40 + s.battlePlayerMaxHp * 50 / 100 + 50);
-                if (!traceContains(s, "P16 game.b.w item=8")
-                        || s.battlePlayerHp != expectedHp
-                        || s.sourcePets.get(0).skillCooldowns[0] != 20) {
-                    throw new IllegalStateException("Expected item8 HP+PP, hp="
-                            + s.battlePlayerHp + " pp=" + s.sourcePets.get(0).skillCooldowns[0]
-                            + " trace=" + tailTrace(s, 10));
-                }
-            } else if ("battle_p16_item_revive".equals(checkpoint)) {
-                setupElderItemBattleWithDeadReserve(s, 11, 1, 0);
-                driveItemUseToTarget(s, 1);
-                SourceBattleUnit revived = SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(1, 2));
-                int expectedHp = Math.min(revived.maxHp, revived.maxHp * 50 / 100 + 50);
-                if (!traceContains(s, "P16 game.b.w item=11")
-                        || revived.hp != expectedHp
-                        || s.sourcePets.get(1).skillCooldowns[0] != 20) {
-                    throw new IllegalStateException("Expected item11 revive, hp="
-                            + revived.hp + " pp=" + s.sourcePets.get(1).skillCooldowns[0]
-                            + " trace=" + tailTrace(s, 10));
-                }
-            } else if ("battle_p16_item_clear_debuff".equals(checkpoint)) {
-                SourceBattleRuntime runtime = setupElderItemBattle(s, 10, 1, -1, -1);
-                runtime.debugPlayerDebuffForItemSmoke(s, 5, 8, 1);
-                driveItemUse(s);
-                if (!traceContains(s, "P16 game.b.w item=10")
-                        || !traceContains(s, "debuffs=1->0")) {
-                    throw new IllegalStateException("Expected item10 clear debuff, trace="
-                            + tailTrace(s, 12));
-                }
+            } else if (isBattleP16ItemFormulaCheckpoint(checkpoint)) {
+                handleBattleP16ItemFormulaCheckpoint(s, checkpoint);
             } else if ("battle_p16_item_hp_full_warning".equals(checkpoint)) {
                 setupElderItemBattle(s, 4, 1, -1, -1);
                 driveItemUse(s);
@@ -9992,6 +10636,11 @@ final class VqsvSmokeHarness {
             BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = img.createGraphics();
             s.render(g);
+            if ("battle_status_form0_low_hp_attack_boost".equals(checkpoint)) {
+                drawHeldItem0LowHpAuditOverlay(g);
+            } else if ("battle_held_item1_attack_boost".equals(checkpoint)) {
+                drawHeldItem1AttackAuditOverlay(g);
+            }
             g.dispose();
             ImageIO.write(img, "png", new java.io.File(outPath));
             System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
@@ -10012,6 +10661,107 @@ final class VqsvSmokeHarness {
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(1);
+        }
+    }
+
+    private static void drawHeldItem0LowHpAuditOverlay(Graphics2D g) {
+        BattleHeldItemRow row = VqsvBattleTables.instance().heldItem(0);
+        String name = row == null ? "Man Da La Thach" : row.name("Man Da La Thach");
+        java.awt.Composite oldComposite = g.getComposite();
+        java.awt.Font oldFont = g.getFont();
+        java.awt.Color oldColor = g.getColor();
+
+        g.setComposite(java.awt.AlphaComposite.SrcOver.derive(0.90f));
+        g.setColor(new java.awt.Color(12, 20, 28));
+        g.fillRoundRect(6, 42, 228, 120, 8, 8);
+        g.setComposite(java.awt.AlphaComposite.SrcOver);
+        g.setColor(new java.awt.Color(180, 222, 255));
+        g.drawRoundRect(6, 42, 228, 120, 8, 8);
+
+        g.setFont(new java.awt.Font("Dialog", java.awt.Font.BOLD, 12));
+        g.setColor(new java.awt.Color(255, 244, 184));
+        g.drawString("Held item #0: " + name, 32, 59);
+        drawHeldItemIcon(g, row == null ? 1 : row.iconCell, 13, 48);
+
+        g.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 10));
+        g.setColor(new java.awt.Color(230, 238, 246));
+        g.drawString("Source row: [213,1,237,5,1,30,100]", 13, 78);
+        g.drawString("Apply path: q.L -> pet c[5]=0", 13, 92);
+        g.drawString("Check: game.b.f(0), no HUD status icon", 13, 106);
+        g.drawString("Trigger: HP 30/134 <= 30% max HP", 13, 121);
+        g.drawString("Base: 120 - 40 = 80", 13, 136);
+        g.drawString("Active: 120*200/100 - 40 = 200", 13, 151);
+        g.setColor(new java.awt.Color(120, 255, 150));
+        g.drawString("Damage rises from 80 to 200", 13, 159);
+
+        g.setColor(new java.awt.Color(210, 210, 210));
+        g.fillRect(152, 130, 35, 5);
+        g.setColor(new java.awt.Color(255, 86, 78));
+        g.fillRect(152, 145, 70, 5);
+        g.setColor(new java.awt.Color(230, 238, 246));
+        g.drawString("80", 190, 135);
+        g.drawString("200", 203, 159);
+
+        g.setComposite(oldComposite);
+        g.setFont(oldFont);
+        g.setColor(oldColor);
+    }
+
+    private static void drawHeldItem1AttackAuditOverlay(Graphics2D g) {
+        BattleHeldItemRow row = VqsvBattleTables.instance().heldItem(1);
+        String name = row == null ? "Hong Sac Hai Loa" : row.name("Hong Sac Hai Loa");
+        java.awt.Composite oldComposite = g.getComposite();
+        java.awt.Font oldFont = g.getFont();
+        java.awt.Color oldColor = g.getColor();
+
+        g.setComposite(java.awt.AlphaComposite.SrcOver.derive(0.90f));
+        g.setColor(new java.awt.Color(12, 20, 28));
+        g.fillRoundRect(6, 42, 228, 112, 8, 8);
+        g.setComposite(java.awt.AlphaComposite.SrcOver);
+        g.setColor(new java.awt.Color(180, 222, 255));
+        g.drawRoundRect(6, 42, 228, 112, 8, 8);
+
+        g.setFont(new java.awt.Font("Dialog", java.awt.Font.BOLD, 12));
+        g.setColor(new java.awt.Color(255, 244, 184));
+        g.drawString("Held item #1: " + name, 32, 59);
+        drawHeldItemIcon(g, row == null ? 2 : row.iconCell, 13, 48);
+
+        g.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 10));
+        g.setColor(new java.awt.Color(230, 238, 246));
+        g.drawString("Source row: [214,2,238,5,1,10]", 13, 78);
+        g.drawString("Apply path: q.L -> pet c[5]=1", 13, 92);
+        g.drawString("Check: game.b.f(1), no HUD status icon", 13, 106);
+        g.drawString("Base: 120 - 40 = 80", 13, 121);
+        g.drawString("Active: 120*110/100 - 40 = 92", 13, 136);
+        g.setColor(new java.awt.Color(120, 255, 150));
+        g.drawString("Damage rises from 80 to 92", 13, 149);
+
+        g.setColor(new java.awt.Color(210, 210, 210));
+        g.fillRect(152, 116, 35, 5);
+        g.setColor(new java.awt.Color(255, 154, 78));
+        g.fillRect(152, 131, 40, 5);
+        g.setColor(new java.awt.Color(230, 238, 246));
+        g.drawString("80", 190, 121);
+        g.drawString("92", 195, 136);
+
+        g.setComposite(oldComposite);
+        g.setFont(oldFont);
+        g.setColor(oldColor);
+    }
+
+    private static void drawHeldItemIcon(Graphics2D g, int iconCell, int x, int y) {
+        try {
+            SpriteAnim sprite = SpriteAnim.load(258);
+            int[] bounds = sprite.cellBounds(iconCell);
+            if (bounds == null) {
+                throw new IllegalStateException("missing icon bounds");
+            }
+            sprite.drawCell(g, iconCell, x - bounds[0], y - bounds[1], 0);
+        } catch (RuntimeException ex) {
+            g.setColor(new java.awt.Color(60, 80, 100));
+            g.fillRect(x, y, 14, 14);
+            g.setColor(new java.awt.Color(255, 244, 184));
+            g.drawRect(x, y, 14, 14);
         }
     }
 
@@ -10061,6 +10811,479 @@ final class VqsvSmokeHarness {
             return true;
         }
         return false;
+    }
+
+    private static boolean runRouteItemOwnershipSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"story_reward_item4_11_inventory_counts".equals(checkpoint)
+                && !"story_reward_item4_11_use_consume".equals(checkpoint)
+                && !"story_reward_item4_11_save_load_counts".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            if ("story_reward_item4_11_save_load_counts".equals(checkpoint)) {
+                runRouteItemOwnershipSaveLoadSmoke(checkpoint, outPath);
+            } else {
+                VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+                seedElderStoryRewardItemsForOwnershipSmoke(s);
+                if ("story_reward_item4_11_use_consume".equals(checkpoint)) {
+                    consumeElderStoryRewardItemsForOwnershipSmoke(s);
+                }
+                renderRouteItemOwnershipSmoke(checkpoint, outPath, s);
+            }
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static void runRouteItemOwnershipSaveLoadSmoke(String checkpoint, String outPath)
+            throws java.io.IOException {
+        Path savePath = Paths.get("build", "save", "vqsv_autosave.properties");
+        Path backupPath = Paths.get("build", "save", "vqsv_autosave.properties.route_ownership_backup");
+        boolean hadSave = Files.isRegularFile(savePath);
+        if (hadSave) {
+            Files.createDirectories(backupPath.getParent());
+            Files.copy(savePath, backupPath, StandardCopyOption.REPLACE_EXISTING);
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            seedElderStoryRewardItemsForOwnershipSmoke(s);
+            consumeElderStoryRewardItemsForOwnershipSmoke(s);
+            if (!VqsvSaveRuntime.save(s)) {
+                throw new IllegalStateException("Expected route ownership save success");
+            }
+            VqsvIntroDemo.Scene loaded = new VqsvIntroDemo.Scene();
+            if (!VqsvSaveRuntime.loadInto(loaded)) {
+                throw new IllegalStateException("Expected route ownership load success");
+            }
+            assertElderStoryRewardCounts(loaded, 9, 1, "after save/load");
+            loaded.text = TextBox.taskTip("SMOKE item 4/11 save-load counts 9/1");
+            revealCheckpointText(loaded, 50);
+            renderRouteItemOwnershipSmoke(checkpoint, outPath, loaded);
+        } finally {
+            if (hadSave) {
+                Files.copy(backupPath, savePath, StandardCopyOption.REPLACE_EXISTING);
+                Files.deleteIfExists(backupPath);
+            } else {
+                Files.deleteIfExists(savePath);
+                Files.deleteIfExists(backupPath);
+            }
+        }
+    }
+
+    private static void seedElderStoryRewardItemsForOwnershipSmoke(VqsvIntroDemo.Scene s) {
+        s.loadScene1Room0(199, 218);
+        s.eventIndex = s.events.size();
+        s.sourcePets.clear();
+        s.sourceBagItems.clear();
+        s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+        s.current = VqsvBattleEventDescriptor.SCENE1_ROOM0_GROUP6_ELDER.runtime(s, 0);
+        tickBattleAutoUntilDone(s, 3000);
+        if (s.battleResultIndex != 0 || s.battleBranchTarget != 10) {
+            throw new IllegalStateException("Elder story reward route battle mismatch result="
+                    + s.battleResultIndex + " branch=" + s.battleBranchTarget);
+        }
+        VqsvBattleEventDescriptor.SCENE1_ROOM0_GROUP6_ELDER.consumeOp47(s);
+        s.op31CurrencyReward(0, 0, 500);
+        s.text = null;
+        s.op17Item(0, 4, 10);
+        s.text = null;
+        s.op17Item(0, 11, 2);
+        s.text = null;
+        s.op19SpecialReward(5, 1);
+        s.text = null;
+        assertElderStoryRewardCounts(s, 10, 2, "after reward");
+        if (!traceContains(s, "op17 add [0,4,10]")
+                || !traceContains(s, "op17 add [0,11,2]")) {
+            throw new IllegalStateException("Expected elder reward op17 traces, trace="
+                    + tailTrace(s, 32));
+        }
+        s.text = TextBox.taskTip("SMOKE elder reward item 4=10 item 11=2");
+        revealCheckpointText(s, 50);
+    }
+
+    private static void consumeElderStoryRewardItemsForOwnershipSmoke(VqsvIntroDemo.Scene s) {
+        SourcePetState active = s.sourcePets.get(0);
+        active.sourcePayload = active.toSourcePayload();
+        active.sourcePayload[6] = 1;
+        s.battleMenuIndex = 0;
+        s.text = null;
+        s.openPanelBagState17Petstate(4);
+        s.press0();
+        s.tick();
+        forceReadyText(s);
+        int expectedHp = expectedSourceItemHpAfter(active, 4, 1);
+        if (payloadHp(active) != expectedHp || VqsvSourceOps.sourceItemCount(s, 4) != 9) {
+            throw new IllegalStateException("Expected item4 story reward consume once"
+                    + " hp=" + payloadHp(active) + "/" + expectedHp
+                    + " count4=" + VqsvSourceOps.sourceItemCount(s, 4)
+                    + " trace=" + tailTrace(s, 48));
+        }
+        closePanelBagState17MessageForSmoke(s, "after item4 ownership consume");
+        SourcePetState reserve = new SourcePetState(1, 92, 5, 3, 2, 10, 45);
+        reserve.sourcePayload = reserve.toSourcePayload();
+        reserve.sourcePayload[6] = 0;
+        reserve.skillCooldowns[0] = 0;
+        s.sourcePets.add(reserve);
+        s.battleMenuIndex = 1;
+        s.text = null;
+        s.openPanelBagState17Petstate(11);
+        s.press0();
+        s.tick();
+        forceReadyText(s);
+        int expectedReviveHp = expectedSourceItemReviveHp(reserve, 11);
+        if (payloadHp(reserve) != expectedReviveHp || VqsvSourceOps.sourceItemCount(s, 11) != 1) {
+            throw new IllegalStateException("Expected item11 story reward consume once"
+                    + " hp=" + payloadHp(reserve) + "/" + expectedReviveHp
+                    + " count11=" + VqsvSourceOps.sourceItemCount(s, 11)
+                    + " trace=" + tailTrace(s, 64));
+        }
+        assertElderStoryRewardCounts(s, 9, 1, "after use");
+        s.text = TextBox.taskTip("SMOKE item 4/11 consumed once, counts 9/1");
+        revealCheckpointText(s, 50);
+    }
+
+    private static void closePanelBagState17MessageForSmoke(VqsvIntroDemo.Scene s, String label) {
+        forceReadyText(s);
+        s.press0();
+        s.tick();
+        if (s.panelBagState17MessageMode != 0 || s.text != null) {
+            throw new IllegalStateException("Expected closed state17 msgwarm " + label
+                    + " mode=" + s.panelBagState17MessageMode
+                    + " text=" + (s.text == null ? "none" : s.text.currentText())
+                    + " trace=" + tailTrace(s, 48));
+        }
+    }
+
+    private static void assertElderStoryRewardCounts(VqsvIntroDemo.Scene s, int item4, int item11,
+                                                     String label) {
+        int actual4 = VqsvSourceOps.sourceItemCount(s, 4);
+        int actual11 = VqsvSourceOps.sourceItemCount(s, 11);
+        if (actual4 != item4 || actual11 != item11) {
+            throw new IllegalStateException("Elder story reward count mismatch " + label
+                    + " item4=" + actual4 + "/" + item4
+                    + " item11=" + actual11 + "/" + item11
+                    + " trace=" + tailTrace(s, 48));
+        }
+    }
+
+    private static void renderRouteItemOwnershipSmoke(String checkpoint, String outPath,
+                                                      VqsvIntroDemo.Scene s)
+            throws java.io.IOException {
+        BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        s.render(g);
+        g.dispose();
+        ImageIO.write(img, "png", new java.io.File(outPath));
+        System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                + " item4=" + VqsvSourceOps.sourceItemCount(s, 4)
+                + " item11=" + VqsvSourceOps.sourceItemCount(s, 11)
+                + " money=" + s.sourceMoney
+                + " pets=" + s.sourcePets.size());
+    }
+
+    private static boolean runItemValidationWarningSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!checkpoint.startsWith("item_warning_code")) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("item_warning_code5_source_unreachable".equals(checkpoint)) {
+                assertNoBehaviorSixItemRows();
+                s.loadScene1Room0(199, 218);
+                s.text = TextBox.taskTip("SMOKE warning code5 source-known, no aq.c[4] behavior6 row");
+                revealCheckpointText(s, 50);
+                renderItemWarningSmoke(checkpoint, outPath, s, 5, 0);
+                return true;
+            }
+            if (checkpoint.startsWith("item_warning_code1_")) {
+                runItemWarningCodeSmoke(s, checkpoint, 1, 11,
+                        VqsvText.Battle.NO_PET_TARGET);
+            } else if (checkpoint.startsWith("item_warning_code4_")) {
+                runItemWarningCodeSmoke(s, checkpoint, 4, 10,
+                        VqsvText.Battle.ITEM_NO_DEBUFF);
+            } else if (checkpoint.startsWith("item_warning_code6_")) {
+                String expected = checkpoint.contains("_battle_")
+                        ? VqsvText.Battle.ITEM_NOT_IN_BATTLE
+                        : VqsvText.Battle.ITEM_CANNOT_USE;
+                runItemWarningCodeSmoke(s, checkpoint, 6, 0, expected);
+            } else if (checkpoint.startsWith("item_warning_code8_")) {
+                runItemWarningCodeSmoke(s, checkpoint, 8, 4,
+                        VqsvText.Battle.ITEM_TARGET_DEAD);
+            } else {
+                return false;
+            }
+            renderItemWarningSmoke(checkpoint, outPath, s, parseWarningCode(checkpoint),
+                    warningItemIdForCheckpoint(checkpoint));
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static void runItemWarningCodeSmoke(VqsvIntroDemo.Scene s, String checkpoint,
+                                                int expectedValidation, int itemId,
+                                                String expectedText) {
+        if (checkpoint.contains("_battle_")) {
+            runBattleItemWarningCodeSmoke(s, itemId, expectedValidation, expectedText);
+        } else if (checkpoint.contains("_state17_")) {
+            runPanelState17ItemWarningCodeSmoke(s, itemId, expectedValidation, expectedText);
+        } else if (checkpoint.contains("_petsetting_")) {
+            runPanelPetsettingItemWarningCodeSmoke(s, itemId, expectedValidation, expectedText);
+        } else {
+            throw new IllegalArgumentException("Unknown warning checkpoint route " + checkpoint);
+        }
+    }
+
+    private static void runBattleItemWarningCodeSmoke(VqsvIntroDemo.Scene s, int itemId,
+                                                      int expectedValidation,
+                                                      String expectedText) {
+        if (expectedValidation == 8) {
+            setupElderItemBattleWithDeadReserve(s, itemId, 1, -1);
+        } else {
+            setupElderItemBattle(s, itemId, 1, -1, -1);
+        }
+        int beforeCount = VqsvSourceOps.sourceItemCount(s, itemId);
+        if (expectedValidation == 8) {
+            driveItemUseToTarget(s, 1);
+        } else {
+            driveItemUse(s);
+        }
+        if (!"WARN".equals(s.battleStateName)
+                || !expectedText.equals(s.battleWarningTitle)
+                || VqsvSourceOps.sourceItemCount(s, itemId) != beforeCount) {
+            throw new IllegalStateException("Expected battle warning validation="
+                    + expectedValidation + " item=" + itemId
+                    + " warning=" + expectedText
+                    + " state=" + s.battleStateName
+                    + " actual=" + s.battleWarningTitle
+                    + " count=" + VqsvSourceOps.sourceItemCount(s, itemId)
+                    + "/" + beforeCount
+                    + " trace=" + tailTrace(s, 64));
+        }
+        if (expectedValidation != 6 && !traceContains(s, "validation=" + expectedValidation)) {
+            throw new IllegalStateException("Expected battle validation trace="
+                    + expectedValidation + " trace=" + tailTrace(s, 64));
+        }
+        revealCheckpointText(s, 60);
+    }
+
+    private static void runPanelState17ItemWarningCodeSmoke(VqsvIntroDemo.Scene s, int itemId,
+                                                            int expectedValidation,
+                                                            String expectedText) {
+        setupPanelSmokeWorld(s);
+        s.sourceBagItems.clear();
+        SourceItem item = VqsvSourceOps.sourceItem(itemId);
+        s.sourceBagItems.put(itemId, new BagItem(itemId, 2, item.bagChannel, itemId == 0));
+        s.sourcePets.clear();
+        SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+        if (expectedValidation == 8) {
+            pet.sourcePayload = pet.toSourcePayload();
+            pet.sourcePayload[6] = 0;
+        }
+        s.sourcePets.add(pet);
+        s.battleMenuIndex = 0;
+        s.openPanelBagState17Petstate(itemId);
+        int beforeCount = VqsvSourceOps.sourceItemCount(s, itemId);
+        s.press0();
+        s.tick();
+        forceReadyText(s);
+        if (s.panelBagState17MessageMode != 1
+                || s.text == null
+                || !expectedText.equals(s.text.currentText())
+                || VqsvSourceOps.sourceItemCount(s, itemId) != beforeCount) {
+            throw new IllegalStateException("Expected state17 warning validation="
+                    + expectedValidation + " item=" + itemId
+                    + " text=" + expectedText
+                    + " actual=" + (s.text == null ? "null" : s.text.currentText())
+                    + " mode=" + s.panelBagState17MessageMode
+                    + " count=" + VqsvSourceOps.sourceItemCount(s, itemId)
+                    + "/" + beforeCount
+                    + " trace=" + tailTrace(s, 64));
+        }
+        if (!traceContains(s, "validation=" + expectedValidation)) {
+            throw new IllegalStateException("Expected state17 validation trace="
+                    + expectedValidation + " trace=" + tailTrace(s, 64));
+        }
+    }
+
+    private static void runPanelPetsettingItemWarningCodeSmoke(VqsvIntroDemo.Scene s, int itemId,
+                                                               int expectedValidation,
+                                                               String expectedText) {
+        setupPanelSmokeWorld(s);
+        s.sourceBagItems.clear();
+        SourceItem item = VqsvSourceOps.sourceItem(itemId);
+        s.sourceBagItems.put(itemId, new BagItem(itemId, 2, item.bagChannel, itemId == 0));
+        s.sourcePets.clear();
+        SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+        if (expectedValidation == 8) {
+            pet.sourcePayload = pet.toSourcePayload();
+            pet.sourcePayload[6] = 0;
+        }
+        s.sourcePets.add(pet);
+        s.battleMenuIndex = 0;
+        s.openWorldPetstate();
+        s.press0();
+        s.tick();
+        if (!s.sourcePetSettingVisible) {
+            throw new IllegalStateException("Expected petsetting open for warning smoke trace="
+                    + tailTrace(s, 48));
+        }
+        s.press0();
+        s.tick();
+        if (!s.sourceItemChoiceVisible || s.sourceItemChoiceItemIdAt(s.sourceItemChoiceIndex) != itemId) {
+            throw new IllegalStateException("Expected item choice for item=" + itemId
+                    + " visible=" + s.sourceItemChoiceVisible
+                    + " selected=" + s.sourceItemChoiceItemIdAt(s.sourceItemChoiceIndex)
+                    + " trace=" + tailTrace(s, 64));
+        }
+        int beforeCount = VqsvSourceOps.sourceItemCount(s, itemId);
+        s.press0();
+        s.tick();
+        forceReadyText(s);
+        if (s.sourceItemChoiceMessageMode != 3
+                || s.text == null
+                || !expectedText.equals(s.text.currentText())
+                || VqsvSourceOps.sourceItemCount(s, itemId) != beforeCount) {
+            throw new IllegalStateException("Expected petsetting warning validation="
+                    + expectedValidation + " item=" + itemId
+                    + " text=" + expectedText
+                    + " actual=" + (s.text == null ? "null" : s.text.currentText())
+                    + " mode=" + s.sourceItemChoiceMessageMode
+                    + " count=" + VqsvSourceOps.sourceItemCount(s, itemId)
+                    + "/" + beforeCount
+                    + " trace=" + tailTrace(s, 72));
+        }
+        if (!traceContains(s, "validation=" + expectedValidation)) {
+            throw new IllegalStateException("Expected petsetting validation trace="
+                    + expectedValidation + " trace=" + tailTrace(s, 72));
+        }
+    }
+
+    private static void assertNoBehaviorSixItemRows() {
+        VqsvBattleTables tables = VqsvBattleTables.instance();
+        for (int itemId = 0; itemId < tables.rowCount(4); itemId++) {
+            BattleItemRow row = tables.item(itemId);
+            if (row != null && row.behavior == 6) {
+                throw new IllegalStateException("Unexpected source aq.c[4][" + itemId
+                        + "] behavior 6 row present");
+            }
+        }
+    }
+
+    private static int parseWarningCode(String checkpoint) {
+        int start = "item_warning_code".length();
+        int end = checkpoint.indexOf('_', start);
+        return Integer.parseInt(checkpoint.substring(start, end));
+    }
+
+    private static int warningItemIdForCheckpoint(String checkpoint) {
+        int code = parseWarningCode(checkpoint);
+        switch (code) {
+            case 1:
+                return 11;
+            case 4:
+                return 10;
+            case 6:
+                return 0;
+            case 8:
+                return 4;
+            default:
+                return 0;
+        }
+    }
+
+    private static void renderItemWarningSmoke(String checkpoint, String outPath,
+                                               VqsvIntroDemo.Scene s, int code, int itemId)
+            throws java.io.IOException {
+        BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        s.render(g);
+        g.dispose();
+        ImageIO.write(img, "png", new java.io.File(outPath));
+        System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                + " validation=" + code
+                + " item=" + itemId
+                + " count=" + VqsvSourceOps.sourceItemCount(s, itemId)
+                + " warning=" + s.battleWarningTitle
+                + " textState=" + (s.text == null ? "none" : "present"));
+    }
+
+    private static boolean runAvoidMonsterWorldSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!checkpoint.startsWith("item13_world_avoid_")) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            s.loadScene1Room0(200, 200);
+            s.setPlayerPositionApprox(200, 200);
+            s.sourceAvoidMonsterElapsed = 0;
+            if ("item13_world_avoid_blocks_encounter".equals(checkpoint)) {
+                s.sourceAvoidMonsterTicks = sourceItemParamA(13);
+                if (!s.sourceAvoidMonsterBlocksEncounter()) {
+                    throw new IllegalStateException("Expected q.x>0 to block encounter"
+                            + " q.x=" + s.sourceAvoidMonsterTicks);
+                }
+                s.sourceStateTrace.add("SMOKE verified item13 q.x blocks random encounter"
+                        + " q.x=" + s.sourceAvoidMonsterTicks);
+            } else if ("item13_world_avoid_decrements_on_move".equals(checkpoint)) {
+                int start = sourceItemParamA(13);
+                s.sourceAvoidMonsterTicks = start;
+                s.keyRight = true;
+                s.tickFreeWorldPlayer();
+                s.keyRight = false;
+                if (s.sourceAvoidMonsterTicks != start - 1
+                        || !s.sourceAvoidMonsterBlocksEncounter()) {
+                    throw new IllegalStateException("Expected move tick to decrement q.x and still block"
+                            + " start=" + start
+                            + " q.x=" + s.sourceAvoidMonsterTicks
+                            + " blocks=" + s.sourceAvoidMonsterBlocksEncounter());
+                }
+                s.sourceStateTrace.add("SMOKE verified item13 game.g.O decrement"
+                        + " q.x=" + start + "->" + s.sourceAvoidMonsterTicks
+                        + " q.w=" + s.sourceAvoidMonsterElapsed);
+            } else if ("item13_world_avoid_expires_unblocks".equals(checkpoint)) {
+                s.sourceAvoidMonsterTicks = 1;
+                s.keyRight = true;
+                s.tickFreeWorldPlayer();
+                s.keyRight = false;
+                if (s.sourceAvoidMonsterTicks != -1
+                        || s.sourceAvoidMonsterBlocksEncounter()) {
+                    throw new IllegalStateException("Expected q.x=1 move tick to expire and unblock"
+                            + " q.x=" + s.sourceAvoidMonsterTicks
+                            + " blocks=" + s.sourceAvoidMonsterBlocksEncounter());
+                }
+                if (!traceContains(s, "avoid expired q.x=0 -> q.x=-1")) {
+                    throw new IllegalStateException("Expected source expire trace, trace="
+                            + tailTrace(s, 40));
+                }
+                s.sourceStateTrace.add("SMOKE verified item13 avoid effect expired and encounter unblocked");
+            } else {
+                return false;
+            }
+            renderAvoidMonsterWorldSmoke(checkpoint, outPath, s);
+            return true;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private static void renderAvoidMonsterWorldSmoke(String checkpoint, String outPath,
+                                                     VqsvIntroDemo.Scene s) throws Exception {
+        BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        s.render(g);
+        g.dispose();
+        ImageIO.write(img, "png", new java.io.File(outPath));
+        System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                + " qx=" + s.sourceAvoidMonsterTicks
+                + " qw=" + s.sourceAvoidMonsterElapsed
+                + " blocksEncounter=" + s.sourceAvoidMonsterBlocksEncounter()
+                + " trace=" + tailTrace(s, 8));
     }
 
     private static void runBattleP9P24FocusedSmoke(String checkpoint, String outPath, boolean p24) {
@@ -11095,6 +12318,11 @@ final class VqsvSmokeHarness {
 
     private static VqsvIntroDemo.Scene setupCatchChanceStatusMenu(int targetDebuffId, boolean attackerForm11) {
         VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+        setupCatchChanceStatusMenu(s, targetDebuffId, attackerForm11);
+        return s;
+    }
+
+    private static void setupCatchChanceStatusMenu(VqsvIntroDemo.Scene s, int targetDebuffId, boolean attackerHeldItem11) {
         s.eventIndex = s.events.size();
         s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
         s.sourceBagItems.put(1, new BagItem(1, 1, 0, false));
@@ -11102,11 +12330,10 @@ final class VqsvSmokeHarness {
                 new int[0], new int[]{0, 0}, new int[]{10, 10, 0}, 0, true);
         s.current = runtime;
         tickUntilBattleState(s, "P20", 120);
-        runtime.debugSetCatchStatusForSmoke(s, targetDebuffId, attackerForm11);
+        runtime.debugSetCatchStatusForSmoke(s, targetDebuffId, attackerHeldItem11);
         s.battleClickX = 56;
         s.battleClickY = 300;
         tickUntilBattleState(s, "P21", 80);
-        return s;
     }
 
     private static int catchMenuChanceForItem(VqsvIntroDemo.Scene s, int itemId) {
@@ -11132,6 +12359,1662 @@ final class VqsvSmokeHarness {
         s.current = runtime;
         tickUntilBattleState(s, "P20", 120);
         return runtime;
+    }
+
+    private static int statusBuff0Skill10Damage(VqsvIntroDemo.Scene s, boolean forceDurationZero) {
+        s.eventIndex = s.events.size();
+        s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+        SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+        s.current = runtime;
+        tickUntilBattleState(s, "P20", 120);
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetPlayerDefenseForSmoke(s, 100);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        if (forceDurationZero) {
+            runtime.debugPlayerSourceBuffForSmoke(s, 0, 0, 4);
+            runtime.debugSetPlayerBuffDurationForSmoke(s, 0, 0);
+            if (!runtime.debugPlayerHasBuffForSmoke(0)
+                    || runtime.debugPlayerBuffValueForSmoke(0) != 30
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(0) != 228
+                    || runtime.debugPlayerBuffDurationForSmoke(0) != 0) {
+                throw new IllegalStateException("Expected buff0 source-edge duration0 setup value/secondary/duration 30/228/0, value="
+                        + runtime.debugPlayerBuffValueForSmoke(0)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(0)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(0)
+                        + " trace=" + tailTrace(s, 42));
+            }
+        }
+        BattleUnit.setDamageRandomSeedForChecks(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        s.battleClickX = 20;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P3", 80);
+        for (int i = 0; i < 10; i++) {
+            s.tick();
+        }
+        for (int i = 0; i < 18 && !"P7".equals(s.battleStateName); i++) {
+            s.press0();
+            s.tick();
+        }
+        tickUntilBattleState(s, "P7", 120);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected buff0 skill10 probe to hit, damage="
+                    + damage + " trace=" + tailTrace(s, 42));
+        }
+        s.sourceStateTrace.add("SMOKE buff0 Súc Lực skill10 probe"
+                + " duration0=" + forceDurationZero
+                + " damage=" + damage
+                + " storedExtra=" + runtime.debugPlayerBuffSecondaryValueForSmoke(0)
+                + " hasBuff0=" + runtime.debugPlayerHasBuffForSmoke(0)
+                + " source=game.b.b(target) v[0][0]==0 hook");
+        return damage;
+    }
+
+    private static int[] statusBuff8Skill10DamageAndPp(VqsvIntroDemo.Scene s,
+                                                       boolean applyBuff8,
+                                                       boolean expireBeforeUse) {
+        s.eventIndex = s.events.size();
+        s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+        SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+        s.current = runtime;
+        tickUntilBattleState(s, "P20", 120);
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        if (applyBuff8) {
+            runtime.debugPlayerSourceBuffForSmoke(s, 8, 0, 44);
+            if (runtime.debugPlayerBuffValueForSmoke(8) != 30
+                    || runtime.debugPlayerBuffDurationForSmoke(8) != 4) {
+                throw new IllegalStateException("Expected buff8 Điện áp source row value/duration 30/4, value="
+                        + runtime.debugPlayerBuffValueForSmoke(8)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(8)
+                        + " trace=" + tailTrace(s, 24));
+            }
+            if (expireBeforeUse) {
+                for (int i = 0; i < 4; i++) {
+                    runtime.debugTickPlayerSourceBuffForSmoke(s, 8);
+                }
+                if (runtime.debugPlayerHasBuffForSmoke(8)
+                        || runtime.debugPlayerBuffDurationForSmoke(8) != 0
+                        || s.battlePlayerStatusCount != 0) {
+                    throw new IllegalStateException("Expected buff8 to expire after 4 source ticks, active="
+                            + runtime.debugPlayerHasBuffForSmoke(8)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(8)
+                            + " statusCount=" + s.battlePlayerStatusCount
+                            + " trace=" + tailTrace(s, 42));
+                }
+            }
+        }
+        int durationBeforeUse = runtime.debugPlayerBuffDurationForSmoke(8);
+        int ppBefore = runtime.debugPlayerSkillPpForSmoke(0);
+        BattleUnit.setDamageRandomSeedForChecks(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        s.battleClickX = 20;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P3", 80);
+        for (int i = 0; i < 10; i++) {
+            s.tick();
+        }
+        for (int i = 0; i < 18 && !"P7".equals(s.battleStateName); i++) {
+            s.press0();
+            s.tick();
+        }
+        tickUntilBattleState(s, "P7", 120);
+        int ppAfterSelect = runtime.debugPlayerSkillPpForSmoke(0);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected buff8 skill10 probe to hit, damage="
+                    + damage + " trace=" + tailTrace(s, 42));
+        }
+        s.sourceStateTrace.add("SMOKE buff8 Điện áp skill10 probe"
+                + " applyBuff8=" + applyBuff8
+                + " expiredBeforeUse=" + expireBeforeUse
+                + " damage=" + damage
+                + " pp=" + ppBefore + "->" + ppAfterSelect
+                + " durationBeforeUse=" + durationBeforeUse
+                + " hasBuff8=" + runtime.debugPlayerHasBuffForSmoke(8));
+        return new int[]{damage, ppBefore, ppAfterSelect, Math.max(0, durationBeforeUse)};
+    }
+
+    private static int statusEffectivenessSkill10Damage(VqsvIntroDemo.Scene s,
+                                                        int playerBuffId,
+                                                        int enemyDebuffId,
+                                                        int enemyDebuffParam) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        if (playerBuffId >= 0) {
+            runtime.debugPlayerSourceBuffForSmoke(s, playerBuffId, 0, 68);
+        }
+        if (enemyDebuffId >= 0) {
+            runtime.debugEnemySourceDebuffForSmoke(s, enemyDebuffId, enemyDebuffParam, 51);
+        }
+        runtime.debugSetSourceRandomSeedForSmoke(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected status effectiveness skill10 damage frame, damage="
+                    + damage + " trace=" + tailTrace(s, 30));
+        }
+        return damage;
+    }
+
+    private static int[] statusBuff1Skill10Probe(VqsvIntroDemo.Scene s, boolean applyBuff1,
+                                                 boolean expireBeforeUse, int critRoll,
+                                                 int hitRoll, boolean forceMissSetup) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetPlayerDefenseForSmoke(s, 100);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        if (applyBuff1) {
+            runtime.debugPlayerSourceBuffForSmoke(s, 1, 0, 5);
+        }
+        if (expireBeforeUse) {
+            for (int i = 0; i < 3; i++) {
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 1);
+            }
+        }
+        if (forceMissSetup) {
+            runtime.debugSetPlayerSpeedForSmoke(s, 0);
+            runtime.debugSetEnemySpeedForSmoke(s, 200);
+        }
+        int baseDefense = runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE);
+        int currentDefense = runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE);
+        int duration = Math.max(0, runtime.debugPlayerBuffDurationForSmoke(1));
+        runtime.debugSetSourceRandomSeedForSmoke(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(critRoll);
+        runtime.debugSetNextP7HitRollForSmoke(hitRoll);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (!s.battleP7DamageVisible || !traceContains(s, "battle P7 damage frame skill=10")) {
+            throw new IllegalStateException("Expected buff1 skill10 probe to reach P7 damage frame,"
+                    + " applyBuff1=" + applyBuff1
+                    + " expireBeforeUse=" + expireBeforeUse
+                    + " critRoll=" + critRoll
+                    + " hitRoll=" + hitRoll
+                    + " forceMiss=" + forceMissSetup
+                    + " trace=" + tailTrace(s, 48));
+        }
+        s.sourceStateTrace.add("SMOKE buff1 Pha Phu skill10 probe"
+                + " applyBuff1=" + applyBuff1
+                + " expiredBeforeUse=" + expireBeforeUse
+                + " damage=" + damage
+                + " defense=" + baseDefense + "->" + currentDefense
+                + " durationBeforeUse=" + duration
+                + " hit=" + traceContains(s, "hit=true")
+                + " critical=" + s.battleP7DamageCritical);
+        return new int[]{damage, s.battleEnemyHp, s.battleEnemyMaxHp, baseDefense, currentDefense, duration};
+    }
+
+    private static int[] statusBuff2Skill10ReflectProbe(VqsvIntroDemo.Scene s, boolean applyBuff2,
+                                                        int critRoll, int hitRoll, boolean forceMissSetup,
+                                                        boolean tickPostEffects) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetPlayerDefenseForSmoke(s, 100);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        runtime.debugSetPlayerHpForSmoke(s, s.battlePlayerMaxHp);
+        if (applyBuff2) {
+            runtime.debugEnemySourceBuffForSmoke(s, 2, 0, 14);
+        }
+        if (forceMissSetup) {
+            runtime.debugSetPlayerSpeedForSmoke(s, 0);
+            runtime.debugSetEnemySpeedForSmoke(s, 200);
+        }
+        int playerHpBefore = s.battlePlayerHp;
+        int enemyBaseDefense = runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_DEFENSE);
+        int enemyCurrentDefense = runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE);
+        int duration = Math.max(0, runtime.debugEnemyBuffDurationForSmoke(2));
+        int secondary = runtime.debugEnemyBuffSecondaryValueForSmoke(2);
+        runtime.debugSetSourceRandomSeedForSmoke(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(critRoll);
+        runtime.debugSetNextP7HitRollForSmoke(hitRoll);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (!s.battleP7DamageVisible || !traceContains(s, "battle P7 damage frame skill=10")) {
+            throw new IllegalStateException("Expected buff2 skill10 probe to reach P7 damage frame,"
+                    + " applyBuff2=" + applyBuff2
+                    + " critRoll=" + critRoll
+                    + " hitRoll=" + hitRoll
+                    + " forceMiss=" + forceMissSetup
+                    + " trace=" + tailTrace(s, 48));
+        }
+        int criticalAtDamageFrame = s.battleP7DamageCritical ? 1 : 0;
+        if (tickPostEffects) {
+            tickUntilBattleP7Phase(s, 3, 240);
+        }
+        int reflect = Math.max(0, damage * Math.max(0, secondary) / 100);
+        s.sourceStateTrace.add("SMOKE buff2 Kinh Cuc skill10 reflect probe"
+                + " applyBuff2=" + applyBuff2
+                + " damage=" + damage
+                + " reflect=" + reflect
+                + " enemyDefense=" + enemyBaseDefense + "->" + enemyCurrentDefense
+                + " durationBeforeUse=" + duration
+                + " playerHp=" + playerHpBefore + "->" + s.battlePlayerHp
+                + " hit=" + traceContains(s, "hit=true")
+                + " critical=" + (criticalAtDamageFrame == 1));
+        return new int[]{damage, reflect, playerHpBefore, s.battlePlayerHp,
+                enemyBaseDefense, enemyCurrentDefense, duration, secondary, criticalAtDamageFrame};
+    }
+
+    private static int[] statusBuff3ProducerProbe(VqsvIntroDemo.Scene s, boolean tickToP7Exit) {
+        enterElderP7WithSkills(s, new int[]{15, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        int hpBefore = Math.max(20, s.battlePlayerMaxHp / 2);
+        runtime.debugSetPlayerHpForSmoke(s, hpBefore);
+        int expectedHeal = Math.max(0, s.battlePlayerMaxHp * 5 / 100);
+        tickUntilBattleP7Phase(s, 3, 340);
+        if (tickToP7Exit) {
+            tickUntilTraceContains(s, "active queue visual start bank=0 id=3", 900);
+        }
+        s.sourceStateTrace.add("SMOKE buff3 Khoi phuc producer probe"
+                + " hpBefore=" + hpBefore
+                + " hpAfter=" + s.battlePlayerHp
+                + " expectedHeal=" + expectedHeal
+                + " maxHp=" + s.battlePlayerMaxHp
+                + " duration=" + runtime.debugPlayerBuffDurationForSmoke(3)
+                + " value=" + runtime.debugPlayerBuffValueForSmoke(3));
+        return new int[]{hpBefore, s.battlePlayerHp, expectedHeal,
+                runtime.debugPlayerBuffValueForSmoke(3), runtime.debugPlayerBuffDurationForSmoke(3)};
+    }
+
+    private static int statusEffectivenessForm0Damage(VqsvIntroDemo.Scene s, int hp) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        runtime.debugPlayerFormStatusForSmoke(s, 0);
+        runtime.debugSetPlayerHpForSmoke(s, hp);
+        BattleUnit.setDamageRandomSeedForChecks(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected form0 skill10 damage frame, hp="
+                    + hp + " damage=" + damage + " trace=" + tailTrace(s, 30));
+        }
+        return damage;
+    }
+
+    private static int heldItem1AttackBoostDamage(VqsvIntroDemo.Scene s, boolean equipped) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        if (equipped) {
+            runtime.debugPlayerFormStatusForSmoke(s, 1);
+        }
+        BattleUnit.setDamageRandomSeedForChecks(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected held item1 skill10 damage frame, equipped="
+                    + equipped + " damage=" + damage + " trace=" + tailTrace(s, 30));
+        }
+        return damage;
+    }
+
+    private static void runHeldItem4CritWindow(VqsvIntroDemo.Scene s, boolean equipped) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerSpeedForSmoke(s, 0);
+        if (equipped) {
+            runtime.debugPlayerFormStatusForSmoke(s, 4);
+        }
+        runtime.debugSetNextDamageCritRollForSmoke(15);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        if (!s.battleP7DamageVisible
+                || !traceContains(s, "SMOKE battle forced damage.crit roll=15")
+                || !traceContains(s, "battle P7 damage frame skill=10")
+                || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected held item4 crit-window smoke to reach damage frame, equipped="
+                    + equipped
+                    + " visible=" + s.battleP7DamageVisible
+                    + " critical=" + s.battleP7DamageCritical
+                    + " trace=" + tailTrace(s, 42));
+        }
+    }
+
+    private static int heldItem2DefenseBoostDamage(VqsvIntroDemo.Scene s, boolean targetEquipped) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        if (targetEquipped) {
+            runtime.debugEnemyFormStatusForSmoke(s, 2);
+        }
+        BattleUnit.setDamageRandomSeedForChecks(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected held item2 skill10 damage frame, targetEquipped="
+                    + targetEquipped + " damage=" + damage + " trace=" + tailTrace(s, 30));
+        }
+        return damage;
+    }
+
+    private static void runHeldItem3DebuffResist(VqsvIntroDemo.Scene s, boolean targetEquipped) {
+        enterElderP7WithSkills(s, new int[]{2, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        if (targetEquipped) {
+            runtime.debugEnemyFormStatusForSmoke(s, 3);
+        }
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextDamageDebuffRollForSmoke(9);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        if (!s.battleP7DamageVisible
+                || !traceContains(s, "SMOKE battle forced damage.debuff roll=9")
+                || !traceContains(s, "battle P7 damage frame skill=2")
+                || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected held item3 debuff-resist smoke to reach damage frame, targetEquipped="
+                    + targetEquipped
+                    + " visible=" + s.battleP7DamageVisible
+                    + " debuffText=" + s.battleP7DebuffText
+                    + " trace=" + tailTrace(s, 42));
+        }
+    }
+
+    private static void runHeldItem7TurnPriority(VqsvIntroDemo.Scene s, boolean equipped) {
+        s.eventIndex = s.events.size();
+        SourcePetState pet = new SourcePetState(0, 17, 7, 3, 2, 10, 45);
+        if (equipped) {
+            pet.sourcePayload[2] = 7;
+        }
+        s.sourcePets.add(pet);
+        s.current = new SourceBattleRuntime(52, new int[]{68, 30, 1},
+                new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+        tickUntilBattleState(s, "P1", 160);
+        tickUntilAnyBattleState(s, 120, "P20", "P2");
+        if (equipped) {
+            if (!"P20".equals(s.battleStateName)
+                    || !traceContains(s, "held item7 turn priority")
+                    || !traceContains(s, "playerHeld=true")
+                    || !traceContains(s, "playerFirst=true")) {
+                throw new IllegalStateException("Expected held item7 to force player command before faster enemy, state="
+                        + s.battleStateName
+                        + " trace=" + tailTrace(s, 42));
+            }
+        } else if (!"P2".equals(s.battleStateName)) {
+            throw new IllegalStateException("Expected faster enemy baseline to act before player without held item7, state="
+                    + s.battleStateName
+                    + " trace=" + tailTrace(s, 42));
+        }
+    }
+
+    private static int[] runHeldItem8LeechHeal(VqsvIntroDemo.Scene s, int forcedRoll) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        runtime.debugPlayerFormStatusForSmoke(s, 8);
+        int hpBefore = Math.max(1, Math.min(s.battlePlayerMaxHp - 20, 40));
+        runtime.debugSetPlayerHpForSmoke(s, hpBefore);
+        BattleUnit.setDamageRandomSeedForChecks(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        runtime.debugSetNextLeechRollForSmoke(forcedRoll);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected held item8 skill10 hit before leech, damage="
+                    + damage + " trace=" + tailTrace(s, 42));
+        }
+        tickUntilBattleP7Phase(s, 3, 360);
+        int hpAfter = s.battlePlayerHp;
+        return new int[]{damage, hpBefore, hpAfter};
+    }
+
+    private static void runHeldItem9NoMiss(VqsvIntroDemo.Scene s, boolean equipped) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        if (equipped) {
+            runtime.debugPlayerFormStatusForSmoke(s, 9);
+        }
+        runtime.debugSetPlayerSpeedForSmoke(s, 0);
+        runtime.debugSetEnemySpeedForSmoke(s, 200);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(0);
+        tickUntilBattleP7Phase(s, 2, 180);
+    }
+
+    private static int[] runHeldItem10HpFloor(VqsvIntroDemo.Scene s, boolean equipped) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        runtime.debugSetEnemyHpForSmoke(s, 5);
+        if (equipped) {
+            runtime.debugPlayerFormStatusForSmoke(s, 10);
+        }
+        BattleUnit.setDamageRandomSeedForChecks(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected held item10 setup to hit, damage="
+                    + damage + " trace=" + tailTrace(s, 42));
+        }
+        tickUntilBattleP7Phase(s, 3, 360);
+        return new int[]{damage, s.battleEnemyHp, s.battleEnemyMaxHp};
+    }
+
+    private static boolean isBattleStatusEffectivenessCheckpoint(String checkpoint) {
+        return "battle_status_buff0_producer_visual".equals(checkpoint)
+                || "battle_status_buff0_duration0_damage_hook".equals(checkpoint)
+                || "battle_status_buff0_expiry_clears_defense".equals(checkpoint)
+                || "battle_status_buff1_producer_visual".equals(checkpoint)
+                || "battle_status_buff1_forced_hit_damage_defense".equals(checkpoint)
+                || "battle_status_buff1_forced_miss_no_damage".equals(checkpoint)
+                || "battle_status_buff1_forced_crit_damage".equals(checkpoint)
+                || "battle_status_buff1_expiry_clears_damage_defense".equals(checkpoint)
+                || "battle_status_buff2_producer_visual".equals(checkpoint)
+                || "battle_status_buff2_forced_hit_reflect_defense".equals(checkpoint)
+                || "battle_status_buff2_forced_miss_no_reflect".equals(checkpoint)
+                || "battle_status_buff2_forced_crit_reflect".equals(checkpoint)
+                || "battle_status_buff2_expiry_clears_defense_reflect".equals(checkpoint)
+                || "battle_status_buff3_heal_tick".equals(checkpoint)
+                || "battle_status_buff3_producer_visual_apply_heal".equals(checkpoint)
+                || "battle_status_buff3_p12_body_visual_start".equals(checkpoint)
+                || "battle_status_buff3_p12_heal_tick".equals(checkpoint)
+                || "battle_status_buff3_expiry_clears_icon".equals(checkpoint)
+                || "battle_status_buff8_producer_visual".equals(checkpoint)
+                || "battle_status_buff8_pp_cost_damage_active".equals(checkpoint)
+                || "battle_status_buff8_expiry_clears_pp_damage".equals(checkpoint)
+                || "battle_status_buff10_attack_up_damage".equals(checkpoint)
+                || "battle_status_buff14_blocks_debuff".equals(checkpoint)
+                || "battle_status_debuff0_damage_tick".equals(checkpoint)
+                || "battle_status_debuff5_speed_down".equals(checkpoint)
+                || "battle_status_debuff7_defense_down".equals(checkpoint)
+                || "battle_status_debuff10_catch_multiplier".equals(checkpoint)
+                || "battle_status_form0_low_hp_attack_boost".equals(checkpoint)
+                || "battle_held_item1_attack_boost".equals(checkpoint)
+                || "battle_held_item2_defense_boost".equals(checkpoint)
+                || "battle_held_item3_debuff_resist".equals(checkpoint)
+                || "battle_held_item4_crit_window".equals(checkpoint)
+                || "battle_held_item7_turn_priority".equals(checkpoint)
+                || "battle_held_item8_leech_heal".equals(checkpoint)
+                || "battle_held_item9_no_miss".equals(checkpoint)
+                || "battle_held_item10_hp_floor".equals(checkpoint)
+                || "battle_held_item11_catch_chance".equals(checkpoint)
+                || "battle_status_form9_no_miss".equals(checkpoint);
+    }
+
+    private static void handleBattleStatusEffectivenessCheckpoint(VqsvIntroDemo.Scene s,
+                                                                  String checkpoint) {
+        if ("battle_status_buff0_producer_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{4, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerAttackForSmoke(s, 120);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            tickUntilBattleP7Phase(s, 3, 340);
+            int baseDefense = runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE);
+            int currentDefense = runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE);
+            if (!s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(0)
+                    || runtime.debugPlayerBuffValueForSmoke(0) != 30
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(0) <= 0
+                    || runtime.debugPlayerBuffDurationForSmoke(0) != 2
+                    || baseDefense != 100
+                    || currentDefense != 130
+                    || traceContains(s, "battle P7 damage frame skill=4")
+                    || traceContains(s, "battle P7 hitroll skill=4")
+                    || !traceContains(s, "battle P7 no-damage skill=4")
+                    || !traceContains(s, "battle P7 speffect skill=4")
+                    || !traceContains(s, "speffect=16")
+                    || !traceContains(s, "speffect=15")
+                    || !traceContains(s, "game.d.q postEffect skill=4")
+                    || !traceContains(s, "buffId=0")) {
+                throw new IllegalStateException("Expected buff0 producer skill4 to play P7 speffect chunks,"
+                        + " apply Súc Lực, raise defense +30%, and store 190% attack; postVisible="
+                        + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff0=" + runtime.debugPlayerHasBuffForSmoke(0)
+                        + " buff0Value=" + runtime.debugPlayerBuffValueForSmoke(0)
+                        + " buff0Secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(0)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(0)
+                        + " defense=" + baseDefense + "->" + currentDefense
+                        + " trace=" + tailTrace(s, 72));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff0 producer visual",
+                    new int[]{12}, new int[]{136});
+            s.sourceStateTrace.add("SMOKE verified buff0 Súc Lực producer skill4"
+                    + " visual=effect.mid[4] speffect16->15"
+                    + " defense=100->130"
+                    + " storedExtra=" + runtime.debugPlayerBuffSecondaryValueForSmoke(0)
+                    + " icon=12 durationCell=136 source=aq.c[6][0]");
+            return;
+        }
+        if ("battle_status_buff0_duration0_damage_hook".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int baseline = statusBuff0Skill10Damage(baselineScene, false);
+            int hooked = statusBuff0Skill10Damage(s, true);
+            int expectedBaseline = 80;
+            int expectedHooked = expectedBaseline + 228;
+            if (baseline != expectedBaseline
+                    || hooked != expectedHooked
+                    || !traceContains(s, "duration forced id=0 duration=0")
+                    || !traceContains(s, "battle P7 damage frame skill=10")
+                    || !traceContains(s, "v[0][0]==0 hook")) {
+                throw new IllegalStateException("Expected buff0 source-edge duration0 damage hook,"
+                        + " baseline=" + baseline + " expectedBaseline=" + expectedBaseline
+                        + " hooked=" + hooked + " expectedHooked=" + expectedHooked
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff0 Súc Lực duration0 damage hook"
+                    + " baseline=" + baseline
+                    + " hooked=" + hooked
+                    + " formula=baseline+190%*B()=80+228"
+                    + " note=source d(buff,slot) normally clears when duration reaches 0");
+            return;
+        }
+        if ("battle_status_buff0_expiry_clears_defense".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetPlayerAttackForSmoke(s, 120);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            runtime.debugPlayerSourceBuffForSmoke(s, 0, 0, 4);
+            if (!runtime.debugPlayerHasBuffForSmoke(0)
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 130
+                    || runtime.debugPlayerBuffDurationForSmoke(0) != 2) {
+                throw new IllegalStateException("Expected buff0 active before expiry, defense="
+                        + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(0)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff0 before expiry",
+                    new int[]{12}, new int[]{136});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 0);
+            if (!runtime.debugPlayerHasBuffForSmoke(0)
+                    || runtime.debugPlayerBuffDurationForSmoke(0) != 1
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 130) {
+                throw new IllegalStateException("Expected buff0 first tick to keep active defense boost, defense="
+                        + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(0)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff0 after first tick",
+                    new int[]{12}, new int[]{135});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 0);
+            if (runtime.debugPlayerHasBuffForSmoke(0)
+                    || runtime.debugPlayerBuffDurationForSmoke(0) != 0
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")) {
+                throw new IllegalStateException("Expected buff0 expiry to clear icon and restore defense,"
+                        + " active=" + runtime.debugPlayerHasBuffForSmoke(0)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(0)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff0 Súc Lực expiry"
+                    + " durationTicks=2"
+                    + " defenseRestored=100"
+                    + " iconCleared=true"
+                    + " source=game.b.d(buffId,slot)");
+            return;
+        }
+        if ("battle_status_buff1_producer_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{5, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerAttackForSmoke(s, 120);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            tickUntilBattleP7Phase(s, 3, 340);
+            int baseDefense = runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE);
+            int currentDefense = runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE);
+            if (!s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(1)
+                    || runtime.debugPlayerBuffValueForSmoke(1) != 50
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(1) != 50
+                    || runtime.debugPlayerBuffDurationForSmoke(1) != 3
+                    || baseDefense != 100
+                    || currentDefense != 50
+                    || traceContains(s, "battle P7 damage frame skill=5")
+                    || traceContains(s, "battle P7 hitroll skill=5")
+                    || !traceContains(s, "battle P7 no-damage skill=5")
+                    || !traceContains(s, "battle P7 speffect skill=5")
+                    || !traceContains(s, "speffect=16")
+                    || !traceContains(s, "speffect=15")
+                    || !traceContains(s, "game.d.q postEffect skill=5")
+                    || !traceContains(s, "buffId=1")) {
+                throw new IllegalStateException("Expected buff1 producer skill5 to play P7 speffect chunks,"
+                        + " apply Pha Phu, lower defense -50%, and store +50% damage; postVisible="
+                        + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff1=" + runtime.debugPlayerHasBuffForSmoke(1)
+                        + " buff1Value=" + runtime.debugPlayerBuffValueForSmoke(1)
+                        + " buff1Secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(1)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(1)
+                        + " defense=" + baseDefense + "->" + currentDefense
+                        + " trace=" + tailTrace(s, 72));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff1 producer visual",
+                    new int[]{13}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff1 Pha Phu producer skill5"
+                    + " visual=effect.mid[5] speffect16->15"
+                    + " defense=100->50"
+                    + " damageBonus=50"
+                    + " icon=13 durationCell=137 source=aq.c[6][1]");
+            return;
+        }
+        if ("battle_status_buff1_forced_hit_damage_defense".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int[] baseline = statusBuff1Skill10Probe(baselineScene, false, false, 99, 99, false);
+            int[] active = statusBuff1Skill10Probe(s, true, false, 99, 99, false);
+            int expectedActive = baseline[0] + baseline[0] * 50 / 100;
+            assertPhase10AStatusSlots(s, true, "status buff1 forced hit",
+                    new int[]{13}, new int[]{137});
+            if (baseline[0] != 80
+                    || active[0] != expectedActive
+                    || active[3] != 100
+                    || active[4] != 50
+                    || active[5] != 3
+                    || !traceContains(s, "player source buff prepared id=1")
+                    || !traceContains(s, "battle P7 damage frame skill=10")
+                    || !traceContains(s, "sideEffectsCommitted=true")
+                    || !traceContains(s, "hit=true")) {
+                throw new IllegalStateException("Expected buff1 forced hit to lower defense and add +50% damage,"
+                        + " baselineDamage=" + baseline[0]
+                        + " activeDamage=" + active[0]
+                        + " expectedActive=" + expectedActive
+                        + " defense=" + active[3] + "->" + active[4]
+                        + " duration=" + active[5]
+                        + " enemyHp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff1 Pha Phu forced-hit logic"
+                    + " baselineDamage=" + baseline[0]
+                    + " activeDamage=" + active[0]
+                    + " formula=damage+damage*50/100"
+                    + " defense=100->50");
+            return;
+        }
+        if ("battle_status_buff1_forced_miss_no_damage".equals(checkpoint)) {
+            int[] miss = statusBuff1Skill10Probe(s, true, false, 99, 0, true);
+            assertPhase10AStatusSlots(s, true, "status buff1 forced miss",
+                    new int[]{13}, new int[]{137});
+            if (!s.battleP7DamageVisible
+                    || !VqsvText.Battle.DODGE.equals(s.battleP7MissText)
+                    || !s.battleP7DamageText.isEmpty()
+                    || s.battleEnemyHp != s.battleEnemyMaxHp
+                    || miss[3] != 100
+                    || miss[4] != 50
+                    || !traceContains(s, "player source buff prepared id=1")
+                    || !traceContains(s, "sideEffectsCommitted=false")
+                    || !traceContains(s, "hit=false")) {
+                throw new IllegalStateException("Expected buff1 forced miss to show dodge and apply no HP damage,"
+                        + " visible=" + s.battleP7DamageVisible
+                        + " missText=" + s.battleP7MissText
+                        + " damageText=" + s.battleP7DamageText
+                        + " enemyHp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                        + " defense=" + miss[3] + "->" + miss[4]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff1 Pha Phu forced-miss"
+                    + " noHpDamage=true"
+                    + " defenseDebuffStillActive=100->50"
+                    + " damageModifierComputedButNotCommittedByP7HitGate");
+            return;
+        }
+        if ("battle_status_buff1_forced_crit_damage".equals(checkpoint)) {
+            VqsvIntroDemo.Scene nonCritScene = new VqsvIntroDemo.Scene();
+            int[] nonCrit = statusBuff1Skill10Probe(nonCritScene, true, false, 99, 99, false);
+            int[] crit = statusBuff1Skill10Probe(s, true, false, 0, 99, false);
+            if (!s.battleP7DamageVisible
+                    || !s.battleP7DamageCritical
+                    || crit[0] <= nonCrit[0]
+                    || !traceContains(s, "SMOKE battle forced damage.crit roll=0")
+                    || !traceContains(s, "critFlag=1")
+                    || !traceContains(s, "sideEffectsCommitted=true")
+                    || !traceContains(s, "hit=true")) {
+                throw new IllegalStateException("Expected buff1 forced crit to affect hit damage only,"
+                        + " nonCrit=" + nonCrit[0]
+                        + " crit=" + crit[0]
+                        + " critical=" + s.battleP7DamageCritical
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff1 Pha Phu forced-crit"
+                    + " nonCritDamage=" + nonCrit[0]
+                    + " critDamage=" + crit[0]
+                    + " visualCritical=true");
+            return;
+        }
+        if ("battle_status_buff1_expiry_clears_damage_defense".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int[] baseline = statusBuff1Skill10Probe(baselineScene, false, false, 99, 99, false);
+            int[] expired = statusBuff1Skill10Probe(s, true, true, 99, 99, false);
+            if (baseline[0] != 80
+                    || expired[0] != baseline[0]
+                    || expired[4] != 100
+                    || expired[5] != 0
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=1")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")
+                    || !traceContains(s, "battle P7 damage frame skill=10")) {
+                throw new IllegalStateException("Expected buff1 expiry to clear icon and restore defense/damage baseline,"
+                        + " baselineDamage=" + baseline[0]
+                        + " expiredDamage=" + expired[0]
+                        + " expiredDefense=" + expired[4]
+                        + " expiredDuration=" + expired[5]
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff1 Pha Phu expiry"
+                    + " durationTicks=3"
+                    + " damageReturnsTo=" + expired[0]
+                    + " defenseRestored=100"
+                    + " iconCleared=true");
+            return;
+        }
+        if ("battle_status_buff2_producer_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{14, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            tickUntilBattleP7Phase(s, 3, 340);
+            int baseDefense = runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE);
+            int currentDefense = runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE);
+            if (!s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(2)
+                    || runtime.debugPlayerBuffValueForSmoke(2) != 30
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(2) != 10
+                    || runtime.debugPlayerBuffDurationForSmoke(2) != 3
+                    || baseDefense != 100
+                    || currentDefense != 130
+                    || traceContains(s, "battle P7 damage frame skill=14")
+                    || traceContains(s, "battle P7 hitroll skill=14")
+                    || traceContains(s, "battle P7 speffect skill=14")
+                    || !traceContains(s, "battle P7 no-damage skill=14")
+                    || !traceContains(s, "battle P7 actor u.a() start skill=14")
+                    || !traceContains(s, "sourceEffectId=21")
+                    || !traceContains(s, "game.d.q postEffect skill=14")
+                    || !traceContains(s, "buffId=2")) {
+                throw new IllegalStateException("Expected buff2 producer skill14 to play actor action effect,"
+                        + " apply Kinh Cuc, raise defense +30%, and store 10% reflect; postVisible="
+                        + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff2=" + runtime.debugPlayerHasBuffForSmoke(2)
+                        + " buff2Value=" + runtime.debugPlayerBuffValueForSmoke(2)
+                        + " buff2Secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(2)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(2)
+                        + " defense=" + baseDefense + "->" + currentDefense
+                        + " trace=" + tailTrace(s, 72));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff2 producer visual",
+                    new int[]{14}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff2 Kinh Cuc producer skill14"
+                    + " visual=effect.mid[14] actorAction sourceEffectId=21"
+                    + " defense=100->130"
+                    + " reflectPercent=10"
+                    + " icon=14 durationCell=137 source=aq.c[6][2]");
+            return;
+        }
+        if ("battle_status_buff2_forced_hit_reflect_defense".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int[] baseline = statusBuff2Skill10ReflectProbe(baselineScene, false, 99, 99, false, true);
+            int[] active = statusBuff2Skill10ReflectProbe(s, true, 99, 99, false, true);
+            int expectedReflect = active[0] * 10 / 100;
+            assertPhase10AStatusSlots(s, false, "status buff2 forced hit target",
+                    new int[]{14}, new int[]{137});
+            if (baseline[3] != baseline[2]
+                    || traceContains(baselineScene, "PORTED battle P7 buff2 Kinh Cuc reflect")
+                    || active[1] != expectedReflect
+                    || active[3] != active[2] - expectedReflect
+                    || active[4] != 40
+                    || active[5] != 52
+                    || active[6] != 3
+                    || active[7] != 10
+                    || !traceContains(s, "enemy source buff prepared id=2")
+                    || !traceContains(s, "battle P7 damage frame skill=10")
+                    || !traceContains(s, "sideEffectsCommitted=true")
+                    || !traceContains(s, "hit=true")
+                    || !traceContains(s, "PORTED battle P7 buff2 Kinh Cuc reflect")
+                    || !traceContains(s, "reflect=" + expectedReflect)
+                    || !traceContains(s, "source=game.d.q Z[0]*target.v[2][2]/100")) {
+                throw new IllegalStateException("Expected buff2 forced hit to raise target defense and reflect 10% damage,"
+                        + " baselinePlayerHp=" + baseline[2] + "->" + baseline[3]
+                        + " activeDamage=" + active[0]
+                        + " activeReflect=" + active[1]
+                        + " expectedReflect=" + expectedReflect
+                        + " activePlayerHp=" + active[2] + "->" + active[3]
+                        + " enemyDefense=" + active[4] + "->" + active[5]
+                        + " duration=" + active[6]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff2 Kinh Cuc forced-hit logic"
+                    + " damage=" + active[0]
+                    + " reflect=" + expectedReflect
+                    + " formula=damage*10/100"
+                    + " targetDefense=40->52");
+            return;
+        }
+        if ("battle_status_buff2_forced_miss_no_reflect".equals(checkpoint)) {
+            int[] miss = statusBuff2Skill10ReflectProbe(s, true, 99, 0, true, false);
+            assertPhase10AStatusSlots(s, false, "status buff2 forced miss target",
+                    new int[]{14}, new int[]{137});
+            if (!s.battleP7DamageVisible
+                    || !VqsvText.Battle.DODGE.equals(s.battleP7MissText)
+                    || !s.battleP7DamageText.isEmpty()
+                    || s.battleEnemyHp != s.battleEnemyMaxHp
+                    || miss[3] != miss[2]
+                    || miss[4] != 40
+                    || miss[5] != 52
+                    || !traceContains(s, "enemy source buff prepared id=2")
+                    || !traceContains(s, "sideEffectsCommitted=false")
+                    || !traceContains(s, "hit=false")
+                    || traceContains(s, "PORTED battle P7 buff2 Kinh Cuc reflect")) {
+                throw new IllegalStateException("Expected buff2 forced miss to show dodge and not reflect,"
+                        + " visible=" + s.battleP7DamageVisible
+                        + " missText=" + s.battleP7MissText
+                        + " damageText=" + s.battleP7DamageText
+                        + " enemyHp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                        + " playerHp=" + miss[2] + "->" + miss[3]
+                        + " defense=" + miss[4] + "->" + miss[5]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff2 Kinh Cuc forced-miss"
+                    + " noHpDamage=true"
+                    + " noReflect=true"
+                    + " defenseBuffStillActive=40->52");
+            return;
+        }
+        if ("battle_status_buff2_forced_crit_reflect".equals(checkpoint)) {
+            VqsvIntroDemo.Scene nonCritScene = new VqsvIntroDemo.Scene();
+            int[] nonCrit = statusBuff2Skill10ReflectProbe(nonCritScene, true, 99, 99, false, true);
+            int[] crit = statusBuff2Skill10ReflectProbe(s, true, 0, 99, false, true);
+            int expectedCritReflect = crit[0] * 10 / 100;
+            if (crit[8] != 1
+                    || crit[0] <= nonCrit[0]
+                    || crit[1] != expectedCritReflect
+                    || crit[3] != crit[2] - expectedCritReflect
+                    || !traceContains(s, "SMOKE battle forced damage.crit roll=0")
+                    || !traceContains(s, "critFlag=1")
+                    || !traceContains(s, "PORTED battle P7 buff2 Kinh Cuc reflect")
+                    || !traceContains(s, "reflect=" + expectedCritReflect)
+                    || !traceContains(s, "sideEffectsCommitted=true")
+                    || !traceContains(s, "hit=true")) {
+                throw new IllegalStateException("Expected buff2 forced crit to scale reflect from crit damage,"
+                        + " nonCritDamage=" + nonCrit[0]
+                        + " nonCritReflect=" + nonCrit[1]
+                        + " critDamage=" + crit[0]
+                        + " critReflect=" + crit[1]
+                        + " expectedCritReflect=" + expectedCritReflect
+                        + " criticalAtDamage=" + crit[8]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff2 Kinh Cuc forced-crit reflect"
+                    + " nonCritDamage=" + nonCrit[0]
+                    + " critDamage=" + crit[0]
+                    + " critReflect=" + expectedCritReflect
+                    + " visualCritical=true");
+            return;
+        }
+        if ("battle_status_buff2_expiry_clears_defense_reflect".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            runtime.debugPlayerSourceBuffForSmoke(s, 2, 0, 14);
+            if (!runtime.debugPlayerHasBuffForSmoke(2)
+                    || runtime.debugPlayerBuffValueForSmoke(2) != 30
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(2) != 10
+                    || runtime.debugPlayerBuffDurationForSmoke(2) != 3
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 130) {
+                throw new IllegalStateException("Expected buff2 active before expiry, defense="
+                        + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(2)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(2)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(2)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff2 before expiry",
+                    new int[]{14}, new int[]{137});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 2);
+            if (!runtime.debugPlayerHasBuffForSmoke(2)
+                    || runtime.debugPlayerBuffDurationForSmoke(2) != 2
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 130) {
+                throw new IllegalStateException("Expected buff2 first tick to keep active defense boost, defense="
+                        + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(2)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff2 after first tick",
+                    new int[]{14}, new int[]{136});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 2);
+            if (!runtime.debugPlayerHasBuffForSmoke(2)
+                    || runtime.debugPlayerBuffDurationForSmoke(2) != 1
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 130) {
+                throw new IllegalStateException("Expected buff2 second tick to keep active defense boost, defense="
+                        + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(2)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff2 after second tick",
+                    new int[]{14}, new int[]{135});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 2);
+            if (runtime.debugPlayerHasBuffForSmoke(2)
+                    || runtime.debugPlayerBuffDurationForSmoke(2) != 0
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=2")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")) {
+                throw new IllegalStateException("Expected buff2 expiry to clear icon and restore defense/reflect,"
+                        + " active=" + runtime.debugPlayerHasBuffForSmoke(2)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(2)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff2 Kinh Cuc expiry"
+                    + " durationTicks=3"
+                    + " defenseRestored=100"
+                    + " iconCleared=true"
+                    + " reflectInactive=true");
+            return;
+        }
+        if ("battle_status_buff3_heal_tick".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{15, 45}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerHpForSmoke(s, Math.max(20, s.battlePlayerMaxHp / 2));
+            tickUntilBattleP7Phase(s, 3, 320);
+            if (!runtime.debugPlayerHasBuffForSmoke(3)
+                    || runtime.debugPlayerActiveBuffSlotForSmoke(3) < 0
+                    || s.battlePlayerHp <= 1
+                    || !traceContains(s, "game.d.q postEffect skill=15")
+                    || !traceContains(s, "buffId=3")) {
+                throw new IllegalStateException("Expected status buff3 to apply and heal immediately, hp="
+                        + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                        + " hasBuff3=" + runtime.debugPlayerHasBuffForSmoke(3)
+                        + " slot=" + runtime.debugPlayerActiveBuffSlotForSmoke(3)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff3 before tick",
+                    new int[]{15}, new int[]{137});
+            tickUntilTraceContains(s, "active queue apply bank=0 id=3", 900);
+            if (!traceContains(s, "active queue visual start bank=0 id=3")
+                    || !traceContains(s, "active queue apply bank=0 id=3")
+                    || !s.battleP7PostEffectText.startsWith("+")) {
+                throw new IllegalStateException("Expected status buff3 active queue heal tick, hp="
+                        + s.battlePlayerHp
+                        + " postText=" + s.battleP7PostEffectText
+                        + " trace=" + tailTrace(s, 52));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff3 after tick",
+                    new int[]{15}, new int[]{136});
+            return;
+        }
+        if ("battle_status_buff3_producer_visual_apply_heal".equals(checkpoint)) {
+            int[] probe = statusBuff3ProducerProbe(s, false);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            if (!s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || !("+" + probe[2]).equals(s.battleP7PostEffectText)
+                    || !runtime.debugPlayerHasBuffForSmoke(3)
+                    || runtime.debugPlayerActiveBuffSlotForSmoke(3) < 0
+                    || probe[1] != probe[0] + probe[2]
+                    || probe[3] != probe[2]
+                    || probe[4] != 3
+                    || traceContains(s, "battle P7 damage frame skill=15")
+                    || traceContains(s, "battle P7 hitroll skill=15")
+                    || !traceContains(s, "battle P7 no-damage skill=15")
+                    || !traceContains(s, "battle P7 actor u.a() start skill=15")
+                    || !traceContains(s, "sourceEffectId=33")
+                    || !traceContains(s, "battle P7 speffect skill=15")
+                    || !traceContains(s, "speffect=7")
+                    || !traceContains(s, "game.d.q postEffect skill=15")
+                    || !traceContains(s, "buffId=3")) {
+                throw new IllegalStateException("Expected buff3 producer skill15 to play actor+speffect visual,"
+                        + " heal 5% maxHP on apply, and show icon; hp="
+                        + probe[0] + "->" + probe[1]
+                        + " expectedHeal=" + probe[2]
+                        + " value=" + probe[3]
+                        + " duration=" + probe[4]
+                        + " postVisible=" + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff3=" + runtime.debugPlayerHasBuffForSmoke(3)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff3 producer visual/apply",
+                    new int[]{15}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff3 Khoi phuc producer skill15"
+                    + " visual=effect.mid[15] actorAction sourceEffectId=33 speffect=7"
+                    + " heal=" + probe[2]
+                    + " formula=maxHp*5/100"
+                    + " hp=" + probe[0] + "->" + probe[1]
+                    + " icon=15 durationCell=137 source=aq.c[6][3]");
+            return;
+        }
+        if ("battle_status_buff3_p12_body_visual_start".equals(checkpoint)) {
+            int[] probe = statusBuff3ProducerProbe(s, true);
+            if (!s.battleActiveQueueVisible
+                    || !s.battleActiveQueuePlayerSide
+                    || s.battleActiveQueueBank != 0
+                    || s.battleActiveQueueEffectId != 3
+                    || !traceContains(s, "active queue visual start bank=0 id=3")
+                    || !traceContains(s, "active queue visual bank=0 buff=3")
+                    || probe[4] != 3) {
+                throw new IllegalStateException("Expected buff3 P12/P13 body visual to start before heal tick,"
+                        + " activeVisible=" + s.battleActiveQueueVisible
+                        + " side=" + s.battleActiveQueuePlayerSide
+                        + " bank=" + s.battleActiveQueueBank
+                        + " id=" + s.battleActiveQueueEffectId
+                        + " duration=" + probe[4]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff3 P12 visual start",
+                    new int[]{15}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff3 Khoi phuc P12/P13 body visual start"
+                    + " bank=0 id=3 duration=3"
+                    + " visualTrace=true");
+            return;
+        }
+        if ("battle_status_buff3_p12_heal_tick".equals(checkpoint)) {
+            int[] probe = statusBuff3ProducerProbe(s, true);
+            int hpAfterProducer = probe[1];
+            tickUntilTraceContains(s, "active queue apply bank=0 id=3", 900);
+            int expectedHp = Math.min(s.battlePlayerMaxHp, hpAfterProducer + probe[2]);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            if (s.battlePlayerHp != expectedHp
+                    || !s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || !("+" + probe[2]).equals(s.battleP7PostEffectText)
+                    || !runtime.debugPlayerHasBuffForSmoke(3)
+                    || runtime.debugPlayerBuffDurationForSmoke(3) != 2
+                    || runtime.debugPlayerBuffValueForSmoke(3) != probe[2]
+                    || !traceContains(s, "active queue visual start bank=0 id=3")
+                    || !traceContains(s, "active queue apply bank=0 id=3")
+                    || !traceContains(s, "hp " + hpAfterProducer + "->" + expectedHp)
+                    || !traceContains(s, "duration=2")) {
+                throw new IllegalStateException("Expected buff3 P12/P13 tick to heal 5% maxHP and reduce duration,"
+                        + " hpAfterProducer=" + hpAfterProducer
+                        + " hpAfterTick=" + s.battlePlayerHp
+                        + " expectedHp=" + expectedHp
+                        + " heal=" + probe[2]
+                        + " postVisible=" + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(3)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff3 after P12 heal tick",
+                    new int[]{15}, new int[]{136});
+            s.sourceStateTrace.add("SMOKE verified buff3 Khoi phuc P12/P13 heal tick"
+                    + " heal=" + probe[2]
+                    + " hp=" + hpAfterProducer + "->" + s.battlePlayerHp
+                    + " duration=3->2"
+                    + " icon=15 durationCell=136 source=game.b.o(3)+d(3,slot)");
+            return;
+        }
+        if ("battle_status_buff3_expiry_clears_icon".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            int hpBefore = Math.max(20, s.battlePlayerMaxHp / 2);
+            runtime.debugSetPlayerHpForSmoke(s, hpBefore);
+            runtime.debugPlayerSourceBuffForSmoke(s, 3, 0, 15);
+            int heal = s.battlePlayerMaxHp * 5 / 100;
+            if (!runtime.debugPlayerHasBuffForSmoke(3)
+                    || runtime.debugPlayerBuffValueForSmoke(3) != heal
+                    || runtime.debugPlayerBuffDurationForSmoke(3) != 3
+                    || s.battlePlayerHp != hpBefore + heal) {
+                throw new IllegalStateException("Expected buff3 active before expiry, hp="
+                        + hpBefore + "->" + s.battlePlayerHp
+                        + " heal=" + heal
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(3)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(3)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff3 before expiry",
+                    new int[]{15}, new int[]{137});
+            int hpAfterApply = s.battlePlayerHp;
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 3);
+            if (!runtime.debugPlayerHasBuffForSmoke(3)
+                    || runtime.debugPlayerBuffDurationForSmoke(3) != 2
+                    || s.battlePlayerHp != hpAfterApply + heal) {
+                throw new IllegalStateException("Expected buff3 first tick to heal and stay active, hp="
+                        + hpAfterApply + "->" + s.battlePlayerHp
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(3)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff3 after first expiry tick",
+                    new int[]{15}, new int[]{136});
+            int hpAfterFirstTick = s.battlePlayerHp;
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 3);
+            if (!runtime.debugPlayerHasBuffForSmoke(3)
+                    || runtime.debugPlayerBuffDurationForSmoke(3) != 1
+                    || s.battlePlayerHp != hpAfterFirstTick + heal) {
+                throw new IllegalStateException("Expected buff3 second tick to heal and stay active, hp="
+                        + hpAfterFirstTick + "->" + s.battlePlayerHp
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(3)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff3 after second expiry tick",
+                    new int[]{15}, new int[]{135});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 3);
+            if (runtime.debugPlayerHasBuffForSmoke(3)
+                    || runtime.debugPlayerBuffDurationForSmoke(3) != 0
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=3")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")
+                    || !traceContains(s, "heal=" + heal)) {
+                throw new IllegalStateException("Expected buff3 expiry to clear icon after third tick,"
+                        + " active=" + runtime.debugPlayerHasBuffForSmoke(3)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(3)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " hp=" + s.battlePlayerHp
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff3 Khoi phuc expiry"
+                    + " durationTicks=3"
+                    + " healEachTick=" + heal
+                    + " iconCleared=true");
+            return;
+        }
+        if ("battle_status_buff8_producer_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{44, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            tickUntilBattleP7Phase(s, 3, 340);
+            if (!s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(8)
+                    || runtime.debugPlayerBuffValueForSmoke(8) != 30
+                    || runtime.debugPlayerBuffDurationForSmoke(8) != 4
+                    || traceContains(s, "battle P7 damage frame skill=44")
+                    || traceContains(s, "battle P7 hitroll skill=44")
+                    || !traceContains(s, "battle P7 no-damage skill=44")
+                    || !traceContains(s, "battle P7 speffect skill=44")
+                    || !traceContains(s, "speffect=19")
+                    || !traceContains(s, "speffect=15")
+                    || !traceContains(s, "game.d.q postEffect skill=44")
+                    || !traceContains(s, "buffId=8")) {
+                throw new IllegalStateException("Expected buff8 producer skill44 to play P7 speffect chunks,"
+                        + " apply Điện áp, and skip damage; postVisible=" + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff8=" + runtime.debugPlayerHasBuffForSmoke(8)
+                        + " buff8Value=" + runtime.debugPlayerBuffValueForSmoke(8)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(8)
+                        + " trace=" + tailTrace(s, 72));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff8 producer visual",
+                    new int[]{20}, new int[]{138});
+            s.sourceStateTrace.add("SMOKE verified buff8 Điện áp producer skill44"
+                    + " visual=effect.mid[44] speffect19->15"
+                    + " icon=20 durationCell=138"
+                    + " value=30 source=aq.c[6][8]");
+            return;
+        }
+        if ("battle_status_buff8_pp_cost_damage_active".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int[] baseline = statusBuff8Skill10DamageAndPp(baselineScene, false, false);
+            int[] active = statusBuff8Skill10DamageAndPp(s, true, false);
+            int baselinePpDelta = baseline[1] - baseline[2];
+            int activePpDelta = active[1] - active[2];
+            assertPhase10AStatusSlots(s, true, "status buff8 active PP/damage",
+                    new int[]{20}, new int[]{138});
+            if (baselinePpDelta != 1
+                    || activePpDelta != 2
+                    || active[0] <= baseline[0]
+                    || active[3] != 4
+                    || !traceContains(s, "player source buff prepared id=8")
+                    || !traceContains(s, "battle P7 damage frame skill=10")
+                    || !traceContains(s, "hit=true")) {
+                throw new IllegalStateException("Expected buff8 to increase damage and consume one extra PP,"
+                        + " baselineDamage=" + baseline[0]
+                        + " activeDamage=" + active[0]
+                        + " baselinePp=" + baseline[1] + "->" + baseline[2]
+                        + " activePp=" + active[1] + "->" + active[2]
+                        + " durationBeforeUse=" + active[3]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff8 Điện áp active logic"
+                    + " baselineDamage=" + baseline[0]
+                    + " activeDamage=" + active[0]
+                    + " damageFormula=damage+damage*30/100"
+                    + " baselinePpDelta=" + baselinePpDelta
+                    + " activePpDelta=" + activePpDelta
+                    + " ppFormula=normal-1 plus buff8-extra-1");
+            return;
+        }
+        if ("battle_status_buff8_expiry_clears_pp_damage".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int[] baseline = statusBuff8Skill10DamageAndPp(baselineScene, false, false);
+            int[] expired = statusBuff8Skill10DamageAndPp(s, true, true);
+            int baselinePpDelta = baseline[1] - baseline[2];
+            int expiredPpDelta = expired[1] - expired[2];
+            if (baselinePpDelta != 1
+                    || expiredPpDelta != 1
+                    || expired[0] != baseline[0]
+                    || expired[3] != 0
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=8")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")
+                    || !traceContains(s, "battle P7 damage frame skill=10")) {
+                throw new IllegalStateException("Expected buff8 expiry to remove icon and restore PP/damage baseline,"
+                        + " baselineDamage=" + baseline[0]
+                        + " expiredDamage=" + expired[0]
+                        + " baselinePp=" + baseline[1] + "->" + baseline[2]
+                        + " expiredPp=" + expired[1] + "->" + expired[2]
+                        + " expiredDuration=" + expired[3]
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff8 Điện áp expiry"
+                    + " durationTicks=4"
+                    + " expiredDamageReturnsTo=" + expired[0]
+                    + " expiredPpDelta=" + expiredPpDelta
+                    + " iconCleared=true");
+            return;
+        }
+        if ("battle_status_buff10_attack_up_damage".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int baseline = statusEffectivenessSkill10Damage(baselineScene, -1, -1, 0);
+            int buffed = statusEffectivenessSkill10Damage(s, 10, -1, 0);
+            assertPhase10AStatusSlots(s, true, "status buff10 attack",
+                    new int[]{22}, new int[]{136});
+            if (!traceContains(s, "player source buff prepared id=10")
+                    || !traceContains(s, "battle P7 damage frame skill=10")) {
+                throw new IllegalStateException("Expected status buff10 smoke to apply buff and reach damage frame, baseline="
+                        + baseline + " buffed=" + buffed
+                        + " trace=" + tailTrace(s, 52));
+            }
+            if (buffed > baseline) {
+                s.sourceStateTrace.add("SMOKE verified status buff10 attack-up damage baseline="
+                        + baseline + " buffed=" + buffed);
+            } else {
+                s.sourceStateTrace.add("PENDING status buff10 attack-up effectiveness baseline="
+                        + baseline + " buffed=" + buffed
+                        + " sourceText=attack-up sourceRow aq.c[6][10][3]=-1 bytecode uses row param");
+            }
+            return;
+        }
+        if ("battle_status_buff14_blocks_debuff".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{2, 45}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+            assertPhase10AStatusSlots(s, false, "status buff14 block",
+                    new int[]{26}, new int[]{137});
+            runtime.debugSetNextDamageDebuffRollForSmoke(0);
+            runtime.debugSetNextP7HitRollForSmoke(99);
+            tickUntilBattleP7Phase(s, 2, 180);
+            if (!s.battleP7DamageVisible
+                    || !s.battleP7DebuffText.isEmpty()
+                    || runtime.debugEnemyHasDebuffForSmoke(1)
+                    || !traceContains(s, "appliedDebuffId=-1")
+                    || !traceContains(s, "hit=true")) {
+                throw new IllegalStateException("Expected status buff14 to block incoming debuff1, visible="
+                        + s.battleP7DamageVisible
+                        + " debuffText=" + s.battleP7DebuffText
+                        + " hasDebuff1=" + runtime.debugEnemyHasDebuffForSmoke(1)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            return;
+        }
+        if ("battle_status_debuff0_damage_tick".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 3, 50);
+            assertPhase10AStatusSlots(s, false, "status debuff0 before tick",
+                    new int[]{1}, new int[]{137});
+            int hpBefore = s.battleEnemyHp;
+            tickUntilTraceContains(s, "active queue apply bank=1 id=0", 700);
+            if (s.battleEnemyHp >= hpBefore
+                    || !traceContains(s, "active queue visual start bank=1 id=0")
+                    || !s.battleP7PostEffectText.startsWith("-")) {
+                throw new IllegalStateException("Expected status debuff0 to tick HP damage, hp="
+                        + hpBefore + "->" + s.battleEnemyHp
+                        + " postText=" + s.battleP7PostEffectText
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, false, "status debuff0 after tick",
+                    new int[]{1}, new int[]{136});
+            return;
+        }
+        if ("battle_status_debuff5_speed_down".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetEnemyBaseSpeedForSmoke(s, 100);
+            int baseSpeed = runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_SPEED);
+            runtime.debugEnemySourceDebuffForSmoke(s, 5, 10, 32);
+            int currentSpeed = runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED);
+            assertPhase10AStatusSlots(s, false, "status debuff5 speed",
+                    new int[]{6}, new int[]{137});
+            if (currentSpeed >= baseSpeed || !runtime.debugEnemyHasDebuffForSmoke(5)) {
+                throw new IllegalStateException("Expected status debuff5 to lower enemy speed, speed="
+                        + baseSpeed + "->" + currentSpeed
+                        + " hasDebuff5=" + runtime.debugEnemyHasDebuffForSmoke(5)
+                        + " trace=" + tailTrace(s, 24));
+            }
+            s.sourceStateTrace.add("SMOKE verified status debuff5 speed down "
+                    + baseSpeed + "->" + currentSpeed);
+            return;
+        }
+        if ("battle_status_debuff7_defense_down".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int baseline = statusEffectivenessSkill10Damage(baselineScene, -1, -1, 0);
+            int debuffed = statusEffectivenessSkill10Damage(s, -1, 7, 20);
+            assertPhase10AStatusSlots(s, false, "status debuff7 defense",
+                    new int[]{8}, new int[]{137});
+            if (debuffed <= baseline
+                    || !traceContains(s, "enemy source debuff prepared id=7")
+                    || !traceContains(s, "battle P7 damage frame skill=10")) {
+                throw new IllegalStateException("Expected status debuff7 to increase damage taken, baseline="
+                        + baseline + " debuffed=" + debuffed
+                        + " trace=" + tailTrace(s, 52));
+            }
+            s.sourceStateTrace.add("SMOKE verified status debuff7 defense-down damage baseline="
+                    + baseline + " debuffed=" + debuffed);
+            return;
+        }
+        if ("battle_status_debuff10_catch_multiplier".equals(checkpoint)) {
+            VqsvIntroDemo.Scene base = setupCatchChanceStatusMenu(-1, false);
+            int baseChance = catchMenuChanceForItem(base, 1);
+            enterElderP7WithSkills(s, new int[]{41, 45}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetNextDamageDebuffRollForSmoke(0);
+            runtime.debugSetNextP7HitRollForSmoke(99);
+            tickUntilBattleP7Phase(s, 2, 180);
+            assertPhase10AStatusSlots(s, false, "status debuff10 catch",
+                    new int[]{11}, new int[]{138});
+            int debuff10Chance = runtime.debugCatchChanceForSmoke(1);
+            if (!runtime.debugEnemyHasDebuffForSmoke(10)
+                    || debuff10Chance <= baseChance
+                    || !traceContains(s, "appliedDebuffId=10")) {
+                throw new IllegalStateException("Expected status debuff10 to raise catch chance, base="
+                        + baseChance + " debuff10=" + debuff10Chance
+                        + " hasDebuff10=" + runtime.debugEnemyHasDebuffForSmoke(10)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            s.sourceStateTrace.add("SMOKE verified status debuff10 catch chance base="
+                    + baseChance + " debuff10=" + debuff10Chance);
+            return;
+        }
+        if ("battle_status_form0_low_hp_attack_boost".equals(checkpoint)) {
+            VqsvIntroDemo.Scene highHpScene = new VqsvIntroDemo.Scene();
+            int highHpDamage = statusEffectivenessForm0Damage(highHpScene, 80);
+            int lowHpDamage = statusEffectivenessForm0Damage(s, 30);
+            int expectedHighRaw = 120 - 40;
+            int expectedLowRaw = 120 * 200 / 100 - 40;
+            if (highHpDamage != expectedHighRaw
+                    || lowHpDamage != expectedLowRaw
+                    || lowHpDamage <= highHpDamage
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player held item/passive=0")
+                    || !traceContains(s, "battle P7 damage frame skill=10")) {
+                throw new IllegalStateException("Expected held item0 low-HP attack boost exact formula, high="
+                        + highHpDamage + " expectedHigh=" + expectedHighRaw
+                        + " low=" + lowHpDamage + " expectedLow=" + expectedLowRaw
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 52));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item0 low HP attack boost hpThreshold=30%"
+                    + " highDamage=" + highHpDamage
+                    + " lowDamage=" + lowHpDamage
+                    + " formula=attack*200/100-defense source=aq.c[3][0]");
+            return;
+        }
+        if ("battle_held_item1_attack_boost".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int baselineDamage = heldItem1AttackBoostDamage(baselineScene, false);
+            int boostedDamage = heldItem1AttackBoostDamage(s, true);
+            int expectedBaseline = 120 - 40;
+            int expectedBoosted = 120 * 110 / 100 - 40;
+            if (baselineDamage != expectedBaseline
+                    || boostedDamage != expectedBoosted
+                    || boostedDamage <= baselineDamage
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player held item/passive=1")
+                    || !traceContains(s, "battle P7 damage frame skill=10")) {
+                throw new IllegalStateException("Expected held item1 attack boost exact formula, baseline="
+                        + baselineDamage + " expectedBaseline=" + expectedBaseline
+                        + " boosted=" + boostedDamage + " expectedBoosted=" + expectedBoosted
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 52));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item1 attack boost damage baseline="
+                    + baselineDamage
+                    + " boosted=" + boostedDamage
+                    + " formula=attack*110/100-defense source=aq.c[3][1]");
+            return;
+        }
+        if ("battle_held_item2_defense_boost".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int baselineDamage = heldItem2DefenseBoostDamage(baselineScene, false);
+            int reducedDamage = heldItem2DefenseBoostDamage(s, true);
+            int expectedBaseline = 120 - 40;
+            int expectedReduced = 120 - (40 * 115 / 100);
+            if (baselineDamage != expectedBaseline
+                    || reducedDamage != expectedReduced
+                    || reducedDamage >= baselineDamage
+                    || s.battleEnemyStatusCount != 0
+                    || !traceContains(s, "enemy held item/passive=2")
+                    || !traceContains(s, "battle P7 damage frame skill=10")) {
+                throw new IllegalStateException("Expected held item2 defense boost exact formula, baseline="
+                        + baselineDamage + " expectedBaseline=" + expectedBaseline
+                        + " reduced=" + reducedDamage + " expectedReduced=" + expectedReduced
+                        + " enemyStatusCount=" + s.battleEnemyStatusCount
+                        + " trace=" + tailTrace(s, 52));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item2 defense boost damage baseline="
+                    + baselineDamage
+                    + " reduced=" + reducedDamage
+                    + " formula=attack-defense*115/100 source=aq.c[3][2]");
+            return;
+        }
+        if ("battle_held_item3_debuff_resist".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            runHeldItem3DebuffResist(baselineScene, false);
+            SourceBattleRuntime baselineRuntime = (SourceBattleRuntime) baselineScene.current;
+            if (!baselineRuntime.debugEnemyHasDebuffForSmoke(1)
+                    || !traceContains(baselineScene, "appliedDebuffId=1")) {
+                throw new IllegalStateException("Expected debuff1 to apply without held item3 at roll 9/chance 10"
+                        + " hasDebuff1=" + baselineRuntime.debugEnemyHasDebuffForSmoke(1)
+                        + " trace=" + tailTrace(baselineScene, 52));
+            }
+            runHeldItem3DebuffResist(s, true);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            if (runtime.debugEnemyHasDebuffForSmoke(1)
+                    || s.battleEnemyStatusCount != 0
+                    || !traceContains(s, "enemy held item/passive=3")
+                    || !traceContains(s, "appliedDebuffId=-1")) {
+                throw new IllegalStateException("Expected held item3 to reduce debuff chance 10 -> 8 and block roll 9"
+                        + " hasDebuff1=" + runtime.debugEnemyHasDebuffForSmoke(1)
+                        + " enemyStatusCount=" + s.battleEnemyStatusCount
+                        + " trace=" + tailTrace(s, 52));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item3 debuff resist"
+                    + " skill2Chance=10"
+                    + " reducedChance=8"
+                    + " roll=9 baselineApplies protectedBlocks"
+                    + " formula=chance*(100-aq.c[3][3][5])/100");
+            return;
+        }
+        if ("battle_held_item4_crit_window".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            runHeldItem4CritWindow(baselineScene, false);
+            if (baselineScene.battleP7DamageCritical
+                    || !traceContains(baselineScene, "critFlag=0")) {
+                throw new IllegalStateException("Expected crit roll 15 to fail without held item4, critical="
+                        + baselineScene.battleP7DamageCritical
+                        + " trace=" + tailTrace(baselineScene, 42));
+            }
+            runHeldItem4CritWindow(s, true);
+            if (!s.battleP7DamageCritical
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player held item/passive=4")
+                    || !traceContains(s, "critFlag=1")) {
+                throw new IllegalStateException("Expected held item4 to add +10 crit chance points, critical="
+                        + s.battleP7DamageCritical
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 52));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item4 crit window roll=15"
+                    + " baselineChance=5 fail"
+                    + " equippedChance=15 pass"
+                    + " formula=5+speed/2+aq.c[3][4][5]");
+            return;
+        }
+        if ("battle_held_item7_turn_priority".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            runHeldItem7TurnPriority(baselineScene, false);
+            runHeldItem7TurnPriority(s, true);
+            s.sourceStateTrace.add("SMOKE verified held item7 Linh Trùng Thi Hài turn priority"
+                    + " baseline=fasterEnemyFirst"
+                    + " equipped=playerCommandFirst"
+                    + " source=game.d.T f(7) rank0");
+            return;
+        }
+        if ("battle_held_item8_leech_heal".equals(checkpoint)) {
+            VqsvIntroDemo.Scene failScene = new VqsvIntroDemo.Scene();
+            int[] fail = runHeldItem8LeechHeal(failScene, 11);
+            if (fail[2] != fail[1]
+                    || !traceContains(failScene, "forced held item8 leech roll=11")
+                    || !traceContains(failScene, "passed=false")) {
+                throw new IllegalStateException("Expected held item8 roll 11 to fail chance 10 with no heal, hp="
+                        + fail[1] + "->" + fail[2]
+                        + " damage=" + fail[0]
+                        + " trace=" + tailTrace(failScene, 52));
+            }
+            int[] pass = runHeldItem8LeechHeal(s, 0);
+            int expectedHeal = pass[0] * 20 / 100;
+            int expectedHp = Math.min(s.battlePlayerMaxHp, pass[1] + expectedHeal);
+            if (pass[2] != expectedHp
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player held item/passive=8")
+                    || !traceContains(s, "forced held item8 leech roll=0")
+                    || !traceContains(s, "held item8 Hấp Huyết Đằng Mạn heal")
+                    || !traceContains(s, "source=game.d.q d2.h.l")) {
+                throw new IllegalStateException("Expected held item8 to heal damage*20/100 on roll 0, damage="
+                        + pass[0]
+                        + " expectedHeal=" + expectedHeal
+                        + " hp=" + pass[1] + "->" + pass[2]
+                        + " expectedHp=" + expectedHp
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 64));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item8 Hấp Huyết Đằng Mạn leech"
+                    + " failRoll=11 noHeal"
+                    + " passRoll=0 damage=" + pass[0]
+                    + " heal=" + expectedHeal
+                    + " formula=damage*aq.c[3][8][6]/100 sourceChance=aq.c[3][8][5]");
+            return;
+        }
+        if ("battle_held_item9_no_miss".equals(checkpoint)
+                || "battle_status_form9_no_miss".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            runHeldItem9NoMiss(baselineScene, false);
+            if (baselineScene.battleP7MissText.isEmpty()
+                    || !baselineScene.battleP7DamageText.isEmpty()
+                    || !traceContains(baselineScene, "heldItem9=false")
+                    || !traceContains(baselineScene, "missChance=20")
+                    || !traceContains(baselineScene, "hit=false")) {
+                throw new IllegalStateException("Expected baseline roll 0 to miss at missChance 20 without held item9, damageText="
+                        + baselineScene.battleP7DamageText
+                        + " missText=" + baselineScene.battleP7MissText
+                        + " trace=" + tailTrace(baselineScene, 42));
+            }
+            runHeldItem9NoMiss(s, true);
+            if (!s.battleP7DamageVisible
+                    || s.battleP7DamageText.isEmpty()
+                    || !s.battleP7MissText.isEmpty()
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "heldItem9=true")
+                    || !traceContains(s, "missChance=0")
+                    || !traceContains(s, "hit=true")) {
+                throw new IllegalStateException("Expected held item9 no-miss to force hit with high target speed, visible="
+                        + s.battleP7DamageVisible
+                        + " damageText=" + s.battleP7DamageText
+                        + " missText=" + s.battleP7MissText
+                        + " playerStatusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 42));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item9 Cá Thờn Bơn no-miss"
+                    + " baselineRoll0MissesAt20"
+                    + " highTargetSpeed=200"
+                    + " lowAttackerSpeed=0"
+                    + " missChance=0"
+                    + " source=game.d P7 h.f((byte)9)");
+            return;
+        }
+        if ("battle_held_item10_hp_floor".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int[] baseline = runHeldItem10HpFloor(baselineScene, false);
+            if (baseline[1] != 0
+                    || !traceContains(baselineScene, "heldItem9=false")
+                    || traceContains(baselineScene, "held item10 Cảm Lãm Chi Diệp HP floor")) {
+                throw new IllegalStateException("Expected baseline without held item10 to KO target, damage="
+                        + baseline[0]
+                        + " enemyHp=" + baseline[1] + "/" + baseline[2]
+                        + " trace=" + tailTrace(baselineScene, 52));
+            }
+            int[] floored = runHeldItem10HpFloor(s, true);
+            if (floored[1] != 10
+                    || s.battleEnemyStatusCount != 0
+                    || !traceContains(s, "player held item/passive=10")
+                    || !traceContains(s, "held item10 Cảm Lãm Chi Diệp HP floor")
+                    || !traceContains(s, "hp=0->10")
+                    || !traceContains(s, "damageTextStill=-")) {
+                throw new IllegalStateException("Expected held item10 to floor enemy HP to 10, damage="
+                        + floored[0]
+                        + " enemyHp=" + floored[1] + "/" + floored[2]
+                        + " enemyStatusCount=" + s.battleEnemyStatusCount
+                        + " trace=" + tailTrace(s, 64));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item10 Cảm Lãm Chi Diệp HP floor"
+                    + " baselineEnemyHp=" + baseline[1]
+                    + " equippedEnemyHp=" + floored[1]
+                    + " floor=10"
+                    + " source=game.d P7 h.f((byte)10)");
+            return;
+        }
+        if ("battle_held_item11_catch_chance".equals(checkpoint)) {
+            VqsvIntroDemo.Scene base = setupCatchChanceStatusMenu(-1, false);
+            int baseChance = catchMenuChanceForItem(base, 1);
+            setupCatchChanceStatusMenu(s, -1, true);
+            int heldChance = catchMenuChanceForItem(s, 1);
+            int expectedHeld = baseChance * 12 / 10;
+            expectedHeld = expectedHeld * (100 + sourceExpectedHeldItemParam(11, 5, 0)) / 100;
+            if (baseChance != 22
+                    || heldChance != expectedHeld
+                    || heldChance != 31
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "attackerHeldItem11=true")
+                    || !traceContains(s, "source=game.d.b(item) h.f((byte)11)")) {
+                throw new IllegalStateException("Expected held item11 to raise catch chance source-shape, base="
+                        + baseChance
+                        + " held=" + heldChance
+                        + " expectedHeld=" + expectedHeld
+                        + " playerStatusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 48));
+            }
+            s.sourceStateTrace.add("SMOKE verified held item11 Sủng vật lôi đạt catch chance"
+                    + " base=" + baseChance
+                    + " held=" + heldChance
+                    + " statusMultiplier=12/10"
+                    + " bonus=" + sourceExpectedHeldItemParam(11, 5, 0)
+                    + " formula=base*12/10*(100+bonus)/100 source=game.d.b(item)");
+        }
     }
 
     private static void assertPhase10AStatusSlots(VqsvIntroDemo.Scene s, boolean playerSide,
@@ -11181,6 +14064,163 @@ final class VqsvSmokeHarness {
         s.current = runtime;
         tickUntilBattleState(s, "P20", 120);
         return runtime;
+    }
+
+    private static boolean isBattleP16ItemFormulaCheckpoint(String checkpoint) {
+        return "battle_p16_item_heal_hp".equals(checkpoint)
+                || "battle_p16_item4_heal_clamp".equals(checkpoint)
+                || "battle_p16_item5_heal_full".equals(checkpoint)
+                || "battle_p16_item_pp_restore".equals(checkpoint)
+                || "battle_p16_item7_pp_restore_full".equals(checkpoint)
+                || "battle_p16_item_hp_pp".equals(checkpoint)
+                || "battle_p16_item9_hp_pp_full".equals(checkpoint)
+                || "battle_p16_item_revive".equals(checkpoint)
+                || "battle_p16_item12_revive_full".equals(checkpoint)
+                || "battle_p16_item_clear_debuff".equals(checkpoint);
+    }
+
+    private static void handleBattleP16ItemFormulaCheckpoint(VqsvIntroDemo.Scene s,
+                                                             String checkpoint) {
+        if ("battle_p16_item_heal_hp".equals(checkpoint)) {
+            setupElderItemBattle(s, 4, 1, 1, -1);
+            driveItemUse(s);
+            int expectedHp = Math.min(s.battlePlayerMaxHp, 1 + s.battlePlayerMaxHp * 50 / 100 + 50);
+            if (!traceContains(s, "P16 game.b.w item=4")
+                    || s.battlePlayerHp != expectedHp
+                    || s.battlePlayerHp >= s.battlePlayerMaxHp) {
+                throw new IllegalStateException("Expected item4 HP heal to " + expectedHp
+                        + ", hp=" + s.battlePlayerHp
+                        + " max=" + s.battlePlayerMaxHp
+                        + " trace=" + tailTrace(s, 10));
+            }
+            return;
+        }
+        if ("battle_p16_item4_heal_clamp".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupElderItemBattle(s, 4, 1, -1, -1);
+            int beforeHp = Math.max(1, s.battlePlayerMaxHp - 5);
+            runtime.debugSetPlayerHpForSmoke(s, beforeHp);
+            driveItemUse(s);
+            int expectedHp = s.battlePlayerMaxHp;
+            if (!traceContains(s, "P16 game.b.w item=4")
+                    || s.battlePlayerHp != expectedHp
+                    || VqsvSourceOps.sourceItemCount(s, 4) != 0) {
+                throw new IllegalStateException("Expected item4 HP heal clamp to " + expectedHp
+                        + ", before=" + beforeHp
+                        + " hp=" + s.battlePlayerHp
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, 4)
+                        + " trace=" + tailTrace(s, 12));
+            }
+            return;
+        }
+        if ("battle_p16_item5_heal_full".equals(checkpoint)) {
+            setupElderItemBattle(s, 5, 1, 1, -1);
+            driveItemUse(s);
+            int expectedHp = s.battlePlayerMaxHp;
+            if (!traceContains(s, "P16 game.b.w item=5")
+                    || s.battlePlayerHp != expectedHp
+                    || VqsvSourceOps.sourceItemCount(s, 5) != 0) {
+                throw new IllegalStateException("Expected item5 HP heal full to " + expectedHp
+                        + ", hp=" + s.battlePlayerHp
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, 5)
+                        + " trace=" + tailTrace(s, 12));
+            }
+            return;
+        }
+        if ("battle_p16_item_pp_restore".equals(checkpoint)) {
+            setupElderItemBattle(s, 6, 1, -1, 0);
+            driveItemUse(s);
+            if (!traceContains(s, "P16 game.b.w item=6")
+                    || s.sourcePets.get(0).skillCooldowns[0] != 25) {
+                throw new IllegalStateException("Expected item6 PP restore to 25, pp="
+                        + s.sourcePets.get(0).skillCooldowns[0]
+                        + " trace=" + tailTrace(s, 10));
+            }
+            return;
+        }
+        if ("battle_p16_item7_pp_restore_full".equals(checkpoint)) {
+            setupElderItemBattle(s, 7, 1, -1, 0);
+            int expectedPp = sourceSkillMaxPp(s.sourcePets.get(0), 0);
+            driveItemUse(s);
+            if (!traceContains(s, "P16 game.b.w item=7")
+                    || s.sourcePets.get(0).skillCooldowns[0] != expectedPp
+                    || VqsvSourceOps.sourceItemCount(s, 7) != 0) {
+                throw new IllegalStateException("Expected item7 PP restore full to " + expectedPp
+                        + ", pp=" + s.sourcePets.get(0).skillCooldowns[0]
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, 7)
+                        + " trace=" + tailTrace(s, 12));
+            }
+            return;
+        }
+        if ("battle_p16_item_hp_pp".equals(checkpoint)) {
+            setupElderItemBattle(s, 8, 1, 40, 0);
+            driveItemUse(s);
+            int expectedHp = Math.min(s.battlePlayerMaxHp, 40 + s.battlePlayerMaxHp * 50 / 100 + 50);
+            if (!traceContains(s, "P16 game.b.w item=8")
+                    || s.battlePlayerHp != expectedHp
+                    || s.sourcePets.get(0).skillCooldowns[0] != 20) {
+                throw new IllegalStateException("Expected item8 HP+PP, hp="
+                        + s.battlePlayerHp + " pp=" + s.sourcePets.get(0).skillCooldowns[0]
+                        + " trace=" + tailTrace(s, 10));
+            }
+            return;
+        }
+        if ("battle_p16_item9_hp_pp_full".equals(checkpoint)) {
+            setupElderItemBattle(s, 9, 1, 1, 0);
+            int expectedPp = sourceSkillMaxPp(s.sourcePets.get(0), 0);
+            driveItemUse(s);
+            if (!traceContains(s, "P16 game.b.w item=9")
+                    || s.battlePlayerHp != s.battlePlayerMaxHp
+                    || s.sourcePets.get(0).skillCooldowns[0] != expectedPp
+                    || VqsvSourceOps.sourceItemCount(s, 9) != 0) {
+                throw new IllegalStateException("Expected item9 HP+PP full"
+                        + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                        + " pp=" + s.sourcePets.get(0).skillCooldowns[0] + "/" + expectedPp
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, 9)
+                        + " trace=" + tailTrace(s, 12));
+            }
+            return;
+        }
+        if ("battle_p16_item_revive".equals(checkpoint)) {
+            setupElderItemBattleWithDeadReserve(s, 11, 1, 0);
+            driveItemUseToTarget(s, 1);
+            SourceBattleUnit revived = SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(1, 2));
+            int expectedHp = Math.min(revived.maxHp, revived.maxHp * 50 / 100 + 50);
+            if (!traceContains(s, "P16 game.b.w item=11")
+                    || revived.hp != expectedHp
+                    || s.sourcePets.get(1).skillCooldowns[0] != 20) {
+                throw new IllegalStateException("Expected item11 revive, hp="
+                        + revived.hp + " pp=" + s.sourcePets.get(1).skillCooldowns[0]
+                        + " trace=" + tailTrace(s, 10));
+            }
+            return;
+        }
+        if ("battle_p16_item12_revive_full".equals(checkpoint)) {
+            setupElderItemBattleWithDeadReserve(s, 12, 1, 0);
+            int expectedPp = sourceSkillMaxPp(s.sourcePets.get(1), 0);
+            driveItemUseToTarget(s, 1);
+            SourceBattleUnit revived = SourceBattleUnit.playerFromSourcePets(s.sourcePets.subList(1, 2));
+            if (!traceContains(s, "P16 game.b.w item=12")
+                    || revived.hp != revived.maxHp
+                    || s.sourcePets.get(1).skillCooldowns[0] != expectedPp
+                    || VqsvSourceOps.sourceItemCount(s, 12) != 0) {
+                throw new IllegalStateException("Expected item12 revive full"
+                        + " hp=" + revived.hp + "/" + revived.maxHp
+                        + " pp=" + s.sourcePets.get(1).skillCooldowns[0] + "/" + expectedPp
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, 12)
+                        + " trace=" + tailTrace(s, 12));
+            }
+            return;
+        }
+        if ("battle_p16_item_clear_debuff".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupElderItemBattle(s, 10, 1, -1, -1);
+            runtime.debugPlayerDebuffForItemSmoke(s, 5, 8, 1);
+            driveItemUse(s);
+            if (!traceContains(s, "P16 game.b.w item=10")
+                    || !traceContains(s, "debuffs=1->0")) {
+                throw new IllegalStateException("Expected item10 clear debuff, trace="
+                        + tailTrace(s, 12));
+            }
+        }
     }
 
     private static boolean isBattleP11ShopCheckpoint(String checkpoint) {

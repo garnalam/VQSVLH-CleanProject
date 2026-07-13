@@ -461,10 +461,15 @@ final class TextBox {
         }
         if (sourceUiKind == SOURCE_MSGWARM) {
             VqsvUiLayout layout = VqsvUiLayout.load("msgwarm.ui");
+            int messageWidth = layout.w(7, MSGWARM_TEXT_W);
+            int messageTextWidth = font.taggedWidth(currentText());
             int promptWidth = layout.w(6, MSGWARM_PROMPT_W);
             int promptTextWidth = font.taggedWidth(sourcePrompt == null ? "" : sourcePrompt);
-            if (promptTextWidth > promptWidth && doneTicks > 8) {
-                int cycle = promptTextWidth + promptWidth + 12;
+            int overflowTextWidth = Math.max(messageTextWidth > messageWidth ? messageTextWidth : 0,
+                    promptTextWidth > promptWidth ? promptTextWidth : 0);
+            int overflowBoxWidth = messageTextWidth > messageWidth ? messageWidth : promptWidth;
+            if (overflowTextWidth > 0 && doneTicks > 8) {
+                int cycle = overflowTextWidth + overflowBoxWidth + 12;
                 sourceTextOffset = (sourceTextOffset + 1) % Math.max(1, cycle);
             }
             doneTicks++;
@@ -547,8 +552,9 @@ final class TextBox {
             int messageY = layout.y(7, MSGWARM_TEXT_Y);
             int messageW = layout.w(7, MSGWARM_TEXT_W);
             int promptY = layout.y(6, MSGWARM_PROMPT_Y);
-            drawSourceUiWrappedText(g, font, currentText(), messageX, messageY,
+            drawSourceUiLine(g, font, currentText(), messageX, messageY,
                     messageW, Math.max(12, promptY - messageY - 3),
+                    message == null ? OPENBOX_TEXT_ALIGN : message.b,
                     widgetTextColor(message, OPENBOX_TEXT_COLOR));
             drawSourceUiPromptLine(g, font, sourcePrompt, layout.x(6, MSGWARM_PROMPT_X),
                     promptY, layout.w(6, MSGWARM_PROMPT_W), Math.max(12, layout.h(6, 13)),

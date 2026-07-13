@@ -172,8 +172,8 @@ Warning code mapping in `game.h.bo()`:
 | `10` | `5` | P4/P16, state17, petsetting c0, P11. | P11 source row. | P11 buy item10 then P16 use; no-debuff warning family exists. | `PORTED/PARTIAL`. | Add state17/petsetting debuff-present and no-debuff warning smoke. |
 | `11` | `4` | P4/P16, state17, petsetting c0, P11, op17. | Elder reward, P11. | P16 revive, state17 item11 revive, route reward. | `PORTED/PARTIAL`. | Exact revive visual/actor reset partial; keep regression. |
 | `12` | `4` | P4/P16, state17, petsetting c0, P11. | P11 source row. | P11 buy item12 then P16 use. | `PORTED/PARTIAL`. | Add state17/petsetting stronger revive smoke. |
-| `13` | `10` | Top-level bag special branch; petsetting c0 forbidden; P4 blocked in battle. | Source item row; panel route. | item13 success/already/forbidden smoke. | `PORTED/PARTIAL`. | `q.c(1)` downstream side effect and global encounter timer parity pending. |
-| `14` | `9` | Top-level bag special branch; petsetting c0 forbidden; P4 blocked in battle. | Source item row; panel route. | item14 no-egg/type0/type1/already-ready smoke; hatch q.N case0 smoke. | `PORTED/PARTIAL`. | After-battle egg progress increment and full q.N runtime pending. |
+| `13` | `10` | Top-level bag special branch; petsetting c0 forbidden; P4 blocked in battle. | Source item row; panel route. | item13 success/already/forbidden smoke; `q.c(1)` q.N stack side effect; world avoid timer/gate smoke. | `PORTED/SMOKE-LOCKED` for top-level bag branch and active world timer gate. | Full random encounter generator remains separate. |
+| `14` | `9` | Top-level bag special branch; petsetting c0 forbidden; P4 blocked in battle. | Source item row; panel route. | item14 no-egg/type0/type1/already-ready smoke; return-to-bag smoke. | `PORTED/SMOKE-LOCKED` for top-level bag branch. | After-battle egg progress increment and full q.N hatch/runtime remain separate tasks. |
 
 ## Inventory Ownership Rules
 
@@ -199,7 +199,7 @@ audited and the existing runtime consume is removed at the same time.
 | State | Source anchor | Rebuild status | Remaining gap |
 | --- | --- | --- | --- |
 | Normal/ball item counts | `game.g.J/K` | `PORTED/PARTIAL` through `sourceBagItems` and save runtime. | Exact source vector split and third flag/delete semantics partial. |
-| Avoid-monster item13 state | `q.x`, `q.w` | `PORTED/PARTIAL`, saved. | Timer/decrement and `q.c(1)` global side effect pending. |
+| Avoid-monster item13 state | `q.x`, `q.w`, `q.c(1)` | `PORTED/SMOKE-LOCKED` for item-use, save, movement decrement, and encounter block gate. | Full random encounter countdown/generator remains pending. |
 | Egg item14/hatch state | `q.N`, `q.I`, `game.k.q`, `q.R` | `PORTED/PARTIAL`, saved for current fields. | After-battle increment and full q.N vector runtime pending. |
 | Ride state | `q.N`, `P[]`, `t`, movement speed | `PORTED/PARTIAL`, active ride index/speed saved. | Sprite swap, dismount, map object effects pending. |
 | Equipment inventory | `q.L`, pet `c[5]` | `PORTED/PARTIAL` for party equip/unequip/transfer runtime. | `q.L` save/load and bank/equipment storage parity pending. |

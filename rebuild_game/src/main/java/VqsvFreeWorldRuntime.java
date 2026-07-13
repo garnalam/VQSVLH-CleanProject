@@ -109,12 +109,39 @@ final class VqsvFreeWorldRuntime {
         s.player.direction = dir;
         s.player.applyMode(3);
         int speed = sourcePlayerMoveSpeed(s);
+        boolean moved = false;
         if (canMovePlayer(s, dir, speed)) {
             s.player.step(speed);
             s.playerX = s.player.x;
             s.playerY = s.player.y;
+            moved = true;
+        }
+        if (moved) {
+            tickSourceWorldTimers(s);
         }
         s.setCameraCenter(s.player.x, s.player.y);
+    }
+
+    static boolean sourceAvoidMonsterBlocksEncounter(VqsvIntroDemo.Scene s) {
+        return s.sourceAvoidMonsterTicks > 0;
+    }
+
+    static void tickSourceWorldTimers(VqsvIntroDemo.Scene s) {
+        // Source game.g.O(): --q.w; if q.w <= 0, game.k.q(), q.w = 0.
+        // game.k.q() is empty in the decompiled source, so only q.w normalization matters here.
+        if (s.sourceAvoidMonsterElapsed > 0) {
+            s.sourceAvoidMonsterElapsed--;
+        } else if (s.sourceAvoidMonsterElapsed < 0) {
+            s.sourceAvoidMonsterElapsed = 0;
+        }
+
+        if (s.sourceAvoidMonsterTicks > 0) {
+            s.sourceAvoidMonsterTicks--;
+            if (s.sourceAvoidMonsterTicks == 0) {
+                s.sourceAvoidMonsterTicks = -1;
+                s.sourceStateTrace.add("PORTED source game.g.O item13 avoid expired q.x=0 -> q.x=-1");
+            }
+        }
     }
 
     private static int sourcePlayerMoveSpeed(VqsvIntroDemo.Scene s) {

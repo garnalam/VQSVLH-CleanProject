@@ -1019,9 +1019,7 @@ final class VqsvBattleRenderer {
         drawPetStateText(g, font, layout, 54, VqsvText.Battle.PETSTATE_CARRYING, 38, SOURCE_UI_TEXT, tick);
         drawPetStateText(g, font, layout, 62, view.evolutionText, 48, SOURCE_UI_TEXT, tick);
         drawPetStateText(g, font, layout, 61, view.relationText, 46, SOURCE_UI_TEXT, tick);
-        if (view.heldItemIconId >= 0) {
-            drawSpriteCellTopLeft(g, 258, view.heldItemIconId, layout.x(59, 80), layout.y(59, 222));
-        }
+        // Source has widget 59 for the held-item icon, but the rebuild detail panel keeps this row text-only.
         drawPetStateText(g, font, layout, 60, view.heldItemName, SOURCE_UI_TEXT, tick);
         drawPetStateText(g, font, layout, 55, "lv", SOURCE_UI_TEXT, tick);
         drawPetStateText(g, font, layout, 56, VqsvText.Battle.PETSTATE_ATTACK, 20, SOURCE_UI_TEXT, tick);

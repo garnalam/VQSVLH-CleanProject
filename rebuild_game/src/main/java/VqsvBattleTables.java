@@ -92,6 +92,11 @@ final class VqsvBattleTables {
         return row == null ? null : new BattleStatusRow(this, id, row);
     }
 
+    BattleHeldItemRow heldItem(int id) {
+        short[] row = row(3, id);
+        return row == null ? null : new BattleHeldItemRow(this, id, row);
+    }
+
     BattleItemRow item(int id) {
         short[] row = row(4, id);
         return row == null ? null : new BattleItemRow(this, id, row);
@@ -354,6 +359,32 @@ final class BattleStatusRow {
         this.raw = raw;
         this.nameTextId = VqsvBattleTables.get(raw, 0, -1);
         this.iconOrType = VqsvBattleTables.get(raw, 1, -1);
+        this.descriptionTextId = VqsvBattleTables.get(raw, 2, -1);
+    }
+
+    String name(String fallback) {
+        return tables.text(nameTextId, fallback);
+    }
+
+    String description(String fallback) {
+        return tables.text(descriptionTextId, fallback);
+    }
+}
+
+final class BattleHeldItemRow {
+    final int id;
+    final int nameTextId;
+    final int iconCell;
+    final int descriptionTextId;
+    final short[] raw;
+    private final VqsvBattleTables tables;
+
+    BattleHeldItemRow(VqsvBattleTables tables, int id, short[] raw) {
+        this.tables = tables;
+        this.id = id;
+        this.raw = raw;
+        this.nameTextId = VqsvBattleTables.get(raw, 0, -1);
+        this.iconCell = VqsvBattleTables.get(raw, 1, -1);
         this.descriptionTextId = VqsvBattleTables.get(raw, 2, -1);
     }
 

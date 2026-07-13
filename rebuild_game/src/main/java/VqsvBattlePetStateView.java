@@ -82,7 +82,7 @@ final class VqsvBattlePetStateView {
         SourceBattleUnit render = battle.toRenderUnit(true);
         BattleSpeciesRow species = VqsvBattleTables.instance().species(pet.speciesId);
         int heldItemId = sourcePayloadValue(pet, 2, -1);
-        BattleItemRow heldItem = heldItemId >= 0 ? VqsvBattleTables.instance().item(heldItemId) : null;
+        BattleHeldItemRow heldItem = heldItemId >= 0 ? VqsvBattleTables.instance().heldItem(heldItemId) : null;
         int exp = sourcePayloadValue(pet, 7, battle.exp);
         int speciesRarity = species == null ? 5 : VqsvBattleTables.get(species.raw, 4, 5);
         int quality = sourcePayloadValue(pet, 4, battle.baseStats[BattleUnit.STAT_QUALITY]);
@@ -110,7 +110,7 @@ final class VqsvBattlePetStateView {
                 elementName(render.element),
                 evolutionText(evolutionSpecies),
                 heldItemId,
-                heldItem == null ? -1 : heldItem.iconId,
+                heldItem == null ? -1 : heldItem.iconCell,
                 heldItem == null ? "" : heldItem.name(""),
                 clamp(quality, 0, 5),
                 clamp(speciesRarity, 0, 5)

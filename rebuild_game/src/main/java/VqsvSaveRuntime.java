@@ -45,6 +45,7 @@ final class VqsvSaveRuntime {
         writeActors(p, s);
         writeEventStates(p, s);
         writeBag(p, s);
+        writeEquipment(p, s);
         writeSpecialRewards(p, s);
         writePets(p, "pet", s.sourcePets);
         writePets(p, "bankPet", s.sourcePetBank);
@@ -101,6 +102,7 @@ final class VqsvSaveRuntime {
         s.sourcePlayerMoveSpeed = intProp(p, "sourcePlayerMoveSpeed", 4);
         restoreEventStates(s, p);
         restoreBag(s, p);
+        restoreEquipment(s, p);
         restoreSpecialRewards(s, p);
         restorePets(p, "pet", s.sourcePets);
         restorePets(p, "bankPet", s.sourcePetBank);
@@ -244,6 +246,25 @@ final class VqsvSaveRuntime {
         }
     }
 
+    private static void writeEquipment(Properties p, VqsvIntroDemo.Scene s) {
+        p.setProperty("equipment.count", String.valueOf(s.sourceEquipmentItems.size()));
+        for (int i = 0; i < s.sourceEquipmentItems.size(); i++) {
+            SourceEquipmentItem item = s.sourceEquipmentItems.get(i);
+            p.setProperty("equipment." + i, item.id + "," + bool(item.equippedFlag));
+        }
+    }
+
+    private static void restoreEquipment(VqsvIntroDemo.Scene s, Properties p) {
+        s.sourceEquipmentItems.clear();
+        int count = intProp(p, "equipment.count", 0);
+        for (int i = 0; i < count; i++) {
+            int[] row = ints(p.getProperty("equipment." + i, ""));
+            if (row.length >= 2) {
+                s.sourceEquipmentItems.add(new SourceEquipmentItem(row[0], row[1] != 0));
+            }
+        }
+    }
+
     private static void writeSpecialRewards(Properties p, VqsvIntroDemo.Scene s) {
         p.setProperty("special.count", String.valueOf(s.sourceSpecialRewards.size()));
         int i = 0;
@@ -282,6 +303,7 @@ final class VqsvSaveRuntime {
             p.setProperty(prefix + "." + i + ".skills", join(pet.skillIds));
             p.setProperty(prefix + "." + i + ".cooldowns", join(pet.skillCooldowns));
             p.setProperty(prefix + "." + i + ".payload", join(pet.sourcePayload));
+            p.setProperty(prefix + "." + i + ".specialUse", String.valueOf(pet.sourceSpecialUseId));
         }
     }
 
@@ -303,6 +325,7 @@ final class VqsvSaveRuntime {
             copyInto(ints(p.getProperty(prefix + "." + i + ".skills", "")), pet.skillIds);
             copyInto(ints(p.getProperty(prefix + "." + i + ".cooldowns", "")), pet.skillCooldowns);
             pet.sourcePayload = ints(p.getProperty(prefix + "." + i + ".payload", ""));
+            pet.sourceSpecialUseId = intProp(p, prefix + "." + i + ".specialUse", -1);
             pets.add(pet);
         }
     }

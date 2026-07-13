@@ -457,6 +457,8 @@ public final class VqsvIntroDemo extends JPanel {
         boolean sourceEvolveVisible = false;
         int panelBagState17ItemId = -1;
         int panelBagState17MessageMode = 0;
+        int panelBagSpecialUseId = -1;
+        int panelBagSpecialUseMessageMode = 0;
         int sourceEvolvePetIndex = -1;
         SourceEvolutionNotice sourceEvolveNotice;
         int[] sourceEvolveOldStats = new int[]{0, 0, 0, 0};
@@ -819,6 +821,14 @@ public final class VqsvIntroDemo extends JPanel {
                 keyDown = false;
                 return;
             }
+            if (panelBagSpecialUseMessageMode != 0) {
+                tickPanelBagSpecialUseMessage();
+                key0 = false;
+                keyBack = false;
+                keyUp = false;
+                keyDown = false;
+                return;
+            }
             if (sourceItemChoiceVisible) {
                 tickSourceItemChoice();
                 key0 = false;
@@ -1086,6 +1096,15 @@ public final class VqsvIntroDemo extends JPanel {
                     + " c=" + battleMenuIndex);
         }
 
+        void openPanelBagSpecialUsePetstate(int specialId) {
+            panelBagSpecialUseId = specialId;
+            openWorldPetstateInternal();
+            battleMenuAction = VqsvText.Battle.PETSTATE_USE;
+            sourceStateTrace.add("PORTED/PARTIAL panel game.h.ac bagTab=3 q.N case" + specialId
+                    + " this.s=specialId o.a(19) close bag.ui -> game.h.W petstate.ui"
+                    + " c=" + battleMenuIndex);
+        }
+
         private void openWorldPetstateInternal() {
             worldPetstateVisible = true;
             battleUiModeStartTick = battleAnimationTick;
@@ -1140,6 +1159,10 @@ public final class VqsvIntroDemo extends JPanel {
                     int itemId = panelBagState17ItemId;
                     panelBagState17ItemId = -1;
                     panelRuntime.returnToBagFromState17Back(this, itemId);
+                } else if (panelBagSpecialUseId >= 0) {
+                    int specialId = panelBagSpecialUseId;
+                    panelBagSpecialUseId = -1;
+                    panelRuntime.returnToBagFromSpecialUseBack(this, specialId);
                 } else if (sourceEvolutionTutorialU != 4) {
                     panelRuntime.openMenuAt(this, 1, "game.h.X back petstate.ui -> P=6");
                 }
@@ -1148,6 +1171,10 @@ public final class VqsvIntroDemo extends JPanel {
                 return;
             }
             if (key0) {
+                if (panelBagSpecialUseId >= 0) {
+                    confirmPanelBagSpecialUse();
+                    return;
+                }
                 if (panelBagState17ItemId >= 0) {
                     confirmPanelBagState17();
                     return;
@@ -1216,6 +1243,79 @@ public final class VqsvIntroDemo extends JPanel {
                         + " scroll=" + battleMenuScroll
                         + " selectedPet=" + battleMenuIndex
                         + " rows=" + battleMenuIds.length);
+            }
+        }
+
+        private void confirmPanelBagSpecialUse() {
+            int specialId = panelBagSpecialUseId;
+            if (battleMenuIndex < 0 || battleMenuIndex >= sourcePets.size()) {
+                beginPanelBagSpecialUseWarning("Kh\u00f4ng c\u00f3 s\u1ee7ng v\u1eadt", 2,
+                        "invalid selectedPet=" + battleMenuIndex);
+                return;
+            }
+            SourcePetState pet = sourcePets.get(battleMenuIndex);
+            if (pet.level < 50) {
+                beginPanelBagSpecialUseWarning("Ch\u1ec9 c\u00f3 th\u1ec3 cho 50 c\u1ea5p s\u1ee7ng v\u1eadt s\u1eed d\u1ee5ng", 2,
+                        "level=" + pet.level + " selectedPet=" + battleMenuIndex);
+                return;
+            }
+            SourceSpecialReward reward = sourceSpecialRewards.get(specialId);
+            if (reward == null || reward.stackCount <= 0) {
+                beginPanelBagSpecialUseWarning("Kh\u00f4ng c\u00f3 \u0111\u1ee7 \u0111\u1ea1o c\u1ee5", 2,
+                        "missing stack specialId=" + specialId);
+                return;
+            }
+            int beforeStack = reward.stackCount;
+            int beforeNature = pet.sourceSpecialUseId;
+            reward.stackCount = Math.max(0, reward.stackCount - 1);
+            reward.gameGPath = "game.g.e special item consumed by pet";
+            pet.sourceSpecialUseId = specialId;
+            pet.refreshCount++;
+            rebuildWorldPetstateRows();
+            text = TextBox.msgWarm("S\u1eed d\u1ee5ng th\u00e0nh c\u00f4ng", VqsvText.Evolution.CONTINUE_PROMPT_5);
+            panelBagSpecialUseMessageMode = 1;
+            sourceStateTrace.add("PORTED/PARTIAL panel game.h.ab state19 success"
+                    + " q.e(s,b)=true game.b.i(" + specialId + ")"
+                    + " selectedPet=" + battleMenuIndex
+                    + " level=" + pet.level
+                    + " specialUse=" + beforeNature + "->" + pet.sourceSpecialUseId
+                    + " stack=" + beforeStack + "->" + reward.stackCount
+                    + " msgwarm.ui f=1");
+        }
+
+        private void beginPanelBagSpecialUseWarning(String message, int mode, String reason) {
+            text = TextBox.msgWarm(message, VqsvText.Evolution.CONTINUE_PROMPT_5);
+            panelBagSpecialUseMessageMode = mode;
+            sourceStateTrace.add("PORTED/PARTIAL panel game.h.ab state19 msgwarm.ui"
+                    + " f=" + mode
+                    + " specialId=" + panelBagSpecialUseId
+                    + " reason=" + reason
+                    + " message=" + message);
+        }
+
+        private void tickPanelBagSpecialUseMessage() {
+            if (text != null && text.readyForKey && key0) {
+                text.confirm();
+                if (text.disposed) {
+                    text = null;
+                    if (panelBagSpecialUseMessageMode == 1) {
+                        int specialId = panelBagSpecialUseId;
+                        panelBagSpecialUseId = -1;
+                        panelBagSpecialUseMessageMode = 0;
+                        worldPetstateVisible = false;
+                        panelRuntime.returnToBagFromSpecialUseBack(this, specialId);
+                        sourceStateTrace.add("PORTED/PARTIAL panel game.h.ab state19"
+                                + " close msgwarm.ui+petstate.ui f=1->0 return state8/bag.ui"
+                                + " specialId=" + specialId
+                                + " selectedPet=" + battleMenuIndex);
+                    } else {
+                        sourceStateTrace.add("PORTED/PARTIAL panel game.h.ab state19"
+                                + " close msgwarm.ui f=2->0 stay petstate.ui"
+                                + " specialId=" + panelBagSpecialUseId
+                                + " selectedPet=" + battleMenuIndex);
+                        panelBagSpecialUseMessageMode = 0;
+                    }
+                }
             }
         }
 
@@ -2561,6 +2661,14 @@ public final class VqsvIntroDemo extends JPanel {
 
         void tickFreeWorldPlayer() {
             VqsvFreeWorldRuntime.tickFreeWorldPlayer(this);
+        }
+
+        void tickSourceWorldTimers() {
+            VqsvFreeWorldRuntime.tickSourceWorldTimers(this);
+        }
+
+        boolean sourceAvoidMonsterBlocksEncounter() {
+            return VqsvFreeWorldRuntime.sourceAvoidMonsterBlocksEncounter(this);
         }
 
         boolean playerIntersectsSourceRect(int x, int y, int w, int h) {

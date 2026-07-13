@@ -767,6 +767,19 @@ final class VqsvPanelRuntime {
                 + " b=0 selected=" + selected);
     }
 
+    void returnToBagFromSpecialUseBack(VqsvIntroDemo.Scene s, int specialId) {
+        visible = true;
+        mode = Mode.BAG;
+        bagTab = 3;
+        openedTicks = 0;
+        selected = clamp(selected, 0, Math.max(0, bagRows(s, bagTab).size() - 1));
+        keepSelectedVisible(bagRows(s, bagTab).size());
+        s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.ab back/close state19"
+                + " specialId=" + specialId
+                + " o.a(8) close petstate.ui -> bag.ui"
+                + " b=3 selected=" + selected);
+    }
+
     private void useAvoidMonsterItem(VqsvIntroDemo.Scene s, BagRow row) {
         if (s.sourceAvoidMonsterTicks > 0) {
             s.text = TextBox.msgWarm(VqsvText.Battle.PANEL_BAG_AVOID_ALREADY,
@@ -796,15 +809,17 @@ final class VqsvPanelRuntime {
         VqsvSourceOps.sourceRemoveItem(s, 13, 1);
         s.sourceAvoidMonsterTicks = duration;
         s.sourceAvoidMonsterElapsed = 0;
+        SourceSpecialReward avoidSideEffect = VqsvSourceOps.sourceStackSpecialReward(s, 1, 1);
         List<BagRow> rowsAfter = bagRows(s, bagTab);
         selected = clamp(selected, 0, Math.max(0, rowsAfter.size() - 1));
         s.text = TextBox.msgWarm(VqsvText.Battle.PANEL_BAG_AVOID_SUCCESS,
                 VqsvText.Evolution.CONTINUE_PROMPT_5);
         bagMessageMode = 15;
-        s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.ac bagTab=0 itemId=13"
+        s.sourceStateTrace.add("PORTED panel game.h.ac bagTab=0 itemId=13"
                 + " q.d(item,1,0) count=" + VqsvSourceOps.sourceItemCount(s, 13)
                 + " q.x=aq.c[4][13][6]=" + duration
-                + " q.w=0 q.c(1) noted -> msgwarm.ui f=1 selected=" + selected);
+                + " q.w=0 q.c(1) stack=" + avoidSideEffect.stackCount
+                + " -> msgwarm.ui f=1 selected=" + selected);
     }
 
     private void useEggAcceleratorItem(VqsvIntroDemo.Scene s, BagRow row) {
@@ -833,12 +848,11 @@ final class VqsvPanelRuntime {
         s.text = TextBox.msgWarm(VqsvText.Battle.PANEL_BAG_EGG_ACCEL_SUCCESS,
                 VqsvText.Evolution.CONTINUE_PROMPT_5);
         bagMessageMode = 17;
-        s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.ac bagTab=0 itemId=14"
+        s.sourceStateTrace.add("PORTED panel game.h.ac bagTab=0 itemId=14"
                 + " q.k(0)=true q.I=" + s.sourceEggType
                 + " game.k.q=" + s.sourceEggProgress
                 + " q.d(item,1,0) count=" + VqsvSourceOps.sourceItemCount(s, 14)
-                + " -> msgwarm.ui f=1 selected=" + selected
-                + " hatch action b=3 case0 still pending");
+                + " -> msgwarm.ui f=1 selected=" + selected);
     }
 
     private void useEggHatchAction(VqsvIntroDemo.Scene s, BagRow row) {
@@ -933,8 +947,10 @@ final class VqsvPanelRuntime {
             case 7:
             case 8:
             case 9:
-                s.sourceStateTrace.add("PENDING panel game.h.ac bagTab=3 q.N case" + row.specialId
-                        + " confirm -> s=id o.a(19) bag.ui special-use state not ported"
+                visible = false;
+                s.openPanelBagSpecialUsePetstate(row.specialId);
+                s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.ac bagTab=3 q.N case" + row.specialId
+                        + " confirm -> s=id o.a(19) close bag.ui open petstate.ui"
                         + " stack=" + row.count);
                 return;
             default:

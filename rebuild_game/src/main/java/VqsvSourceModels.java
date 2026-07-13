@@ -299,6 +299,7 @@ final class SourcePetState {
     int arg4;
     final int[] skillIds = new int[]{-1, -1, -1, -1};
     final int[] skillCooldowns = new int[skillIds.length];
+    final short[][] sourceDebuffSlots = new short[11][5];
     int[] sourcePayload;
     int refreshCount;
     boolean sourceActive;
@@ -308,6 +309,7 @@ final class SourcePetState {
     int sourceExpStart;
     boolean sourceExpParticipant;
     boolean sourceExpDisplay;
+    int sourceSpecialUseId = -1;
 
     SourcePetState() {
     }
@@ -430,8 +432,17 @@ final class SourcePetState {
             skillIds[i] = battle.skillIds[i];
             skillCooldowns[i] = battle.skillPp[i];
         }
+        copyDebuffsFromBattleUnit(battle);
         sourcePayload = toSourcePayloadFromBattleUnit(battle);
         refreshCount++;
+    }
+
+    private void copyDebuffsFromBattleUnit(BattleUnit battle) {
+        for (int i = 0; i < sourceDebuffSlots.length; i++) {
+            for (int j = 0; j < sourceDebuffSlots[i].length; j++) {
+                sourceDebuffSlots[i][j] = battle.debuffSlots[i][j];
+            }
+        }
     }
 
     void sourceLossResetOneHpOnePp() {

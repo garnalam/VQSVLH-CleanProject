@@ -6,6 +6,7 @@ final class BattleUnit {
     private static VqsvSourceRandom activeDamageRandom = FALLBACK_DAMAGE_RANDOM;
     private static java.util.List<String> randomTrace;
     private static String randomTraceContext = "";
+    private static int debugNextCritRoll = -1;
     private static int debugNextDebuffRoll = -1;
 
     static final int STAT_QUALITY = 0;
@@ -81,6 +82,9 @@ final class BattleUnit {
                 nature = (byte) pet.sourcePayload[5];
             }
         }
+        if (pet.sourceSpecialUseId == 7 || pet.sourceSpecialUseId == 8 || pet.sourceSpecialUseId == 9) {
+            nature = (byte) pet.sourceSpecialUseId;
+        }
         BattleUnit unit = fromSpecies(pet.speciesId, Math.max(1, pet.level), form,
                 ownerSide, quality, nature, pet);
         unit.ownerSide = ownerSide == 1 ? 1 : 0;
@@ -90,6 +94,11 @@ final class BattleUnit {
             }
             if (pet.sourcePayload.length > 7) {
                 unit.exp = pet.sourcePayload[7];
+            }
+        }
+        for (int i = 0; i < unit.debuffSlots.length && i < pet.sourceDebuffSlots.length; i++) {
+            for (int j = 0; j < unit.debuffSlots[i].length && j < pet.sourceDebuffSlots[i].length; j++) {
+                unit.debuffSlots[i][j] = pet.sourceDebuffSlots[i][j];
             }
         }
         return unit;
@@ -290,8 +299,8 @@ final class BattleUnit {
         }
         critChance += currentStats[STAT_SPEED] / 2;
         if (hasFormStatus((byte) 4)) {
-            BattleStatusRow status = VqsvBattleTables.instance().status(4);
-            critChance += statusParam(status, 5, 0);
+            BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(4);
+            critChance += heldItemParam(item, 5, 0);
         }
         if (randomPercent("damage.crit") <= critChance) {
             raw = raw * 3 / 2;
@@ -302,6 +311,7 @@ final class BattleUnit {
         int explicitChance = -1;
         int preSkillRaw = raw <= 0 ? 1 : raw;
         int damage = raw;
+        boolean pendingTargetClearBuffs = false;
 
         if (skill == null) {
             effectId = -1;
@@ -327,7 +337,7 @@ final class BattleUnit {
             damage = target.hasDebuff(1) ? raw * skill.chanceOrParam / 100 : raw * skill.powerPercent / 100;
         } else if (skillId == 43 || skillId == 49) {
             damage = raw * skill.powerPercent / 100;
-            target.clearBuffs();
+            pendingTargetClearBuffs = true;
         } else if (skillId == 53 || skillId == 59) {
             damage = raw * (skill.chanceOrParam - hpPercent()) / 100;
         } else {
@@ -341,7 +351,8 @@ final class BattleUnit {
             effectId = -1;
         }
 
-        int appliedDebuffId = maybeApplyTargetDebuff(target, skillId, effectId, explicitChance, preSkillRaw);
+        BattlePendingDebuff pendingDebuff = maybePlanTargetDebuff(target, skillId, effectId, explicitChance, preSkillRaw);
+        int appliedDebuffId = pendingDebuff == null ? -1 : pendingDebuff.effectId;
 
         if (hasBuff(0) && buffSlots[0][0] == 0) {
             damage += buffSlots[0][2];
@@ -352,7 +363,7 @@ final class BattleUnit {
         if (hasDebuff(6)) {
             damage -= damage * debuffSlots[6][1] / 100;
         }
-        if (target.hasBuff(6) && randomPercent("damage.buff6") <= buffSlots[6][1]) {
+        if (!pendingTargetClearBuffs && target.hasBuff(6) && randomPercent("damage.buff6") <= buffSlots[6][1]) {
             damage = damage * buffSlots[6][2] / 100;
         }
         if (hasBuff(8)) {
@@ -391,10 +402,12 @@ final class BattleUnit {
             }
         }
 
-        if (target.hasBuff(5) && randomPercent("damage.buff5") <= target.buffSlots[5][1]) {
-            effectScratch[5] = toShort(damage);
+        int pendingReflectDamage = 0;
+        if (!pendingTargetClearBuffs && target.hasBuff(5) && randomPercent("damage.buff5") <= target.buffSlots[5][1]) {
+            pendingReflectDamage = damage;
         }
-        return new BattleDamageResult(damage, critFlag, appliedDebuffId);
+        return new BattleDamageResult(damage, critFlag, appliedDebuffId,
+                pendingDebuff, pendingTargetClearBuffs ? target : null, this, pendingReflectDamage);
     }
 
     private static boolean isBytecodeDefaultRawDamageSkill(int skillId) {
@@ -419,6 +432,10 @@ final class BattleUnit {
         return hasFormStatus((byte) statusId);
     }
 
+    boolean hasSourceHeldItem(int itemId) {
+        return hasFormStatus((byte) itemId);
+    }
+
     boolean rollSourceChance(int chance) {
         return rollSourceChance("source.chance", chance);
     }
@@ -429,6 +446,10 @@ final class BattleUnit {
 
     int sourceStatusParam(int statusId, int index, int fallback) {
         return statusParam(VqsvBattleTables.instance().status(statusId), index, fallback);
+    }
+
+    int sourceHeldItemParam(int itemId, int index, int fallback) {
+        return heldItemParam(VqsvBattleTables.instance().heldItem(itemId), index, fallback);
     }
 
     int consumeStoredReflectDamage() {
@@ -1072,77 +1093,46 @@ final class BattleUnit {
             return currentStats[STAT_ATTACK];
         }
         if (target.ownerSide == 0 && target.sourcePassiveTargetDefenseBoost) {
-            BattleStatusRow status = VqsvBattleTables.instance().status(4);
+            BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(4);
             target.currentStats[STAT_DEFENSE] = toShort(target.baseStats[STAT_DEFENSE]
-                    * (100 + statusParam(status, 5, 0)) / 100);
+                    * (100 + heldItemParam(item, 5, 0)) / 100);
         }
         int targetDefense = target.currentStats[STAT_DEFENSE];
         if (target.hasFormStatus((byte) 2)) {
-            BattleStatusRow status = VqsvBattleTables.instance().status(2);
-            targetDefense = targetDefense * (100 + statusParam(status, 5, 0)) / 100;
+            BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(2);
+            targetDefense = targetDefense * (100 + heldItemParam(item, 5, 0)) / 100;
         }
         int value = currentStats[STAT_ATTACK] - targetDefense;
         if (hasFormStatus((byte) 0)) {
-            BattleStatusRow status = VqsvBattleTables.instance().status(0);
-            int threshold = statusParam(status, 5, 0) * baseStats[STAT_HP] / 100;
+            BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(0);
+            int threshold = heldItemParam(item, 5, 0) * baseStats[STAT_HP] / 100;
             if (currentStats[STAT_HP] <= threshold) {
-                value = currentStats[STAT_ATTACK] * (100 + statusParam(status, 6, 0)) / 100 - target.currentStats[STAT_DEFENSE];
+                value = currentStats[STAT_ATTACK] * (100 + heldItemParam(item, 6, 0)) / 100 - target.currentStats[STAT_DEFENSE];
             }
         } else if (hasFormStatus((byte) 1)) {
-            BattleStatusRow status = VqsvBattleTables.instance().status(1);
-            value = currentStats[STAT_ATTACK] * (100 + statusParam(status, 5, 0)) / 100 - target.currentStats[STAT_DEFENSE];
+            BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(1);
+            value = currentStats[STAT_ATTACK] * (100 + heldItemParam(item, 5, 0)) / 100 - target.currentStats[STAT_DEFENSE];
         }
         return value;
     }
 
-    private int maybeApplyTargetDebuff(BattleUnit target, int skillId, int effectId, int explicitChance, int preSkillRaw) {
+    private BattlePendingDebuff maybePlanTargetDebuff(BattleUnit target, int skillId, int effectId,
+                                                      int explicitChance, int preSkillRaw) {
         if (effectId < 0 || effectId >= target.debuffSlots.length) {
-            return -1;
+            return null;
         }
         int chance = explicitChance;
         if (target.hasFormStatus((byte) 3)) {
-            BattleStatusRow status = VqsvBattleTables.instance().status(3);
-            if (randomPercent("damage.debuff") > chance * (100 - statusParam(status, 5, 0)) / 100) {
-                return -1;
+            BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(3);
+            if (randomPercent("damage.debuff") > chance * (100 - heldItemParam(item, 5, 0)) / 100) {
+                return null;
             }
         } else if (target.hasBuff(14)) {
-            return -1;
+            return null;
         } else if (chance != -1 && randomPercent("damage.debuff") > chance) {
-            return -1;
+            return null;
         }
-
-        BattleSkillRow skill = VqsvBattleTables.instance().skill(skillId);
-        int skillParam = skill == null ? 0 : skill.chanceOrParam;
-        switch (effectId) {
-            case 0:
-            case 3:
-                target.debuffSlots[effectId][1] = toShort(preSkillRaw);
-                break;
-            case 4:
-            case 6:
-                target.debuffSlots[effectId][1] = toShort(skillParam);
-                break;
-            case 5:
-                target.debuffSlots[effectId][1] = toShort(target.baseStats[STAT_SPEED] * skillParam / 100);
-                target.currentStats[STAT_SPEED] = toShort(target.baseStats[STAT_SPEED] - target.debuffSlots[effectId][1]);
-                break;
-            case 7:
-                target.debuffSlots[effectId][1] = toShort(target.baseStats[STAT_DEFENSE] * skillParam / 100);
-                target.currentStats[STAT_DEFENSE] = toShort(target.baseStats[STAT_DEFENSE] - target.debuffSlots[effectId][1]);
-                break;
-            default:
-                break;
-        }
-        target.addActiveEffect(1, effectId);
-        BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(effectId);
-        int duration = debuff == null ? 0 : debuff.duration;
-        if (target.ownerSide == 0 && target.sourcePassiveDebuffDurationHalve) {
-            duration /= 2;
-        }
-        target.debuffSlots[effectId][0] = toShort(duration);
-        target.debuffSlots[effectId][3] = toShort(skillId);
-        target.debuffSlots[effectId][4] = 1;
-        return effectId;
+        return new BattlePendingDebuff(target, effectId, skillId, preSkillRaw);
     }
 
     private int relationTo(BattleUnit target) {
@@ -1224,6 +1214,10 @@ final class BattleUnit {
         debugNextDebuffRoll = Math.max(0, Math.min(99, roll));
     }
 
+    static void setNextCritRollForChecks(int roll) {
+        debugNextCritRoll = Math.max(0, Math.min(99, roll));
+    }
+
     static void setRandomTrace(java.util.List<String> trace, String context) {
         setSourceRandomTrace(FALLBACK_DAMAGE_RANDOM, trace, context);
     }
@@ -1244,6 +1238,10 @@ final class BattleUnit {
         return row == null ? fallback : VqsvBattleTables.get(row.raw, index, fallback);
     }
 
+    private static int heldItemParam(BattleHeldItemRow row, int index, int fallback) {
+        return row == null ? fallback : VqsvBattleTables.get(row.raw, index, fallback);
+    }
+
     private static int learnTierForLevel(int level) {
         int[] tiers = {5, 10, 20, 30, 40};
         int tier = 0;
@@ -1257,6 +1255,16 @@ final class BattleUnit {
 
     private static int randomPercent(String label) {
         String fullLabel = randomTraceContext.isEmpty() ? label : randomTraceContext + "." + label;
+        if (label.endsWith("damage.crit") && debugNextCritRoll >= 0) {
+            int roll = debugNextCritRoll;
+            debugNextCritRoll = -1;
+            if (randomTrace != null) {
+                randomTrace.add("SMOKE battle forced damage.crit roll=" + roll
+                        + " label=" + fullLabel
+                        + " source=game.b.b(target) ae.a(100)");
+            }
+            return roll;
+        }
         if (label.endsWith("damage.debuff") && debugNextDebuffRoll >= 0) {
             int roll = debugNextDebuffRoll;
             debugNextDebuffRoll = -1;
@@ -1307,7 +1315,7 @@ final class BattleUnit {
         activeEffectCount[bank] = 0;
     }
 
-    private static short toShort(int value) {
+    static short toShort(int value) {
         return (short) Math.max(Short.MIN_VALUE, Math.min(Short.MAX_VALUE, value));
     }
 }
@@ -1316,11 +1324,93 @@ final class BattleDamageResult {
     final int damage;
     final int critFlag;
     final int appliedDebuffId;
+    private final BattlePendingDebuff pendingDebuff;
+    private final BattleUnit pendingBuffClearTarget;
+    private final BattleUnit pendingReflectAttacker;
+    private final int pendingReflectDamage;
 
     BattleDamageResult(int damage, int critFlag, int appliedDebuffId) {
+        this(damage, critFlag, appliedDebuffId, null, null, null, 0);
+    }
+
+    BattleDamageResult(int damage, int critFlag, int appliedDebuffId,
+                       BattlePendingDebuff pendingDebuff, BattleUnit pendingBuffClearTarget,
+                       BattleUnit pendingReflectAttacker, int pendingReflectDamage) {
         this.damage = damage;
         this.critFlag = critFlag;
         this.appliedDebuffId = appliedDebuffId;
+        this.pendingDebuff = pendingDebuff;
+        this.pendingBuffClearTarget = pendingBuffClearTarget;
+        this.pendingReflectAttacker = pendingReflectAttacker;
+        this.pendingReflectDamage = pendingReflectDamage;
+    }
+
+    void commitPendingSideEffects() {
+        if (pendingBuffClearTarget != null) {
+            pendingBuffClearTarget.clearBuffs();
+        }
+        if (pendingDebuff != null) {
+            pendingDebuff.commit();
+        }
+        if (pendingReflectAttacker != null && pendingReflectDamage > 0) {
+            pendingReflectAttacker.effectScratch[5] = BattleUnit.toShort(pendingReflectDamage);
+        }
+    }
+
+    boolean hasPendingSideEffects() {
+        return pendingBuffClearTarget != null || pendingDebuff != null || pendingReflectDamage > 0;
+    }
+}
+
+final class BattlePendingDebuff {
+    final BattleUnit target;
+    final int effectId;
+    final int skillId;
+    final int preSkillRaw;
+
+    BattlePendingDebuff(BattleUnit target, int effectId, int skillId, int preSkillRaw) {
+        this.target = target;
+        this.effectId = effectId;
+        this.skillId = skillId;
+        this.preSkillRaw = preSkillRaw;
+    }
+
+    void commit() {
+        BattleSkillRow skill = VqsvBattleTables.instance().skill(skillId);
+        int skillParam = skill == null ? 0 : skill.chanceOrParam;
+        switch (effectId) {
+            case 0:
+            case 3:
+                target.debuffSlots[effectId][1] = BattleUnit.toShort(preSkillRaw);
+                break;
+            case 4:
+            case 6:
+                target.debuffSlots[effectId][1] = BattleUnit.toShort(skillParam);
+                break;
+            case 5:
+                target.debuffSlots[effectId][1] = BattleUnit.toShort(
+                        target.baseStats[BattleUnit.STAT_SPEED] * skillParam / 100);
+                target.currentStats[BattleUnit.STAT_SPEED] = BattleUnit.toShort(
+                        target.baseStats[BattleUnit.STAT_SPEED] - target.debuffSlots[effectId][1]);
+                break;
+            case 7:
+                target.debuffSlots[effectId][1] = BattleUnit.toShort(
+                        target.baseStats[BattleUnit.STAT_DEFENSE] * skillParam / 100);
+                target.currentStats[BattleUnit.STAT_DEFENSE] = BattleUnit.toShort(
+                        target.baseStats[BattleUnit.STAT_DEFENSE] - target.debuffSlots[effectId][1]);
+                break;
+            default:
+                break;
+        }
+        target.addActiveEffect(1, effectId);
+        BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(effectId);
+        int duration = debuff == null ? 0 : debuff.duration;
+        if (target.ownerSide == 0 && target.sourcePassiveDebuffDurationHalve) {
+            duration /= 2;
+        }
+        target.debuffSlots[effectId][0] = BattleUnit.toShort(duration);
+        target.debuffSlots[effectId][3] = BattleUnit.toShort(skillId);
+        target.debuffSlots[effectId][4] = 1;
     }
 }
 
