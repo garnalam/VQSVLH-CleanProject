@@ -12,6 +12,7 @@ final class VqsvBattleEventDescriptor {
                     new int[]{0, 1},
                     new int[]{0, 0},
                     new int[]{12, 0, 0},
+                    false,
                     false);
 
     static final VqsvBattleEventDescriptor SCENE1_ROOM0_GROUP6_ELDER =
@@ -25,6 +26,7 @@ final class VqsvBattleEventDescriptor {
                     new int[0],
                     new int[]{0, 2},
                     new int[]{10, 10, 0},
+                    true,
                     true);
 
     static final VqsvBattleEventDescriptor SCENE1_ROOM3_GROUP0_SOPHIE =
@@ -38,7 +40,8 @@ final class VqsvBattleEventDescriptor {
                     new int[]{1, 1},
                     new int[]{0, 2},
                     new int[]{78, 78, 0},
-                    false);
+                    false,
+                    true);
 
     final String label;
     final int sceneId;
@@ -50,11 +53,12 @@ final class VqsvBattleEventDescriptor {
     final int[] op32Mode;
     final int[] op47BranchTargets;
     final boolean sourceBattleSlice;
+    final boolean npcEnemyEntry;
 
     private VqsvBattleEventDescriptor(String label, int sceneId, int roomIndex, int groupIndex,
                                       int op67ActorId, int[] op37Encounter, int[] battleFlags,
                                       int[] op32Mode, int[] op47BranchTargets,
-                                      boolean sourceBattleSlice) {
+                                      boolean sourceBattleSlice, boolean npcEnemyEntry) {
         this.label = label;
         this.sceneId = sceneId;
         this.roomIndex = roomIndex;
@@ -65,6 +69,7 @@ final class VqsvBattleEventDescriptor {
         this.op32Mode = Arrays.copyOf(op32Mode, op32Mode.length);
         this.op47BranchTargets = Arrays.copyOf(op47BranchTargets, op47BranchTargets.length);
         this.sourceBattleSlice = sourceBattleSlice;
+        this.npcEnemyEntry = npcEnemyEntry;
     }
 
     SourceBattleRuntime runtime(VqsvIntroDemo.Scene s, int forcedResultIndex) {
@@ -76,7 +81,9 @@ final class VqsvBattleEventDescriptor {
                 Arrays.copyOf(op32Mode, op32Mode.length),
                 Arrays.copyOf(op47BranchTargets, op47BranchTargets.length),
                 forcedResultIndex,
-                sourceBattleSlice);
+                sourceBattleSlice,
+                npcEnemyEntry,
+                label);
     }
 
     int sourceActorId() {
@@ -136,5 +143,9 @@ final class VqsvBattleEventDescriptor {
                 + " op47 targets=" + Arrays.toString(op47BranchTargets)
                 + " forcedResult=" + forcedResultIndex
                 + " bridge=runtime battleResultIndex->battleBranchTarget");
+        s.sourceStateTrace.add((npcEnemyEntry ? "PORTED/PARTIAL" : "PORTED")
+                + " source BattleEventDescriptor " + label
+                + " npcEnemyEntry=" + npcEnemyEntry
+                + " source gate=op67 NPC/enemy actor route; Bunny wild battle remains false");
     }
 }

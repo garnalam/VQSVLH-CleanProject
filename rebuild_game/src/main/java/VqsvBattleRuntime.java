@@ -6,6 +6,7 @@ final class VqsvBattleRuntime {
 }
 
 enum BattleRuntimeState {
+    NPC_VS_ENTRY(-4, "NPCVS"),
     P0_ENTRY(0, "P0"),
     P20_COMMAND(20, "P20"),
     P3_SKILL_LIST(3, "P3"),
@@ -27,6 +28,7 @@ enum BattleRuntimeState {
     P1_DISPATCH(1, "P1"),
     P8_WIN(8, "P8"),
     P9_LOSE(9, "P9"),
+    P24_LOSE_REVIVE(24, "P24"),
     EXIT_FADE(-1, "EXIT"),
     DONE(-2, "DONE");
 
@@ -127,6 +129,10 @@ final class SourceBattleRuntime implements Blocking {
     private static final int P7_START_TICKS = 8;
     private static final int P7_DAMAGE_TICKS = 12;
     private static final int P7_EXIT_TICKS = 6;
+    private static final short[][] NPC_ENEMY_TIMELINE = new short[][]{
+            {0}, {1}, {2}, {3}, {4, 5, 6, 7, 8}, {9}, {10},
+            {11, 12}, {13}, {14, 15, 16, 17, 18, 19, 20}, {21}, {22}
+    };
     private static final VqsvSourceRandom SOURCE_RANDOM = VqsvSourceRandom.lazySourceSeeded();
 
     private final int actorId;
@@ -136,6 +142,8 @@ final class SourceBattleRuntime implements Blocking {
     private final int[] branchTargets;
     private final int forcedResultIndex;
     private final boolean sourceBattleSlice;
+    private final boolean npcEnemyEntry;
+    private final String sourceBattleLabel;
 
     private BattleRuntimeState state = BattleRuntimeState.P0_ENTRY;
     private int wait;
@@ -174,6 +182,7 @@ final class SourceBattleRuntime implements Blocking {
     private int battleEntryFrame;
     private int battleEntryFrameTicks;
     private boolean battleEntryCposActive;
+    private int npcVsEntryTicks;
     private BattleRuntimeState warningReturnState = BattleRuntimeState.P20_COMMAND;
     private String warningReturnLog = VqsvText.Battle.START;
     private int selectedItemId = -1;
@@ -228,6 +237,7 @@ final class SourceBattleRuntime implements Blocking {
     private boolean p7FlagA;
     private boolean p7FlagB;
     private int p7SpecialType = -1;
+    private int loseRevivePhase;
     private boolean p7SpecialPrepared;
     private boolean p7SpecialActive;
     private int p7SpecialTicks;
@@ -295,6 +305,7 @@ final class SourceBattleRuntime implements Blocking {
     private int expAward;
     private int expDisplayValue;
     private int expHoldTicks;
+    private boolean expInitialFramePending;
     private int[] expOldStats = new int[4];
     private int[] expNewStats = new int[4];
     private boolean expLevelUpPending;
@@ -303,18 +314,30 @@ final class SourceBattleRuntime implements Blocking {
     private boolean expLearningConfirm;
     private int[] expLearnSkillIds = new int[0];
     private int expSelectedLearnSkill = -1;
+    private int npcVsEntryStep;
+    private int npcVsEntryFrameIndex;
+    private short[] enemyReplacementCposRow = new short[0];
+    private int enemyReplacementTicks;
+    private int enemyReplacementFrameTicks;
 
     SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode, int[] branchTargets) {
-        this(actorId, encounter, flags, battleMode, branchTargets, 0, false);
+        this(actorId, encounter, flags, battleMode, branchTargets, 0, false, false, "direct");
     }
 
     SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode,
                         int[] branchTargets, int forcedResultIndex) {
-        this(actorId, encounter, flags, battleMode, branchTargets, forcedResultIndex, false);
+        this(actorId, encounter, flags, battleMode, branchTargets, forcedResultIndex, false, false, "direct");
     }
 
     SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode,
                         int[] branchTargets, int forcedResultIndex, boolean sourceBattleSlice) {
+        this(actorId, encounter, flags, battleMode, branchTargets, forcedResultIndex,
+                sourceBattleSlice, sourceBattleSlice, "direct");
+    }
+
+    SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode,
+                        int[] branchTargets, int forcedResultIndex, boolean sourceBattleSlice,
+                        boolean npcEnemyEntry, String sourceBattleLabel) {
         this.actorId = actorId;
         this.encounter = encounter;
         this.flags = flags;
@@ -322,6 +345,98 @@ final class SourceBattleRuntime implements Blocking {
         this.branchTargets = branchTargets;
         this.forcedResultIndex = forcedResultIndex;
         this.sourceBattleSlice = sourceBattleSlice;
+        this.npcEnemyEntry = npcEnemyEntry;
+        this.sourceBattleLabel = sourceBattleLabel == null ? "direct" : sourceBattleLabel;
+    }
+
+    void clearInputLatchForManualCheckpoint() {
+        wasLeftPressed = false;
+        wasRightPressed = false;
+        wasUpPressed = false;
+        wasDownPressed = false;
+        commandConfirmQueued = false;
+    }
+
+    void debugHandleSkillInputForSmoke(VqsvIntroDemo.Scene s) {
+        handleSkillInput(s);
+    }
+
+    void debugHandleMenuInputForSmoke(VqsvIntroDemo.Scene s) {
+        handleMenuInput(s);
+    }
+
+    void debugSetStateForSmoke(VqsvIntroDemo.Scene s, BattleRuntimeState next) {
+        state = next;
+        s.battleStateName = next.label;
+    }
+
+    boolean mouseWheelScrollList(VqsvIntroDemo.Scene s, int steps) {
+        if (steps == 0) {
+            return false;
+        }
+        if (state == BattleRuntimeState.P3_SKILL_LIST
+                || "skill".equals(s.battleUiMode)
+                || "choiceskill".equals(s.battleUiMode)) {
+            return mouseWheelSkillList(s, steps);
+        }
+        if (!isMouseWheelMenuList(s)) {
+            return false;
+        }
+        int visibleRows = "petstate".equals(s.battleUiMode) ? 6 : 5;
+        int maxScroll = Math.max(0, s.battleMenuNames.length - visibleRows);
+        if (maxScroll <= 0) {
+            return true;
+        }
+        s.battleMenuScroll = Math.max(0, Math.min(maxScroll, s.battleMenuScroll + steps));
+        if ("choice".equals(s.battleUiMode)) {
+            s.battleChoiceUi = s.battleChoiceUi.withViewportScroll(s.battleMenuIndex, s.battleMenuScroll);
+            syncLegacyMenuFromChoice(s);
+        }
+        s.sourceStateTrace.add("PC_QOL mouse wheel battle list scrollbar"
+                + " state=" + state.label
+                + " ui=" + s.battleUiMode
+                + " index=" + s.battleMenuIndex
+                + " scroll=" + s.battleMenuScroll);
+        return true;
+    }
+
+    private boolean mouseWheelSkillList(VqsvIntroDemo.Scene s, int steps) {
+        int maxScroll = Math.max(0, s.battleSkillIds.length - 5);
+        if (maxScroll <= 0) {
+            return true;
+        }
+        s.battleSkillScroll = Math.max(0, Math.min(maxScroll, s.battleSkillScroll + steps));
+        s.sourceStateTrace.add("PC_QOL mouse wheel battle skill scrollbar"
+                + " index=" + s.battleSkillIndex
+                + " scroll=" + s.battleSkillScroll);
+        return true;
+    }
+
+    private boolean isMouseWheelMenuList(VqsvIntroDemo.Scene s) {
+        if ("shopconfirm".equals(s.battleUiMode) || "warning".equals(s.battleUiMode)) {
+            return false;
+        }
+        return state == BattleRuntimeState.P4_ITEM_LIST
+                || state == BattleRuntimeState.P5_PET_SWITCH
+                || state == BattleRuntimeState.P11_SHOP
+                || state == BattleRuntimeState.P16_ITEM_TARGET
+                || state == BattleRuntimeState.P21_CATCH_LIST
+                || "choice".equals(s.battleUiMode)
+                || "petstate".equals(s.battleUiMode)
+                || "shopbuy".equals(s.battleUiMode);
+    }
+
+    private static int clampIndexIntoVisible(int index, int scroll, int size, int visibleRows) {
+        if (size <= 0) {
+            return 0;
+        }
+        int result = Math.max(0, Math.min(size - 1, index));
+        if (result < scroll) {
+            result = scroll;
+        } else if (result >= scroll + visibleRows) {
+            result = scroll + visibleRows - 1;
+        }
+        return Math.max(0, Math.min(size - 1, result));
     }
 
     @Override
@@ -340,6 +455,8 @@ final class SourceBattleRuntime implements Blocking {
             return tickBunnyTutorialRetryPrompt(s);
         }
         switch (state) {
+            case NPC_VS_ENTRY:
+                return tickNpcVsEntry(s);
             case P0_ENTRY:
                 return tickEntry(s);
             case P20_COMMAND:
@@ -381,6 +498,8 @@ final class SourceBattleRuntime implements Blocking {
                 return tickWin(s);
             case P9_LOSE:
                 return tickLose(s);
+            case P24_LOSE_REVIVE:
+                return tickLoseRevive(s);
             case EXIT_FADE:
                 return tickExit(s);
             case DONE:
@@ -439,14 +558,21 @@ final class SourceBattleRuntime implements Blocking {
                 + " sourcePetOrder=" + Arrays.toString(sourcePetOrder)
                 + " branchTargets=" + Arrays.toString(branchTargets)
                 + " sourceSlice=" + sourceBattleSlice
+                + " npcEnemyEntry=" + npcEnemyEntry
                 + " battleBackground=PORTED/PARTIAL game.k captures world renderer into game.d.c"
                 + " before game.i state 12; renderer falls back to black if snapshot missing"
                 + " states=P0/P20/P3/P6/P2/P7/P1/P8/P9; command UI/catch/items/animation still pending; "
                 + VqsvBattleTables.sourceSummary());
-        entered = true;
-        enterState(s, BattleRuntimeState.P0_ENTRY, VqsvText.Battle.START, SHORT_WAIT);
+        s.battlePlayerPowerPercent = 100;
+        s.battleEnemyPowerPercent = 100;
         prepareBattleEntryCpos(s);
-        s.effect.startFade(2, 0);
+        entered = true;
+        if (npcEnemyEntry) {
+            enterNpcVsEntry(s);
+        } else {
+            enterState(s, BattleRuntimeState.P0_ENTRY, VqsvText.Battle.START, SHORT_WAIT);
+            s.effect.startFade(2, 0);
+        }
     }
 
     private SourceBattleUnit[] enemyPartyFromEncounter(int[] rawEncounter) {
@@ -463,6 +589,57 @@ final class SourceBattleRuntime implements Blocking {
             return party;
         }
         return new SourceBattleUnit[]{SourceBattleUnit.enemyFromEncounter(rawEncounter)};
+    }
+
+    private void enterNpcVsEntry(VqsvIntroDemo.Scene s) {
+        npcVsEntryTicks = 0;
+        npcVsEntryStep = 0;
+        npcVsEntryFrameIndex = 0;
+        s.battleNpcEnemyEntryVisible = true;
+        s.battleNpcEnemyEntryTick = 0;
+        s.battleNpcEnemyEntryStep = 0;
+        s.battleNpcEnemyEntryFrame = NPC_ENEMY_TIMELINE[0][0];
+        s.battleNpcEnemyPlayerCount = Math.max(0, Math.min(6, s.sourcePets.size()));
+        s.battleNpcEnemyEnemyCount = Math.max(0, Math.min(6, enemyParty == null ? 0 : enemyParty.length));
+        s.battleNpcEnemyPlayerVisualId = s.player.spriteIndex;
+        Actor sourceEnemyActor = actorId >= 0 && actorId < s.actors.length ? s.actors[actorId] : null;
+        s.battleNpcEnemyEnemyVisualId = sourceEnemyActor != null
+                ? sourceEnemyActor.spriteIndex
+                : enemy != null ? enemy.visualId : -1;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle NPC entry game.h.at()/b(step,frame)"
+                + " ui=/data/ui/npcEnemy.ui sprite=296"
+                + " timeline=A[[0],[1],[2],[3],[4..8],[9],[10],[11,12],[13],[14..20],[21],[22]]"
+                + " playerCount=" + s.battleNpcEnemyPlayerCount
+                + " enemyCount=" + s.battleNpcEnemyEnemyCount
+                + " playerActorSprite=" + s.battleNpcEnemyPlayerVisualId
+                + " enemyActorSprite=" + s.battleNpcEnemyEnemyVisualId
+                + " sourceBattleLabel=" + sourceBattleLabel
+                + " sourceBattleSlice=" + sourceBattleSlice
+                + " actorVisualMapping=PORTED/PARTIAL");
+        enterState(s, BattleRuntimeState.NPC_VS_ENTRY, VqsvText.Battle.START, 0);
+    }
+
+    private boolean tickNpcVsEntry(VqsvIntroDemo.Scene s) {
+        if (npcVsEntryStep < NPC_ENEMY_TIMELINE.length) {
+            short[] frames = NPC_ENEMY_TIMELINE[npcVsEntryStep];
+            int frame = frames[npcVsEntryFrameIndex];
+            s.battleNpcEnemyEntryVisible = true;
+            s.battleNpcEnemyEntryTick = npcVsEntryTicks++;
+            s.battleNpcEnemyEntryStep = npcVsEntryStep;
+            s.battleNpcEnemyEntryFrame = frame;
+            npcVsEntryFrameIndex++;
+            if (npcVsEntryFrameIndex >= frames.length) {
+                npcVsEntryStep++;
+                npcVsEntryFrameIndex = 0;
+            }
+            return false;
+        }
+        s.battleNpcEnemyEntryVisible = false;
+        s.battleNpcEnemyEntryStep = -1;
+        s.battleNpcEnemyEntryFrame = -1;
+        enterState(s, BattleRuntimeState.P0_ENTRY, VqsvText.Battle.START, SHORT_WAIT);
+        s.effect.startFade(2, 0);
+        return false;
     }
 
     private boolean tickEntry(VqsvIntroDemo.Scene s) {
@@ -493,14 +670,17 @@ final class SourceBattleRuntime implements Blocking {
         battleEntryFrameTicks = 0;
         battleEntryCposActive = battleEntryCposRows.length > 0;
         applyBattleEntryCposOffset(s);
+        updateBattleEntryPowerPercent(s);
         s.sourceStateTrace.add("PORTED/PARTIAL battle P0 entry cpos start group=" + group
                 + " actors=" + battleEntryCposRows.length
                 + " source=game.d.an[r][G] from /data/script/cpos.mid"
-                + " marker/al sprite294 rendered as footprint marker with cpos offsets");
+                + " marker/al sprite294 rendered as footprint marker with cpos offsets"
+                + " powerPercent=game.h.a(b,b,b,i,total) widgets58/59");
     }
 
     private boolean tickBattleEntryCpos(VqsvIntroDemo.Scene s) {
         applyBattleEntryCposOffset(s);
+        updateBattleEntryPowerPercent(s);
         battleEntryFrameTicks++;
         if (battleEntryFrameTicks <= 1) {
             return false;
@@ -518,9 +698,72 @@ final class SourceBattleRuntime implements Blocking {
         }
         battleEntryCposActive = false;
         clearBattleEntryCposOffset(s);
+        updateBattleEntryPowerPercent(s);
         s.sourceStateTrace.add("PORTED/PARTIAL battle P0 entry cpos complete next=P1/P20"
-                + " group=" + sourceCposGroup());
+                + " group=" + sourceCposGroup()
+                + " playerPower=" + s.battlePlayerPowerPercent
+                + " enemyPower=" + s.battleEnemyPowerPercent);
         return true;
+    }
+
+    private void updateBattleEntryPowerPercent(VqsvIntroDemo.Scene s) {
+        int finalPlayer = sourceFinalPlayerPowerPercent();
+        int finalEnemy = sourceFinalEnemyPowerPercent();
+        if (!battleEntryCposActive) {
+            s.battlePlayerPowerPercent = finalPlayer;
+            s.battleEnemyPowerPercent = finalEnemy;
+            return;
+        }
+        int playerPercent = 100;
+        int enemyPercent = 100;
+        if (battleEntryActorIndex > 0) {
+            enemyPercent = finalEnemy;
+        } else if (battleEntryActorIndex == 0) {
+            enemyPercent = interpolateEntryPowerPercent(finalEnemy, battleEntryFrame + 1,
+                    battleEntryFrameCount(0));
+        }
+        if (battleEntryActorIndex > 1) {
+            playerPercent = finalPlayer;
+        } else if (battleEntryActorIndex == 1) {
+            playerPercent = interpolateEntryPowerPercent(finalPlayer, battleEntryFrame + 1,
+                    battleEntryFrameCount(1));
+        }
+        s.battlePlayerPowerPercent = playerPercent;
+        s.battleEnemyPowerPercent = enemyPercent;
+    }
+
+    private int interpolateEntryPowerPercent(int finalPercent, int progress, int totalFrames) {
+        int total = Math.max(1, totalFrames);
+        int step = Math.max(0, Math.min(total, progress));
+        if (finalPercent > 100) {
+            return 100 + step * (finalPercent - 100) / total;
+        }
+        if (finalPercent < 100) {
+            return 100 - step * (100 - finalPercent) / total;
+        }
+        return 100;
+    }
+
+    private int sourceFinalPlayerPowerPercent() {
+        byte relation = player.elementRelationTo(enemy);
+        if (relation == 0) {
+            return 300;
+        }
+        if (relation == 1) {
+            return 60;
+        }
+        return 100;
+    }
+
+    private int sourceFinalEnemyPowerPercent() {
+        byte relation = player.elementRelationTo(enemy);
+        if (relation == 0) {
+            return 60;
+        }
+        if (relation == 1) {
+            return 300;
+        }
+        return 100;
     }
 
     private void applyBattleEntryCposOffset(VqsvIntroDemo.Scene s) {
@@ -576,20 +819,11 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         if (!player.alive()) {
-            if (hasSwitchPet(s)) {
-                forcedPetSwitch = true;
-                preparePetMenu(s);
-                enterState(s, BattleRuntimeState.P5_PET_SWITCH, VqsvText.Battle.COMMAND_PET_PENDING, SHORT_WAIT);
-            } else {
-                enterState(s, BattleRuntimeState.P9_LOSE, VqsvText.Battle.NEIL_LOST + forcedResultIndex, SHORT_WAIT);
-            }
+            handleDeadBattleUnit(s, player, true, "P1 dispatch");
             return false;
         }
         if (!enemy.alive()) {
-            if (prepareEnemyReplacement(s)) {
-                return false;
-            }
-            enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
+            handleDeadBattleUnit(s, enemy, false, "P1 dispatch");
             return false;
         }
         if (isKidnappingBattle()) {
@@ -815,20 +1049,7 @@ final class SourceBattleRuntime implements Blocking {
             return;
         }
         if (!unit.alive()) {
-            if (playerSide) {
-                if (hasSwitchPet(s)) {
-                    forcedPetSwitch = true;
-                    preparePetMenu(s);
-                    enterState(s, BattleRuntimeState.P5_PET_SWITCH, VqsvText.Battle.COMMAND_PET_PENDING, SHORT_WAIT);
-                } else {
-                    enterState(s, BattleRuntimeState.P9_LOSE, VqsvText.Battle.NEIL_LOST + forcedResultIndex, SHORT_WAIT);
-                }
-            } else {
-                if (prepareEnemyReplacement(s)) {
-                    return;
-                }
-                enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
-            }
+            handleDeadBattleUnit(s, unit, playerSide, "P12/P13 active queue");
             return;
         }
         if (!fullQueueComplete) {
@@ -1170,6 +1391,10 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private void queueCommandInput(VqsvIntroDemo.Scene s) {
+        int hovered = commandIndexAt(s.battleHoverX, s.battleHoverY);
+        if (hovered >= 0) {
+            s.battleCommandIndex = hovered;
+        }
         int clicked = commandIndexAt(s.battleClickX, s.battleClickY);
         if (clicked >= 0) {
             s.battleCommandIndex = clicked;
@@ -1200,6 +1425,11 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private MenuAction handleMenuInput(VqsvIntroDemo.Scene s) {
+        int hovered = menuIndexAt(s, s.battleHoverX, s.battleHoverY);
+        if (hovered >= 0 && hovered < s.battleMenuNames.length) {
+            s.battleMenuIndex = hovered;
+            syncPointerMenuScroll(s);
+        }
         int clicked = menuIndexAt(s, s.battleClickX, s.battleClickY);
         boolean clickedBack = s.battleClickX >= 144 && s.battleClickX <= 198
                 && s.battleClickY >= 232 && s.battleClickY <= 255;
@@ -1211,7 +1441,7 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (clicked >= 0 && clicked < s.battleMenuNames.length) {
             s.battleMenuIndex = clicked;
-            syncMenuScroll(s);
+            syncPointerMenuScroll(s);
             s.key0 = false;
             return MenuAction.CONFIRM;
         }
@@ -1255,6 +1485,16 @@ final class SourceBattleRuntime implements Blocking {
             int index = (y - 86) / 15;
             return index >= 0 && index < 6 ? index : -1;
         }
+        if ("shopbuy".equals(s.battleUiMode) || "shopconfirm".equals(s.battleUiMode)) {
+            if (x < 54 || x > 191 || y < 100 || y > 186) {
+                return -1;
+            }
+            int row = (y - 100) / 18;
+            if (row < 0 || row >= 5) {
+                return -1;
+            }
+            return s.battleMenuScroll + row;
+        }
         if (x < 54 || x > 191 || y < 95 || y > 169) {
             return -1;
         }
@@ -1279,12 +1519,26 @@ final class SourceBattleRuntime implements Blocking {
         }
     }
 
+    private void syncPointerMenuScroll(VqsvIntroDemo.Scene s) {
+        if ("choice".equals(s.battleUiMode)) {
+            s.battleChoiceUi = s.battleChoiceUi.withViewportScroll(s.battleMenuIndex, s.battleMenuScroll);
+            syncLegacyMenuFromChoice(s);
+            return;
+        }
+        syncMenuScroll(s);
+    }
+
     private void syncLegacyMenuFromChoice(VqsvIntroDemo.Scene s) {
         s.battleMenuIndex = s.battleChoiceUi.selectedIndex;
         s.battleMenuScroll = s.battleChoiceUi.scroll;
     }
 
     private MenuAction handleSkillInput(VqsvIntroDemo.Scene s) {
+        int hovered = skillIndexAt(s.battleHoverX, s.battleHoverY, s);
+        if (hovered >= 0) {
+            s.battleSkillIndex = hovered;
+            updateSkillScrollAndDescription(s);
+        }
         int clicked = skillIndexAt(s.battleClickX, s.battleClickY, s);
         boolean clickedBack = s.battleClickX >= 152 && s.battleClickX <= 198
                 && s.battleClickY >= 232 && s.battleClickY <= 255;
@@ -1565,12 +1819,49 @@ final class SourceBattleRuntime implements Blocking {
         return false;
     }
 
+    private void handleDeadBattleUnit(VqsvIntroDemo.Scene s, SourceBattleUnit unit,
+                                      boolean playerSide, String context) {
+        if (playerSide) {
+            if (hasSwitchPet(s)) {
+                forcedPetSwitch = true;
+                preparePetMenu(s);
+                s.sourceStateTrace.add("PORTED battle generic KO side0 -> P5"
+                        + " context=" + context
+                        + " unit=" + (unit == null ? "null" : unit.name)
+                        + " source=game.d.r() live reserve");
+                enterState(s, BattleRuntimeState.P5_PET_SWITCH,
+                        VqsvText.Battle.COMMAND_PET_PENDING, SHORT_WAIT);
+            } else {
+                s.sourceStateTrace.add("PORTED battle generic KO side0 -> P9"
+                        + " context=" + context
+                        + " unit=" + (unit == null ? "null" : unit.name)
+                        + " source=no live reserve");
+                enterState(s, BattleRuntimeState.P9_LOSE,
+                        VqsvText.Battle.NEIL_LOST + forcedResultIndex, SHORT_WAIT);
+            }
+            return;
+        }
+        if (prepareEnemyReplacement(s)) {
+            s.sourceStateTrace.add("PORTED battle generic KO side1 -> P15"
+                    + " context=" + context
+                    + " unit=" + (unit == null ? "null" : unit.name)
+                    + " source=enemy replacement");
+            return;
+        }
+        s.sourceStateTrace.add("PORTED battle generic KO side1 -> P8"
+                + " context=" + context
+                + " unit=" + (unit == null ? "null" : unit.name)
+                + " source=no enemy replacement");
+        enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
+    }
+
     private void prepareShopMenu(VqsvIntroDemo.Scene s) {
         java.util.ArrayList<String> names = new java.util.ArrayList<>();
         java.util.ArrayList<String> values = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> ids = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> icons = new java.util.ArrayList<>();
-        int limit = Math.min(5, VqsvBattleTables.instance().rowCount(4));
+        java.util.ArrayList<String> sourceOriginalPrices = new java.util.ArrayList<>();
+        int limit = VqsvBattleTables.instance().rowCount(4);
         for (int i = 0; i < limit; i++) {
             BattleItemRow row = VqsvBattleTables.instance().item(i);
             if (row == null) {
@@ -1579,9 +1870,22 @@ final class SourceBattleRuntime implements Blocking {
             ids.add(i);
             icons.add(row.iconId);
             names.add(itemName(i));
-            values.add(String.valueOf(i == 0 ? row.priceOrValue : row.priceOrValue << 1));
+            sourceOriginalPrices.add(i + "=" + sourceBattleShopDisplayPrice(i, row)
+                    + ":currency" + row.currencyOrType);
+            // Source game.h renders battle shop prices as item0 base price, all other rows base price x2.
+            // PC rebuild currently keeps P11 all-free after mobile purchase removal; restore the source display price above if needed.
+            values.add("0");
         }
         setMenu(s, "Mua s\u1eafm", "Gi\u00e1", "Mua", names, values, ids, icons);
+        s.battleUiMode = "shopbuy";
+        s.battleShopConfirmItemId = -1;
+        s.battleShopConfirmQuantity = 1;
+        s.battleShopConfirmTotal = 0;
+        s.battleShopConfirmCurrency = 0;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P11 game.h.a(4,0) shopbuy.ui rows="
+                + ids.size() + " money(q.E)=" + s.sourceMoney
+                + " badges(q.G)=" + s.sourceBadges
+                + " sourceOriginalDisplayPrices=" + sourceOriginalPrices);
     }
 
     private void setMenu(VqsvIntroDemo.Scene s, String title, String subtitle, String action,
@@ -1833,6 +2137,10 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private MenuAction handleTargetInput(VqsvIntroDemo.Scene s) {
+        int hovered = targetIndexAt(s.battleHoverX, s.battleHoverY);
+        if (hovered >= 0) {
+            s.battleTargetIndex = hovered;
+        }
         int clicked = targetIndexAt(s.battleClickX, s.battleClickY);
         boolean clickedBack = s.battleClickX >= 0 && s.battleClickY >= 286
                 && s.battleClickX <= 38 && s.battleClickY <= 319;
@@ -1942,13 +2250,13 @@ final class SourceBattleRuntime implements Blocking {
             if (itemId == 0) {
                 VqsvSourceOps.sourceAddItem(s, itemId, 1);
                 item = s.sourceBagItems.get(itemId);
-                s.sourceStateTrace.add("PORTED/REBUILD_POLICY battle P21/P101 SMS purchase bypass item=0"
-                        + " sourcePath=game.h.ai f=1 -> game.d.a(101) -> game.h.aH/aM"
+                s.sourceStateTrace.add("PORTED/REBUILD_POLICY battle P21 PC-free purchase bypass item=0"
+                        + " sourcePath=game.h.ai f=1; mobile purchase route removed for PC rebuild"
                         + " grant=1 count=" + (item == null ? -1 : item.count));
             } else {
                 s.sourceStateTrace.add("PORTED/PARTIAL battle P21 game.h.ai missing-count msgwarm.ui item="
                         + itemId + " count=" + (item == null ? -1 : item.count)
-                        + "; item0 SMS-free hook not taken");
+                        + "; item0 PC-free hook not taken");
                 enterWarning(s, VqsvText.Battle.NO_BALLS, BattleRuntimeState.P21_CATCH_LIST);
                 return false;
             }
@@ -1972,7 +2280,7 @@ final class SourceBattleRuntime implements Blocking {
 
     private boolean tickCatchResult(VqsvIntroDemo.Scene s) {
         if (catchOpenBoxState != 0) {
-            clearCatchVisuals(s);
+            holdCatchSuccessVisuals(s);
             if (tickCatchOpenBox(s)) {
                 enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
             }
@@ -1986,9 +2294,9 @@ final class SourceBattleRuntime implements Blocking {
             advanceCatchPhase(s, 2, VqsvText.Battle.BALL_CHOSEN);
         } else if (catchPhase == 2 && animEnded) {
             advanceCatchPhase(s, catchCaught ? 3 : 4,
-                    catchCaught ? VqsvText.Battle.CATCH_SUCCESS + enemy.name : VqsvText.Battle.CATCH_FAILED);
+                catchCaught ? VqsvText.Battle.CATCH_SUCCESS + enemy.name : VqsvText.Battle.CATCH_FAILED);
         } else if (catchPhase == 3 && animEnded) {
-            clearCatchVisuals(s);
+            holdCatchSuccessVisuals(s);
             if (isBunnyCaptureBattle() && bunnyTutorialU == 0 && bunnyTutorialV == 8) {
                 setBunnyTutorialState(s, -1, 0, "game.d.l() V=8 cleanup after Bunny catch success");
             }
@@ -1997,7 +2305,7 @@ final class SourceBattleRuntime implements Blocking {
             openCatchResultBox(s, catchWinLog, "game.d P17 q=3 S.b(openbox.ui)");
             return false;
         } else if (catchPhase == 4 && animEnded && tickCatchEffectSourceLike()) {
-            clearCatchVisuals(s);
+            clearCatchVisuals(s, true);
             if (isBunnyCaptureBattle() && bunnyTutorialForceFailActive) {
                 bunnyTutorialForceFailActive = false;
                 bunnyTutorialRetryPending = true;
@@ -2237,10 +2545,22 @@ final class SourceBattleRuntime implements Blocking {
         s.battleCatchEffectDy = catchEffectDy;
     }
 
-    private void clearCatchVisuals(VqsvIntroDemo.Scene s) {
+    private void holdCatchSuccessVisuals(VqsvIntroDemo.Scene s) {
+        s.battleCatchVisible = true;
+        s.battleCatchEffectVisible = false;
+        s.battleCatchSpriteId = 269;
+        s.battleCatchPhase = 3;
+        s.battleCatchAnimCursor = catchAnim == null ? s.battleCatchAnimCursor : catchAnim.cursor;
+        s.battleEnemyHiddenByCatch = true;
+        clearCatchEffect();
+    }
+
+    private void clearCatchVisuals(VqsvIntroDemo.Scene s, boolean restoreEnemy) {
         s.battleCatchVisible = false;
         s.battleCatchEffectVisible = false;
-        s.battleEnemyHiddenByCatch = false;
+        if (restoreEnemy) {
+            s.battleEnemyHiddenByCatch = false;
+        }
         clearCatchEffect();
     }
 
@@ -2637,11 +2957,32 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         pendingEnemyReplacementIndex = next;
+        int oldIndex = activeEnemyIndex;
+        activeEnemyIndex = pendingEnemyReplacementIndex;
+        pendingEnemyReplacementIndex = -1;
+        enemy = enemyParty[activeEnemyIndex];
+        enemyDisplayHp = enemy.hp;
+        p7KoBaseHiddenEnemySide = false;
+        enemyActionThisRound = false;
+        enemyActiveQueueProcessedThisRound = false;
+        targetUnits = new SourceBattleUnit[0];
+        targetSlots = new int[0];
+        selectedTarget = null;
+        enemyReplacementTicks = 0;
+        enemyReplacementFrameTicks = 0;
+        enemyReplacementCposRow = VqsvBattleAnimationTables.instance().cposRow(sourceCposGroup(), 0);
         s.sourceStateTrace.add("PORTED/PARTIAL battle P15 source game.d.a(byte) replacement pending oldIndex="
-                + activeEnemyIndex + " nextIndex=" + pendingEnemyReplacementIndex
-                + " next=" + enemyParty[pendingEnemyReplacementIndex].name);
+                + oldIndex + " nextIndex=" + activeEnemyIndex
+                + " sourceEntrySwapped=true"
+                + " oldIndex=" + oldIndex
+                + " activeIndex=" + activeEnemyIndex
+                + " next=" + enemy.name
+                + " cposGroup=" + sourceCposGroup()
+                + " cposRow=0"
+                + " cposFrames=" + enemyReplacementFrameCount());
         enterState(s, BattleRuntimeState.P15_ENEMY_REPLACEMENT,
-                VqsvText.Battle.START, SHORT_WAIT);
+                VqsvText.Battle.START, 0);
+        applyEnemyReplacementCposOffset(s);
         return true;
     }
 
@@ -2656,32 +2997,64 @@ final class SourceBattleRuntime implements Blocking {
 
     private boolean tickEnemyReplacement(VqsvIntroDemo.Scene s) {
         if (countdown()) {
+            applyEnemyReplacementCposOffset(s);
             return false;
         }
-        if (pendingEnemyReplacementIndex < 0 || pendingEnemyReplacementIndex >= enemyParty.length) {
+        if (enemy == null) {
+            clearEnemyReplacementCposOffset(s);
             enterState(s, BattleRuntimeState.P8_WIN, battleWinLog(), SHORT_WAIT);
             return false;
         }
-        activeEnemyIndex = pendingEnemyReplacementIndex;
-        pendingEnemyReplacementIndex = -1;
-        enemy = enemyParty[activeEnemyIndex];
-        p7KoBaseHiddenEnemySide = false;
-        enemyActionThisRound = false;
-        enemyActiveQueueProcessedThisRound = false;
-        targetUnits = new SourceBattleUnit[0];
-        targetSlots = new int[0];
-        selectedTarget = null;
+        syncRenderState(s, s.battleLog);
+        applyEnemyReplacementCposOffset(s);
+        enemyReplacementFrameTicks++;
+        if (enemyReplacementFrameTicks <= 1) {
+            return false;
+        }
+        enemyReplacementFrameTicks = 0;
+        enemyReplacementTicks++;
+        if (enemyReplacementTicks < enemyReplacementFrameCount()) {
+            return false;
+        }
+        clearEnemyReplacementCposOffset(s);
         s.sourceStateTrace.add("PORTED/PARTIAL battle P15 source case15 swap enemy activeIndex="
                 + activeEnemyIndex + " enemy=" + enemy.name
-                + " hp=" + enemy.hp + "/" + enemy.maxHp);
-        syncRenderState(s, s.battleLog);
+                + " hp=" + enemy.hp + "/" + enemy.maxHp
+                + " cposFrames=" + enemyReplacementFrameCount()
+                + " next=P1");
         enterState(s, BattleRuntimeState.P1_DISPATCH, s.battleLog, SHORT_WAIT);
         return false;
+    }
+
+    private void applyEnemyReplacementCposOffset(VqsvIntroDemo.Scene s) {
+        int frames = enemyReplacementFrameCount();
+        if (frames <= 0) {
+            s.battleP7EnemyOffsetX = 0;
+            s.battleP7EnemyOffsetY = 0;
+            return;
+        }
+        int frame = Math.max(0, Math.min(frames - 1, enemyReplacementTicks));
+        int at = frame << 2;
+        int finalAt = (frames - 1) << 2;
+        s.battleP7EnemyOffsetX = enemyReplacementCposRow[at] - enemyReplacementCposRow[finalAt];
+        s.battleP7EnemyOffsetY = enemyReplacementCposRow[at + 1] - enemyReplacementCposRow[finalAt + 1];
+    }
+
+    private void clearEnemyReplacementCposOffset(VqsvIntroDemo.Scene s) {
+        s.battleP7EnemyOffsetX = 0;
+        s.battleP7EnemyOffsetY = 0;
+    }
+
+    private int enemyReplacementFrameCount() {
+        return enemyReplacementCposRow.length / 4;
     }
 
     private boolean tickShop(VqsvIntroDemo.Scene s) {
         if (countdown()) {
             return false;
+        }
+        if ("shopconfirm".equals(s.battleUiMode)) {
+            return tickShopConfirm(s);
         }
         MenuAction action = handleMenuInput(s);
         if (action == MenuAction.BACK) {
@@ -2698,18 +3071,161 @@ final class SourceBattleRuntime implements Blocking {
         }
         int itemId = s.battleMenuIds[s.battleMenuIndex];
         BattleItemRow row = VqsvBattleTables.instance().item(itemId);
-        int price = row == null ? 0 : (itemId == 0 ? row.priceOrValue : row.priceOrValue << 1);
-        if (s.sourceMoney < price) {
-            enterWarning(s, VqsvText.Battle.NOT_ENOUGH_MONEY, BattleRuntimeState.P11_SHOP);
+        if (row == null) {
+            enterWarning(s, VqsvText.Battle.NO_SHOP_ITEMS, BattleRuntimeState.P11_SHOP);
             return false;
         }
-        s.sourceMoney -= price;
-        VqsvSourceOps.sourceAddItem(s, itemId, 1);
-        s.sourceStateTrace.add("PORTED/PARTIAL battle P11 shop buy item="
-                + itemId + " price=" + price + " money=" + s.sourceMoney);
-        enterWarning(s, VqsvText.Common.ITEM_REWARD_PREFIX
-                + itemName(itemId) + " x 1", BattleRuntimeState.P11_SHOP);
+        int maxQty = shopMaxQuantity(s, itemId);
+        if (maxQty <= 0) {
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P11 shop full item="
+                    + itemId + " count=" + VqsvSourceOps.sourceItemCount(s, itemId));
+            enterWarning(s, VqsvText.Battle.SHOP_ITEM_FULL, BattleRuntimeState.P11_SHOP);
+            return false;
+        }
+        s.battleShopConfirmItemId = itemId;
+        s.battleShopConfirmQuantity = 1;
+        syncShopConfirmState(s);
+        s.battleUiMode = "shopconfirm";
+        s.battleUiModeStartTick = s.battleAnimationTick;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P11 game.h.a(byte4,0) open msgyn.ui"
+                + " item=" + itemId
+                + " qty=1 total=" + s.battleShopConfirmTotal
+                + " currency=" + row.currencyOrType);
+        syncRenderState(s, VqsvText.Battle.COMMAND_SHOP_PENDING);
         return false;
+    }
+
+    private boolean tickShopConfirm(VqsvIntroDemo.Scene s) {
+        int itemId = s.battleShopConfirmItemId;
+        BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+        if (row == null) {
+            prepareShopMenu(s);
+            syncRenderState(s, VqsvText.Battle.COMMAND_SHOP_PENDING);
+            return false;
+        }
+        int maxQty = shopMaxQuantity(s, itemId);
+        if (s.keyLeft) {
+            s.keyLeft = false;
+            s.battleShopConfirmQuantity--;
+            if (s.battleShopConfirmQuantity <= 0) {
+                s.battleShopConfirmQuantity = Math.max(1, maxQty);
+            }
+            syncShopConfirmState(s);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P11 msgyn.ui key=16400 qty="
+                    + s.battleShopConfirmQuantity + " total=" + s.battleShopConfirmTotal);
+            syncRenderState(s, VqsvText.Battle.COMMAND_SHOP_PENDING);
+            return false;
+        }
+        if (s.keyRight) {
+            s.keyRight = false;
+            s.battleShopConfirmQuantity++;
+            if (s.battleShopConfirmQuantity > Math.max(1, maxQty)) {
+                s.battleShopConfirmQuantity = 1;
+            }
+            syncShopConfirmState(s);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P11 msgyn.ui key=32832 qty="
+                    + s.battleShopConfirmQuantity + " total=" + s.battleShopConfirmTotal);
+            syncRenderState(s, VqsvText.Battle.COMMAND_SHOP_PENDING);
+            return false;
+        }
+        if (s.keyBack || shopConfirmClickedNo(s)) {
+            s.keyBack = false;
+            s.battleClickX = -1;
+            s.battleClickY = -1;
+            s.battleShopConfirmItemId = -1;
+            s.battleShopConfirmQuantity = 1;
+            prepareShopMenu(s);
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P11 close msgyn.ui f=1->0 return shopbuy.ui");
+            syncRenderState(s, VqsvText.Battle.COMMAND_SHOP_PENDING);
+            return false;
+        }
+        if (!s.key0 && !shopConfirmClickedYes(s)) {
+            syncRenderState(s, VqsvText.Battle.COMMAND_SHOP_PENDING);
+            return false;
+        }
+        s.key0 = false;
+        s.battleClickX = -1;
+        s.battleClickY = -1;
+        int qty = Math.max(1, Math.min(s.battleShopConfirmQuantity, Math.max(1, maxQty)));
+        int total = shopBattleConfirmTotal(itemId, qty);
+        if (!shopCanPay(s, row.currencyOrType, total)) {
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P11 shop not-enough item="
+                    + itemId + " qty=" + qty + " total=" + total
+                    + " currency=" + row.currencyOrType
+                    + " money(q.E)=" + s.sourceMoney
+                    + " badges(q.G)=" + s.sourceBadges);
+            enterWarning(s, row.currencyOrType == 0
+                    ? VqsvText.Battle.NOT_ENOUGH_MONEY
+                    : VqsvText.Battle.NOT_ENOUGH_BADGES, BattleRuntimeState.P11_SHOP);
+            return false;
+        }
+        if (row.currencyOrType == 0) {
+            s.sourceMoney -= total;
+        } else if (row.currencyOrType == 1) {
+            s.sourceBadges -= total;
+        }
+        VqsvSourceOps.sourceAddItem(s, itemId, qty);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P11 shop buy msgyn.ui item="
+                + itemId + " qty=" + qty + " total=" + total
+                + " currency=" + row.currencyOrType
+                + " money(q.E)=" + s.sourceMoney
+                + " badges(q.G)=" + s.sourceBadges
+                + " count=" + VqsvSourceOps.sourceItemCount(s, itemId));
+        s.battleShopConfirmItemId = -1;
+        s.battleShopConfirmQuantity = 1;
+        enterWarning(s, VqsvText.Battle.SHOP_BUY_SUCCESS_PREFIX
+                + itemName(itemId)
+                + VqsvText.Battle.SHOP_BUY_SUCCESS_MIDDLE
+                + qty, BattleRuntimeState.P11_SHOP);
+        return false;
+    }
+
+    private static boolean shopConfirmClickedYes(VqsvIntroDemo.Scene s) {
+        return s.battleClickX >= 122 && s.battleClickX <= 158
+                && s.battleClickY >= 162 && s.battleClickY <= 183;
+    }
+
+    private static boolean shopConfirmClickedNo(VqsvIntroDemo.Scene s) {
+        return s.battleClickX >= 96 && s.battleClickX <= 158
+                && s.battleClickY >= 184 && s.battleClickY <= 207;
+    }
+
+    private void syncShopConfirmState(VqsvIntroDemo.Scene s) {
+        int itemId = s.battleShopConfirmItemId;
+        BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+        int maxQty = shopMaxQuantity(s, itemId);
+        s.battleShopConfirmQuantity = Math.max(1, Math.min(s.battleShopConfirmQuantity, Math.max(1, maxQty)));
+        s.battleShopConfirmTotal = shopBattleConfirmTotal(itemId, s.battleShopConfirmQuantity);
+        s.battleShopConfirmCurrency = row == null ? 0 : row.currencyOrType;
+    }
+
+    private static int shopMaxQuantity(VqsvIntroDemo.Scene s, int itemId) {
+        return Math.max(0, 99 - VqsvSourceOps.sourceItemCount(s, itemId));
+    }
+
+    private static int shopBattleConfirmTotal(int itemId, int qty) {
+        // Source game.h confirm total for battle owner is qty * aq.c[4][itemId][3] << 1.
+        // PC rebuild currently overrides this to 0 for the all-free P11 battle shop policy.
+        return 0;
+    }
+
+    private static int sourceBattleShopDisplayPrice(int itemId, BattleItemRow row) {
+        if (row == null) {
+            return 0;
+        }
+        return itemId == 0 ? row.priceOrValue : row.priceOrValue << 1;
+    }
+
+    private static int sourceBattleShopConfirmTotal(int itemId, int qty) {
+        BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+        return row == null ? 0 : qty * row.priceOrValue << 1;
+    }
+
+    private static boolean shopCanPay(VqsvIntroDemo.Scene s, int currency, int total) {
+        if (currency == 2) {
+            return true;
+        }
+        return currency == 0 ? s.sourceMoney >= total : s.sourceBadges >= total;
     }
 
     void debugQueueDebuffForSmoke(VqsvIntroDemo.Scene s, boolean playerSide,
@@ -3175,12 +3691,19 @@ final class SourceBattleRuntime implements Blocking {
     private boolean tickWarning(VqsvIntroDemo.Scene s) {
         s.battleUiMode = "warning";
         if (countdown()) {
+            if (s.key0) {
+                s.key0 = false;
+                s.battleClickX = -1;
+                s.battleClickY = -1;
+            }
             return false;
         }
         if (!s.key0) {
             return false;
         }
         s.key0 = false;
+        s.battleClickX = -1;
+        s.battleClickY = -1;
         if (s.text != null && s.text.sourceUiKind == TextBox.SOURCE_MSGWARM) {
             s.text = null;
         }
@@ -3879,12 +4402,7 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (!p7Target.alive()) {
             consumeP7FollowUpDeadTargetMarker(s);
-            if (currentActorPlayer && p7Target == enemy && prepareEnemyReplacement(s)) {
-                return false;
-            }
-            enterState(s, currentActorPlayer ? BattleRuntimeState.P8_WIN : BattleRuntimeState.P9_LOSE,
-                    currentActorPlayer ? battleWinLog() : VqsvText.Battle.NEIL_LOST + forcedResultIndex,
-                    SHORT_WAIT);
+            handleDeadBattleUnit(s, p7Target, p7Target == player, "P7 game.d.q");
             return false;
         }
         if (tryEnterP7FollowUpAction(s)) {
@@ -4428,6 +4946,15 @@ final class SourceBattleRuntime implements Blocking {
             }
             return true;
         }
+        if (expInitialFramePending) {
+            expInitialFramePending = false;
+            s.battleUiMode = "levelup";
+            s.battleLevelUpView = levelUpView(s, unit, false);
+            s.sourceStateTrace.add("PORTED battle P8 game.h.a initial render before game.h.am"
+                    + " exp=" + expDisplayValue + "/" + unit.nextLevelEnergy()
+                    + " jIndex=" + expDisplayIndex + "/" + sourceExpDisplay.size());
+            return true;
+        }
         int target = Math.min(unit.exp, unit.nextLevelEnergy());
         if (s.key0 && expDisplayValue < target) {
             s.key0 = false;
@@ -4561,6 +5088,7 @@ final class SourceBattleRuntime implements Blocking {
         expDisplayIndex = 0;
         expCurrentPet = null;
         expCurrentUnit = null;
+        expInitialFramePending = false;
         for (SourcePetState pet : s.sourcePets) {
             pet.sourcePendingExp = 0;
             pet.sourceExpStart = 0;
@@ -4754,6 +5282,7 @@ final class SourceBattleRuntime implements Blocking {
             expLearnSkillIds = new int[0];
             expSelectedLearnSkill = -1;
             expHoldTicks = 0;
+            expInitialFramePending = true;
             syncExpPetAfterExp(s, unit);
             s.sourceStateTrace.add("PORTED/PARTIAL battle P8 game.h.a select game.d.j index="
                     + expDisplayIndex + "/" + sourceExpDisplay.size()
@@ -4781,6 +5310,7 @@ final class SourceBattleRuntime implements Blocking {
         expLevelUpApplied = false;
         expLearningSkill = false;
         expLearningConfirm = false;
+        expInitialFramePending = false;
         expLearnSkillIds = new int[0];
         expSelectedLearnSkill = -1;
         if (selectCurrentExpDisplayPet(s)) {
@@ -4976,26 +5506,122 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private boolean tickLose(VqsvIntroDemo.Scene s) {
-        if (isElderBattle()) {
-            setHp(player, 1);
-            setHp(enemy, 0);
-            enterState(s, BattleRuntimeState.P8_WIN, VqsvText.Battle.ELDER_DONE, SHORT_WAIT);
+        if (countdown()) {
             return false;
         }
-        if (countdown()) {
+        if (s.sourceBattleLoseReviveArmed) {
+            prepareLoseRevivePrompt(s);
+            enterState(s, BattleRuntimeState.P24_LOSE_REVIVE,
+                    VqsvText.Battle.LOSE_REVIVE_PROMPT, SHORT_WAIT);
             return false;
         }
         int result = Math.max(0, forcedResultIndex);
         s.battleResultIndex = result;
         s.battleBranchTarget = resolveBranch(s.battleResultIndex);
         persistActivePlayerPet(s, "P9 lose");
+        applyPostLossWorldReset(s, "game.d.a(byte 9) first lose -> game.i.a(10)");
         syncRenderState(s, VqsvText.Battle.NEIL_LOST + s.battleResultIndex);
         s.sourceStateTrace.add("PORTED/PARTIAL battle P9 resultIndex="
                 + s.battleResultIndex + " branch=" + s.battleBranchTarget
                 + " playerHp=" + player.hp + "/" + player.maxHp
-                + " enemyHp=" + enemy.hp + "/" + enemy.maxHp);
+                + " enemyHp=" + enemy.hp + "/" + enemy.maxHp
+                + " sourceM.l=" + s.sourceBattleLoseWorldMode
+                + " sourceM.i=" + s.sourceBattleLoseReviveArmed);
         enterState(s, BattleRuntimeState.EXIT_FADE, s.battleLog, EXIT_WAIT);
         return false;
+    }
+
+    private void prepareLoseRevivePrompt(VqsvIntroDemo.Scene s) {
+        loseRevivePhase = 0;
+        s.battleUiMode = "smsinfo";
+        s.battleWarningTitle = VqsvText.Battle.LOSE_REVIVE_PROMPT;
+        s.battleWarningPrompt = VqsvText.Battle.LOSE_REVIVE_ACTION;
+        s.battleMsgWarm = VqsvMsgWarmView.EMPTY;
+        s.text = null;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P24 game.d.a(byte 24)->game.h.aE"
+                + " /data/ui/smsInfo.ui source-backed minimal renderer"
+                + " money=" + s.sourceMoney
+                + " PC_SMS_REMOVED");
+    }
+
+    private boolean tickLoseRevive(VqsvIntroDemo.Scene s) {
+        if (countdown()) {
+            return false;
+        }
+        if (s.keyBack) {
+            s.keyBack = false;
+            applyPostLossWorldReset(s, "game.h.aF back/cancel -> bv()");
+            finishLoseReviveToWorld(s, "P24 cancel");
+            return false;
+        }
+        if (!s.key0) {
+            return false;
+        }
+        s.key0 = false;
+        if (loseRevivePhase == 1) {
+            applyPostLossWorldReset(s, "game.h.aF f=1 PC no-SMS fallback");
+            finishLoseReviveToWorld(s, "P24 insufficient-money confirm");
+            return false;
+        }
+        if (s.sourceMoney >= 10000) {
+            s.sourceMoney -= 10000;
+            reviveAllSourcePetsFull(s, "game.h.aF pay 10000");
+            s.text = null;
+            s.battleMsgWarm = VqsvMsgWarmView.EMPTY;
+            s.sourceStateTrace.add("PORTED battle P24 game.h.aF q.t(10000) true"
+                    + " q.s(-10000) all q.z[i].I/u(max) -> game.d.a(byte 0)"
+                    + " money=" + s.sourceMoney);
+            enterState(s, BattleRuntimeState.P0_ENTRY,
+                    VqsvText.Battle.LOSE_REVIVED_RETURN, SHORT_WAIT);
+            return false;
+        }
+        s.battleWarningTitle = VqsvText.Battle.LOSE_NOT_ENOUGH_MONEY;
+        s.battleWarningPrompt = VqsvText.Battle.WARNING_PROMPT;
+        s.battleMsgWarm = VqsvMsgWarmView.of(s.battleWarningTitle, s.battleWarningPrompt);
+        s.text = TextBox.msgWarm(s.battleWarningTitle, s.battleWarningPrompt);
+        loseRevivePhase = 1;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P24 game.h.aF q.t(10000) false"
+                + " shows not-enough-money and sets source f=1;"
+                + " next confirm would reset 1HP/1PP and enter P102 SMS,"
+                + " PC rebuild removes SMS and falls back to post-loss world reset on confirm");
+        return false;
+    }
+
+    private void finishLoseReviveToWorld(VqsvIntroDemo.Scene s, String reason) {
+        int result = Math.max(0, forcedResultIndex);
+        s.battleResultIndex = result;
+        s.battleBranchTarget = resolveBranch(s.battleResultIndex);
+        syncRenderState(s, VqsvText.Battle.NEIL_LOST + s.battleResultIndex);
+        s.sourceStateTrace.add("PORTED/PARTIAL battle " + reason
+                + " -> game.i.a(byte 10) world reset resultIndex="
+                + s.battleResultIndex + " branch=" + s.battleBranchTarget);
+        enterState(s, BattleRuntimeState.EXIT_FADE, s.battleLog, EXIT_WAIT);
+    }
+
+    private void applyPostLossWorldReset(VqsvIntroDemo.Scene s, String reason) {
+        for (SourcePetState pet : s.sourcePets) {
+            pet.sourceLossResetOneHpOnePp();
+        }
+        s.sourceBattleLoseWorldMode = 1;
+        s.sourceBattleLoseReviveArmed = true;
+        playerPetPersistedOnExit = true;
+        s.sourceStateTrace.add("PORTED/PARTIAL battle P9 post-loss world reset " + reason
+                + " source=for each game.d.p.z[i].l(1); u(1); c();"
+                + " game.k.a().M.l=1; M.i=true; game.i.a(10)"
+                + " pets=" + s.sourcePets.size());
+    }
+
+    private void reviveAllSourcePetsFull(VqsvIntroDemo.Scene s, String reason) {
+        for (SourcePetState pet : s.sourcePets) {
+            pet.sourceReviveFull();
+        }
+        if (!s.sourcePets.isEmpty()) {
+            player = SourceBattleUnit.playerFromSourcePets(s.sourcePets);
+            playerDisplayHp = player.hp;
+        }
+        s.sourceStateTrace.add("PORTED battle P24 revive all " + reason
+                + " source=for each q.z[i].I(); u(max)"
+                + " pets=" + s.sourcePets.size());
     }
 
     private boolean tickExit(VqsvIntroDemo.Scene s) {
@@ -5026,6 +5652,8 @@ final class SourceBattleRuntime implements Blocking {
         }
         if (next == BattleRuntimeState.P20_COMMAND) {
             s.battleUiMode = "command";
+        } else if (next == BattleRuntimeState.NPC_VS_ENTRY) {
+            s.battleUiMode = "npcEnemy";
         } else if (next == BattleRuntimeState.WARNING) {
             s.battleUiMode = "warning";
         } else if (next == BattleRuntimeState.P17_CATCH_RESULT) {
@@ -5038,7 +5666,8 @@ final class SourceBattleRuntime implements Blocking {
                 && next != BattleRuntimeState.P4_ITEM_LIST
                 && next != BattleRuntimeState.P16_ITEM_TARGET
                 && next != BattleRuntimeState.P5_PET_SWITCH
-                && next != BattleRuntimeState.P11_SHOP) {
+                && next != BattleRuntimeState.P11_SHOP
+                && next != BattleRuntimeState.P24_LOSE_REVIVE) {
             s.battleUiMode = "battle";
             s.battleCatchVisible = false;
             s.battleCatchEffectVisible = false;
@@ -5218,6 +5847,7 @@ final class SourceBattleRuntime implements Blocking {
                 && state != BattleRuntimeState.P1_DISPATCH
                 && state != BattleRuntimeState.P8_WIN
                 && state != BattleRuntimeState.P9_LOSE
+                && state != BattleRuntimeState.P24_LOSE_REVIVE
                 && state != BattleRuntimeState.EXIT_FADE
                 && state != BattleRuntimeState.DONE;
         s.battleActiveMarkerPlayerSide = currentActorPlayer

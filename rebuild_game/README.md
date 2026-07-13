@@ -95,3 +95,13 @@ java "-Dvqsv.modules=..\modules" -jar .\build\libs\vqsv-liet-hoa-rebuild.jar --c
 ## Dev-Only Smoke
 
 `VqsvIntroDemo --smoke-checkpoint` and `VqsvIntroDemo --smoke-suite` are headless developer tools for PNG/checkpoint verification. They are not the official play-test launcher.
+
+Baseline suites:
+
+```powershell
+java "-Dvqsv.modules=..\modules" -cp .\build\classes VqsvIntroDemo --smoke-suite battle_quick .\build_intro_demo\battle_quick
+java "-Dvqsv.modules=..\modules" -cp .\build\classes VqsvIntroDemo --smoke-suite panel_wheel .\build_intro_demo\panel_wheel
+```
+
+Run `battle_quick` after battle/runtime work. Run `panel_wheel` after input,
+mouse, list, or panel UI work.

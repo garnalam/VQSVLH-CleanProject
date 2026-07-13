@@ -459,6 +459,20 @@ final class TextBox {
             sourceTextOffset = 0;
             sourceTextInitialized = true;
         }
+        if (sourceUiKind == SOURCE_MSGWARM) {
+            VqsvUiLayout layout = VqsvUiLayout.load("msgwarm.ui");
+            int promptWidth = layout.w(6, MSGWARM_PROMPT_W);
+            int promptTextWidth = font.taggedWidth(sourcePrompt == null ? "" : sourcePrompt);
+            if (promptTextWidth > promptWidth && doneTicks > 8) {
+                int cycle = promptTextWidth + promptWidth + 12;
+                sourceTextOffset = (sourceTextOffset + 1) % Math.max(1, cycle);
+            }
+            doneTicks++;
+            if (waitKey && doneTicks > 10) {
+                readyForKey = true;
+            }
+            return;
+        }
         if (font.taggedWidth(currentText()) > w && doneTicks > 8) {
             int cycle = font.taggedWidth(currentText()) + w + 12;
             sourceTextOffset = (sourceTextOffset + 1) % Math.max(1, cycle);
@@ -529,11 +543,16 @@ final class TextBox {
             VqsvUiLayout layout = VqsvUiLayout.load("msgwarm.ui");
             VqsvUiLayout.UiWidget message = layout.widget(7);
             VqsvUiLayout.UiWidget prompt = layout.widget(6);
-            drawSourceUiMarqueeLine(g, font, currentText(), layout.x(7, MSGWARM_TEXT_X),
-                    layout.y(7, MSGWARM_TEXT_Y), layout.w(7, MSGWARM_TEXT_W),
+            int messageX = layout.x(7, MSGWARM_TEXT_X);
+            int messageY = layout.y(7, MSGWARM_TEXT_Y);
+            int messageW = layout.w(7, MSGWARM_TEXT_W);
+            int promptY = layout.y(6, MSGWARM_PROMPT_Y);
+            drawSourceUiWrappedText(g, font, currentText(), messageX, messageY,
+                    messageW, Math.max(12, promptY - messageY - 3),
                     widgetTextColor(message, OPENBOX_TEXT_COLOR));
-            drawSourceUiMarqueeLine(g, font, sourcePrompt, layout.x(6, MSGWARM_PROMPT_X),
-                    layout.y(6, MSGWARM_PROMPT_Y), layout.w(6, MSGWARM_PROMPT_W),
+            drawSourceUiPromptLine(g, font, sourcePrompt, layout.x(6, MSGWARM_PROMPT_X),
+                    promptY, layout.w(6, MSGWARM_PROMPT_W), Math.max(12, layout.h(6, 13)),
+                    prompt == null ? OPENBOX_TEXT_ALIGN : prompt.b,
                     widgetTextColor(prompt, OPENBOX_TEXT_COLOR));
             return;
         }
@@ -543,10 +562,10 @@ final class TextBox {
             int[] rect = openBoxSpriteRect();
             int textY = rect[1] + Math.max(0, (rect[3] - font.height) / 2);
             drawSourceUiLine(g, font, currentText(),
-                    layout.x(2, OPENBOX_TEXT_X), textY,
-                    layout.w(2, OPENBOX_TEXT_W), rect[3],
+                    rect[0] + 4, textY,
+                    Math.max(1, rect[2] - 8), rect[3],
                     textWidget == null ? OPENBOX_TEXT_ALIGN : textWidget.b,
-                    widgetTextColor(textWidget, OPENBOX_TEXT_COLOR));
+                    OPENBOX_TEXT_COLOR);
             return;
         }
         Shape oldClip = g.getClip();
@@ -570,7 +589,7 @@ final class TextBox {
         g.clipRect(lineX, lineY, lineW, lineH);
         int textWidth = font.taggedWidth(value);
         if (textWidth > lineW) {
-            int drawX = lineX + lineW - sourceTextOffset;
+            int drawX = lineX - sourceTextOffset;
             font.drawTaggedLine(g, value, drawX, lineY, visibleLength(value), color);
         } else {
             int drawX = align == 4 ? lineX + (lineW - textWidth) / 2 : lineX;
@@ -649,6 +668,35 @@ final class TextBox {
         Shape oldClip = g.getClip();
         g.clipRect(lineX, lineY, lineW, 12);
         font.drawTaggedLine(g, value, drawX, lineY, visibleLength(value), color);
+        g.setClip(oldClip);
+    }
+
+    void drawSourceUiWrappedText(Graphics2D g, FontBitmap font, String source,
+                                 int lineX, int lineY, int lineW, int lineH, int color) {
+        String value = source == null ? "" : source;
+        String tagged = String.format("#%06X%s", color & 0xffffff, value);
+        Shape oldClip = g.getClip();
+        g.clipRect(lineX, lineY, Math.max(1, lineW), Math.max(1, lineH));
+        font.drawTagged(g, tagged, lineX, lineY, lineW, visibleLength(tagged));
+        g.setClip(oldClip);
+    }
+
+    void drawSourceUiPromptLine(Graphics2D g, FontBitmap font, String source,
+                                int lineX, int lineY, int lineW, int lineH,
+                                int align, int color) {
+        String value = source == null ? "" : source;
+        int textWidth = font.taggedWidth(value);
+        int drawX;
+        if (textWidth > lineW) {
+            int cycle = textWidth + lineW + 12;
+            drawX = lineX - (sourceTextOffset % Math.max(1, cycle));
+        } else {
+            drawX = align == 4 ? lineX + Math.max(0, (lineW - textWidth) / 2) : lineX;
+        }
+        int drawY = lineY + Math.max(0, (lineH - font.height) / 2);
+        Shape oldClip = g.getClip();
+        g.clipRect(lineX, lineY, Math.max(1, lineW), Math.max(1, lineH));
+        font.drawTaggedLine(g, value, drawX, drawY, visibleLength(value), color);
         g.setClip(oldClip);
     }
 

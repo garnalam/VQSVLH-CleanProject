@@ -2,6 +2,11 @@
 
 Status: HANDOFF / REQUIRED READING / DEBUG TARGET.
 
+2026-07-09 closeout note: this debug target is fixed and smoke-covered in
+`rebuild_plan/160_release_bunny_continue_movement_repair_closeout.md`. Keep this
+file as the historical entry exercise/source-reading checklist; use the closeout
+for current status before reopening the blocker.
+
 Audience: a new dev chat taking over the current rebuild project.
 
 Immediate target: debug and fix why the official release-test path can become

@@ -71,7 +71,26 @@ public final class BootFlowSmokeCheck {
             graphics.dispose();
         }
         lines.add("bootFlowMenuRender=samplePixels:" + countNonTransparentPixels(image));
-        lines.add("bootFlowMenuNewGame=verified:routesToLegacyScene0Runner");
+        BootFlowState newGameState = new BootFlowState(paths);
+        GameStateMachine newGameStates = new GameStateMachine();
+        newGameStates.replace(newGameState);
+        tick(newGameState, newGameStates, 20, emptyInput());
+        tick(newGameState, newGameStates, 20, emptyInput());
+        newGameState.tick(input(KeyEvent.VK_RIGHT), newGameStates);
+        int guard = 0;
+        while (!"Ch\u01a1i m\u1edbi".equals(newGameState.selectedMenuLabelForSmoke()) && guard++ < 8) {
+            newGameState.tick(input(KeyEvent.VK_RIGHT), newGameStates);
+        }
+        if (!"Ch\u01a1i m\u1edbi".equals(newGameState.selectedMenuLabelForSmoke())) {
+            throw new IllegalStateException("Boot new game label not reachable label="
+                    + newGameState.selectedMenuLabelForSmoke());
+        }
+        newGameState.tick(input(KeyEvent.VK_SPACE), newGameStates);
+        if (!"SKIP_INTRO_PROMPT".equals(newGameState.phaseName())) {
+            throw new IllegalStateException("Boot new game should open skip intro prompt phase="
+                    + newGameState.phaseName());
+        }
+        lines.add("bootFlowMenuNewGame=verified:opensSkipIntroPrompt");
         return lines;
     }
 

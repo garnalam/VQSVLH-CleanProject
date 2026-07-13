@@ -33,9 +33,19 @@ final class VqsvSaveRuntime {
         p.setProperty("sourceBadges", String.valueOf(s.sourceBadges));
         p.setProperty("sourceGameCF", bool(s.sourceGameCF));
         p.setProperty("sourcePetRefreshOps", String.valueOf(s.sourcePetRefreshOps));
+        p.setProperty("sourceAvoidMonsterTicks", String.valueOf(s.sourceAvoidMonsterTicks));
+        p.setProperty("sourceAvoidMonsterElapsed", String.valueOf(s.sourceAvoidMonsterElapsed));
+        p.setProperty("sourceEggActive", bool(s.sourceEggActive));
+        p.setProperty("sourceEggType", String.valueOf(s.sourceEggType));
+        p.setProperty("sourceEggProgress", String.valueOf(s.sourceEggProgress));
+        p.setProperty("sourceEggKnownSpecies", join(s.sourceEggKnownSpecies));
+        p.setProperty("sourceRideBlocked", join(s.sourceRideBlocked));
+        p.setProperty("sourceRideActiveIndex", String.valueOf(s.sourceRideActiveIndex));
+        p.setProperty("sourcePlayerMoveSpeed", String.valueOf(s.sourcePlayerMoveSpeed));
         writeActors(p, s);
         writeEventStates(p, s);
         writeBag(p, s);
+        writeSpecialRewards(p, s);
         writePets(p, "pet", s.sourcePets);
         writePets(p, "bankPet", s.sourcePetBank);
         try {
@@ -80,8 +90,18 @@ final class VqsvSaveRuntime {
         s.sourceBadges = intProp(p, "sourceBadges", 0);
         s.sourceGameCF = boolProp(p, "sourceGameCF", false);
         s.sourcePetRefreshOps = intProp(p, "sourcePetRefreshOps", 0);
+        s.sourceAvoidMonsterTicks = intProp(p, "sourceAvoidMonsterTicks", 0);
+        s.sourceAvoidMonsterElapsed = intProp(p, "sourceAvoidMonsterElapsed", 0);
+        s.sourceEggActive = boolProp(p, "sourceEggActive", false);
+        s.sourceEggType = intProp(p, "sourceEggType", 0);
+        s.sourceEggProgress = intProp(p, "sourceEggProgress", 0);
+        copyInto(ints(p.getProperty("sourceEggKnownSpecies", "")), s.sourceEggKnownSpecies);
+        copyInto(ints(p.getProperty("sourceRideBlocked", "")), s.sourceRideBlocked);
+        s.sourceRideActiveIndex = intProp(p, "sourceRideActiveIndex", -1);
+        s.sourcePlayerMoveSpeed = intProp(p, "sourcePlayerMoveSpeed", 4);
         restoreEventStates(s, p);
         restoreBag(s, p);
+        restoreSpecialRewards(s, p);
         restorePets(p, "pet", s.sourcePets);
         restorePets(p, "bankPet", s.sourcePetBank);
         repairKnownRouteSave(s);
@@ -100,12 +120,22 @@ final class VqsvSaveRuntime {
         if (s.currentSceneId == 1 && s.currentRoomIndex == 1
                 && s.sourceEventStateComplete(1, 1, 1)
                 && !s.sourceEventStateComplete(1, 1, 0)
-                && !s.playerIntersectsSourceRect(370, 176, 80, 32)) {
+                && !s.playerIntersectsSourceRect(370, 176, 80, 32)
+                && !s.playerIntersectsSourceRect(290, 96, 240, 192)) {
+            int oldEventIndex = s.eventIndex;
             s.setPlayerPositionApprox(374, 180);
             s.setCameraCenter(374, 180);
+            s.eventIndex = room1BunnyOp13EventIndex();
             s.sourceStateTrace.add("PORTED/PARTIAL save load unstuck room1 Bunny checkpoint"
-                    + " -> player=[374,180] op13=[370,176,80,32]");
+                    + " -> player=[374,180] op13=[370,176,80,32]"
+                    + " eventIndex=" + oldEventIndex + "->" + s.eventIndex);
         }
+    }
+
+    private static int room1BunnyOp13EventIndex() {
+        return VqsvIntroDemo.Scene.room1BunnyOp13EventIndex >= 0
+                ? VqsvIntroDemo.Scene.room1BunnyOp13EventIndex
+                : 123;
     }
 
     private static void loadRoom(VqsvIntroDemo.Scene s, int scene, int room, int cameraX, int cameraY) {
@@ -211,6 +241,35 @@ final class VqsvSaveRuntime {
             if (row.length >= 4) {
                 s.sourceBagItems.put(row[0], new BagItem(row[0], row[1], row[2], row[3] != 0));
             }
+        }
+    }
+
+    private static void writeSpecialRewards(Properties p, VqsvIntroDemo.Scene s) {
+        p.setProperty("special.count", String.valueOf(s.sourceSpecialRewards.size()));
+        int i = 0;
+        for (Integer id : new TreeSet<>(s.sourceSpecialRewards.keySet())) {
+            SourceSpecialReward reward = s.sourceSpecialRewards.get(id);
+            p.setProperty("special." + i, reward.id + "," + bool(reward.unlocked)
+                    + "," + reward.stackCount);
+            i++;
+        }
+    }
+
+    private static void restoreSpecialRewards(VqsvIntroDemo.Scene s, Properties p) {
+        s.sourceSpecialRewards.clear();
+        int count = intProp(p, "special.count", 0);
+        for (int i = 0; i < count; i++) {
+            int[] row = ints(p.getProperty("special." + i, ""));
+            if (row.length < 3) {
+                continue;
+            }
+            SourceSpecialReward reward = SourceSpecialReward.fromSourceDb(row[0]);
+            reward.unlocked = row[1] != 0;
+            reward.stackCount = row[2];
+            reward.gameGPath = reward.id == 7 || reward.id == 8 || reward.id == 9
+                    ? "save restore game.g.c stack special item"
+                    : "save restore game.g.i unlock vector entry";
+            s.sourceSpecialRewards.put(row[0], reward);
         }
     }
 

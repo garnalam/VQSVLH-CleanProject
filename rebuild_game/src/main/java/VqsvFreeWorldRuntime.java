@@ -108,12 +108,17 @@ final class VqsvFreeWorldRuntime {
         }
         s.player.direction = dir;
         s.player.applyMode(3);
-        if (canMovePlayer(s, dir, 4)) {
-            s.player.step(4);
+        int speed = sourcePlayerMoveSpeed(s);
+        if (canMovePlayer(s, dir, speed)) {
+            s.player.step(speed);
             s.playerX = s.player.x;
             s.playerY = s.player.y;
         }
         s.setCameraCenter(s.player.x, s.player.y);
+    }
+
+    private static int sourcePlayerMoveSpeed(VqsvIntroDemo.Scene s) {
+        return Math.max(1, s.sourcePlayerMoveSpeed <= 0 ? 4 : s.sourcePlayerMoveSpeed);
     }
 
     private static int heldDirection(VqsvIntroDemo.Scene s) {

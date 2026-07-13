@@ -58,6 +58,7 @@ final class Scene1Room0Group0Script {
                 return null;
             });
             e.add(s -> new VqsvRoom1Group1SavePromptWrapper());
+            VqsvIntroDemo.Scene.room1BunnyOp13EventIndex = e.size();
             e.add(s -> VqsvWorldResumeDescriptor.SCENE1_ROOM1_AFTER_SAVE_TO_OP13.wrap(
                     new Op13FreeWorldTrigger(1, 1, 0, 370, 176, 80, 32)));
     }

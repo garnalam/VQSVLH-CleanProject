@@ -17,14 +17,31 @@ final class BagItem {
 final class SourceItem {
     final int id;
     final int textId;
+    final int iconCell;
+    final int descriptionTextId;
     final String name;
+    final String description;
     final int bagChannel;
 
-    SourceItem(int id, int textId, String name, int bagChannel) {
+    SourceItem(int id, int textId, int iconCell, int descriptionTextId,
+               String name, String description, int bagChannel) {
         this.id = id;
         this.textId = textId;
+        this.iconCell = iconCell;
+        this.descriptionTextId = descriptionTextId;
         this.name = name;
+        this.description = description;
         this.bagChannel = bagChannel;
+    }
+}
+
+final class SourceEquipmentItem {
+    final int id;
+    boolean equippedFlag;
+
+    SourceEquipmentItem(int id, boolean equippedFlag) {
+        this.id = id;
+        this.equippedFlag = equippedFlag;
     }
 }
 
@@ -47,8 +64,11 @@ final class SourceSpecialReward {
     }
 
     static SourceSpecialReward fromSourceDb(int rewardId) {
-        if (rewardId == 5) {
-            return new SourceSpecialReward(5, 300, 47, 308, VqsvText.Items.PET_BOOK_PAGE);
+        short[] row = VqsvBattleTables.instance().row(5, rewardId);
+        if (row != null && row.length >= 3) {
+            VqsvBattleTables tables = VqsvBattleTables.instance();
+            return new SourceSpecialReward(rewardId, row[0], row[1], row[2],
+                    tables.text(row[0], "Reward " + rewardId));
         }
         return new SourceSpecialReward(rewardId, 0, 0, 0, "Reward " + rewardId);
     }
@@ -411,6 +431,52 @@ final class SourcePetState {
             skillCooldowns[i] = battle.skillPp[i];
         }
         sourcePayload = toSourcePayloadFromBattleUnit(battle);
+        refreshCount++;
+    }
+
+    void sourceLossResetOneHpOnePp() {
+        if (sourcePayload == null) {
+            sourcePayload = toSourcePayload();
+        }
+        if (sourcePayload.length > 6) {
+            sourcePayload[6] = 1;
+        }
+        int skillCount = sourcePayload.length > 9 ? Math.max(0, sourcePayload[9]) : 0;
+        for (int i = 0; i < skillIds.length; i++) {
+            if (skillIds[i] != -1) {
+                skillCooldowns[i] = 1;
+            }
+        }
+        for (int i = 0; i < skillCount && 10 + skillCount + i < sourcePayload.length; i++) {
+            sourcePayload[10 + skillCount + i] = 1;
+        }
+        sourceActive = false;
+        sourceTurnUsed = false;
+        sourceF = 0;
+        refreshCount++;
+    }
+
+    void sourceReviveFull() {
+        if (sourcePayload == null) {
+            sourcePayload = toSourcePayload();
+        }
+        if (sourcePayload.length > 6) {
+            sourcePayload[6] = sourceMaxHp();
+        }
+        int skillCount = sourcePayload.length > 9 ? Math.max(0, sourcePayload[9]) : 0;
+        for (int i = 0; i < skillIds.length; i++) {
+            if (skillIds[i] != -1) {
+                skillCooldowns[i] = sourceSkillCooldown(skillIds[i]);
+            }
+        }
+        for (int i = 0; i < skillCount && i < skillIds.length
+                && 10 + skillCount + i < sourcePayload.length; i++) {
+            int skillId = sourcePayload[10 + i];
+            sourcePayload[10 + skillCount + i] = sourceSkillCooldown(skillId);
+        }
+        sourceActive = false;
+        sourceTurnUsed = false;
+        sourceF = 0;
         refreshCount++;
     }
 

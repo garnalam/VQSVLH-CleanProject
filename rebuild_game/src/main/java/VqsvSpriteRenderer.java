@@ -210,6 +210,22 @@ final class SpriteAnim {
         return data.cellBounds(cellId);
     }
 
+    int currentCellId() {
+        if (data.anim == null || state < 0 || state >= data.anim.length || data.anim[state].length == 0) {
+            return -1;
+        }
+        int frameCount = data.anim[state].length / 2;
+        if (frameCount <= 0) {
+            return -1;
+        }
+        int safeCursor = Math.max(0, Math.min(cursor, frameCount - 1));
+        return data.anim[state][safeCursor * 2 + 1];
+    }
+
+    int[] currentCellBounds() {
+        return data.cellBounds(currentCellId());
+    }
+
     short[] currentCollisionMask() {
         if (data.anim == null || state < 0 || state >= data.anim.length || data.anim[state].length == 0) {
             return null;

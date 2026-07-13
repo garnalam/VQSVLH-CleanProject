@@ -42,4 +42,8 @@ public final class GameStateMachine {
         GameState current = stack.peek();
         return current == null ? "none" : current.getClass().getSimpleName();
     }
+
+    public Object currentStateForSmoke() {
+        return stack.peek();
+    }
 }

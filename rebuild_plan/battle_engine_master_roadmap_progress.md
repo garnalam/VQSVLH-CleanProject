@@ -33,8 +33,9 @@ numbers. The roadmap order is unchanged; only document numbers are shifted.
 | Phase 6 | P7 Effect Animation Engine | CLOSED FOR CURRENT ROUTES / PORTED-PARTIAL | `134..142`; P7 effect chunks, damage text/HP tween, death state, queue/follow-up branches smoke-covered | Do not reopen without original capture or a concrete source-route mismatch. |
 | Phase 7 | Actor Motion / Hit / Recover / Dead | CLOSED FOR CURRENT ROUTES / PORTED-PARTIAL | `135..142`; synthetic recoil removed, state 1/2 source-asset compare, state 3 death timing/hidden actor smoke-covered | Exact MIDP pixel parity remains future capture work. |
 | Phase 8 | Battle Entry/Exit + Event Integration | CLOSED FOR CURRENT MANUAL ROUTES / PORTED-PARTIAL | `143..154`; Sophie/Bunny/Elder route regressions pass, op47/downstream/save/world-resume wrappers cover current manual boundaries | Do not build generic decoded event VM unless a source-backed design task is chosen. |
-| Phase 9 | Broad Skill Coverage | NEXT ACTIVE / PARTIAL | `72` classifies skills, but coverage/smoke matrix is not complete | Start with `155`, then create `156_battle_phase9_skill_coverage_matrix.md`. |
-| Phase 10 | Regression Suite | CLOSED / PARTIAL | `191_battle_phase10c_regression_suite_matrix.md`, `192_battle_phase10_closeout.md`; `--smoke-suite battle_quick` passes 14/14 checkpoints | Use `battle_quick` after every battle code change; expand focused suites only when needed. |
+| Phase 9 | Broad Skill Coverage | CLOSED / PORTED-PARTIAL + SMOKE-COVERED | `155..187`; `156` matrix covers `aq.c[1][0..69]`; `187` closeout confirms no skill row remains missing/pending/unknown | Do not reopen broad skill coverage unless a source-route mismatch is found. |
+| Phase 10 | Regression / Visual Status Foundation | CLOSED / PARTIAL | `190..192`, `222`; `--smoke-suite battle_quick` passes 20/20 checkpoints | Use `battle_quick` after every battle code change; expand focused suites only when needed. |
+| Phase 11 | Battle UI Widget Runtime Parity | ACTIVE / PARTIAL | `193..199`, `221`; choice/msgwarm/openbox runtime slices are source-backed for current battle flows; `choice.ui` wheel/hover/click mapping is verified for P4/P21 and P16 is verified not-applicable | Continue only with a chosen UI runtime gap such as `petstate.ui`, or move to Phase 12 animation/effect gaps if staying on battle visuals. |
 
 ## Phase 1 Progress Against Roadmap
 
@@ -224,6 +225,66 @@ Recommended ordering now:
    routes but still manual route-script driven. Descriptor/trace-only coverage
    for Bunny/Elder downstream consumers is implemented and verified; no generic
    event VM was added.
+24. P9/P24 lose/revive/world reset is audited and ported for current PC routes
+   in `217_battle_p9_p24_loss_revival_world_reset_closeout.md`. P9 first-loss
+   now applies source-shaped party reset to 1 HP/PP and arms the source
+   `M.i/M.l` equivalent. P24 paid revive deducts 10000 and restores all party
+   pets to full HP/PP before returning battle state `P0`. SMS/P102 is
+   intentionally not ported for PC; exact `smsInfo.ui` pixel parity and full
+   `game.h.bv()` coordinate restore variants remain PENDING/PARTIAL.
+25. Phase 9 broad skill coverage is closed in `155..187`. The controlling
+   matrix is `156_battle_phase9_skill_coverage_matrix.md`; the closeout
+   `187_battle_phase9ad_skill_coverage_closeout.md` confirms every
+   `aq.c[1][0..69]` skill row has a smoke checkpoint, family smoke plus sibling
+   proof, or a source-backed `NOT_REACHED` classification. This is
+   PORTED/PARTIAL + smoke-covered, not full pixel/RNG parity.
+26. Phase 10 regression/visual-status foundation is closed in `190..192`.
+   The required quick gate is `--smoke-suite battle_quick`, currently 20/20
+   checkpoints.
+   For input/list/panel UI changes, also run `--smoke-suite panel_wheel`.
+   This suite is the fixed regression guard for mouse-wheel viewport scrolling
+   and scroll-then-hover/click row mapping in panel lists.
+27. Phase 11 battle UI widget runtime parity has started in `193..199`.
+   Current source-backed slices cover `choice.ui`, `msgwarm.ui`, and
+   `openbox.ui` for the current battle flows. Remaining UI parity should be
+   chosen by concrete flow need, not broad polish.
+28. `221_battle_choice_ui_wheel_hover_click_mapping_audit.md` verifies the
+   battle `choice.ui` list-input slice:
+   P4 real scrollable item list is fixed/verified, P21 real route remains
+   non-scroll but synthetic long-list mapping is verified, and P16 is proven to
+   use `petstate.ui` rather than `choice.ui`.
+29. `222_battle_exp_normal_vs_forced_levelup_audit.md` separates normal EXP
+   gain from forced level-up smoke setup. `battle_exp_normal_gain_no_levelup_anim`
+   is now in `battle_quick`, and Battle Lab has `npc.exp_normal_gain` so manual
+   testing no longer has to use the intentional threshold-forced `exp_levelup`
+   scenario as the default EXP check.
+30. `223_battle_exp_formula_and_source_flow_audit.md` locks the source EXP
+   formula and flow:
+   enemy KO -> `game.d.h()` pending `B` -> `game.d.X()` commit to `S` ->
+   P8 `game.h.am()` visual increment -> P22 `levelUp.ui` only when threshold
+   is reached. It also documents direct EXP assignment/load paths and the
+   Elder normal example of 400 EXP with no level-up from level 7.
+31. `224_battle_p8_exp_pos_mid_marker_placement_audit.md` decodes
+   `game.d.am[0] = [177,103,144,85,70,223,36,206]`, maps P8 source calls
+   `game.h.a(am[0][4],am[0][5]) = 70,223` and
+   `al[0].b(am[0][6],am[0][7]) = 36,206`, and corrects normal P8 EXP to update
+   the existing `battle.ui` player HUD bar/text (`widget 9/40`) instead of a
+   floating panel. Exact original-client P8 pixel parity remains PENDING.
+32. `225_battle_p8_exp_initial_frame_timing_audit.md` separates source state 8
+   entry `game.h.a(...)` from the first `game.h.am()` visual increment. Rebuild
+   now renders the first normal P8 HUD frame at the pre-increment value
+   (`0/760` in the Elder-style smoke) before the next tick applies `+8`.
+33. `226_new_dev_chat_handoff_battle_lab_items_skills.md` is the current
+   new-chat handoff for Battle Lab, item completion, and deeper skill
+   completion. It treats Battle Lab as a project testing module/workflow over
+   the same runtime, not a fork, and sets the next concrete task as an item
+   completion matrix before any broad item coding.
+34. `227_battle_item_full_completion_matrix.md` is now the controlling item
+   completion matrix. It maps source `aq.c[4]` rows `0..14`, battle P4/P16,
+   catch P21/P17, P11 shop, panel state17, petsetting item/equipment,
+   special q.N rows, rewards/op17, inventory ownership, and save/load. The
+   next item slice should be smoke/verification for panel state17 and
+   petsetting normal-item behaviors before changing logic.
 
 ## Phase Dependency Rules
 
@@ -238,24 +299,42 @@ Recommended ordering now:
 
 ## Immediate Next Step
 
-Phase 8 current-route wrappers are closed in `150..154`:
+Phase 9 broad skill coverage is closed in `155..187`, Phase 10 quick-gate
+regression foundation is closed in `190..192`, and P8 EXP source formula/timing
+is current through `222..225`.
 
-- room1 save -> Bunny `op13`;
-- Bunny group0 complete -> room0 transition;
-- Elder group6 complete -> post-group6 free-world.
-
-Next roadmap-consistent target is now Phase 9 broad skill coverage:
+The user has chosen the next active direction:
 
 ```text
-Create 156_battle_phase9_skill_coverage_matrix.md.
+1. Treat Battle Lab as the standard battle test module/workflow.
+2. Finish item logic across battle, panel/bag, shop, rewards, equipment, and
+   save/load.
+3. Then continue deeper skill completion/parity beyond broad Phase 9 row
+   coverage.
 ```
+
+Immediate next concrete task:
+
+```text
+Create 228_panel_state17_petsetting_item_behavior_smoke_matrix.md.
+```
+
+This should add focused PNG checkpoints for source-proven existing item
+behaviors before changing logic: item `6` PP restore, item `8` HP+PP restore,
+item `10` debuff clear success/warning, item `12` stronger revive, and
+item `8/9` warning code `7` in panel state17/petsetting paths.
 
 Rules for the next step:
 
-- Do not code a skill before the Phase 9 matrix exists.
-- Do not reopen P7 visual parity without a selected skill/source route that
-  proves the need.
-- Do not port `SOURCE_SWITCH_GAP` skills by guessing from `aq.c[1]` rows.
-- Keep route regressions for Sophie/Bunny/Elder after every Phase 9 code slice.
+- Do not recreate Phase 9 or add more skill-row smoke just to reduce matrix
+  anxiety; `187` is the controlling closeout.
+- Do not code random item behavior before the `227` matrix and focused smoke
+  plan are used.
+- Keep `battle_quick` after every battle code change.
+- Keep `panel_wheel` after every input/list/panel UI change.
+- Use Battle Lab suites for focused NPC/catch item and skill testing, but keep
+  behavior in shared runtime code.
+- Keep route regressions for Sophie/Bunny/Elder after any battle state/route
+  change.
 - Generic decoded event VM remains out of scope unless a separate source-backed
   design task is chosen.

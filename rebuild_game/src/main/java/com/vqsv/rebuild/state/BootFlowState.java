@@ -81,6 +81,9 @@ public final class BootFlowState implements GameState {
             case TITLE_MENU:
                 updateTitleMenu(input, states);
                 break;
+            case SKIP_INTRO_PROMPT:
+                updateSkipIntroPrompt(input, states);
+                break;
         }
     }
 
@@ -98,6 +101,9 @@ public final class BootFlowState implements GameState {
                 break;
             case TITLE_MENU:
                 renderTitleMenu(graphics);
+                break;
+            case SKIP_INTRO_PROMPT:
+                renderSkipIntroPrompt(graphics);
                 break;
         }
     }
@@ -138,7 +144,7 @@ public final class BootFlowState implements GameState {
             if (saveAvailable && selectedMenu == 0) {
                 states.replace(new LegacyIntroDemoState(true));
             } else if ((!saveAvailable && selectedMenu == 0) || (saveAvailable && selectedMenu == 1)) {
-                states.replace(new LegacyIntroDemoState());
+                switchPhase(Phase.SKIP_INTRO_PROMPT);
             }
         }
         if (selectedMenu >= menuLabels().length) {
@@ -149,6 +155,16 @@ public final class BootFlowState implements GameState {
             if (menuParticlePauseTicks >= 100) {
                 resetMenuParticles();
             }
+        }
+    }
+
+    private void updateSkipIntroPrompt(InputSnapshot input, GameStateMachine states) {
+        if (input.softLeftPressed() || input.confirmPressed()) {
+            states.replace(new LegacyIntroDemoState(false, true));
+        } else if (input.softRightPressed()) {
+            states.replace(new LegacyIntroDemoState(false, false));
+        } else if (input.backPressed()) {
+            switchPhase(Phase.TITLE_MENU);
         }
     }
 
@@ -248,6 +264,18 @@ public final class BootFlowState implements GameState {
         if (colorTick >= MENU_OUTLINE_COLORS.length) {
             colorTick = 0;
         }
+    }
+
+    private void renderSkipIntroPrompt(Graphics2D graphics) {
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, GameConfig.LOGICAL_WIDTH, GameConfig.LOGICAL_HEIGHT);
+        graphics.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        drawCenteredString(graphics, "B\u1ecf qua \u0111o\u1ea1n gi\u1edbi thi\u1ec7u?", GameConfig.LOGICAL_HEIGHT / 2 - 12, Color.WHITE);
+        drawCenteredString(graphics, "Nh\u1ea3y t\u1edbi m\u01b0\u1eddi n\u0103m sau",
+                GameConfig.LOGICAL_HEIGHT / 2 + 12, new Color(0xFFDD66));
+        graphics.setColor(Color.WHITE);
+        graphics.drawString("C\u00f3", 2, GameConfig.LOGICAL_HEIGHT - 2);
+        drawRightString(graphics, "Kh\u00f4ng", GameConfig.LOGICAL_WIDTH - 2, GameConfig.LOGICAL_HEIGHT - 2);
     }
 
     private void renderMenuParticles(Graphics2D graphics) {
@@ -350,6 +378,7 @@ public final class BootFlowState implements GameState {
         LOGO_0,
         CWA_LOGO,
         MUSIC_PROMPT,
-        TITLE_MENU
+        TITLE_MENU,
+        SKIP_INTRO_PROMPT
     }
 }

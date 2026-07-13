@@ -1,6 +1,7 @@
 package com.vqsv.rebuild.core;
 
 import com.vqsv.rebuild.input.InputState;
+import com.vqsv.rebuild.debug.VqsvDebugLog;
 import com.vqsv.rebuild.resource.AssetPaths;
 import com.vqsv.rebuild.runtime.GamePanel;
 import com.vqsv.rebuild.state.BootFlowState;
@@ -29,6 +30,7 @@ public final class GameApp {
     }
 
     private void createWindow() {
+        VqsvDebugLog.log("GameApp createWindow debugLog=" + VqsvDebugLog.pathForUser());
         GamePanel panel = new GamePanel(config, input, states);
 
         JFrame frame = new JFrame(config.title());

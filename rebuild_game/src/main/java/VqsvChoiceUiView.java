@@ -44,7 +44,7 @@ final class VqsvChoiceUiView {
         this.sourceListMode = sourceListMode;
         this.visibleRows = Math.max(1, visibleRows);
         this.selectedIndex = clampIndex(selectedIndex, this.names.length);
-        this.scroll = clampScroll(scroll, this.selectedIndex, this.names.length, this.visibleRows);
+        this.scroll = clampViewportScroll(scroll, this.names.length, this.visibleRows);
         this.actionVisible = actionVisible;
         this.backVisible = backVisible;
         this.altActionVisible = altActionVisible;
@@ -94,6 +94,12 @@ final class VqsvChoiceUiView {
     VqsvChoiceUiView withSourceCursor(int selectedIndex, int scroll) {
         int selected = clampIndex(selectedIndex, names.length);
         int offset = sourceBeOffset(clampScroll(scroll, selected, names.length, visibleRows), selected);
+        return withCursor(selected, offset);
+    }
+
+    VqsvChoiceUiView withViewportScroll(int selectedIndex, int scroll) {
+        int selected = clampIndex(selectedIndex, names.length);
+        int offset = Math.max(0, Math.min(Math.max(0, names.length - visibleRows), scroll));
         return withCursor(selected, offset);
     }
 
@@ -280,6 +286,10 @@ final class VqsvChoiceUiView {
             result = selectedIndex - (visibleRows - 1);
         }
         return Math.max(0, Math.min(maxScroll, result));
+    }
+
+    private static int clampViewportScroll(int scroll, int size, int visibleRows) {
+        return Math.max(0, Math.min(Math.max(0, size - visibleRows), scroll));
     }
 
     private static int sourceListMode(String title, int size) {

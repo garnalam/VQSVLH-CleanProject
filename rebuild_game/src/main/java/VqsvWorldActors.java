@@ -1,6 +1,7 @@
 import java.awt.Graphics2D;
 final class Actor {
     final SpriteAnim anim;
+    final int spriteIndex;
     final int variant;
     final int layer;
     int x, y;
@@ -19,6 +20,7 @@ final class Actor {
     }
 
     Actor(int id, int spriteIndex, int state, int x, int y, int variant, int layer) {
+        this.spriteIndex = spriteIndex;
         this.anim = SpriteAnim.load(spriteIndex);
         this.variant = variant;
         this.layer = layer;
@@ -149,6 +151,9 @@ final class TempSprite {
 }
 
 final class WorldUi {
+    static final int BUTTON_NONE = 0;
+    static final int BUTTON_SYSTEM = 1;
+    static final int BUTTON_MENU = 2;
     final SpriteAnim ui = SpriteAnim.load(257);
     boolean visible;
 
@@ -156,8 +161,9 @@ final class WorldUi {
         if (!visible || !worldVisible) {
             return;
         }
-        drawCellTopLeft(g, 167, 1, 303);
-        drawCellTopLeft(g, 68, 222, 303);
+        VqsvUiLayout layout = VqsvUiLayout.load("world.ui");
+        drawWidgetCell(g, layout, 7, 167, 1, 303);
+        drawWidgetCell(g, layout, 5, 68, 222, 303);
     }
 
     void drawCellTopLeft(Graphics2D g, int cellId, int x, int y) {
@@ -166,6 +172,39 @@ final class WorldUi {
             return;
         }
         ui.drawCell(g, cellId, x - bounds[0], y - bounds[1], 0);
+    }
+
+    private void drawWidgetCell(Graphics2D g, VqsvUiLayout layout, int widgetId,
+                                int fallbackCell, int fallbackX, int fallbackY) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        int cell = widget != null && widget.altId >= 0 ? widget.altId : fallbackCell;
+        int x = widget == null ? fallbackX : widget.x;
+        int y = widget == null ? fallbackY : widget.y;
+        drawCellTopLeft(g, cell, x, y);
+    }
+
+    int buttonAt(int x, int y) {
+        if (!visible) {
+            return BUTTON_NONE;
+        }
+        VqsvUiLayout layout = VqsvUiLayout.load("world.ui");
+        if (widgetHit(layout, 7, x, y, 1, 303, 18, 17)) {
+            return BUTTON_SYSTEM;
+        }
+        if (widgetHit(layout, 5, x, y, 222, 303, 16, 17)) {
+            return BUTTON_MENU;
+        }
+        return BUTTON_NONE;
+    }
+
+    private static boolean widgetHit(VqsvUiLayout layout, int widgetId, int x, int y,
+                                     int fallbackX, int fallbackY, int fallbackW, int fallbackH) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        int left = widget == null ? fallbackX : widget.x;
+        int top = widget == null ? fallbackY : widget.y;
+        int width = widget == null ? fallbackW : Math.max(fallbackW, widget.w);
+        int height = widget == null ? fallbackH : Math.max(fallbackH, widget.h);
+        return x >= left && x <= left + width && y >= top && y <= top + height;
     }
 }
 

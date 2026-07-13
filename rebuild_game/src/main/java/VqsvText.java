@@ -78,6 +78,10 @@ final class VqsvText {
         static final String COMMAND_SHOP_PENDING = "Th\u01b0\u01a1ng \u0111i\u1ebfm";
         static final String COMMAND_RUN_PENDING = "Ch\u1ea1y tr\u1ed1n";
         static final String WARNING_PROMPT = "Nh\u1ea5n n\u00fat 5 \u0111\u1ec3 ti\u1ebfp t\u1ee5c";
+        static final String LOSE_REVIVE_PROMPT = "C\u00f3 d\u00f9ng 10000 kim ti\u1ec1n \u0111\u1ec3 kh\u00f4i ph\u1ee5c tr\u1ea1ng th\u00e1i c\u1ee7a t\u1ea5t c\u1ea3 s\u1ee7ng v\u1eadt trong ba l\u00f4 kh\u00f4ng?";
+        static final String LOSE_REVIVE_ACTION = "T\u1ea1i ch\u1ed7 s\u1ed1ng l\u1ea1i";
+        static final String LOSE_REVIVED_RETURN = "S\u1ee7ng v\u1eadt \u0111\u00e3 \u0111\u01b0\u1ee3c kh\u00f4i ph\u1ee5c";
+        static final String LOSE_NOT_ENOUGH_MONEY = "Kim ti\u1ec1n ch\u01b0a \u0111\u1ee7";
         static final String SKILL_TITLE = "K\u1ef9 n\u0103ng";
         static final String SKILL_PP_TITLE = "S\u1ed1 l\u1ea7n";
         static final String SKILL_USE = "S\u1eed d\u1ee5ng";
@@ -98,7 +102,28 @@ final class VqsvText {
         static final String RUN_SUCCESS = "Ch\u1ea1y tr\u1ed1n";
         static final String NO_ITEMS = "Kh\u00f4ng c\u00f3 \u0111\u1ea1o c\u1ee5";
         static final String ITEM_NOT_IN_BATTLE = "Trong chi\u1ebfn \u0111\u1ea5u kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng";
+        static final String PANEL_BAG_CANNOT_USE = "Kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng";
+        static final String PANEL_BAG_AVOID_FORBIDDEN = "N\u01a1i n\u00e0y kh\u00f4ng c\u00e1ch n\u00e0o s\u1eed d\u1ee5ng tr\u00e1nh qu\u00e1i ho\u00e0n";
+        static final String PANEL_BAG_AVOID_SUCCESS = "Th\u00e0nh c\u00f4ng s\u1eed d\u1ee5ng \u0111\u1ea1o c\u1ee5, c\u0169ng c\u00f3 th\u1eddi gian ng\u1eafn tr\u00e1nh qu\u00e1i hi\u1ec7u qu\u1ea3";
+        static final String PANEL_BAG_AVOID_ALREADY = "\u0110\u00e3 c\u00f3 \u0111\u01b0\u1ee3c th\u1eddi gian ng\u1eafn tr\u00e1nh qu\u00e1i hi\u1ec7u qu\u1ea3";
+        static final String PANEL_BAG_EGG_ACCEL_SUCCESS = "Th\u00e0nh c\u00f4ng s\u1eed d\u1ee5ng, tranh th\u1ee7 th\u1eddi gian \u0111i \u1ea5p tr\u1ee9ng tr\u1ee9ng s\u1ee7ng v\u1eadt a!";
+        static final String PANEL_BAG_EGG_ACCEL_WARNING = "Kh\u00f4ng c\u00f3 tr\u1ee9ng c\u00f3 th\u1ec3 \u1ea5p tr\u1ee9ng";
+        static final String PANEL_BAG_EGG_HATCH_SUCCESS = "\u1ea4p tr\u1ee9ng th\u00e0nh c\u00f4ng";
+        static final String PANEL_BAG_EGG_HATCH_NOT_READY = "V\u1eabn ch\u01b0a th\u1ec3 \u1ea5p tr\u1ee9ng";
+        static final String PANEL_BAG_EGG_HATCH_SPACE_FULL = "Kh\u00f4ng gian kh\u00f4ng \u0111\u1ee7, th\u1ec9nh thanh l\u00fd kh\u00f4ng gian l\u1ea1i \u1ea5p tr\u1ee9ng";
+        static final String PANEL_BAG_EGG_HATCH_RELEASED = "Kh\u00f4ng c\u00f3 kh\u00f4ng gian, \u0111\u00e3 ph\u00f3ng sinh";
         static final String NO_ITEM_COUNT = "\u0110\u00e3 kh\u00f4ng c\u00f3 \u0111\u1ea1o n\u00e0y c\u1ee5, th\u1ec9nh mua s\u1eafm";
+        static final String ITEM_CANNOT_USE = "\u0110\u1ea1o c\u1ee5 n\u00e0y kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng";
+
+        static String panelBagEggHatchResult(String petName, int storageResult) {
+            if (storageResult == 0) {
+                return "\u1ea4p tr\u1ee9ng t\u00ecm \u0111\u01b0\u1ee3c #2" + petName + "#0 \u0111\u1ec3 v\u00e0o ba l\u00f4";
+            }
+            if (storageResult == 1) {
+                return "\u1ea4p tr\u1ee9ng t\u00ecm \u0111\u01b0\u1ee3c #2" + petName + "#0 \u0111\u1ec3 v\u00e0o ng\u00e2n h\u00e0ng";
+            }
+            return PANEL_BAG_EGG_HATCH_RELEASED;
+        }
         static final String NO_PET_TARGET = "S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng c\u00f3, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng";
         static final String ITEM_TARGET_DEAD_STRICT = "S\u1ee7ng v\u1eadt n\u00e0y \u0111\u00e3 t\u1eed vong, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng";
         static final String ITEM_TARGET_DEAD = "S\u1ee7ng v\u1eadt \u0111\u00e3 ch\u1ebft, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng";
@@ -108,9 +133,14 @@ final class VqsvText {
         static final String ITEM_ALREADY_EXCITED = "Trong h\u01b0ng ph\u1ea5n, kh\u00f4ng th\u1ec3 d\u00f9ng";
         static final String ITEM_HP_PP_FULL = "M\u00e1u v\u00e0 k\u1ef9 n\u0103ng \u0111\u1ec1u \u0111\u00e3 \u0111\u1ea7y, kh\u00f4ng c\u1ea7n s\u1eed d\u1ee5ng";
         static final String ITEM_USED = "Th\u00e0nh c\u00f4ng s\u1eed d\u1ee5ng \u0111\u1ea1o c\u1ee5";
+        static final String EQUIPMENT_WORN = "Th\u00e0nh c\u00f4ng mang theo";
+        static final String EQUIPMENT_REMOVED = "Th\u00e0nh c\u00f4ng d\u1ee1 xu\u1ed1ng";
+        static final String RELEASE_LAST_ALIVE = "Ba l\u00f4 ph\u1ea3i l\u01b0u \u00edt nh\u1ea5t 1 s\u1ee7ng v\u1eadt";
+        static final String RELEASE_PROTECTED = "Th\u1ea7n th\u00fa kh\u00f4ng th\u1ec3 ph\u00f3ng sinh";
         static final String NO_SWITCH_PET = "Kh\u00f4ng c\u00f3 s\u1ee7ng v\u1eadt c\u00f3 th\u1ec3 thay \u0111\u1ed5i";
         static final String PET_CANNOT_BATTLE = "S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng th\u1ec3 tham chi\u1ebfn";
         static final String PET_ALREADY_ACTIVE = "S\u1ee7ng v\u1eadt n\u00e0y \u0111\u00e3 \u0111\u1eb7t \u1edf v\u1ecb tr\u00ed chi\u1ebfn \u0111\u1ea5u";
+        static final String PET_ALREADY_DEPLOYED = "S\u1ee7ng v\u1eadt n\u00e0y \u0111\u00e3 xu\u1ea5t chi\u1ebfn";
         static final String PET_SWITCHED = "\u0110\u00e3 thay \u0111\u1ed5i s\u1ee7ng v\u1eadt: ";
         static final String PETSTATE_TITLE = "S\u1ee7ng v\u1eadt trong h\u00e0nh trang";
         static final String PETSTATE_BATTLE = "Chi\u1ebfn \u0111\u1ea5u";
@@ -126,6 +156,10 @@ final class VqsvText {
         static final String LEARN_SKILL_PREFIX = "H\u1ecdc t\u1eadp";
         static final String NO_SHOP_ITEMS = "Kh\u00f4ng c\u00f3 \u0111\u1ea1o c\u1ee5 b\u00e1n";
         static final String NOT_ENOUGH_MONEY = "Kim ti\u1ec1n kh\u00f4ng \u0111\u1ee7";
+        static final String NOT_ENOUGH_BADGES = "S\u1ed1 l\u01b0\u1ee3ng Huy ch\u01b0\u01a1ng ch\u01b0a \u0111\u1ee7";
+        static final String SHOP_ITEM_FULL = "\u0110\u1ea1o c\u1ee5 n\u00e0y \u0111\u00e3 \u0111\u1ee7";
+        static final String SHOP_BUY_SUCCESS_PREFIX = "\u0110\u00e3 th\u00e0nh c\u00f4ng mua s\u1eafm #2";
+        static final String SHOP_BUY_SUCCESS_MIDDLE = " * ";
         static final String DAMAGE = " g\u00e2y ";
         static final String DAMAGE_SUFFIX = " s\u00e1t th\u01b0\u01a1ng";
         static final String DODGE = "N\u00e9 tr\u00e1nh";

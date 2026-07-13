@@ -1,6 +1,7 @@
 package com.vqsv.rebuild.runtime;
 
 import com.vqsv.rebuild.core.GameConfig;
+import com.vqsv.rebuild.debug.VqsvDebugLog;
 import com.vqsv.rebuild.input.InputState;
 import com.vqsv.rebuild.state.GameStateMachine;
 
@@ -23,6 +24,7 @@ public final class GamePanel extends JPanel implements Runnable {
     private final BufferedImage backBuffer;
     private Thread loopThread;
     private volatile boolean running;
+    private int debugFrame;
 
     public GamePanel(GameConfig config, InputState input, GameStateMachine states) {
         this.config = config;
@@ -35,11 +37,17 @@ public final class GamePanel extends JPanel implements Runnable {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
+                VqsvDebugLog.log("input keyPressed code=" + event.getKeyCode()
+                        + " text=" + KeyEvent.getKeyText(event.getKeyCode())
+                        + " focusOwner=" + isFocusOwner());
                 input.setKey(event.getKeyCode(), true);
             }
 
             @Override
             public void keyReleased(KeyEvent event) {
+                VqsvDebugLog.log("input keyReleased code=" + event.getKeyCode()
+                        + " text=" + KeyEvent.getKeyText(event.getKeyCode())
+                        + " focusOwner=" + isFocusOwner());
                 input.setKey(event.getKeyCode(), false);
             }
         });
@@ -49,6 +57,8 @@ public final class GamePanel extends JPanel implements Runnable {
                 requestFocusInWindow();
                 int logicalX = event.getX() * GameConfig.LOGICAL_WIDTH / Math.max(1, getWidth());
                 int logicalY = event.getY() * GameConfig.LOGICAL_HEIGHT / Math.max(1, getHeight());
+                VqsvDebugLog.log("input mousePressed screen=[" + event.getX() + "," + event.getY()
+                        + "] logical=[" + logicalX + "," + logicalY + "] focusOwner=" + isFocusOwner());
                 input.pressPointer(
                         clamp(logicalX, 0, GameConfig.LOGICAL_WIDTH - 1),
                         clamp(logicalY, 0, GameConfig.LOGICAL_HEIGHT - 1));
@@ -92,6 +102,12 @@ public final class GamePanel extends JPanel implements Runnable {
     }
 
     private void tick() {
+        debugFrame++;
+        if (debugFrame % 30 == 0) {
+            VqsvDebugLog.log("panel tick frame=" + debugFrame
+                    + " focusOwner=" + isFocusOwner()
+                    + " state=" + states.currentStateNameForSmoke());
+        }
         states.tick(input.snapshot());
         input.finishFrame();
     }

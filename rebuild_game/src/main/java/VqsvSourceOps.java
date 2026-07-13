@@ -84,6 +84,10 @@ final class VqsvSourceOps {
         return new HashMap<>();
     }
 
+    static java.util.List<SourceEquipmentItem> initialSourceEquipmentItems() {
+        return new java.util.ArrayList<>();
+    }
+
     private static TextBox sourceInventoryPopup(String message, int qty) {
         String suffix = qty > 0 ? " x " + qty : "";
         return TextBox.openBox(message + suffix);
@@ -128,19 +132,72 @@ final class VqsvSourceOps {
         return entry == null ? 0 : entry.count;
     }
 
-    private static SourceItem sourceItem(int itemId) {
+    static SourceItem sourceItem(int itemId) {
         // Source data: aq.c[4][itemId][0] -> aq.d[textId], plus aq.c[4][itemId][5] bag channel.
         switch (itemId) {
             case 0:
-                return new SourceItem(0, 261, VqsvText.Items.TAT_TRUNG_CAU, 0);
+                return new SourceItem(0, 261, 0, 0, VqsvText.Items.TAT_TRUNG_CAU,
+                        "D\u00f9ng \u0111\u1ec3 b\u1eaft s\u1ee7ng v\u1eadt.", 0);
             case 1:
-                return new SourceItem(1, 262, VqsvText.Items.PHONG_AN_CAU, 0);
+                return new SourceItem(1, 262, 1, 0, VqsvText.Items.PHONG_AN_CAU,
+                        "D\u00f9ng \u0111\u1ec3 b\u1eaft s\u1ee7ng v\u1eadt.", 0);
             case 4:
-                return new SourceItem(4, 265, VqsvText.Items.BANH_SANDWICH, 1);
+                return new SourceItem(4, 265, 4, 0, VqsvText.Items.BANH_SANDWICH,
+                        "Ph\u1ee5c h\u1ed3i trong tr\u1eadn \u0111\u1ea5u.", 1);
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
             case 11:
-                return new SourceItem(11, 272, VqsvText.Items.SINH_MENH_THACH, 4);
+            case 12:
+                return sourceTableItem(itemId, "Item " + itemId, itemId, 0);
+            case 13: {
+                BattleItemRow row = VqsvBattleTables.instance().item(13);
+                if (row == null) {
+                    return new SourceItem(13, 0, 13, 0, "Tr\u00e1nh qu\u00e1i ho\u00e0n", "", 0);
+                }
+                return new SourceItem(13, row.nameTextId, row.iconId, row.descriptionTextId,
+                        row.name("Tr\u00e1nh qu\u00e1i ho\u00e0n"), row.description(""), row.behavior);
+            }
+            case 14: {
+                BattleItemRow row = VqsvBattleTables.instance().item(14);
+                if (row == null) {
+                    return new SourceItem(14, 0, 14, 0, "Gia t\u1ed1c d\u01b0\u1ee3c", "", 9);
+                }
+                return new SourceItem(14, row.nameTextId, row.iconId, row.descriptionTextId,
+                        row.name("Gia t\u1ed1c d\u01b0\u1ee3c"), row.description(""), row.behavior);
+            }
             default:
-                return new SourceItem(itemId, 0, "", 0);
+                return new SourceItem(itemId, 0, itemId, 0, "Item " + itemId, "", 0);
         }
+    }
+
+    private static SourceItem sourceTableItem(int itemId, String fallbackName,
+                                              int fallbackIcon, int fallbackBehavior) {
+        BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+        if (row == null) {
+            return new SourceItem(itemId, 0, fallbackIcon, 0, fallbackName, "", fallbackBehavior);
+        }
+        return new SourceItem(itemId, row.nameTextId, row.iconId, row.descriptionTextId,
+                row.name(fallbackName), row.description(""), row.behavior);
+    }
+
+    static int sourceEquipmentIconCell(int equipmentId) {
+        short[] row = VqsvBattleTables.instance().row(3, equipmentId);
+        return row == null || row.length <= 1 ? equipmentId : row[1];
+    }
+
+    static String sourceEquipmentName(int equipmentId) {
+        short[] row = VqsvBattleTables.instance().row(3, equipmentId);
+        int textId = row == null || row.length == 0 ? -1 : row[0];
+        return VqsvBattleTables.instance().text(textId, "Trang s\u1ee9c " + equipmentId);
+    }
+
+    static String sourceEquipmentDescription(int equipmentId) {
+        short[] row = VqsvBattleTables.instance().row(3, equipmentId);
+        int textId = row == null || row.length <= 2 ? -1 : row[2];
+        return VqsvBattleTables.instance().text(textId, "");
     }
 }
