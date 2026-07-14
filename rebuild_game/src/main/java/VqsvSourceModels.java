@@ -299,6 +299,7 @@ final class SourcePetState {
     int arg4;
     final int[] skillIds = new int[]{-1, -1, -1, -1};
     final int[] skillCooldowns = new int[skillIds.length];
+    final short[][] sourceBuffSlots = new short[16][5];
     final short[][] sourceDebuffSlots = new short[11][5];
     int[] sourcePayload;
     int refreshCount;
@@ -350,6 +351,8 @@ final class SourcePetState {
                 pet.skillIds[i] = battle.skillIds[i];
                 pet.skillCooldowns[i] = battle.skillPp[i];
             }
+            pet.copyBuffsFromBattleUnit(battle);
+            pet.copyDebuffsFromBattleUnit(battle);
             pet.sourcePayload = pet.toSourcePayloadFromBattleUnit(battle);
         } else {
             pet.sourcePayload = pet.toSourcePayload();
@@ -432,9 +435,18 @@ final class SourcePetState {
             skillIds[i] = battle.skillIds[i];
             skillCooldowns[i] = battle.skillPp[i];
         }
+        copyBuffsFromBattleUnit(battle);
         copyDebuffsFromBattleUnit(battle);
         sourcePayload = toSourcePayloadFromBattleUnit(battle);
         refreshCount++;
+    }
+
+    private void copyBuffsFromBattleUnit(BattleUnit battle) {
+        for (int i = 0; i < sourceBuffSlots.length; i++) {
+            for (int j = 0; j < sourceBuffSlots[i].length; j++) {
+                sourceBuffSlots[i][j] = battle.buffSlots[i][j];
+            }
+        }
     }
 
     private void copyDebuffsFromBattleUnit(BattleUnit battle) {

@@ -1352,11 +1352,7 @@ final class VqsvBattleRenderer {
         }
         BufferedImage overlay = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
         Graphics2D og = overlay.createGraphics();
-        if (s.battleP7SpecialOnPlayerSide) {
-            drawBattleSprite(og, sprite, 18 + playerOffsetX(s), 140 + playerOffsetY(s), 96, 95, 7, 0, 0, 0);
-        } else {
-            drawBattleSprite(og, sprite, 132 + enemyOffsetX(s), 70 + enemyOffsetY(s), 96, 118, 7, 0, 0, 0);
-        }
+        drawP7SpecialBaseSpriteAtSource(og, s, sprite);
         og.dispose();
         if (s.battleP7SpecialType == 9) {
             applyAhType9Transform(overlay, s.battleP7SpecialAlpha,
@@ -1370,6 +1366,21 @@ final class VqsvBattleRenderer {
         } else if (s.battleP7SpecialType == 12) {
             drawP7SpecialType12(g, overlay, s);
         }
+    }
+
+    private static void drawP7SpecialBaseSpriteAtSource(Graphics2D g, VqsvIntroDemo.Scene s, int sprite) {
+        boolean playerSide = s.battleP7SpecialOnPlayerSide;
+        int state = playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide;
+        int cursor = playerSide ? s.battleP7BaseCursorPlayerSide : s.battleP7BaseCursorEnemySide;
+        if (cursor < 0) {
+            cursor = idleCursor(sprite, state, s.battleAnimationTick);
+        }
+        drawBattleSpriteAtSource(g, sprite,
+                sourceBattleActorX(s, playerSide) + sideOffsetX(s, playerSide),
+                sourceBattleActorY(s, playerSide) + sideOffsetY(s, playerSide),
+                sourceBattleOrientation(playerSide),
+                state,
+                cursor);
     }
 
     private static boolean isSupportedP7SpecialType(int type) {
@@ -1435,21 +1446,50 @@ final class VqsvBattleRenderer {
             g.drawImage(overlay, 0, 0, null);
             return;
         }
-        int total = Math.max(1, row[2]);
-        int count = Math.max(1, row[4]);
+        int count = Math.max(1, (row.length - 6) / 3);
+        int total = Math.max(count, row[2]);
         int ticksPerStep = Math.max(1, total / count);
-        int step = Math.max(0, Math.min(count - 1, s.battleP7Ticks / ticksPerStep));
+        int step = Math.max(0, Math.min(count - 1, Math.max(0, s.battleP7Ticks) / ticksPerStep));
         int tripleAt = 6 + step * 3;
-        int alpha = 120;
+        int scale10 = 10;
         int dx = 0;
         int dy = 0;
         if (tripleAt + 2 < row.length) {
-            alpha = Math.max(0, Math.min(255, row[tripleAt] * 12));
+            scale10 = Math.max(1, row[tripleAt]);
             dx = row[tripleAt + 1];
             dy = row[tripleAt + 2];
         }
-        BufferedImage faded = alphaCopy(overlay, Math.max(40, alpha));
-        g.drawImage(faded, dx, dy, null);
+        BufferedImage bright = brightenCopy(overlay, 50);
+        int scaledW = Math.max(1, bright.getWidth() * scale10 / 10);
+        int scaledH = Math.max(1, bright.getHeight() * scale10 / 10);
+        int x = dx + (bright.getWidth() - scaledW) / 2;
+        int y = dy + (bright.getHeight() - scaledH) / 2;
+        Object old = g.getRenderingHint(RenderingHints.KEY_INTERPOLATION);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        g.drawImage(bright, x, y, scaledW, scaledH, null);
+        if (old == null) {
+            g.getRenderingHints().remove(RenderingHints.KEY_INTERPOLATION);
+        } else {
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, old);
+        }
+    }
+
+    private static BufferedImage brightenCopy(BufferedImage src, int add) {
+        BufferedImage out = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        for (int y = 0; y < src.getHeight(); y++) {
+            for (int x = 0; x < src.getWidth(); x++) {
+                int argb = src.getRGB(x, y);
+                int alpha = argb >>> 24;
+                if (alpha == 0) {
+                    continue;
+                }
+                int r = Math.min(255, ((argb >> 16) & 0xff) + add);
+                int g = Math.min(255, ((argb >> 8) & 0xff) + add);
+                int b = Math.min(255, (argb & 0xff) + add);
+                out.setRGB(x, y, (alpha << 24) | (r << 16) | (g << 8) | b);
+            }
+        }
+        return out;
     }
 
     private static void drawP7SpecialType12(Graphics2D g, BufferedImage overlay, VqsvIntroDemo.Scene s) {

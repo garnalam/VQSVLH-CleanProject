@@ -8,6 +8,8 @@ final class BattleUnit {
     private static String randomTraceContext = "";
     private static int debugNextCritRoll = -1;
     private static int debugNextDebuffRoll = -1;
+    private static int debugNextBuff5Roll = -1;
+    private static int debugNextBuff6Roll = -1;
 
     static final int STAT_QUALITY = 0;
     static final int STAT_HP = 1;
@@ -96,11 +98,17 @@ final class BattleUnit {
                 unit.exp = pet.sourcePayload[7];
             }
         }
+        for (int i = 0; i < unit.buffSlots.length && i < pet.sourceBuffSlots.length; i++) {
+            for (int j = 0; j < unit.buffSlots[i].length && j < pet.sourceBuffSlots[i].length; j++) {
+                unit.buffSlots[i][j] = pet.sourceBuffSlots[i][j];
+            }
+        }
         for (int i = 0; i < unit.debuffSlots.length && i < pet.sourceDebuffSlots.length; i++) {
             for (int j = 0; j < unit.debuffSlots[i].length && j < pet.sourceDebuffSlots[i].length; j++) {
                 unit.debuffSlots[i][j] = pet.sourceDebuffSlots[i][j];
             }
         }
+        unit.restoreSourceStatusState();
         return unit;
     }
 
@@ -361,10 +369,40 @@ final class BattleUnit {
             damage += damage * buffSlots[1][2] / 100;
         }
         if (hasDebuff(6)) {
+            int beforeDebuff6 = damage;
             damage -= damage * debuffSlots[6][1] / 100;
+            if (randomTrace != null) {
+                randomTrace.add("PORTED battle debuff6 Nhut Chi outgoing damage down"
+                        + " percent=" + debuffSlots[6][1]
+                        + " damage=" + beforeDebuff6 + "->" + damage
+                        + " source=game.b.b(target) attacker.p(6) formula");
+            }
         }
-        if (!pendingTargetClearBuffs && target.hasBuff(6) && randomPercent("damage.buff6") <= buffSlots[6][1]) {
-            damage = damage * buffSlots[6][2] / 100;
+        if (hasDebuff(8)) {
+            int beforeDebuff8 = damage;
+            damage += damage * 10 / 100;
+            if (randomTrace != null) {
+                randomTrace.add("INTENTIONAL battle debuff8 Quy Mi outgoing damage up"
+                        + " percent=10"
+                        + " damage=" + beforeDebuff8 + "->" + damage
+                        + " sourceDeviation=GAMEPLAY_FIXED user-approved pet with Quy Mi gains damage");
+            }
+        }
+        if (!pendingTargetClearBuffs && target.hasBuff(6)) {
+            int chance = Math.max(0, target.buffSlots[6][1]);
+            int roll = randomPercent("damage.buff6");
+            if (roll <= chance) {
+                int beforeBuff6 = damage;
+                damage = damage * 50 / 100;
+                if (randomTrace != null) {
+                    randomTrace.add("INTENTIONAL battle buff6 Kien nhan incoming damage reduction"
+                            + " roll=" + roll
+                            + " chance=" + chance
+                            + " reductionPercent=50"
+                            + " damage=" + beforeBuff6 + "->" + damage
+                            + " sourceDeviation=target buff params used instead of attacker.v[6]");
+                }
+            }
         }
         if (hasBuff(8)) {
             damage += damage * buffSlots[8][1] / 100;
@@ -467,6 +505,7 @@ final class BattleUnit {
             return 0;
         }
         int heal = 0;
+        int duration = row.duration;
         switch (buffId) {
             case 0:
                 buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * row.paramA / 100);
@@ -521,8 +560,8 @@ final class BattleUnit {
                 currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][2]);
                 break;
             case 10:
-                buffSlots[buffId][1] = toShort(baseStats[STAT_ATTACK] * row.paramA / 100);
-                currentStats[STAT_ATTACK] = toShort(baseStats[STAT_ATTACK] + buffSlots[buffId][1]);
+                duration = 3;
+                applyManLucGameplayFix(duration);
                 break;
             case 11:
                 buffSlots[buffId][1] = toShort(value);
@@ -547,10 +586,29 @@ final class BattleUnit {
                 break;
         }
         addActiveEffect(0, buffId);
-        buffSlots[buffId][0] = toShort(row.duration);
+        buffSlots[buffId][0] = toShort(duration);
         buffSlots[buffId][3] = toShort(sourceSkill);
         buffSlots[buffId][4] = 1;
         return heal;
+    }
+
+    private void applyManLucGameplayFix(int remainingTurns) {
+        int percent = manLucGameplayFixPercent(remainingTurns);
+        buffSlots[10][1] = toShort(baseStats[STAT_ATTACK] * percent / 100);
+        currentStats[STAT_ATTACK] = toShort(baseStats[STAT_ATTACK] + buffSlots[10][1]);
+    }
+
+    private static int manLucGameplayFixPercent(int remainingTurns) {
+        switch (remainingTurns) {
+            case 3:
+                return 15;
+            case 2:
+                return 10;
+            case 1:
+                return 5;
+            default:
+                return 0;
+        }
     }
 
     void copySourceBuffsFrom(BattleUnit source, int selectedIndex, int sourceSkill) {
@@ -558,16 +616,35 @@ final class BattleUnit {
             applySourceBuff(11, selectedIndex, sourceSkill);
             return;
         }
-        int count = Math.max(0, Math.min(source.activeEffectCount[0], source.activeEffectQueue[0].length));
-        for (int i = 0; i < count; i++) {
+        copySourceBuffsOnlyFrom(source, sourceSkill);
+        applySourceBuff(11, selectedIndex, sourceSkill);
+    }
+
+    int copySourceBuffsOnlyFrom(BattleUnit source, int fallbackSourceSkill) {
+        if (source == null) {
+            return 0;
+        }
+        int limit = Math.max(0, Math.min(source.activeEffectCount[0], source.activeEffectQueue[0].length));
+        int[] ids = new int[limit];
+        int[] values = new int[limit];
+        int[] sourceSkills = new int[limit];
+        int copied = 0;
+        for (int i = 0; i < limit; i++) {
             int buffId = source.activeEffectQueue[0][i];
-            if (buffId < 0 || buffId >= source.buffSlots.length) {
+            if (buffId < 0 || buffId >= source.buffSlots.length || !source.hasBuff(buffId)) {
                 continue;
             }
-            applySourceBuff(buffId, source.buffSlots[buffId][1], sourceSkill);
+            ids[copied] = buffId;
+            values[copied] = source.buffSlots[buffId][1];
+            sourceSkills[copied] = source.buffSlots[buffId][3] >= 0
+                    ? source.buffSlots[buffId][3] : fallbackSourceSkill;
+            copied++;
+        }
+        for (int i = 0; i < copied; i++) {
+            applySourceBuff(ids[i], values[i], sourceSkills[i]);
         }
         source.clearBuffs();
-        applySourceBuff(11, selectedIndex, sourceSkill);
+        return copied;
     }
 
     void selectSkill(int skillId, BattleUnit target) {
@@ -751,7 +828,7 @@ final class BattleUnit {
                 currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][2]);
                 break;
             case 10:
-                currentStats[STAT_ATTACK] = toShort(baseStats[STAT_ATTACK] + buffSlots[buffId][1]);
+                applyManLucGameplayFix(Math.max(0, buffSlots[buffId][0] - 1));
                 break;
             case 12:
                 effectScratch[12] = 2;
@@ -995,6 +1072,23 @@ final class BattleUnit {
         reapplyActiveStatEffects();
     }
 
+    void restoreSourceStatusState() {
+        resetEffectQueue(0);
+        resetEffectQueue(1);
+        for (int i = 0; i < buffSlots.length; i++) {
+            if (hasBuff(i)) {
+                addActiveEffect(0, i);
+            }
+        }
+        for (int i = 0; i < debuffSlots.length; i++) {
+            if (hasDebuff(i)) {
+                addActiveEffect(1, i);
+            }
+        }
+        restoreMutableStats();
+        reapplyActiveStatEffects();
+    }
+
     private void reapplyActiveStatEffects() {
         if (hasBuff(1)) {
             currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[1][1]);
@@ -1097,7 +1191,7 @@ final class BattleUnit {
             target.currentStats[STAT_DEFENSE] = toShort(target.baseStats[STAT_DEFENSE]
                     * (100 + heldItemParam(item, 5, 0)) / 100);
         }
-        int targetDefense = target.currentStats[STAT_DEFENSE];
+        int targetDefense = targetDefenseForSourceFormula(target);
         if (target.hasFormStatus((byte) 2)) {
             BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(2);
             targetDefense = targetDefense * (100 + heldItemParam(item, 5, 0)) / 100;
@@ -1114,6 +1208,15 @@ final class BattleUnit {
             value = currentStats[STAT_ATTACK] * (100 + heldItemParam(item, 5, 0)) / 100 - target.currentStats[STAT_DEFENSE];
         }
         return value;
+    }
+
+    private static int targetDefenseForSourceFormula(BattleUnit target) {
+        int targetDefense = target.currentStats[STAT_DEFENSE];
+        if (target.hasDebuff(2)) {
+            BattleStatusRow bind = VqsvBattleTables.instance().status(2);
+            targetDefense = targetDefense * (100 + statusParam(bind, 5, 0)) / 100;
+        }
+        return targetDefense;
     }
 
     private BattlePendingDebuff maybePlanTargetDebuff(BattleUnit target, int skillId, int effectId,
@@ -1203,6 +1306,8 @@ final class BattleUnit {
         activeDamageRandom = FALLBACK_DAMAGE_RANDOM;
         randomTrace = null;
         randomTraceContext = "";
+        debugNextBuff5Roll = -1;
+        debugNextBuff6Roll = -1;
     }
 
     static void setDamageRandomSeedForChecks(long seed) {
@@ -1216,6 +1321,14 @@ final class BattleUnit {
 
     static void setNextCritRollForChecks(int roll) {
         debugNextCritRoll = Math.max(0, Math.min(99, roll));
+    }
+
+    static void setNextBuff5RollForChecks(int roll) {
+        debugNextBuff5Roll = Math.max(0, Math.min(99, roll));
+    }
+
+    static void setNextBuff6RollForChecks(int roll) {
+        debugNextBuff6Roll = Math.max(0, Math.min(99, roll));
     }
 
     static void setRandomTrace(java.util.List<String> trace, String context) {
@@ -1270,6 +1383,26 @@ final class BattleUnit {
             debugNextDebuffRoll = -1;
             if (randomTrace != null) {
                 randomTrace.add("SMOKE battle forced damage.debuff roll=" + roll
+                        + " label=" + fullLabel
+                        + " source=game.b.b(target) ae.a(100)");
+            }
+            return roll;
+        }
+        if (label.endsWith("damage.buff5") && debugNextBuff5Roll >= 0) {
+            int roll = debugNextBuff5Roll;
+            debugNextBuff5Roll = -1;
+            if (randomTrace != null) {
+                randomTrace.add("SMOKE battle forced damage.buff5 roll=" + roll
+                        + " label=" + fullLabel
+                        + " source=game.b.b(target) ae.a(100)");
+            }
+            return roll;
+        }
+        if (label.endsWith("damage.buff6") && debugNextBuff6Roll >= 0) {
+            int roll = debugNextBuff6Roll;
+            debugNextBuff6Roll = -1;
+            if (randomTrace != null) {
+                randomTrace.add("SMOKE battle forced damage.buff6 roll=" + roll
                         + " label=" + fullLabel
                         + " source=game.b.b(target) ae.a(100)");
             }
@@ -1346,19 +1479,27 @@ final class BattleDamageResult {
     }
 
     void commitPendingSideEffects() {
+        commitSourceImmediateSideEffects();
+        if (pendingReflectAttacker != null && pendingReflectDamage > 0) {
+            pendingReflectAttacker.effectScratch[5] = BattleUnit.toShort(pendingReflectDamage);
+        }
+    }
+
+    void commitSourceImmediateSideEffects() {
         if (pendingBuffClearTarget != null) {
             pendingBuffClearTarget.clearBuffs();
         }
         if (pendingDebuff != null) {
             pendingDebuff.commit();
         }
-        if (pendingReflectAttacker != null && pendingReflectDamage > 0) {
-            pendingReflectAttacker.effectScratch[5] = BattleUnit.toShort(pendingReflectDamage);
-        }
     }
 
     boolean hasPendingSideEffects() {
         return pendingBuffClearTarget != null || pendingDebuff != null || pendingReflectDamage > 0;
+    }
+
+    boolean hasSourceImmediateSideEffects() {
+        return pendingBuffClearTarget != null || pendingDebuff != null;
     }
 }
 

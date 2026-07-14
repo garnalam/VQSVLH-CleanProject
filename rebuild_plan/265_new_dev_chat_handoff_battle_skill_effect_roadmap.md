@@ -23,8 +23,8 @@ You are taking over VQSV/Liet Hoa battle skill-effect work.
 Current active lane:
 - Battle skill/effect parity, specifically temporary battle effects from aq.c[6] buffs and aq.c[7] debuffs.
 - Continue in strict table order from rebuild_plan/263_battle_buff_debuff_effect_current_matrix.md.
-- Current completed clean slices: buff0, buff1, buff2, buff3.
-- Next code slice: buff4 Phong ngu, producer skills 21/27, defense +10% from skill[8], duration 2, icon 16, no P12/P13 body visual.
+- Current completed/closed slices: buff0, buff1, buff2, buff3, buff4, buff5, buff7, buff8, buff9, buff10, buff11, buff12, buff13, buff14.
+- Latest completed docs: debuff table closeout `300` and skill grouped logic/animation roadmap `301`. Latest completed code slice: debuff10 Te Liet source-backed closeout (`299`) after debuff9 Hon Loan closeout (`297`). Buff table `aq.c[6]` rows 0..14 are closed in table order; debuff table `aq.c[7]` rows 0..10 is closed in `300`. Debuff8 is intentionally `GAMEPLAY_FIXED`, not source-parity: `+10%` outgoing damage and 55% self-hit / 45% opponent-hit. Debuff10 is `PORTED/PARTIAL`: producer/icon/P12 visual/catch/expiry are smoke-covered, while action-delay scheduling remains `NOT_FOUND_IN_PC_SOURCE / PENDING_SOURCE_PROOF`. Next phase should follow `301`: skill work by grouped logic/effect/animation families, starting with direct base animation audit.
 
 Supreme rules:
 - Source first. Never guess logic, UI, assets, animation, RNG, state flow, or formulas.
@@ -33,7 +33,7 @@ Supreme rules:
 - Do not open the live client/JAR/game window unless the user explicitly asks. Default to smoke PNG/headless.
 - Do not add debug overlays to gameplay/release UI. Smoke-only traces/checkpoints are fine.
 - Do not use absolute local paths in docs/code.
-- Classify honestly: PORTED / PORTED-PARTIAL / APPROX / STUB / PENDING / UNKNOWN / SOURCE_ODDITY.
+- Classify honestly: PORTED / PORTED-PARTIAL / APPROX / STUB / PENDING / UNKNOWN / SOURCE_ODDITY / INTENTIONAL_DEVIATION.
 - Each buff/debuff slice must prove:
   1. producer skill visual/effect,
   2. active logic with exact numbers,
@@ -120,23 +120,29 @@ Current completed slices:
 | buff2 Kinh Cuc | PORTED | Producer visual, defense +30%, reflect 10%, miss no reflect, crit reflect, expiry. |
 | buff3 Khoi phuc | PORTED | Producer visual, apply heal 5% maxHP, P12/P13 body visual, P12/P13 heal tick, expiry. |
 
-Current next slice:
+Current recent/next slice summary:
 
 | Effect | Producer skills | Required behavior |
 | --- | --- | --- |
-| buff4 Phong ngu | `21`, `27` | Duration `2`; row param is sentinel `-1`; source uses producer `skill[8]`; known skills use defense `+10% baseDefense`; icon `16`; no P12/P13 body visual. |
+| buff4 Phong ngu | `21`, `27` | PORTED: duration `2`; source uses producer `skill[8]`; known skills use defense `+10% baseDefense`; icon `16`; no P12/P13 body visual; dedicated before/producer/hit/miss/crit/expiry smokes pass. |
+| buff5 Vo hinh | `34` | PORTED: chance reflect from source row, P12/P13 actor body visual, success/fail/expiry smokes pass. |
+| buff6 Kien nhan | `35` | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED: user approved target-side 50% proc, 50% incoming damage reduction; dedicated before/producer/chunk0/chunk1/reduction success-fail/P12 no-body/expiry smokes pass. |
+| buff7 Linh Xao | `42`, `48` | PORTED: raw damage plus speed self-buff, source uses producer `skill[8] = 5`, speed `+5%`; dedicated before/producer42/producer48/P12 no-body/expiry smokes pass. |
+| buff10 Man Luc | `62`, `68` | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED: source row `-1` lowers attack `100 -> 99`, but user approved 3-turn attack decay `+15% -> +10% -> +5% -> clear`; dedicated producer/gameplay-decay/P12 no-body/expiry smokes pass. |
+| buff11 Thau Thu | `64` | PORTED/PARTIAL: cast-time selected donor copy/clear, active tick re-steal from `game.b.o(11)`, nonzero donor slot, donor switch cleanup, and stale status icon clear have focused smoke coverage. See `275` + `276`. Remaining partials: multi-enemy/full source `d[]` slot and broader KO/replacement cleanup. |
 
-Do not skip ahead to debuffs until the remaining buffs are closed or the user
-explicitly redirects.
+Buff table `aq.c[6]` is now closed through `280`. Debuff table `aq.c[7]`
+has debuff0 `Gieo Hat` closed in `282`, debuff1 `Me Muoi` closed in `283`,
+debuff2 `Quan Quanh` closed in `284`, debuff3 `Thuc Loai` closed in `286`, debuff4 `Muc` closed in `288`, debuff5 `Cham Chap` closed in `290`, and debuff6 `Nhut Chi` closed in `292`. The current lane starts after debuff6.
 
 ## Current Smoke/Regression State
 
-Latest known good state after buff3:
+Latest known good state after buff10:
 
 - Build: PASS.
 - `com.vqsv.rebuild.Main --check`: PASS.
 - `VqsvBattleDamageFormulaCheck`: PASS.
-- `VqsvIntroDemo --smoke-suite battle_quick build_intro_demo/suite_battle_quick`: PASS, `61/61`.
+- `VqsvIntroDemo --smoke-suite battle_quick build_intro_demo/suite_battle_quick`: PASS, `109/109`.
 - Mojibake scan for Java + docs touched in this lane: no new hits.
 
 Important recent smoke checkpoint groups:
@@ -232,17 +238,17 @@ Continue this order exactly unless user redirects.
 | 1 | Pha Phu | `5` | PORTED | Leave alone unless regression fails. |
 | 2 | Kinh Cuc | `14` | PORTED | Leave alone unless regression fails. |
 | 3 | Khoi phuc | `15` | PORTED | Leave alone unless regression fails. |
-| 4 | Phong ngu | `21`, `27` | PORTED/PARTIAL | NEXT ACTIVE SLICE. |
-| 5 | Vo hinh | `34` | PORTED/PARTIAL | After buff4; must cover chance reflect + body visual. |
-| 6 | Kien nhan | `35` | SOURCE_ODDITY/PARTIAL | Must audit carefully; do not "fix" negative/sentinel without proof. |
-| 7 | Linh Xao | `42`, `48` | PORTED/PARTIAL | Source uses skill param, speed +5%. |
+| 4 | Phong ngu | `21`, `27` | PORTED | Leave alone unless regression fails. |
+| 5 | Vo hinh | `34` | PORTED | Leave alone unless regression fails. |
+| 6 | Kien nhan | `35` | INTENTIONAL_DEVIATION/GAMEPLAY_FIXED | User-approved 50% proc and 50% incoming damage reduction; original-vs-rebuild pixel comparison remains pending. |
+| 7 | Linh Xao | `42`, `48` | PORTED | Dedicated closeout smoke pass; speed +5% from producer skill param. |
 | 8 | Dien ap | `44` | PORTED | Already has dedicated coverage; revisit only if needed. |
-| 9 | Hoa Thach | `45` | PORTED/PARTIAL | Need dedicated table-order closeout if not already enough. |
-| 10 | Man Luc | `62`, `68` | PORTED-AS-SOURCE / SOURCE_ODDITY | Preserve source oddity unless proven otherwise. |
-| 11 | Thau Thu | `64` | PARTIAL | Needs selected donor/multi-target vector care. |
-| 12 | Gia Toc | `65` | PORTED/PARTIAL | Follow-up/PP conservation sensitive. |
-| 13 | Thach Hoa | `24` | PORTED/PARTIAL | Cleanse + 20% maxHP heal + body visual. |
-| 14 | Thach Phu | `25` | PORTED/PARTIAL | Cleanse + debuff immunity. |
+| 9 | Hoa Thach | `45` | PORTED | Dedicated closeout smoke pass; speed +50%, defense -50%, P7 animation timeline, no P12 body visual. |
+| 10 | Man Luc | `62`, `68` | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED | Source oddity is documented, but current runtime intentionally uses 3-turn attack boost decay `15/10/5` by user approval. |
+| 11 | Thau Thu | `64` | PORTED/PARTIAL | Focused closeout pass in `276`; keep partial for multi-enemy/full source slot and broader KO/replacement cleanup. |
+| 12 | Gia Toc | `65` | PORTED/PARTIAL | Closeout `277`: producer speffect16/15, K12 apply/tick/follow-up, PP conservation, icon/duration, no-body-visual, and expiry smokes pass. Full global turn-vector/multi-actor parity remains partial. |
+| 13 | Thach Hoa | `24` | PORTED | Closeout `278`: skill24 actor22 and speffect17 producer, no-damage route, cleanse, `20% maxHP` heal on apply/tick, P13 body visual, icon/duration, and expiry smokes pass. Pixel-perfect original comparison remains pending. |
+| 14 | Thach Phu | `25` | PORTED | Closeout `279`: skill25 speffect4/17 producer, no-damage route, cleanse, debuff-family immunity, P13 no-body-visual/pre-clear, icon/duration, and expiry smokes pass. Pixel-perfect original comparison remains pending. |
 
 ### Debuffs After Buffs - `aq.c[7]`
 
@@ -251,20 +257,20 @@ Do not start this group until buffs are closed or user explicitly redirects.
 | Order | Effect | Producer skill(s) | Current status | Required focus |
 | ---: | --- | --- | --- | --- |
 | 0 | Gieo Hat | `1`, `7` | PORTED | DoT divisor, body visual, expiry. |
-| 1 | Me Muoi | `2`, `8`, `22`, `28` | PORTED/PARTIAL | Flag, conditional skills, catch multiplier. |
-| 2 | Quan Quanh | `12`, `18` | PORTED/PARTIAL | Bind/command lock: item/pet/run disabled checks still important. |
-| 3 | Thuc Loai | `13`, `19` | PORTED | Delayed damage at expiry. |
-| 4 | Muc | `31`, `37` | PORTED/PARTIAL | Miss/evasion hook. |
-| 5 | Cham Chap | `32`, `38`, `61`, `67` | PORTED | Speed down, skill67 already audited separately. |
-| 6 | Nhut Chi | `33`, `39` | PORTED/PARTIAL | Outgoing damage -10%. |
-| 7 | Phong Ngu | `51`, `57` | PORTED | Defense down -20%. |
-| 8 | Quy Mi | `54` | FLAG/PENDING | Zero-power special route; audit before code. |
-| 9 | Hon Loan | `55` | FLAG/PENDING | Switch-lock/P5 parity; audit before code. |
+| 1 | Me Muoi | `2`, `8`, `22`, `28` | PORTED | Closeout `283`: producer skills, icon/duration, P12/P13 speffect14 type12, no-op tick/expiry, catch multiplier `11/10`, conditional skills `23/29`, and buff14 block pass. |
+| 2 | Quan Quanh | `12`, `18` | PORTED | Closeout `284`: producer skills, icon/duration, P12/P13 speffect6 type8, no-op tick/expiry, catch multiplier `12/10`, defense formula modifier, item/pet/run command locks, skill/catch/shop allowed, and buff14 block pass. |
+| 3 | Thuc Loai | `13`, `19` | PORTED | Closeout `286`: producer skills, actor body visual, no-damage tick timing, final `150%/200%` delayed damage, KO transition, and buff14 block pass. |
+| 4 | Muc | `31`, `37` | PORTED | Closeout `288`: producer skills, stored values `1/2`, P12/P13 no-body-visual skip via `game.d.ai[1]`, no-op tick/expiry, miss chance values `12/14`, and buff14 block pass. |
+| 5 | Cham Chap | `32`, `38`, `61`; `67` NOT_REACHED | PORTED | Closeout `290`: producers `32/38/61`, stored speed-down values `10/10/5`, skill67 no-debuff regression, P12/P13 no-body-visual speed reassert, expiry speed restore, miss chance consumer, and buff14 block pass. |
+| 6 | Nhut Chi | `33`, `39` | PORTED | Closeout `292`: producers `33/39`, stored value `10`, source-immediate miss mutation, P12/P13 no-body-visual no-op, expiry clear, outgoing damage `80 -> 72`, and buff14 block pass. |
+| 7 | Phong Ngu | `51`, `57` | PORTED | Closeout `294`: defense down `-20%` base defense, miss source-immediate mutation, no P12/P13 body visual, expiry restore, incoming damage-up consumer, and buff14 block pass. |
+| 8 | Quy Mi | `54` | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED | Closeout `296`: skill54 zero-power no ordinary producer, active damage `+10%`, target route `55%` self / `45%` opponent, body visual, expiry. Smoke locks self-hit `101 -> 111` and enemy-hit `80 -> 88`. |
+| 9 | Hon Loan | `55` | PORTED/PARTIAL | Closeout `297`: zero-power no ordinary producer, active random-target consumer via `game.d.f(attacker)` + `ae.a(G.size())`, body visual, expiry. P5 pet switch is allowed; only Quan Quanh/debuff2 blocks switching. |
 | 10 | Te Liet | `41`, `47` | PORTED/PARTIAL | Catch/action-delay flag; exact delay timing pending. |
 
-## Next Slice Details: Buff4 Phong Ngu
+## Completed Slice Details: Buff4 Phong Ngu
 
-Source facts to prove before coding:
+Source facts already proven:
 
 - Buff row: `aq.c[6][4] = [337,352,2,-1,-1]`.
 - Producer skills: `21`, `27`.
@@ -276,22 +282,110 @@ Source facts to prove before coding:
 - Duration cells are `134 + duration`, so duration `2 -> 136`, then `1 -> 135`, then clear.
 - P12/P13 body visual gate says buff4 has no body visual.
 
-Suggested smoke checkpoints:
+Completed smoke checkpoints:
 
+- `battle_status_buff4_before_no_effect`
 - `battle_status_buff4_producer_visual_defense`
 - `battle_status_buff4_forced_hit_target_defense`
 - `battle_status_buff4_forced_miss_no_extra_side_effect`
 - `battle_status_buff4_forced_crit_no_wrong_multiplier`
 - `battle_status_buff4_expiry_clears_defense`
 
-Possible approach:
+Closeout notes:
 
-- Use player producer skill `21` first; add skill `27` smoke only if source row differs.
-- For producer visual, start player at defense `100`, cast skill `21`, assert current defense `110`, buff value `10`, duration `2`, icon `16`.
-- For defense impact, put buff4 on target and compare incoming damage baseline vs defense-up damage.
-- For miss, force hit roll miss and assert no damage and no wrong side effects.
-- For crit, force crit and assert crit damage is computed from the defense-up formula, not from a separate buff multiplier.
-- For expiry, tick source buff twice and assert defense restored and icon cleared.
+- Producer skill `21` dedicated smoke locks `effect.mid[21]` as `sourceEffectId=22` plus `speffect=5`.
+- Skill `27` is source-audited as the same buff formula with `speffect=7`; broad Phase9R coverage remains the regression anchor unless a dedicated visual mismatch is found.
+- Expiry follows source `game.b.o(4)`: apply `100 -> 110`, first tick `110 -> 120`, second tick clears to `100`.
+
+## Completed Slice Details: Buff5 Vo Hinh
+
+Source facts already proven:
+
+- Buff row: `aq.c[6][5] = [338,353,3,30,-1]`.
+- Producer skill: `34`.
+- `game.b.a(byte,int,int)` case `5` stores the source chance/param.
+- Damage-receive hook in `game.b` stores incoming damage in attacker `K[5]` when `ae.a(100) <= 30`.
+- `game.d.q()` consumes `K[5]` and damages the attacker, then clears `K[5]`.
+- P12/P13 body visual is expected because source `game.d.ai[0]` includes buff id `5`.
+- Producer visual is `effect.mid[34] = [0,1,4,0,-1,-1,0]`.
+- Active queue visual is `ar[0][5] -> ap[6] = [0,23,0,-1]`, a type0 actor action.
+
+Completed smoke checkpoints:
+
+- `battle_status_buff5_producer_visual`
+- `battle_status_buff5_forced_reflect_success`
+- `battle_status_buff5_forced_reflect_fail`
+- `battle_status_buff5_p12_body_visual_start`
+- `battle_status_buff5_expiry_clears_icon`
+
+## Completed Slice: Buff6 Kien Nhan
+
+Source facts now locked:
+
+- Buff row: `aq.c[6][6] = [339,354,3,50,-1]`.
+- Producer skill: `35`.
+- Producer visual: `effect.mid[35] = [0,1,4,0,-1,-1,0, 0,1,17,0,-1,-1,0]`, so chunk0 uses speffect `4` / AH type7 and chunk1 uses speffect `17` / AH type1.
+- Source branch is odd, but the user approved an intentional gameplay fix: if target has buff6 and roll `<= 50`, incoming damage is reduced by `50%`.
+- Deterministic smoke result: baseline `80`, success roll `0` result `41` after half-damage plus normal jitter; fail roll `99` result `80`.
+- P12/P13 body visual is not expected because source gate `game.d.ai[0]` excludes buff id `6`.
+
+Passing buff6 smoke checkpoints:
+
+- `battle_status_buff6_before_no_effect`
+- `battle_status_buff6_producer_visual`
+- `battle_status_buff6_visual_chunk0_type7`
+- `battle_status_buff6_visual_chunk1_type1`
+- `battle_status_buff6_damage_reduction_success`
+- `battle_status_buff6_damage_reduction_fail`
+- `battle_status_buff6_p12_no_body_visual`
+- `battle_status_buff6_expiry_clears_icon`
+
+## Completed Slice: Buff7 Linh Xao
+
+Source facts now locked:
+
+- Buff row: `aq.c[6][7] = [340,355,2,-1,-1]`.
+- Producer skills: `42`, `48`.
+- Skill42 row: `[4,159,571,90,0,45,1,7,5,0]`.
+- Skill48 row: `[4,165,577,130,3,15,1,7,5,0]`.
+- `game.b.a case 7` stores the source skill in `K[7]`, uses producer `skill[8]`, and sets speed to `baseSpeed + baseSpeed * skill[8] / 100`.
+- Both producer skills use `skill[8] = 5`, so speed is `+5% baseSpeed`.
+- Producer visual differs: both start with source effect id `24`; skill42 then uses speffect `1`, skill48 uses speffect `9`.
+- P12/P13 body visual is not expected because source gate `game.d.ai[0]` excludes buff id `7`.
+
+Passing buff7 smoke checkpoints:
+
+- `battle_status_buff7_before_no_effect`
+- `battle_status_buff7_producer_visual_speed_skill42`
+- `battle_status_buff7_producer_visual_speed_skill48`
+- `battle_status_buff7_p12_no_body_visual`
+- `battle_status_buff7_expiry_clears_speed`
+
+## Completed Slice: Buff10 Man Luc
+
+Source facts now locked:
+
+- Buff row: `aq.c[6][10] = [343,358,2,-1,-1]`.
+- Producer skills: `62`, `68`.
+- Source text says attack-up, but `game.b.a case 10` uses row param `-1` literally: `baseAttack * -1 / 100`.
+- Historical source audit locks the source oddity `attack 100 -> 99` and sample damage `80 -> 79`.
+- Current runtime intentionally deviates by user approval: `attack 100 -> 115 -> 110 -> 105 -> 100`; sample turn-1 damage `80 -> 98`.
+- Producer skills `62/68` share `effect.mid` row: actor action `26`, then `speffect 0`, then `speffect 15`.
+- P12/P13 body visual is not expected because source gate `game.d.ai[0]` excludes buff id `10`.
+
+Passing buff10 smoke checkpoints:
+
+- `battle_status_buff10_before_no_effect`
+- `battle_status_buff10_skill62_start`
+- `battle_status_buff10_skill62_actor26`
+- `battle_status_buff10_skill62_speffect0`
+- `battle_status_buff10_skill62_speffect15`
+- `battle_status_buff10_skill62_after_apply`
+- `battle_status_buff10_gameplay_decay_attack_up`
+- `battle_status_buff10_p12_no_body_visual`
+- `battle_status_buff10_expiry_clears_attack`
+
+Next table-order note: buff14 `Thach Phu` is complete in `279_battle_buff14_thach_phu_audit_closeout.md`. Buff table `aq.c[6]` rows 0..14 are closed in `280_battle_buff_table_0_14_closeout.md`. Debuff0 `Gieo Hat` is complete in `282_battle_debuff0_gieo_hat_closeout.md`; debuff1 `Me Muoi` is complete in `283_battle_debuff1_me_muoi_closeout.md`; debuff2 `Quan Quanh` is complete in `284_battle_debuff2_quan_quanh_closeout.md`; debuff3 `Thuc Loai` is complete in `286_battle_debuff3_thuc_loai_closeout.md`; debuff4 `Muc` is complete in `288_battle_debuff4_muc_closeout.md`; debuff5 `Cham Chap` is complete in `290_battle_debuff5_cham_chap_closeout.md`; debuff6 `Nhut Chi` is complete in `292_battle_debuff6_nhut_chi_closeout.md`; debuff7 `Phong Ngu` is complete in `294_battle_debuff7_phong_ngu_closeout.md`; debuff8 `Quy Mi` is complete in `296_battle_debuff8_quy_mi_closeout.md` as `INTENTIONAL_DEVIATION / GAMEPLAY_FIXED`; debuff9 `Hon Loan` is complete in `297_battle_debuff9_hon_loan_closeout.md`; debuff10 `Te Liet` is complete for source-backed producer/icon/P12 visual/catch/expiry in `299_battle_debuff10_te_liet_closeout.md`. Action-delay scheduling stays `NOT_FOUND_IN_PC_SOURCE / PENDING_SOURCE_PROOF`.
 
 ## Important Pitfalls From Recent Work
 
@@ -313,27 +407,55 @@ scripts, or handoff docs.
 In docs, list PNGs project-relatively, for example:
 
 ```md
-rebuild_game/build_intro_demo/battle_status_buff4_producer_visual_defense.png
+rebuild_game/build_intro_demo/battle_status_buff6_producer_visual.png
+rebuild_game/build_intro_demo/battle_status_buff6_visual_chunk0_type7.png
+rebuild_game/build_intro_demo/battle_status_buff6_visual_chunk1_type1.png
+rebuild_game/build_intro_demo/battle_status_buff6_damage_reduction_success.png
+rebuild_game/build_intro_demo/battle_status_buff6_damage_reduction_fail.png
+rebuild_game/build_intro_demo/battle_status_buff6_p12_no_body_visual.png
+rebuild_game/build_intro_demo/battle_status_buff6_expiry_clears_icon.png
+rebuild_game/build_intro_demo/battle_status_buff7_producer_visual_speed_skill42.png
+rebuild_game/build_intro_demo/battle_status_buff7_producer_visual_speed_skill48.png
+rebuild_game/build_intro_demo/battle_status_buff7_p12_no_body_visual.png
+rebuild_game/build_intro_demo/battle_status_buff7_expiry_clears_speed.png
 ```
 
 ## Compulsory Entry Exercise
 
 Before coding, the new dev chat must answer these questions in Vietnamese:
 
-1. What files/docs did you read, and which source methods prove buff4's formula?
-2. Why does buff4 use producer `skill[8]` instead of raw row params `-1,-1`?
-3. What are the expected icon and duration cells for buff4 at duration `2` and `1`?
-4. Does buff4 need P12/P13 body visual? Why or why not?
-5. What exact smoke checkpoints will you add for buff4?
+1. What files/docs did you read, and which source methods prove buff6's apply and damage-reduction/source-oddity hooks?
+2. What is `aq.c[6][6]`, which producer skill creates it, and which `effect.mid` row proves the producer visual?
+3. Why is buff6 marked INTENTIONAL_DEVIATION/GAMEPLAY_FIXED, and what user-approved behavior replaces the source oddity?
+4. Does buff6 need P12/P13 body visual? Which source gate proves it?
+5. What source methods prove debuff7 defense-down, and why does it have no P12/P13 body visual despite a bufDebuf row?
 6. Which regression commands will you run?
-7. What is the next roadmap step after buff4 if it passes?
+7. What remains PARTIAL/PENDING after debuff6 and why is pixel-perfect original comparison still not claimed?
 
 If any answer is uncertain, audit source first. Do not code by guessing.
 
 ## One-Line Current Status For Handoff
 
-As of this handoff, battle skill-effect work is in temporary buff/debuff
-completion. Buff0, buff1, buff2, and buff3 are PORTED with dedicated smoke
-coverage. The next slice is buff4 Phong ngu, source-backed defense +10% from
-producer skills `21/27`, duration `2`, icon `16`, no P12/P13 body visual, with
-full producer/logic/miss/crit/expiry smoke required before moving on.
+As of the latest update, battle skill-effect work has closed the self-buff table
+`aq.c[6]` rows `0..14`. Buff6 Kien nhan and buff10 Man Luc remain explicitly
+user-approved `INTENTIONAL_DEVIATION / GAMEPLAY_FIXED`; buff11 and buff12 remain
+`PORTED/PARTIAL` for broader source-vector parity. Buff closeout summary is
+`280`; debuff0 `Gieo Hat` closeout is `282`; debuff1 `Me Muoi` closeout is
+`283`; debuff2 `Quan Quanh` closeout is `284`; debuff3 `Thuc Loai`
+closeout is `286`; debuff4 `Muc` closeout is `288`; debuff5 `Cham Chap`
+closeout is `290`; debuff6 `Nhut Chi` closeout is `292`; debuff7 `Phong Ngu`
+closeout is `294`; debuff8 `Quy Mi` closeout is `296`; debuff9 `Hon Loan`
+closeout is `297`; debuff10 `Te Liet` closeout is `299`; debuff table closeout is `300`; skill grouped roadmap is `301`. Debuff8 and debuff9
+remain `PORTED/PARTIAL` only for full multi-active visible target divergence;
+their zero-power no-ordinary-producer paths, active consumers, body visuals,
+and expiry are smoke-locked. Debuff9 P5 pet switch is `NOT_APPLICABLE /
+USER_CONFIRMED_ALLOWED`; only debuff2 `Quan Quanh` blocks item/pet/run
+commands. Debuff10 producer/icon/P12 visual/catch/expiry are smoke-locked;
+action-delay scheduling remains `NOT_FOUND_IN_PC_SOURCE / PENDING_SOURCE_PROOF`
+because `game.d h.f((byte)10)` is held item/passive id `10`, not debuff10. Keep
+skill54/55 ordinary debuff producers `NOT_REACHED` under the zero-power P7
+guard.
+
+Next practical target: create `302_battle_skill_direct_base_animation_audit.md`
+from `301`, starting with representative direct base skills `0,10,20,30,40,50,60`.
+Do not reopen debuff10 unless a real source action-delay callsite is found.

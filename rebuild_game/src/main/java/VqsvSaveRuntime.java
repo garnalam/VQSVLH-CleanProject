@@ -303,6 +303,8 @@ final class VqsvSaveRuntime {
             p.setProperty(prefix + "." + i + ".skills", join(pet.skillIds));
             p.setProperty(prefix + "." + i + ".cooldowns", join(pet.skillCooldowns));
             p.setProperty(prefix + "." + i + ".payload", join(pet.sourcePayload));
+            p.setProperty(prefix + "." + i + ".buffSlots", join(pet.sourceBuffSlots));
+            p.setProperty(prefix + "." + i + ".debuffSlots", join(pet.sourceDebuffSlots));
             p.setProperty(prefix + "." + i + ".specialUse", String.valueOf(pet.sourceSpecialUseId));
         }
     }
@@ -325,6 +327,8 @@ final class VqsvSaveRuntime {
             copyInto(ints(p.getProperty(prefix + "." + i + ".skills", "")), pet.skillIds);
             copyInto(ints(p.getProperty(prefix + "." + i + ".cooldowns", "")), pet.skillCooldowns);
             pet.sourcePayload = ints(p.getProperty(prefix + "." + i + ".payload", ""));
+            copyInto(ints(p.getProperty(prefix + "." + i + ".buffSlots", "")), pet.sourceBuffSlots);
+            copyInto(ints(p.getProperty(prefix + "." + i + ".debuffSlots", "")), pet.sourceDebuffSlots);
             pet.sourceSpecialUseId = intProp(p, prefix + "." + i + ".specialUse", -1);
             pets.add(pet);
         }
@@ -340,6 +344,27 @@ final class VqsvSaveRuntime {
                 out.append(',');
             }
             out.append(values[i]);
+        }
+        return out.toString();
+    }
+
+    private static String join(short[][] values) {
+        if (values == null) {
+            return "";
+        }
+        StringBuilder out = new StringBuilder();
+        boolean first = true;
+        for (short[] row : values) {
+            if (row == null) {
+                continue;
+            }
+            for (short value : row) {
+                if (!first) {
+                    out.append(',');
+                }
+                out.append(value);
+                first = false;
+            }
         }
         return out.toString();
     }
@@ -365,6 +390,18 @@ final class VqsvSaveRuntime {
     private static void copyInto(int[] source, int[] target) {
         for (int i = 0; i < target.length && i < source.length; i++) {
             target[i] = source[i];
+        }
+    }
+
+    private static void copyInto(int[] source, short[][] target) {
+        int index = 0;
+        for (int row = 0; row < target.length; row++) {
+            for (int col = 0; col < target[row].length; col++) {
+                if (index >= source.length) {
+                    return;
+                }
+                target[row][col] = (short) source[index++];
+            }
         }
     }
 

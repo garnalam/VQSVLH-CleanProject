@@ -28,10 +28,11 @@ final class VqsvSmokeHarness {
             "battle_elder_p7_damage_frame",
             "battle_p7_hit_forced_direct_skill10",
             "battle_p7_miss_forced_skill10",
-            "battle_p7_miss_forced_debuff_no_commit",
+            "battle_p7_miss_forced_debuff_source_commit",
             "battle_p7_hit_forced_debuff_commit",
             "battle_p7_crit_forced_skill10",
             "battle_exp_normal_gain_no_levelup_anim",
+            "battle_p5_switch_preserves_hp_pp_buff_debuff_state",
             "battle_choice_ui_p4_wheel_hover_click_viewport",
             "battle_choice_ui_p21_synthetic_wheel_hover_click_viewport",
             "battle_choice_ui_p16_audit_not_choice_ui",
@@ -56,14 +57,179 @@ final class VqsvSmokeHarness {
             "battle_status_buff3_p12_body_visual_start",
             "battle_status_buff3_p12_heal_tick",
             "battle_status_buff3_expiry_clears_icon",
+            "battle_status_buff4_before_no_effect",
+            "battle_status_buff4_producer_visual_defense",
+            "battle_status_buff4_forced_hit_target_defense",
+            "battle_status_buff4_forced_miss_no_extra_side_effect",
+            "battle_status_buff4_forced_crit_no_wrong_multiplier",
+            "battle_status_buff4_expiry_clears_defense",
+            "battle_status_buff5_before_no_effect",
+            "battle_status_buff5_producer_visual",
+            "battle_status_buff5_forced_reflect_success",
+            "battle_status_buff5_forced_reflect_fail",
+            "battle_status_buff5_p12_body_visual_start",
+            "battle_status_buff5_expiry_clears_icon",
+            "battle_status_buff6_before_no_effect",
+            "battle_status_buff6_producer_visual",
+            "battle_status_buff6_visual_chunk0_type7",
+            "battle_status_buff6_visual_chunk1_type1",
+            "battle_status_buff6_damage_reduction_success",
+            "battle_status_buff6_damage_reduction_fail",
+            "battle_status_buff6_p12_no_body_visual",
+            "battle_status_buff6_expiry_clears_icon",
+            "battle_status_buff7_before_no_effect",
+            "battle_status_buff7_producer_visual_speed_skill42",
+            "battle_status_buff7_skill42_start",
+            "battle_status_buff7_skill42_actor24",
+            "battle_status_buff7_skill42_speffect1",
+            "battle_status_buff7_skill42_after",
+            "battle_status_buff7_producer_visual_speed_skill48",
+            "battle_status_buff7_skill48_speffect9",
+            "battle_status_buff7_skill48_after",
+            "battle_status_buff7_p12_no_body_visual",
+            "battle_status_buff7_expiry_clears_speed",
             "battle_status_buff8_producer_visual",
             "battle_status_buff8_pp_cost_damage_active",
             "battle_status_buff8_expiry_clears_pp_damage",
+            "battle_status_buff9_before_no_effect",
+            "battle_status_buff9_producer_visual_stats",
+            "battle_elder_p7_speffect45_start",
+            "battle_elder_p7_speffect45_overlay",
+            "battle_elder_p7_speffect45_type1",
+            "battle_elder_p7_speffect45_after",
+            "battle_status_buff9_p12_no_body_visual",
+            "battle_status_buff9_expiry_clears_stats",
+            "battle_status_buff10_before_no_effect",
+            "battle_status_buff10_skill62_start",
+            "battle_status_buff10_skill62_actor26",
+            "battle_status_buff10_skill62_speffect0",
+            "battle_status_buff10_skill62_speffect15",
+            "battle_status_buff10_skill62_after_apply",
+            "battle_status_buff10_gameplay_decay_attack_up",
+            "battle_status_buff10_p12_no_body_visual",
+            "battle_status_buff10_expiry_clears_attack",
             "battle_status_buff10_attack_up_damage",
+            "battle_status_buff11_skill64_selected_buff_copy",
+            "battle_status_buff11_active_tick_resteal",
+            "battle_status_buff11_selected_slot_nonzero",
+            "battle_status_buff11_donor_switch_cleanup",
+            "battle_status_buff12_before_no_effect",
+            "battle_status_buff12_skill65_speffect16",
+            "battle_status_buff12_skill65_speffect15",
+            "battle_status_buff12_after_apply_k1",
+            "battle_status_buff12_p13_promotes_k2_no_body_visual",
+            "battle_status_buff12_pp_refund_followup",
+            "battle_status_buff12_expiry_clears_icon",
+            "battle_status_buff13_before_no_effect",
+            "battle_status_buff13_skill24_actor22",
+            "battle_status_buff13_skill24_speffect17",
+            "battle_status_buff13_after_apply_cleanse_heal",
+            "battle_status_buff13_p13_body_visual_start",
+            "battle_status_buff13_p13_heal_tick",
+            "battle_status_buff13_expiry_clears_icon",
+            "battle_status_buff14_before_no_effect",
+            "battle_status_buff14_skill25_speffect4",
+            "battle_status_buff14_skill25_speffect17",
+            "battle_status_buff14_after_apply_cleanse_protect",
+            "battle_status_buff14_blocks_debuff_families",
+            "battle_status_buff14_p13_no_body_visual_preclear",
+            "battle_status_buff14_expiry_clears_icon",
             "battle_status_buff14_blocks_debuff",
+            "battle_status_debuff0_before_no_effect",
+            "battle_status_debuff0_skill1_producer_apply",
+            "battle_status_debuff0_skill7_producer_apply",
+            "battle_status_debuff0_tick_skill1_div4",
+            "battle_status_debuff0_tick_skill7_div3",
+            "battle_status_debuff0_body_visual_speffect18_anchor",
+            "battle_status_debuff0_expiry_clears_icon",
+            "battle_status_debuff0_buff14_blocks_skill1",
             "battle_status_debuff0_damage_tick",
+            "battle_status_debuff1_before_no_effect",
+            "battle_status_debuff1_skill2_producer_apply",
+            "battle_status_debuff1_skill8_producer_apply",
+            "battle_status_debuff1_skill22_producer_apply",
+            "battle_status_debuff1_skill28_producer_apply",
+            "battle_status_debuff1_body_visual_speffect14_type12",
+            "battle_status_debuff1_tick_noop_duration",
+            "battle_status_debuff1_expiry_clears_icon",
+            "battle_status_debuff1_catch_multiplier",
+            "battle_status_debuff1_conditional_skill23_damage",
+            "battle_status_debuff1_conditional_skill29_damage",
+            "battle_status_debuff1_buff14_blocks_skill2",
+            "battle_status_debuff2_before_no_effect",
+            "battle_status_debuff2_skill12_producer_apply",
+            "battle_status_debuff2_skill18_producer_apply",
+            "battle_status_debuff2_body_visual_speffect6_type8",
+            "battle_status_debuff2_tick_noop_duration",
+            "battle_status_debuff2_expiry_clears_icon",
+            "battle_status_debuff2_catch_multiplier",
+            "battle_status_debuff2_defense_formula_reduces_damage",
+            "battle_status_debuff2_command_locks_item_pet_run",
+            "battle_status_debuff2_allows_skill_catch_shop",
+            "battle_status_debuff2_buff14_blocks_skill12",
+            "battle_status_debuff3_before_no_effect",
+            "battle_status_debuff3_skill13_producer_apply",
+            "battle_status_debuff3_skill19_producer_apply",
+            "battle_status_debuff3_body_visual_actor21",
+            "battle_status_debuff3_tick1_no_damage_duration2",
+            "battle_status_debuff3_tick2_no_damage_duration1",
+            "battle_status_debuff3_final_tick_damage_skill13",
+            "battle_status_debuff3_final_tick_damage_skill19",
+            "battle_status_debuff3_final_tick_ko_transition",
+            "battle_status_debuff3_buff14_blocks_skill13",
+            "battle_status_debuff4_before_no_effect",
+            "battle_status_debuff4_skill31_producer_apply",
+            "battle_status_debuff4_skill37_producer_apply",
+            "battle_status_debuff4_p12_no_body_visual_skip",
+            "battle_status_debuff4_tick_noop_duration2",
+            "battle_status_debuff4_expiry_clears_icon",
+            "battle_status_debuff4_miss_chance_value1",
+            "battle_status_debuff4_miss_chance_value2",
+            "battle_status_debuff4_buff14_blocks_skill31",
+            "battle_status_debuff5_before_no_effect",
+            "battle_status_debuff5_skill32_producer_speed10",
+            "battle_status_debuff5_skill38_producer_speed10",
+            "battle_status_debuff5_skill61_producer_speed5",
+            "battle_status_debuff5_skill67_raw_no_debuff",
+            "battle_status_debuff5_p12_no_body_visual_reassert_speed",
+            "battle_status_debuff5_expiry_restores_speed",
+            "battle_status_debuff5_miss_chance_attacker_speed_down",
+            "battle_status_debuff5_buff14_blocks_skill32",
             "battle_status_debuff5_speed_down",
+            "battle_status_debuff6_before_no_effect",
+            "battle_status_debuff6_skill33_producer_damage_down10",
+            "battle_status_debuff6_skill39_producer_damage_down10",
+            "battle_status_debuff6_miss_queue_no_text",
+            "battle_status_debuff6_p12_no_body_visual_noop",
+            "battle_status_debuff6_expiry_clears_icon",
+            "battle_status_debuff6_outgoing_damage_down",
+            "battle_status_debuff6_buff14_blocks_skill33",
+            "battle_status_debuff7_before_no_effect",
+            "battle_status_debuff7_skill51_producer_defense_down20",
+            "battle_status_debuff7_skill57_producer_defense_down20",
+            "battle_status_debuff7_miss_queue_no_text",
+            "battle_status_debuff7_p12_no_body_visual_reassert_defense",
+            "battle_status_debuff7_expiry_restores_defense",
+            "battle_status_debuff7_incoming_damage_up",
+            "battle_status_debuff7_buff14_blocks_skill51",
             "battle_status_debuff7_defense_down",
+            "battle_status_debuff8_before_no_effect",
+            "battle_status_debuff8_skill54_zero_power_no_apply",
+            "battle_status_debuff8_skill54_zero_power_buff14_no_apply",
+            "battle_status_debuff8_gameplay_fixed_self_hit_damage_up",
+            "battle_status_debuff8_gameplay_fixed_enemy_hit_damage_up",
+            "battle_status_debuff8_p12_body_visual_type1_actor25",
+            "battle_status_debuff8_expiry_clears_icon",
+            "battle_status_debuff9_before_no_effect",
+            "battle_status_debuff9_skill55_zero_power_no_apply",
+            "battle_status_debuff9_random_target_seeded_active",
+            "battle_status_debuff9_p12_body_visual_type12",
+            "battle_status_debuff9_expiry_clears_icon",
+            "battle_status_debuff10_before_no_effect",
+            "battle_status_debuff10_skill41_producer_apply",
+            "battle_status_debuff10_skill47_producer_apply",
+            "battle_status_debuff10_p12_body_visual_type9",
+            "battle_status_debuff10_expiry_clears_icon",
             "battle_status_debuff10_catch_multiplier",
             "battle_status_form0_low_hp_attack_boost",
             "battle_held_item1_attack_boost",
@@ -90,6 +256,20 @@ final class VqsvSmokeHarness {
             "panel_petmap_mouse_wheel_hover_click_viewport",
             "world_petstate_mouse_wheel_scrollbar_no_confirm",
             "world_petstate_mouse_wheel_hover_click_viewport"
+    };
+    private static final String[] BATTLE_BUFF5_VISUAL_TIMELINE_SUITE = {
+            "battle_phase10b_p7_type7_skill34_start",
+            "battle_phase10b_p7_type7_skill34_overlay",
+            "battle_phase10b_p7_type7_skill34_after",
+            "battle_status_buff5_p12_body_visual_start",
+            "battle_status_buff5_p12_body_visual_mid",
+            "battle_status_buff5_p12_body_visual_after"
+    };
+    private static final String[] BATTLE_SKILL10_DIRECT_ANIMATION_SUITE = {
+            "battle_skill10_direct_before",
+            "battle_skill10_direct_actor_u21_start",
+            "battle_skill10_direct_damage_frame",
+            "battle_skill10_direct_hp_settled"
     };
 
     private VqsvSmokeHarness() {
@@ -466,6 +646,22 @@ final class VqsvSmokeHarness {
         return false;
     }
 
+    private static boolean traceContainsAll(VqsvIntroDemo.Scene s, String... needles) {
+        for (String line : s.sourceStateTrace) {
+            boolean ok = true;
+            for (String needle : needles) {
+                if (!line.contains(needle)) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static int traceIndex(VqsvIntroDemo.Scene s, String needle) {
         for (int i = 0; i < s.sourceStateTrace.size(); i++) {
             if (s.sourceStateTrace.get(i).contains(needle)) {
@@ -671,6 +867,201 @@ final class VqsvSmokeHarness {
                         + " phase=" + s.battleP7Phase);
             }
             s.tick();
+        }
+    }
+
+    private static boolean isSkill10DirectAnimationCheckpoint(String checkpoint) {
+        return "battle_skill10_direct_before".equals(checkpoint)
+                || "battle_skill10_direct_actor_u21_start".equals(checkpoint)
+                || "battle_skill10_direct_damage_frame".equals(checkpoint)
+                || "battle_skill10_direct_hp_settled".equals(checkpoint)
+                || "battle_skill10_direct_finish".equals(checkpoint);
+    }
+
+    private static void handleSkill10DirectAnimationCheckpoint(VqsvIntroDemo.Scene s, String checkpoint) {
+        if ("battle_skill10_direct_before".equals(checkpoint)) {
+            SourceBattleRuntime runtime = enterElderP3Skill10BeforeConfirm(s);
+            assertSkill10SourceRows(s, checkpoint);
+            assertSkill10P3BeforeConfirm(s, runtime, checkpoint);
+            s.sourceStateTrace.add("SMOKE verified skill10 Diệp Toàn before"
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " effectRow=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(10)));
+            return;
+        }
+
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        assertSkill10SourceRows(s, checkpoint);
+
+        if ("battle_skill10_direct_actor_u21_start".equals(checkpoint)) {
+            tickUntilBattleP7Phase(s, 1, 120);
+            for (int i = 0; i < 20 && !s.battleP7ActorEffectVisible; i++) {
+                s.tick();
+            }
+            assertSkill10P7ActorVisible(s, runtime, checkpoint);
+            s.sourceStateTrace.add("SMOKE verified skill10 Diệp Toàn actor"
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                    + " actorState=" + s.battleP7ActorEffectState
+                    + " actorCursor=" + s.battleP7ActorEffectCursor
+                    + " side=" + (s.battleP7ActorEffectOnPlayerSide ? "player" : "enemy"));
+            return;
+        }
+
+        tickUntilBattleP7Phase(s, 2, 160);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if ("battle_skill10_direct_damage_frame".equals(checkpoint)) {
+            assertSkill10DamageFrame(s, runtime, checkpoint, damage);
+            s.sourceStateTrace.add("SMOKE verified skill10 Diệp Toàn damage frame"
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " damage=" + damage
+                    + " damageText=" + s.battleP7DamageText
+                    + " actorVisible=" + s.battleP7ActorEffectVisible);
+            return;
+        }
+
+        int expectedEnemyHp = Math.max(0, s.battleEnemyMaxHp - damage);
+        int guard = 0;
+        while ("P7".equals(s.battleStateName)
+                && s.battleEnemyHp > expectedEnemyHp
+                && guard++ < 240) {
+            s.tick();
+        }
+        if (s.battleEnemyHp > expectedEnemyHp
+                || runtime.debugPlayerSkillPpForSmoke(0) != 44
+                || damage <= 0
+                || !traceContains(s, "battle P7 source n() skill=10")
+                || !traceContains(s, "battle P7 actor u.a() start skill=10")
+                || !traceContains(s, "battle P7 damage frame skill=10")) {
+            throw new IllegalStateException(checkpoint + " expected skill10 HP display to settle after damage"
+                    + " state=" + s.battleStateName
+                    + " phase=" + s.battleP7Phase
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " expectedHp=" + expectedEnemyHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " damage=" + damage
+                    + " trace=" + tailTrace(s, 36));
+        }
+        s.sourceStateTrace.add("SMOKE verified skill10 Diệp Toàn finish"
+                + " state=" + s.battleStateName
+                + " phase=" + s.battleP7Phase
+                + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                + " expectedEnemyHp=" + expectedEnemyHp
+                + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                + " damage=" + damage
+                + " actorVisible=" + s.battleP7ActorEffectVisible);
+    }
+
+    private static SourceBattleRuntime enterElderP3Skill10BeforeConfirm(VqsvIntroDemo.Scene s) {
+        s.eventIndex = s.events.size();
+        s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+        SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+        s.current = runtime;
+        tickUntilBattleState(s, "P20", 120);
+        s.battleClickX = 20;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P3", 80);
+        for (int i = 0; i < 10; i++) {
+            s.tick();
+        }
+        return runtime;
+    }
+
+    private static void assertSkill10SourceRows(VqsvIntroDemo.Scene s, String checkpoint) {
+        BattleSkillRow row = VqsvBattleTables.instance().skill(10);
+        byte[] effect = VqsvBattleAnimationTables.instance().effectRow(10);
+        if (row == null
+                || row.powerPercent != 100
+                || row.ppMax != 45
+                || row.effectMode != 0
+                || row.effectId != -1
+                || row.targetSide != 0
+                || !java.util.Arrays.equals(effect, new byte[]{0, 0, 21, 1, -1, -1, 0})) {
+            throw new IllegalStateException(checkpoint + " skill10 source row mismatch"
+                    + " skill=" + (row == null ? "null" : java.util.Arrays.toString(row.raw))
+                    + " effect=" + java.util.Arrays.toString(effect));
+        }
+        s.sourceStateTrace.add("SMOKE verified skill10 source rows aq.c[1][10]="
+                + java.util.Arrays.toString(row.raw)
+                + " effect.mid[10]=" + java.util.Arrays.toString(effect)
+                + " name=" + row.name("skill10"));
+    }
+
+    private static void assertSkill10P3BeforeConfirm(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                     String checkpoint) {
+        if (!"P3".equals(s.battleStateName)
+                || s.battleSkillIds.length == 0
+                || s.battleSkillIds[0] != 10
+                || runtime.debugPlayerSkillPpForSmoke(0) != 45
+                || s.battleEnemyHp != s.battleEnemyMaxHp
+                || s.battleP7ActorEffectVisible
+                || s.battleP7DamageVisible) {
+            throw new IllegalStateException(checkpoint + " expected P3 pre-confirm skill10 snapshot"
+                    + " state=" + s.battleStateName
+                    + " skills=" + java.util.Arrays.toString(s.battleSkillIds)
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " actor=" + s.battleP7ActorEffectVisible
+                    + " damageVisible=" + s.battleP7DamageVisible
+                    + " trace=" + tailTrace(s, 24));
+        }
+    }
+
+    private static void assertSkill10P7ActorVisible(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                    String checkpoint) {
+        if (!s.battleP7ActorEffectVisible
+                || s.battleP7ActorEffectSpriteId != 263
+                || s.battleP7ActorEffectState != 1
+                || s.battleP7ActorEffectOnPlayerSide
+                || s.battleEnemyHp != s.battleEnemyMaxHp
+                || runtime.debugPlayerSkillPpForSmoke(0) != 44
+                || !traceContains(s, "battle P7 source n() skill=10")
+                || !traceContains(s, "id=21")
+                || !traceContains(s, "param=1")
+                || !traceContains(s, "battle P7 actor u.a() start skill=10")
+                || traceContains(s, "battle P7 damage frame skill=10")) {
+            throw new IllegalStateException(checkpoint + " expected skill10 actor u21 before damage"
+                    + " actorVisible=" + s.battleP7ActorEffectVisible
+                    + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                    + " actorState=" + s.battleP7ActorEffectState
+                    + " actorCursor=" + s.battleP7ActorEffectCursor
+                    + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " trace=" + tailTrace(s, 36));
+        }
+    }
+
+    private static void assertSkill10DamageFrame(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                 String checkpoint, int damage) {
+        if (!s.battleP7DamageVisible
+                || s.battleP7DamageText.isEmpty()
+                || !s.battleP7MissText.isEmpty()
+                || s.battleP7ActorEffectVisible
+                || runtime.debugPlayerSkillPpForSmoke(0) != 44
+                || damage <= 0
+                || s.battleEnemyHp != s.battleEnemyMaxHp
+                || !traceContains(s, "battle P7 damage frame skill=10")
+                || !traceContains(s, "hit=true")
+                || !traceContains(s, "sideEffectsCommitted=true")) {
+            throw new IllegalStateException(checkpoint + " expected skill10 damage frame"
+                    + " visible=" + s.battleP7DamageVisible
+                    + " damageText=" + s.battleP7DamageText
+                    + " missText=" + s.battleP7MissText
+                    + " actorVisible=" + s.battleP7ActorEffectVisible
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " damage=" + damage
+                    + " trace=" + tailTrace(s, 36));
         }
     }
 
@@ -4966,6 +5357,63 @@ final class VqsvSmokeHarness {
         if (runAvoidMonsterWorldSmokeIfNeeded(checkpoint, outPath)) {
             return;
         }
+        if (runSkill45AnimationSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runBuff7AnimationSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runBuff10CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runBuff12CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runBuff13CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runBuff14CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff0CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff1CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff2CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff3CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff4CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff5CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff6CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff7CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff8CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff8SpecialRouteSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff9CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runDebuff10CloseoutSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runBattleP5SwitchPersistenceSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
         try {
             VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
             if ("room0_group2_first_dialog".equals(checkpoint)) {
@@ -5885,6 +6333,8 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Expected target recover/dead state after skill10 damage, state="
                             + s.battleP7BaseStateEnemySide);
                 }
+            } else if (isSkill10DirectAnimationCheckpoint(checkpoint)) {
+                handleSkill10DirectAnimationCheckpoint(s, checkpoint);
             } else if ("battle_elder_p7_damage_frame".equals(checkpoint)) {
                 enterElderP7FromFight(s);
                 tickUntilBattleP7Phase(s, 2, 120);
@@ -6018,7 +6468,8 @@ final class VqsvSmokeHarness {
                             + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
                             + " trace=" + tailTrace(s, 22));
                 }
-            } else if ("battle_p7_miss_forced_debuff_no_commit".equals(checkpoint)) {
+            } else if ("battle_p7_miss_forced_debuff_source_commit".equals(checkpoint)
+                    || "battle_p7_miss_forced_debuff_no_commit".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{2, 45}, 0);
                 SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
                 runtime.debugSetPlayerSpeedForSmoke(s, 0);
@@ -6032,14 +6483,14 @@ final class VqsvSmokeHarness {
                         || !s.battleP7DamageText.isEmpty()
                         || !s.battleP7DebuffText.isEmpty()
                         || s.battleEnemyHp != s.battleEnemyMaxHp
-                        || runtime.debugEnemyHasDebuffForSmoke(1)
+                        || !runtime.debugEnemyHasDebuffForSmoke(1)
                         || !traceContains(s, "SMOKE battle forced damage.debuff roll=0")
                         || !traceContains(s, "pendingDebuffId=1")
-                        || !traceContains(s, "appliedDebuffId=-1")
-                        || !traceContains(s, "sideEffectsCommitted=false")
-                        || !traceContains(s, "discarded pending side effects on miss")
+                        || !traceContains(s, "appliedDebuffId=1")
+                        || !traceContains(s, "sideEffectsCommitted=true")
+                        || !traceContains(s, "committed source immediate side effects on miss")
                         || !traceContains(s, "hit=false")) {
-                    throw new IllegalStateException("Expected forced miss with debuff skill to discard pending debuff,"
+                    throw new IllegalStateException("Expected forced miss with debuff skill to commit source immediate debuff without HP/text,"
                             + " visible=" + s.battleP7DamageVisible
                             + " damageText=" + s.battleP7DamageText
                             + " missText=" + s.battleP7MissText
@@ -7385,7 +7836,8 @@ final class VqsvSmokeHarness {
                             + " enemyDebuff10=" + runtime.debugEnemyHasDebuffForSmoke(10)
                             + " trace=" + tailTrace(s, 48));
                 }
-            } else if ("battle_phase9w_skill64_selected_buff_copy".equals(checkpoint)) {
+            } else if ("battle_phase9w_skill64_selected_buff_copy".equals(checkpoint)
+                    || "battle_status_buff11_skill64_selected_buff_copy".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{64, 45}, 0);
                 SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
                 runtime.debugEnemySourceBuffForClearSmoke(s, 2, 10, 14);
@@ -7426,6 +7878,16 @@ final class VqsvSmokeHarness {
                             + " playerBuff11Value=" + runtime.debugPlayerBuffValueForSmoke(11)
                             + " trace=" + tailTrace(s, 52));
                 }
+                assertPhase10AStatusSlots(s, true, "status buff11 skill64 selected buff copy",
+                        new int[]{14, 23}, new int[]{137, 137});
+                s.sourceStateTrace.add("SMOKE verified buff11 Thau Thu cast-time selected donor copy"
+                        + " skill64=true"
+                        + " donorSlot=0"
+                        + " copiedBuff=2"
+                        + " donorCleared=true"
+                        + " buff11Duration=3"
+                        + " noDamage=true"
+                        + " source=game.d.q case64 + game.b.a(11,slot,skill)");
             } else if (checkpoint.startsWith("battle_phase9y_no_damage_buff_skill_")) {
                 int skillId = parseSkillIdSuffix(checkpoint, "battle_phase9y_no_damage_buff_skill_");
                 int buffId = phase9YBuffId(skillId);
@@ -7552,7 +8014,7 @@ final class VqsvSmokeHarness {
                 } else {
                     int reduction = runtime.debugEnemyAttackPlayerBuff6ReductionForSmoke(s);
                     hookOk = reduction > 0
-                            && traceContains(s, "Phase9AA buff6 source-odd hook skill=35")
+                            && traceContains(s, "Phase9AA buff6 gameplay reduction hook skill=35")
                             && traceContains(s, "battle.Phase9AA.buff6Reduced.damage.buff6");
                 }
                 if (!producerOk || !hookOk) {
@@ -8789,37 +9251,6 @@ final class VqsvSmokeHarness {
                 }
                 if ("P7".equals(s.battleStateName)) {
                     throw new IllegalStateException("P7 did not resolve");
-                }
-            } else if ("battle_elder_p7_speffect45_start".equals(checkpoint)) {
-                enterElderP7WithSkillIndex(s, 1);
-                tickUntilBattleP7Phase(s, 1, 80);
-            } else if ("battle_elder_p7_speffect45_overlay".equals(checkpoint)) {
-                enterElderP7WithSkillIndex(s, 1);
-                tickUntilBattleP7Phase(s, 1, 80);
-                for (int i = 0; i < 2; i++) {
-                    s.tick();
-                }
-                if (!s.battleP7SpecialVisible) {
-                    throw new IllegalStateException("Expected skill 45 AH type 9 overlay to be visible");
-                }
-            } else if ("battle_elder_p7_speffect45_type1".equals(checkpoint)) {
-                enterElderP7WithSkillIndex(s, 1);
-                tickUntilBattleP7Phase(s, 1, 80);
-                for (int i = 0; i < 8 && s.battleP7SpecialType != 1; i++) {
-                    s.tick();
-                }
-                if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 1) {
-                    throw new IllegalStateException("Expected skill 45 chunk1 AH type 1 overlay, type="
-                            + s.battleP7SpecialType + " visible=" + s.battleP7SpecialVisible);
-                }
-            } else if ("battle_elder_p7_speffect45_after".equals(checkpoint)) {
-                enterElderP7WithSkillIndex(s, 1);
-                int guard = 0;
-                while ("P7".equals(s.battleStateName) && guard++ < 180) {
-                    s.tick();
-                }
-                if ("P7".equals(s.battleStateName)) {
-                    throw new IllegalStateException("P7 speffect45 did not resolve");
                 }
             } else if ("battle_phase10b_p7_type12_skill55_start".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{55, 45}, 0);
@@ -10579,9 +11010,13 @@ final class VqsvSmokeHarness {
                         || !traceContains(s, "clearedEnemyBuff11=1")
                         || !traceContains(s, "sourcePetOrder=[0, 1]")
                         || !s.sourcePets.get(0).sourceK()
-                        || s.sourcePets.get(1).sourceK()) {
+                        || s.sourcePets.get(1).sourceK()
+                        || runtime.debugEnemyHasBuffForSmoke(11)
+                        || s.battleEnemyStatusCount != 0) {
                     throw new IllegalStateException("Expected P5 switch to clear source buff11 and set K flags, state="
                             + s.battleStateName
+                            + " enemyHasBuff11=" + runtime.debugEnemyHasBuffForSmoke(11)
+                            + " enemyStatusCount=" + s.battleEnemyStatusCount
                             + " active0=" + s.sourcePets.get(0).sourceK()
                             + " active1=" + s.sourcePets.get(1).sourceK()
                             + " trace=" + tailTrace(s, 16));
@@ -10662,6 +11097,623 @@ final class VqsvSmokeHarness {
             ex.printStackTrace();
             System.exit(1);
         }
+    }
+
+    private static boolean runSkill45AnimationSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_elder_p7_speffect45_start".equals(checkpoint)
+                && !"battle_elder_p7_speffect45_overlay".equals(checkpoint)
+                && !"battle_elder_p7_speffect45_type1".equals(checkpoint)
+                && !"battle_elder_p7_speffect45_after".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_elder_p7_speffect45_start".equals(checkpoint)) {
+                enterElderP7WithSkillIndex(s, 1);
+                tickUntilBattleP7Phase(s, 1, 80);
+            } else if ("battle_elder_p7_speffect45_overlay".equals(checkpoint)) {
+                enterElderP7WithSkillIndex(s, 1);
+                tickUntilBattleP7Phase(s, 1, 80);
+                for (int i = 0; i < 16 && (!s.battleP7SpecialVisible || s.battleP7SpecialType != 9); i++) {
+                    s.tick();
+                }
+                if (!s.battleP7SpecialVisible
+                        || s.battleP7SpecialType != 9
+                        || !s.battleP7SpecialOnPlayerSide
+                        || !traceContains(s, "battle P7 speffect skill=45")
+                        || !traceContains(s, "speffect=19")) {
+                    throw new IllegalStateException("Expected skill45 chunk0 speffect19 AH type9 overlay on player side,"
+                            + " state=" + s.battleStateName
+                            + " phase=" + s.battleP7Phase
+                            + " special=" + s.battleP7SpecialVisible
+                            + " type=" + s.battleP7SpecialType
+                            + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                            + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                            + " trace=" + tailTrace(s, 48));
+                }
+            } else if ("battle_elder_p7_speffect45_type1".equals(checkpoint)) {
+                enterElderP7WithSkillIndex(s, 1);
+                tickUntilBattleP7Phase(s, 1, 80);
+                for (int i = 0; i < 180 && (!s.battleP7SpecialVisible || s.battleP7SpecialType != 1); i++) {
+                    s.tick();
+                }
+                if (!s.battleP7SpecialVisible
+                        || s.battleP7SpecialType != 1
+                        || !s.battleP7SpecialOnPlayerSide
+                        || !traceContains(s, "battle P7 speffect skill=45")
+                        || !traceContains(s, "speffect=15")) {
+                    throw new IllegalStateException("Expected skill45 chunk1 speffect15 AH type1 overlay on player side,"
+                            + " state=" + s.battleStateName
+                            + " phase=" + s.battleP7Phase
+                            + " special=" + s.battleP7SpecialVisible
+                            + " type=" + s.battleP7SpecialType
+                            + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                            + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                            + " trace=" + tailTrace(s, 48));
+                }
+            } else {
+                enterElderP7WithSkillIndex(s, 1);
+                int guard = 0;
+                while ("P7".equals(s.battleStateName) && guard++ < 180) {
+                    s.tick();
+                }
+                if ("P7".equals(s.battleStateName)) {
+                    throw new IllegalStateException("P7 skill45 animation did not resolve, trace="
+                            + tailTrace(s, 48));
+                }
+                if (!traceContains(s, "game.d.q postEffect skill=45")
+                        || !traceContains(s, "buffId=9")) {
+                    throw new IllegalStateException("Expected skill45 postEffect to apply buff9 before after-frame,"
+                            + " trace=" + tailTrace(s, 48));
+                }
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runBuff7AnimationSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_buff7_skill42_start".equals(checkpoint)
+                && !"battle_status_buff7_skill42_actor24".equals(checkpoint)
+                && !"battle_status_buff7_skill42_speffect1".equals(checkpoint)
+                && !"battle_status_buff7_skill42_after".equals(checkpoint)
+                && !"battle_status_buff7_skill48_speffect9".equals(checkpoint)
+                && !"battle_status_buff7_skill48_after".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            int skillId = checkpoint.contains("skill48") ? 48 : 42;
+            int expectedSpeffect = skillId == 42 ? 1 : 9;
+            enterElderP7WithSkills(s, new int[]{skillId, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerAttackForSmoke(s, 100);
+            runtime.debugSetEnemyDefenseForSmoke(s, 40);
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            runtime.debugSetNextP7HitRollForSmoke(99);
+            BattleUnit.setDamageRandomSeedForChecks(0L);
+            tickUntilBattleP7Phase(s, 1, 80);
+
+            if (checkpoint.endsWith("_start")) {
+                if (runtime.debugPlayerHasBuffForSmoke(7)
+                        || s.battleP7SpecialVisible
+                        || s.battleP7ActorEffectVisible) {
+                    throw new IllegalStateException("Expected buff7 skill" + skillId
+                            + " start frame before producer visual/apply,"
+                            + " hasBuff7=" + runtime.debugPlayerHasBuffForSmoke(7)
+                            + " special=" + s.battleP7SpecialVisible
+                            + " actor=" + s.battleP7ActorEffectVisible
+                            + " trace=" + tailTrace(s, 48));
+                }
+            } else if (checkpoint.endsWith("_actor24")) {
+                for (int i = 0; i < 80 && !s.battleP7ActorEffectVisible; i++) {
+                    s.tick();
+                }
+                if (!s.battleP7ActorEffectVisible
+                        || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                        || !traceContains(s, "id=24")
+                        || !traceContains(s, "battle P7 actor u.a() start skill=" + skillId)
+                        || !traceContains(s, "sourceEffectId=24")) {
+                    throw new IllegalStateException("Expected buff7 skill" + skillId
+                            + " chunk0 actor sourceEffectId=24,"
+                            + " actorVisible=" + s.battleP7ActorEffectVisible
+                            + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                            + " actorState=" + s.battleP7ActorEffectState
+                            + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
+                            + " trace=" + tailTrace(s, 72));
+                }
+            } else if (checkpoint.endsWith("_speffect1") || checkpoint.endsWith("_speffect9")) {
+                for (int i = 0; i < 180
+                        && (!s.battleP7SpecialVisible || s.battleP7SpecialType < 0); i++) {
+                    s.tick();
+                }
+                if (!s.battleP7SpecialVisible
+                        || !traceContains(s, "battle P7 speffect skill=" + skillId)
+                        || !traceContains(s, "speffect=" + expectedSpeffect)) {
+                    throw new IllegalStateException("Expected buff7 skill" + skillId
+                            + " speffect=" + expectedSpeffect + " special chunk,"
+                            + " special=" + s.battleP7SpecialVisible
+                            + " type=" + s.battleP7SpecialType
+                            + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                            + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                            + " trace=" + tailTrace(s, 72));
+                }
+            } else {
+                int guard = 0;
+                while ("P7".equals(s.battleStateName) && guard++ < 240) {
+                    s.tick();
+                }
+                if ("P7".equals(s.battleStateName)
+                        || !traceContains(s, "game.d.q postEffect skill=" + skillId)
+                        || !traceContains(s, "buffId=7")
+                        || !runtime.debugPlayerHasBuffForSmoke(7)
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 105) {
+                    throw new IllegalStateException("Expected buff7 skill" + skillId
+                            + " after frame to apply speed buff7,"
+                            + " state=" + s.battleStateName
+                            + " hasBuff7=" + runtime.debugPlayerHasBuffForSmoke(7)
+                            + " speed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " trace=" + tailTrace(s, 96));
+                }
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runBuff10CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_buff10_before_no_effect".equals(checkpoint)
+                && !"battle_status_buff10_skill62_start".equals(checkpoint)
+                && !"battle_status_buff10_skill62_actor26".equals(checkpoint)
+                && !"battle_status_buff10_skill62_speffect0".equals(checkpoint)
+                && !"battle_status_buff10_skill62_speffect15".equals(checkpoint)
+                && !"battle_status_buff10_skill62_after_apply".equals(checkpoint)
+                && !"battle_status_buff10_gameplay_decay_attack_up".equals(checkpoint)
+                && !"battle_status_buff10_source_oddity_attack_down".equals(checkpoint)
+                && !"battle_status_buff10_p12_no_body_visual".equals(checkpoint)
+                && !"battle_status_buff10_expiry_clears_attack".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_buff10_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetPlayerAttackForSmoke(s, 100);
+                assertPhase10AStatusSlots(s, true, "status buff10 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugPlayerHasBuffForSmoke(10)
+                        || runtime.debugPlayerBuffValueForSmoke(10) != 0
+                        || runtime.debugPlayerBuffDurationForSmoke(10) != 0
+                        || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_ATTACK) != 100
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK) != 100
+                        || s.battlePlayerStatusCount != 0) {
+                    throw new IllegalStateException("Expected buff10 before snapshot to have attack 100 and no active buff,"
+                            + " hasBuff10=" + runtime.debugPlayerHasBuffForSmoke(10)
+                            + " value=" + runtime.debugPlayerBuffValueForSmoke(10)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(10)
+                            + " baseAttack=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + " currentAttack=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified buff10 Man Luc before snapshot"
+                        + " baseAttack=100"
+                        + " currentAttack=100"
+                        + " iconCount=0");
+            } else if (checkpoint.startsWith("battle_status_buff10_skill62_")) {
+                enterElderP7WithSkills(s, new int[]{62, 10}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetPlayerAttackForSmoke(s, 100);
+                runtime.debugSetEnemyDefenseForSmoke(s, 40);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                BattleUnit.setDamageRandomSeedForChecks(0L);
+                tickUntilBattleP7Phase(s, 1, 80);
+                if ("battle_status_buff10_skill62_start".equals(checkpoint)) {
+                    if (runtime.debugPlayerHasBuffForSmoke(10)
+                            || s.battleP7SpecialVisible
+                            || s.battleP7ActorEffectVisible) {
+                        throw new IllegalStateException("Expected buff10 skill62 start before producer visual/apply,"
+                                + " hasBuff10=" + runtime.debugPlayerHasBuffForSmoke(10)
+                                + " special=" + s.battleP7SpecialVisible
+                                + " actor=" + s.battleP7ActorEffectVisible
+                                + " trace=" + tailTrace(s, 48));
+                    }
+                } else if ("battle_status_buff10_skill62_actor26".equals(checkpoint)) {
+                    for (int i = 0; i < 100 && !s.battleP7ActorEffectVisible; i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7ActorEffectVisible
+                            || !traceContains(s, "battle P7 actor u.a() start skill=62")
+                            || !traceContains(s, "sourceEffectId=26")) {
+                        throw new IllegalStateException("Expected buff10 skill62 chunk0 actor sourceEffectId=26,"
+                                + " actorVisible=" + s.battleP7ActorEffectVisible
+                                + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                                + " actorState=" + s.battleP7ActorEffectState
+                                + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
+                                + " trace=" + tailTrace(s, 72));
+                    }
+                } else if ("battle_status_buff10_skill62_speffect0".equals(checkpoint)) {
+                    for (int i = 0; i < 180
+                            && (!s.battleP7SpecialVisible || !traceContains(s, "speffect=0")); i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7SpecialVisible
+                            || !traceContains(s, "battle P7 speffect skill=62")
+                            || !traceContains(s, "speffect=0")) {
+                        throw new IllegalStateException("Expected buff10 skill62 chunk1 speffect0,"
+                                + " special=" + s.battleP7SpecialVisible
+                                + " type=" + s.battleP7SpecialType
+                                + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                                + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                                + " trace=" + tailTrace(s, 84));
+                    }
+                } else if ("battle_status_buff10_skill62_speffect15".equals(checkpoint)) {
+                    for (int i = 0; i < 240
+                            && (!s.battleP7SpecialVisible || !traceContains(s, "speffect=15")); i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7SpecialVisible
+                            || s.battleP7SpecialType != 1
+                            || !traceContains(s, "battle P7 speffect skill=62")
+                            || !traceContains(s, "speffect=15")) {
+                        throw new IllegalStateException("Expected buff10 skill62 chunk2 speffect15 AH type1,"
+                                + " special=" + s.battleP7SpecialVisible
+                                + " type=" + s.battleP7SpecialType
+                                + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                                + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                                + " trace=" + tailTrace(s, 84));
+                    }
+                } else {
+                    int guard = 0;
+                    while ("P7".equals(s.battleStateName) && guard++ < 360) {
+                        s.tick();
+                    }
+                    if ("P7".equals(s.battleStateName)
+                            || !traceContains(s, "game.d.q postEffect skill=62")
+                            || !traceContains(s, "buffId=10")
+                            || !runtime.debugPlayerHasBuffForSmoke(10)
+                            || runtime.debugPlayerBuffValueForSmoke(10) != 15
+                            || runtime.debugPlayerBuffDurationForSmoke(10) != 3
+                            || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK) != 115) {
+                        throw new IllegalStateException("Expected buff10 skill62 after frame to apply gameplay-fixed attack 100->115,"
+                                + " state=" + s.battleStateName
+                                + " hasBuff10=" + runtime.debugPlayerHasBuffForSmoke(10)
+                                + " value=" + runtime.debugPlayerBuffValueForSmoke(10)
+                                + " duration=" + runtime.debugPlayerBuffDurationForSmoke(10)
+                                + " attack=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK)
+                                + " trace=" + tailTrace(s, 96));
+                    }
+                    assertPhase10AStatusSlots(s, true, "status buff10 skill62 after apply",
+                            new int[]{22}, new int[]{137});
+                    s.sourceStateTrace.add("SMOKE verified buff10 Man Luc producer skill62"
+                            + " visual=effect.mid[62] actor26->speffect0->speffect15"
+                            + " attack=100->115"
+                            + " value=15"
+                            + " icon=22 durationCell=137"
+                            + " status=INTENTIONAL_DEVIATION/GAMEPLAY_FIXED");
+                }
+            } else if ("battle_status_buff10_gameplay_decay_attack_up".equals(checkpoint)
+                    || "battle_status_buff10_source_oddity_attack_down".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetPlayerAttackForSmoke(s, 100);
+                runtime.debugPlayerSourceBuffForSmoke(s, 10, 0, 62);
+                VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+                int baseline = statusEffectivenessSkill10Damage(baselineScene, -1, -1, 0);
+                int buffed = statusEffectivenessSkill10Damage(s, 10, -1, 0);
+                if (!runtime.debugPlayerHasBuffForSmoke(10)
+                        || runtime.debugPlayerBuffValueForSmoke(10) != 15
+                        || runtime.debugPlayerBuffDurationForSmoke(10) != 3
+                        || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_ATTACK) != 100
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK) != 115
+                        || baseline != 80
+                        || buffed != 98
+                        || !traceContains(s, "player source buff prepared id=10")) {
+                    throw new IllegalStateException("Expected buff10 gameplay fix to raise attack/damage for turn 1,"
+                            + " baseline=" + baseline
+                            + " buffed=" + buffed
+                            + " hasBuff10=" + runtime.debugPlayerHasBuffForSmoke(10)
+                            + " value=" + runtime.debugPlayerBuffValueForSmoke(10)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(10)
+                            + " attack=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + "->" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + " trace=" + tailTrace(s, 84));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff10 gameplay fix",
+                        new int[]{22}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified buff10 Man Luc gameplay fix"
+                        + " row=aq.c[6][10]=[343,358,2,-1,-1]"
+                        + " sourceOddity=attack 100->99"
+                        + " userApproved=3 turns 15/10/5"
+                        + " attack=100->115"
+                        + " damage=80->98"
+                        + " status=INTENTIONAL_DEVIATION/GAMEPLAY_FIXED");
+            } else if ("battle_status_buff10_p12_no_body_visual".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{62, 10}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetPlayerAttackForSmoke(s, 100);
+                runtime.debugSetEnemyDefenseForSmoke(s, 40);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                BattleUnit.setDamageRandomSeedForChecks(0L);
+                tickUntilTraceContains(s, "active queue apply bank=0 id=10", 1000);
+                if (!runtime.debugPlayerHasBuffForSmoke(10)
+                        || runtime.debugPlayerBuffValueForSmoke(10) != 10
+                        || runtime.debugPlayerBuffDurationForSmoke(10) != 2
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK) != 110
+                        || traceContains(s, "active queue visual start bank=0 id=10")
+                        || s.battleP7ActorEffectVisible
+                        || s.battleP7SpecialVisible) {
+                    throw new IllegalStateException("Expected buff10 active queue to tick attack without P12/P13 body visual,"
+                            + " state=" + s.battleStateName
+                            + " special=" + s.battleP7SpecialVisible
+                            + " actorVisible=" + s.battleP7ActorEffectVisible
+                            + " hasBuff10=" + runtime.debugPlayerHasBuffForSmoke(10)
+                            + " value=" + runtime.debugPlayerBuffValueForSmoke(10)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(10)
+                            + " attack=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff10 P12 no body visual",
+                        new int[]{22}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified buff10 P12 no body visual"
+                        + " activeQueueApply=true"
+                        + " activeQueueVisualStart=false"
+                        + " duration=3->2"
+                        + " attack=110"
+                        + " source=game.d.ai[0] excludes id10");
+            } else if ("battle_status_buff10_expiry_clears_attack".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetPlayerAttackForSmoke(s, 100);
+                runtime.debugPlayerSourceBuffForSmoke(s, 10, 0, 62);
+                if (!runtime.debugPlayerHasBuffForSmoke(10)
+                        || runtime.debugPlayerBuffValueForSmoke(10) != 15
+                        || runtime.debugPlayerBuffDurationForSmoke(10) != 3
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK) != 115) {
+                    throw new IllegalStateException("Expected buff10 expiry setup attack/value/duration 100->115/15/3,"
+                            + " hasBuff10=" + runtime.debugPlayerHasBuffForSmoke(10)
+                            + " value=" + runtime.debugPlayerBuffValueForSmoke(10)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(10)
+                            + " attack=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + " trace=" + tailTrace(s, 42));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff10 before expiry",
+                        new int[]{22}, new int[]{137});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 10);
+                if (!runtime.debugPlayerHasBuffForSmoke(10)
+                        || runtime.debugPlayerBuffValueForSmoke(10) != 10
+                        || runtime.debugPlayerBuffDurationForSmoke(10) != 2
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK) != 110) {
+                    throw new IllegalStateException("Expected buff10 first tick to degrade attack 115->110 duration 2,"
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(10)
+                            + " attack=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + " trace=" + tailTrace(s, 42));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff10 after first tick",
+                        new int[]{22}, new int[]{136});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 10);
+                if (!runtime.debugPlayerHasBuffForSmoke(10)
+                        || runtime.debugPlayerBuffValueForSmoke(10) != 5
+                        || runtime.debugPlayerBuffDurationForSmoke(10) != 1
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK) != 105) {
+                    throw new IllegalStateException("Expected buff10 second tick to degrade attack 110->105 duration 1,"
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(10)
+                            + " attack=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + " trace=" + tailTrace(s, 42));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff10 after second tick",
+                        new int[]{22}, new int[]{135});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 10);
+                if (runtime.debugPlayerHasBuffForSmoke(10)
+                        || runtime.debugPlayerBuffDurationForSmoke(10) != 0
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK) != 100
+                        || s.battlePlayerStatusCount != 0
+                        || !traceContains(s, "player source buff tick id=10")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected buff10 third tick to expire and restore attack/icon,"
+                            + " active=" + runtime.debugPlayerHasBuffForSmoke(10)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(10)
+                            + " attack=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_ATTACK)
+                            + " statusCount=" + s.battlePlayerStatusCount
+                            + " trace=" + tailTrace(s, 84));
+                }
+                s.sourceStateTrace.add("SMOKE verified buff10 expiry"
+                        + " durationTicks=3"
+                        + " attack=100->115->110->105->100"
+                        + " value=15->10->5->0"
+                        + " iconCleared=true");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static void writeSmokeCheckpointImage(VqsvIntroDemo.Scene s, String checkpoint, String outPath)
+            throws java.io.IOException {
+        BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        s.render(g);
+        if ("battle_status_debuff8_seeded_target_reroute_smoke".equals(checkpoint)) {
+            drawDebuff8TargetRouteSmokeOverlay(g, s);
+        }
+        g.dispose();
+        ImageIO.write(img, "png", new java.io.File(outPath));
+        System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                + " textState=" + (s.text == null ? "none" : "present")
+                + " battleResult=" + s.battleResultIndex
+                + " battleBranch=" + s.battleBranchTarget
+                + " battleState=" + s.battleStateName
+                + " battleHp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                + " enemyOwned=" + s.battleEnemyOwnedSpecies
+                + " battleLog=" + s.battleLog
+                + " state101=" + s.sourceEventState(1, 0, 1)
+                + " state110=" + s.sourceEventState(1, 1, 0)
+                + " state106=" + s.sourceEventState(1, 0, 6)
+                + " money=" + s.sourceMoney
+                + " pets=" + s.sourcePets.size()
+                + " bankPets=" + s.sourcePetBank.size());
+    }
+
+    private static boolean runBattleP5SwitchPersistenceSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_p5_switch_preserves_hp_pp_buff_debuff_state".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            setupElderPetSwitchBattle(s, false);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerHpForSmoke(s, 55);
+            runtime.debugSetPlayerSkillPpForSmoke(s, 0, 12);
+            runtime.debugPlayerSourceBuffForSmoke(s, 7, 0, 42);
+            runtime.debugPlayerSourceDebuffForSmoke(s, 5, 100, 32);
+            int expectedBuffValue = runtime.debugPlayerBuffValueForSmoke(7);
+            int expectedBuffDuration = runtime.debugPlayerBuffDurationForSmoke(7);
+            int expectedDebuffValue = runtime.debugPlayerDebuffValueForSmoke(5);
+            int expectedDebuffDuration = runtime.debugPlayerDebuffDurationForSmoke(5);
+            int expectedCurrentSpeed = runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED);
+            drivePetCommandToP5(s);
+            s.battleMenuIndex = 1;
+            press0UntilAnyBattleState(s, 120, "P15", "P1", "WARN");
+            if ("WARN".equals(s.battleStateName)) {
+                throw new IllegalStateException("Expected first switch to reserve, warning="
+                        + s.battleWarningTitle + " trace=" + tailTrace(s, 20));
+            }
+            assertSwitchedOutPetStatePersisted(s, expectedBuffValue, expectedBuffDuration,
+                    expectedDebuffValue, expectedDebuffDuration);
+            tickUntilBattleState(s, "P20", 240);
+            drivePetCommandToP5(s);
+            s.battleMenuIndex = 1;
+            press0UntilAnyBattleState(s, 120, "P15", "P1", "WARN");
+            if ("WARN".equals(s.battleStateName)) {
+                throw new IllegalStateException("Expected switch back to original pet, warning="
+                        + s.battleWarningTitle + " trace=" + tailTrace(s, 20));
+            }
+            assertSwitchedInPetStateRestored(s, runtime, expectedBuffValue, expectedBuffDuration,
+                    expectedDebuffValue, expectedDebuffDuration, expectedCurrentSpeed);
+            s.sourceStateTrace.add("SMOKE battle P5 switch preserves HP/PP/buff/debuff"
+                    + " hp=55 pp0=12 buff7=" + expectedBuffValue + "/" + expectedBuffDuration
+                    + " debuff5=" + expectedDebuffValue + "/" + expectedDebuffDuration
+                    + " restoredSpeed=" + expectedCurrentSpeed);
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static void assertSwitchedOutPetStatePersisted(VqsvIntroDemo.Scene s,
+                                                           int expectedBuffValue,
+                                                           int expectedBuffDuration,
+                                                           int expectedDebuffValue,
+                                                           int expectedDebuffDuration) {
+        if (s.sourcePets.size() >= 2
+                && s.sourcePets.get(0).speciesId == 92
+                && s.sourcePets.get(1).speciesId == 17
+                && payloadHp(s.sourcePets.get(1)) == 55
+                && s.sourcePets.get(1).skillCooldowns[0] == 12
+                && s.sourcePets.get(1).sourceBuffSlots[7][4] == 1
+                && s.sourcePets.get(1).sourceBuffSlots[7][1] == expectedBuffValue
+                && s.sourcePets.get(1).sourceBuffSlots[7][0] == expectedBuffDuration
+                && s.sourcePets.get(1).sourceDebuffSlots[5][4] == 1
+                && s.sourcePets.get(1).sourceDebuffSlots[5][1] == expectedDebuffValue
+                && s.sourcePets.get(1).sourceDebuffSlots[5][0] == expectedDebuffDuration) {
+            return;
+        }
+        throw new IllegalStateException("Expected switched-out pet state persisted"
+                + " pets=" + s.sourcePets.size()
+                + " species0=" + (s.sourcePets.isEmpty() ? -1 : s.sourcePets.get(0).speciesId)
+                + " species1=" + (s.sourcePets.size() < 2 ? -1 : s.sourcePets.get(1).speciesId)
+                + " hp1=" + (s.sourcePets.size() < 2 ? -1 : payloadHp(s.sourcePets.get(1)))
+                + " pp1=" + (s.sourcePets.size() < 2 ? -1 : s.sourcePets.get(1).skillCooldowns[0])
+                + " buff7=" + (s.sourcePets.size() < 2 ? -1 : s.sourcePets.get(1).sourceBuffSlots[7][4])
+                + " debuff5=" + (s.sourcePets.size() < 2 ? -1 : s.sourcePets.get(1).sourceDebuffSlots[5][4])
+                + " trace=" + tailTrace(s, 24));
+    }
+
+    private static void assertSwitchedInPetStateRestored(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                         int expectedBuffValue,
+                                                         int expectedBuffDuration,
+                                                         int expectedDebuffValue,
+                                                         int expectedDebuffDuration,
+                                                         int expectedCurrentSpeed) {
+        if (s.sourcePets.get(0).speciesId == 17
+                && runtime.debugPlayerHpForSmoke() == 55
+                && runtime.debugPlayerSkillPpForSmoke(0) == 12
+                && runtime.debugPlayerHasBuffForSmoke(7)
+                && runtime.debugPlayerActiveBuffSlotForSmoke(7) >= 0
+                && runtime.debugPlayerBuffValueForSmoke(7) == expectedBuffValue
+                && runtime.debugPlayerBuffDurationForSmoke(7) == expectedBuffDuration
+                && runtime.debugPlayerHasDebuffForSmoke(5)
+                && runtime.debugPlayerActiveDebuffSlotForSmoke(5) >= 0
+                && runtime.debugPlayerDebuffValueForSmoke(5) == expectedDebuffValue
+                && runtime.debugPlayerDebuffDurationForSmoke(5) == expectedDebuffDuration
+                && runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) == expectedCurrentSpeed) {
+            return;
+        }
+        throw new IllegalStateException("Expected switched-in pet battle state restored"
+                + " species0=" + s.sourcePets.get(0).speciesId
+                + " hp=" + runtime.debugPlayerHpForSmoke()
+                + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                + " buff7=" + runtime.debugPlayerHasBuffForSmoke(7)
+                + "/" + runtime.debugPlayerActiveBuffSlotForSmoke(7)
+                + " debuff5=" + runtime.debugPlayerHasDebuffForSmoke(5)
+                + "/" + runtime.debugPlayerActiveDebuffSlotForSmoke(5)
+                + " speed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                + "/" + expectedCurrentSpeed
+                + " trace=" + tailTrace(s, 32));
+    }
+
+    private static void drawDebuff8TargetRouteSmokeOverlay(Graphics2D g, VqsvIntroDemo.Scene s) {
+        java.awt.Composite oldComposite = g.getComposite();
+        java.awt.Font oldFont = g.getFont();
+        java.awt.Color oldColor = g.getColor();
+        java.awt.RenderingHints oldHints = g.getRenderingHints();
+
+        g.setRenderingHint(java.awt.RenderingHints.KEY_TEXT_ANTIALIASING,
+                java.awt.RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g.setComposite(java.awt.AlphaComposite.SrcOver.derive(0.88f));
+        g.setColor(new java.awt.Color(8, 13, 18));
+        g.fillRoundRect(7, 42, 225, 105, 8, 8);
+        g.setComposite(java.awt.AlphaComposite.SrcOver);
+        g.setColor(new java.awt.Color(110, 222, 255));
+        g.drawRoundRect(7, 42, 225, 105, 8, 8);
+        g.setFont(new java.awt.Font("Dialog", java.awt.Font.BOLD, 10));
+        g.drawString("DEBUFF8 ROUTE SMOKE", 14, 56);
+        g.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 9));
+        g.setColor(java.awt.Color.WHITE);
+        int y = 70;
+        String target = s.battleTargetNames.length > 0 ? s.battleTargetNames[0] : "(none)";
+        String slots = java.util.Arrays.toString(s.battleTargetSlots);
+        g.drawString("source: game.d.f(attacker)", 14, y);
+        y += 12;
+        g.drawString("skill54 roll 99 > threshold 40", 14, y);
+        y += 12;
+        g.drawString("attacker debuff8: YES", 14, y);
+        y += 12;
+        g.drawString("reroute target: " + target + " slot " + slots, 14, y);
+        y += 12;
+        g.drawString("producer: NOT_REACHED | P7 damage: NO", 14, y);
+        y += 12;
+        g.setColor(new java.awt.Color(255, 220, 90));
+        g.drawString("limit: 1v1, trace proves route not divergence", 14, y);
+
+        g.setRenderingHints(oldHints);
+        g.setComposite(oldComposite);
+        g.setFont(oldFont);
+        g.setColor(oldColor);
     }
 
     private static void drawHeldItem0LowHpAuditOverlay(Graphics2D g) {
@@ -11721,6 +12773,12 @@ final class VqsvSmokeHarness {
         if ("panel_wheel".equals(suite)) {
             return PANEL_WHEEL_SUITE;
         }
+        if ("battle_buff5_visual_timeline".equals(suite)) {
+            return BATTLE_BUFF5_VISUAL_TIMELINE_SUITE;
+        }
+        if ("battle_skill10_direct_animation".equals(suite)) {
+            return BATTLE_SKILL10_DIRECT_ANIMATION_SUITE;
+        }
         throw new IllegalArgumentException("Unknown smoke suite: " + suite);
     }
 
@@ -12629,6 +13687,121 @@ final class VqsvSmokeHarness {
                 runtime.debugPlayerBuffValueForSmoke(3), runtime.debugPlayerBuffDurationForSmoke(3)};
     }
 
+    private static int[] statusBuff4Skill10TargetDefenseProbe(VqsvIntroDemo.Scene s,
+                                                              boolean applyBuff4,
+                                                              int critRoll,
+                                                              int hitRoll,
+                                                              boolean forceMissSetup) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 200);
+        runtime.debugSetEnemyDefenseForSmoke(s, 100);
+        if (applyBuff4) {
+            runtime.debugEnemySourceBuffForSmoke(s, 4, 0, 21);
+        }
+        if (forceMissSetup) {
+            runtime.debugSetPlayerSpeedForSmoke(s, 0);
+            runtime.debugSetEnemySpeedForSmoke(s, 200);
+        }
+        int hpBefore = s.battleEnemyHp;
+        int enemyBaseDefense = runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_DEFENSE);
+        int enemyCurrentDefense = runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE);
+        int duration = Math.max(0, runtime.debugEnemyBuffDurationForSmoke(4));
+        int value = runtime.debugEnemyBuffValueForSmoke(4);
+        runtime.debugSetSourceRandomSeedForSmoke(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(critRoll);
+        runtime.debugSetNextP7HitRollForSmoke(hitRoll);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (!s.battleP7DamageVisible || !traceContains(s, "battle P7 damage frame skill=10")) {
+            throw new IllegalStateException("Expected buff4 skill10 target-defense probe to reach P7 damage frame,"
+                    + " applyBuff4=" + applyBuff4
+                    + " critRoll=" + critRoll
+                    + " hitRoll=" + hitRoll
+                    + " forceMiss=" + forceMissSetup
+                    + " trace=" + tailTrace(s, 48));
+        }
+        s.sourceStateTrace.add("SMOKE buff4 Phong ngu skill10 target-defense probe"
+                + " applyBuff4=" + applyBuff4
+                + " damage=" + damage
+                + " enemyHp=" + hpBefore + "->" + s.battleEnemyHp
+                + " enemyDefense=" + enemyBaseDefense + "->" + enemyCurrentDefense
+                + " value=" + value
+                + " durationBeforeUse=" + duration
+                + " hit=" + traceContains(s, "hit=true")
+                + " critical=" + s.battleP7DamageCritical);
+        return new int[]{damage, hpBefore, s.battleEnemyHp,
+                enemyBaseDefense, enemyCurrentDefense, duration, value,
+                s.battleP7DamageCritical ? 1 : 0};
+    }
+
+    private static SourceBattleRuntime enterBuff5P13BodyVisual(VqsvIntroDemo.Scene s) {
+        enterElderP7WithSkills(s, new int[]{34, 10}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        tickUntilTraceContains(s, "active queue visual start bank=0 id=5", 900);
+        for (int i = 0; i < 12 && !s.battleP7ActorEffectVisible; i++) {
+            s.tick();
+        }
+        if (!runtime.debugPlayerHasBuffForSmoke(5)
+                || runtime.debugPlayerBuffDurationForSmoke(5) != 3
+                || !traceContains(s, "active queue visual start bank=0 id=5")
+                || !traceContains(s, "active queue visual bank=0 buff=5")
+                || !traceContains(s, "row=[0, 23, 0, -1]")
+                || !s.battleP7ActorEffectVisible
+                || s.battleP7ActorEffectSpriteId != 265
+                || s.battleP7ActorEffectState != 0
+                || !isBattleState(s, "P13")) {
+            throw new IllegalStateException("Expected buff5 P13 body visual actor row [0,23,0,-1],"
+                    + " state=" + s.battleStateName
+                    + " hasBuff5=" + runtime.debugPlayerHasBuffForSmoke(5)
+                    + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                    + " actorVisible=" + s.battleP7ActorEffectVisible
+                    + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                    + " actorState=" + s.battleP7ActorEffectState
+                    + " trace=" + tailTrace(s, 84));
+        }
+        return runtime;
+    }
+
+    private static int[] statusBuff5Skill10ReflectProbe(VqsvIntroDemo.Scene s, int buff5Roll) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        runtime.debugSetPlayerHpForSmoke(s, s.battlePlayerMaxHp);
+        runtime.debugEnemySourceBuffForSmoke(s, 5, 0, 34);
+        int playerHpBefore = s.battlePlayerHp;
+        int enemyHpBefore = s.battleEnemyHp;
+        int duration = Math.max(0, runtime.debugEnemyBuffDurationForSmoke(5));
+        int value = runtime.debugEnemyBuffValueForSmoke(5);
+        runtime.debugSetSourceRandomSeedForSmoke(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextDamageBuff5RollForSmoke(buff5Roll);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 3, 260);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0
+                || !traceContains(s, "battle P7 damage frame skill=10")
+                || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected buff5 reflect probe to hit and reach post-effect phase,"
+                    + " roll=" + buff5Roll
+                    + " damage=" + damage
+                    + " visible=" + s.battleP7DamageVisible
+                    + " trace=" + tailTrace(s, 72));
+        }
+        int reflected = Math.max(0, playerHpBefore - s.battlePlayerHp);
+        s.sourceStateTrace.add("SMOKE buff5 Vo hinh reflect probe"
+                + " roll=" + buff5Roll
+                + " damage=" + damage
+                + " reflected=" + reflected
+                + " playerHp=" + playerHpBefore + "->" + s.battlePlayerHp
+                + " enemyHp=" + enemyHpBefore + "->" + s.battleEnemyHp
+                + " value=" + value
+                + " durationBeforeUse=" + duration);
+        return new int[]{damage, reflected, playerHpBefore, s.battlePlayerHp,
+                enemyHpBefore, s.battleEnemyHp, value, duration};
+    }
+
     private static int statusEffectivenessForm0Damage(VqsvIntroDemo.Scene s, int hp) {
         enterElderP7WithSkills(s, new int[]{10, 45}, 0);
         SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
@@ -12799,7 +13972,7 @@ final class VqsvSmokeHarness {
         enterElderP7WithSkills(s, new int[]{10, 45}, 0);
         SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
         runtime.debugSetPlayerAttackForSmoke(s, 120);
-        runtime.debugSetEnemyDefenseForSmoke(s, 40);
+        runtime.debugSetEnemyDefenseForSmoke(s, 100);
         runtime.debugSetEnemyHpForSmoke(s, 5);
         if (equipped) {
             runtime.debugPlayerFormStatusForSmoke(s, 10);
@@ -12815,6 +13988,3596 @@ final class VqsvSmokeHarness {
         }
         tickUntilBattleP7Phase(s, 3, 360);
         return new int[]{damage, s.battleEnemyHp, s.battleEnemyMaxHp};
+    }
+
+    private static boolean runBuff12CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_buff12_before_no_effect".equals(checkpoint)
+                && !"battle_status_buff12_skill65_speffect16".equals(checkpoint)
+                && !"battle_status_buff12_skill65_speffect15".equals(checkpoint)
+                && !"battle_status_buff12_after_apply_k1".equals(checkpoint)
+                && !"battle_status_buff12_p13_promotes_k2_no_body_visual".equals(checkpoint)
+                && !"battle_status_buff12_pp_refund_followup".equals(checkpoint)
+                && !"battle_status_buff12_expiry_clears_icon".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_buff12_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, true, "status buff12 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugPlayerHasBuffForSmoke(12)
+                        || runtime.debugPlayerK12ForSmoke() != 0
+                        || s.battlePlayerStatusCount != 0) {
+                    throw new IllegalStateException("Expected buff12 before snapshot to have no active buff/K12/status,"
+                            + " hasBuff12=" + runtime.debugPlayerHasBuffForSmoke(12)
+                            + " K12=" + runtime.debugPlayerK12ForSmoke()
+                            + " statusCount=" + s.battlePlayerStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified buff12 Gia Toc before snapshot"
+                        + " K12=0"
+                        + " iconCount=0");
+            } else if ("battle_status_buff12_expiry_clears_icon".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugPlayerSourceBuffForSmoke(s, 12, -1, 65);
+                if (!runtime.debugPlayerHasBuffForSmoke(12)
+                        || runtime.debugPlayerBuffDurationForSmoke(12) != 2
+                        || runtime.debugPlayerK12ForSmoke() != 1) {
+                    throw new IllegalStateException("Expected buff12 expiry setup duration/K12 2/1,"
+                            + " hasBuff12=" + runtime.debugPlayerHasBuffForSmoke(12)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(12)
+                            + " K12=" + runtime.debugPlayerK12ForSmoke()
+                            + " trace=" + tailTrace(s, 42));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff12 before expiry",
+                        new int[]{24}, new int[]{136});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 12);
+                if (!runtime.debugPlayerHasBuffForSmoke(12)
+                        || runtime.debugPlayerBuffDurationForSmoke(12) != 1
+                        || runtime.debugPlayerK12ForSmoke() != 2) {
+                    throw new IllegalStateException("Expected buff12 first tick K12=2 duration 1,"
+                            + " hasBuff12=" + runtime.debugPlayerHasBuffForSmoke(12)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(12)
+                            + " K12=" + runtime.debugPlayerK12ForSmoke()
+                            + " trace=" + tailTrace(s, 42));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff12 after first tick",
+                        new int[]{24}, new int[]{135});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 12);
+                if (runtime.debugPlayerHasBuffForSmoke(12)
+                        || runtime.debugPlayerBuffDurationForSmoke(12) != 0
+                        || s.battlePlayerStatusCount != 0
+                        || !traceContains(s, "player source buff tick id=12")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected buff12 second tick to expire and clear icon,"
+                            + " active=" + runtime.debugPlayerHasBuffForSmoke(12)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(12)
+                            + " K12=" + runtime.debugPlayerK12ForSmoke()
+                            + " statusCount=" + s.battlePlayerStatusCount
+                            + " trace=" + tailTrace(s, 84));
+                }
+                s.sourceStateTrace.add("SMOKE verified buff12 Gia Toc expiry"
+                        + " durationTicks=2"
+                        + " iconCleared=true"
+                        + " K12IgnoredWhenBuffInactive=true");
+            } else {
+                enterElderP7WithSkills(s, new int[]{65, 10}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                tickUntilBattleP7Phase(s, 1, 80);
+                if ("battle_status_buff12_skill65_speffect16".equals(checkpoint)) {
+                    for (int i = 0; i < 180
+                            && (!s.battleP7SpecialVisible || !traceContains(s, "speffect=16")); i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7SpecialVisible
+                            || !traceContains(s, "battle P7 speffect skill=65")
+                            || !traceContains(s, "speffect=16")) {
+                        throw new IllegalStateException("Expected buff12 skill65 chunk0 speffect16,"
+                                + " special=" + s.battleP7SpecialVisible
+                                + " type=" + s.battleP7SpecialType
+                                + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                                + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                                + " trace=" + tailTrace(s, 84));
+                    }
+                } else if ("battle_status_buff12_skill65_speffect15".equals(checkpoint)) {
+                    for (int i = 0; i < 260
+                            && (!s.battleP7SpecialVisible || !traceContains(s, "speffect=15")); i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7SpecialVisible
+                            || s.battleP7SpecialType != 1
+                            || !traceContains(s, "battle P7 speffect skill=65")
+                            || !traceContains(s, "speffect=15")) {
+                        throw new IllegalStateException("Expected buff12 skill65 chunk1 speffect15 AH type1,"
+                                + " special=" + s.battleP7SpecialVisible
+                                + " type=" + s.battleP7SpecialType
+                                + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                                + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                                + " trace=" + tailTrace(s, 84));
+                    }
+                } else {
+                    tickUntilBattleP7Phase(s, 3, 320);
+                    if (!s.battleP7PostEffectVisible
+                            || !s.battleP7PostEffectPlayerSide
+                            || !runtime.debugPlayerHasBuffForSmoke(12)
+                            || runtime.debugPlayerActiveBuffSlotForSmoke(12) < 0
+                            || runtime.debugPlayerBuffDurationForSmoke(12) != 2
+                            || runtime.debugPlayerK12ForSmoke() != 1
+                            || traceContains(s, "battle P7 damage frame skill=65")
+                            || traceContains(s, "battle P7 hitroll skill=65")
+                            || !traceContains(s, "battle P7 no-damage skill=65")
+                            || !traceContains(s, "game.d.q postEffect skill=65")
+                            || !traceContains(s, "buffId=12")
+                            || !traceContains(s, "targetSide=1")
+                            || !traceContains(s, "targetSlot=1")) {
+                        throw new IllegalStateException("Expected buff12 skill65 producer to apply K12=1 without damage,"
+                                + " postVisible=" + s.battleP7PostEffectVisible
+                                + " postSidePlayer=" + s.battleP7PostEffectPlayerSide
+                                + " postText=" + s.battleP7PostEffectText
+                                + " hasBuff12=" + runtime.debugPlayerHasBuffForSmoke(12)
+                                + " slot12=" + runtime.debugPlayerActiveBuffSlotForSmoke(12)
+                                + " duration=" + runtime.debugPlayerBuffDurationForSmoke(12)
+                                + " K12=" + runtime.debugPlayerK12ForSmoke()
+                                + " trace=" + tailTrace(s, 84));
+                    }
+                    assertPhase10AStatusSlots(s, true, "status buff12 after apply K12=1",
+                            new int[]{24}, new int[]{136});
+                    if ("battle_status_buff12_after_apply_k1".equals(checkpoint)) {
+                        s.sourceStateTrace.add("SMOKE verified buff12 Gia Toc producer skill65"
+                                + " visual=effect.mid[65] speffect16->speffect15"
+                                + " K12=1"
+                                + " duration=2"
+                                + " icon=24 durationCell=136"
+                                + " noDamage=true");
+                    } else {
+                        tickUntilTraceContains(s, "active queue apply bank=0 id=12", 900);
+                        if (runtime.debugPlayerK12ForSmoke() != 2
+                                || runtime.debugPlayerBuffDurationForSmoke(12) != 1
+                                || traceContains(s, "active queue visual start bank=0 id=12")
+                                || s.battleP7ActorEffectVisible
+                                || s.battleP7SpecialVisible
+                                || traceContains(s, "SMOKE battle debug player buff12 K12=")) {
+                            throw new IllegalStateException("Expected buff12 P13 active queue to promote K12=2 without body visual/helper,"
+                                    + " K12=" + runtime.debugPlayerK12ForSmoke()
+                                    + " duration=" + runtime.debugPlayerBuffDurationForSmoke(12)
+                                    + " state=" + s.battleStateName
+                                    + " actor=" + s.battleP7ActorEffectVisible
+                                    + " special=" + s.battleP7SpecialVisible
+                                    + " trace=" + tailTrace(s, 96));
+                        }
+                        assertPhase10AStatusSlots(s, true, "status buff12 P13 promoted K12=2",
+                                new int[]{24}, new int[]{135});
+                        if ("battle_status_buff12_p13_promotes_k2_no_body_visual".equals(checkpoint)) {
+                            s.sourceStateTrace.add("SMOKE verified buff12 Gia Toc P13 tick"
+                                    + " K12=1->2"
+                                    + " duration=2->1"
+                                    + " activeQueueVisualStart=false"
+                                    + " source=game.b.o(12), game.d.ai[0] excludes id12");
+                        } else {
+                            tickUntilBattleState(s, "P20", 420);
+                            int ppBefore = runtime.debugPlayerSkillPpForSmoke(1);
+                            runtime.debugSetNextP7HitRollForSmoke(99);
+                            s.battleClickX = 20;
+                            s.battleClickY = 300;
+                            tickUntilBattleState(s, "P3", 80);
+                            for (int i = 0; i < 10; i++) {
+                                s.tick();
+                            }
+                            s.setMoveKey(KeyEvent.VK_DOWN, true);
+                            s.tick();
+                            s.setMoveKey(KeyEvent.VK_DOWN, false);
+                            s.tick();
+                            for (int i = 0; i < 20 && !"P7".equals(s.battleStateName); i++) {
+                                s.press0();
+                                s.tick();
+                            }
+                            tickUntilBattleP7Phase(s, 3, 320);
+                            int ppAfterFirst = runtime.debugPlayerSkillPpForSmoke(1);
+                            tickUntilBattleState(s, "P2", 180);
+                            if (runtime.debugPlayerK12ForSmoke() != 1
+                                    || ppAfterFirst != ppBefore - 1
+                                    || !traceContains(s, "battle P3 confirm skill=10")
+                                    || !traceContains(s, "follow-up P2 from buff12 K12=2->1")) {
+                                throw new IllegalStateException("Expected buff12 K12=2 to route skill10 q() to P2 and cost PP once,"
+                                        + " state=" + s.battleStateName
+                                        + " K12=" + runtime.debugPlayerK12ForSmoke()
+                                        + " ppBefore=" + ppBefore
+                                        + " ppAfterFirst=" + ppAfterFirst
+                                        + " trace=" + tailTrace(s, 110));
+                            }
+                            tickUntilBattleP7Phase(s, 3, 320);
+                            int ppAfterFollowUp = runtime.debugPlayerSkillPpForSmoke(1);
+                            if (ppAfterFollowUp != ppAfterFirst
+                                    || runtime.debugPlayerK12ForSmoke() != 1
+                                    || !traceContains(s, "battle P7 enter skill=10")) {
+                                throw new IllegalStateException("Expected buff12 follow-up attack to reuse skill without extra PP cost,"
+                                        + " ppBefore=" + ppBefore
+                                        + " ppAfterFirst=" + ppAfterFirst
+                                        + " ppAfterFollowUp=" + ppAfterFollowUp
+                                        + " K12=" + runtime.debugPlayerK12ForSmoke()
+                                        + " trace=" + tailTrace(s, 120));
+                            }
+                            s.sourceStateTrace.add("SMOKE verified buff12 Gia Toc follow-up/PP conservation"
+                                    + " pp=" + ppBefore + "->" + ppAfterFirst + "->" + ppAfterFollowUp
+                                    + " K12=2->1"
+                                    + " source=game.d.q follow-up + no second PP cost");
+                        }
+                    }
+                }
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runBuff13CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_buff13_before_no_effect".equals(checkpoint)
+                && !"battle_status_buff13_skill24_actor22".equals(checkpoint)
+                && !"battle_status_buff13_skill24_speffect17".equals(checkpoint)
+                && !"battle_status_buff13_after_apply_cleanse_heal".equals(checkpoint)
+                && !"battle_status_buff13_p13_body_visual_start".equals(checkpoint)
+                && !"battle_status_buff13_p13_heal_tick".equals(checkpoint)
+                && !"battle_status_buff13_expiry_clears_icon".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_buff13_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, true, "status buff13 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugPlayerHasBuffForSmoke(13)
+                        || runtime.debugPlayerBuffValueForSmoke(13) != 0
+                        || runtime.debugPlayerBuffDurationForSmoke(13) != 0
+                        || s.battlePlayerStatusCount != 0) {
+                    throw new IllegalStateException("Expected buff13 before snapshot to have no active buff/icon,"
+                            + " hasBuff13=" + runtime.debugPlayerHasBuffForSmoke(13)
+                            + " value=" + runtime.debugPlayerBuffValueForSmoke(13)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(13)
+                            + " statusCount=" + s.battlePlayerStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified buff13 Thach Hoa before snapshot"
+                        + " hasBuff13=false"
+                        + " iconCount=0");
+            } else if ("battle_status_buff13_expiry_clears_icon".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                int expectedHeal = Math.max(0, s.battlePlayerMaxHp * 20 / 100);
+                int startHp = Math.max(1, s.battlePlayerMaxHp - expectedHeal * 4);
+                runtime.debugSetPlayerHpForSmoke(s, startHp);
+                runtime.debugPlayerDebuffForItemSmoke(s, 5, 8, 1);
+                runtime.debugPlayerSourceBuffForSmoke(s, 13, 0, 24);
+                if (!runtime.debugPlayerHasBuffForSmoke(13)
+                        || runtime.debugPlayerBuffValueForSmoke(13) != expectedHeal
+                        || runtime.debugPlayerBuffDurationForSmoke(13) != 3
+                        || runtime.debugPlayerHasDebuffForSmoke(5)
+                        || s.battlePlayerHp != Math.min(s.battlePlayerMaxHp, startHp + expectedHeal)) {
+                    throw new IllegalStateException("Expected buff13 direct apply to heal/cleanse and start duration 3,"
+                            + " expectedHeal=" + expectedHeal
+                            + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                            + " value=" + runtime.debugPlayerBuffValueForSmoke(13)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(13)
+                            + " hasDebuff5=" + runtime.debugPlayerHasDebuffForSmoke(5)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff13 before expiry",
+                        new int[]{25}, new int[]{137});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 13);
+                if (!runtime.debugPlayerHasBuffForSmoke(13)
+                        || runtime.debugPlayerBuffDurationForSmoke(13) != 2
+                        || s.battlePlayerHp != Math.min(s.battlePlayerMaxHp, startHp + expectedHeal * 2)) {
+                    throw new IllegalStateException("Expected buff13 first tick heal and duration 2,"
+                            + " expectedHeal=" + expectedHeal
+                            + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(13)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff13 after first tick",
+                        new int[]{25}, new int[]{136});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 13);
+                if (!runtime.debugPlayerHasBuffForSmoke(13)
+                        || runtime.debugPlayerBuffDurationForSmoke(13) != 1
+                        || s.battlePlayerHp != Math.min(s.battlePlayerMaxHp, startHp + expectedHeal * 3)) {
+                    throw new IllegalStateException("Expected buff13 second tick heal and duration 1,"
+                            + " expectedHeal=" + expectedHeal
+                            + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(13)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff13 after second tick",
+                        new int[]{25}, new int[]{135});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 13);
+                if (runtime.debugPlayerHasBuffForSmoke(13)
+                        || runtime.debugPlayerBuffDurationForSmoke(13) != 0
+                        || s.battlePlayerStatusCount != 0
+                        || !traceContains(s, "player source buff tick id=13")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")
+                        || !traceContains(s, "heal=" + expectedHeal)) {
+                    throw new IllegalStateException("Expected buff13 third tick to heal, expire, and clear icon,"
+                            + " active=" + runtime.debugPlayerHasBuffForSmoke(13)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(13)
+                            + " statusCount=" + s.battlePlayerStatusCount
+                            + " expectedHeal=" + expectedHeal
+                            + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                            + " trace=" + tailTrace(s, 84));
+                }
+                s.sourceStateTrace.add("SMOKE verified buff13 Thach Hoa expiry"
+                        + " heal=" + expectedHeal
+                        + " durationTicks=3"
+                        + " debuffCleared=true"
+                        + " iconCleared=true"
+                        + " source=game.b.o(13)+d(13,slot)");
+            } else {
+                enterElderP7WithSkills(s, new int[]{24, 10}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                int expectedHeal = Math.max(0, s.battlePlayerMaxHp * 20 / 100);
+                int startHp = Math.max(1, s.battlePlayerMaxHp / 2);
+                runtime.debugSetPlayerHpForSmoke(s, startHp);
+                runtime.debugPlayerDebuffForItemSmoke(s, 5, 8, 1);
+                tickUntilBattleP7Phase(s, 1, 80);
+                if ("battle_status_buff13_skill24_actor22".equals(checkpoint)) {
+                    for (int i = 0; i < 180
+                            && (!s.battleP7ActorEffectVisible
+                            || !traceContainsAll(s, "battle P7 source n() skill=24",
+                            "chunk=0", "special=0", "id=22")); i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7ActorEffectVisible
+                            || !s.battleP7ActorEffectOnPlayerSide
+                            || !traceContainsAll(s, "battle P7 source n() skill=24",
+                            "chunk=0", "special=0", "id=22")
+                            || traceContains(s, "battle P7 damage frame skill=24")) {
+                        throw new IllegalStateException("Expected buff13 skill24 chunk0 actor/source effect 22,"
+                                + " actorVisible=" + s.battleP7ActorEffectVisible
+                                + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
+                                + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                                + " actorState=" + s.battleP7ActorEffectState
+                                + " trace=" + tailTrace(s, 84));
+                    }
+                    s.sourceStateTrace.add("SMOKE verified buff13 Thach Hoa skill24 actor chunk"
+                            + " effect.mid[24].chunk0=[0,0,22,0,-1,-1,0]"
+                            + " sourceEffect=22"
+                            + " noDamage=true");
+                } else if ("battle_status_buff13_skill24_speffect17".equals(checkpoint)) {
+                    for (int i = 0; i < 260
+                            && (!s.battleP7SpecialVisible
+                            || !traceContainsAll(s, "battle P7 speffect skill=24",
+                            "chunk=1", "speffect=17")); i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7SpecialVisible
+                            || s.battleP7SpecialType != 1
+                            || !s.battleP7SpecialOnPlayerSide
+                            || !traceContainsAll(s, "battle P7 source n() skill=24",
+                            "chunk=1", "special=1", "id=17")
+                            || !traceContainsAll(s, "battle P7 speffect skill=24",
+                            "chunk=1", "speffect=17")
+                            || traceContains(s, "battle P7 damage frame skill=24")) {
+                        throw new IllegalStateException("Expected buff13 skill24 chunk1 speffect17 AH type1,"
+                                + " specialVisible=" + s.battleP7SpecialVisible
+                                + " specialType=" + s.battleP7SpecialType
+                                + " specialSidePlayer=" + s.battleP7SpecialOnPlayerSide
+                                + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                                + " trace=" + tailTrace(s, 96));
+                    }
+                    s.sourceStateTrace.add("SMOKE verified buff13 Thach Hoa skill24 speffect chunk"
+                            + " effect.mid[24].chunk1=[0,1,17,0,-1,-1,0]"
+                            + " speffect=17"
+                            + " AH type1"
+                            + " noDamage=true");
+                } else {
+                    tickUntilBattleP7Phase(s, 3, 360);
+                    if (!s.battleP7PostEffectVisible
+                            || !s.battleP7PostEffectPlayerSide
+                            || !s.battleP7PostEffectText.startsWith("+")
+                            || !runtime.debugPlayerHasBuffForSmoke(13)
+                            || runtime.debugPlayerActiveBuffSlotForSmoke(13) < 0
+                            || runtime.debugPlayerBuffValueForSmoke(13) != expectedHeal
+                            || runtime.debugPlayerBuffDurationForSmoke(13) != 3
+                            || runtime.debugPlayerHasDebuffForSmoke(5)
+                            || s.battlePlayerHp != Math.min(s.battlePlayerMaxHp, startHp + expectedHeal)
+                            || traceContains(s, "battle P7 damage frame skill=24")
+                            || traceContains(s, "battle P7 hitroll skill=24")
+                            || !traceContains(s, "battle P7 no-damage skill=24")
+                            || !traceContains(s, "game.d.q postEffect skill=24")
+                            || !traceContains(s, "buffId=13")
+                            || !traceContains(s, "targetSide=1")
+                            || !traceContains(s, "targetSlot=1")) {
+                        throw new IllegalStateException("Expected buff13 skill24 to heal 20% maxHP, clear debuff, and skip damage,"
+                                + " expectedHeal=" + expectedHeal
+                                + " postVisible=" + s.battleP7PostEffectVisible
+                                + " postSidePlayer=" + s.battleP7PostEffectPlayerSide
+                                + " postText=" + s.battleP7PostEffectText
+                                + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                                + " hasBuff13=" + runtime.debugPlayerHasBuffForSmoke(13)
+                                + " slot13=" + runtime.debugPlayerActiveBuffSlotForSmoke(13)
+                                + " value=" + runtime.debugPlayerBuffValueForSmoke(13)
+                                + " duration=" + runtime.debugPlayerBuffDurationForSmoke(13)
+                                + " hasDebuff5=" + runtime.debugPlayerHasDebuffForSmoke(5)
+                                + " trace=" + tailTrace(s, 96));
+                    }
+                    assertPhase10AStatusSlots(s, true, "status buff13 after apply",
+                            new int[]{25}, new int[]{137});
+                    if ("battle_status_buff13_after_apply_cleanse_heal".equals(checkpoint)) {
+                        s.sourceStateTrace.add("SMOKE verified buff13 Thach Hoa apply"
+                                + " heal=" + expectedHeal
+                                + " hp=" + startHp + "->" + s.battlePlayerHp
+                                + " debuff5Cleared=true"
+                                + " icon=25 durationCell=137"
+                                + " noDamage=true"
+                                + " source=game.b.a(13)");
+                    } else if ("battle_status_buff13_p13_body_visual_start".equals(checkpoint)) {
+                        tickUntilTraceContains(s, "active queue visual start bank=0 id=13", 1000);
+                        if (!s.battleActiveQueueVisible
+                                || !s.battleActiveQueuePlayerSide
+                                || s.battleActiveQueueBank != 0
+                                || s.battleActiveQueueBuffId != 13
+                                || !traceContains(s, "visual=ap id=13")) {
+                            throw new IllegalStateException("Expected buff13 P13 active queue body visual start,"
+                                    + " state=" + s.battleStateName
+                                    + " visible=" + s.battleActiveQueueVisible
+                                    + " sidePlayer=" + s.battleActiveQueuePlayerSide
+                                    + " bank=" + s.battleActiveQueueBank
+                                    + " id=" + s.battleActiveQueueBuffId
+                                    + " segment=" + s.battleActiveQueueSegment
+                                    + " trace=" + tailTrace(s, 96));
+                        }
+                        s.sourceStateTrace.add("SMOKE verified buff13 Thach Hoa P13 body visual start"
+                                + " bank=0 id=13"
+                                + " source=game.d.ai[0] includes ids 3/5/13");
+                    } else {
+                        tickUntilTraceContains(s, "active queue visual start bank=0 id=13", 1000);
+                        int hpBeforeActiveTick = s.battlePlayerHp;
+                        tickUntilTraceContains(s, "active queue apply bank=0 id=13", 1200);
+                        if (!runtime.debugPlayerHasBuffForSmoke(13)
+                                || runtime.debugPlayerBuffDurationForSmoke(13) != 2
+                                || s.battlePlayerHp != Math.min(s.battlePlayerMaxHp, hpBeforeActiveTick + expectedHeal)
+                                || !s.battleP7PostEffectVisible
+                                || !s.battleP7PostEffectPlayerSide
+                                || !s.battleP7PostEffectText.equals("+" + expectedHeal)
+                                || !traceContains(s, "active queue visual start bank=0 id=13")
+                                || !traceContains(s, "active queue apply bank=0 id=13")
+                                || !traceContains(s, "hp "
+                                + hpBeforeActiveTick
+                                + "->" + Math.min(s.battlePlayerMaxHp, hpBeforeActiveTick + expectedHeal))) {
+                            throw new IllegalStateException("Expected buff13 P13 active tick to show body visual and heal,"
+                                    + " expectedHeal=" + expectedHeal
+                                    + " hpBeforeActiveTick=" + hpBeforeActiveTick
+                                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                                    + " postVisible=" + s.battleP7PostEffectVisible
+                                    + " postText=" + s.battleP7PostEffectText
+                                    + " duration=" + runtime.debugPlayerBuffDurationForSmoke(13)
+                                    + " trace=" + tailTrace(s, 120));
+                        }
+                        assertPhase10AStatusSlots(s, true, "status buff13 P13 heal tick",
+                                new int[]{25}, new int[]{136});
+                        s.sourceStateTrace.add("SMOKE verified buff13 Thach Hoa P13 heal tick"
+                                + " heal=" + expectedHeal
+                                + " duration=3->2"
+                                + " icon=25 durationCell=136"
+                                + " bodyVisual=true");
+                    }
+                }
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runBuff14CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_buff14_before_no_effect".equals(checkpoint)
+                && !"battle_status_buff14_skill25_speffect4".equals(checkpoint)
+                && !"battle_status_buff14_skill25_speffect17".equals(checkpoint)
+                && !"battle_status_buff14_after_apply_cleanse_protect".equals(checkpoint)
+                && !"battle_status_buff14_blocks_debuff_families".equals(checkpoint)
+                && !"battle_status_buff14_p13_no_body_visual_preclear".equals(checkpoint)
+                && !"battle_status_buff14_expiry_clears_icon".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_buff14_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, true, "status buff14 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugPlayerHasBuffForSmoke(14)
+                        || runtime.debugPlayerBuffValueForSmoke(14) != 0
+                        || runtime.debugPlayerBuffDurationForSmoke(14) != 0
+                        || s.battlePlayerStatusCount != 0) {
+                    throw new IllegalStateException("Expected buff14 before snapshot to have no active buff/icon,"
+                            + " hasBuff14=" + runtime.debugPlayerHasBuffForSmoke(14)
+                            + " value=" + runtime.debugPlayerBuffValueForSmoke(14)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(14)
+                            + " statusCount=" + s.battlePlayerStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified buff14 Thach Phu before snapshot"
+                        + " hasBuff14=false"
+                        + " iconCount=0");
+            } else if ("battle_status_buff14_blocks_debuff_families".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugPlayerSourceBuffForSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, true, "status buff14 immunity setup",
+                        new int[]{26}, new int[]{137});
+                int[][] probes = {
+                        {1, 0}, {2, 1}, {12, 2}, {13, 3}, {31, 4},
+                        {32, 5}, {33, 6}, {51, 7}, {41, 10}
+                };
+                for (int[] probe : probes) {
+                    int skillId = probe[0];
+                    int debuffId = probe[1];
+                    int applied = runtime.debugEnemyTryDebuffPlayerForSmoke(s, skillId, debuffId);
+                    if (applied != -1
+                            || runtime.debugPlayerHasDebuffForSmoke(debuffId)
+                            || !traceContainsAll(s, "enemy debuff attempt skill=" + skillId,
+                            "expectedDebuff=" + debuffId,
+                            "appliedDebuff=-1",
+                            "playerHasBuff14=true",
+                            "playerHasDebuff=false")) {
+                        throw new IllegalStateException("Expected buff14 to block debuff family skill="
+                                + skillId + " debuff=" + debuffId
+                                + " applied=" + applied
+                                + " playerHasDebuff=" + runtime.debugPlayerHasDebuffForSmoke(debuffId)
+                                + " trace=" + tailTrace(s, 120));
+                    }
+                }
+                s.sourceStateTrace.add("SMOKE verified buff14 Thach Phu immunity families"
+                        + " blockedSkills=[1,2,12,13,31,32,33,51,41]"
+                        + " blockedDebuffs=[0,1,2,3,4,5,6,7,10]"
+                        + " source=game.b target.m(14) -> appliedDebuff=-1");
+            } else if ("battle_status_buff14_expiry_clears_icon".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugPlayerDebuffForItemSmoke(s, 5, 8, 1);
+                runtime.debugPlayerSourceBuffForSmoke(s, 14, 0, 25);
+                if (!runtime.debugPlayerHasBuffForSmoke(14)
+                        || runtime.debugPlayerBuffDurationForSmoke(14) != 3
+                        || runtime.debugPlayerBuffValueForSmoke(14) != 0
+                        || runtime.debugPlayerHasDebuffForSmoke(5)) {
+                    throw new IllegalStateException("Expected buff14 direct apply to clear debuff and start duration 3,"
+                            + " hasBuff14=" + runtime.debugPlayerHasBuffForSmoke(14)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(14)
+                            + " value=" + runtime.debugPlayerBuffValueForSmoke(14)
+                            + " hasDebuff5=" + runtime.debugPlayerHasDebuffForSmoke(5)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff14 before expiry",
+                        new int[]{26}, new int[]{137});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 14);
+                if (!runtime.debugPlayerHasBuffForSmoke(14)
+                        || runtime.debugPlayerBuffDurationForSmoke(14) != 2) {
+                    throw new IllegalStateException("Expected buff14 first tick duration 2,"
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(14)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff14 after first tick",
+                        new int[]{26}, new int[]{136});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 14);
+                if (!runtime.debugPlayerHasBuffForSmoke(14)
+                        || runtime.debugPlayerBuffDurationForSmoke(14) != 1) {
+                    throw new IllegalStateException("Expected buff14 second tick duration 1,"
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(14)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, true, "status buff14 after second tick",
+                        new int[]{26}, new int[]{135});
+                runtime.debugTickPlayerSourceBuffForSmoke(s, 14);
+                if (runtime.debugPlayerHasBuffForSmoke(14)
+                        || runtime.debugPlayerBuffDurationForSmoke(14) != 0
+                        || s.battlePlayerStatusCount != 0
+                        || !traceContains(s, "player source buff tick id=14")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected buff14 third tick to expire and clear icon,"
+                            + " active=" + runtime.debugPlayerHasBuffForSmoke(14)
+                            + " duration=" + runtime.debugPlayerBuffDurationForSmoke(14)
+                            + " statusCount=" + s.battlePlayerStatusCount
+                            + " trace=" + tailTrace(s, 84));
+                }
+                s.sourceStateTrace.add("SMOKE verified buff14 Thach Phu expiry"
+                        + " durationTicks=3"
+                        + " iconCleared=true"
+                        + " source=game.b.o(14)+d(14,slot)");
+            } else {
+                enterElderP7WithSkills(s, new int[]{25, 10}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugPlayerDebuffForItemSmoke(s, 5, 8, 1);
+                tickUntilBattleP7Phase(s, 1, 80);
+                if ("battle_status_buff14_skill25_speffect4".equals(checkpoint)) {
+                    for (int i = 0; i < 180
+                            && (!s.battleP7SpecialVisible
+                            || !traceContainsAll(s, "battle P7 speffect skill=25",
+                            "chunk=0", "speffect=4")); i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7SpecialVisible
+                            || s.battleP7SpecialType != 7
+                            || !s.battleP7SpecialOnPlayerSide
+                            || !traceContainsAll(s, "battle P7 source n() skill=25",
+                            "chunk=0", "special=1", "id=4")
+                            || !traceContainsAll(s, "battle P7 speffect skill=25",
+                            "chunk=0", "speffect=4")
+                            || traceContains(s, "battle P7 damage frame skill=25")) {
+                        throw new IllegalStateException("Expected buff14 skill25 chunk0 speffect4 AH type7,"
+                                + " specialVisible=" + s.battleP7SpecialVisible
+                                + " specialType=" + s.battleP7SpecialType
+                                + " specialSidePlayer=" + s.battleP7SpecialOnPlayerSide
+                                + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                                + " trace=" + tailTrace(s, 96));
+                    }
+                    s.sourceStateTrace.add("SMOKE verified buff14 Thach Phu skill25 first visual chunk"
+                            + " effect.mid[25].chunk0=[0,1,4,0,-1,-1,0]"
+                            + " speffect=4"
+                            + " AH type7"
+                            + " noDamage=true");
+                } else if ("battle_status_buff14_skill25_speffect17".equals(checkpoint)) {
+                    for (int i = 0; i < 280
+                            && (!s.battleP7SpecialVisible
+                            || !traceContainsAll(s, "battle P7 speffect skill=25",
+                            "chunk=1", "speffect=17")); i++) {
+                        s.tick();
+                    }
+                    if (!s.battleP7SpecialVisible
+                            || s.battleP7SpecialType != 1
+                            || !s.battleP7SpecialOnPlayerSide
+                            || !traceContainsAll(s, "battle P7 source n() skill=25",
+                            "chunk=1", "special=1", "id=17")
+                            || !traceContainsAll(s, "battle P7 speffect skill=25",
+                            "chunk=1", "speffect=17")
+                            || traceContains(s, "battle P7 damage frame skill=25")) {
+                        throw new IllegalStateException("Expected buff14 skill25 chunk1 speffect17 AH type1,"
+                                + " specialVisible=" + s.battleP7SpecialVisible
+                                + " specialType=" + s.battleP7SpecialType
+                                + " specialSidePlayer=" + s.battleP7SpecialOnPlayerSide
+                                + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                                + " trace=" + tailTrace(s, 96));
+                    }
+                    s.sourceStateTrace.add("SMOKE verified buff14 Thach Phu skill25 second visual chunk"
+                            + " effect.mid[25].chunk1=[0,1,17,0,-1,-1,0]"
+                            + " speffect=17"
+                            + " AH type1"
+                            + " noDamage=true");
+                } else {
+                    tickUntilBattleP7Phase(s, 3, 360);
+                    if (!runtime.debugPlayerHasBuffForSmoke(14)
+                            || runtime.debugPlayerActiveBuffSlotForSmoke(14) < 0
+                            || runtime.debugPlayerBuffValueForSmoke(14) != 0
+                            || runtime.debugPlayerBuffDurationForSmoke(14) != 3
+                            || runtime.debugPlayerHasDebuffForSmoke(5)
+                            || traceContains(s, "battle P7 damage frame skill=25")
+                            || traceContains(s, "battle P7 hitroll skill=25")
+                            || !traceContains(s, "battle P7 no-damage skill=25")
+                            || !traceContains(s, "game.d.q postEffect skill=25")
+                            || !traceContains(s, "buffId=14")
+                            || !traceContains(s, "targetSide=1")
+                            || !traceContains(s, "targetSlot=1")) {
+                        throw new IllegalStateException("Expected buff14 skill25 to clear debuffs, protect, and skip damage,"
+                                + " postVisible=" + s.battleP7PostEffectVisible
+                                + " postSidePlayer=" + s.battleP7PostEffectPlayerSide
+                                + " postText=" + s.battleP7PostEffectText
+                                + " hasBuff14=" + runtime.debugPlayerHasBuffForSmoke(14)
+                                + " slot14=" + runtime.debugPlayerActiveBuffSlotForSmoke(14)
+                                + " value=" + runtime.debugPlayerBuffValueForSmoke(14)
+                                + " duration=" + runtime.debugPlayerBuffDurationForSmoke(14)
+                                + " hasDebuff5=" + runtime.debugPlayerHasDebuffForSmoke(5)
+                                + " trace=" + tailTrace(s, 96));
+                    }
+                    assertPhase10AStatusSlots(s, true, "status buff14 after apply",
+                            new int[]{26}, new int[]{137});
+                    if ("battle_status_buff14_after_apply_cleanse_protect".equals(checkpoint)) {
+                        s.sourceStateTrace.add("SMOKE verified buff14 Thach Phu apply"
+                                + " debuff5Cleared=true"
+                                + " icon=26 durationCell=137"
+                                + " noDamage=true"
+                                + " source=game.b.a(14)");
+                    } else {
+                        runtime.debugPlayerDebuffForItemSmoke(s, 5, 8, 1);
+                        tickUntilTraceContains(s, "active queue apply bank=0 id=14", 1200);
+                        if (!runtime.debugPlayerHasBuffForSmoke(14)
+                                || runtime.debugPlayerBuffDurationForSmoke(14) != 2
+                                || runtime.debugPlayerHasDebuffForSmoke(5)
+                                || traceContains(s, "active queue visual start bank=0 id=14")
+                                || s.battleP7ActorEffectVisible
+                                || s.battleP7SpecialVisible) {
+                            throw new IllegalStateException("Expected buff14 P13 active tick to pre-clear debuff without body visual,"
+                                    + " state=" + s.battleStateName
+                                    + " duration=" + runtime.debugPlayerBuffDurationForSmoke(14)
+                                    + " hasDebuff5=" + runtime.debugPlayerHasDebuffForSmoke(5)
+                                    + " activeQueueVisible=" + s.battleActiveQueueVisible
+                                    + " special=" + s.battleP7SpecialVisible
+                                    + " actor=" + s.battleP7ActorEffectVisible
+                                    + " trace=" + tailTrace(s, 120));
+                        }
+                        assertPhase10AStatusSlots(s, true, "status buff14 P13 no body visual/preclear",
+                                new int[]{26}, new int[]{136});
+                        s.sourceStateTrace.add("SMOKE verified buff14 Thach Phu P13 tick"
+                                + " duration=3->2"
+                                + " debuff5PreCleared=true"
+                                + " activeQueueVisualStart=false"
+                                + " source=game.d P12/P13 preclear + game.b.o(14)");
+                    }
+                }
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runDebuff0CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff0_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff0_skill1_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff0_skill7_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff0_tick_skill1_div4".equals(checkpoint)
+                && !"battle_status_debuff0_tick_skill7_div3".equals(checkpoint)
+                && !"battle_status_debuff0_body_visual_speffect18_anchor".equals(checkpoint)
+                && !"battle_status_debuff0_expiry_clears_icon".equals(checkpoint)
+                && !"battle_status_debuff0_buff14_blocks_skill1".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff0_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff0 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(0)
+                        || runtime.debugEnemyDebuffDurationForSmoke(0) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff0 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff0=" + runtime.debugEnemyHasDebuffForSmoke(0)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(0)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff0 Gieo Hat before snapshot"
+                        + " hasDebuff0=false"
+                        + " enemyIconCount=0");
+            } else if ("battle_status_debuff0_skill1_producer_apply".equals(checkpoint)
+                    || "battle_status_debuff0_skill7_producer_apply".equals(checkpoint)) {
+                int skillId = "battle_status_debuff0_skill1_producer_apply".equals(checkpoint) ? 1 : 7;
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 180);
+                int storedRaw = runtime.debugEnemyDebuffValueForSmoke(0);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(0)
+                        || runtime.debugEnemyDebuffDurationForSmoke(0) != 3
+                        || storedRaw <= 0
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(0) != skillId
+                        || !traceContainsAll(s, "battle P7 source n() skill=" + skillId,
+                        "chunk=0", "special=0", "id=20")
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "appliedDebuffId=0")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff0 producer skill " + skillId
+                            + " to play effect.mid actor anim 20, hit, and store raw damage,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff0=" + runtime.debugEnemyHasDebuffForSmoke(0)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(0)
+                            + " storedRaw=" + storedRaw
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(0)
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff0 skill" + skillId + " producer",
+                        new int[]{1}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff0 Gieo Hat producer"
+                        + " skill=" + skillId
+                        + " effect.mid[" + skillId + "]=[0,0,20,0,-1,-1,0]"
+                        + " storedRaw=" + storedRaw
+                        + " sourceSkill=" + skillId
+                        + " icon=1 durationCell=137"
+                        + " source=game.b.b(target)");
+            } else if ("battle_status_debuff0_tick_skill1_div4".equals(checkpoint)
+                    || "battle_status_debuff0_tick_skill7_div3".equals(checkpoint)) {
+                boolean skill1 = "battle_status_debuff0_tick_skill1_div4".equals(checkpoint);
+                int skillId = skill1 ? 1 : 7;
+                int storedRaw = skill1 ? 40 : 45;
+                int divisor = skill1 ? 4 : 3;
+                int startHp = skill1 ? 50 : 60;
+                int expectedDamage = storedRaw / divisor;
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, storedRaw, skillId, 3, startHp);
+                assertPhase10AStatusSlots(s, false, "status debuff0 skill" + skillId + " before tick",
+                        new int[]{1}, new int[]{137});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=0", 700);
+                if (s.battleEnemyHp != startHp - expectedDamage
+                        || runtime.debugEnemyDebuffDurationForSmoke(0) != 2
+                        || !s.battleP7PostEffectVisible
+                        || !s.battleP7PostEffectText.equals("-" + expectedDamage)
+                        || !traceContainsAll(s, "active queue apply bank=1 id=0",
+                        "hp " + startHp + "->" + (startHp - expectedDamage),
+                        "duration=2", "active=true")) {
+                    throw new IllegalStateException("Expected debuff0 skill " + skillId
+                            + " tick to use storedRaw/divisor exactly,"
+                            + " storedRaw=" + storedRaw
+                            + " divisor=" + divisor
+                            + " expectedDamage=" + expectedDamage
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(0)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " postText=" + s.battleP7PostEffectText
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff0 skill" + skillId + " after tick",
+                        new int[]{1}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff0 Gieo Hat tick"
+                        + " skill=" + skillId
+                        + " storedRaw=" + storedRaw
+                        + " divisor=" + divisor
+                        + " hp=" + startHp + "->" + s.battleEnemyHp
+                        + " duration=3->2"
+                        + " icon=1 durationCell=136"
+                        + " source=game.b.q(0)");
+            } else if ("battle_status_debuff0_body_visual_speffect18_anchor".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 3, 50);
+                tickUntilTraceContains(s, "active queue visual start bank=1 id=0", 700);
+                if (!s.battleActiveQueueVisible
+                        || s.battleActiveQueueBank != 1
+                        || s.battleActiveQueueEffectId != 0
+                        || !s.battleP7SpecialVisible
+                        || s.battleP7SpecialType != 9
+                        || !traceContainsAll(s, "active queue visual start bank=1 id=0",
+                        "visual=aq id=0")
+                        || !traceContainsAll(s, "battle P12 active queue visual",
+                        "bank=1", "debuff=0",
+                        "speffect=18")) {
+                    throw new IllegalStateException("Expected debuff0 P12/P13 body visual to use aq[0] speffect18 AH type9,"
+                            + " activeVisible=" + s.battleActiveQueueVisible
+                            + " bank=" + s.battleActiveQueueBank
+                            + " effectId=" + s.battleActiveQueueEffectId
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " specialType=" + s.battleP7SpecialType
+                            + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff0 body visual",
+                        new int[]{1}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff0 Gieo Hat body visual"
+                        + " bufDebuf aq[0]=[1,18,0,-1]"
+                        + " speffect=18"
+                        + " AH type9"
+                        + " anchoredBySourcePos=true");
+            } else if ("battle_status_debuff0_expiry_clears_icon".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 0, 48, 1, 3, 80);
+                assertPhase10AStatusSlots(s, false, "status debuff0 before expiry",
+                        new int[]{1}, new int[]{137});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 0);
+                if (!runtime.debugEnemyHasDebuffForSmoke(0)
+                        || runtime.debugEnemyDebuffDurationForSmoke(0) != 2
+                        || s.battleEnemyHp != 68) {
+                    throw new IllegalStateException("Expected debuff0 first expiry tick duration 2 and HP -12,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(0)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff0 after first tick",
+                        new int[]{1}, new int[]{136});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 0);
+                if (!runtime.debugEnemyHasDebuffForSmoke(0)
+                        || runtime.debugEnemyDebuffDurationForSmoke(0) != 1
+                        || s.battleEnemyHp != 56) {
+                    throw new IllegalStateException("Expected debuff0 second expiry tick duration 1 and HP -12,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(0)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff0 after second tick",
+                        new int[]{1}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 0);
+                if (runtime.debugEnemyHasDebuffForSmoke(0)
+                        || runtime.debugEnemyDebuffDurationForSmoke(0) != 0
+                        || s.battleEnemyHp != 44
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=0")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff0 third tick to damage, expire, and clear icon,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(0)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(0)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff0 Gieo Hat expiry"
+                        + " storedRaw=48"
+                        + " divisor=4"
+                        + " hp=80->68->56->44"
+                        + " duration=3->2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(0)+d(debuffId,slot)");
+            } else {
+                enterElderP7WithSkills(s, new int[]{1, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff0 buff14 block setup",
+                        new int[]{26}, new int[]{137});
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 180);
+                if (!s.battleP7DamageVisible
+                        || !s.battleP7DebuffText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(0)
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "battle P7 damage frame skill=1")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected buff14 to block incoming debuff0 from skill1,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff0=" + runtime.debugEnemyHasDebuffForSmoke(0)
+                            + " enemyHasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff0 buff14 block after skill1",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff0 Gieo Hat buff14 block"
+                        + " skill=1"
+                        + " appliedDebuffId=-1"
+                        + " debuffTextEmpty=true"
+                        + " enemyIcon=26"
+                        + " source=target.hasBuff(14) blocks maybePlanTargetDebuff");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runDebuff1CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff1_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff1_skill2_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff1_skill8_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff1_skill22_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff1_skill28_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff1_body_visual_speffect14_type12".equals(checkpoint)
+                && !"battle_status_debuff1_tick_noop_duration".equals(checkpoint)
+                && !"battle_status_debuff1_expiry_clears_icon".equals(checkpoint)
+                && !"battle_status_debuff1_catch_multiplier".equals(checkpoint)
+                && !"battle_status_debuff1_conditional_skill23_damage".equals(checkpoint)
+                && !"battle_status_debuff1_conditional_skill29_damage".equals(checkpoint)
+                && !"battle_status_debuff1_buff14_blocks_skill2".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff1_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff1 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(1)
+                        || runtime.debugEnemyDebuffDurationForSmoke(1) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff1 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff1=" + runtime.debugEnemyHasDebuffForSmoke(1)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(1)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff1 Me Muoi before snapshot"
+                        + " hasDebuff1=false"
+                        + " enemyIconCount=0");
+            } else if (checkpoint.startsWith("battle_status_debuff1_skill")
+                    && checkpoint.endsWith("_producer_apply")) {
+                int skillId = parseDebuff1ProducerSkill(checkpoint);
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 180);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(1)
+                        || runtime.debugEnemyDebuffDurationForSmoke(1) != 2
+                        || runtime.debugEnemyDebuffValueForSmoke(1) != 0
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(1) != skillId
+                        || !traceContains(s, "SMOKE battle forced damage.debuff roll=0")
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "appliedDebuffId=1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff1 producer skill " + skillId
+                            + " to hit, pass chance, and store flag debuff,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff1=" + runtime.debugEnemyHasDebuffForSmoke(1)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(1)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(1)
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(1)
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff1 skill" + skillId + " producer",
+                        new int[]{2}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff1 Me Muoi producer"
+                        + " skill=" + skillId
+                        + " chancePassedByForcedRoll=0"
+                        + " storedValue=0"
+                        + " sourceSkill=" + skillId
+                        + " icon=2 durationCell=136"
+                        + " source=game.b.b(target)");
+            } else if ("battle_status_debuff1_body_visual_speffect14_type12".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 1, 0, 2, 2, 50);
+                tickUntilTraceContains(s, "active queue visual start bank=1 id=1", 700);
+                if (!s.battleActiveQueueVisible
+                        || s.battleActiveQueueBank != 1
+                        || s.battleActiveQueueEffectId != 1
+                        || !s.battleP7SpecialVisible
+                        || s.battleP7SpecialType != 12
+                        || !traceContainsAll(s, "active queue visual start bank=1 id=1",
+                        "visual=aq id=1")
+                        || !traceContainsAll(s, "battle P12 active queue visual",
+                        "bank=1", "debuff=1", "speffect=14")) {
+                    throw new IllegalStateException("Expected debuff1 P12/P13 body visual to use aq[1] speffect14 AH type12,"
+                            + " activeVisible=" + s.battleActiveQueueVisible
+                            + " bank=" + s.battleActiveQueueBank
+                            + " effectId=" + s.battleActiveQueueEffectId
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " specialType=" + s.battleP7SpecialType
+                            + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff1 body visual",
+                        new int[]{2}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff1 Me Muoi body visual"
+                        + " bufDebuf ar[1][1]=1"
+                        + " aq[1]=[1,14,0,-1]"
+                        + " speffect=14"
+                        + " AH type12");
+            } else if ("battle_status_debuff1_tick_noop_duration".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 1, 0, 2, 2, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff1 before noop tick",
+                        new int[]{2}, new int[]{136});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=1", 700);
+                if (s.battleEnemyHp != 50
+                        || runtime.debugEnemyDebuffDurationForSmoke(1) != 1
+                        || s.battleP7PostEffectVisible
+                        || !traceContainsAll(s, "active queue apply bank=1 id=1",
+                        "hp 50->50", "duration=1", "active=true")) {
+                    throw new IllegalStateException("Expected debuff1 active tick to be HP/stat no-op and decrement duration,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(1)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " postText=" + s.battleP7PostEffectText
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff1 after noop tick",
+                        new int[]{2}, new int[]{135});
+                s.sourceStateTrace.add("SMOKE verified debuff1 Me Muoi tick"
+                        + " hp=50->50"
+                        + " duration=2->1"
+                        + " icon=2 durationCell=135"
+                        + " source=game.b.q(1) no-op body");
+            } else if ("battle_status_debuff1_expiry_clears_icon".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 1, 0, 2, 2, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff1 before expiry",
+                        new int[]{2}, new int[]{136});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 1);
+                if (!runtime.debugEnemyHasDebuffForSmoke(1)
+                        || runtime.debugEnemyDebuffDurationForSmoke(1) != 1
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff1 first expiry tick duration 1 and no HP change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(1)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff1 after first tick",
+                        new int[]{2}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 1);
+                if (runtime.debugEnemyHasDebuffForSmoke(1)
+                        || runtime.debugEnemyDebuffDurationForSmoke(1) != 0
+                        || s.battleEnemyHp != 50
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=1")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff1 second tick to expire and clear icon,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(1)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(1)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff1 Me Muoi expiry"
+                        + " hp=50->50->50"
+                        + " duration=2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(1)+d(debuffId,slot)");
+            } else if ("battle_status_debuff1_catch_multiplier".equals(checkpoint)) {
+                VqsvIntroDemo.Scene base = setupCatchChanceStatusMenu(-1, false);
+                int baseChance = catchMenuChanceForItem(base, 1);
+                setupCatchChanceStatusMenu(s, 1, false);
+                int debuff1Chance = catchMenuChanceForItem(s, 1);
+                if (debuff1Chance <= baseChance
+                        || debuff1Chance != baseChance * 11 / 10
+                        || !traceContains(s, "targetDebuff=1")) {
+                    throw new IllegalStateException("Expected debuff1 to use catch status multiplier 11/10,"
+                            + " base=" + baseChance
+                            + " debuff1=" + debuff1Chance
+                            + " expected=" + (baseChance * 11 / 10)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff1 Me Muoi catch multiplier"
+                        + " base=" + baseChance
+                        + " debuff1=" + debuff1Chance
+                        + " multiplier=11/10"
+                        + " source=game.d.b(item)");
+            } else if ("battle_status_debuff1_conditional_skill23_damage".equals(checkpoint)
+                    || "battle_status_debuff1_conditional_skill29_damage".equals(checkpoint)) {
+                int skillId = "battle_status_debuff1_conditional_skill23_damage".equals(checkpoint) ? 23 : 29;
+                VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+                int baseline = debuff1ConditionalSkillDamage(baselineScene, skillId, false);
+                int debuffed = debuff1ConditionalSkillDamage(s, skillId, true);
+                assertPhase10AStatusSlots(s, false, "status debuff1 conditional skill" + skillId,
+                        new int[]{2}, new int[]{136});
+                if (debuffed <= baseline
+                        || !traceContainsAll(s, "status icon prepared side=enemy",
+                        "bank=1", "id=1", "duration=2")
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff1 to increase conditional skill " + skillId
+                            + " damage,"
+                            + " baseline=" + baseline
+                            + " debuffed=" + debuffed
+                            + " trace=" + tailTrace(s, 84));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff1 Me Muoi conditional damage"
+                        + " skill=" + skillId
+                        + " baseline=" + baseline
+                        + " debuffed=" + debuffed
+                        + " source=game.b.b(target) skill23/29 p(1) branch");
+            } else {
+                enterElderP7WithSkills(s, new int[]{2, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff1 buff14 block setup",
+                        new int[]{26}, new int[]{137});
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 180);
+                if (!s.battleP7DamageVisible
+                        || !s.battleP7DebuffText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(1)
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "battle P7 damage frame skill=2")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected buff14 to block incoming debuff1 from skill2,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff1=" + runtime.debugEnemyHasDebuffForSmoke(1)
+                            + " enemyHasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff1 buff14 block after skill2",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff1 Me Muoi buff14 block"
+                        + " skill=2"
+                        + " forcedDebuffRoll=0"
+                        + " appliedDebuffId=-1"
+                        + " debuffTextEmpty=true"
+                        + " enemyIcon=26"
+                        + " source=target.hasBuff(14) blocks maybePlanTargetDebuff");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static int parseDebuff1ProducerSkill(String checkpoint) {
+        String prefix = "battle_status_debuff1_skill";
+        String suffix = "_producer_apply";
+        int start = prefix.length();
+        int end = checkpoint.length() - suffix.length();
+        if (end <= start) {
+            throw new IllegalArgumentException("Bad debuff1 producer checkpoint: " + checkpoint);
+        }
+        int skillId = Integer.parseInt(checkpoint.substring(start, end));
+        if (!isPhase9EDebuff1Skill(skillId)) {
+            throw new IllegalArgumentException("Debuff1 producer closeout only supports 2/8/22/28, got " + skillId);
+        }
+        return skillId;
+    }
+
+    private static int debuff1ConditionalSkillDamage(VqsvIntroDemo.Scene s, int skillId, boolean applyDebuff1) {
+        if (skillId != 23 && skillId != 29) {
+            throw new IllegalArgumentException("Debuff1 conditional damage only supports skill 23/29, got " + skillId);
+        }
+        enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 120);
+        runtime.debugSetEnemyDefenseForSmoke(s, 100);
+        if (applyDebuff1) {
+            runtime.debugStatusIconForSmoke(s, false, 1, 1, 2, 0, 2);
+        }
+        runtime.debugSetSourceRandomSeedForSmoke(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=" + skillId);
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected debuff1 conditional skill damage frame, skill="
+                    + skillId + " damage=" + damage + " trace=" + tailTrace(s, 60));
+        }
+        s.sourceStateTrace.add("SMOKE debuff1 conditional skill damage probe"
+                + " skill=" + skillId
+                + " applyDebuff1=" + applyDebuff1
+                + " damage=" + damage
+                + " source=game.b.b(target) p(1) branch");
+        return damage;
+    }
+
+    private static boolean runDebuff2CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff2_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff2_skill12_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff2_skill18_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff2_body_visual_speffect6_type8".equals(checkpoint)
+                && !"battle_status_debuff2_tick_noop_duration".equals(checkpoint)
+                && !"battle_status_debuff2_expiry_clears_icon".equals(checkpoint)
+                && !"battle_status_debuff2_catch_multiplier".equals(checkpoint)
+                && !"battle_status_debuff2_defense_formula_reduces_damage".equals(checkpoint)
+                && !"battle_status_debuff2_command_locks_item_pet_run".equals(checkpoint)
+                && !"battle_status_debuff2_allows_skill_catch_shop".equals(checkpoint)
+                && !"battle_status_debuff2_buff14_blocks_skill12".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff2_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff2 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(2)
+                        || runtime.debugEnemyDebuffDurationForSmoke(2) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff2 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff2=" + runtime.debugEnemyHasDebuffForSmoke(2)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(2)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh before snapshot"
+                        + " hasDebuff2=false"
+                        + " enemyIconCount=0");
+            } else if (checkpoint.startsWith("battle_status_debuff2_skill")
+                    && checkpoint.endsWith("_producer_apply")) {
+                int skillId = parseDebuff2ProducerSkill(checkpoint);
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 180);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(2)
+                        || runtime.debugEnemyDebuffDurationForSmoke(2) != 3
+                        || runtime.debugEnemyDebuffValueForSmoke(2) != 0
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(2) != skillId
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "appliedDebuffId=2")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff2 producer skill " + skillId
+                            + " to hit and store bind debuff,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff2=" + runtime.debugEnemyHasDebuffForSmoke(2)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(2)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(2)
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(2)
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff2 skill" + skillId + " producer",
+                        new int[]{3}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh producer"
+                        + " skill=" + skillId
+                        + " storedValue=0"
+                        + " sourceSkill=" + skillId
+                        + " icon=3 durationCell=137"
+                        + " source=game.b.b(target)");
+            } else if ("battle_status_debuff2_body_visual_speffect6_type8".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 2, 0, 3, 3, 50);
+                tickUntilTraceContains(s, "active queue visual start bank=1 id=2", 700);
+                int guard = 0;
+                while ((!s.battleP7SpecialVisible || s.battleP7SpecialType != 8) && guard++ < 180) {
+                    s.tick();
+                }
+                if (!s.battleActiveQueueVisible
+                        || s.battleActiveQueueBank != 1
+                        || s.battleActiveQueueEffectId != 2
+                        || !s.battleP7SpecialVisible
+                        || s.battleP7SpecialType != 8
+                        || !traceContainsAll(s, "battle P12 active queue visual",
+                        "bank=1", "debuff=2", "speffect=6")) {
+                    throw new IllegalStateException("Expected debuff2 P12/P13 body visual to use speffect6 AH type8,"
+                            + " activeVisible=" + s.battleActiveQueueVisible
+                            + " bank=" + s.battleActiveQueueBank
+                            + " effectId=" + s.battleActiveQueueEffectId
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " specialType=" + s.battleP7SpecialType
+                            + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff2 body visual",
+                        new int[]{3}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh body visual"
+                        + " bufDebuf ar[1][2]=[0,21,0,0,1,6,0,0]"
+                        + " speffect=6"
+                        + " AH type8");
+            } else if ("battle_status_debuff2_tick_noop_duration".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 2, 0, 3, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff2 before noop tick",
+                        new int[]{3}, new int[]{137});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=2", 700);
+                if (s.battleEnemyHp != 50
+                        || runtime.debugEnemyDebuffDurationForSmoke(2) != 2
+                        || s.battleP7PostEffectVisible
+                        || !traceContainsAll(s, "active queue apply bank=1 id=2",
+                        "hp 50->50", "duration=2", "active=true")) {
+                    throw new IllegalStateException("Expected debuff2 active tick to be HP/stat no-op and decrement duration,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(2)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " postText=" + s.battleP7PostEffectText
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff2 after noop tick",
+                        new int[]{3}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh tick"
+                        + " hp=50->50"
+                        + " duration=3->2"
+                        + " icon=3 durationCell=136"
+                        + " source=game.b.q(2) no-op body");
+            } else if ("battle_status_debuff2_expiry_clears_icon".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 2, 0, 3, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff2 before expiry",
+                        new int[]{3}, new int[]{137});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 2);
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 2);
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 2);
+                if (runtime.debugEnemyHasDebuffForSmoke(2)
+                        || runtime.debugEnemyDebuffDurationForSmoke(2) != 0
+                        || s.battleEnemyHp != 50
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=2")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff2 third tick to expire and clear icon,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(2)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(2)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh expiry"
+                        + " hp=50 unchanged"
+                        + " duration=3->2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(2)+d(debuffId,slot)");
+            } else if ("battle_status_debuff2_catch_multiplier".equals(checkpoint)) {
+                VqsvIntroDemo.Scene base = setupCatchChanceStatusMenu(-1, false);
+                int baseChance = catchMenuChanceForItem(base, 1);
+                setupCatchChanceStatusMenu(s, 2, false);
+                int debuff2Chance = catchMenuChanceForItem(s, 1);
+                if (debuff2Chance <= baseChance
+                        || debuff2Chance != baseChance * 12 / 10
+                        || !traceContains(s, "targetDebuff=2")) {
+                    throw new IllegalStateException("Expected debuff2 to use catch status multiplier 12/10,"
+                            + " base=" + baseChance
+                            + " debuff2=" + debuff2Chance
+                            + " expected=" + (baseChance * 12 / 10)
+                            + " trace=" + tailTrace(s, 60));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh catch multiplier"
+                        + " base=" + baseChance
+                        + " debuff2=" + debuff2Chance
+                        + " multiplier=12/10"
+                        + " source=game.d.b(item)");
+            } else if ("battle_status_debuff2_defense_formula_reduces_damage".equals(checkpoint)) {
+                VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+                int baseline = debuff2DefenseFormulaDamage(baselineScene, false);
+                int bound = debuff2DefenseFormulaDamage(s, true);
+                if (bound >= baseline
+                        || !traceContains(s, "SMOKE battle Phase10A status icon prepared side=enemy bank=1 id=2")
+                        || !traceContains(s, "battle P7 damage frame skill=10")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff2 defense formula to reduce incoming normal damage,"
+                            + " baseline=" + baseline
+                            + " bound=" + bound
+                            + " trace=" + tailTrace(s, 84));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff2 defense formula",
+                        new int[]{3}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh defense formula"
+                        + " baselineDamage=" + baseline
+                        + " boundDamage=" + bound
+                        + " source=game.b.B target.p(2) defense*(100+aq.c[3][2][5])/100");
+            } else if ("battle_status_debuff2_command_locks_item_pet_run".equals(checkpoint)) {
+                assertDebuff2CommandResult(s, 2, "WARN", VqsvText.Battle.ITEM_BIND_WARNING);
+                VqsvIntroDemo.Scene petScene = new VqsvIntroDemo.Scene();
+                assertDebuff2CommandResult(petScene, 3, "WARN", VqsvText.Battle.PET_BIND_WARNING);
+                VqsvIntroDemo.Scene runScene = new VqsvIntroDemo.Scene();
+                assertDebuff2CommandResult(runScene, 5, "WARN", VqsvText.Battle.RUN_BIND_WARNING);
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh command locks"
+                        + " item=true pet=true run=true"
+                        + " source=game.h.d(b) command cases 2/3/5 check v1.p(2)");
+            } else if ("battle_status_debuff2_allows_skill_catch_shop".equals(checkpoint)) {
+                assertDebuff2CommandResult(s, 0, "P3", null);
+                VqsvIntroDemo.Scene catchScene = new VqsvIntroDemo.Scene();
+                assertDebuff2CommandResult(catchScene, 1, "P21", null);
+                VqsvIntroDemo.Scene shopScene = new VqsvIntroDemo.Scene();
+                assertDebuff2CommandResult(shopScene, 4, "P11", null);
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh non-locked commands"
+                        + " skill=P3 catch=P21 shop=P11"
+                        + " source=game.h.d(b) command cases 0/1/4 do not check v1.p(2)");
+            } else {
+                enterElderP7WithSkills(s, new int[]{12, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff2 buff14 block setup",
+                        new int[]{26}, new int[]{137});
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 180);
+                if (!s.battleP7DamageVisible
+                        || !s.battleP7DebuffText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(2)
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "battle P7 damage frame skill=12")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected buff14 to block incoming debuff2 from skill12,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff2=" + runtime.debugEnemyHasDebuffForSmoke(2)
+                            + " enemyHasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 96));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff2 buff14 block after skill12",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff2 Quan Quanh buff14 block"
+                        + " skill=12"
+                        + " appliedDebuffId=-1"
+                        + " debuffTextEmpty=true"
+                        + " enemyIcon=26"
+                        + " source=target.hasBuff(14) blocks maybePlanTargetDebuff");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static int parseDebuff2ProducerSkill(String checkpoint) {
+        String prefix = "battle_status_debuff2_skill";
+        String suffix = "_producer_apply";
+        int start = prefix.length();
+        int end = checkpoint.length() - suffix.length();
+        if (end <= start) {
+            throw new IllegalArgumentException("Bad debuff2 producer checkpoint: " + checkpoint);
+        }
+        int skillId = Integer.parseInt(checkpoint.substring(start, end));
+        if (!isPhase9FDebuff2Skill(skillId)) {
+            throw new IllegalArgumentException("Debuff2 producer closeout only supports 12/18, got " + skillId);
+        }
+        return skillId;
+    }
+
+    private static int debuff2DefenseFormulaDamage(VqsvIntroDemo.Scene s, boolean applyDebuff2) {
+        enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetPlayerAttackForSmoke(s, 140);
+        runtime.debugSetEnemyDefenseForSmoke(s, 50);
+        if (applyDebuff2) {
+            runtime.debugStatusIconForSmoke(s, false, 1, 2, 3, 0, 12);
+        }
+        runtime.debugSetSourceRandomSeedForSmoke(0L);
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        tickUntilBattleP7Phase(s, 2, 180);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=10");
+        if (damage <= 0 || !traceContains(s, "hit=true")) {
+            throw new IllegalStateException("Expected debuff2 defense formula damage frame,"
+                    + " applyDebuff2=" + applyDebuff2
+                    + " damage=" + damage
+                    + " trace=" + tailTrace(s, 60));
+        }
+        s.sourceStateTrace.add("SMOKE debuff2 defense formula probe"
+                + " applyDebuff2=" + applyDebuff2
+                + " damage=" + damage
+                + " source=game.b.B");
+        return damage;
+    }
+
+    private static void assertDebuff2CommandResult(VqsvIntroDemo.Scene s, int commandIndex,
+                                                   String expectedState, String expectedWarning) {
+        SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+        runtime.debugStatusIconForSmoke(s, true, 1, 2, 3, 0, 12);
+        if (!runtime.debugPlayerHasDebuffForSmoke(2)) {
+            throw new IllegalStateException("Expected player debuff2 before command smoke");
+        }
+        s.battleCommandIndex = commandIndex;
+        s.key0 = true;
+        int guard = 0;
+        while (!expectedState.equals(s.battleStateName) && guard++ < 120) {
+            s.tick();
+        }
+        if (!expectedState.equals(s.battleStateName)) {
+            throw new IllegalStateException("Expected debuff2 command " + commandIndex
+                    + " to enter " + expectedState
+                    + " current=" + s.battleStateName
+                    + " warning=" + s.battleWarningTitle
+                    + " trace=" + tailTrace(s, 60));
+        }
+        if (expectedWarning != null && !expectedWarning.equals(s.battleWarningTitle)) {
+            throw new IllegalStateException("Expected debuff2 command " + commandIndex
+                    + " warning=" + expectedWarning
+                    + " actual=" + s.battleWarningTitle
+                    + " trace=" + tailTrace(s, 60));
+        }
+        s.sourceStateTrace.add("SMOKE verified debuff2 command"
+                + " index=" + commandIndex
+                + " expectedState=" + expectedState
+                + (expectedWarning == null ? "" : " warning=" + expectedWarning));
+    }
+
+    private static boolean runDebuff3CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff3_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff3_skill13_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff3_skill19_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff3_body_visual_actor21".equals(checkpoint)
+                && !"battle_status_debuff3_tick1_no_damage_duration2".equals(checkpoint)
+                && !"battle_status_debuff3_tick2_no_damage_duration1".equals(checkpoint)
+                && !"battle_status_debuff3_final_tick_damage_skill13".equals(checkpoint)
+                && !"battle_status_debuff3_final_tick_damage_skill19".equals(checkpoint)
+                && !"battle_status_debuff3_final_tick_ko_transition".equals(checkpoint)
+                && !"battle_status_debuff3_buff14_blocks_skill13".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff3_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff3 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(3)
+                        || runtime.debugEnemyDebuffDurationForSmoke(3) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff3 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff3=" + runtime.debugEnemyHasDebuffForSmoke(3)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(3)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff3 Thuc Loai before snapshot"
+                        + " hasDebuff3=false"
+                        + " enemyIconCount=0");
+            } else if (checkpoint.startsWith("battle_status_debuff3_skill")
+                    && checkpoint.endsWith("_producer_apply")) {
+                int skillId = parseDebuff3ProducerSkill(checkpoint);
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 180);
+                int storedRaw = runtime.debugEnemyDebuffValueForSmoke(3);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(3)
+                        || runtime.debugEnemyDebuffDurationForSmoke(3) != 3
+                        || storedRaw <= 0
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(3) != skillId
+                        || !traceContainsAll(s, "battle P7 source n() skill=" + skillId,
+                        "chunk=0", "special=0", "id=21")
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "appliedDebuffId=3")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff3 producer skill " + skillId
+                            + " to play effect.mid actor anim 21, hit, and store raw damage,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff3=" + runtime.debugEnemyHasDebuffForSmoke(3)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(3)
+                            + " storedRaw=" + storedRaw
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(3)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff3 skill" + skillId + " producer",
+                        new int[]{4}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff3 Thuc Loai producer"
+                        + " skill=" + skillId
+                        + " effect.mid[" + skillId + "]=[0,0,21,0,-1,-1,0]"
+                        + " storedRaw=" + storedRaw
+                        + " sourceSkill=" + skillId
+                        + " icon=4 durationCell=137"
+                        + " source=game.b.b(target)");
+            } else if ("battle_status_debuff3_body_visual_actor21".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 3, 20, 13, 3, 80);
+                tickUntilTraceContains(s, "active queue visual start bank=1 id=3", 700);
+                if (!s.battleActiveQueueVisible
+                        || s.battleActiveQueueBank != 1
+                        || s.battleActiveQueueEffectId != 3
+                        || s.battleActiveQueueSegment != 0
+                        || !s.battleP7ActorEffectVisible
+                        || s.battleP7ActorEffectSpriteId != 263
+                        || s.battleP7ActorEffectState != 0
+                        || s.battleP7SpecialVisible
+                        || !traceContainsAll(s, "active queue visual start bank=1 id=3",
+                        "visual=aq id=3", "row=[0, 21, 0, -1]")) {
+                    throw new IllegalStateException("Expected debuff3 P12/P13 body visual to use actor effect 21 only,"
+                            + " activeVisible=" + s.battleActiveQueueVisible
+                            + " bank=" + s.battleActiveQueueBank
+                            + " effectId=" + s.battleActiveQueueEffectId
+                            + " segment=" + s.battleActiveQueueSegment
+                            + " actorVisible=" + s.battleP7ActorEffectVisible
+                            + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                            + " actorState=" + s.battleP7ActorEffectState
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff3 body visual",
+                        new int[]{4}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff3 Thuc Loai body visual"
+                        + " bufDebuf ar[1][3]=[0,21,0,-1]"
+                        + " actorEffect=21"
+                        + " noSpeffectSegment=true");
+            } else if ("battle_status_debuff3_tick1_no_damage_duration2".equals(checkpoint)
+                    || "battle_status_debuff3_tick2_no_damage_duration1".equals(checkpoint)) {
+                boolean secondTick = "battle_status_debuff3_tick2_no_damage_duration1".equals(checkpoint);
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 3, 20, 13, secondTick ? 2 : 3, 80);
+                assertPhase10AStatusSlots(s, false, "status debuff3 before no-damage tick",
+                        new int[]{4}, new int[]{secondTick ? 136 : 137});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=3", 700);
+                int expectedDuration = secondTick ? 1 : 2;
+                int expectedDurationCell = secondTick ? 135 : 136;
+                if (s.battleEnemyHp != 80
+                        || runtime.debugEnemyDebuffDurationForSmoke(3) != expectedDuration
+                        || s.battleP7PostEffectVisible
+                        || !traceContainsAll(s, "active queue apply bank=1 id=3",
+                        "hp 80->80", "duration=" + expectedDuration, "active=true")) {
+                    throw new IllegalStateException("Expected debuff3 no-damage tick before final expiry,"
+                            + " secondTick=" + secondTick
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(3)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " postText=" + s.battleP7PostEffectText
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff3 no-damage tick",
+                        new int[]{4}, new int[]{expectedDurationCell});
+                s.sourceStateTrace.add("SMOKE verified debuff3 Thuc Loai no-damage tick"
+                        + " startDuration=" + (secondTick ? 2 : 3)
+                        + " endDuration=" + expectedDuration
+                        + " hp=80->80"
+                        + " icon=4 durationCell=" + expectedDurationCell
+                        + " source=game.b.q(3) skips while duration>1");
+            } else if ("battle_status_debuff3_final_tick_damage_skill13".equals(checkpoint)
+                    || "battle_status_debuff3_final_tick_damage_skill19".equals(checkpoint)) {
+                boolean skill13 = "battle_status_debuff3_final_tick_damage_skill13".equals(checkpoint);
+                int skillId = skill13 ? 13 : 19;
+                int percent = skill13 ? 150 : 200;
+                int storedRaw = 20;
+                int startHp = 80;
+                int expectedDamage = storedRaw * percent / 100;
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 3, storedRaw, skillId, 1, startHp);
+                assertPhase10AStatusSlots(s, false, "status debuff3 before final tick skill" + skillId,
+                        new int[]{4}, new int[]{135});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=3", 700);
+                if (s.battleEnemyHp != startHp - expectedDamage
+                        || runtime.debugEnemyHasDebuffForSmoke(3)
+                        || runtime.debugEnemyDebuffDurationForSmoke(3) != 0
+                        || s.battleEnemyStatusCount != 0
+                        || !s.battleP7PostEffectVisible
+                        || !s.battleP7PostEffectText.equals("-" + expectedDamage)
+                        || !traceContainsAll(s, "active queue apply bank=1 id=3",
+                        "hp " + startHp + "->" + (startHp - expectedDamage),
+                        "duration=0", "active=false")) {
+                    throw new IllegalStateException("Expected debuff3 final tick skill " + skillId
+                            + " to deal exact delayed damage and clear,"
+                            + " storedRaw=" + storedRaw
+                            + " percent=" + percent
+                            + " expectedDamage=" + expectedDamage
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(3)
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(3)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " postText=" + s.battleP7PostEffectText
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 120));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff3 Thuc Loai final delayed damage"
+                        + " skill=" + skillId
+                        + " storedRaw=" + storedRaw
+                        + " percent=" + percent
+                        + " damage=" + expectedDamage
+                        + " hp=" + startHp + "->" + s.battleEnemyHp
+                        + " duration=1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(3)");
+            } else if ("battle_status_debuff3_final_tick_ko_transition".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 3, 20, 19, 1, 20);
+                assertPhase10AStatusSlots(s, false, "status debuff3 before final KO tick",
+                        new int[]{4}, new int[]{135});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=3", 700);
+                int guard = 0;
+                while (!isBattleState(s, "P8") && guard++ < 180) {
+                    s.tick();
+                }
+                if (!isBattleState(s, "P8")
+                        || s.battleEnemyHp > 0
+                        || !traceContains(s, "active queue apply bank=1 id=3")
+                        || !traceContains(s, "hp 20->0")
+                        || !traceContains(s, "generic KO side1 -> P8")) {
+                    throw new IllegalStateException("Expected debuff3 final delayed damage to KO enemy and route P8,"
+                            + " state=" + s.battleStateName
+                            + " hp=" + s.battleEnemyHp
+                            + " trace=" + tailTrace(s, 140));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff3 Thuc Loai final KO transition"
+                        + " storedRaw=20"
+                        + " skill=19"
+                        + " damage=40"
+                        + " hp=20->0"
+                        + " route=P8"
+                        + " source=game.b.q(3) death -> P8/P15/P5/P9 dispatcher");
+            } else {
+                enterElderP7WithSkills(s, new int[]{13, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff3 buff14 block setup",
+                        new int[]{26}, new int[]{137});
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 180);
+                if (!s.battleP7DamageVisible
+                        || !s.battleP7DebuffText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(3)
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "battle P7 damage frame skill=13")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected buff14 to block incoming debuff3 from skill13,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff3=" + runtime.debugEnemyHasDebuffForSmoke(3)
+                            + " enemyHasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff3 buff14 block after skill13",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff3 Thuc Loai buff14 block"
+                        + " skill=13"
+                        + " appliedDebuffId=-1"
+                        + " debuffTextEmpty=true"
+                        + " enemyIcon=26"
+                        + " source=target.hasBuff(14) blocks maybePlanTargetDebuff");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static int parseDebuff3ProducerSkill(String checkpoint) {
+        String prefix = "battle_status_debuff3_skill";
+        String suffix = "_producer_apply";
+        int start = prefix.length();
+        int end = checkpoint.length() - suffix.length();
+        if (end <= start) {
+            throw new IllegalArgumentException("Bad debuff3 producer checkpoint: " + checkpoint);
+        }
+        int skillId = Integer.parseInt(checkpoint.substring(start, end));
+        if (!isPhase9GDebuff3Skill(skillId)) {
+            throw new IllegalArgumentException("Debuff3 producer closeout only supports 13/19, got " + skillId);
+        }
+        return skillId;
+    }
+
+    private static boolean runDebuff4CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff4_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff4_skill31_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff4_skill37_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff4_p12_no_body_visual_skip".equals(checkpoint)
+                && !"battle_status_debuff4_tick_noop_duration2".equals(checkpoint)
+                && !"battle_status_debuff4_expiry_clears_icon".equals(checkpoint)
+                && !"battle_status_debuff4_miss_chance_value1".equals(checkpoint)
+                && !"battle_status_debuff4_miss_chance_value2".equals(checkpoint)
+                && !"battle_status_debuff4_buff14_blocks_skill31".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff4_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff4 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(4)
+                        || runtime.debugEnemyDebuffDurationForSmoke(4) != 0
+                        || runtime.debugEnemyDebuffValueForSmoke(4) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff4 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff4=" + runtime.debugEnemyHasDebuffForSmoke(4)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(4)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(4)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff4 Muc before snapshot"
+                        + " hasDebuff4=false"
+                        + " enemyIconCount=0");
+            } else if (checkpoint.startsWith("battle_status_debuff4_skill")
+                    && checkpoint.endsWith("_producer_apply")) {
+                int skillId = parseDebuff4ProducerSkill(checkpoint);
+                int expectedValue = skillId == 31 ? 1 : 2;
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(4)
+                        || runtime.debugEnemyDebuffDurationForSmoke(4) != 3
+                        || runtime.debugEnemyDebuffValueForSmoke(4) != expectedValue
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(4) != skillId
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                        || !traceContains(s, "id=23")
+                        || !traceContains(s, "appliedDebuffId=4")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff4 producer skill " + skillId
+                            + " to hit, play effect.mid actor 23, and store flat miss value,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff4=" + runtime.debugEnemyHasDebuffForSmoke(4)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(4)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(4)
+                            + " expectedValue=" + expectedValue
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(4)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff4 skill" + skillId + " producer",
+                        new int[]{5}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff4 Muc producer"
+                        + " skill=" + skillId
+                        + " storedValue=" + expectedValue
+                        + " sourceSkill=" + skillId
+                        + " icon=5 durationCell=137"
+                        + " effect.mid[" + skillId + "] actorEffect=23"
+                        + " source=game.b.b(target) case4 stores aq.c[1][skill][8]");
+            } else if ("battle_status_debuff4_p12_no_body_visual_skip".equals(checkpoint)
+                    || "battle_status_debuff4_tick_noop_duration2".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 4, 1, 31, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff4 before active queue tick",
+                        new int[]{5}, new int[]{137});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=4", 700);
+                if (s.battleEnemyHp != 50
+                        || !runtime.debugEnemyHasDebuffForSmoke(4)
+                        || runtime.debugEnemyDebuffDurationForSmoke(4) != 2
+                        || runtime.debugEnemyDebuffValueForSmoke(4) != 1
+                        || s.battleP7PostEffectVisible
+                        || traceContains(s, "active queue visual start bank=1 id=4")
+                        || s.battleP7ActorEffectVisible
+                        || s.battleP7SpecialVisible
+                        || !traceContainsAll(s, "active queue apply bank=1 id=4",
+                        "hp 50->50", "duration=2", "active=true")) {
+                    throw new IllegalStateException("Expected debuff4 P12/P13 active queue to skip body visual and only decrement duration,"
+                            + " hp=" + s.battleEnemyHp
+                            + " hasDebuff4=" + runtime.debugEnemyHasDebuffForSmoke(4)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(4)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(4)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " actorVisible=" + s.battleP7ActorEffectVisible
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff4 after active queue tick",
+                        new int[]{5}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff4 Muc active queue no body visual"
+                        + " bufDebuf ar[1][4]=[1,1,0,0,1,11,0,-1]"
+                        + " activeQueueVisualStart=false"
+                        + " hp=50->50"
+                        + " duration=3->2"
+                        + " value=1"
+                        + " source=game.d.ai[1] excludes id4 then game.b.q(4) no-op");
+            } else if ("battle_status_debuff4_expiry_clears_icon".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 4, 2, 37, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff4 before expiry",
+                        new int[]{5}, new int[]{137});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 4);
+                if (!runtime.debugEnemyHasDebuffForSmoke(4)
+                        || runtime.debugEnemyDebuffDurationForSmoke(4) != 2
+                        || runtime.debugEnemyDebuffValueForSmoke(4) != 2
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff4 first tick duration 2 and no HP change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(4)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(4)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff4 after first tick",
+                        new int[]{5}, new int[]{136});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 4);
+                if (!runtime.debugEnemyHasDebuffForSmoke(4)
+                        || runtime.debugEnemyDebuffDurationForSmoke(4) != 1
+                        || runtime.debugEnemyDebuffValueForSmoke(4) != 2
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff4 second tick duration 1 and no HP change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(4)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(4)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff4 after second tick",
+                        new int[]{5}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 4);
+                if (runtime.debugEnemyHasDebuffForSmoke(4)
+                        || runtime.debugEnemyDebuffDurationForSmoke(4) != 0
+                        || s.battleEnemyHp != 50
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=4")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff4 third tick to expire and clear icon without HP change,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(4)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(4)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff4 Muc expiry"
+                        + " value=2"
+                        + " hp=50 unchanged"
+                        + " duration=3->2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(4)+c(debuffId,slot)");
+            } else if ("battle_status_debuff4_miss_chance_value1".equals(checkpoint)
+                    || "battle_status_debuff4_miss_chance_value2".equals(checkpoint)) {
+                int value = "battle_status_debuff4_miss_chance_value1".equals(checkpoint) ? 1 : 2;
+                int expectedMissChance = value == 1 ? 12 : 14;
+                enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugPlayerDebuffForItemSmoke(s, 4, value, value == 1 ? 31 : 37);
+                runtime.debugSetPlayerSpeedForSmoke(s, 55);
+                runtime.debugSetEnemySpeedForSmoke(s, 60);
+                runtime.debugSetNextDamageCritRollForSmoke(99);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || !traceContains(s, "battle P7 missChance skill=10")
+                        || !traceContains(s, "targetSpeed=60")
+                        || !traceContains(s, "attackerSpeed=55")
+                        || !traceContains(s, "debuff4Value=" + value)
+                        || !traceContains(s, "missChance=" + expectedMissChance)
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected player debuff4 value " + value
+                            + " to feed miss chance as targetSpeed - (attackerSpeed - value) << 1,"
+                            + " expectedMissChance=" + expectedMissChance
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, true, "status debuff4 miss chance value" + value,
+                        new int[]{5}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff4 Muc miss chance consumer"
+                        + " value=" + value
+                        + " attackerSpeed=55"
+                        + " targetSpeed=60"
+                        + " missChance=" + expectedMissChance
+                        + " formula=(targetSpeed-(attackerSpeed-value))<<1"
+                        + " source=game.d P7 h.m(4) branch");
+            } else {
+                enterElderP7WithSkills(s, new int[]{31, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff4 buff14 block setup",
+                        new int[]{26}, new int[]{137});
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || !s.battleP7DebuffText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(4)
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "battle P7 damage frame skill=31")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected buff14 to block incoming debuff4 from skill31,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff4=" + runtime.debugEnemyHasDebuffForSmoke(4)
+                            + " enemyHasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff4 buff14 block after skill31",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff4 Muc buff14 block"
+                        + " skill=31"
+                        + " appliedDebuffId=-1"
+                        + " debuffTextEmpty=true"
+                        + " enemyIcon=26"
+                        + " source=target.hasBuff(14) blocks maybePlanTargetDebuff");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static int parseDebuff4ProducerSkill(String checkpoint) {
+        String prefix = "battle_status_debuff4_skill";
+        String suffix = "_producer_apply";
+        int start = prefix.length();
+        int end = checkpoint.length() - suffix.length();
+        if (end <= start) {
+            throw new IllegalArgumentException("Bad debuff4 producer checkpoint: " + checkpoint);
+        }
+        int skillId = Integer.parseInt(checkpoint.substring(start, end));
+        if (!isPhase9HDebuff4Skill(skillId)) {
+            throw new IllegalArgumentException("Debuff4 producer closeout only supports 31/37, got " + skillId);
+        }
+        return skillId;
+    }
+
+    private static boolean runDebuff5CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff5_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff5_skill32_producer_speed10".equals(checkpoint)
+                && !"battle_status_debuff5_skill38_producer_speed10".equals(checkpoint)
+                && !"battle_status_debuff5_skill61_producer_speed5".equals(checkpoint)
+                && !"battle_status_debuff5_skill67_raw_no_debuff".equals(checkpoint)
+                && !"battle_status_debuff5_p12_no_body_visual_reassert_speed".equals(checkpoint)
+                && !"battle_status_debuff5_expiry_restores_speed".equals(checkpoint)
+                && !"battle_status_debuff5_miss_chance_attacker_speed_down".equals(checkpoint)
+                && !"battle_status_debuff5_buff14_blocks_skill32".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff5_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetEnemyBaseSpeedForSmoke(s, 100);
+                assertPhase10AStatusSlots(s, false, "status debuff5 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(5)
+                        || runtime.debugEnemyDebuffDurationForSmoke(5) != 0
+                        || runtime.debugEnemyDebuffValueForSmoke(5) != 0
+                        || runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff5 before snapshot to have speed 100 and no active debuff/icon,"
+                            + " hasDebuff5=" + runtime.debugEnemyHasDebuffForSmoke(5)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(5)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(5)
+                            + " baseSpeed=" + runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " currentSpeed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff5 Cham Chap before snapshot"
+                        + " baseSpeed=100"
+                        + " currentSpeed=100"
+                        + " enemyIconCount=0");
+            } else if (checkpoint.startsWith("battle_status_debuff5_skill")
+                    && (checkpoint.endsWith("_producer_speed10")
+                    || checkpoint.endsWith("_producer_speed5"))) {
+                int skillId = parseDebuff5ProducerSkill(checkpoint);
+                int expectedValue = skillId == 61 ? 5 : 10;
+                int expectedSpeed = 100 - expectedValue;
+                int expectedActor = skillId == 61 ? 26 : 23;
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetEnemyBaseSpeedForSmoke(s, 100);
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(5)
+                        || runtime.debugEnemyDebuffDurationForSmoke(5) != 3
+                        || runtime.debugEnemyDebuffValueForSmoke(5) != expectedValue
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(5) != skillId
+                        || runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != expectedSpeed
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                        || !traceContains(s, "id=" + expectedActor)
+                        || !traceContains(s, "appliedDebuffId=5")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff5 producer skill " + skillId
+                            + " to hit, apply speed down, and store base-speed percent,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff5=" + runtime.debugEnemyHasDebuffForSmoke(5)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(5)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(5)
+                            + " expectedValue=" + expectedValue
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(5)
+                            + " speed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff5 skill" + skillId + " producer",
+                        new int[]{6}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff5 Cham Chap producer"
+                        + " skill=" + skillId
+                        + " storedValue=" + expectedValue
+                        + " speed=100->" + expectedSpeed
+                        + " sourceSkill=" + skillId
+                        + " icon=6 durationCell=137"
+                        + " effectActor=" + expectedActor
+                        + " source=game.b.b(target) case5 stores baseSpeed*skill[8]/100");
+            } else if ("battle_status_debuff5_skill67_raw_no_debuff".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{67, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetPlayerAttackForSmoke(s, 100);
+                runtime.debugSetEnemyDefenseForSmoke(s, 40);
+                runtime.debugSetEnemyBaseSpeedForSmoke(s, 100);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                BattleUnit.setDamageRandomSeedForChecks(0L);
+                tickUntilBattleP7Phase(s, 3, 300);
+                int damage = latestTraceDamage(s, "battle P7 damage frame skill=67");
+                if (damage <= 0
+                        || s.battleP7PostEffectVisible
+                        || !s.battleP7PostEffectText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(5)
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "BYTECODE_DEFAULT_RAW_DAMAGE skill=67")
+                        || !traceContains(s, "powerPercentIgnored=110")
+                        || !traceContains(s, "effectIdIgnored=5")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || traceContains(s, "game.d.q postEffect skill=67")
+                        || !traceContains(s, "battle P7 source n() skill=67 chunk=0")
+                        || !traceContains(s, "id=26")
+                        || !traceContains(s, "battle P7 speffect skill=67")
+                        || !traceContains(s, "speffect=11")) {
+                    throw new IllegalStateException("Expected skill67 to remain raw/default visual-only and not apply debuff5,"
+                            + " damage=" + damage
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " postText=" + s.battleP7PostEffectText
+                            + " enemyDebuff5=" + runtime.debugEnemyHasDebuffForSmoke(5)
+                            + " currentSpeed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 120));
+                }
+                s.sourceStateTrace.add("SMOKE verified skill67 does not belong to debuff5 producer path"
+                        + " damage=" + damage
+                        + " debuff5=false"
+                        + " speed=100"
+                        + " classification=NOT_REACHED for skill[7]==5"
+                        + " source=bytecode default raw damage");
+            } else if ("battle_status_debuff5_p12_no_body_visual_reassert_speed".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetEnemyBaseSpeedForSmoke(s, 100);
+                runtime.debugQueueDebuffForSmoke(s, false, 5, 10, 32, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff5 before active queue tick",
+                        new int[]{6}, new int[]{137});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=5", 700);
+                if (s.battleEnemyHp != 50
+                        || !runtime.debugEnemyHasDebuffForSmoke(5)
+                        || runtime.debugEnemyDebuffDurationForSmoke(5) != 2
+                        || runtime.debugEnemyDebuffValueForSmoke(5) != 10
+                        || runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 90
+                        || s.battleP7PostEffectVisible
+                        || traceContains(s, "active queue visual start bank=1 id=5")
+                        || s.battleP7ActorEffectVisible
+                        || s.battleP7SpecialVisible
+                        || !traceContainsAll(s, "active queue apply bank=1 id=5",
+                        "hp 50->50", "speed 100->90", "duration=2", "active=true")) {
+                    throw new IllegalStateException("Expected debuff5 P12/P13 active queue to skip body visual and reassert speed down,"
+                            + " hp=" + s.battleEnemyHp
+                            + " hasDebuff5=" + runtime.debugEnemyHasDebuffForSmoke(5)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(5)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(5)
+                            + " baseSpeed=" + runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " currentSpeed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " actorVisible=" + s.battleP7ActorEffectVisible
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff5 after active queue tick",
+                        new int[]{6}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff5 Cham Chap active queue no body visual"
+                        + " bufDebuf ar[1][5]=[1,0,0,-1,0,25,0,-1]"
+                        + " activeQueueVisualStart=false"
+                        + " speed=100->90"
+                        + " hp=50->50"
+                        + " duration=3->2"
+                        + " source=game.d.ai[1] excludes id5 then game.b.q(5) speed reassert");
+            } else if ("battle_status_debuff5_expiry_restores_speed".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetEnemyBaseSpeedForSmoke(s, 100);
+                runtime.debugQueueDebuffForSmoke(s, false, 5, 10, 32, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff5 before expiry",
+                        new int[]{6}, new int[]{137});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 5);
+                if (!runtime.debugEnemyHasDebuffForSmoke(5)
+                        || runtime.debugEnemyDebuffDurationForSmoke(5) != 2
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 90
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff5 first tick duration 2, speed 90, and no HP change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(5)
+                            + " speed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff5 after first tick",
+                        new int[]{6}, new int[]{136});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 5);
+                if (!runtime.debugEnemyHasDebuffForSmoke(5)
+                        || runtime.debugEnemyDebuffDurationForSmoke(5) != 1
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 90
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff5 second tick duration 1, speed 90, and no HP change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(5)
+                            + " speed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff5 after second tick",
+                        new int[]{6}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 5);
+                if (runtime.debugEnemyHasDebuffForSmoke(5)
+                        || runtime.debugEnemyDebuffDurationForSmoke(5) != 0
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                        || s.battleEnemyHp != 50
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=5")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff5 third tick to expire, restore speed, and clear icon,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(5)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(5)
+                            + " speed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff5 Cham Chap expiry"
+                        + " value=10"
+                        + " speed=100->90->90->90->100"
+                        + " hp=50 unchanged"
+                        + " duration=3->2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(5)+c(debuffId,slot)");
+            } else if ("battle_status_debuff5_miss_chance_attacker_speed_down".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugPlayerDebuffForItemSmoke(s, 5, 10, 32);
+                runtime.debugSetPlayerSpeedForSmoke(s, 55);
+                runtime.debugSetEnemySpeedForSmoke(s, 50);
+                runtime.debugTickPlayerSourceDebuffForSmoke(s, 5);
+                runtime.debugSetNextDamageCritRollForSmoke(99);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || !runtime.debugPlayerHasDebuffForSmoke(5)
+                        || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 45
+                        || !traceContains(s, "battle P7 missChance skill=10")
+                        || !traceContains(s, "targetSpeed=50")
+                        || !traceContains(s, "attackerSpeed=45")
+                        || !traceContains(s, "debuff4Value=0")
+                        || !traceContains(s, "missChance=10")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected player debuff5 to reduce attacker speed before miss chance trace,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " playerHasDebuff5=" + runtime.debugPlayerHasDebuffForSmoke(5)
+                            + " currentSpeed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, true, "status debuff5 miss chance attacker speed down",
+                        new int[]{6}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff5 Cham Chap miss chance consumer"
+                        + " baseSpeed=55"
+                        + " debuffValue=10"
+                        + " attackerSpeed=45"
+                        + " targetSpeed=50"
+                        + " missChance=10"
+                        + " source=game.d P7 uses current speed after game.b.q(5)");
+            } else {
+                enterElderP7WithSkills(s, new int[]{32, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetEnemyBaseSpeedForSmoke(s, 100);
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff5 buff14 block setup",
+                        new int[]{26}, new int[]{137});
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || !s.battleP7DebuffText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(5)
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "battle P7 damage frame skill=32")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected buff14 to block incoming debuff5 from skill32,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff5=" + runtime.debugEnemyHasDebuffForSmoke(5)
+                            + " currentSpeed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " enemyHasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff5 buff14 block after skill32",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff5 Cham Chap buff14 block"
+                        + " skill=32"
+                        + " appliedDebuffId=-1"
+                        + " debuffTextEmpty=true"
+                        + " enemySpeed=100"
+                        + " enemyIcon=26"
+                        + " source=target.hasBuff(14) blocks maybePlanTargetDebuff");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static int parseDebuff5ProducerSkill(String checkpoint) {
+        String prefix = "battle_status_debuff5_skill";
+        int start = prefix.length();
+        int end = checkpoint.indexOf("_producer_speed", start);
+        if (end <= start) {
+            throw new IllegalArgumentException("Bad debuff5 producer checkpoint: " + checkpoint);
+        }
+        int skillId = Integer.parseInt(checkpoint.substring(start, end));
+        if (!isPhase9IDebuff5Skill(skillId)) {
+            throw new IllegalArgumentException("Debuff5 producer closeout only supports 32/38/61, got " + skillId);
+        }
+        return skillId;
+    }
+
+    private static boolean runDebuff6CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff6_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff6_skill33_producer_damage_down10".equals(checkpoint)
+                && !"battle_status_debuff6_skill39_producer_damage_down10".equals(checkpoint)
+                && !"battle_status_debuff6_miss_queue_no_text".equals(checkpoint)
+                && !"battle_status_debuff6_p12_no_body_visual_noop".equals(checkpoint)
+                && !"battle_status_debuff6_expiry_clears_icon".equals(checkpoint)
+                && !"battle_status_debuff6_outgoing_damage_down".equals(checkpoint)
+                && !"battle_status_debuff6_buff14_blocks_skill33".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff6_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff6 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(6)
+                        || runtime.debugEnemyDebuffDurationForSmoke(6) != 0
+                        || runtime.debugEnemyDebuffValueForSmoke(6) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff6 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff6=" + runtime.debugEnemyHasDebuffForSmoke(6)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(6)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(6)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff6 Nhut Chi before snapshot"
+                        + " hasDebuff6=false"
+                        + " enemyIconCount=0");
+            } else if (checkpoint.startsWith("battle_status_debuff6_skill")
+                    && checkpoint.endsWith("_producer_damage_down10")) {
+                int skillId = parseDebuff6ProducerSkill(checkpoint);
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(6)
+                        || runtime.debugEnemyDebuffDurationForSmoke(6) != 3
+                        || runtime.debugEnemyDebuffValueForSmoke(6) != 10
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(6) != skillId
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                        || !traceContains(s, "id=23")
+                        || !traceContains(s, "appliedDebuffId=6")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff6 producer skill " + skillId
+                            + " to hit, play effect.mid actor 23, and store outgoing damage-down percent,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff6=" + runtime.debugEnemyHasDebuffForSmoke(6)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(6)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(6)
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(6)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff6 skill" + skillId + " producer",
+                        new int[]{7}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff6 Nhut Chi producer"
+                        + " skill=" + skillId
+                        + " storedValue=10"
+                        + " sourceSkill=" + skillId
+                        + " icon=7 durationCell=137"
+                        + " effect.mid[" + skillId + "] actorEffect=23"
+                        + " source=game.b.b(target) case6 stores aq.c[1][skill][8]");
+            } else if ("battle_status_debuff6_miss_queue_no_text".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{33, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                forceNextP7Miss(s);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || !VqsvText.Battle.DODGE.equals(s.battleP7MissText)
+                        || !s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(6)
+                        || runtime.debugEnemyDebuffValueForSmoke(6) != 10
+                        || !traceContains(s, "appliedDebuffId=6")
+                        || !traceContains(s, "hit=false")) {
+                    throw new IllegalStateException("Expected debuff6 miss queue to hide debuff text but keep source-applied queue,"
+                            + " missText=" + s.battleP7MissText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff6=" + runtime.debugEnemyHasDebuffForSmoke(6)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(6)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                tickUntilTraceContains(s, "active queue apply bank=1 id=6", 700);
+                assertPhase10AStatusSlots(s, false, "status debuff6 miss queued after tick",
+                        new int[]{7}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff6 Nhut Chi miss queue"
+                        + " skill=33"
+                        + " hit=false"
+                        + " debuffTextEmpty=true"
+                        + " queued=true"
+                        + " activeQueueVisualStart=false"
+                        + " source=game.b.b(target) applies before game.d P7 hit text gate");
+            } else if ("battle_status_debuff6_p12_no_body_visual_noop".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 6, 10, 33, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff6 before active queue tick",
+                        new int[]{7}, new int[]{137});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=6", 700);
+                if (s.battleEnemyHp != 50
+                        || !runtime.debugEnemyHasDebuffForSmoke(6)
+                        || runtime.debugEnemyDebuffDurationForSmoke(6) != 2
+                        || runtime.debugEnemyDebuffValueForSmoke(6) != 10
+                        || s.battleP7PostEffectVisible
+                        || traceContains(s, "active queue visual start bank=1 id=6")
+                        || s.battleP7ActorEffectVisible
+                        || s.battleP7SpecialVisible
+                        || !traceContainsAll(s, "active queue apply bank=1 id=6",
+                        "hp 50->50", "duration=2", "active=true")) {
+                    throw new IllegalStateException("Expected debuff6 P12/P13 active queue to skip body visual and only decrement duration,"
+                            + " hp=" + s.battleEnemyHp
+                            + " hasDebuff6=" + runtime.debugEnemyHasDebuffForSmoke(6)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(6)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(6)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " actorVisible=" + s.battleP7ActorEffectVisible
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff6 after active queue tick",
+                        new int[]{7}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff6 Nhut Chi active queue no body visual"
+                        + " bufDebuf ar[1][6]=[1,12,0,-1]"
+                        + " activeQueueVisualStart=false"
+                        + " hp=50->50"
+                        + " duration=3->2"
+                        + " value=10"
+                        + " source=game.d.ai[1] excludes id6 then game.b.q(6) no-op");
+            } else if ("battle_status_debuff6_expiry_clears_icon".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 6, 10, 33, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff6 before expiry",
+                        new int[]{7}, new int[]{137});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 6);
+                if (!runtime.debugEnemyHasDebuffForSmoke(6)
+                        || runtime.debugEnemyDebuffDurationForSmoke(6) != 2
+                        || runtime.debugEnemyDebuffValueForSmoke(6) != 10
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff6 first tick duration 2 and no HP/stat change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(6)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(6)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff6 after first tick",
+                        new int[]{7}, new int[]{136});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 6);
+                if (!runtime.debugEnemyHasDebuffForSmoke(6)
+                        || runtime.debugEnemyDebuffDurationForSmoke(6) != 1
+                        || runtime.debugEnemyDebuffValueForSmoke(6) != 10
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff6 second tick duration 1 and no HP/stat change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(6)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(6)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff6 after second tick",
+                        new int[]{7}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 6);
+                if (runtime.debugEnemyHasDebuffForSmoke(6)
+                        || runtime.debugEnemyDebuffDurationForSmoke(6) != 0
+                        || s.battleEnemyHp != 50
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=6")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff6 third tick to expire and clear icon without HP/stat change,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(6)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(6)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff6 Nhut Chi expiry"
+                        + " value=10"
+                        + " hp=50 unchanged"
+                        + " duration=3->2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(6)+c(debuffId,slot)");
+            } else if ("battle_status_debuff6_outgoing_damage_down".equals(checkpoint)) {
+                VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+                enterElderP7WithSkills(baselineScene, new int[]{10, 45}, 0);
+                SourceBattleRuntime baselineRuntime = (SourceBattleRuntime) baselineScene.current;
+                baselineRuntime.debugSetPlayerAttackForSmoke(baselineScene, 120);
+                baselineRuntime.debugSetEnemyDefenseForSmoke(baselineScene, 40);
+                baselineRuntime.debugSetSourceRandomSeedForSmoke(0L);
+                baselineRuntime.debugSetNextDamageCritRollForSmoke(99);
+                baselineRuntime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(baselineScene, 2, 220);
+                int baseline = latestTraceDamage(baselineScene, "battle P7 damage frame skill=10");
+
+                enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetPlayerAttackForSmoke(s, 120);
+                runtime.debugSetEnemyDefenseForSmoke(s, 40);
+                runtime.debugPlayerDebuffForItemSmoke(s, 6, 10, 33);
+                runtime.debugSetSourceRandomSeedForSmoke(0L);
+                runtime.debugSetNextDamageCritRollForSmoke(99);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                int reduced = latestTraceDamage(s, "battle P7 damage frame skill=10");
+                int expectedMax = Math.max(1, baseline - baseline / 10 + 2);
+                if (baseline <= 0
+                        || reduced <= 0
+                        || reduced >= baseline
+                        || reduced > expectedMax
+                        || !s.battleP7DamageVisible
+                        || !traceContains(s, "battle debuff6 Nhut Chi outgoing damage down")
+                        || !traceContains(s, "percent=10")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff6 to reduce outgoing skill10 damage by source percent,"
+                            + " baseline=" + baseline
+                            + " reduced=" + reduced
+                            + " expectedMax=" + expectedMax
+                            + " trace=" + tailTrace(s, 140));
+                }
+                assertPhase10AStatusSlots(s, true, "status debuff6 outgoing damage down",
+                        new int[]{7}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff6 Nhut Chi damage formula consumer"
+                        + " baseline=" + baseline
+                        + " reduced=" + reduced
+                        + " storedPercent=10"
+                        + " source=game.b.b(target) if attacker.p(6) damage-=damage*w[6][1]/100");
+            } else {
+                enterElderP7WithSkills(s, new int[]{33, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff6 buff14 block setup",
+                        new int[]{26}, new int[]{137});
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || !s.battleP7DebuffText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(6)
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "battle P7 damage frame skill=33")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected buff14 to block incoming debuff6 from skill33,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff6=" + runtime.debugEnemyHasDebuffForSmoke(6)
+                            + " enemyHasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff6 buff14 block after skill33",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff6 Nhut Chi buff14 block"
+                        + " skill=33"
+                        + " appliedDebuffId=-1"
+                        + " debuffTextEmpty=true"
+                        + " enemyIcon=26"
+                        + " source=target.hasBuff(14) blocks maybePlanTargetDebuff");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static int parseDebuff6ProducerSkill(String checkpoint) {
+        String prefix = "battle_status_debuff6_skill";
+        String suffix = "_producer_damage_down10";
+        int start = prefix.length();
+        int end = checkpoint.length() - suffix.length();
+        if (end <= start) {
+            throw new IllegalArgumentException("Bad debuff6 producer checkpoint: " + checkpoint);
+        }
+        int skillId = Integer.parseInt(checkpoint.substring(start, end));
+        if (!isPhase9JDebuff6Skill(skillId)) {
+            throw new IllegalArgumentException("Debuff6 producer closeout only supports 33/39, got " + skillId);
+        }
+        return skillId;
+    }
+
+    private static boolean runDebuff7CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff7_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff7_skill51_producer_defense_down20".equals(checkpoint)
+                && !"battle_status_debuff7_skill57_producer_defense_down20".equals(checkpoint)
+                && !"battle_status_debuff7_miss_queue_no_text".equals(checkpoint)
+                && !"battle_status_debuff7_p12_no_body_visual_reassert_defense".equals(checkpoint)
+                && !"battle_status_debuff7_expiry_restores_defense".equals(checkpoint)
+                && !"battle_status_debuff7_incoming_damage_up".equals(checkpoint)
+                && !"battle_status_debuff7_buff14_blocks_skill51".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff7_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetEnemyDefenseForSmoke(s, 100);
+                assertPhase10AStatusSlots(s, false, "status debuff7 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyDebuffDurationForSmoke(7) != 0
+                        || runtime.debugEnemyDebuffValueForSmoke(7) != 0
+                        || runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff7 before snapshot to have defense 100 and no active debuff/icon,"
+                            + " hasDebuff7=" + runtime.debugEnemyHasDebuffForSmoke(7)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(7)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(7)
+                            + " baseDefense=" + runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " currentDefense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 36));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff7 Phong Ngu before snapshot"
+                        + " baseDefense=100"
+                        + " currentDefense=100"
+                        + " enemyIconCount=0");
+            } else if (checkpoint.startsWith("battle_status_debuff7_skill")
+                    && checkpoint.endsWith("_producer_defense_down20")) {
+                int skillId = parseDebuff7ProducerSkill(checkpoint);
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetEnemyDefenseForSmoke(s, 100);
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 260);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyDebuffDurationForSmoke(7) != 3
+                        || runtime.debugEnemyDebuffValueForSmoke(7) != 20
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(7) != skillId
+                        || runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 80
+                        || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                        || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                        || !traceContains(s, "id=25")
+                        || !traceContains(s, "appliedDebuffId=7")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff7 producer skill " + skillId
+                            + " to hit, play effect.mid actor 25, and store base-defense percent,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff7=" + runtime.debugEnemyHasDebuffForSmoke(7)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(7)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(7)
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(7)
+                            + " defense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " trace=" + tailTrace(s, 140));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff7 skill" + skillId + " producer",
+                        new int[]{8}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff7 Phong Ngu producer"
+                        + " skill=" + skillId
+                        + " storedValue=20"
+                        + " defense=100->80"
+                        + " sourceSkill=" + skillId
+                        + " icon=8 durationCell=137"
+                        + " effect.mid[" + skillId + "] actorEffect=25"
+                        + " source=game.b.b(target) case7 stores baseDefense*skill[8]/100");
+            } else if ("battle_status_debuff7_miss_queue_no_text".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{51, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetEnemyDefenseForSmoke(s, 100);
+                forceNextP7Miss(s);
+                tickUntilBattleP7Phase(s, 2, 260);
+                if (!s.battleP7DamageVisible
+                        || !VqsvText.Battle.DODGE.equals(s.battleP7MissText)
+                        || !s.battleP7DebuffText.isEmpty()
+                        || s.battleEnemyHp != s.battleEnemyMaxHp
+                        || !runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyDebuffValueForSmoke(7) != 20
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 80
+                        || !traceContains(s, "appliedDebuffId=7")
+                        || !traceContains(s, "sideEffectsCommitted=true")
+                        || !traceContains(s, "hit=false")) {
+                    throw new IllegalStateException("Expected debuff7 miss queue to hide debuff text but keep source-applied defense drop,"
+                            + " missText=" + s.battleP7MissText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                            + " hasDebuff7=" + runtime.debugEnemyHasDebuffForSmoke(7)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(7)
+                            + " defense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " trace=" + tailTrace(s, 140));
+                }
+                tickUntilTraceContains(s, "active queue apply bank=1 id=7", 700);
+                assertPhase10AStatusSlots(s, false, "status debuff7 miss queued after tick",
+                        new int[]{8}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff7 Phong Ngu miss queue"
+                        + " skill=51"
+                        + " hit=false"
+                        + " debuffTextEmpty=true"
+                        + " queued=true"
+                        + " defense=100->80"
+                        + " activeQueueVisualStart=false"
+                        + " source=game.b.b(target) applies before game.d P7 hit text gate");
+            } else if ("battle_status_debuff7_p12_no_body_visual_reassert_defense".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetEnemyDefenseForSmoke(s, 100);
+                runtime.debugQueueDebuffForSmoke(s, false, 7, 20, 51, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff7 before active queue tick",
+                        new int[]{8}, new int[]{137});
+                tickUntilTraceContains(s, "active queue apply bank=1 id=7", 700);
+                if (s.battleEnemyHp != 50
+                        || !runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyDebuffDurationForSmoke(7) != 2
+                        || runtime.debugEnemyDebuffValueForSmoke(7) != 20
+                        || runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 80
+                        || s.battleP7PostEffectVisible
+                        || traceContains(s, "active queue visual start bank=1 id=7")
+                        || s.battleP7ActorEffectVisible
+                        || s.battleP7SpecialVisible
+                        || !traceContainsAll(s, "active queue apply bank=1 id=7",
+                        "hp 50->50", "defense 100->80", "duration=2", "active=true")) {
+                    throw new IllegalStateException("Expected debuff7 P12/P13 active queue to skip body visual and reassert defense down,"
+                            + " hp=" + s.battleEnemyHp
+                            + " hasDebuff7=" + runtime.debugEnemyHasDebuffForSmoke(7)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(7)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(7)
+                            + " baseDefense=" + runtime.debugEnemyBaseStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " currentDefense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " postVisible=" + s.battleP7PostEffectVisible
+                            + " actorVisible=" + s.battleP7ActorEffectVisible
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " trace=" + tailTrace(s, 140));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff7 after active queue tick",
+                        new int[]{8}, new int[]{136});
+                s.sourceStateTrace.add("SMOKE verified debuff7 Phong Ngu active queue no body visual"
+                        + " bufDebuf ar[1][7]=[1,19,0,-1,1,6,0,-1]"
+                        + " activeQueueVisualStart=false"
+                        + " defense=100->80"
+                        + " hp=50->50"
+                        + " duration=3->2"
+                        + " source=game.d.ai[1] excludes id7 then game.b.q(7) defense reassert");
+            } else if ("battle_status_debuff7_expiry_restores_defense".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugSetEnemyDefenseForSmoke(s, 100);
+                runtime.debugQueueDebuffForSmoke(s, false, 7, 20, 51, 3, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff7 before expiry",
+                        new int[]{8}, new int[]{137});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 7);
+                if (!runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyDebuffDurationForSmoke(7) != 2
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 80
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff7 first tick duration 2, defense 80, and no HP change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(7)
+                            + " defense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff7 after first tick",
+                        new int[]{8}, new int[]{136});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 7);
+                if (!runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyDebuffDurationForSmoke(7) != 1
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 80
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff7 second tick duration 1, defense 80, and no HP change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(7)
+                            + " defense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff7 after second tick",
+                        new int[]{8}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 7);
+                if (runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyDebuffDurationForSmoke(7) != 0
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                        || s.battleEnemyHp != 50
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=7")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff7 third tick to expire, restore defense, and clear icon,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(7)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(7)
+                            + " defense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff7 Phong Ngu expiry"
+                        + " value=20"
+                        + " defense=100->80->80->80->100"
+                        + " hp=50 unchanged"
+                        + " duration=3->2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(7)+c(debuffId,slot)");
+            } else if ("battle_status_debuff7_incoming_damage_up".equals(checkpoint)) {
+                VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+                int baseline = statusEffectivenessSkill10Damage(baselineScene, -1, -1, 0);
+                int debuffed = statusEffectivenessSkill10Damage(s, -1, 7, 20);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                assertPhase10AStatusSlots(s, false, "status debuff7 incoming damage up",
+                        new int[]{8}, new int[]{137});
+                if (debuffed <= baseline
+                        || !runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyDebuffValueForSmoke(7) != 8
+                        || !traceContains(s, "enemy source debuff prepared id=7")
+                        || !traceContains(s, "battle P7 damage frame skill=10")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff7 to lower target defense and increase incoming damage,"
+                            + " baseline=" + baseline
+                            + " debuffed=" + debuffed
+                            + " hasDebuff7=" + runtime.debugEnemyHasDebuffForSmoke(7)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(7)
+                            + " trace=" + tailTrace(s, 140));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff7 Phong Ngu damage formula consumer"
+                        + " baseline=" + baseline
+                        + " debuffed=" + debuffed
+                        + " baseDefense=40"
+                        + " storedValue=8"
+                        + " source=game.b.q(7)/apply case7 lowers defense before next damage formula");
+            } else {
+                enterElderP7WithSkills(s, new int[]{51, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetEnemyDefenseForSmoke(s, 100);
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff7 buff14 block setup",
+                        new int[]{26}, new int[]{137});
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 260);
+                if (!s.battleP7DamageVisible
+                        || !s.battleP7DebuffText.isEmpty()
+                        || runtime.debugEnemyHasDebuffForSmoke(7)
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "battle P7 damage frame skill=51")
+                        || !traceContains(s, "appliedDebuffId=-1")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected buff14 to block incoming debuff7 from skill51,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " enemyHasDebuff7=" + runtime.debugEnemyHasDebuffForSmoke(7)
+                            + " currentDefense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " enemyHasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 140));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff7 buff14 block after skill51",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff7 Phong Ngu buff14 block"
+                        + " skill=51"
+                        + " appliedDebuffId=-1"
+                        + " debuffTextEmpty=true"
+                        + " enemyDefense=100"
+                        + " enemyIcon=26"
+                        + " source=target.hasBuff(14) blocks maybePlanTargetDebuff");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runDebuff8CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff8_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff8_skill54_zero_power_no_apply".equals(checkpoint)
+                && !"battle_status_debuff8_skill54_zero_power_buff14_no_apply".equals(checkpoint)
+                && !"battle_status_debuff8_gameplay_fixed_self_hit_damage_up".equals(checkpoint)
+                && !"battle_status_debuff8_gameplay_fixed_enemy_hit_damage_up".equals(checkpoint)
+                && !"battle_status_debuff8_p12_body_visual_type1_actor25".equals(checkpoint)
+                && !"battle_status_debuff8_expiry_clears_icon".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff8_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff8 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(8)
+                        || runtime.debugEnemyDebuffDurationForSmoke(8) != 0
+                        || runtime.debugEnemyDebuffValueForSmoke(8) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff8 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(8)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(8)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 48));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi before snapshot"
+                        + " hasDebuff8=false"
+                        + " enemyIconCount=0");
+            } else if ("battle_status_debuff8_skill54_zero_power_no_apply".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{54, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                tickUntilBattleP7Phase(s, 3, 260);
+                if (s.battleP7DamageVisible
+                        || runtime.debugEnemyHasDebuffForSmoke(8)
+                        || s.battleEnemyHp != s.battleEnemyMaxHp
+                        || !traceContains(s, "no-damage skill=54")
+                        || traceContains(s, "battle P7 damage frame skill=54")
+                        || traceContains(s, "appliedDebuffId=8")
+                        || traceContains(s, "battle P7 hitroll skill=54")) {
+                    throw new IllegalStateException("Expected skill54 zero-power source guard to skip damage and ordinary debuff8 apply,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                            + " hasDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
+                            + " trace=" + tailTrace(s, 100));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff8 skill54 no ordinary apply",
+                        new int[0], new int[0]);
+                s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi skill54 zero-power no ordinary producer"
+                        + " skill54=[5,171,583,0,1,10,2,8,40,0]"
+                        + " damageVisible=false"
+                        + " appliedDebuff8=false"
+                        + " ordinarySkill54Producer=NOT_REACHED");
+            } else if ("battle_status_debuff8_skill54_zero_power_buff14_no_apply".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{54, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                assertPhase10AStatusSlots(s, false, "status debuff8 buff14 setup",
+                        new int[]{26}, new int[]{137});
+                tickUntilBattleP7Phase(s, 3, 260);
+                if (s.battleP7DamageVisible
+                        || runtime.debugEnemyHasDebuffForSmoke(8)
+                        || !runtime.debugEnemyHasBuffForSmoke(14)
+                        || !traceContains(s, "no-damage skill=54")
+                        || traceContains(s, "battle P7 damage frame skill=54")
+                        || traceContains(s, "appliedDebuffId=")) {
+                    throw new IllegalStateException("Expected skill54 zero-power path to skip debuff8 before buff14 block matters,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " hasDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
+                            + " hasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
+                            + " trace=" + tailTrace(s, 100));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff8 buff14 still only buff14",
+                        new int[]{26}, new int[]{137});
+                s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi buff14 regression"
+                        + " skill54 ordinaryApply=NOT_REACHED"
+                        + " targetBuff14Irrelevant=true"
+                        + " debuff8=false");
+            } else if ("battle_status_debuff8_gameplay_fixed_self_hit_damage_up".equals(checkpoint)
+                    || "battle_status_debuff8_gameplay_fixed_enemy_hit_damage_up".equals(checkpoint)) {
+                boolean selfHit = checkpoint.contains("_self_hit_");
+                VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+                enterElderP7WithSkills(baselineScene, new int[]{10, 45}, 0);
+                SourceBattleRuntime baselineRuntime = (SourceBattleRuntime) baselineScene.current;
+                baselineRuntime.debugSetPlayerAttackForSmoke(baselineScene, 120);
+                baselineRuntime.debugSetEnemyDefenseForSmoke(baselineScene, 40);
+                baselineRuntime.debugSetSourceRandomSeedForSmoke(0L);
+                baselineRuntime.debugSetNextDamageCritRollForSmoke(99);
+                baselineRuntime.debugSetNextP7HitRollForSmoke(99);
+                int baselinePlayerHp = baselineScene.battlePlayerHp;
+                int baselineEnemyHp = baselineScene.battleEnemyHp;
+                tickUntilBattleP7Phase(baselineScene, 2, 220);
+                int baseline = latestTraceDamage(baselineScene, "battle P7 damage frame skill=10");
+
+                enterElderP7WithSkills(s, new int[]{10, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetPlayerAttackForSmoke(s, 120);
+                runtime.debugSetEnemyDefenseForSmoke(s, 40);
+                runtime.debugSetSourceRandomSeedForSmoke(0L);
+                runtime.debugSetNextDamageCritRollForSmoke(99);
+                int playerHpBefore = s.battlePlayerHp;
+                int enemyHpBefore = s.battleEnemyHp;
+                runtime.debugSeededDebuff8GameplayFixedP7ForSmoke(s, 10, selfHit ? 0 : 99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                int boosted = latestTraceDamage(s, "battle P7 damage frame skill=10");
+                int beforeBoost = latestTraceDamage(s, "battle debuff8 Quy Mi outgoing damage up");
+                int expected = beforeBoost + beforeBoost * 10 / 100;
+                boolean expectedTargetSide = selfHit;
+                int playerHpAfter = s.battlePlayerHp;
+                int enemyHpAfter = s.battleEnemyHp;
+                if (baseline <= 0
+                        || beforeBoost <= 0
+                        || boosted != expected
+                        || !s.battleP7DamageVisible
+                        || !runtime.debugPlayerHasDebuffForSmoke(8)
+                        || runtime.debugEnemyHasDebuffForSmoke(8)
+                        || s.battleTargetPlayerSide != expectedTargetSide
+                        || s.battleTargetCount != 2
+                        || s.battleTargetSlots.length != 2
+                        || !traceContains(s, "GAMEPLAY_FIXED")
+                        || !traceContains(s, "selfChance=55")
+                        || !traceContains(s, "opponentChance=45")
+                        || !traceContains(s, "includesAttacker=true")
+                        || !traceContains(s, "outgoingDamageBonus=10")
+                        || !traceContains(s, "battle debuff8 Quy Mi outgoing damage up")
+                        || !traceContains(s, "percent=10")
+                        || !traceContains(s, "selectedIndex=" + (selfHit ? 0 : 1))
+                        || !traceContains(s, "roll=" + (selfHit ? 0 : 99))
+                        || !traceContains(s, "ordinarySkill54Producer=NOT_REACHED")
+                        || traceContains(s, "appliedDebuffId=8")
+                        || traceContains(s, "battle P7 damage frame skill=54")) {
+                    throw new IllegalStateException("Expected debuff8 gameplay-fix to route target and boost outgoing damage,"
+                            + " selfHit=" + selfHit
+                            + " baseline=" + baseline
+                            + " beforeBoost=" + beforeBoost
+                            + " boosted=" + boosted
+                            + " expected=" + expected
+                            + " baselineHp=" + baselinePlayerHp + "/" + baselineEnemyHp
+                            + " hp=" + playerHpBefore + "->" + playerHpAfter
+                            + ":" + enemyHpBefore + "->" + enemyHpAfter
+                            + " targetPlayerSide=" + s.battleTargetPlayerSide
+                            + " targetCount=" + s.battleTargetCount
+                            + " slots=" + java.util.Arrays.toString(s.battleTargetSlots)
+                            + " names=" + java.util.Arrays.toString(s.battleTargetNames)
+                            + " playerDebuff8=" + runtime.debugPlayerHasDebuffForSmoke(8)
+                            + " enemyDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
+                            + " trace=" + tailTrace(s, 160));
+                }
+                assertPhase10AStatusSlots(s, true,
+                        selfHit ? "status debuff8 gameplay fixed self-hit" : "status debuff8 gameplay fixed enemy-hit",
+                        new int[]{9}, new int[]{138});
+                s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi GAMEPLAY_FIXED"
+                        + " route=" + (selfHit ? "self" : "opponent")
+                        + " forcedRoll=" + (selfHit ? 0 : 99)
+                        + " chance=55/45"
+                        + " baselineDamage=" + baseline
+                        + " damageBeforeDebuff8Boost=" + beforeBoost
+                        + " boostedDamage=" + boosted
+                        + " expectedDamage=" + expected
+                        + " hpPlayer=" + playerHpBefore + "->" + playerHpAfter
+                        + " hpEnemy=" + enemyHpBefore + "->" + enemyHpAfter
+                        + " status=INTENTIONAL_DEVIATION/GAMEPLAY_FIXED"
+                        + " ordinarySkill54Producer=NOT_REACHED");
+            } else if ("battle_status_debuff8_p12_body_visual_type1_actor25".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 8, 40, 54, 4, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff8 before active queue visual",
+                        new int[]{9}, new int[]{138});
+                tickUntilTraceContains(s, "active queue visual start bank=1 id=8", 700);
+                if (!runtime.debugEnemyHasDebuffForSmoke(8)
+                        || runtime.debugEnemyDebuffDurationForSmoke(8) != 4
+                        || !s.battleP7SpecialVisible
+                        || s.battleP7SpecialType < 0
+                        || !traceContains(s, "row=[1, 0, 0, -1, 0, 25, 0, -1]")) {
+                    throw new IllegalStateException("Expected debuff8 P12/P13 to start source bufDebuf visual row,"
+                            + " hasDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(8)
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " specialType=" + s.battleP7SpecialType
+                            + " trace=" + tailTrace(s, 120));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi P12/P13 body visual start"
+                        + " bufDebuf ar[1][8]=[1,0,0,-1,0,25,0,-1]"
+                        + " game.d.ai[1] includes id8"
+                        + " firstSegment=speffect0"
+                        + " secondSegment=actor25");
+            } else {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 8, 40, 54, 4, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff8 before expiry",
+                        new int[]{9}, new int[]{138});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 8);
+                if (!runtime.debugEnemyHasDebuffForSmoke(8)
+                        || runtime.debugEnemyDebuffDurationForSmoke(8) != 3
+                        || s.battleEnemyHp != 50) {
+                    throw new IllegalStateException("Expected debuff8 first tick duration 3 and no HP change,"
+                            + " hp=" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(8)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff8 after first tick",
+                        new int[]{9}, new int[]{137});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 8);
+                assertPhase10AStatusSlots(s, false, "status debuff8 after second tick",
+                        new int[]{9}, new int[]{136});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 8);
+                assertPhase10AStatusSlots(s, false, "status debuff8 after third tick",
+                        new int[]{9}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 8);
+                if (runtime.debugEnemyHasDebuffForSmoke(8)
+                        || runtime.debugEnemyDebuffDurationForSmoke(8) != 0
+                        || s.battleEnemyHp != 50
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=8")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff8 fourth tick to expire and clear icon without HP/stat change,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(8)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(8)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi expiry"
+                        + " value=40"
+                        + " hp=50 unchanged"
+                        + " duration=4->3->2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(8)+c(debuffId,slot) no stat/HP tick");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runDebuff8SpecialRouteSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff8_seeded_target_reroute_smoke".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            s.eventIndex = s.events.size();
+            s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+            s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                    new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+            tickUntilBattleState(s, "P20", 120);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSeededDebuff8TargetRoutingForSmoke(s, 54, 99);
+            if (!runtime.debugPlayerHasDebuffForSmoke(8)
+                    || runtime.debugEnemyHasDebuffForSmoke(8)
+                    || s.battleTargetCount != 2
+                    || s.battleTargetPlayerSide
+                    || s.battleTargetSlots.length != 2
+                    || s.battleTargetSlots[0] != 1
+                    || s.battleTargetSlots[1] != 0
+                    || !traceContains(s, "GAMEPLAY_FIXED")
+                    || !traceContains(s, "sourceColumn9=0")
+                    || !traceContains(s, "forcedRoll=99")
+                    || !traceContains(s, "selfChance=55")
+                    || !traceContains(s, "opponentChance=45")
+                    || !traceContains(s, "normalSlots=[0]")
+                    || !traceContains(s, "rerouteSlots=[1, 0]")
+                    || !traceContains(s, "includesAttacker=true")
+                    || !traceContains(s, "outgoingDamageBonus=10")
+                    || !traceContains(s, "ordinarySkill54Producer=NOT_REACHED")
+                    || traceContains(s, "appliedDebuffId=8")
+                    || traceContains(s, "battle P7 damage frame skill=54")) {
+                throw new IllegalStateException("Expected seeded debuff8 smoke to use gameplay-fixed"
+                        + " 55/45 target routing without ordinary skill54 producer,"
+                        + " targetCount=" + s.battleTargetCount
+                        + " targetPlayerSide=" + s.battleTargetPlayerSide
+                        + " slots=" + java.util.Arrays.toString(s.battleTargetSlots)
+                        + " names=" + java.util.Arrays.toString(s.battleTargetNames)
+                        + " playerDebuff8=" + runtime.debugPlayerHasDebuffForSmoke(8)
+                        + " enemyDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
+                        + " trace=" + tailTrace(s, 80));
+            }
+            s.sourceStateTrace.add("SMOKE verified debuff8 seeded target reroute"
+                    + " skill54 currentRoute=1v1"
+                    + " route=opponent"
+                    + " rerouteSlots=[1,0]"
+                    + " status=INTENTIONAL_DEVIATION/GAMEPLAY_FIXED"
+                    + " selfChance=55 opponentChance=45"
+                    + " gameplayMutation=false");
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runDebuff9CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff9_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff9_skill55_zero_power_no_apply".equals(checkpoint)
+                && !"battle_status_debuff9_random_target_seeded_active".equals(checkpoint)
+                && !"battle_status_debuff9_p12_body_visual_type12".equals(checkpoint)
+                && !"battle_status_debuff9_expiry_clears_icon".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff9_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff9 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(9)
+                        || runtime.debugEnemyDebuffDurationForSmoke(9) != 0
+                        || runtime.debugEnemyDebuffValueForSmoke(9) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff9 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff9=" + runtime.debugEnemyHasDebuffForSmoke(9)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(9)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(9)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 48));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff9 Hon Loan before snapshot"
+                        + " hasDebuff9=false"
+                        + " enemyIconCount=0");
+            } else if ("battle_status_debuff9_skill55_zero_power_no_apply".equals(checkpoint)) {
+                enterElderP7WithSkills(s, new int[]{55, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                tickUntilBattleP7Phase(s, 3, 260);
+                if (s.battleP7DamageVisible
+                        || runtime.debugEnemyHasDebuffForSmoke(9)
+                        || s.battleEnemyHp != s.battleEnemyMaxHp
+                        || !traceContains(s, "no-damage skill=55")
+                        || traceContains(s, "battle P7 damage frame skill=55")
+                        || traceContains(s, "appliedDebuffId=9")
+                        || traceContains(s, "battle P7 hitroll skill=55")) {
+                    throw new IllegalStateException("Expected skill55 zero-power source guard to skip damage and ordinary debuff9 apply,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                            + " hasDebuff9=" + runtime.debugEnemyHasDebuffForSmoke(9)
+                            + " trace=" + tailTrace(s, 100));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff9 skill55 no ordinary apply",
+                        new int[0], new int[0]);
+                s.sourceStateTrace.add("SMOKE verified debuff9 Hon Loan skill55 zero-power no ordinary producer"
+                        + " skill55=[5,172,584,0,1,10,2,9,-1,0]"
+                        + " damageVisible=false"
+                        + " appliedDebuff9=false"
+                        + " ordinarySkill55Producer=NOT_REACHED");
+            } else if ("battle_status_debuff9_random_target_seeded_active".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+                s.current = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                        new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+                tickUntilBattleState(s, "P20", 120);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSeededDebuff9TargetRoutingForSmoke(s, 10, 0);
+                assertPhase10AStatusSlots(s, true, "status debuff9 random target active",
+                        new int[]{10}, new int[]{135});
+                if (!runtime.debugPlayerHasDebuffForSmoke(9)
+                        || runtime.debugEnemyHasDebuffForSmoke(9)
+                        || s.battleTargetCount != 1
+                        || s.battleTargetPlayerSide
+                        || s.battleTargetSlots.length != 1
+                        || s.battleTargetSlots[0] != 0
+                        || !traceContains(s, "debuff9 Hon Loan target consumer")
+                        || !traceContains(s, "source=game.d.f(attacker)")
+                        || !traceContains(s, "randomIndex=0")
+                        || !traceContains(s, "excludesAttacker=true")
+                        || !traceContains(s, "ordinarySkill55Producer=NOT_REACHED")
+                        || traceContains(s, "appliedDebuffId=9")
+                        || traceContains(s, "battle P7 damage frame skill=55")) {
+                    throw new IllegalStateException("Expected debuff9 seeded active consumer to rebuild target vector and choose random index,"
+                            + " targetCount=" + s.battleTargetCount
+                            + " targetPlayerSide=" + s.battleTargetPlayerSide
+                            + " slots=" + java.util.Arrays.toString(s.battleTargetSlots)
+                            + " names=" + java.util.Arrays.toString(s.battleTargetNames)
+                            + " playerDebuff9=" + runtime.debugPlayerHasDebuffForSmoke(9)
+                            + " enemyDebuff9=" + runtime.debugEnemyHasDebuffForSmoke(9)
+                            + " trace=" + tailTrace(s, 120));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff9 Hon Loan random target consumer"
+                        + " forcedIndex=0"
+                        + " duration=1"
+                        + " icon=10 durationCell=135"
+                        + " currentRoute=1v1"
+                        + " source=game.d case2 p(9)->f(attacker)->ae.a(G.size)");
+            } else if ("battle_status_debuff9_p12_body_visual_type12".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 9, -1, 55, 1, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff9 before active queue visual",
+                        new int[]{10}, new int[]{135});
+                tickUntilTraceContains(s, "active queue visual start bank=1 id=9", 700);
+                if (!runtime.debugEnemyHasDebuffForSmoke(9)
+                        || runtime.debugEnemyDebuffDurationForSmoke(9) != 1
+                        || !s.battleP7SpecialVisible
+                        || s.battleP7SpecialType != 12
+                        || !traceContains(s, "row=[1, 12, 0, -1]")) {
+                    throw new IllegalStateException("Expected debuff9 P12/P13 to start source bufDebuf visual row,"
+                            + " hasDebuff9=" + runtime.debugEnemyHasDebuffForSmoke(9)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(9)
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " specialType=" + s.battleP7SpecialType
+                            + " trace=" + tailTrace(s, 120));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff9 Hon Loan P12/P13 body visual start"
+                        + " bufDebuf ar[1][9]=[1,12,0,-1]"
+                        + " game.d.ai[1] includes id9"
+                        + " speffect=12");
+            } else {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 9, -1, 55, 1, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff9 before expiry",
+                        new int[]{10}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 9);
+                if (runtime.debugEnemyHasDebuffForSmoke(9)
+                        || runtime.debugEnemyDebuffDurationForSmoke(9) != 0
+                        || s.battleEnemyHp != 50
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=9")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff9 first tick to expire and clear icon without HP/stat change,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(9)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(9)
+                            + " hp=" + s.battleEnemyHp
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 96));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff9 Hon Loan expiry"
+                        + " value=-1"
+                        + " hp=50 unchanged"
+                        + " duration=1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(9)+c(debuffId,slot) no stat/HP tick");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static boolean runDebuff10CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_status_debuff10_before_no_effect".equals(checkpoint)
+                && !"battle_status_debuff10_skill41_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff10_skill47_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff10_p12_body_visual_type9".equals(checkpoint)
+                && !"battle_status_debuff10_expiry_clears_icon".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            if ("battle_status_debuff10_before_no_effect".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                assertPhase10AStatusSlots(s, false, "status debuff10 before/no effect",
+                        new int[0], new int[0]);
+                if (runtime.debugEnemyHasDebuffForSmoke(10)
+                        || runtime.debugEnemyDebuffDurationForSmoke(10) != 0
+                        || runtime.debugEnemyDebuffValueForSmoke(10) != 0
+                        || s.battleEnemyStatusCount != 0) {
+                    throw new IllegalStateException("Expected debuff10 before snapshot to have no active debuff/icon,"
+                            + " hasDebuff10=" + runtime.debugEnemyHasDebuffForSmoke(10)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(10)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(10)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 48));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff10 Te Liet before snapshot"
+                        + " hasDebuff10=false"
+                        + " enemyIconCount=0");
+            } else if ("battle_status_debuff10_skill41_producer_apply".equals(checkpoint)
+                    || "battle_status_debuff10_skill47_producer_apply".equals(checkpoint)) {
+                int skillId = "battle_status_debuff10_skill41_producer_apply".equals(checkpoint) ? 41 : 47;
+                enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+                SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
+                runtime.debugSetNextP7HitRollForSmoke(99);
+                tickUntilBattleP7Phase(s, 2, 220);
+                if (!s.battleP7DamageVisible
+                        || s.battleP7DamageText.isEmpty()
+                        || s.battleP7DebuffText.isEmpty()
+                        || !runtime.debugEnemyHasDebuffForSmoke(10)
+                        || runtime.debugEnemyDebuffDurationForSmoke(10) != 4
+                        || runtime.debugEnemyDebuffValueForSmoke(10) != 0
+                        || runtime.debugEnemyDebuffSourceSkillForSmoke(10) != skillId
+                        || !traceContains(s, "forced damage.debuff roll=0")
+                        || !traceContains(s, "appliedDebuffId=10")
+                        || !traceContains(s, "hit=true")) {
+                    throw new IllegalStateException("Expected debuff10 producer skill" + skillId
+                            + " to hit, apply Te Liet duration 4, and show debuff text,"
+                            + " damageVisible=" + s.battleP7DamageVisible
+                            + " damageText=" + s.battleP7DamageText
+                            + " debuffText=" + s.battleP7DebuffText
+                            + " hasDebuff10=" + runtime.debugEnemyHasDebuffForSmoke(10)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(10)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(10)
+                            + " sourceSkill=" + runtime.debugEnemyDebuffSourceSkillForSmoke(10)
+                            + " trace=" + tailTrace(s, 80));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff10 skill" + skillId + " producer",
+                        new int[]{11}, new int[]{138});
+                s.sourceStateTrace.add("SMOKE verified debuff10 Te Liet producer"
+                        + " skill=" + skillId
+                        + " row=" + (skillId == 41
+                        ? "[4,158,570,90,0,45,2,10,10,0]"
+                        : "[4,164,576,130,2,30,2,10,10,0]")
+                        + " debuffRow=[321,332,4]"
+                        + " chanceParam=10"
+                        + " forcedRoll=0"
+                        + " duration=4"
+                        + " icon=11 durationCell=138"
+                        + " storedValue=0");
+            } else if ("battle_status_debuff10_p12_body_visual_type9".equals(checkpoint)) {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 10, 0, 41, 4, 50);
+                assertPhase10AStatusSlots(s, false, "status debuff10 before active queue visual",
+                        new int[]{11}, new int[]{138});
+                tickUntilTraceContains(s, "active queue visual start bank=1 id=10", 700);
+                if (!runtime.debugEnemyHasDebuffForSmoke(10)
+                        || runtime.debugEnemyDebuffDurationForSmoke(10) != 4
+                        || !s.battleP7SpecialVisible
+                        || s.battleP7SpecialType != 9
+                        || !traceContains(s, "row=[1, 19, 0, -1, 1, 6, 0, -1]")) {
+                    throw new IllegalStateException("Expected debuff10 P12/P13 to start source bufDebuf visual row,"
+                            + " hasDebuff10=" + runtime.debugEnemyHasDebuffForSmoke(10)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(10)
+                            + " specialVisible=" + s.battleP7SpecialVisible
+                            + " specialType=" + s.battleP7SpecialType
+                            + " trace=" + tailTrace(s, 120));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff10 Te Liet P12/P13 body visual start"
+                        + " bufDebuf ar[1][10]=[1,19,0,-1,1,6,0,-1]"
+                        + " game.d.ai[1] includes id10"
+                        + " firstSegment=speffect19/type9"
+                        + " secondSegment=speffect6");
+            } else {
+                SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+                runtime.debugQueueDebuffForSmoke(s, false, 10, 0, 41, 4, 50);
+                int hpBefore = s.battleEnemyHp;
+                int defenseBefore = runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE);
+                int speedBefore = runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED);
+                assertPhase10AStatusSlots(s, false, "status debuff10 before expiry",
+                        new int[]{11}, new int[]{138});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 10);
+                if (!runtime.debugEnemyHasDebuffForSmoke(10)
+                        || runtime.debugEnemyDebuffDurationForSmoke(10) != 3
+                        || s.battleEnemyHp != hpBefore
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != defenseBefore
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != speedBefore) {
+                    throw new IllegalStateException("Expected debuff10 first tick to only decrement duration,"
+                            + " hp=" + hpBefore + "->" + s.battleEnemyHp
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(10)
+                            + " defense=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " speed=" + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " trace=" + tailTrace(s, 72));
+                }
+                assertPhase10AStatusSlots(s, false, "status debuff10 after first tick",
+                        new int[]{11}, new int[]{137});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 10);
+                assertPhase10AStatusSlots(s, false, "status debuff10 after second tick",
+                        new int[]{11}, new int[]{136});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 10);
+                assertPhase10AStatusSlots(s, false, "status debuff10 after third tick",
+                        new int[]{11}, new int[]{135});
+                runtime.debugTickEnemySourceDebuffForSmoke(s, 10);
+                if (runtime.debugEnemyHasDebuffForSmoke(10)
+                        || runtime.debugEnemyDebuffDurationForSmoke(10) != 0
+                        || s.battleEnemyHp != hpBefore
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != defenseBefore
+                        || runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED) != speedBefore
+                        || s.battleEnemyStatusCount != 0
+                        || !traceContains(s, "enemy source debuff tick id=10")
+                        || !traceContains(s, "duration 1->0")
+                        || !traceContains(s, "active=false")) {
+                    throw new IllegalStateException("Expected debuff10 fourth tick to expire and clear icon without HP/stat change,"
+                            + " active=" + runtime.debugEnemyHasDebuffForSmoke(10)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(10)
+                            + " hp=" + hpBefore + "->" + s.battleEnemyHp
+                            + " defense=" + defenseBefore + "->"
+                            + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                            + " speed=" + speedBefore + "->"
+                            + runtime.debugEnemyCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                            + " statusCount=" + s.battleEnemyStatusCount
+                            + " trace=" + tailTrace(s, 120));
+                }
+                s.sourceStateTrace.add("SMOKE verified debuff10 Te Liet expiry"
+                        + " hp=" + hpBefore + " unchanged"
+                        + " defense=" + defenseBefore + " unchanged"
+                        + " speed=" + speedBefore + " unchanged"
+                        + " duration=4->3->2->1->0"
+                        + " iconCleared=true"
+                        + " source=game.b.q(10)+c(debuffId,slot) default no HP/stat tick"
+                        + " actionDelayCallsite=NOT_FOUND_IN_PC_SOURCE");
+            }
+            writeSmokeCheckpointImage(s, checkpoint, outPath);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
+    private static int parseDebuff7ProducerSkill(String checkpoint) {
+        String prefix = "battle_status_debuff7_skill";
+        String suffix = "_producer_defense_down20";
+        int start = prefix.length();
+        int end = checkpoint.length() - suffix.length();
+        if (end <= start) {
+            throw new IllegalArgumentException("Bad debuff7 producer checkpoint: " + checkpoint);
+        }
+        int skillId = Integer.parseInt(checkpoint.substring(start, end));
+        if (!isPhase9KDebuff7Skill(skillId)) {
+            throw new IllegalArgumentException("Debuff7 producer closeout only supports 51/57, got " + skillId);
+        }
+        return skillId;
     }
 
     private static boolean isBattleStatusEffectivenessCheckpoint(String checkpoint) {
@@ -12836,10 +17599,55 @@ final class VqsvSmokeHarness {
                 || "battle_status_buff3_p12_body_visual_start".equals(checkpoint)
                 || "battle_status_buff3_p12_heal_tick".equals(checkpoint)
                 || "battle_status_buff3_expiry_clears_icon".equals(checkpoint)
+                || "battle_status_buff4_before_no_effect".equals(checkpoint)
+                || "battle_status_buff4_producer_visual_defense".equals(checkpoint)
+                || "battle_status_buff4_forced_hit_target_defense".equals(checkpoint)
+                || "battle_status_buff4_forced_miss_no_extra_side_effect".equals(checkpoint)
+                || "battle_status_buff4_forced_crit_no_wrong_multiplier".equals(checkpoint)
+                || "battle_status_buff4_expiry_clears_defense".equals(checkpoint)
+                || "battle_status_buff5_before_no_effect".equals(checkpoint)
+                || "battle_status_buff5_producer_visual".equals(checkpoint)
+                || "battle_status_buff5_forced_reflect_success".equals(checkpoint)
+                || "battle_status_buff5_forced_reflect_fail".equals(checkpoint)
+                || "battle_status_buff5_p12_body_visual_start".equals(checkpoint)
+                || "battle_status_buff5_p12_body_visual_mid".equals(checkpoint)
+                || "battle_status_buff5_p12_body_visual_after".equals(checkpoint)
+                || "battle_status_buff5_expiry_clears_icon".equals(checkpoint)
+                || "battle_status_buff6_before_no_effect".equals(checkpoint)
+                || "battle_status_buff6_producer_visual".equals(checkpoint)
+                || "battle_status_buff6_visual_chunk0_type7".equals(checkpoint)
+                || "battle_status_buff6_visual_chunk1_type1".equals(checkpoint)
+                || "battle_status_buff6_damage_reduction_success".equals(checkpoint)
+                || "battle_status_buff6_damage_reduction_fail".equals(checkpoint)
+                || "battle_status_buff6_p12_no_body_visual".equals(checkpoint)
+                || "battle_status_buff6_expiry_clears_icon".equals(checkpoint)
+                || "battle_status_buff7_before_no_effect".equals(checkpoint)
+                || "battle_status_buff7_producer_visual_speed_skill42".equals(checkpoint)
+                || "battle_status_buff7_producer_visual_speed_skill48".equals(checkpoint)
+                || "battle_status_buff7_p12_no_body_visual".equals(checkpoint)
+                || "battle_status_buff7_expiry_clears_speed".equals(checkpoint)
                 || "battle_status_buff8_producer_visual".equals(checkpoint)
                 || "battle_status_buff8_pp_cost_damage_active".equals(checkpoint)
                 || "battle_status_buff8_expiry_clears_pp_damage".equals(checkpoint)
+                || "battle_status_buff9_before_no_effect".equals(checkpoint)
+                || "battle_status_buff9_producer_visual_stats".equals(checkpoint)
+                || "battle_status_buff9_p12_no_body_visual".equals(checkpoint)
+                || "battle_status_buff9_expiry_clears_stats".equals(checkpoint)
+                || "battle_status_buff10_before_no_effect".equals(checkpoint)
+                || "battle_status_buff10_skill62_start".equals(checkpoint)
+                || "battle_status_buff10_skill62_actor26".equals(checkpoint)
+                || "battle_status_buff10_skill62_speffect0".equals(checkpoint)
+                || "battle_status_buff10_skill62_speffect15".equals(checkpoint)
+                || "battle_status_buff10_skill62_after_apply".equals(checkpoint)
+                || "battle_status_buff10_gameplay_decay_attack_up".equals(checkpoint)
+                || "battle_status_buff10_source_oddity_attack_down".equals(checkpoint)
+                || "battle_status_buff10_p12_no_body_visual".equals(checkpoint)
+                || "battle_status_buff10_expiry_clears_attack".equals(checkpoint)
                 || "battle_status_buff10_attack_up_damage".equals(checkpoint)
+                || "battle_status_buff11_skill64_selected_buff_copy".equals(checkpoint)
+                || "battle_status_buff11_active_tick_resteal".equals(checkpoint)
+                || "battle_status_buff11_selected_slot_nonzero".equals(checkpoint)
+                || "battle_status_buff11_donor_switch_cleanup".equals(checkpoint)
                 || "battle_status_buff14_blocks_debuff".equals(checkpoint)
                 || "battle_status_debuff0_damage_tick".equals(checkpoint)
                 || "battle_status_debuff5_speed_down".equals(checkpoint)
@@ -13532,6 +18340,875 @@ final class VqsvSmokeHarness {
                     + " iconCleared=true");
             return;
         }
+        if ("battle_status_buff4_before_no_effect".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            assertPhase10AStatusSlots(s, true, "status buff4 before/no effect",
+                    new int[0], new int[0]);
+            if (runtime.debugPlayerHasBuffForSmoke(4)
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || s.battlePlayerStatusCount != 0) {
+                throw new IllegalStateException("Expected buff4 before snapshot to have base/current defense 100 and no icon,"
+                        + " hasBuff4=" + runtime.debugPlayerHasBuffForSmoke(4)
+                        + " defense=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + "->" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 32));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff4 before snapshot"
+                    + " defense=100->100"
+                    + " hasBuff4=false"
+                    + " iconCount=0");
+            return;
+        }
+        if ("battle_status_buff4_producer_visual_defense".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{21, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerAttackForSmoke(s, 200);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            runtime.debugSetEnemyDefenseForSmoke(s, 100);
+            runtime.debugSetSourceRandomSeedForSmoke(0L);
+            runtime.debugSetNextDamageCritRollForSmoke(99);
+            runtime.debugSetNextP7HitRollForSmoke(99);
+            tickUntilBattleP7Phase(s, 3, 360);
+            int damage = latestTraceDamage(s, "battle P7 damage frame skill=21");
+            if (damage <= 0
+                    || !s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(4)
+                    || runtime.debugPlayerBuffValueForSmoke(4) != 10
+                    || runtime.debugPlayerBuffDurationForSmoke(4) != 2
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 110
+                    || !traceContains(s, "battle P7 actor u.a() start skill=21")
+                    || !traceContains(s, "sourceEffectId=22")
+                    || !traceContains(s, "battle P7 speffect skill=21")
+                    || !traceContains(s, "speffect=5")
+                    || !traceContains(s, "game.d.q postEffect skill=21")
+                    || !traceContains(s, "buffId=4")
+                    || !traceContains(s, "selfTarget=true")) {
+                throw new IllegalStateException("Expected buff4 producer skill21 to use effect.mid[21], apply defense +10, and show HUD icon,"
+                        + " damage=" + damage
+                        + " postVisible=" + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff4=" + runtime.debugPlayerHasBuffForSmoke(4)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(4)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(4)
+                        + " defense=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + "->" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff4 producer visual",
+                    new int[]{16}, new int[]{136});
+            s.sourceStateTrace.add("SMOKE verified buff4 Phong ngu producer skill21"
+                    + " visual=effect.mid[21] sourceEffectId22+speffect5"
+                    + " damage=" + damage
+                    + " defense=100->110"
+                    + " value=10"
+                    + " icon=16 durationCell=136"
+                    + " source=game.b.a case4 uses aq.c[1][21][8]");
+            return;
+        }
+        if ("battle_status_buff4_forced_hit_target_defense".equals(checkpoint)) {
+            VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
+            int[] baseline = statusBuff4Skill10TargetDefenseProbe(baselineScene, false, 99, 99, false);
+            int[] active = statusBuff4Skill10TargetDefenseProbe(s, true, 99, 99, false);
+            assertPhase10AStatusSlots(s, false, "status buff4 forced hit target",
+                    new int[]{16}, new int[]{136});
+            if (baseline[0] != 100
+                    || active[0] != 90
+                    || active[0] >= baseline[0]
+                    || active[3] != 100
+                    || active[4] != 110
+                    || active[5] != 2
+                    || active[6] != 10
+                    || !traceContains(s, "enemy source buff prepared id=4")
+                    || !traceContains(s, "battle P7 damage frame skill=10")
+                    || !traceContains(s, "hit=true")) {
+                throw new IllegalStateException("Expected buff4 target defense to reduce skill10 damage 100->90,"
+                        + " baselineDamage=" + baseline[0]
+                        + " activeDamage=" + active[0]
+                        + " enemyDefense=" + active[3] + "->" + active[4]
+                        + " duration=" + active[5]
+                        + " value=" + active[6]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff4 target defense on hit"
+                    + " baselineDamage=" + baseline[0]
+                    + " activeDamage=" + active[0]
+                    + " formula=attack200-defense110"
+                    + " storedDefenseValue=10"
+                    + " hp=" + active[1] + "->" + active[2]);
+            return;
+        }
+        if ("battle_status_buff4_forced_miss_no_extra_side_effect".equals(checkpoint)) {
+            int[] miss = statusBuff4Skill10TargetDefenseProbe(s, true, 99, 0, true);
+            assertPhase10AStatusSlots(s, false, "status buff4 forced miss target",
+                    new int[]{16}, new int[]{136});
+            if (!VqsvText.Battle.DODGE.equals(s.battleP7MissText)
+                    || !s.battleP7DamageText.isEmpty()
+                    || miss[1] != miss[2]
+                    || miss[3] != 100
+                    || miss[4] != 110
+                    || miss[5] != 2
+                    || miss[6] != 10
+                    || !traceContains(s, "hit=false")) {
+                throw new IllegalStateException("Expected buff4 miss to keep HP unchanged and avoid damage side effects,"
+                        + " missText=" + s.battleP7MissText
+                        + " damageText=" + s.battleP7DamageText
+                        + " hp=" + miss[1] + "->" + miss[2]
+                        + " enemyDefense=" + miss[3] + "->" + miss[4]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff4 forced miss"
+                    + " hpUnchanged=" + miss[1]
+                    + " buffStillActive=true"
+                    + " icon=16 durationCell=136");
+            return;
+        }
+        if ("battle_status_buff4_forced_crit_no_wrong_multiplier".equals(checkpoint)) {
+            VqsvIntroDemo.Scene nonCritScene = new VqsvIntroDemo.Scene();
+            int[] nonCrit = statusBuff4Skill10TargetDefenseProbe(nonCritScene, true, 99, 99, false);
+            int[] crit = statusBuff4Skill10TargetDefenseProbe(s, true, 0, 99, false);
+            int expectedCrit = nonCrit[0] * 3 / 2;
+            assertPhase10AStatusSlots(s, false, "status buff4 forced crit target",
+                    new int[]{16}, new int[]{136});
+            if (nonCrit[0] != 90
+                    || crit[0] != expectedCrit
+                    || crit[7] != 1
+                    || crit[3] != 100
+                    || crit[4] != 110
+                    || !traceContains(s, "hit=true")
+                    || !traceContains(s, "critical=true")) {
+                throw new IllegalStateException("Expected buff4 crit to use defense-up damage before normal crit multiplier,"
+                        + " nonCrit=" + nonCrit[0]
+                        + " crit=" + crit[0]
+                        + " expectedCrit=" + expectedCrit
+                        + " enemyDefense=" + crit[3] + "->" + crit[4]
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff4 crit interaction"
+                    + " nonCritDamage=" + nonCrit[0]
+                    + " critDamage=" + crit[0]
+                    + " critFormula=nonCrit*3/2"
+                    + " noExtraBuffMultiplier=true");
+            return;
+        }
+        if ("battle_status_buff4_expiry_clears_defense".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            runtime.debugPlayerSourceBuffForSmoke(s, 4, 0, 21);
+            if (!runtime.debugPlayerHasBuffForSmoke(4)
+                    || runtime.debugPlayerBuffValueForSmoke(4) != 10
+                    || runtime.debugPlayerBuffDurationForSmoke(4) != 2
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 110) {
+                throw new IllegalStateException("Expected buff4 expiry setup value/duration/defense 10/2/110,"
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(4)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(4)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff4 before expiry",
+                    new int[]{16}, new int[]{136});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 4);
+            if (!runtime.debugPlayerHasBuffForSmoke(4)
+                    || runtime.debugPlayerBuffDurationForSmoke(4) != 1
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 120) {
+                throw new IllegalStateException("Expected buff4 first source tick to keep active and add stored defense again,"
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(4)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff4 after first expiry tick",
+                    new int[]{16}, new int[]{135});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 4);
+            if (runtime.debugPlayerHasBuffForSmoke(4)
+                    || runtime.debugPlayerBuffDurationForSmoke(4) != 0
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=4")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")) {
+                throw new IllegalStateException("Expected buff4 second source tick to expire and restore defense,"
+                        + " active=" + runtime.debugPlayerHasBuffForSmoke(4)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(4)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff4 expiry"
+                    + " applyDefense=100->110"
+                    + " firstTickDefense=120"
+                    + " expiredDefense=100"
+                    + " iconCleared=true"
+                    + " source=game.b.o(4)+d(4,slot)");
+            return;
+        }
+        if ("battle_status_buff5_before_no_effect".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            assertPhase10AStatusSlots(s, true, "status buff5 before/no effect",
+                    new int[0], new int[0]);
+            if (runtime.debugPlayerHasBuffForSmoke(5)
+                    || runtime.debugPlayerBuffValueForSmoke(5) != 0
+                    || runtime.debugPlayerBuffDurationForSmoke(5) != 0
+                    || s.battlePlayerStatusCount != 0) {
+                throw new IllegalStateException("Expected buff5 before snapshot to have no active buff and no icon,"
+                        + " hasBuff5=" + runtime.debugPlayerHasBuffForSmoke(5)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(5)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 32));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff5 before snapshot"
+                    + " hasBuff5=false"
+                    + " value=0"
+                    + " duration=0"
+                    + " iconCount=0");
+            return;
+        }
+        if ("battle_status_buff5_producer_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{34, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            tickUntilBattleP7Phase(s, 3, 360);
+            if (!s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(5)
+                    || runtime.debugPlayerBuffValueForSmoke(5) != 30
+                    || runtime.debugPlayerBuffDurationForSmoke(5) != 3
+                    || traceContains(s, "battle P7 damage frame skill=34")
+                    || traceContains(s, "battle P7 hitroll skill=34")
+                    || !traceContains(s, "battle P7 no-damage skill=34")
+                    || !traceContains(s, "battle P7 speffect skill=34")
+                    || !traceContains(s, "speffect=4")
+                    || !traceContains(s, "game.d.q postEffect skill=34")
+                    || !traceContains(s, "buffId=5")
+                    || !traceContains(s, "targetSide=1")) {
+                throw new IllegalStateException("Expected buff5 producer skill34 to use effect.mid[34], apply chance 30, and skip damage,"
+                        + " postVisible=" + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff5=" + runtime.debugPlayerHasBuffForSmoke(5)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(5)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff5 producer visual",
+                    new int[]{17}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff5 Vo hinh producer skill34"
+                    + " visual=effect.mid[34] speffect4"
+                    + " value=30"
+                    + " icon=17 durationCell=137"
+                    + " source=game.b.a case5 aq.c[6][5][3]");
+            return;
+        }
+        if ("battle_status_buff5_forced_reflect_success".equals(checkpoint)) {
+            int[] success = statusBuff5Skill10ReflectProbe(s, 0);
+            assertPhase10AStatusSlots(s, false, "status buff5 reflect success target",
+                    new int[]{17}, new int[]{137});
+            if (success[0] != 80
+                    || success[1] != success[0]
+                    || success[3] != success[2] - success[0]
+                    || success[6] != 30
+                    || success[7] != 3
+                    || !traceContains(s, "SMOKE battle forced damage.buff5 roll=0")
+                    || !traceContains(s, "PORTED battle P7 buff5 Vo hinh reflect")
+                    || !traceContains(s, "stored=" + success[0])) {
+                throw new IllegalStateException("Expected buff5 roll0 to reflect full stored incoming damage,"
+                        + " damage=" + success[0]
+                        + " reflected=" + success[1]
+                        + " playerHp=" + success[2] + "->" + success[3]
+                        + " value=" + success[6]
+                        + " duration=" + success[7]
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff5 reflect success"
+                    + " roll=0<=30"
+                    + " damage=" + success[0]
+                    + " reflected=" + success[1]
+                    + " playerHp=" + success[2] + "->" + success[3]);
+            return;
+        }
+        if ("battle_status_buff5_forced_reflect_fail".equals(checkpoint)) {
+            int[] fail = statusBuff5Skill10ReflectProbe(s, 99);
+            assertPhase10AStatusSlots(s, false, "status buff5 reflect fail target",
+                    new int[]{17}, new int[]{137});
+            if (fail[0] != 80
+                    || fail[1] != 0
+                    || fail[3] != fail[2]
+                    || fail[6] != 30
+                    || fail[7] != 3
+                    || !traceContains(s, "SMOKE battle forced damage.buff5 roll=99")
+                    || !traceContains(s, "PORTED battle P7 buff5 Vo hinh reflect")
+                    || !traceContains(s, "stored=0")) {
+                throw new IllegalStateException("Expected buff5 roll99 to fail reflect and keep attacker HP,"
+                        + " damage=" + fail[0]
+                        + " reflected=" + fail[1]
+                        + " playerHp=" + fail[2] + "->" + fail[3]
+                        + " value=" + fail[6]
+                        + " duration=" + fail[7]
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff5 reflect fail"
+                    + " roll=99>30"
+                    + " damage=" + fail[0]
+                    + " reflected=0"
+                    + " playerHp=" + fail[2] + "->" + fail[3]);
+            return;
+        }
+        if ("battle_status_buff5_p12_body_visual_start".equals(checkpoint)) {
+            SourceBattleRuntime runtime = enterBuff5P13BodyVisual(s);
+            assertPhase10AStatusSlots(s, true, "status buff5 P13 body visual",
+                    new int[]{17}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff5 P13 body visual"
+                    + " row=bufDebuf.ap[ar0[5]]=[0,23,0,-1]"
+                    + " actorEffectSprite=265"
+                    + " duration=3");
+            return;
+        }
+        if ("battle_status_buff5_p12_body_visual_mid".equals(checkpoint)) {
+            SourceBattleRuntime runtime = enterBuff5P13BodyVisual(s);
+            int startCursor = s.battleP7ActorEffectCursor;
+            for (int i = 0; i < 2; i++) {
+                s.tick();
+            }
+            if (!runtime.debugPlayerHasBuffForSmoke(5)
+                    || runtime.debugPlayerBuffDurationForSmoke(5) != 3
+                    || !s.battleP7ActorEffectVisible
+                    || s.battleP7ActorEffectSpriteId != 265
+                    || s.battleP7ActorEffectState != 0
+                    || s.battleP7ActorEffectCursor < startCursor
+                    || !isBattleState(s, "P13")) {
+                throw new IllegalStateException("Expected buff5 P13 body visual mid-frame to keep actor effect active,"
+                        + " state=" + s.battleStateName
+                        + " hasBuff5=" + runtime.debugPlayerHasBuffForSmoke(5)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                        + " actorVisible=" + s.battleP7ActorEffectVisible
+                        + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                        + " actorState=" + s.battleP7ActorEffectState
+                        + " cursor=" + startCursor + "->" + s.battleP7ActorEffectCursor
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff5 P13 body visual mid",
+                    new int[]{17}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff5 P13 body visual mid"
+                    + " actorEffectSprite=265"
+                    + " cursor=" + startCursor + "->" + s.battleP7ActorEffectCursor
+                    + " durationStill=3");
+            return;
+        }
+        if ("battle_status_buff5_p12_body_visual_after".equals(checkpoint)) {
+            SourceBattleRuntime runtime = enterBuff5P13BodyVisual(s);
+            int guard = 0;
+            while ((isBattleState(s, "P12", "P13") || s.battleActiveQueueVisible) && guard++ < 220) {
+                s.tick();
+            }
+            if (isBattleState(s, "P12", "P13")
+                    || s.battleActiveQueueVisible
+                    || s.battleP7ActorEffectVisible
+                    || !runtime.debugPlayerHasBuffForSmoke(5)
+                    || runtime.debugPlayerBuffDurationForSmoke(5) != 2
+                    || !traceContains(s, "active queue apply bank=0 id=5")) {
+                throw new IllegalStateException("Expected buff5 P13 body visual to finish and tick duration 3->2,"
+                        + " state=" + s.battleStateName
+                        + " activeVisible=" + s.battleActiveQueueVisible
+                        + " actorVisible=" + s.battleP7ActorEffectVisible
+                        + " hasBuff5=" + runtime.debugPlayerHasBuffForSmoke(5)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff5 after P13 body visual",
+                    new int[]{17}, new int[]{136});
+            s.sourceStateTrace.add("SMOKE verified buff5 P13 body visual after"
+                    + " actorEffectCleared=true"
+                    + " duration=3->2"
+                    + " icon=17 durationCell=136");
+            return;
+        }
+        if ("battle_status_buff5_expiry_clears_icon".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugPlayerSourceBuffForSmoke(s, 5, 0, 34);
+            if (!runtime.debugPlayerHasBuffForSmoke(5)
+                    || runtime.debugPlayerBuffValueForSmoke(5) != 30
+                    || runtime.debugPlayerBuffDurationForSmoke(5) != 3) {
+                throw new IllegalStateException("Expected buff5 expiry setup value/duration 30/3,"
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(5)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff5 before expiry",
+                    new int[]{17}, new int[]{137});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 5);
+            if (!runtime.debugPlayerHasBuffForSmoke(5)
+                    || runtime.debugPlayerBuffDurationForSmoke(5) != 2) {
+                throw new IllegalStateException("Expected buff5 first tick to stay active duration 2,"
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff5 after first tick",
+                    new int[]{17}, new int[]{136});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 5);
+            if (!runtime.debugPlayerHasBuffForSmoke(5)
+                    || runtime.debugPlayerBuffDurationForSmoke(5) != 1) {
+                throw new IllegalStateException("Expected buff5 second tick to stay active duration 1,"
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff5 after second tick",
+                    new int[]{17}, new int[]{135});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 5);
+            if (runtime.debugPlayerHasBuffForSmoke(5)
+                    || runtime.debugPlayerBuffDurationForSmoke(5) != 0
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=5")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")) {
+                throw new IllegalStateException("Expected buff5 third tick to expire and clear icon,"
+                        + " active=" + runtime.debugPlayerHasBuffForSmoke(5)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff5 expiry"
+                    + " durationTicks=3"
+                    + " value=30"
+                    + " iconCleared=true");
+            return;
+        }
+        if ("battle_status_buff6_before_no_effect".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            assertPhase10AStatusSlots(s, true, "status buff6 before/no effect",
+                    new int[0], new int[0]);
+            if (runtime.debugPlayerHasBuffForSmoke(6)
+                    || runtime.debugPlayerBuffValueForSmoke(6) != 0
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(6) != 0
+                    || runtime.debugPlayerBuffDurationForSmoke(6) != 0
+                    || s.battlePlayerStatusCount != 0) {
+                throw new IllegalStateException("Expected buff6 before snapshot to have no active buff and no icon,"
+                        + " hasBuff6=" + runtime.debugPlayerHasBuffForSmoke(6)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(6)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(6)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(6)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 32));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff6 before snapshot"
+                    + " hasBuff6=false"
+                    + " value=0"
+                    + " secondary=0"
+                    + " duration=0"
+                    + " iconCount=0");
+            return;
+        }
+        if ("battle_status_buff6_producer_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{35, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            tickUntilBattleP7Phase(s, 3, 380);
+            if (!s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(6)
+                    || runtime.debugPlayerBuffValueForSmoke(6) != 50
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(6) != -1
+                    || runtime.debugPlayerBuffDurationForSmoke(6) != 3
+                    || traceContains(s, "battle P7 damage frame skill=35")
+                    || traceContains(s, "battle P7 hitroll skill=35")
+                    || !traceContains(s, "battle P7 no-damage skill=35")
+                    || !traceContains(s, "battle P7 speffect skill=35")
+                    || !traceContains(s, "speffect=4")
+                    || !traceContains(s, "speffect=17")
+                    || !traceContains(s, "game.d.q postEffect skill=35")
+                    || !traceContains(s, "buffId=6")
+                    || !traceContains(s, "targetSide=1")) {
+                throw new IllegalStateException("Expected buff6 producer skill35 to use effect.mid[35],"
+                        + " apply chance 50 / secondary -1, and skip damage,"
+                        + " postVisible=" + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff6=" + runtime.debugPlayerHasBuffForSmoke(6)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(6)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(6)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(6)
+                        + " trace=" + tailTrace(s, 96));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff6 producer visual",
+                    new int[]{18}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff6 Kien nhan producer skill35"
+                    + " visual=effect.mid[35] speffect4->17"
+                    + " value=50"
+                    + " secondary=-1"
+                    + " icon=18 durationCell=137"
+                    + " source=game.b.a case6 aq.c[6][6]");
+            return;
+        }
+        if ("battle_status_buff6_visual_chunk0_type7".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{35, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            int guard = 0;
+            while ((!s.battleP7SpecialVisible || s.battleP7SpecialType != 7) && guard++ < 120) {
+                s.tick();
+            }
+            if (!s.battleP7SpecialVisible
+                    || s.battleP7SpecialType != 7
+                    || !s.battleP7SpecialOnPlayerSide
+                    || !traceContains(s, "battle P7 speffect skill=35")
+                    || !traceContains(s, "speffect=4")
+                    || traceContains(s, "battle P7 damage frame skill=35")) {
+                throw new IllegalStateException("Expected buff6 skill35 chunk0 speffect4 to show AH type7 on player side,"
+                        + " state=" + s.battleStateName
+                        + " phase=" + s.battleP7Phase
+                        + " special=" + s.battleP7SpecialVisible
+                        + " type=" + s.battleP7SpecialType
+                        + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                        + " hasBuff6=" + runtime.debugPlayerHasBuffForSmoke(6)
+                        + " trace=" + tailTrace(s, 72));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff6 visual chunk0 before apply",
+                    new int[0], new int[0]);
+            s.sourceStateTrace.add("SMOKE verified buff6 visual chunk0"
+                    + " effect.mid[35][0]=speffect4"
+                    + " speffect4 AH type7"
+                    + " playerSide=true"
+                    + " noDamage=true"
+                    + " applyLater=game.d.q postEffect");
+            return;
+        }
+        if ("battle_status_buff6_visual_chunk1_type1".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{35, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            int guard = 0;
+            while ((!s.battleP7SpecialVisible || s.battleP7SpecialType != 1) && guard++ < 180) {
+                s.tick();
+            }
+            if (!s.battleP7SpecialVisible
+                    || s.battleP7SpecialType != 1
+                    || !s.battleP7SpecialOnPlayerSide
+                    || !traceContains(s, "battle P7 speffect skill=35")
+                    || !traceContains(s, "speffect=17")
+                    || traceContains(s, "battle P7 damage frame skill=35")) {
+                throw new IllegalStateException("Expected buff6 skill35 chunk1 speffect17 to show AH type1 on player side,"
+                        + " state=" + s.battleStateName
+                        + " phase=" + s.battleP7Phase
+                        + " special=" + s.battleP7SpecialVisible
+                        + " type=" + s.battleP7SpecialType
+                        + " playerSide=" + s.battleP7SpecialOnPlayerSide
+                        + " hasBuff6=" + runtime.debugPlayerHasBuffForSmoke(6)
+                        + " trace=" + tailTrace(s, 72));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff6 visual chunk1 before apply",
+                    new int[0], new int[0]);
+            s.sourceStateTrace.add("SMOKE verified buff6 visual chunk1"
+                    + " effect.mid[35][1]=speffect17"
+                    + " speffect17 AH type1"
+                    + " playerSide=true"
+                    + " noDamage=true"
+                    + " applyLater=game.d.q postEffect");
+            return;
+        }
+        if ("battle_status_buff6_damage_reduction_success".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            int[] probe = runtime.debugEnemyAttackPlayerBuff6ReductionProbeForSmoke(s, 0);
+            assertPhase10AStatusSlots(s, true, "status buff6 damage reduction success",
+                    new int[]{18}, new int[]{137});
+            int expectedHalf = Math.max(1, probe[0] / 2);
+            if (probe[0] <= 0
+                    || probe[1] > expectedHalf + 1
+                    || probe[1] >= probe[0]
+                    || probe[2] != 50
+                    || probe[3] != -1
+                    || probe[4] != 3
+                    || probe[5] != 50
+                    || !traceContains(s, "SMOKE battle forced damage.buff6 roll=0")
+                    || !traceContains(s, "INTENTIONAL battle buff6 Kien nhan incoming damage reduction")
+                    || !traceContains(s, "sourceDeviation=target buff params used instead of attacker.v[6]")) {
+                throw new IllegalStateException("Expected buff6 gameplay success to reduce incoming damage by 50%,"
+                        + " probe=" + java.util.Arrays.toString(probe)
+                        + " expectedHalf~=" + expectedHalf
+                        + " trace=" + tailTrace(s, 96));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff6 gameplay damage reduction success"
+                    + " roll=0<=50"
+                    + " baseline=" + probe[0]
+                    + " result=" + probe[1]
+                    + " reductionPercent=50"
+                    + " intentionalDeviation=true");
+            return;
+        }
+        if ("battle_status_buff6_damage_reduction_fail".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            int[] probe = runtime.debugEnemyAttackPlayerBuff6ReductionProbeForSmoke(s, 99);
+            assertPhase10AStatusSlots(s, true, "status buff6 damage reduction fail",
+                    new int[]{18}, new int[]{137});
+            if (probe[0] <= 0
+                    || probe[1] != probe[0]
+                    || probe[2] != 50
+                    || probe[3] != -1
+                    || probe[4] != 3
+                    || probe[5] != 50
+                    || !traceContains(s, "SMOKE battle forced damage.buff6 roll=99")
+                    || traceContains(s, "INTENTIONAL battle buff6 Kien nhan incoming damage reduction")) {
+                throw new IllegalStateException("Expected buff6 gameplay fail roll to keep baseline damage,"
+                        + " probe=" + java.util.Arrays.toString(probe)
+                        + " trace=" + tailTrace(s, 96));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff6 gameplay damage reduction fail"
+                    + " roll=99>50"
+                    + " baseline=" + probe[0]
+                    + " result=" + probe[1]);
+            return;
+        }
+        if ("battle_status_buff6_p12_no_body_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{35, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            tickUntilTraceContains(s, "active queue apply bank=0 id=6", 900);
+            if (!runtime.debugPlayerHasBuffForSmoke(6)
+                    || runtime.debugPlayerBuffValueForSmoke(6) != 50
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(6) != -1
+                    || runtime.debugPlayerBuffDurationForSmoke(6) != 2
+                    || traceContains(s, "active queue visual start bank=0 id=6")
+                    || s.battleP7ActorEffectVisible
+                    || s.battleP7SpecialVisible) {
+                throw new IllegalStateException("Expected buff6 active queue to tick without P12/P13 body visual because source ai[0] excludes id6,"
+                        + " state=" + s.battleStateName
+                        + " special=" + s.battleP7SpecialVisible
+                        + " actorVisible=" + s.battleP7ActorEffectVisible
+                        + " hasBuff6=" + runtime.debugPlayerHasBuffForSmoke(6)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(6)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(6)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(6)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff6 P12 no body visual",
+                    new int[]{18}, new int[]{136});
+            s.sourceStateTrace.add("SMOKE verified buff6 P12 no body visual"
+                    + " activeQueueApply=true"
+                    + " activeQueueVisualStart=false"
+                    + " duration=3->2"
+                    + " source=game.d.ai[0] excludes id6");
+            return;
+        }
+        if ("battle_status_buff6_expiry_clears_icon".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugPlayerSourceBuffForSmoke(s, 6, 0, 35);
+            if (!runtime.debugPlayerHasBuffForSmoke(6)
+                    || runtime.debugPlayerBuffValueForSmoke(6) != 50
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(6) != -1
+                    || runtime.debugPlayerBuffDurationForSmoke(6) != 3) {
+                throw new IllegalStateException("Expected buff6 expiry setup value/secondary/duration 50/-1/3,"
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(6)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(6)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(6)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff6 before expiry",
+                    new int[]{18}, new int[]{137});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 6);
+            if (!runtime.debugPlayerHasBuffForSmoke(6)
+                    || runtime.debugPlayerBuffDurationForSmoke(6) != 2) {
+                throw new IllegalStateException("Expected buff6 first tick to stay active duration 2,"
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(6)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff6 after first tick",
+                    new int[]{18}, new int[]{136});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 6);
+            if (!runtime.debugPlayerHasBuffForSmoke(6)
+                    || runtime.debugPlayerBuffDurationForSmoke(6) != 1) {
+                throw new IllegalStateException("Expected buff6 second tick to stay active duration 1,"
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(6)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff6 after second tick",
+                    new int[]{18}, new int[]{135});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 6);
+            if (runtime.debugPlayerHasBuffForSmoke(6)
+                    || runtime.debugPlayerBuffDurationForSmoke(6) != 0
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=6")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")) {
+                throw new IllegalStateException("Expected buff6 third tick to expire and clear icon,"
+                        + " active=" + runtime.debugPlayerHasBuffForSmoke(6)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(6)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff6 expiry"
+                    + " durationTicks=3"
+                    + " value=50"
+                    + " secondary=-1"
+                    + " iconCleared=true");
+            return;
+        }
+        if ("battle_status_buff7_before_no_effect".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            assertPhase10AStatusSlots(s, true, "status buff7 before/no effect",
+                    new int[0], new int[0]);
+            if (runtime.debugPlayerHasBuffForSmoke(7)
+                    || runtime.debugPlayerBuffValueForSmoke(7) != 0
+                    || runtime.debugPlayerBuffDurationForSmoke(7) != 0
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || s.battlePlayerStatusCount != 0) {
+                throw new IllegalStateException("Expected buff7 before snapshot to have speed 100 and no active buff,"
+                        + " hasBuff7=" + runtime.debugPlayerHasBuffForSmoke(7)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(7)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(7)
+                        + " baseSpeed=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " currentSpeed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " trace=" + tailTrace(s, 36));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff7 before snapshot"
+                    + " baseSpeed=100"
+                    + " currentSpeed=100"
+                    + " iconCount=0");
+            return;
+        }
+        if ("battle_status_buff7_producer_visual_speed_skill42".equals(checkpoint)
+                || "battle_status_buff7_producer_visual_speed_skill48".equals(checkpoint)) {
+            int skillId = "battle_status_buff7_producer_visual_speed_skill42".equals(checkpoint) ? 42 : 48;
+            int expectedSpeffect = skillId == 42 ? 1 : 9;
+            enterElderP7WithSkills(s, new int[]{skillId, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerAttackForSmoke(s, 100);
+            runtime.debugSetEnemyDefenseForSmoke(s, 40);
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            runtime.debugSetNextP7HitRollForSmoke(99);
+            BattleUnit.setDamageRandomSeedForChecks(0L);
+            tickUntilBattleP7Phase(s, 3, 320);
+            int damage = latestTraceDamage(s, "battle P7 damage frame skill=" + skillId);
+            if (damage <= 0
+                    || !s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(7)
+                    || runtime.debugPlayerBuffValueForSmoke(7) != 5
+                    || runtime.debugPlayerBuffDurationForSmoke(7) != 2
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 105
+                    || !traceContains(s, "BYTECODE_DEFAULT_RAW_DAMAGE skill=" + skillId)
+                    || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                    || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                    || !traceContains(s, "id=24")
+                    || !traceContains(s, "battle P7 speffect skill=" + skillId)
+                    || !traceContains(s, "speffect=" + expectedSpeffect)
+                    || !traceContains(s, "game.d.q postEffect skill=" + skillId)
+                    || !traceContains(s, "buffId=7")
+                    || !traceContains(s, "selfTarget=true")) {
+                throw new IllegalStateException("Expected buff7 skill" + skillId
+                        + " to be raw damage plus speed self-buff, damage=" + damage
+                        + " postVisible=" + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff7=" + runtime.debugPlayerHasBuffForSmoke(7)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(7)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(7)
+                        + " baseSpeed=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " currentSpeed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " trace=" + tailTrace(s, 96));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff7 producer skill" + skillId,
+                    new int[]{19}, new int[]{136});
+            s.sourceStateTrace.add("SMOKE verified buff7 Linh Xao producer skill" + skillId
+                    + " damage=" + damage
+                    + " sourceEffectId=24"
+                    + " speffect=" + expectedSpeffect
+                    + " speed=100->105"
+                    + " value=5"
+                    + " icon=19 durationCell=136"
+                    + " source=game.b.a case7 aq.c[1][skill][8]");
+            return;
+        }
+        if ("battle_status_buff7_p12_no_body_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{42, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerAttackForSmoke(s, 100);
+            runtime.debugSetEnemyDefenseForSmoke(s, 40);
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            runtime.debugSetNextP7HitRollForSmoke(99);
+            BattleUnit.setDamageRandomSeedForChecks(0L);
+            tickUntilTraceContains(s, "active queue apply bank=0 id=7", 900);
+            if (!runtime.debugPlayerHasBuffForSmoke(7)
+                    || runtime.debugPlayerBuffValueForSmoke(7) != 5
+                    || runtime.debugPlayerBuffDurationForSmoke(7) != 1
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 105
+                    || traceContains(s, "active queue visual start bank=0 id=7")
+                    || s.battleP7ActorEffectVisible
+                    || s.battleP7SpecialVisible) {
+                throw new IllegalStateException("Expected buff7 active queue to tick speed without P12/P13 body visual,"
+                        + " state=" + s.battleStateName
+                        + " special=" + s.battleP7SpecialVisible
+                        + " actorVisible=" + s.battleP7ActorEffectVisible
+                        + " hasBuff7=" + runtime.debugPlayerHasBuffForSmoke(7)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(7)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(7)
+                        + " baseSpeed=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " currentSpeed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " trace=" + tailTrace(s, 96));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff7 P12 no body visual",
+                    new int[]{19}, new int[]{135});
+            s.sourceStateTrace.add("SMOKE verified buff7 P12 no body visual"
+                    + " activeQueueApply=true"
+                    + " activeQueueVisualStart=false"
+                    + " duration=2->1"
+                    + " speed=105"
+                    + " source=game.d.ai[0] excludes id7");
+            return;
+        }
+        if ("battle_status_buff7_expiry_clears_speed".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            runtime.debugPlayerSourceBuffForSmoke(s, 7, 0, 42);
+            if (!runtime.debugPlayerHasBuffForSmoke(7)
+                    || runtime.debugPlayerBuffValueForSmoke(7) != 5
+                    || runtime.debugPlayerBuffDurationForSmoke(7) != 2
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 105) {
+                throw new IllegalStateException("Expected buff7 expiry setup speed/value/duration 100->105/5/2,"
+                        + " hasBuff7=" + runtime.debugPlayerHasBuffForSmoke(7)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(7)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(7)
+                        + " baseSpeed=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " currentSpeed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff7 before expiry",
+                    new int[]{19}, new int[]{136});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 7);
+            if (!runtime.debugPlayerHasBuffForSmoke(7)
+                    || runtime.debugPlayerBuffDurationForSmoke(7) != 1
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 105) {
+                throw new IllegalStateException("Expected buff7 first tick to stay active speed 105 duration 1,"
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(7)
+                        + " currentSpeed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff7 after first tick",
+                    new int[]{19}, new int[]{135});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 7);
+            if (runtime.debugPlayerHasBuffForSmoke(7)
+                    || runtime.debugPlayerBuffDurationForSmoke(7) != 0
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=7")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")) {
+                throw new IllegalStateException("Expected buff7 second tick to expire and restore speed/icon,"
+                        + " active=" + runtime.debugPlayerHasBuffForSmoke(7)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(7)
+                        + " currentSpeed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff7 expiry"
+                    + " durationTicks=2"
+                    + " speed=100->105->100"
+                    + " value=5"
+                    + " iconCleared=true");
+            return;
+        }
         if ("battle_status_buff8_producer_visual".equals(checkpoint)) {
             enterElderP7WithSkills(s, new int[]{44, 10}, 0);
             SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
@@ -13629,26 +19306,336 @@ final class VqsvSmokeHarness {
                     + " iconCleared=true");
             return;
         }
+        if ("battle_status_buff9_before_no_effect".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            assertPhase10AStatusSlots(s, true, "status buff9 before/no effect",
+                    new int[0], new int[0]);
+            if (runtime.debugPlayerHasBuffForSmoke(9)
+                    || runtime.debugPlayerBuffValueForSmoke(9) != 0
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(9) != 0
+                    || runtime.debugPlayerBuffDurationForSmoke(9) != 0
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || s.battlePlayerStatusCount != 0) {
+                throw new IllegalStateException("Expected buff9 before snapshot to have speed/defense 100 and no active buff,"
+                        + " hasBuff9=" + runtime.debugPlayerHasBuffForSmoke(9)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(9)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(9)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(9)
+                        + " baseSpeed=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " currentSpeed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " baseDefense=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " currentDefense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 36));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff9 before snapshot"
+                    + " baseSpeed=100 currentSpeed=100"
+                    + " baseDefense=100 currentDefense=100"
+                    + " iconCount=0");
+            return;
+        }
+        if ("battle_status_buff9_producer_visual_stats".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{45, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            tickUntilBattleP7Phase(s, 3, 340);
+            if (!s.battleP7PostEffectVisible
+                    || !s.battleP7PostEffectPlayerSide
+                    || s.battleP7PostEffectText.isEmpty()
+                    || !runtime.debugPlayerHasBuffForSmoke(9)
+                    || runtime.debugPlayerBuffValueForSmoke(9) != 50
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(9) != 50
+                    || runtime.debugPlayerBuffDurationForSmoke(9) != 3
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 150
+                    || runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 50
+                    || traceContains(s, "battle P7 damage frame skill=45")
+                    || traceContains(s, "battle P7 hitroll skill=45")
+                    || !traceContains(s, "battle P7 no-damage skill=45")
+                    || !traceContains(s, "battle P7 speffect skill=45")
+                    || !traceContains(s, "speffect=19")
+                    || !traceContains(s, "speffect=15")
+                    || !traceContains(s, "game.d.q postEffect skill=45")
+                    || !traceContains(s, "buffId=9")
+                    || !traceContains(s, "targetSide=1")) {
+                throw new IllegalStateException("Expected buff9 Hóa Thạch skill45 producer to play P7 speffect chunks,"
+                        + " apply speed +50% and defense -50%; postVisible=" + s.battleP7PostEffectVisible
+                        + " postText=" + s.battleP7PostEffectText
+                        + " hasBuff9=" + runtime.debugPlayerHasBuffForSmoke(9)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(9)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(9)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(9)
+                        + " speed=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_SPEED)
+                        + "->" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " defense=" + runtime.debugPlayerBaseStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + "->" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff9 producer visual/stats",
+                    new int[]{21}, new int[]{137});
+            s.sourceStateTrace.add("SMOKE verified buff9 Hóa Thạch producer skill45"
+                    + " visual=effect.mid[45] speffect19->15"
+                    + " speed=100->150"
+                    + " defense=100->50"
+                    + " value=50 secondary=50"
+                    + " icon=21 durationCell=137 source=aq.c[6][9]");
+            return;
+        }
+        if ("battle_status_buff9_p12_no_body_visual".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{45, 10}, 0);
+            SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            tickUntilTraceContains(s, "active queue apply bank=0 id=9", 900);
+            if (!runtime.debugPlayerHasBuffForSmoke(9)
+                    || runtime.debugPlayerBuffValueForSmoke(9) != 50
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(9) != 50
+                    || runtime.debugPlayerBuffDurationForSmoke(9) != 2
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 150
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 50
+                    || traceContains(s, "active queue visual start bank=0 id=9")
+                    || s.battleP7ActorEffectVisible
+                    || s.battleP7SpecialVisible) {
+                throw new IllegalStateException("Expected buff9 active queue to tick stats without P12/P13 body visual,"
+                        + " state=" + s.battleStateName
+                        + " special=" + s.battleP7SpecialVisible
+                        + " actorVisible=" + s.battleP7ActorEffectVisible
+                        + " hasBuff9=" + runtime.debugPlayerHasBuffForSmoke(9)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(9)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(9)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(9)
+                        + " speed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 96));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff9 P12 no body visual",
+                    new int[]{21}, new int[]{136});
+            s.sourceStateTrace.add("SMOKE verified buff9 P12 no body visual"
+                    + " activeQueueApply=true"
+                    + " activeQueueVisualStart=false"
+                    + " duration=3->2"
+                    + " speed=150 defense=50"
+                    + " source=game.d.ai[0] excludes id9");
+            return;
+        }
+        if ("battle_status_buff9_expiry_clears_stats".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugSetPlayerSpeedForSmoke(s, 100);
+            runtime.debugSetPlayerDefenseForSmoke(s, 100);
+            runtime.debugPlayerSourceBuffForSmoke(s, 9, 0, 45);
+            if (!runtime.debugPlayerHasBuffForSmoke(9)
+                    || runtime.debugPlayerBuffValueForSmoke(9) != 50
+                    || runtime.debugPlayerBuffSecondaryValueForSmoke(9) != 50
+                    || runtime.debugPlayerBuffDurationForSmoke(9) != 3
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 150
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 50) {
+                throw new IllegalStateException("Expected buff9 expiry setup stats/value/duration 100->150 and 100->50,"
+                        + " hasBuff9=" + runtime.debugPlayerHasBuffForSmoke(9)
+                        + " value=" + runtime.debugPlayerBuffValueForSmoke(9)
+                        + " secondary=" + runtime.debugPlayerBuffSecondaryValueForSmoke(9)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(9)
+                        + " speed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff9 before expiry",
+                    new int[]{21}, new int[]{137});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 9);
+            if (!runtime.debugPlayerHasBuffForSmoke(9)
+                    || runtime.debugPlayerBuffDurationForSmoke(9) != 2
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 150
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 50) {
+                throw new IllegalStateException("Expected buff9 first tick to stay active stats 150/50 duration 2,"
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(9)
+                        + " speed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff9 after first tick",
+                    new int[]{21}, new int[]{136});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 9);
+            if (!runtime.debugPlayerHasBuffForSmoke(9)
+                    || runtime.debugPlayerBuffDurationForSmoke(9) != 1
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 150
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 50) {
+                throw new IllegalStateException("Expected buff9 second tick to stay active stats 150/50 duration 1,"
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(9)
+                        + " speed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " trace=" + tailTrace(s, 42));
+            }
+            assertPhase10AStatusSlots(s, true, "status buff9 after second tick",
+                    new int[]{21}, new int[]{135});
+            runtime.debugTickPlayerSourceBuffForSmoke(s, 9);
+            if (runtime.debugPlayerHasBuffForSmoke(9)
+                    || runtime.debugPlayerBuffDurationForSmoke(9) != 0
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED) != 100
+                    || runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE) != 100
+                    || s.battlePlayerStatusCount != 0
+                    || !traceContains(s, "player source buff tick id=9")
+                    || !traceContains(s, "duration 1->0")
+                    || !traceContains(s, "active=false")) {
+                throw new IllegalStateException("Expected buff9 third tick to expire and restore speed/defense/icon,"
+                        + " active=" + runtime.debugPlayerHasBuffForSmoke(9)
+                        + " duration=" + runtime.debugPlayerBuffDurationForSmoke(9)
+                        + " speed=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_SPEED)
+                        + " defense=" + runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE)
+                        + " statusCount=" + s.battlePlayerStatusCount
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff9 expiry"
+                    + " durationTicks=3"
+                    + " speed=100->150->100"
+                    + " defense=100->50->100"
+                    + " value=50 secondary=50"
+                    + " iconCleared=true");
+            return;
+        }
         if ("battle_status_buff10_attack_up_damage".equals(checkpoint)) {
             VqsvIntroDemo.Scene baselineScene = new VqsvIntroDemo.Scene();
             int baseline = statusEffectivenessSkill10Damage(baselineScene, -1, -1, 0);
             int buffed = statusEffectivenessSkill10Damage(s, 10, -1, 0);
             assertPhase10AStatusSlots(s, true, "status buff10 attack",
-                    new int[]{22}, new int[]{136});
+                    new int[]{22}, new int[]{137});
             if (!traceContains(s, "player source buff prepared id=10")
-                    || !traceContains(s, "battle P7 damage frame skill=10")) {
-                throw new IllegalStateException("Expected status buff10 smoke to apply buff and reach damage frame, baseline="
+                    || !traceContains(s, "battle P7 damage frame skill=10")
+                    || baseline != 80
+                    || buffed != 98) {
+                throw new IllegalStateException("Expected legacy buff10 smoke to use gameplay-fixed damage 80->98, baseline="
                         + baseline + " buffed=" + buffed
                         + " trace=" + tailTrace(s, 52));
             }
-            if (buffed > baseline) {
-                s.sourceStateTrace.add("SMOKE verified status buff10 attack-up damage baseline="
-                        + baseline + " buffed=" + buffed);
-            } else {
-                s.sourceStateTrace.add("PENDING status buff10 attack-up effectiveness baseline="
-                        + baseline + " buffed=" + buffed
-                        + " sourceText=attack-up sourceRow aq.c[6][10][3]=-1 bytecode uses row param");
+            s.sourceStateTrace.add("SMOKE verified legacy buff10 gameplay-fixed damage"
+                    + " baseline=" + baseline
+                    + " buffed=" + buffed
+                    + " sourceText=attack-up"
+                    + " sourceRow=aq.c[6][10][3]=-1"
+                    + " userApproved=3 turns 15/10/5");
+            return;
+        }
+        if ("battle_status_buff11_active_tick_resteal".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugPlayerSourceBuffForSmoke(s, 2, 0, 14);
+            runtime.debugEnemySourceBuffForSmoke(s, 11, 1, 64);
+            if (!runtime.debugPlayerHasBuffForSmoke(2)
+                    || !runtime.debugEnemyHasBuffForSmoke(11)
+                    || runtime.debugEnemyBuffValueForSmoke(11) != 1
+                    || runtime.debugEnemyBuffDurationForSmoke(11) != 3) {
+                throw new IllegalStateException("Expected buff11 active tick setup player buff2 + enemy buff11 donorSlot=1,"
+                        + " playerHasBuff2=" + runtime.debugPlayerHasBuffForSmoke(2)
+                        + " enemyHasBuff11=" + runtime.debugEnemyHasBuffForSmoke(11)
+                        + " enemyBuff11Value=" + runtime.debugEnemyBuffValueForSmoke(11)
+                        + " enemyBuff11Duration=" + runtime.debugEnemyBuffDurationForSmoke(11)
+                        + " trace=" + tailTrace(s, 42));
             }
+            assertPhase10AStatusSlots(s, false, "status buff11 active tick before",
+                    new int[]{23}, new int[]{137});
+            runtime.debugTickEnemySourceBuffForSmoke(s, 11);
+            if (!runtime.debugEnemyHasBuffForSmoke(11)
+                    || runtime.debugEnemyBuffDurationForSmoke(11) != 2
+                    || runtime.debugEnemyBuffValueForSmoke(11) != 1
+                    || !runtime.debugEnemyHasBuffForSmoke(2)
+                    || runtime.debugEnemyBuffValueForSmoke(2) <= 0
+                    || runtime.debugPlayerHasBuffForSmoke(2)
+                    || runtime.debugPlayerActiveBuffSlotForSmoke(2) >= 0
+                    || !traceContains(s, "battle buff11 active tick re-steal")
+                    || !traceContains(s, "donorSlot=1")
+                    || !traceContains(s, "copied=1")
+                    || !traceContains(s, "enemy source buff tick id=11")
+                    || !traceContains(s, "duration 3->2")) {
+                throw new IllegalStateException("Expected buff11 active tick to re-steal donor slot 1 buff2, clear donor, and tick duration,"
+                        + " enemyHasBuff11=" + runtime.debugEnemyHasBuffForSmoke(11)
+                        + " enemyBuff11Duration=" + runtime.debugEnemyBuffDurationForSmoke(11)
+                        + " enemyBuff11Value=" + runtime.debugEnemyBuffValueForSmoke(11)
+                        + " enemyHasBuff2=" + runtime.debugEnemyHasBuffForSmoke(2)
+                        + " enemyBuff2Value=" + runtime.debugEnemyBuffValueForSmoke(2)
+                        + " playerHasBuff2=" + runtime.debugPlayerHasBuffForSmoke(2)
+                        + " playerSlot2=" + runtime.debugPlayerActiveBuffSlotForSmoke(2)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, false, "status buff11 active tick after",
+                    new int[]{23, 14}, new int[]{136, 137});
+            s.sourceStateTrace.add("SMOKE verified buff11 Thau Thu active tick re-steal"
+                    + " owner=enemy"
+                    + " donorSlot=1"
+                    + " copiedBuff=2"
+                    + " donorCleared=true"
+                    + " buff11Duration=3->2"
+                    + " source=game.b.o(11)");
+            return;
+        }
+        if ("battle_status_buff11_selected_slot_nonzero".equals(checkpoint)) {
+            SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
+            runtime.debugPlayerSourceBuffForSmoke(s, 2, 0, 14);
+            runtime.debugEnemySourceBuffForSmoke(s, 11, 1, 64);
+            runtime.debugTickEnemySourceBuffForSmoke(s, 11);
+            if (!runtime.debugEnemyHasBuffForSmoke(11)
+                    || runtime.debugEnemyBuffValueForSmoke(11) != 1
+                    || !runtime.debugEnemyHasBuffForSmoke(2)
+                    || runtime.debugEnemyBuffValueForSmoke(2) <= 0
+                    || runtime.debugPlayerHasBuffForSmoke(2)
+                    || runtime.debugEnemyBuffDurationForSmoke(11) != 2
+                    || !traceContains(s, "donorSlot=1")
+                    || !traceContains(s, "copied=1")) {
+                throw new IllegalStateException("Expected buff11 to preserve/use nonzero donor slot 1 for source d[] slot mapping,"
+                        + " enemyBuff11Value=" + runtime.debugEnemyBuffValueForSmoke(11)
+                        + " enemyBuff11Duration=" + runtime.debugEnemyBuffDurationForSmoke(11)
+                        + " enemyHasBuff2=" + runtime.debugEnemyHasBuffForSmoke(2)
+                        + " enemyBuff2Value=" + runtime.debugEnemyBuffValueForSmoke(2)
+                        + " playerHasBuff2=" + runtime.debugPlayerHasBuffForSmoke(2)
+                        + " trace=" + tailTrace(s, 84));
+            }
+            assertPhase10AStatusSlots(s, false, "status buff11 selected slot nonzero",
+                    new int[]{23, 14}, new int[]{136, 137});
+            s.sourceStateTrace.add("SMOKE verified buff11 selected nonzero donor slot"
+                    + " donorSlot=1"
+                    + " copiedBuff=2"
+                    + " sourceSlotMapping=0 enemy / 1 active player / enemyParty fallback"
+                    + " classification=PORTED/PARTIAL");
+            return;
+        }
+        if ("battle_status_buff11_donor_switch_cleanup".equals(checkpoint)) {
+            s.eventIndex = s.events.size();
+            s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+            s.sourcePets.add(new SourcePetState(1, 92, 5, 3, 2, 10, 45));
+            SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                    new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+            s.current = runtime;
+            tickUntilBattleState(s, "P20", 120);
+            runtime.debugEnemyBuff11ForPetSwitchSmoke(s);
+            assertPhase10AStatusSlots(s, false, "status buff11 before donor switch cleanup",
+                    new int[]{23}, new int[]{137});
+            s.battleClickX = 137;
+            s.battleClickY = 300;
+            tickUntilBattleState(s, "P5", 80);
+            s.battleMenuIndex = 1;
+            press0UntilAnyBattleState(s, 100, "P15", "WARN");
+            if (!"P15".equals(s.battleStateName)
+                    || runtime.debugEnemyHasBuffForSmoke(11)
+                    || s.battleEnemyStatusCount != 0
+                    || !traceContains(s, "clearedEnemyBuff11=1")
+                    || !traceContains(s, "sourcePetOrder=[0, 1]")
+                    || !s.sourcePets.get(0).sourceK()
+                    || s.sourcePets.get(1).sourceK()) {
+                throw new IllegalStateException("Expected buff11 donor switch cleanup to remove stale donor reference,"
+                        + " state=" + s.battleStateName
+                        + " enemyHasBuff11=" + runtime.debugEnemyHasBuffForSmoke(11)
+                        + " enemyStatusCount=" + s.battleEnemyStatusCount
+                        + " active0=" + s.sourcePets.get(0).sourceK()
+                        + " active1=" + s.sourcePets.get(1).sourceK()
+                        + " trace=" + tailTrace(s, 84));
+            }
+            s.sourceStateTrace.add("SMOKE verified buff11 donor switch cleanup"
+                    + " donor=active player"
+                    + " switchToReserve=true"
+                    + " staleBuff11Cleared=true"
+                    + " source=game.d cleanup m(11)/n(11)");
             return;
         }
         if ("battle_status_buff14_blocks_debuff".equals(checkpoint)) {

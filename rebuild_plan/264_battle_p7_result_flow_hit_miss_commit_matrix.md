@@ -26,7 +26,7 @@ Scope: refactor the rebuild P7 direct-damage flow so `computeDamage` calculates 
 
 | Checkpoint | Setup | Expected |
 | --- | --- | --- |
-| `battle_p7_miss_forced_debuff_no_commit` | Skill `2`, forced debuff roll `0`, forced miss hitroll `0`. | HP unchanged, miss text visible, no damage text, no debuff text, enemy debuff1 inactive, `sideEffectsCommitted=false`. |
+| `battle_p7_miss_forced_debuff_source_commit` | Skill `2`, forced debuff roll `0`, forced miss hitroll `0`. | HP unchanged, miss text visible, no damage text, no debuff text, enemy debuff1 active/queued, `sideEffectsCommitted=true`. Source `game.b.b(target)` mutates debuff slot before `game.d` hit/miss text gate. |
 | `battle_p7_hit_forced_debuff_commit` | Skill `2`, forced debuff roll `0`, forced hitroll `99`. | Damage text visible, debuff text visible, enemy debuff1 active, `sideEffectsCommitted=true`. |
 | `battle_p7_crit_forced_skill10` | Skill `10`, forced crit roll `0`, forced hitroll `99`. | Crit visual flag only appears on hit damage. |
 
