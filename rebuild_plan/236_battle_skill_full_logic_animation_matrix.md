@@ -118,7 +118,7 @@ Remaining broad gaps:
 | 15 | Thảo nguyện thuật | Mỗi hiệp khôi phục trị số sinh mạng nhất định, duy trì liên tục 3 hiệp. | `[1,132,544,0,1,10,1,3,-1,1]` | NO_DAMAGE_BUFF_EFFECTMODE1 | P13 buff/effect `3` | `[0,0,33,0,0,-1,0]` / `[0,1,7,0,-1,-1,0] spe:7/AH9` |
 | 16 | Châm Diệp Trảm | Tỷ lệ thương tổn gia tăng khá cao. | `[1,133,545,150,2,30,0,-1,-1,0]` | DIRECT_SIMPLE | - | `[0,0,21,1,-1,-1,0]` |
 | 17 | Diệp chi ân huệ | Thương tổn ở mức độ trung bình, cũng có thể khôi phục trị số sinh mạng nhất định. | `[1,134,546,130,2,30,0,-1,40,0]` | DIRECT_SIMPLE | `q()` heal attacker param `40` | `[0,0,21,1,-1,-1,0]` / `[1,1,10,0,-1,-1,0] spe:10/AH9` |
-| 18 | Đằng mạn triền nhiễu | Thương tổn tương đối cao, cũng đem Quấn Quanh 3 hiệp. | `[1,135,547,150,3,15,2,2,-1,0]` | DIRECT_SIMPLE_DEBUFF2 | - | `[0,0,21,0,-1,-1,0]` |
+| 18 | Đằng mạn triền nhiễu | Thương tổn tương đối cao, cũng đem Quấn Quanh 3 hiệp. | `[1,135,547,150,3,15,2,2,-1,0]` | DIRECT_SIMPLE_DEBUFF2 | `debuff2` Quấn Quanh, sourceSkill `18`, duration `3`; P12 active queue visual uses `speffect6/AH8` | P7 `[0,0,21,0,-1,-1,0]` only |
 | 19 | Quang hợp hiệu ứng | Thương tổn tương đối cao, kẻ địch rơi vào trạng thái Thực Loại, sau 2 hiệp tạo thành Thương tổn cao. | `[1,136,548,150,3,15,2,3,200,0]` | DIRECT_SIMPLE_DEBUFF3 | - | `[0,0,21,0,-1,-1,0]` |
 | 20 | Hất bụi | Thương tổn thấp. | `[2,137,549,100,0,45,0,-1,-1,0]` | DIRECT_SIMPLE | - | `[0,0,22,0,-1,-1,0]` |
 | 21 | Thổ thuẫn | Thương tổn thấp, có khả năng tự gia tăng phòng ngự 10%(có thể chất chồng). | `[2,138,550,80,0,45,1,4,10,0]` | RAW_DAMAGE_SELF_BUFF_Q | `q()` self buff `4` | `[0,0,22,0,-1,-1,0]` / `[1,1,5,0,-1,-1,0] spe:5/AH9` |

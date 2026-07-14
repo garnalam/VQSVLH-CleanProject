@@ -359,54 +359,11 @@ final class BattleUnit {
             effectId = -1;
         }
 
-        BattlePendingDebuff pendingDebuff = maybePlanTargetDebuff(target, skillId, effectId, explicitChance, preSkillRaw);
+        BattlePendingDebuff pendingDebuff = VqsvBattleEffectLogic.planTargetDebuff(
+                this, target, skillId, effectId, explicitChance, preSkillRaw);
         int appliedDebuffId = pendingDebuff == null ? -1 : pendingDebuff.effectId;
 
-        if (hasBuff(0) && buffSlots[0][0] == 0) {
-            damage += buffSlots[0][2];
-        }
-        if (hasBuff(1)) {
-            damage += damage * buffSlots[1][2] / 100;
-        }
-        if (hasDebuff(6)) {
-            int beforeDebuff6 = damage;
-            damage -= damage * debuffSlots[6][1] / 100;
-            if (randomTrace != null) {
-                randomTrace.add("PORTED battle debuff6 Nhut Chi outgoing damage down"
-                        + " percent=" + debuffSlots[6][1]
-                        + " damage=" + beforeDebuff6 + "->" + damage
-                        + " source=game.b.b(target) attacker.p(6) formula");
-            }
-        }
-        if (hasDebuff(8)) {
-            int beforeDebuff8 = damage;
-            damage += damage * 10 / 100;
-            if (randomTrace != null) {
-                randomTrace.add("INTENTIONAL battle debuff8 Quy Mi outgoing damage up"
-                        + " percent=10"
-                        + " damage=" + beforeDebuff8 + "->" + damage
-                        + " sourceDeviation=GAMEPLAY_FIXED user-approved pet with Quy Mi gains damage");
-            }
-        }
-        if (!pendingTargetClearBuffs && target.hasBuff(6)) {
-            int chance = Math.max(0, target.buffSlots[6][1]);
-            int roll = randomPercent("damage.buff6");
-            if (roll <= chance) {
-                int beforeBuff6 = damage;
-                damage = damage * 50 / 100;
-                if (randomTrace != null) {
-                    randomTrace.add("INTENTIONAL battle buff6 Kien nhan incoming damage reduction"
-                            + " roll=" + roll
-                            + " chance=" + chance
-                            + " reductionPercent=50"
-                            + " damage=" + beforeBuff6 + "->" + damage
-                            + " sourceDeviation=target buff params used instead of attacker.v[6]");
-                }
-            }
-        }
-        if (hasBuff(8)) {
-            damage += damage * buffSlots[8][1] / 100;
-        }
+        damage = VqsvBattleEffectLogic.applyDamageFormulaHooks(this, target, damage, pendingTargetClearBuffs);
         if (ownerSide == 0 && sourcePassiveWorldDamageBoost3) {
             BattleStatusRow status = VqsvBattleTables.instance().status(3);
             damage += damage * statusParam(status, 5, 0) / 100;
@@ -440,10 +397,8 @@ final class BattleUnit {
             }
         }
 
-        int pendingReflectDamage = 0;
-        if (!pendingTargetClearBuffs && target.hasBuff(5) && randomPercent("damage.buff5") <= target.buffSlots[5][1]) {
-            pendingReflectDamage = damage;
-        }
+        int pendingReflectDamage = VqsvBattleEffectLogic.pendingReflectDamage(
+                this, target, damage, pendingTargetClearBuffs);
         return new BattleDamageResult(damage, critFlag, appliedDebuffId,
                 pendingDebuff, pendingTargetClearBuffs ? target : null, this, pendingReflectDamage);
     }
@@ -482,6 +437,16 @@ final class BattleUnit {
         return randomPercent(label) <= chance;
     }
 
+    int sourceRandomPercent(String label) {
+        return randomPercent(label);
+    }
+
+    static void addSourceRandomTrace(String message) {
+        if (randomTrace != null) {
+            randomTrace.add(message);
+        }
+    }
+
     int sourceStatusParam(int statusId, int index, int fallback) {
         return statusParam(VqsvBattleTables.instance().status(statusId), index, fallback);
     }
@@ -497,118 +462,7 @@ final class BattleUnit {
     }
 
     int applySourceBuff(int buffId, int value, int sourceSkill) {
-        if (buffId < 0 || buffId >= buffSlots.length) {
-            return 0;
-        }
-        BattleBuffRow row = VqsvBattleTables.instance().buff(buffId);
-        if (row == null) {
-            return 0;
-        }
-        int heal = 0;
-        int duration = row.duration;
-        switch (buffId) {
-            case 0:
-                buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * row.paramA / 100);
-                buffSlots[buffId][2] = toShort(row.paramB * sourceBaseAttackForCurrentTarget() / 100);
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[buffId][1]);
-                break;
-            case 1:
-                buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * row.paramA / 100);
-                buffSlots[buffId][2] = toShort(row.paramB);
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][1]);
-                break;
-            case 2:
-                buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * row.paramA / 100);
-                buffSlots[buffId][2] = toShort(row.paramB);
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[buffId][1]);
-                break;
-            case 3:
-                buffSlots[buffId][1] = toShort(baseStats[STAT_HP] * row.paramA / 100);
-                heal = buffSlots[buffId][1];
-                heal(heal);
-                break;
-            case 4: {
-                effectScratch[4] = toShort(sourceSkill);
-                BattleSkillRow skill = VqsvBattleTables.instance().skill(sourceSkill);
-                int param = skill == null ? 0 : skill.chanceOrParam;
-                buffSlots[buffId][1] = toShort(baseStats[STAT_DEFENSE] * param / 100);
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[buffId][1]);
-                break;
-            }
-            case 5:
-                buffSlots[buffId][1] = toShort(row.paramA);
-                break;
-            case 6:
-                buffSlots[buffId][1] = toShort(row.paramA);
-                buffSlots[buffId][2] = toShort(row.paramB);
-                break;
-            case 7: {
-                effectScratch[7] = toShort(sourceSkill);
-                BattleSkillRow skill = VqsvBattleTables.instance().skill(sourceSkill);
-                int param = skill == null ? 0 : skill.chanceOrParam;
-                buffSlots[buffId][1] = toShort(baseStats[STAT_SPEED] * param / 100);
-                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[buffId][1]);
-                break;
-            }
-            case 8:
-                buffSlots[buffId][1] = toShort(row.paramA);
-                break;
-            case 9:
-                buffSlots[buffId][1] = toShort(baseStats[STAT_SPEED] * row.paramA / 100);
-                buffSlots[buffId][2] = toShort(baseStats[STAT_DEFENSE] * row.paramB / 100);
-                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[buffId][1]);
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][2]);
-                break;
-            case 10:
-                duration = 3;
-                applyManLucGameplayFix(duration);
-                break;
-            case 11:
-                buffSlots[buffId][1] = toShort(value);
-                break;
-            case 12:
-                effectScratch[12] = 1;
-                break;
-            case 13:
-                buffSlots[buffId][1] = toShort(baseStats[STAT_HP] * row.paramA / 100);
-                heal = buffSlots[buffId][1];
-                heal(heal);
-                clearDebuffs();
-                break;
-            case 14:
-                clearDebuffs();
-                break;
-            case 15:
-                buffSlots[buffId][1] = toShort(value * row.paramA);
-                break;
-            default:
-                buffSlots[buffId][1] = toShort(value);
-                break;
-        }
-        addActiveEffect(0, buffId);
-        buffSlots[buffId][0] = toShort(duration);
-        buffSlots[buffId][3] = toShort(sourceSkill);
-        buffSlots[buffId][4] = 1;
-        return heal;
-    }
-
-    private void applyManLucGameplayFix(int remainingTurns) {
-        int percent = manLucGameplayFixPercent(remainingTurns);
-        buffSlots[10][1] = toShort(baseStats[STAT_ATTACK] * percent / 100);
-        currentStats[STAT_ATTACK] = toShort(baseStats[STAT_ATTACK] + buffSlots[10][1]);
-    }
-
-    private static int manLucGameplayFixPercent(int remainingTurns) {
-        switch (remainingTurns) {
-            case 3:
-                return 15;
-            case 2:
-                return 10;
-            case 1:
-                return 5;
-            default:
-                return 0;
-        }
+        return VqsvBattleEffectLogic.applySourceBuff(this, buffId, value, sourceSkill);
     }
 
     void copySourceBuffsFrom(BattleUnit source, int selectedIndex, int sourceSkill) {
@@ -624,13 +478,15 @@ final class BattleUnit {
         if (source == null) {
             return 0;
         }
-        int limit = Math.max(0, Math.min(source.activeEffectCount[0], source.activeEffectQueue[0].length));
+        int limit = Math.max(0, Math.min(
+                source.activeEffectCount[BattleEffectRow.BANK_BUFF],
+                source.activeEffectQueue[BattleEffectRow.BANK_BUFF].length));
         int[] ids = new int[limit];
         int[] values = new int[limit];
         int[] sourceSkills = new int[limit];
         int copied = 0;
         for (int i = 0; i < limit; i++) {
-            int buffId = source.activeEffectQueue[0][i];
+            int buffId = source.activeEffectQueue[BattleEffectRow.BANK_BUFF][i];
             if (buffId < 0 || buffId >= source.buffSlots.length || !source.hasBuff(buffId)) {
                 continue;
             }
@@ -659,12 +515,7 @@ final class BattleUnit {
                 continue;
             }
             skillPp[i] = toShort(skillPp[i] - 1);
-            if (hasBuff(12) && effectScratch[12] == 1) {
-                skillPp[i] = toShort(skillPp[i] + 1);
-            }
-            if (hasBuff(8)) {
-                skillPp[i] = toShort(skillPp[i] - 1);
-            }
+            skillPp[i] = toShort(VqsvBattleEffectLogic.applySkillPpHooks(this, skillPp[i]));
             if (skillPp[i] < 0) {
                 skillPp[i] = 0;
             }
@@ -727,21 +578,11 @@ final class BattleUnit {
     }
 
     void clearDebuffs() {
-        for (short[] slot : debuffSlots) {
-            slot[4] = 0;
-        }
-        resetEffectQueue(1);
-        restoreMutableStats();
-        reapplyActiveStatEffects();
+        VqsvBattleEffectLogic.clearDebuffs(this);
     }
 
     void clearBuffs() {
-        for (short[] slot : buffSlots) {
-            slot[4] = 0;
-        }
-        resetEffectQueue(0);
-        restoreMutableStats();
-        reapplyActiveStatEffects();
+        VqsvBattleEffectLogic.clearBuffs(this);
     }
 
     void addActiveEffect(int bank, int effectId) {
@@ -766,12 +607,20 @@ final class BattleUnit {
         activeEffectQueue[bank][0] = (byte) effectId;
     }
 
+    void addActiveBuffEffect(int buffId) {
+        addActiveEffect(BattleEffectRow.BANK_BUFF, buffId);
+    }
+
+    void addActiveDebuffEffect(int debuffId) {
+        addActiveEffect(BattleEffectRow.BANK_DEBUFF, debuffId);
+    }
+
     int activeEffectIdAt(int bank, int slot) {
         if (bank < 0 || bank >= activeEffectQueue.length || slot < 0 || slot >= activeEffectQueue[bank].length) {
             return -1;
         }
         int id = activeEffectQueue[bank][slot];
-        if (bank == 0) {
+        if (bank == BattleEffectRow.BANK_BUFF) {
             return hasBuff(id) ? id : -1;
         }
         return hasDebuff(id) ? id : -1;
@@ -781,8 +630,8 @@ final class BattleUnit {
         if (!hasBuff(buffId)) {
             return -1;
         }
-        for (int i = 0; i < activeEffectQueue[0].length; i++) {
-            if (activeEffectQueue[0][i] == buffId) {
+        for (int i = 0; i < activeEffectQueue[BattleEffectRow.BANK_BUFF].length; i++) {
+            if (activeEffectQueue[BattleEffectRow.BANK_BUFF][i] == buffId) {
                 return i;
             }
         }
@@ -793,8 +642,8 @@ final class BattleUnit {
         if (!hasDebuff(debuffId)) {
             return -1;
         }
-        for (int i = 0; i < activeEffectQueue[1].length; i++) {
-            if (activeEffectQueue[1][i] == debuffId) {
+        for (int i = 0; i < activeEffectQueue[BattleEffectRow.BANK_DEBUFF].length; i++) {
+            if (activeEffectQueue[BattleEffectRow.BANK_DEBUFF][i] == debuffId) {
                 return i;
             }
         }
@@ -802,145 +651,15 @@ final class BattleUnit {
     }
 
     int tickSourceBuff(int buffId, int queueSlot) {
-        if (!hasBuff(buffId)) {
-            return 0;
-        }
-        int heal = 0;
-        switch (buffId) {
-            case 1:
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][1]);
-                break;
-            case 2:
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[buffId][1]);
-                break;
-            case 3:
-                heal = Math.max(0, buffSlots[buffId][1]);
-                heal(heal);
-                break;
-            case 4:
-                currentStats[STAT_DEFENSE] = toShort(currentStats[STAT_DEFENSE] + buffSlots[buffId][1]);
-                break;
-            case 7:
-                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[buffId][1]);
-                break;
-            case 9:
-                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[buffId][1]);
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[buffId][2]);
-                break;
-            case 10:
-                applyManLucGameplayFix(Math.max(0, buffSlots[buffId][0] - 1));
-                break;
-            case 12:
-                effectScratch[12] = 2;
-                break;
-            case 13:
-                heal = Math.max(0, buffSlots[buffId][1]);
-                heal(heal);
-                break;
-            default:
-                break;
-        }
-        tickSourceBuffDuration(buffId, queueSlot);
-        return heal;
-    }
-
-    private void tickSourceBuffDuration(int buffId, int queueSlot) {
-        if (!hasBuff(buffId)) {
-            return;
-        }
-        if (buffSlots[buffId][0] > 0) {
-            buffSlots[buffId][0] = toShort(buffSlots[buffId][0] - 1);
-        }
-        if (buffSlots[buffId][0] <= 0) {
-            clearSourceBuff(buffId);
-            removeActiveEffect(0, queueSlot);
-        }
+        return VqsvBattleEffectLogic.tickSourceBuff(this, buffId, queueSlot);
     }
 
     int tickSourceDebuff(int debuffId, int queueSlot) {
-        if (!hasDebuff(debuffId)) {
-            return 0;
-        }
-        int damage = 0;
-        switch (debuffId) {
-            case 0: {
-                BattleSkillRow skill = VqsvBattleTables.instance().skill(debuffSlots[debuffId][3]);
-                int divisor = skill == null || skill.chanceOrParam == 0 ? 1 : skill.chanceOrParam;
-                damage = Math.max(1, debuffSlots[debuffId][1] / divisor);
-                damage(damage);
-                break;
-            }
-            case 3: {
-                if (debuffSlots[debuffId][0] <= 1) {
-                    BattleSkillRow skill = VqsvBattleTables.instance().skill(debuffSlots[debuffId][3]);
-                    int percent = skill == null ? 0 : skill.chanceOrParam;
-                    damage = Math.max(1, debuffSlots[debuffId][1] * percent / 100);
-                    damage(damage);
-                }
-                break;
-            }
-            case 5:
-                currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] - debuffSlots[debuffId][1]);
-                break;
-            case 7:
-                currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - debuffSlots[debuffId][1]);
-                break;
-            default:
-                break;
-        }
-        tickSourceDebuffDuration(debuffId, queueSlot);
-        return damage;
-    }
-
-    private void tickSourceDebuffDuration(int debuffId, int queueSlot) {
-        if (!hasDebuff(debuffId)) {
-            return;
-        }
-        if (debuffSlots[debuffId][0] > 0) {
-            debuffSlots[debuffId][0] = toShort(debuffSlots[debuffId][0] - 1);
-        }
-        if (debuffSlots[debuffId][0] <= 0) {
-            clearSourceDebuff(debuffId);
-            removeActiveEffect(1, queueSlot);
-        }
-    }
-
-    private void clearSourceBuff(int buffId) {
-        if (buffId < 0 || buffId >= buffSlots.length) {
-            return;
-        }
-        buffSlots[buffId][4] = 0;
-        restoreMutableStats();
-        reapplyActiveStatEffects();
+        return VqsvBattleEffectLogic.tickSourceDebuff(this, debuffId, queueSlot);
     }
 
     boolean clearSourceBuffForSwitch(int buffId) {
-        if (!hasBuff(buffId)) {
-            return false;
-        }
-        clearSourceBuff(buffId);
-        return true;
-    }
-
-    private void clearSourceDebuff(int debuffId) {
-        if (debuffId < 0 || debuffId >= debuffSlots.length) {
-            return;
-        }
-        debuffSlots[debuffId][4] = 0;
-        restoreMutableStats();
-        reapplyActiveStatEffects();
-    }
-
-    private void removeActiveEffect(int bank, int slot) {
-        if (bank < 0 || bank >= activeEffectQueue.length || slot < 0 || slot >= activeEffectQueue[bank].length) {
-            return;
-        }
-        if (activeEffectQueue[bank][slot] != -1) {
-            activeEffectQueue[bank][slot] = -1;
-            if (activeEffectCount[bank] > 0) {
-                activeEffectCount[bank] = (byte) (activeEffectCount[bank] - 1);
-            }
-        }
+        return VqsvBattleEffectLogic.clearSourceBuffForSwitch(this, buffId);
     }
 
     int nextLevelEnergy() {
@@ -1043,8 +762,7 @@ final class BattleUnit {
         baseStats[STAT_FORM] = form;
         baseStats[STAT_SIDE_FLAG] = sideFlag;
         applyNatureType(natureType);
-        restoreMutableStats();
-        reapplyActiveStatEffects();
+        restoreStatsForCheck();
     }
 
     private void restoreSkillPpToSourceMax() {
@@ -1061,60 +779,12 @@ final class BattleUnit {
         System.arraycopy(baseStats, 0, currentStats, 0, baseStats.length);
     }
 
-    private void restoreMutableStats() {
-        currentStats[STAT_ATTACK] = baseStats[STAT_ATTACK];
-        currentStats[STAT_DEFENSE] = baseStats[STAT_DEFENSE];
-        currentStats[STAT_SPEED] = baseStats[STAT_SPEED];
-    }
-
     void restoreStatsForCheck() {
-        restoreMutableStats();
-        reapplyActiveStatEffects();
+        VqsvBattleEffectLogic.restoreStatsForCheck(this);
     }
 
     void restoreSourceStatusState() {
-        resetEffectQueue(0);
-        resetEffectQueue(1);
-        for (int i = 0; i < buffSlots.length; i++) {
-            if (hasBuff(i)) {
-                addActiveEffect(0, i);
-            }
-        }
-        for (int i = 0; i < debuffSlots.length; i++) {
-            if (hasDebuff(i)) {
-                addActiveEffect(1, i);
-            }
-        }
-        restoreMutableStats();
-        reapplyActiveStatEffects();
-    }
-
-    private void reapplyActiveStatEffects() {
-        if (hasBuff(1)) {
-            currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[1][1]);
-        }
-        if (hasBuff(2)) {
-            currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] + buffSlots[2][1]);
-        }
-        if (hasBuff(4)) {
-            currentStats[STAT_DEFENSE] = toShort(currentStats[STAT_DEFENSE] + buffSlots[4][1]);
-        }
-        if (hasBuff(7)) {
-            currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[7][1]);
-        }
-        if (hasBuff(9)) {
-            currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] + buffSlots[9][1]);
-            currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - buffSlots[9][2]);
-        }
-        if (hasBuff(10)) {
-            currentStats[STAT_ATTACK] = toShort(baseStats[STAT_ATTACK] + buffSlots[10][1]);
-        }
-        if (hasDebuff(5)) {
-            currentStats[STAT_SPEED] = toShort(baseStats[STAT_SPEED] - debuffSlots[5][1]);
-        }
-        if (hasDebuff(7)) {
-            currentStats[STAT_DEFENSE] = toShort(baseStats[STAT_DEFENSE] - debuffSlots[7][1]);
-        }
+        VqsvBattleEffectLogic.restoreSourceStatusState(this);
     }
 
     private void loadSkills(int[] ids, int[] pp) {
@@ -1191,7 +861,7 @@ final class BattleUnit {
             target.currentStats[STAT_DEFENSE] = toShort(target.baseStats[STAT_DEFENSE]
                     * (100 + heldItemParam(item, 5, 0)) / 100);
         }
-        int targetDefense = targetDefenseForSourceFormula(target);
+        int targetDefense = VqsvBattleEffectLogic.targetDefenseForSourceFormula(target);
         if (target.hasFormStatus((byte) 2)) {
             BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(2);
             targetDefense = targetDefense * (100 + heldItemParam(item, 5, 0)) / 100;
@@ -1208,34 +878,6 @@ final class BattleUnit {
             value = currentStats[STAT_ATTACK] * (100 + heldItemParam(item, 5, 0)) / 100 - target.currentStats[STAT_DEFENSE];
         }
         return value;
-    }
-
-    private static int targetDefenseForSourceFormula(BattleUnit target) {
-        int targetDefense = target.currentStats[STAT_DEFENSE];
-        if (target.hasDebuff(2)) {
-            BattleStatusRow bind = VqsvBattleTables.instance().status(2);
-            targetDefense = targetDefense * (100 + statusParam(bind, 5, 0)) / 100;
-        }
-        return targetDefense;
-    }
-
-    private BattlePendingDebuff maybePlanTargetDebuff(BattleUnit target, int skillId, int effectId,
-                                                      int explicitChance, int preSkillRaw) {
-        if (effectId < 0 || effectId >= target.debuffSlots.length) {
-            return null;
-        }
-        int chance = explicitChance;
-        if (target.hasFormStatus((byte) 3)) {
-            BattleHeldItemRow item = VqsvBattleTables.instance().heldItem(3);
-            if (randomPercent("damage.debuff") > chance * (100 - heldItemParam(item, 5, 0)) / 100) {
-                return null;
-            }
-        } else if (target.hasBuff(14)) {
-            return null;
-        } else if (chance != -1 && randomPercent("damage.debuff") > chance) {
-            return null;
-        }
-        return new BattlePendingDebuff(target, effectId, skillId, preSkillRaw);
     }
 
     private int relationTo(BattleUnit target) {
@@ -1443,11 +1085,6 @@ final class BattleUnit {
         }
     }
 
-    private void resetEffectQueue(int bank) {
-        Arrays.fill(activeEffectQueue[bank], (byte) -1);
-        activeEffectCount[bank] = 0;
-    }
-
     static short toShort(int value) {
         return (short) Math.max(Short.MIN_VALUE, Math.min(Short.MAX_VALUE, value));
     }
@@ -1517,41 +1154,7 @@ final class BattlePendingDebuff {
     }
 
     void commit() {
-        BattleSkillRow skill = VqsvBattleTables.instance().skill(skillId);
-        int skillParam = skill == null ? 0 : skill.chanceOrParam;
-        switch (effectId) {
-            case 0:
-            case 3:
-                target.debuffSlots[effectId][1] = BattleUnit.toShort(preSkillRaw);
-                break;
-            case 4:
-            case 6:
-                target.debuffSlots[effectId][1] = BattleUnit.toShort(skillParam);
-                break;
-            case 5:
-                target.debuffSlots[effectId][1] = BattleUnit.toShort(
-                        target.baseStats[BattleUnit.STAT_SPEED] * skillParam / 100);
-                target.currentStats[BattleUnit.STAT_SPEED] = BattleUnit.toShort(
-                        target.baseStats[BattleUnit.STAT_SPEED] - target.debuffSlots[effectId][1]);
-                break;
-            case 7:
-                target.debuffSlots[effectId][1] = BattleUnit.toShort(
-                        target.baseStats[BattleUnit.STAT_DEFENSE] * skillParam / 100);
-                target.currentStats[BattleUnit.STAT_DEFENSE] = BattleUnit.toShort(
-                        target.baseStats[BattleUnit.STAT_DEFENSE] - target.debuffSlots[effectId][1]);
-                break;
-            default:
-                break;
-        }
-        target.addActiveEffect(1, effectId);
-        BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(effectId);
-        int duration = debuff == null ? 0 : debuff.duration;
-        if (target.ownerSide == 0 && target.sourcePassiveDebuffDurationHalve) {
-            duration /= 2;
-        }
-        target.debuffSlots[effectId][0] = BattleUnit.toShort(duration);
-        target.debuffSlots[effectId][3] = BattleUnit.toShort(skillId);
-        target.debuffSlots[effectId][4] = 1;
+        VqsvBattleEffectLogic.commitPendingDebuff(this);
     }
 }
 

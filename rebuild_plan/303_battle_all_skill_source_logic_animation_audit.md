@@ -95,30 +95,30 @@ Columns:
 
 | Skill | Name | Source role | Logic | Animation | Status / next |
 | ---: | --- | --- | --- | --- | --- |
-| 0 | Hỏa trảo | Low-damage fire basic. | Direct simple: power `100`, PP `45`, no status. | Actor `20->262`, state `0`. | `PORTED/PARTIAL`; direct-base visual slice pending. |
+| 0 | Hỏa trảo | Low-damage fire basic. | Direct simple: power `100`, PP `45`, no status. | Actor `20->262`, state `0`. | `PORTED/PARTIAL`; one-run before/actor/damage/HP-settled smoke closed in `306`. |
 | 1 | Dương viêm | Low damage plus burn/seed-like HP drain for 3 turns. | Direct plus debuff0; stores raw damage, tick divisor `4`. | Actor `20->262`. | `PORTED`; shares fire direct animation polish. |
-| 2 | Diễm kích | Low damage, 10% chance Mê Muội. | Explicit debuff1 chance `10`; buff14 can block. | Actor `20->262`, then `speffect14/AH12`. | `PORTED/PARTIAL`; RNG/pixel parity pending. |
+| 2 | Diễm kích | Low damage, 10% chance Mê Muội. | Explicit debuff1 chance `10`; buff14 can block. | Actor `20->262`, then `speffect14/AH12`. | `PORTED/PARTIAL`; one-run before/actor/speffect/damage+debuff/HP-settled/tick/expiry smoke closed in `309`. |
 | 3 | Hỏa Vân triệu | Low damage; stronger if target already has debuff0. | Conditional damage by debuff0, param `120`. | Actor `20->262`. | `PORTED/PARTIAL`; conditional UI/visual parity pending. |
 | 4 | Thiên Hỏa tế | No damage; raises defense and later damage edge. | Buff0 Sức Lực: defense `+30%`, duration-edge extra damage. | `speffect16/AH9`, then `speffect15/AH1`. | `PORTED`; pixel-perfect producer visual pending. |
 | 5 | Viêm lôi phá | No damage; more outgoing damage, less defense. | Buff1 Phá Phủ: defense `-50%`, damage `+50%`. | `speffect16/AH9`, then `speffect15/AH1`. | `PORTED`; pixel-perfect producer visual pending. |
-| 6 | Hỏa diễm đao | Higher damage fire direct. | Direct simple: power `150`, PP `30`. | Actor `20->262`. | `PORTED/PARTIAL`; direct-base visual slice pending. |
+| 6 | Hỏa diễm đao | Higher damage fire direct. | Direct simple: power `150`, PP `30`. | Actor `20->262`. | `PORTED/PARTIAL`; one-run before/actor/damage/HP-settled smoke closed in `307`. |
 | 7 | Chước nhiệt chi xúc | Damage plus stronger burn/HP drain setup. | Direct plus debuff0; tick divisor `3`. | Actor `20->262`. | `PORTED`; shares fire direct animation polish. |
 | 8 | Liệt diễm phong bạo | High damage, 20% chance Mê Muội. | Explicit debuff1 chance `20`. | Actor `20->262`, then `speffect14/AH12`. | `PORTED/PARTIAL`; RNG/pixel parity pending. |
-| 9 | Vĩnh hằng hỏa ảnh | High damage; stronger if target already has debuff0. | Conditional damage by debuff0, param `250`. | Actor `20->262`. | `PORTED/PARTIAL`; conditional visual parity pending. |
+| 9 | Vĩnh hằng hỏa ảnh | High damage; stronger if target already has debuff0. | Conditional damage by debuff0, param `250`. | Actor `20->262`. | `PORTED/PARTIAL`; full baseline/conditional smoke closed in `316`. |
 
 ### Wood Lane - Skills 10..19
 
 | Skill | Name | Source role | Logic | Animation | Status / next |
 | ---: | --- | --- | --- | --- | --- |
-| 10 | Diệp Toàn | Low-damage wood basic. | Direct simple: power `100`, PP `45`. | Actor `21->263`, state `1`. | `PORTED/PARTIAL`; first recommended direct-base polish slice. |
-| 11 | Quang phản | Low damage and heals attacker. | Direct damage, then `game.d.q()` heal param `10`. | Actor `21->263`, plus `speffect10/AH9` heal. | `PORTED/PARTIAL`; heal text/effect placement pending. |
-| 12 | Đằng Phược | Low damage and Quấn Quanh bind. | Direct debuff2; switch/item/run lock behavior is closed. | Actor `21->263`, plus `speffect6/AH8`. | `PORTED`; P7 visual timing still partial. |
-| 13 | Thảo Chủng | Low damage, delayed Thực Loại damage. | Direct debuff3; final tick `150%` stored raw damage. | Actor `21->263`. | `PORTED`; body visual/tick logic closed, P7 polish pending. |
-| 14 | Đằng chi bích lũy | No damage; defense up and reflects damage. | Buff2 Kinh Cức: defense `+30%`, reflect `10%`. | Actor `21->263`, state `1`. | `PORTED`; producer visual uses actor route, exact cursor pending. |
-| 15 | Thảo nguyện thuật | No damage; heal over time. | Buff3 Khôi phục: `5% maxHP` apply/tick heal. | Actor `33->308`, frame trigger, then `speffect7/AH9`. | `PORTED/PARTIAL`; complex trigger timing pending. |
-| 16 | Châm Diệp Trảm | Higher damage wood direct. | Direct simple: power `150`, PP `30`. | Actor `21->263`, state `1`. | `PORTED/PARTIAL`; direct-base visual slice pending. |
-| 17 | Diệp chi ân huệ | Medium damage and stronger heal. | Direct damage, then `game.d.q()` heal param `40`. | Actor `21->263`, plus `speffect10/AH9`. | `PORTED/PARTIAL`; heal placement pending. |
-| 18 | Đằng mạn triền nhiễu | High damage and Quấn Quanh bind. | Direct debuff2. | Actor `21->263`. | `PORTED`; P7 visual timing pending. |
+| 10 | Diệp Toàn | Low-damage wood basic. | Direct simple: power `100`, PP `45`. | Actor `21->263`, state `1`. | `PORTED/PARTIAL`; one-run closeout/smoke closed in `318`. |
+| 11 | Quang phản | Low damage and heals attacker. | Direct damage, then `game.d.q()` heal param `10`. | Actor `21->263`, plus `speffect10/AH9` heal. | `PORTED/PARTIAL`; one-run closeout/smoke closed in `319`. |
+| 12 | Đằng Phược | Low damage and Quấn Quanh bind. | Direct debuff2; switch/item/run lock behavior is closed; one-run timeline proves damage, icon/duration, no-op tick, expiry. | Actor `21->263/state0`, plus target-side `speffect6/AH8`. | `PORTED/PARTIAL`; closeout/smoke covered in `320`. |
+| 13 | Thảo Chủng | Low damage, delayed Thực Loại damage. | Direct debuff3; one-run timeline proves stored raw, two no-damage ticks, final `150%` delayed damage, icon clear. | Actor `21->263/state0`; P12 body visual actor `21`, no speffect. | `PORTED/PARTIAL`; closeout/smoke covered in `321`. |
+| 14 | Đằng chi bích lũy | No damage; defense up and reflects damage. | Buff2 Kinh Cức: defense `+30%`, reflect `10%`; one-run timeline proves no damage/no hitroll, icon/duration, forced hit/miss/crit reflect, and expiry. | Actor `21->263`, state `1`, player side. | `PORTED/PARTIAL`; closeout/smoke covered in `322`. |
+| 15 | Thảo nguyện thuật | No damage; heal over time. | Buff3 Khôi phục: `5% maxHP` apply/tick heal; one-run timeline proves apply heal, active queue tick heal, icon/duration, and expiry. | Actor `33->308`, frame trigger, then `speffect7/AH9`. | `PORTED/PARTIAL`; closeout/smoke covered in `323`. |
+| 16 | Châm Diệp Trảm | Higher damage wood direct. | Direct simple: power `150`, PP `30`; one-run timeline proves PP `30->29`, damage, no buff/debuff, and HP settle. | Actor `21->263`, state `1`. | `PORTED/PARTIAL`; closeout/smoke covered in `324`. |
+| 17 | Diệp chi ân huệ | Medium damage and stronger heal. | Direct damage, then `game.d.q()` heal param `40`; one-run timeline proves PP `30->29`, enemy damage settle, attacker `+9` heal in smoke, and no buff/debuff. | Actor `21->263`, plus attacker-side `speffect10/AH9`. | `PORTED/PARTIAL`; closeout/smoke covered in `325`. |
+| 18 | Đằng mạn triền nhiễu | High damage and Quấn Quanh bind. | Direct debuff2: power `150`, PP `15`; one-run timeline proves PP `15->14`, damage, debuff2 icon/duration/sourceSkill `18`, no-op tick, and expiry. | P7 actor `21->263/state0`, no P7 special; P12 active queue uses `speffect6/AH8`. | `PORTED/PARTIAL`; closeout/smoke covered in `326`. |
 | 19 | Quang hợp hiệu ứng | High damage, delayed Thực Loại damage. | Direct debuff3; final tick `200%` stored raw damage. | Actor `21->263`. | `PORTED`; P7 visual timing pending. |
 
 ### Earth Lane - Skills 20..29
@@ -217,17 +217,25 @@ Do not implement by numeric order. Implement by shared source family:
 
 ## Current Next Slice
 
-The immediate next code slice should still be:
+Skill `0` now has a one-run closeout in `306`.
+Skill `6` now has a one-run closeout in `307`.
+Skill `1` now has a one-run closeout in `308`.
+Skill `2` now has a one-run closeout in `309`.
+Skill `3` now has a one-run closeout in `310`.
+
+The next slice should continue the fire lane:
 
 ```text
-skill10 / Diệp Toàn direct-base animation checkpoint tightening
+skill4 / Thien Hoa te
+No-damage buff0 Suc Luc producer: defense +30%, duration-edge damage hook.
 ```
 
-Required outputs after that slice:
+Required outputs for the next slice:
 
-- PNG before / actor active / damage frame / finish;
-- numeric HP and PP before/during/after;
-- P7 trace proving `effect.mid[10] = [0,0,21,1,-1,-1,0]`;
+- PNG before / producer visual / buff icon-visible / logic active / expiry;
+- numeric HP and PP before/during/after from the same run;
+- P7 trace proving the exact `effect.mid[skill]` row;
+- source trace proving buff0 defense increase, duration, damage hook, and expiry;
 - status note: what became `PORTED`, what remains `PORTED/PARTIAL`, and no
   pixel-perfect claim unless original-vs-rebuild frame compare exists.
 

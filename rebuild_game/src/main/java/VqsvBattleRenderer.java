@@ -1338,10 +1338,6 @@ final class VqsvBattleRenderer {
         if (!s.battleP7SpecialVisible || !isSupportedP7SpecialType(s.battleP7SpecialType)) {
             return;
         }
-        if (s.battleP7SpecialType == 9
-                && (s.battleP7Ticks / Math.max(1, s.battleP7SpecialInterval)) % 2 != 0) {
-            return;
-        }
         int sprite = s.battleP7SpecialOnPlayerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
         if (sprite < 0) {
             return;
@@ -1350,21 +1346,28 @@ final class VqsvBattleRenderer {
             drawP7SpecialType7(g, s, sprite);
             return;
         }
+        if (s.battleP7SpecialType == 1) {
+            drawP7SpecialType1(g, s, sprite);
+            return;
+        }
+        if (s.battleP7SpecialType == 12) {
+            drawP7SpecialType12(g, s, sprite);
+            return;
+        }
         BufferedImage overlay = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
         Graphics2D og = overlay.createGraphics();
         drawP7SpecialBaseSpriteAtSource(og, s, sprite);
         og.dispose();
         if (s.battleP7SpecialType == 9) {
-            applyAhType9Transform(overlay, s.battleP7SpecialAlpha,
-                    s.battleP7SpecialRed, s.battleP7SpecialGreen, s.battleP7SpecialBlue);
             g.drawImage(overlay, 0, 0, null);
-        } else if (s.battleP7SpecialType == 1) {
-            applyAhType1Texture(overlay, s);
-            g.drawImage(overlay, 0, 0, null);
+            if ((s.battleP7Ticks / Math.max(1, s.battleP7SpecialInterval)) % 2 == 0) {
+                BufferedImage tinted = copyImage(overlay);
+                applyAhType9Transform(tinted, s.battleP7SpecialAlpha,
+                        s.battleP7SpecialRed, s.battleP7SpecialGreen, s.battleP7SpecialBlue);
+                g.drawImage(tinted, 0, 0, null);
+            }
         } else if (s.battleP7SpecialType == 8) {
             drawP7SpecialType8(g, overlay, s);
-        } else if (s.battleP7SpecialType == 12) {
-            drawP7SpecialType12(g, overlay, s);
         }
     }
 
@@ -1492,19 +1495,41 @@ final class VqsvBattleRenderer {
         return out;
     }
 
-    private static void drawP7SpecialType12(Graphics2D g, BufferedImage overlay, VqsvIntroDemo.Scene s) {
+    private static BufferedImage copyImage(BufferedImage src) {
+        BufferedImage out = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = out.createGraphics();
+        g.drawImage(src, 0, 0, null);
+        g.dispose();
+        return out;
+    }
+
+    private static void drawP7SpecialType1(Graphics2D g, VqsvIntroDemo.Scene s, int sprite) {
+        P7SpecialCell cell = p7SpecialCell(s, sprite);
+        if (cell == null) {
+            return;
+        }
+        BufferedImage image = copyImage(cell.image);
+        applyAhType1Texture(image, s);
+        g.drawImage(image, cell.x, cell.y, null);
+    }
+
+    private static void drawP7SpecialType12(Graphics2D g, VqsvIntroDemo.Scene s, int sprite) {
         short[] row = s.battleP7SpecialRow;
         if (row.length < 10) {
-            g.drawImage(overlay, 0, 0, null);
+            return;
+        }
+        P7SpecialCell cell = p7SpecialCell(s, sprite);
+        if (cell == null) {
             return;
         }
         int total = Math.max(1, row[5]);
-        int frame = Math.max(0, Math.min(total - 1, s.battleP7Ticks));
+        int ticksPerFrame = Math.max(1, row[7] + 1);
+        int frame = Math.max(0, Math.min(total - 1, Math.max(0, s.battleP7Ticks) / ticksPerFrame));
         int offsetStart = 8;
         int firstAt = offsetStart + frame * 2;
         int secondAt = offsetStart + total * 2 + frame * 2;
         if (secondAt + 1 >= row.length) {
-            g.drawImage(overlay, 0, 0, null);
+            g.drawImage(cell.image, cell.x, cell.y, null);
             return;
         }
         int dx0 = row[firstAt];
@@ -1515,10 +1540,47 @@ final class VqsvBattleRenderer {
             dx0 = -dx0;
             dx1 = -dx1;
         }
-        BufferedImage b0 = alphaCopy(overlay, Math.max(0, Math.min(255, row[2])));
-        BufferedImage b1 = alphaCopy(overlay, Math.max(0, Math.min(255, row[3])));
-        g.drawImage(b1, dx0 + dx1, dy0 - dy1, null);
-        g.drawImage(b0, dx0, dy0, null);
+        BufferedImage b0 = alphaCopy(cell.image, Math.max(0, Math.min(255, row[2])));
+        BufferedImage b1 = alphaCopy(cell.image, Math.max(0, Math.min(255, row[3])));
+        g.drawImage(b1, cell.x + dx0 + dx1, cell.y + dy0 - dy1, null);
+        g.drawImage(b0, cell.x + dx0, cell.y + dy0, null);
+    }
+
+    private static P7SpecialCell p7SpecialCell(VqsvIntroDemo.Scene s, int sprite) {
+        boolean playerSide = s.battleP7SpecialOnPlayerSide;
+        int state = playerSide ? s.battleP7BaseStatePlayerSide : s.battleP7BaseStateEnemySide;
+        int cursor = playerSide ? s.battleP7BaseCursorPlayerSide : s.battleP7BaseCursorEnemySide;
+        if (cursor < 0) {
+            cursor = idleCursor(sprite, state, s.battleAnimationTick);
+        }
+        int cellId = currentCellId(sprite, state, cursor);
+        if (cellId < 0) {
+            return null;
+        }
+        SpriteAnim anim = SpriteAnim.load(sprite);
+        int[] bounds = anim.cellBounds(cellId);
+        if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
+            return null;
+        }
+        BufferedImage image = renderSpriteCellImage(sprite, cellId, sourceBattleOrientation(playerSide));
+        if (image == null) {
+            return null;
+        }
+        int originX = sourceBattleActorX(s, playerSide) + sideOffsetX(s, playerSide);
+        int originY = sourceBattleActorY(s, playerSide) + sideOffsetY(s, playerSide);
+        return new P7SpecialCell(image, originX + bounds[0], originY + bounds[1]);
+    }
+
+    private static final class P7SpecialCell {
+        final BufferedImage image;
+        final int x;
+        final int y;
+
+        P7SpecialCell(BufferedImage image, int x, int y) {
+            this.image = image;
+            this.x = x;
+            this.y = y;
+        }
     }
 
     private static int currentCellId(int spriteIndex, int state, int cursor) {
@@ -1536,15 +1598,27 @@ final class VqsvBattleRenderer {
         if (!s.battleP7ActorEffectVisible || s.battleP7ActorEffectSpriteId < 0) {
             return;
         }
-        if (s.battleP7ActorEffectOnPlayerSide) {
-            drawBattleSprite(g, s.battleP7ActorEffectSpriteId,
-                    18 + playerOffsetX(s), 140 + playerOffsetY(s), 96, 95, 7, 0,
-                    s.battleP7ActorEffectState, s.battleP7ActorEffectCursor);
-        } else {
-            drawBattleSprite(g, s.battleP7ActorEffectSpriteId,
-                    132 + enemyOffsetX(s), 70 + enemyOffsetY(s), 96, 118, 7, 0,
-                    s.battleP7ActorEffectState, s.battleP7ActorEffectCursor);
+        boolean playerSide = s.battleP7ActorEffectOnPlayerSide;
+        int x = sourceBattleActorX(s, playerSide) + sideOffsetX(s, playerSide);
+        int y = sourceBattleActorY(s, playerSide) + sideOffsetY(s, playerSide);
+        if ((s.battleP7ActorEffectSourceId == 20 && s.battleP7ActorEffectState == 3)
+                || (s.battleP7ActorEffectSourceId == 22 && s.battleP7ActorEffectState == 4)) {
+            int baseVisual = playerSide ? s.battlePlayerVisualId : s.battleEnemyVisualId;
+            int baseHeight = battleSpriteFrameHeight(baseVisual, 0);
+            y -= baseHeight;
         }
+        drawBattleSpriteAtSource(g, s.battleP7ActorEffectSpriteId, x, y,
+                sourceBattleOrientation(playerSide),
+                s.battleP7ActorEffectState, s.battleP7ActorEffectCursor);
+    }
+
+    private static int battleSpriteFrameHeight(int spriteIndex, int state) {
+        if (spriteIndex < 0) {
+            return 0;
+        }
+        SpriteAnim anim = SpriteAnim.load(spriteIndex);
+        int[] bounds = anim.animationBounds(Math.max(0, state));
+        return bounds == null ? 0 : Math.max(0, bounds[3]);
     }
 
     private static void drawP7DeathEffect(Graphics2D g, VqsvIntroDemo.Scene s) {

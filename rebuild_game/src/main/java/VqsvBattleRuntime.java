@@ -321,6 +321,7 @@ final class SourceBattleRuntime implements Blocking {
     private short[] enemyReplacementCposRow = new short[0];
     private int enemyReplacementTicks;
     private int enemyReplacementFrameTicks;
+    private boolean skillLabAllSkills;
 
     SourceBattleRuntime(int actorId, int[] encounter, int[] flags, int[] battleMode, int[] branchTargets) {
         this(actorId, encounter, flags, battleMode, branchTargets, 0, false, false, "direct");
@@ -357,6 +358,11 @@ final class SourceBattleRuntime implements Blocking {
         wasUpPressed = false;
         wasDownPressed = false;
         commandConfirmQueued = false;
+    }
+
+    void enableSkillLabAllSkills(VqsvIntroDemo.Scene s) {
+        skillLabAllSkills = true;
+        s.sourceStateTrace.add("LAB battle skill test enabled all aq.c[1] skill rows");
     }
 
     void debugHandleSkillInputForSmoke(VqsvIntroDemo.Scene s) {
@@ -999,8 +1005,8 @@ final class SourceBattleRuntime implements Blocking {
     private void startNextActiveQueueEntry(VqsvIntroDemo.Scene s, boolean afterVisualEntry) {
         while (activeQueueOrderIndex < activeQueueOrderCount) {
             activeQueueBank = activeQueueOrderBank[activeQueueOrderIndex];
-            activeQueueBuffId = activeQueueBank == 0 ? activeQueueOrderId[activeQueueOrderIndex] : -1;
-            activeQueueDebuffId = activeQueueBank == 1 ? activeQueueOrderId[activeQueueOrderIndex] : -1;
+            activeQueueBuffId = activeQueueIsBuff() ? activeQueueOrderId[activeQueueOrderIndex] : -1;
+            activeQueueDebuffId = activeQueueIsDebuff() ? activeQueueOrderId[activeQueueOrderIndex] : -1;
             activeQueueSlot = activeQueueOrderSlot[activeQueueOrderIndex];
             if (!activeQueueStillActive()) {
                 activeQueueOrderIndex++;
@@ -1041,7 +1047,7 @@ final class SourceBattleRuntime implements Blocking {
         int beforeAttack = activeQueueUnit.battleUnit.currentStats[BattleUnit.STAT_ATTACK];
         int heal;
         int damage;
-        if (activeQueueBank == 0) {
+        if (activeQueueIsBuff()) {
             if (activeQueueBuffId == 11) {
                 applySourceBuff11ActiveTickSteal(s, activeQueueUnit, "P12/P13 active queue");
             }
@@ -1133,11 +1139,13 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private int activeQueueEffectId() {
-        return activeQueueBank == 0 ? activeQueueBuffId : activeQueueDebuffId;
+        return activeQueueIsBuff() ? activeQueueBuffId : activeQueueDebuffId;
     }
 
     private boolean activeQueueNeedsVisual(int bank, int effectId) {
-        int[] visualIds = bank == 0 ? new int[]{3, 5, 13} : new int[]{0, 1, 2, 3, 8, 9, 10};
+        int[] visualIds = bank == BattleEffectRow.BANK_BUFF
+                ? new int[]{3, 5, 13}
+                : new int[]{0, 1, 2, 3, 8, 9, 10};
         for (int id : visualIds) {
             if (id == effectId) {
                 return true;
@@ -1160,19 +1168,25 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private String activeQueueVisualLabel() {
-        return (activeQueueBank == 0 ? "ap" : "aq")
+        BattleEffectRow row = activeQueueEffectRow();
+        return (row == null ? (activeQueueIsBuff() ? "ap" : "aq") : row.sourcePrefix())
                 + " id=" + activeQueueEffectId()
+                + " effect=" + (row == null ? "missing" : row.debugLabel("effect" + activeQueueEffectId()))
                 + " row=" + Arrays.toString(activeQueueVisualRow);
+    }
+
+    private BattleEffectRow activeQueueEffectRow() {
+        return VqsvBattleTables.instance().effect(activeQueueBank, activeQueueEffectId());
     }
 
     private int activeQueueDuration() {
         if (activeQueueUnit == null || activeQueueUnit.battleUnit == null) {
             return 0;
         }
-        if (activeQueueBank == 0 && activeQueueBuffId >= 0) {
+        if (activeQueueIsBuff() && activeQueueBuffId >= 0) {
             return activeQueueUnit.battleUnit.buffSlots[activeQueueBuffId][0];
         }
-        if (activeQueueBank == 1 && activeQueueDebuffId >= 0) {
+        if (activeQueueIsDebuff() && activeQueueDebuffId >= 0) {
             return activeQueueUnit.battleUnit.debuffSlots[activeQueueDebuffId][0];
         }
         return 0;
@@ -1182,13 +1196,21 @@ final class SourceBattleRuntime implements Blocking {
         if (activeQueueUnit == null || activeQueueUnit.battleUnit == null) {
             return false;
         }
-        if (activeQueueBank == 0 && activeQueueBuffId >= 0) {
+        if (activeQueueIsBuff() && activeQueueBuffId >= 0) {
             return activeQueueUnit.battleUnit.hasBuff(activeQueueBuffId);
         }
-        if (activeQueueBank == 1 && activeQueueDebuffId >= 0) {
+        if (activeQueueIsDebuff() && activeQueueDebuffId >= 0) {
             return activeQueueUnit.battleUnit.hasDebuff(activeQueueDebuffId);
         }
         return false;
+    }
+
+    private boolean activeQueueIsBuff() {
+        return activeQueueBank == BattleEffectRow.BANK_BUFF;
+    }
+
+    private boolean activeQueueIsDebuff() {
+        return activeQueueBank == BattleEffectRow.BANK_DEBUFF;
     }
 
     private int activeQueueSegmentDuration() {
@@ -1204,10 +1226,16 @@ final class SourceBattleRuntime implements Blocking {
         if (p7SpecialType == 8 && p7SpeffectRow.length >= 3) {
             return Math.max(1, p7SpeffectRow[2]);
         }
-        if (p7SpecialType == 12 && p7SpeffectRow.length >= 6) {
-            return Math.max(1, p7SpeffectRow[5]);
+        if (p7SpecialType == 12 && p7SpeffectRow.length >= 8) {
+            return ahType12Duration(p7SpeffectRow);
         }
         return P7_START_TICKS;
+    }
+
+    private int ahType12Duration(short[] row) {
+        int frameCount = Math.max(1, row.length > 5 ? row[5] : 1);
+        int ticksPerFrame = Math.max(1, (row.length > 7 ? row[7] : 0) + 1);
+        return frameCount * ticksPerFrame;
     }
 
     private void syncActiveQueueRenderState(VqsvIntroDemo.Scene s) {
@@ -1703,7 +1731,17 @@ final class SourceBattleRuntime implements Blocking {
         java.util.ArrayList<String> ppLabels = new java.util.ArrayList<>();
         java.util.ArrayList<Integer> ids = new java.util.ArrayList<>();
         BattleUnit unit = player.battleUnit;
-        if (unit != null) {
+        if (skillLabAllSkills) {
+            for (int skillId = 0; skillId < 70; skillId++) {
+                BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
+                if (row == null) {
+                    continue;
+                }
+                ids.add(skillId);
+                names.add(row.name("Skill " + skillId));
+                ppLabels.add(row.ppMax + "/" + row.ppMax);
+            }
+        } else if (unit != null) {
             for (int i = 0; i < unit.skillIds.length; i++) {
                 int skillId = unit.skillAt(i);
                 if (skillId < 0) {
@@ -2113,6 +2151,9 @@ final class SourceBattleRuntime implements Blocking {
             return false;
         }
         selectedSkillId = s.battleSkillIds[s.battleSkillIndex];
+        if (skillLabAllSkills) {
+            installSkillLabSelectedSkill(s, selectedSkillId);
+        }
         int slot = skillSlot(player.battleUnit, selectedSkillId);
         if (slot < 0 || player.battleUnit.skillPpAt(slot) <= 0) {
             enterWarning(s, VqsvText.Battle.SKILL_NO_PP, BattleRuntimeState.P3_SKILL_LIST);
@@ -2141,6 +2182,24 @@ final class SourceBattleRuntime implements Blocking {
                     SHORT_WAIT);
         }
         return false;
+    }
+
+    private void installSkillLabSelectedSkill(VqsvIntroDemo.Scene s, int skillId) {
+        if (player == null || player.battleUnit == null || skillId < 0) {
+            return;
+        }
+        BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
+        player.battleUnit.skillIds[0] = (byte) skillId;
+        player.battleUnit.skillPp[0] = (short) Math.max(1, row == null ? 1 : row.ppMax);
+        player.battleUnit.skillCount = (byte) Math.max(1, player.battleUnit.skillCount);
+        if (!s.sourcePets.isEmpty()) {
+            SourcePetState pet = s.sourcePets.get(0);
+            pet.skillIds[0] = skillId;
+            pet.skillCooldowns[0] = row == null ? 1 : row.ppMax;
+        }
+        s.sourceStateTrace.add("LAB battle skill test installed selected skill=" + skillId
+                + " name=" + (row == null ? "Skill " + skillId : row.name("Skill " + skillId))
+                + " pp=" + player.battleUnit.skillPp[0]);
     }
 
     private void prepareTargetList(VqsvIntroDemo.Scene s, SourceBattleUnit actor, int skillId) {
@@ -2311,7 +2370,7 @@ final class SourceBattleRuntime implements Blocking {
         player.battleUnit.debuffSlots[8][1] = (short) row.chanceOrParam;
         player.battleUnit.debuffSlots[8][3] = (short) skillId;
         player.battleUnit.debuffSlots[8][4] = 1;
-        player.battleUnit.addActiveEffect(1, 8);
+        player.battleUnit.addActiveDebuffEffect(8);
 
         debugNextTargetRouteRoll = Math.max(0, Math.min(99, forcedRoll));
         prepareTargetList(s, player, skillId);
@@ -2354,7 +2413,7 @@ final class SourceBattleRuntime implements Blocking {
         player.battleUnit.debuffSlots[8][1] = 10;
         player.battleUnit.debuffSlots[8][3] = (short) skillId;
         player.battleUnit.debuffSlots[8][4] = 1;
-        player.battleUnit.addActiveEffect(1, 8);
+        player.battleUnit.addActiveDebuffEffect(8);
         selectedSkillId = skillId;
         player.battleUnit.selectedSkillId = (byte) skillId;
         debugNextTargetRouteRoll = Math.max(0, Math.min(99, forcedRoll));
@@ -2395,7 +2454,7 @@ final class SourceBattleRuntime implements Blocking {
         player.battleUnit.debuffSlots[9][1] = (short) row.chanceOrParam;
         player.battleUnit.debuffSlots[9][3] = (short) skillId;
         player.battleUnit.debuffSlots[9][4] = 1;
-        player.battleUnit.addActiveEffect(1, 9);
+        player.battleUnit.addActiveDebuffEffect(9);
 
         debugNextDebuff9TargetIndex = Math.max(0, forcedIndex);
         prepareTargetList(s, player, skillId);
@@ -3555,7 +3614,7 @@ final class SourceBattleRuntime implements Blocking {
         unit.battleUnit.debuffSlots[debuffId][1] = (short) storedRaw;
         unit.battleUnit.debuffSlots[debuffId][3] = (short) sourceSkill;
         unit.battleUnit.debuffSlots[debuffId][4] = 1;
-        unit.battleUnit.addActiveEffect(1, debuffId);
+        unit.battleUnit.addActiveDebuffEffect(debuffId);
         setHp(unit, hp);
         if (playerSide) {
             playerActionThisRound = false;
@@ -3622,7 +3681,7 @@ final class SourceBattleRuntime implements Blocking {
         unit.debuffSlots[debuffId][1] = (short) value;
         unit.debuffSlots[debuffId][3] = (short) sourceSkill;
         unit.debuffSlots[debuffId][4] = 1;
-        unit.addActiveEffect(1, debuffId);
+        unit.addActiveDebuffEffect(debuffId);
         syncRenderState(s, s.battleLog);
         s.sourceStateTrace.add("SMOKE battle P16 item debuff target prepared id="
                 + debuffId + " value=" + value + " skill=" + sourceSkill);
@@ -3958,7 +4017,7 @@ final class SourceBattleRuntime implements Blocking {
                 unit.debuffSlots[debuffId][1] = (short) skillParam;
                 break;
         }
-        unit.addActiveEffect(1, debuffId);
+        unit.addActiveDebuffEffect(debuffId);
         syncRenderState(s, s.battleLog);
         s.sourceStateTrace.add("SMOKE battle status effectiveness enemy source debuff prepared id="
                 + debuffId + " param=" + skillParam + " stored=" + unit.debuffSlots[debuffId][1]
@@ -3991,7 +4050,7 @@ final class SourceBattleRuntime implements Blocking {
                 unit.debuffSlots[debuffId][1] = (short) skillParam;
                 break;
         }
-        unit.addActiveEffect(1, debuffId);
+        unit.addActiveDebuffEffect(debuffId);
         syncRenderState(s, s.battleLog);
         s.sourceStateTrace.add("SMOKE battle status effectiveness player source debuff prepared id="
                 + debuffId + " param=" + skillParam + " stored=" + unit.debuffSlots[debuffId][1]
@@ -4266,7 +4325,7 @@ final class SourceBattleRuntime implements Blocking {
         enemy.battleUnit.buffSlots[11][1] = 1;
         enemy.battleUnit.buffSlots[11][3] = 64;
         enemy.battleUnit.buffSlots[11][4] = 1;
-        enemy.battleUnit.addActiveEffect(0, 11);
+        enemy.battleUnit.addActiveBuffEffect(11);
         syncRenderState(s, s.battleLog);
         s.sourceStateTrace.add("SMOKE prepared enemy source buff11 pointer to active player before P5 switch donorSlot=1");
     }
@@ -4752,8 +4811,8 @@ final class SourceBattleRuntime implements Blocking {
             if (p7SpecialType == 8 && p7SpeffectRow.length >= 3) {
                 return Math.max(1, p7SpeffectRow[2]);
             }
-            if (p7SpecialType == 12 && p7SpeffectRow.length >= 6) {
-                return Math.max(1, p7SpeffectRow[5]);
+            if (p7SpecialType == 12 && p7SpeffectRow.length >= 8) {
+                return ahType12Duration(p7SpeffectRow);
             }
         }
         return P7_START_TICKS;
@@ -5321,6 +5380,7 @@ final class SourceBattleRuntime implements Blocking {
                 && p7ActorAnimation.started()
                 && !p7ActorAnimation.stopped();
         s.battleP7ActorEffectOnPlayerSide = s.battleP7ActorEffectVisible && p7ActorAnimation.playerSide;
+        s.battleP7ActorEffectSourceId = s.battleP7ActorEffectVisible ? p7ActorAnimation.sourceEffectId : -1;
         s.battleP7ActorEffectSpriteId = s.battleP7ActorEffectVisible ? p7ActorAnimation.spriteId : -1;
         s.battleP7ActorEffectState = s.battleP7ActorEffectVisible ? p7ActorAnimation.state : 0;
         s.battleP7ActorEffectCursor = s.battleP7ActorEffectVisible ? p7ActorAnimation.cursor() : 0;
@@ -5338,6 +5398,9 @@ final class SourceBattleRuntime implements Blocking {
                 || p7SpecialType == 12)
                 && p7SpecialActive
                 && p7SpecialTicks <= p7CurrentEffectDuration();
+        if (showSpecial) {
+            s.battleP7Ticks = Math.max(0, p7SpecialTicks - 1);
+        }
         s.battleP7SpecialVisible = showSpecial;
         s.battleP7SpecialOnPlayerSide = s.battleP7EffectOnPlayerSide;
         s.battleP7SpecialType = showSpecial ? p7SpecialType : -1;
@@ -5385,6 +5448,7 @@ final class SourceBattleRuntime implements Blocking {
         s.battleLRow = new short[0];
         s.battleP7ActorEffectVisible = false;
         s.battleP7ActorEffectOnPlayerSide = false;
+        s.battleP7ActorEffectSourceId = -1;
         s.battleP7ActorEffectSpriteId = -1;
         s.battleP7ActorEffectState = 0;
         s.battleP7ActorEffectCursor = 0;
@@ -5422,7 +5486,8 @@ final class SourceBattleRuntime implements Blocking {
         if (p7DamageResult == null || p7DamageResult.appliedDebuffId < 0) {
             return "";
         }
-        BattleDebuffRow row = VqsvBattleTables.instance().debuff(p7DamageResult.appliedDebuffId);
+        BattleEffectRow row = VqsvBattleTables.instance().effect(
+                BattleEffectRow.BANK_DEBUFF, p7DamageResult.appliedDebuffId);
         return row == null ? "" : row.name("");
     }
 
@@ -5491,7 +5556,7 @@ final class SourceBattleRuntime implements Blocking {
             } else {
                 buffHeal = buffOwner.applySourceBuff(buffId, selectedIndex, p7SkillId);
             }
-            BattleBuffRow buff = VqsvBattleTables.instance().buff(buffId);
+            BattleEffectRow buff = VqsvBattleTables.instance().effect(BattleEffectRow.BANK_BUFF, buffId);
             p7PostEffectText = buffHeal > 0 ? "+" + buffHeal : buff == null ? "" : buff.name("");
             p7PostEffectPlayerSide = buffOwner == player;
         }

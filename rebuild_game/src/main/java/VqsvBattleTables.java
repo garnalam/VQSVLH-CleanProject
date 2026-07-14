@@ -112,6 +112,16 @@ final class VqsvBattleTables {
         return row == null ? null : new BattleDebuffRow(this, id, row);
     }
 
+    BattleEffectRow effect(int bank, int id) {
+        if (bank == BattleEffectRow.BANK_BUFF) {
+            return buff(id);
+        }
+        if (bank == BattleEffectRow.BANK_DEBUFF) {
+            return debuff(id);
+        }
+        return null;
+    }
+
     String text(int id, String fallback) {
         if (id < 0 || id >= texts.length || texts[id] == null || texts[id].isEmpty()) {
             return fallback;
@@ -388,7 +398,7 @@ final class BattleHeldItemRow {
         this.descriptionTextId = VqsvBattleTables.get(raw, 2, -1);
     }
 
-    String name(String fallback) {
+    public String name(String fallback) {
         return tables.text(nameTextId, fallback);
     }
 
@@ -435,7 +445,54 @@ final class BattleItemRow {
     }
 }
 
-final class BattleBuffRow {
+interface BattleEffectRow {
+    int BANK_BUFF = 0;
+    int BANK_DEBUFF = 1;
+    int SOURCE_GROUP_BUFF = 6;
+    int SOURCE_GROUP_DEBUFF = 7;
+
+    int bank();
+
+    int id();
+
+    int nameTextId();
+
+    int descriptionTextId();
+
+    int duration();
+
+    int paramA();
+
+    int paramB();
+
+    short[] raw();
+
+    String name(String fallback);
+
+    default boolean isBuff() {
+        return bank() == BANK_BUFF;
+    }
+
+    default boolean isDebuff() {
+        return bank() == BANK_DEBUFF;
+    }
+
+    default int sourceGroup() {
+        return isBuff() ? SOURCE_GROUP_BUFF : SOURCE_GROUP_DEBUFF;
+    }
+
+    default String sourcePrefix() {
+        return isBuff() ? "ap" : "aq";
+    }
+
+    default String debugLabel(String fallback) {
+        return (isBuff() ? "buff" : "debuff")
+                + id()
+                + ":" + name(fallback);
+    }
+}
+
+final class BattleBuffRow implements BattleEffectRow {
     final int id;
     final int nameTextId;
     final int descriptionTextId;
@@ -456,12 +513,52 @@ final class BattleBuffRow {
         this.paramB = VqsvBattleTables.get(raw, 4, 0);
     }
 
-    String name(String fallback) {
+    public String name(String fallback) {
         return tables.text(nameTextId, fallback);
+    }
+
+    @Override
+    public int bank() {
+        return BANK_BUFF;
+    }
+
+    @Override
+    public int id() {
+        return id;
+    }
+
+    @Override
+    public int nameTextId() {
+        return nameTextId;
+    }
+
+    @Override
+    public int descriptionTextId() {
+        return descriptionTextId;
+    }
+
+    @Override
+    public int duration() {
+        return duration;
+    }
+
+    @Override
+    public int paramA() {
+        return paramA;
+    }
+
+    @Override
+    public int paramB() {
+        return paramB;
+    }
+
+    @Override
+    public short[] raw() {
+        return Arrays.copyOf(raw, raw.length);
     }
 }
 
-final class BattleDebuffRow {
+final class BattleDebuffRow implements BattleEffectRow {
     final int id;
     final int nameTextId;
     final int descriptionTextId;
@@ -478,7 +575,47 @@ final class BattleDebuffRow {
         this.duration = VqsvBattleTables.get(raw, 2, 0);
     }
 
-    String name(String fallback) {
+    public String name(String fallback) {
         return tables.text(nameTextId, fallback);
+    }
+
+    @Override
+    public int bank() {
+        return BANK_DEBUFF;
+    }
+
+    @Override
+    public int id() {
+        return id;
+    }
+
+    @Override
+    public int nameTextId() {
+        return nameTextId;
+    }
+
+    @Override
+    public int descriptionTextId() {
+        return descriptionTextId;
+    }
+
+    @Override
+    public int duration() {
+        return duration;
+    }
+
+    @Override
+    public int paramA() {
+        return 0;
+    }
+
+    @Override
+    public int paramB() {
+        return 0;
+    }
+
+    @Override
+    public short[] raw() {
+        return Arrays.copyOf(raw, raw.length);
     }
 }

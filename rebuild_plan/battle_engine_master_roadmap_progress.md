@@ -285,6 +285,93 @@ Recommended ordering now:
    special q.N rows, rewards/op17, inventory ownership, and save/load. The
    next item slice should be smoke/verification for panel state17 and
    petsetting normal-item behaviors before changing logic.
+35. `317_battle_lab_all_skill_test_list_closeout.md` adds Battle Lab checkpoint
+   `battle_lab_skill_test_all`. It opens P3 `choiceskill.ui` with all source
+   skill ids `0..69`, then lab-installs the selected skill into player slot `0`
+   so manual testers can inspect current P7 animation/effect behavior quickly.
+   This is lab-gated and does not replace dedicated source closeouts per skill.
+36. `318_battle_skill10_diep_toan_source_logic_animation_closeout.md` starts
+   the Wood Lane per-skill closeout pass. Skill `10` / `Diep Toan` is now
+   covered by a one-run smoke timeline with source row `[1,127,539,100,0,45,0,
+   -1,-1,0]`, effect row `[0,0,21,1,-1,-1,0]`, actor `21 -> sprite263`,
+   state `1`, PP `45 -> 44`, and same-run damage/HP-settled consistency
+   under source-shaped damage jitter.
+   Next Wood Lane slice is skill `11`, which must be treated as direct damage
+   plus `game.d.q()` heal, not as a plain direct-base skill.
+37. `319_battle_skill11_quang_phan_source_logic_animation_closeout.md` closes
+   Wood Lane skill `11` / `Quang Phan`. Source row
+   `[1,128,540,90,0,45,0,-1,10,0]` and effect row
+   `[0,0,21,1,-1,-1,0, 1,1,10,0,-1,-1,0]` are smoke-asserted. The one-run
+   timeline covers actor `21 -> sprite263`, `speffect10/AH9` attacker-side
+   heal visual, damage/HP-settled consistency, PP `45 -> 44`, and `game.d.q()`
+   heal `+2` with player HP `67 -> 69` in the checked run. Next Wood Lane
+   slice is skill `12`, direct damage plus debuff id `2` and `speffect6/AH8`.
+38. `320_battle_skill12_dang_phuoc_source_logic_animation_closeout.md` closes
+   Wood Lane skill `12` / `Dang Phuoc`. Source row
+   `[1,129,541,50,0,45,2,2,-1,0]`, debuff row `[313,324,3]`, and effect row
+   `[0,0,21,0,-1,-1,0, 0,1,6,0,-1,-1,0]` are smoke-asserted. The one-run
+   timeline covers actor `21 -> sprite263/state0`, target-side
+   `speffect6/AH8`, damage/HP-settled consistency, PP `45 -> 44`, debuff2
+   `Quan Quanh` apply with icon `3/duration 137`, no-HP tick to duration `2`,
+   and expiry to status count `0`. Next Wood Lane slice is skill `13`, which
+   must be audited source-first before coding.
+39. `321_battle_skill13_thao_chung_source_logic_animation_closeout.md` closes
+   Wood Lane skill `13` / `Thao Chung`. Source row
+   `[1,130,542,50,1,30,2,3,150,0]`, debuff row `[314,325,3]`, and effect row
+   `[0,0,21,0,-1,-1,0]` are smoke-asserted. The one-run timeline covers actor
+   `21 -> sprite263/state0`, immediate damage/HP-settled consistency, PP
+   `30 -> 29`, debuff3 `Thuc Loai` apply with icon `4/duration 137`, two
+   no-damage ticks to duration `1`, final delayed damage
+   `storedRaw * 150 / 100`, icon clear, and a controlled active-queue frame
+   showing floating text `-36`. Next Wood Lane slice is skill `14`, a no-damage
+   buff2 producer, not a plain attack.
+40. `322_battle_skill14_dang_chi_bich_luy_source_logic_animation_closeout.md`
+   closes Wood Lane skill `14` / `Dang chi bich luy`. Source row
+   `[1,131,543,0,1,10,1,2,-1,1]`, buff row `[335,350,3,30,10]`, and effect row
+   `[0,0,21,1,-1,-1,0]` are smoke-asserted. The one-run timeline covers
+   player-side actor `21 -> sprite263/state1`, no damage/no hitroll, PP
+   `10 -> 9`, buff2 `Kinh Cuc` apply with icon `14/duration 137`, defense
+   `100 -> 130`, forced-hit reflect `damage * 10 / 100`, forced-miss no reflect,
+   forced-crit reflect from crit damage, and expiry back to defense `100`.
+   Next Wood Lane slice is skill `15`, buff3 `Khoi phuc` heal-over-time.
+41. `323_battle_skill15_thao_nguyen_thuat_source_logic_animation_closeout.md`
+   closes Wood Lane skill `15` / `Thao nguyen thuat`. Source row
+   `[1,132,544,0,1,10,1,3,-1,1]`, buff row `[336,351,3,5,-1]`, effect row
+   `[0,0,33,0,0,-1,0, 0,1,7,0,-1,-1,0]`, and speffect row
+   `[9,120,218,217,169,0,9,9]` are smoke-asserted. The one-run timeline covers
+   player-side actor `33 -> sprite308/state0`, chunk `[4] == 0` frame trigger
+   into `speffect7/AH9`, no damage/no hitroll, PP `10 -> 9`, buff3 `Khoi Phuc`
+   apply heal `maxHP * 5 / 100` (`67 -> 73` in the smoke), active queue tick
+   heal after the enemy turn (`66 -> 72`), icon `15/duration 137 -> 136`, and
+   controlled expiry to status count `0`. Next Wood Lane slice is skill `16`,
+   a direct higher-damage Wood attack.
+42. `324_battle_skill16_cham_diep_tram_source_logic_animation_closeout.md`
+   closes Wood Lane skill `16` / `Cham Diep Tram`. Source row
+   `[1,133,545,150,2,30,0,-1,-1,0]` and effect row
+   `[0,0,21,1,-1,-1,0]` are smoke-asserted. The one-run timeline covers
+   enemy-side actor `21 -> sprite263/state1`, PP `30 -> 29`, direct damage with
+   `powerPercent=150`, damage frame `-37` in the checked run, HP settle
+   `109 -> 72`, and no buff/debuff/post-effect. Next Wood Lane slice is skill
+   `17`, direct damage plus q() heal param `40`.
+43. `325_battle_skill17_diep_chi_an_hue_source_logic_animation_closeout.md`
+   closes Wood Lane skill `17` / `Diep chi an hue`. Source row
+   `[1,134,546,130,2,30,0,-1,40,0]`, effect row
+   `[0,0,21,1,-1,-1,0, 1,1,10,0,-1,-1,0]`, and speffect row
+   `[9,120,218,217,169,0,4,2]` are smoke-asserted. The one-run timeline covers
+   target-side actor `21 -> sprite263/state1`, attacker-side `speffect10/AH9`,
+   PP `30 -> 29`, direct damage with same-run HP settle, no buff/debuff, and
+   `game.d.q()` post-skill heal using param `40` (`+9` in the smoke). Next Wood
+   Lane slice is skill `18`, stronger direct damage plus debuff id `2`.
+44. `326_battle_skill18_dang_man_trien_nhieu_source_logic_animation_closeout.md`
+   closes Wood Lane skill `18` / `Dang man trien nhieu`. Source row
+   `[1,135,547,150,3,15,2,2,-1,0]`, debuff row `[313,324,3]`, effect row
+   `[0,0,21,0,-1,-1,0]`, and active queue speffect row `6/AH8` are
+   smoke-asserted. The one-run timeline covers target-side actor
+   `21 -> sprite263/state0`, no P7 special chunk, PP `15 -> 14`, direct damage,
+   debuff2 `Quan Quanh` with icon `3/duration 137`, source skill `18`, P12
+   active queue `speffect6/AH8`, no-op HP/stat tick `74 -> 74`, duration
+   `3 -> 2`, and expiry/clear after three ticks. Next Wood Lane slice is skill
+   `19`, stronger direct damage plus delayed debuff id `3`.
 
 ## Phase Dependency Rules
 

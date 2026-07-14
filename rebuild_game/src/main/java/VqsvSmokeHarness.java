@@ -271,6 +271,28 @@ final class VqsvSmokeHarness {
             "battle_skill10_direct_damage_frame",
             "battle_skill10_direct_hp_settled"
     };
+    private static final String[] BATTLE_DIRECT_BASE_ONE_CHUNK_SUITE = {
+            "battle_skill0_direct_before",
+            "battle_skill0_direct_actor_u20_start",
+            "battle_skill0_direct_damage_frame",
+            "battle_skill0_direct_hp_settled",
+            "battle_skill20_direct_before",
+            "battle_skill20_direct_actor_u22_start",
+            "battle_skill20_direct_damage_frame",
+            "battle_skill20_direct_hp_settled",
+            "battle_skill30_direct_before",
+            "battle_skill30_direct_actor_u23_start",
+            "battle_skill30_direct_damage_frame",
+            "battle_skill30_direct_hp_settled",
+            "battle_skill40_direct_before",
+            "battle_skill40_direct_actor_u24_start",
+            "battle_skill40_direct_damage_frame",
+            "battle_skill40_direct_hp_settled",
+            "battle_skill60_direct_before",
+            "battle_skill60_direct_actor_u26_start",
+            "battle_skill60_direct_damage_frame",
+            "battle_skill60_direct_hp_settled"
+    };
 
     private VqsvSmokeHarness() {
     }
@@ -425,7 +447,7 @@ final class VqsvSmokeHarness {
         }
     }
 
-    private static void tickUntilBattleState(VqsvIntroDemo.Scene s, String stateName, int maxTicks) {
+    static void tickUntilBattleState(VqsvIntroDemo.Scene s, String stateName, int maxTicks) {
         int guard = 0;
         while (!stateName.equals(s.battleStateName) && guard++ < maxTicks) {
             s.tick();
@@ -637,7 +659,7 @@ final class VqsvSmokeHarness {
         return false;
     }
 
-    private static boolean traceContains(VqsvIntroDemo.Scene s, String needle) {
+    static boolean traceContains(VqsvIntroDemo.Scene s, String needle) {
         for (String line : s.sourceStateTrace) {
             if (line.contains(needle)) {
                 return true;
@@ -646,7 +668,7 @@ final class VqsvSmokeHarness {
         return false;
     }
 
-    private static boolean traceContainsAll(VqsvIntroDemo.Scene s, String... needles) {
+    static boolean traceContainsAll(VqsvIntroDemo.Scene s, String... needles) {
         for (String line : s.sourceStateTrace) {
             boolean ok = true;
             for (String needle : needles) {
@@ -671,7 +693,7 @@ final class VqsvSmokeHarness {
         return -1;
     }
 
-    private static int latestTraceDamage(VqsvIntroDemo.Scene s, String needle) {
+    static int latestTraceDamage(VqsvIntroDemo.Scene s, String needle) {
         for (int i = s.sourceStateTrace.size() - 1; i >= 0; i--) {
             String line = s.sourceStateTrace.get(i);
             if (!line.contains(needle)) {
@@ -704,7 +726,7 @@ final class VqsvSmokeHarness {
         return count;
     }
 
-    private static void tickUntilTraceContains(VqsvIntroDemo.Scene s, String needle, int maxTicks) {
+    static void tickUntilTraceContains(VqsvIntroDemo.Scene s, String needle, int maxTicks) {
         int guard = 0;
         while (!traceContains(s, needle) && guard++ < maxTicks) {
             if (s.text != null && s.text.readyForKey) {
@@ -857,7 +879,7 @@ final class VqsvSmokeHarness {
                 + " target=" + expected);
     }
 
-    private static void tickUntilBattleP7Phase(VqsvIntroDemo.Scene s, int phase, int maxTicks) {
+    static void tickUntilBattleP7Phase(VqsvIntroDemo.Scene s, int phase, int maxTicks) {
         int guard = 0;
         while (!"P7".equals(s.battleStateName) || s.battleP7Phase != phase) {
             if (guard++ >= maxTicks) {
@@ -1062,6 +1084,386 @@ final class VqsvSmokeHarness {
                     + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
                     + " damage=" + damage
                     + " trace=" + tailTrace(s, 36));
+        }
+    }
+
+    private static boolean isDirectBaseOneChunkCheckpoint(String checkpoint) {
+        int skillId = directBaseSkillIdFromCheckpoint(checkpoint);
+        if (!isDirectBaseOneChunkSkill(skillId)) {
+            return false;
+        }
+        return checkpoint.equals(directBaseCheckpointName(skillId, "before"))
+                || checkpoint.equals(directBaseActorCheckpointName(skillId))
+                || checkpoint.equals(directBaseCheckpointName(skillId, "damage_frame"))
+                || checkpoint.equals(directBaseCheckpointName(skillId, "hp_settled"));
+    }
+
+    private static void handleDirectBaseOneChunkCheckpoint(VqsvIntroDemo.Scene s, String checkpoint) {
+        int skillId = directBaseSkillIdFromCheckpoint(checkpoint);
+        int effectId = directBaseActorEffectId(skillId);
+        if (checkpoint.equals(directBaseCheckpointName(skillId, "before"))) {
+            SourceBattleRuntime runtime = enterElderP3DirectBaseBeforeConfirm(s, skillId);
+            assertDirectBaseSourceRows(s, checkpoint, skillId);
+            assertDirectBaseP3BeforeConfirm(s, runtime, checkpoint, skillId);
+            s.sourceStateTrace.add("SMOKE verified direct-base skill" + skillId + " before"
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " effectRow=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(skillId)));
+            return;
+        }
+
+        enterElderP7WithSkills(s, new int[]{skillId, 45}, 0);
+        SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        assertDirectBaseSourceRows(s, checkpoint, skillId);
+
+        if (checkpoint.equals(directBaseActorCheckpointName(skillId))) {
+            tickUntilBattleP7Phase(s, 1, 120);
+            for (int i = 0; i < 20 && !s.battleP7ActorEffectVisible; i++) {
+                s.tick();
+            }
+            assertDirectBaseP7ActorVisible(s, runtime, checkpoint, skillId);
+            s.sourceStateTrace.add("SMOKE verified direct-base skill" + skillId + " actor"
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " actorEffect=" + effectId
+                    + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                    + " actorState=" + s.battleP7ActorEffectState
+                    + " actorCursor=" + s.battleP7ActorEffectCursor
+                    + " side=" + (s.battleP7ActorEffectOnPlayerSide ? "player" : "enemy"));
+            return;
+        }
+
+        tickUntilBattleP7Phase(s, 2, 160);
+        int damage = latestTraceDamage(s, "battle P7 damage frame skill=" + skillId);
+        if (checkpoint.equals(directBaseCheckpointName(skillId, "damage_frame"))) {
+            assertDirectBaseDamageFrame(s, runtime, checkpoint, skillId, damage);
+            s.sourceStateTrace.add("SMOKE verified direct-base skill" + skillId + " damage frame"
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " damage=" + damage
+                    + " damageText=" + s.battleP7DamageText
+                    + " actorVisible=" + s.battleP7ActorEffectVisible);
+            return;
+        }
+
+        int expectedEnemyHp = Math.max(0, s.battleEnemyMaxHp - damage);
+        int guard = 0;
+        while ("P7".equals(s.battleStateName)
+                && s.battleEnemyHp > expectedEnemyHp
+                && guard++ < 240) {
+            s.tick();
+        }
+        if (s.battleEnemyHp > expectedEnemyHp
+                || runtime.debugPlayerSkillPpForSmoke(0) != 44
+                || damage <= 0
+                || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                || !traceContains(s, "battle P7 actor u.a() start skill=" + skillId)
+                || !traceContains(s, "battle P7 damage frame skill=" + skillId)) {
+            throw new IllegalStateException(checkpoint + " expected direct-base skill" + skillId
+                    + " HP display to settle after damage"
+                    + " state=" + s.battleStateName
+                    + " phase=" + s.battleP7Phase
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " expectedHp=" + expectedEnemyHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " damage=" + damage
+                    + " trace=" + tailTrace(s, 36));
+        }
+        s.sourceStateTrace.add("SMOKE verified direct-base skill" + skillId + " hp settled"
+                + " state=" + s.battleStateName
+                + " phase=" + s.battleP7Phase
+                + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                + " expectedEnemyHp=" + expectedEnemyHp
+                + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                + " damage=" + damage
+                + " actorVisible=" + s.battleP7ActorEffectVisible);
+    }
+
+    private static int parsePlusText(String text) {
+        if (text == null || text.length() < 2 || text.charAt(0) != '+') {
+            return -1;
+        }
+        try {
+            return Integer.parseInt(text.substring(1));
+        } catch (NumberFormatException ex) {
+            return -1;
+        }
+    }
+
+    private static String directTimelinePngName(int skillId, String suffix) {
+        return "battle_skill" + skillId + "_direct_timeline_" + suffix + ".png";
+    }
+
+    private static void writeScenePng(VqsvIntroDemo.Scene s, java.io.File out) throws java.io.IOException {
+        BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        s.render(g);
+        g.dispose();
+        ImageIO.write(img, "png", out);
+    }
+
+    private static SourceBattleRuntime enterElderP3DirectBaseBeforeConfirm(VqsvIntroDemo.Scene s, int skillId) {
+        s.eventIndex = s.events.size();
+        s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, skillId, 45));
+        SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
+                new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+        s.current = runtime;
+        tickUntilBattleState(s, "P20", 120);
+        s.battleClickX = 20;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P3", 80);
+        for (int i = 0; i < 10; i++) {
+            s.tick();
+        }
+        return runtime;
+    }
+
+    private static void assertDirectBaseSourceRows(VqsvIntroDemo.Scene s, String checkpoint, int skillId) {
+        BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
+        byte[] effect = VqsvBattleAnimationTables.instance().effectRow(skillId);
+        byte[] expectedEffect = directBaseExpectedEffectRow(skillId);
+        if (row == null
+                || row.powerPercent != directBaseExpectedPower(skillId)
+                || row.ppMax != directBaseExpectedPp(skillId)
+                || row.effectMode != 0
+                || row.effectId != -1
+                || row.chanceOrParam != -1
+                || row.targetSide != 0
+                || !java.util.Arrays.equals(effect, expectedEffect)) {
+            throw new IllegalStateException(checkpoint + " direct-base skill" + skillId + " source row mismatch"
+                    + " skill=" + (row == null ? "null" : java.util.Arrays.toString(row.raw))
+                    + " effect=" + java.util.Arrays.toString(effect)
+                    + " expectedEffect=" + java.util.Arrays.toString(expectedEffect));
+        }
+        s.sourceStateTrace.add("SMOKE verified direct-base source rows skill" + skillId
+                + " aq.c[1]=" + java.util.Arrays.toString(row.raw)
+                + " effect.mid=" + java.util.Arrays.toString(effect)
+                + " name=" + row.name("skill" + skillId));
+    }
+
+    private static void assertDirectBaseP3BeforeConfirm(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                       String checkpoint, int skillId) {
+        if (!"P3".equals(s.battleStateName)
+                || s.battleSkillIds.length == 0
+                || s.battleSkillIds[0] != skillId
+                || runtime.debugPlayerSkillPpForSmoke(0) != directBaseExpectedPp(skillId)
+                || s.battleEnemyHp != s.battleEnemyMaxHp
+                || s.battleP7ActorEffectVisible
+                || s.battleP7DamageVisible) {
+            throw new IllegalStateException(checkpoint + " expected P3 pre-confirm direct-base skill" + skillId
+                    + " state=" + s.battleStateName
+                    + " skills=" + java.util.Arrays.toString(s.battleSkillIds)
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " actor=" + s.battleP7ActorEffectVisible
+                    + " damageVisible=" + s.battleP7DamageVisible
+                    + " trace=" + tailTrace(s, 24));
+        }
+    }
+
+    private static void assertDirectBaseP7ActorVisible(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                       String checkpoint, int skillId) {
+        int effectId = directBaseActorEffectId(skillId);
+        if (!s.battleP7ActorEffectVisible
+                || s.battleP7ActorEffectSpriteId != directBaseActorSpriteId(skillId)
+                || s.battleP7ActorEffectState != directBaseActorState(skillId)
+                || s.battleP7ActorEffectOnPlayerSide
+                || s.battleEnemyHp != s.battleEnemyMaxHp
+                || runtime.debugPlayerSkillPpForSmoke(0) != directBaseExpectedPpAfterUse(skillId)
+                || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                || !traceContains(s, "id=" + effectId)
+                || !traceContains(s, "param=" + directBaseActorState(skillId))
+                || !traceContains(s, "battle P7 actor u.a() start skill=" + skillId)
+                || traceContains(s, "battle P7 damage frame skill=" + skillId)) {
+            throw new IllegalStateException(checkpoint + " expected direct-base skill" + skillId + " actor"
+                    + " actorVisible=" + s.battleP7ActorEffectVisible
+                    + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                    + " actorState=" + s.battleP7ActorEffectState
+                    + " actorCursor=" + s.battleP7ActorEffectCursor
+                    + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " trace=" + tailTrace(s, 36));
+        }
+    }
+
+    private static void assertDirectBaseDamageFrame(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                    String checkpoint, int skillId, int damage) {
+        if (!s.battleP7DamageVisible
+                || s.battleP7DamageText.isEmpty()
+                || !s.battleP7MissText.isEmpty()
+                || s.battleP7ActorEffectVisible
+                || runtime.debugPlayerSkillPpForSmoke(0) != directBaseExpectedPpAfterUse(skillId)
+                || damage <= 0
+                || s.battleEnemyHp != s.battleEnemyMaxHp
+                || !traceContains(s, "battle P7 damage frame skill=" + skillId)
+                || !traceContains(s, "hit=true")
+                || !traceContains(s, "sideEffectsCommitted=true")) {
+            throw new IllegalStateException(checkpoint + " expected direct-base skill" + skillId + " damage frame"
+                    + " visible=" + s.battleP7DamageVisible
+                    + " damageText=" + s.battleP7DamageText
+                    + " missText=" + s.battleP7MissText
+                    + " actorVisible=" + s.battleP7ActorEffectVisible
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " damage=" + damage
+                    + " trace=" + tailTrace(s, 36));
+        }
+    }
+
+    private static int directBaseSkillIdFromCheckpoint(String checkpoint) {
+        String prefix = "battle_skill";
+        String marker = "_direct_";
+        if (!checkpoint.startsWith(prefix)) {
+            return -1;
+        }
+        int end = checkpoint.indexOf(marker, prefix.length());
+        if (end < 0) {
+            return -1;
+        }
+        try {
+            return Integer.parseInt(checkpoint.substring(prefix.length(), end));
+        } catch (NumberFormatException ex) {
+            return -1;
+        }
+    }
+
+    private static boolean isDirectBaseOneChunkSkill(int skillId) {
+        return skillId == 0 || skillId == 20 || skillId == 30 || skillId == 40 || skillId == 60;
+    }
+
+    private static String directBaseCheckpointName(int skillId, String suffix) {
+        return "battle_skill" + skillId + "_direct_" + suffix;
+    }
+
+    private static String directBaseActorCheckpointName(int skillId) {
+        return "battle_skill" + skillId + "_direct_actor_u" + directBaseActorEffectId(skillId) + "_start";
+    }
+
+    private static byte[] directBaseExpectedEffectRow(int skillId) {
+        return new byte[]{0, 0, (byte) directBaseActorEffectId(skillId),
+                (byte) directBaseActorState(skillId), -1, -1, 0};
+    }
+
+    private static int directBaseActorEffectId(int skillId) {
+        switch (skillId) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                return 20;
+            case 10:
+            case 16:
+            case 18:
+            case 19:
+                return 21;
+            case 20:
+                return 22;
+            case 30:
+                return 23;
+            case 40:
+                return 24;
+            case 60:
+                return 26;
+            default:
+                throw new IllegalArgumentException("Not a one-chunk direct-base smoke skill: " + skillId);
+        }
+    }
+
+    private static int directBaseActorSpriteId(int skillId) {
+        return directBaseActorEffectId(skillId) + 242;
+    }
+
+    private static int directBaseActorState(int skillId) {
+        if (skillId >= 10 && skillId <= 19) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private static int directBaseExpectedPower(int skillId) {
+        switch (skillId) {
+            case 9:
+                return 200;
+            case 6:
+            case 16:
+            case 26:
+            case 36:
+            case 46:
+            case 56:
+            case 66:
+                return 150;
+            default:
+                return 100;
+        }
+    }
+
+    private static int directBaseExpectedPp(int skillId) {
+        if (skillId == 3) {
+            return 30;
+        }
+        if (skillId == 9) {
+            return 15;
+        }
+        return directBaseExpectedPower(skillId) == 150 ? 30 : 45;
+    }
+
+    private static int directBaseExpectedPpAfterUse(int skillId) {
+        return Math.max(0, directBaseExpectedPp(skillId) - 1);
+    }
+
+    private static String directBaseAsciiName(int skillId) {
+        switch (skillId) {
+            case 0:
+                return "Hoa trao";
+            case 1:
+                return "Duong viem";
+            case 2:
+                return "Diem kich";
+            case 3:
+                return "Hoa Van trieu";
+            case 6:
+                return "Hoa diem dao";
+            case 9:
+                return "Vinh hang hoa anh";
+            case 10:
+                return "Diep Toan";
+            case 16:
+                return "Cham Diep Tram";
+            default:
+                return "Skill " + skillId;
+        }
+    }
+
+    private static String directBaseAsciiDescription(int skillId) {
+        switch (skillId) {
+            case 0:
+                return "Thuong ton thap.";
+            case 1:
+                return "Thuong ton thap va gay Gieo Hat.";
+            case 2:
+                return "Thuong ton thap, 10 phan tram gay Me Muoi.";
+            case 3:
+                return "Thuong ton thap; tang damage neu muc tieu co Gieo Hat.";
+            case 6:
+                return "Ty le thuong ton gia tang kha cao.";
+            case 9:
+                return "Thuong ton cao; tang damage neu muc tieu co Gieo Hat.";
+            case 10:
+                return "Thuong ton thap.";
+            case 16:
+                return "Ty le thuong ton gia tang kha cao.";
+            default:
+                return "";
         }
     }
 
@@ -6335,6 +6737,8 @@ final class VqsvSmokeHarness {
                 }
             } else if (isSkill10DirectAnimationCheckpoint(checkpoint)) {
                 handleSkill10DirectAnimationCheckpoint(s, checkpoint);
+            } else if (isDirectBaseOneChunkCheckpoint(checkpoint)) {
+                handleDirectBaseOneChunkCheckpoint(s, checkpoint);
             } else if ("battle_elder_p7_damage_frame".equals(checkpoint)) {
                 enterElderP7FromFight(s);
                 tickUntilBattleP7Phase(s, 2, 120);
@@ -12757,7 +13161,9 @@ final class VqsvSmokeHarness {
                     + " " + (i + 1) + "/" + checkpoints.length
                     + " checkpoint=" + checkpoint
                     + " out=" + out.getPath());
-            runSmokeCheckpoint(checkpoint, out.getPath());
+            if (!VqsvSkillSmokeSupport.runTimeline(checkpoint, out.getPath())) {
+                runSmokeCheckpoint(checkpoint, out.getPath());
+            }
         }
         long elapsed = System.currentTimeMillis() - start;
         System.out.println("smoke-suite-ok " + suite
@@ -12778,6 +13184,13 @@ final class VqsvSmokeHarness {
         }
         if ("battle_skill10_direct_animation".equals(suite)) {
             return BATTLE_SKILL10_DIRECT_ANIMATION_SUITE;
+        }
+        if ("battle_direct_base_one_chunk".equals(suite)) {
+            return BATTLE_DIRECT_BASE_ONE_CHUNK_SUITE;
+        }
+        String[] skillCheckpoints = VqsvSkillSmokeSupport.checkpointsForSuite(suite);
+        if (skillCheckpoints != null) {
+            return skillCheckpoints;
         }
         throw new IllegalArgumentException("Unknown smoke suite: " + suite);
     }
@@ -13088,6 +13501,59 @@ final class VqsvSmokeHarness {
                 .collect(java.util.stream.Collectors.joining(","));
     }
 
+    private static void handleBattleLabSkillTestAllSmoke(VqsvIntroDemo.Scene s) {
+        setupLiveCheckpoint(s, "battle_lab_skill_test_all");
+        if (!"P3".equals(s.battleStateName)
+                || !"choiceskill".equals(s.battleUiMode)
+                || s.battleSkillIds.length != 70
+                || s.battleSkillIds[0] != 0
+                || s.battleSkillIds[69] != 69
+                || s.battleSkillNames.length != 70
+                || s.battleSkillPpLabels.length != 70) {
+            throw new IllegalStateException("Expected battle lab skill test all list"
+                    + " state=" + s.battleStateName
+                    + " ui=" + s.battleUiMode
+                    + " ids=" + java.util.Arrays.toString(s.battleSkillIds)
+                    + " names=" + s.battleSkillNames.length
+                    + " ppLabels=" + s.battleSkillPpLabels.length
+                    + " trace=" + tailTrace(s, 18));
+        }
+        s.mouseWheel(20);
+        s.tick();
+        if (s.battleSkillScroll <= 0 || s.battleSkillIds[s.battleSkillIndex] < 0) {
+            throw new IllegalStateException("Expected battle lab skill test list to scroll"
+                    + " scroll=" + s.battleSkillScroll
+                    + " index=" + s.battleSkillIndex
+                    + " selected=" + (s.battleSkillIndex >= 0 && s.battleSkillIndex < s.battleSkillIds.length
+                    ? s.battleSkillIds[s.battleSkillIndex] : -1));
+        }
+        s.sourceStateTrace.add("SMOKE verified battle lab all-skill list ids=0..69"
+                + " selected=" + s.battleSkillIds[s.battleSkillIndex]
+                + " scroll=" + s.battleSkillScroll);
+    }
+
+    static boolean runBattleLabSkillTestAllSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_lab_skill_test_all".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            handleBattleLabSkillTestAllSmoke(s);
+            writeScenePng(s, new java.io.File(outPath));
+            System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                    + " battleState=" + s.battleStateName
+                    + " ui=" + s.battleUiMode
+                    + " skillCount=" + s.battleSkillIds.length
+                    + " scroll=" + s.battleSkillScroll
+                    + " selected=" + s.battleSkillIds[s.battleSkillIndex]);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
     static void setupLiveCheckpoint(VqsvIntroDemo.Scene s, String checkpoint) {
         s.eventIndex = s.events.size();
         if ("battle_bunny_command_ui".equals(checkpoint)) {
@@ -13164,6 +13630,19 @@ final class VqsvSmokeHarness {
         } else if ("battle_elder_skill45_p7".equals(checkpoint)) {
             enterElderP7WithSkillIndex(s, 1);
             tickUntilBattleP7Phase(s, 1, 80);
+        } else if ("battle_lab_skill_test_all".equals(checkpoint)) {
+            s.sourcePets.add(new SourcePetState(0, 17, 50, 3, 2, 0, 45));
+            SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 50, 1},
+                    new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+            runtime.enableSkillLabAllSkills(s);
+            s.current = runtime;
+            tickUntilBattleState(s, "P20", 120);
+            s.battleClickX = 20;
+            s.battleClickY = 300;
+            tickUntilBattleState(s, "P3", 80);
+            for (int i = 0; i < 10; i++) {
+                s.tick();
+            }
         } else if ("battle_p11_shop_full_source_item_rows".equals(checkpoint)
                 || "battle_p11_shop_hover_preview_no_confirm".equals(checkpoint)
                 || "battle_p11_shop_mouse_wheel_no_confirm".equals(checkpoint)) {
@@ -13409,7 +13888,7 @@ final class VqsvSmokeHarness {
                 + " ids=" + java.util.Arrays.toString(s.battleMenuIds));
     }
 
-    private static SourceBattleRuntime setupPhase10AStatusBattle(VqsvIntroDemo.Scene s) {
+    static SourceBattleRuntime setupPhase10AStatusBattle(VqsvIntroDemo.Scene s) {
         s.eventIndex = s.events.size();
         s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
         SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 5, 1},
@@ -13566,7 +14045,7 @@ final class VqsvSmokeHarness {
         return damage;
     }
 
-    private static int[] statusBuff1Skill10Probe(VqsvIntroDemo.Scene s, boolean applyBuff1,
+    static int[] statusBuff1Skill10Probe(VqsvIntroDemo.Scene s, boolean applyBuff1,
                                                  boolean expireBeforeUse, int critRoll,
                                                  int hitRoll, boolean forceMissSetup) {
         enterElderP7WithSkills(s, new int[]{10, 45}, 0);
@@ -13614,7 +14093,7 @@ final class VqsvSmokeHarness {
         return new int[]{damage, s.battleEnemyHp, s.battleEnemyMaxHp, baseDefense, currentDefense, duration};
     }
 
-    private static int[] statusBuff2Skill10ReflectProbe(VqsvIntroDemo.Scene s, boolean applyBuff2,
+    static int[] statusBuff2Skill10ReflectProbe(VqsvIntroDemo.Scene s, boolean applyBuff2,
                                                         int critRoll, int hitRoll, boolean forceMissSetup,
                                                         boolean tickPostEffects) {
         enterElderP7WithSkills(s, new int[]{10, 45}, 0);
@@ -20004,7 +20483,7 @@ final class VqsvSmokeHarness {
         }
     }
 
-    private static void assertPhase10AStatusSlots(VqsvIntroDemo.Scene s, boolean playerSide,
+    static void assertPhase10AStatusSlots(VqsvIntroDemo.Scene s, boolean playerSide,
                                                   String label, int[] expectedIcons,
                                                   int[] expectedDurations) {
         int count = playerSide ? s.battlePlayerStatusCount : s.battleEnemyStatusCount;
@@ -21572,7 +22051,7 @@ final class VqsvSmokeHarness {
         return false;
     }
 
-    private static String tailTrace(VqsvIntroDemo.Scene s, int count) {
+    static String tailTrace(VqsvIntroDemo.Scene s, int count) {
         int start = Math.max(0, s.sourceStateTrace.size() - count);
         return s.sourceStateTrace.subList(start, s.sourceStateTrace.size()).toString();
     }
@@ -21602,3 +22081,4 @@ final class VqsvSmokeHarness {
         }
     }
 }
+
