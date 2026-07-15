@@ -5,19 +5,19 @@
   "block_sizes": [
     6947,
     4275,
-    8480,
-    19617,
+    8376,
+    11841,
     568,
     557,
     627,
     544,
-    3554,
+    3600,
     8080,
     1841,
     2869,
     2116,
     7251,
-    2518,
+    2512,
     719,
     739,
     941,
@@ -261,7 +261,7 @@
           "param_len": 13,
           "values": [
             0,
-            23,
+            40,
             0,
             63,
             80,
@@ -299,7 +299,7 @@
           "param_len": 13,
           "values": [
             0,
-            53,
+            38,
             0,
             109,
             75,
@@ -318,7 +318,7 @@
           "param_len": 13,
           "values": [
             0,
-            52,
+            37,
             0,
             159,
             116,
@@ -337,7 +337,7 @@
           "param_len": 13,
           "values": [
             0,
-            54,
+            36,
             0,
             81,
             110,
@@ -2222,7 +2222,7 @@
     },
     {
       "room_index": 2,
-      "block_size": 8480,
+      "block_size": 8376,
       "room_start": 11282,
       "room_name": "Khí cầu",
       "string_pool_count": 120,
@@ -2342,11 +2342,11 @@
         "0,2",
         "1,1",
         "Sophie",
-        "Con vẫn thường nghĩ tình thân của là kỳ diệu ...",
+        "Con đã nghĩ tình thân là thứ kỳ diệu...",
         "Silia",
-        "Ha ha! Chẳng phải ta chính là phụ thân của con đó sao?! Ha ha ha ha!",
+        "Không cần phải nghĩ nhiều bởi ta chẳng phải là phụ thân của con sao?",
         "Sophie",
-        "Vâng, con không quan tâm thân phật thực sự của mình, nhưng là Yafei ..."
+        "Con biết, nhưng là Yafei ..."
       ],
       "unknown_ab": 73,
       "unknown_skip": 0,
@@ -2869,9 +2869,9 @@
           "values": [
             0,
             262,
-            0,
-            434,
-            217,
+            6,
+            71,
+            187,
             0,
             0,
             1,
@@ -2888,9 +2888,9 @@
           "values": [
             0,
             266,
-            0,
-            72,
-            231,
+            3,
+            424,
+            233,
             0,
             0,
             0,
@@ -4277,9 +4277,9 @@
               "opcode": 15,
               "total_arg_count": 3,
               "short_args": [
-                11,
-                3,
-                8
+                8,
+                6,
+                1
               ],
               "string_args": []
             },
@@ -4348,7 +4348,7 @@
                 },
                 {
                   "string_index": 115,
-                  "text": "Con vẫn thường nghĩ tình thân của là kỳ diệu ..."
+                  "text": "Con đã nghĩ tình thân là thứ kỳ diệu..."
                 }
               ]
             },
@@ -4366,7 +4366,7 @@
                 },
                 {
                   "string_index": 117,
-                  "text": "Ha ha! Chẳng phải ta chính là phụ thân của con đó sao?! Ha ha ha ha!"
+                  "text": "Không cần phải nghĩ nhiều bởi ta chẳng phải là phụ thân của con sao?"
                 }
               ]
             },
@@ -4384,7 +4384,7 @@
                 },
                 {
                   "string_index": 119,
-                  "text": "Vâng, con không quan tâm thân phật thực sự của mình, nhưng là Yafei ..."
+                  "text": "Con biết, nhưng là Yafei ..."
                 }
               ]
             },
@@ -4415,8 +4415,8 @@
               "short_args": [
                 1,
                 0,
-                256,
-                256,
+                277,
+                186,
                 240,
                 320
               ],
@@ -4426,9 +4426,9 @@
               "opcode": 6,
               "total_arg_count": 4,
               "short_args": [
-                11,
-                3,
-                21,
+                8,
+                6,
+                23,
                 0
               ],
               "string_args": []
@@ -4442,15 +4442,15 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 8480,
-      "declared_block_size": 8480
+      "bytes_consumed_in_room": 8376,
+      "declared_block_size": 8376
     },
     {
       "room_index": 3,
-      "block_size": 19617,
-      "room_start": 19762,
+      "block_size": 11841,
+      "room_start": 19658,
       "room_name": "Bạch Long Thành",
-      "string_pool_count": 251,
+      "string_pool_count": 149,
       "string_pool": [
         "Neil",
         "Doranle bệ hạ. Đây là thứ Karen nhờ tôi giao cho ngài.",
@@ -4529,9 +4529,9 @@
         "Neil",
         "Không quan trọng. Ta chỉ nghĩ mang hết lực lượng của mình bảo vệ nàng.",
         "Doranle",
-        "Con người sống có lâu so với Thiên Địa, nhưng chỉ cái chớp mắt có thể tan biến. Thiên Giới chúng ta vĩnh viễn không hiểu. Chàng trai ta sẽ đưa ngươi trở lại thời điểm trước khi họ biến mất, ngươi hãy ngăn cản bọn họ.",
+        "Con người sống có lâu so với Thiên Địa, nhưng chỉ cái chớp mắt có thể tan biến. Thiên Giới chúng ta vĩnh viễn không hiểu. Chàng trai ta sẽ đưa ngươi trở lại Thiên Địa Chi Sơ.",
         "Neil",
-        "Được!",
+        "Cám ơn ngài!",
         "Doranle",
         "Du hành qua thời gian với ba vị thánh thú Thiên Giới và bốn vị thánh thú Địa Giới. Ba vị thánh thú Thiên Giới hiện đang ngủ say, hãy mau thức tỉnh bọn họ.",
         "Neil",
@@ -4573,7 +4573,7 @@
         "Neil",
         "Thần quan đại nhân, ba vị thần thú Thiên Giới đã đồng ý trợ giúp ta!",
         "Tomas",
-        "Được!",
+        "Tốt!",
         "Tomas hướng ra phía Thánh kính cẩn hạ người hành lễ.",
         "Tomas",
         "Ba vị thần thú Thiên Giới đã đồng ý giúp cậu mở ra Thiên Địa chi môn, ta sẽ đến Bạch Long Thánh Điện chuẩn bị nghi thức.",
@@ -4588,7 +4588,7 @@
         "Tomas",
         "Ừm. Vậy thì trong thời gian ta chuẩn bị nghi thức, Neil, cậu hãy đến đạo quán lấy huy hiệu.",
         "Neil",
-        "Được.",
+        "Được. Ta sẽ lập tức đi ngay",
         "Đến [Thiên Giới Đạo Quán] lấy U Linh Chương.",
         "XianLa",
         "Thứ quả này rất ngon!",
@@ -4600,113 +4600,11 @@
         "Neil",
         "Tùy ý ngài",
         "XianLa",
-        "Hắc hắc! Cám ơn ngươi thật tốt",
-        "20,18",
-        "2,0",
-        "1,1",
-        "Silia",
-        "Kẻ thù truyền kiếp của ta, giờ ta cũng không ngại cùng các người chơi ván cờ này!",
-        "Sophie",
-        "Không! Đây là số mệnh của chúng ta, tự ta sẽ giải quyết.",
-        "Neil",
-        "Nếu như ta… ta…",
-        "Neil",
-        "Sophie…… Có phải ngươi muốn mang Silia trở lại Nguyên thủy ngự tòa?",
-        "Sophie",
-        "Sao ngươi……",
-        "Silia",
-        "Thiên giới vương, gan ngươi không nhỏ. Nếu ta đưa ngươi 1 con ngựa Thiên giới, ngươi có dám thử lần nữa không?",
-        "Silia",
-        "Nhân loại các ngươi dám xen vào cuộc chiến của các vị thần?",
-        "Neil",
-        "Các vị thần……",
-        "Sophie",
-        "Đủ rồi, chúng ta đánh nhau từ Thiên địa chi sơ đến bây giờ. Thiên địa vì trận chiến của chúng ta mà rung chuyển. Vạn vật sinh linh của thế gian trở thành bàn cơ của chúng ta, việc này ta nghĩ nên dừng lại, Hắc Long!",
-        "Silia",
-        "Chỉ cần ngươi biến đi, Thiên địa chỉ có một mình ta ra mệnh lệnh, sẽ không còn có phân tranh nữa",
-        "Sophie",
-        "Đây mới là mục đích thực sự của ngươi? Ngươi muốn trở thành trung tâm quyền lực của Thiên địa?",
-        "Silia",
-        "Không sai, Thiên địa Chi vương, đích thị phải là ta!",
-        "21",
-        "2",
-        "1",
-        "Hỏa Phượng Hoàng",
-        "Xin mời thần chủ",
-        "Silia",
-        "Liệt hỏa, còn nhớ ta là chủ nhân của ngươi ư? 16 năm trước ngươi lén cứu Bạch Long sau lưng ta…",
-        "Hỏa Phượng Hoàng",
-        "Đúng vậy, vì ngài là thần chủ của ta, ta mới phải cứu nàng. Bạch Long cùng ngài là song sinh, sống cùng sống, chết cùng chết. Ta là thủ hộ thánh thú của ngài, vì sứ mạng bảo vệ ngài…",
-        "Silia",
-        "Ý ngươi là Bạch Long chết thì ta cũng diệt vong?",
-        "Hỏa Phượng Hoàng",
-        "Đúng vậy. Nếu mất đi trật tự, thân thể của ngài sẽ vì khí huyết hỗn loạn mà tiêu tán. Tương tự, nếu mất đi hỗn loạn, Bạch Long cũng không thể vận chuyển thân thể dẫn tới tiêu vong.",
-        "Sophie",
-        "Đánh nhau đến ngàn vạn năm mới biết điều này. Chiến tranh và cừu hận không phải là số mạng của chúng ta, Hắc Long!",
-        "Silia",
-        "Số mệnh! Số mệnh là cái gì? Mệnh của ta do ta làm chủ, không trời đất gì can thiệp được!",
-        "18",
-        "1",
-        "23",
-        "3",
-        "0",
-        "Sophie",
-        "Ngươi nhất định muốn 1 trận sinh tử sao?!",
-        "20",
-        "1",
-        "21",
-        "1",
-        "24",
-        "1",
-        "0",
-        "23,24",
-        "0,0",
-        "-4,-4",
-        "0,0",
-        "20,20",
-        "23,24",
-        "1,1",
-        "Neil",
-        "Sophie, ta tới giúp ngươi!",
-        "Sophie",
-        "Giúp ta đả bại Chiến đấu thần thú của Hắc Long",
-        "15,31,47,63",
-        "52,52,52,52",
-        "5,5,5,5",
-        "Lực lượng của Hắc Long bị suy yếu!",
-        "0",
-        "1",
-        "20",
-        "2",
-        "1",
-        "23,24",
-        "1,1",
-        "Sophie tay nâng hắc Bảo Châu phiêu nhiên rơi xuống đất",
-        "Sophie",
-        "Thiên địa chi sơ, ngàn vạn năm trước, có Bạch Long ôn hòa, có Hắc Long chí tình. Hắc Long nói, muốn sáng tạo một cái có khoái hoạt có kinh hỉ có tưởng niệm có hi vọng thế giới. Bạch long nói, khoái hoạt cùng thống khổ song sinh, có tưởng niệm tất có ly biệt",
-        "Sophie",
-        "Vì thế, bọn họ rời khỏi Nguyên thủy ngự tòa, khai sáng trời đất. Trật tự và hỗn loạn tựa thiên địa đồng dạng bị ngăn tại Vạn Lý Vân Tầng",
-        "Sophie",
-        "Qua hàng trăm năm, Bạch Long ôn hòa biết thành vô tình, lạnh như băng. Hắc Long chí tình chí nghĩa dần bị dục vọng của mình chi phối",
-        "Sophie",
-        "Bọn họ dùng thế giới làm bàn cờ, thiên địa vạn vật làm quân cờ, ngày ngày điên cuồng chơi cuộc cờ tàn khốc. Cờ tàn, Hắc Bạch Long cùng rơi xuống Thiên địa nhân gian",
-        "Sophie",
-        "Nếu không nhờ Liệt hỏa mang đến địa giới, nếu không phải bị Hắc Long bắt đi lợi dụng, chỉ sợ Bạch Long lúc này không còn chút tình cảm.",
-        "Sophie",
-        "Hắn gạt ta là con gái hắn, một mực sắm vai phụ thân. Hăn chưa bao giờ có tình cảm thực, nhưng ta lại vì thế mà cảm nhận được hạnh phúc, không sợ hãi thất bại, có hy vọng mà không cảm thấy gian nan...",
-        "Khi đó……",
-        "0",
-        "1",
-        "20",
-        "2",
-        "1",
-        "Sophie",
-        "Thật sự rất yêu phụ thân của nàng!",
-        "#FFFFFFCuối cùng, Sophie biến mất, không còn trở về. Ta chưa có trở lại nhân gian, bởi vì ta đột nhiên nhớ tới lời nàng, nhìn thấy quả trừng kia như nhìn thấy nàng……"
+        "Hắc hắc! Cám ơn ngươi thật tốt"
       ],
       "unknown_ab": 93,
       "unknown_skip": 0,
-      "actor_count": 26,
+      "actor_count": 24,
       "actors": [
         {
           "kind": 1,
@@ -5036,7 +4934,7 @@
             0,
             49,
             0,
-            313,
+            315,
             168,
             1,
             1,
@@ -5129,48 +5027,10 @@
           "param_len": 13,
           "values": [
             0,
-            262,
-            0,
-            251,
-            172,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            84,
-            0,
-            325,
-            209,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            85,
-            0,
-            183,
-            235,
+            266,
+            6,
+            225,
+            215,
             0,
             0,
             0,
@@ -5189,7 +5049,7 @@
             44,
             0,
             384,
-            131,
+            133,
             1,
             1,
             1,
@@ -5220,7 +5080,7 @@
         "Đợi",
         "XianLa"
       ],
-      "event_group_count": 10,
+      "event_group_count": 7,
       "event_groups": [
         {
           "group_index": 0,
@@ -6098,7 +5958,7 @@
                 },
                 {
                   "string_index": 77,
-                  "text": "Con người sống có lâu so với Thiên Địa, nhưng chỉ cái chớp mắt có thể tan biến. Thiên Giới chúng ta vĩnh viễn không hiểu. Chàng trai ta sẽ đưa ngươi trở lại thời điểm trước khi họ biến mất, ngươi hãy ngăn cản bọn họ."
+                  "text": "Con người sống có lâu so với Thiên Địa, nhưng chỉ cái chớp mắt có thể tan biến. Thiên Giới chúng ta vĩnh viễn không hiểu. Chàng trai ta sẽ đưa ngươi trở lại Thiên Địa Chi Sơ."
                 }
               ]
             },
@@ -6116,7 +5976,7 @@
                 },
                 {
                   "string_index": 79,
-                  "text": "Được!"
+                  "text": "Cám ơn ngài!"
                 }
               ]
             },
@@ -6677,7 +6537,7 @@
                 },
                 {
                   "string_index": 121,
-                  "text": "Được!"
+                  "text": "Tốt!"
                 }
               ]
             },
@@ -6814,7 +6674,7 @@
                 },
                 {
                   "string_index": 136,
-                  "text": "Được."
+                  "text": "Được. Ta sẽ lập tức đi ngay"
                 }
               ]
             },
@@ -6996,1188 +6856,15 @@
               "string_args": []
             }
           ]
-        },
-        {
-          "group_index": 7,
-          "scene_id": 11,
-          "room_index": 3,
-          "world_key": 2819,
-          "record_count": 46,
-          "records": [
-            {
-              "opcode": 15,
-              "total_arg_count": 3,
-              "short_args": [
-                7,
-                2,
-                6
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 13,
-              "total_arg_count": 4,
-              "short_args": [
-                225,
-                272,
-                32,
-                32
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                2,
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 2,
-              "total_arg_count": 4,
-              "short_args": [
-                2
-              ],
-              "string_args": [
-                {
-                  "string_index": 149,
-                  "text": "20,18"
-                },
-                {
-                  "string_index": 150,
-                  "text": "2,0"
-                },
-                {
-                  "string_index": 151,
-                  "text": "1,1"
-                }
-              ]
-            },
-            {
-              "opcode": 8,
-              "total_arg_count": 2,
-              "short_args": [
-                256,
-                256
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                1,
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                2,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 152,
-                  "text": "Silia"
-                },
-                {
-                  "string_index": 153,
-                  "text": "Kẻ thù truyền kiếp của ta, giờ ta cũng không ngại cùng các người chơi ván cờ này!"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 154,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 155,
-                  "text": "Không! Đây là số mệnh của chúng ta, tự ta sẽ giải quyết."
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                0,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 156,
-                  "text": "Neil"
-                },
-                {
-                  "string_index": 157,
-                  "text": "Nếu như ta… ta…"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                0,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 158,
-                  "text": "Neil"
-                },
-                {
-                  "string_index": 159,
-                  "text": "Sophie…… Có phải ngươi muốn mang Silia trở lại Nguyên thủy ngự tòa?"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 160,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 161,
-                  "text": "Sao ngươi……"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                2,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 162,
-                  "text": "Silia"
-                },
-                {
-                  "string_index": 163,
-                  "text": "Thiên giới vương, gan ngươi không nhỏ. Nếu ta đưa ngươi 1 con ngựa Thiên giới, ngươi có dám thử lần nữa không?"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                2,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 164,
-                  "text": "Silia"
-                },
-                {
-                  "string_index": 165,
-                  "text": "Nhân loại các ngươi dám xen vào cuộc chiến của các vị thần?"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                0,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 166,
-                  "text": "Neil"
-                },
-                {
-                  "string_index": 167,
-                  "text": "Các vị thần……"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                0,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 168,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 169,
-                  "text": "Đủ rồi, chúng ta đánh nhau từ Thiên địa chi sơ đến bây giờ. Thiên địa vì trận chiến của chúng ta mà rung chuyển. Vạn vật sinh linh của thế gian trở thành bàn cơ của chúng ta, việc này ta nghĩ nên dừng lại, Hắc Long!"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                2,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 170,
-                  "text": "Silia"
-                },
-                {
-                  "string_index": 171,
-                  "text": "Chỉ cần ngươi biến đi, Thiên địa chỉ có một mình ta ra mệnh lệnh, sẽ không còn có phân tranh nữa"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 172,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 173,
-                  "text": "Đây mới là mục đích thực sự của ngươi? Ngươi muốn trở thành trung tâm quyền lực của Thiên địa?"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                2,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 174,
-                  "text": "Silia"
-                },
-                {
-                  "string_index": 175,
-                  "text": "Không sai, Thiên địa Chi vương, đích thị phải là ta!"
-                }
-              ]
-            },
-            {
-              "opcode": 2,
-              "total_arg_count": 4,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
-                  "string_index": 176,
-                  "text": "21"
-                },
-                {
-                  "string_index": 177,
-                  "text": "2"
-                },
-                {
-                  "string_index": 178,
-                  "text": "1"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 179,
-                  "text": "Hỏa Phượng Hoàng"
-                },
-                {
-                  "string_index": 180,
-                  "text": "Xin mời thần chủ"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                2,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 181,
-                  "text": "Silia"
-                },
-                {
-                  "string_index": 182,
-                  "text": "Liệt hỏa, còn nhớ ta là chủ nhân của ngươi ư? 16 năm trước ngươi lén cứu Bạch Long sau lưng ta…"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 183,
-                  "text": "Hỏa Phượng Hoàng"
-                },
-                {
-                  "string_index": 184,
-                  "text": "Đúng vậy, vì ngài là thần chủ của ta, ta mới phải cứu nàng. Bạch Long cùng ngài là song sinh, sống cùng sống, chết cùng chết. Ta là thủ hộ thánh thú của ngài, vì sứ mạng bảo vệ ngài…"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                2,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 185,
-                  "text": "Silia"
-                },
-                {
-                  "string_index": 186,
-                  "text": "Ý ngươi là Bạch Long chết thì ta cũng diệt vong?"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 187,
-                  "text": "Hỏa Phượng Hoàng"
-                },
-                {
-                  "string_index": 188,
-                  "text": "Đúng vậy. Nếu mất đi trật tự, thân thể của ngài sẽ vì khí huyết hỗn loạn mà tiêu tán. Tương tự, nếu mất đi hỗn loạn, Bạch Long cũng không thể vận chuyển thân thể dẫn tới tiêu vong."
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 189,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 190,
-                  "text": "Đánh nhau đến ngàn vạn năm mới biết điều này. Chiến tranh và cừu hận không phải là số mạng của chúng ta, Hắc Long!"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                2,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 191,
-                  "text": "Silia"
-                },
-                {
-                  "string_index": 192,
-                  "text": "Số mệnh! Số mệnh là cái gì? Mệnh của ta do ta làm chủ, không trời đất gì can thiệp được!"
-                }
-              ]
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                10,
-                1,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 3,
-              "total_arg_count": 3,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
-                  "string_index": 193,
-                  "text": "18"
-                },
-                {
-                  "string_index": 194,
-                  "text": "1"
-                }
-              ]
-            },
-            {
-              "opcode": 2,
-              "total_arg_count": 4,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
-                  "string_index": 195,
-                  "text": "23"
-                },
-                {
-                  "string_index": 196,
-                  "text": "3"
-                },
-                {
-                  "string_index": 197,
-                  "text": "0"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 198,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 199,
-                  "text": "Ngươi nhất định muốn 1 trận sinh tử sao?!"
-                }
-              ]
-            },
-            {
-              "opcode": 3,
-              "total_arg_count": 3,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
-                  "string_index": 200,
-                  "text": "20"
-                },
-                {
-                  "string_index": 201,
-                  "text": "1"
-                }
-              ]
-            },
-            {
-              "opcode": 3,
-              "total_arg_count": 3,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
-                  "string_index": 202,
-                  "text": "21"
-                },
-                {
-                  "string_index": 203,
-                  "text": "1"
-                }
-              ]
-            },
-            {
-              "opcode": 2,
-              "total_arg_count": 4,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
-                  "string_index": 204,
-                  "text": "24"
-                },
-                {
-                  "string_index": 205,
-                  "text": "1"
-                },
-                {
-                  "string_index": 206,
-                  "text": "0"
-                }
-              ]
-            },
-            {
-              "opcode": 29,
-              "total_arg_count": 6,
-              "short_args": [
-                2
-              ],
-              "string_args": [
-                {
-                  "string_index": 207,
-                  "text": "23,24"
-                },
-                {
-                  "string_index": 208,
-                  "text": "0,0"
-                },
-                {
-                  "string_index": 209,
-                  "text": "-4,-4"
-                },
-                {
-                  "string_index": 210,
-                  "text": "0,0"
-                },
-                {
-                  "string_index": 211,
-                  "text": "20,20"
-                }
-              ]
-            },
-            {
-              "opcode": 3,
-              "total_arg_count": 3,
-              "short_args": [
-                2
-              ],
-              "string_args": [
-                {
-                  "string_index": 212,
-                  "text": "23,24"
-                },
-                {
-                  "string_index": 213,
-                  "text": "1,1"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                0,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 214,
-                  "text": "Neil"
-                },
-                {
-                  "string_index": 215,
-                  "text": "Sophie, ta tới giúp ngươi!"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 216,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 217,
-                  "text": "Giúp ta đả bại Chiến đấu thần thú của Hắc Long"
-                }
-              ]
-            },
-            {
-              "opcode": 67,
-              "total_arg_count": 1,
-              "short_args": [
-                18
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 54,
-              "total_arg_count": 4,
-              "short_args": [
-                4
-              ],
-              "string_args": [
-                {
-                  "string_index": 218,
-                  "text": "15,31,47,63"
-                },
-                {
-                  "string_index": 219,
-                  "text": "52,52,52,52"
-                },
-                {
-                  "string_index": 220,
-                  "text": "5,5,5,5"
-                }
-              ]
-            },
-            {
-              "opcode": 32,
-              "total_arg_count": 2,
-              "short_args": [
-                0,
-                2
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 47,
-              "total_arg_count": 3,
-              "short_args": [
-                42,
-                42,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 40,
-              "total_arg_count": 1,
-              "short_args": [],
-              "string_args": [
-                {
-                  "string_index": 221,
-                  "text": "Lực lượng của Hắc Long bị suy yếu!"
-                }
-              ]
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                2,
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 22,
-              "total_arg_count": 6,
-              "short_args": [
-                1,
-                0,
-                190,
-                160,
-                240,
-                320
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 6,
-              "total_arg_count": 4,
-              "short_args": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 14,
-              "total_arg_count": 0,
-              "short_args": [],
-              "string_args": []
-            }
-          ]
-        },
-        {
-          "group_index": 8,
-          "scene_id": 11,
-          "room_index": 3,
-          "world_key": 2819,
-          "record_count": 18,
-          "records": [
-            {
-              "opcode": 15,
-              "total_arg_count": 3,
-              "short_args": [
-                0,
-                0,
-                2
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 3,
-              "total_arg_count": 3,
-              "short_args": [
-                -1
-              ],
-              "string_args": [
-                {
-                  "string_index": 222,
-                  "text": "0"
-                },
-                {
-                  "string_index": 223,
-                  "text": "1"
-                }
-              ]
-            },
-            {
-              "opcode": 2,
-              "total_arg_count": 4,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
-                  "string_index": 224,
-                  "text": "20"
-                },
-                {
-                  "string_index": 225,
-                  "text": "2"
-                },
-                {
-                  "string_index": 226,
-                  "text": "1"
-                }
-              ]
-            },
-            {
-              "opcode": 3,
-              "total_arg_count": 3,
-              "short_args": [
-                2
-              ],
-              "string_args": [
-                {
-                  "string_index": 227,
-                  "text": "23,24"
-                },
-                {
-                  "string_index": 228,
-                  "text": "1,1"
-                }
-              ]
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                1,
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 40,
-              "total_arg_count": 1,
-              "short_args": [],
-              "string_args": [
-                {
-                  "string_index": 229,
-                  "text": "Sophie tay nâng hắc Bảo Châu phiêu nhiên rơi xuống đất"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 230,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 231,
-                  "text": "Thiên địa chi sơ, ngàn vạn năm trước, có Bạch Long ôn hòa, có Hắc Long chí tình. Hắc Long nói, muốn sáng tạo một cái có khoái hoạt có kinh hỉ có tưởng niệm có hi vọng thế giới. Bạch long nói, khoái hoạt cùng thống khổ song sinh, có tưởng niệm tất có ly biệt"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 232,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 233,
-                  "text": "Vì thế, bọn họ rời khỏi Nguyên thủy ngự tòa, khai sáng trời đất. Trật tự và hỗn loạn tựa thiên địa đồng dạng bị ngăn tại Vạn Lý Vân Tầng"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 234,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 235,
-                  "text": "Qua hàng trăm năm, Bạch Long ôn hòa biết thành vô tình, lạnh như băng. Hắc Long chí tình chí nghĩa dần bị dục vọng của mình chi phối"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 236,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 237,
-                  "text": "Bọn họ dùng thế giới làm bàn cờ, thiên địa vạn vật làm quân cờ, ngày ngày điên cuồng chơi cuộc cờ tàn khốc. Cờ tàn, Hắc Bạch Long cùng rơi xuống Thiên địa nhân gian"
-                }
-              ]
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 238,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 239,
-                  "text": "Nếu không nhờ Liệt hỏa mang đến địa giới, nếu không phải bị Hắc Long bắt đi lợi dụng, chỉ sợ Bạch Long lúc này không còn chút tình cảm."
-                }
-              ]
-            },
-            {
-              "opcode": 12,
-              "total_arg_count": 1,
-              "short_args": [
-                15
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 240,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 241,
-                  "text": "Hắn gạt ta là con gái hắn, một mực sắm vai phụ thân. Hăn chưa bao giờ có tình cảm thực, nhưng ta lại vì thế mà cảm nhận được hạnh phúc, không sợ hãi thất bại, có hy vọng mà không cảm thấy gian nan..."
-                }
-              ]
-            },
-            {
-              "opcode": 40,
-              "total_arg_count": 1,
-              "short_args": [],
-              "string_args": [
-                {
-                  "string_index": 242,
-                  "text": "Khi đó……"
-                }
-              ]
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                2,
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 33,
-              "total_arg_count": 1,
-              "short_args": [
-                2
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 22,
-              "total_arg_count": 6,
-              "short_args": [
-                1,
-                2,
-                116,
-                133,
-                240,
-                320
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 6,
-              "total_arg_count": 4,
-              "short_args": [
-                11,
-                2,
-                11,
-                0
-              ],
-              "string_args": []
-            }
-          ]
-        },
-        {
-          "group_index": 9,
-          "scene_id": 11,
-          "room_index": 3,
-          "world_key": 2819,
-          "record_count": 10,
-          "records": [
-            {
-              "opcode": 15,
-              "total_arg_count": 3,
-              "short_args": [
-                11,
-                2,
-                3
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 3,
-              "total_arg_count": 3,
-              "short_args": [
-                -1
-              ],
-              "string_args": [
-                {
-                  "string_index": 243,
-                  "text": "0"
-                },
-                {
-                  "string_index": 244,
-                  "text": "1"
-                }
-              ]
-            },
-            {
-              "opcode": 2,
-              "total_arg_count": 4,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
-                  "string_index": 245,
-                  "text": "20"
-                },
-                {
-                  "string_index": 246,
-                  "text": "2"
-                },
-                {
-                  "string_index": 247,
-                  "text": "1"
-                }
-              ]
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                1,
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 4,
-              "total_arg_count": 4,
-              "short_args": [
-                -1,
-                0
-              ],
-              "string_args": [
-                {
-                  "string_index": 248,
-                  "text": "Sophie"
-                },
-                {
-                  "string_index": 249,
-                  "text": "Thật sự rất yêu phụ thân của nàng!"
-                }
-              ]
-            },
-            {
-              "opcode": 1,
-              "total_arg_count": 4,
-              "short_args": [
-                10,
-                30,
-                90
-              ],
-              "string_args": [
-                {
-                  "string_index": 250,
-                  "text": "#FFFFFFCuối cùng, Sophie biến mất, không còn trở về. Ta chưa có trở lại nhân gian, bởi vì ta đột nhiên nhớ tới lời nàng, nhìn thấy quả trừng kia như nhìn thấy nàng……"
-                }
-              ]
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                2,
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 22,
-              "total_arg_count": 6,
-              "short_args": [
-                1,
-                1,
-                255,
-                224,
-                240,
-                320
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 6,
-              "total_arg_count": 4,
-              "short_args": [
-                7,
-                2,
-                60,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 14,
-              "total_arg_count": 0,
-              "short_args": [],
-              "string_args": []
-            }
-          ]
         }
       ],
-      "bytes_consumed_in_room": 19617,
-      "declared_block_size": 19617
+      "bytes_consumed_in_room": 11841,
+      "declared_block_size": 11841
     },
     {
       "room_index": 4,
       "block_size": 568,
-      "room_start": 39379,
+      "room_start": 31499,
       "room_name": "Nhân vật chính",
       "string_pool_count": 0,
       "string_pool": [],
@@ -8359,7 +7046,7 @@
           "param_len": 13,
           "values": [
             0,
-            69,
+            67,
             0,
             66,
             112,
@@ -8440,7 +7127,7 @@
     {
       "room_index": 5,
       "block_size": 557,
-      "room_start": 39947,
+      "room_start": 32067,
       "room_name": "Ngôi nhà nhỏ trong thôn",
       "string_pool_count": 0,
       "string_pool": [],
@@ -8666,7 +7353,7 @@
     {
       "room_index": 6,
       "block_size": 627,
-      "room_start": 40504,
+      "room_start": 32624,
       "room_name": "Thương Điếm Thôn",
       "string_pool_count": 0,
       "string_pool": [],
@@ -8952,7 +7639,7 @@
     {
       "room_index": 7,
       "block_size": 544,
-      "room_start": 41131,
+      "room_start": 33251,
       "room_name": "Mã Đầu Thôn",
       "string_pool_count": 0,
       "string_pool": [],
@@ -9115,10 +7802,10 @@
           "param_len": 13,
           "values": [
             0,
-            52,
+            37,
             0,
             112,
-            110,
+            111,
             1,
             1,
             1,
@@ -9162,8 +7849,8 @@
     },
     {
       "room_index": 8,
-      "block_size": 3554,
-      "room_start": 41675,
+      "block_size": 3600,
+      "room_start": 33795,
       "room_name": "Bích Thủy Thương Điếm",
       "string_pool_count": 72,
       "string_pool": [
@@ -9213,7 +7900,7 @@
         "Fruita",
         "Thôi đi nhanh đi, ta bắt đầu bực rồi đấy.",
         "Neil",
-        "Được!",
+        "Được, được, ta đi liền đây",
         "0",
         "2",
         "4",
@@ -9235,7 +7922,7 @@
         "Fruita",
         "Ở bãi biển phía Nam là nơi có rất nhiều sủng vật hiếm. Ta sẽ đưa ngươi đi.",
         "Neil",
-        "Được!",
+        "Cảm ơn!",
         "12",
         "1",
         "Đến bờ biển phía nam bắt sủng vật."
@@ -9268,8 +7955,8 @@
             0,
             24,
             0,
-            140,
-            230,
+            141,
+            229,
             1,
             1,
             1,
@@ -9288,7 +7975,7 @@
             25,
             0,
             175,
-            230,
+            229,
             1,
             1,
             1,
@@ -9344,8 +8031,8 @@
             0,
             229,
             2,
-            158,
-            229,
+            109,
+            218,
             1,
             0,
             0,
@@ -9362,9 +8049,9 @@
           "values": [
             0,
             229,
-            5,
-            109,
-            218,
+            2,
+            125,
+            228,
             1,
             0,
             0,
@@ -9439,7 +8126,7 @@
             0,
             20,
             0,
-            63,
+            61,
             130,
             1,
             1,
@@ -9456,11 +8143,11 @@
           "param_len": 13,
           "values": [
             0,
-            0,
+            229,
             2,
-            83,
-            72,
-            0,
+            197,
+            229,
+            1,
             0,
             0,
             0,
@@ -9475,7 +8162,7 @@
           "param_len": 13,
           "values": [
             0,
-            81,
+            36,
             0,
             105,
             304,
@@ -9496,7 +8183,7 @@
             0,
             229,
             0,
-            59,
+            60,
             156,
             1,
             0,
@@ -9516,7 +8203,7 @@
             229,
             2,
             27,
-            124,
+            118,
             1,
             0,
             0,
@@ -9535,7 +8222,7 @@
             229,
             4,
             88,
-            127,
+            120,
             1,
             0,
             0,
@@ -10020,7 +8707,7 @@
                 },
                 {
                   "string_index": 46,
-                  "text": "Được!"
+                  "text": "Được, được, ta đi liền đây"
                 }
               ]
             },
@@ -10212,7 +8899,7 @@
                 },
                 {
                   "string_index": 68,
-                  "text": "Được!"
+                  "text": "Cảm ơn!"
                 }
               ]
             },
@@ -10255,13 +8942,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 3554,
-      "declared_block_size": 3554
+      "bytes_consumed_in_room": 3600,
+      "declared_block_size": 3600
     },
     {
       "room_index": 9,
       "block_size": 8080,
-      "room_start": 45229,
+      "room_start": 37395,
       "room_name": "Trụ sở bí mật",
       "string_pool_count": 97,
       "string_pool": [
@@ -10522,7 +9209,7 @@
           "param_len": 13,
           "values": [
             0,
-            51,
+            73,
             0,
             160,
             111,
@@ -10541,7 +9228,7 @@
           "param_len": 13,
           "values": [
             0,
-            81,
+            36,
             0,
             184,
             144,
@@ -11814,7 +10501,7 @@
     {
       "room_index": 10,
       "block_size": 1841,
-      "room_start": 53309,
+      "room_start": 45475,
       "room_name": "Dân cư Bích Thủy 2",
       "string_pool_count": 17,
       "string_pool": [
@@ -11976,7 +10663,7 @@
           "param_len": 13,
           "values": [
             0,
-            52,
+            73,
             0,
             60,
             171,
@@ -12224,7 +10911,7 @@
     {
       "room_index": 11,
       "block_size": 2869,
-      "room_start": 55150,
+      "room_start": 47316,
       "room_name": "Dân cư Bích Thủy 3",
       "string_pool_count": 36,
       "string_pool": [
@@ -12937,7 +11624,7 @@
     {
       "room_index": 12,
       "block_size": 2116,
-      "room_start": 58019,
+      "room_start": 50185,
       "room_name": "Nguyên Mộc Thương Điếm",
       "string_pool_count": 29,
       "string_pool": [
@@ -13571,7 +12258,7 @@
     {
       "room_index": 13,
       "block_size": 7251,
-      "room_start": 60135,
+      "room_start": 52301,
       "room_name": "Nguyên Mộc Thôn Trường Nhất",
       "string_pool_count": 128,
       "string_pool": [
@@ -15315,8 +14002,8 @@
     },
     {
       "room_index": 14,
-      "block_size": 2518,
-      "room_start": 67386,
+      "block_size": 2512,
+      "room_start": 59552,
       "room_name": "Bích Thủy Trưởng thôn",
       "string_pool_count": 71,
       "string_pool": [
@@ -15383,7 +14070,7 @@
         "Neil",
         "trưởng thôn chúng ta đi!",
         "Trưởng thôn",
-        "Được.",
+        "Ừ.",
         "7",
         "1",
         "4",
@@ -16229,7 +14916,7 @@
                 },
                 {
                   "string_index": 63,
-                  "text": "Được."
+                  "text": "Ừ."
                 }
               ]
             },
@@ -16297,13 +14984,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 2518,
-      "declared_block_size": 2518
+      "bytes_consumed_in_room": 2512,
+      "declared_block_size": 2512
     },
     {
       "room_index": 15,
       "block_size": 719,
-      "room_start": 69904,
+      "room_start": 62064,
       "room_name": "Vô dụng",
       "string_pool_count": 0,
       "string_pool": [],
@@ -16511,7 +15198,7 @@
     {
       "room_index": 16,
       "block_size": 739,
-      "room_start": 70623,
+      "room_start": 62783,
       "room_name": "Nguyên Mộc Mã Đầu",
       "string_pool_count": 0,
       "string_pool": [],
@@ -16719,7 +15406,7 @@
     {
       "room_index": 17,
       "block_size": 941,
-      "room_start": 71362,
+      "room_start": 63522,
       "room_name": "Niêm Thổ dã ngoại Thương Điếm",
       "string_pool_count": 0,
       "string_pool": [],
@@ -16922,8 +15609,8 @@
             0,
             229,
             2,
-            28,
-            193,
+            29,
+            191,
             1,
             0,
             0,
@@ -16941,8 +15628,8 @@
             0,
             229,
             2,
-            78,
-            204,
+            79,
+            201,
             1,
             0,
             0,
@@ -17063,7 +15750,7 @@
     {
       "room_index": 18,
       "block_size": 933,
-      "room_start": 72303,
+      "room_start": 64463,
       "room_name": "Niêm Thổ Thương Điếm",
       "string_pool_count": 0,
       "string_pool": [],
@@ -17247,8 +15934,8 @@
             0,
             229,
             2,
-            210,
-            219,
+            160,
+            228,
             1,
             0,
             0,
@@ -17266,8 +15953,8 @@
             0,
             229,
             2,
-            109,
-            217,
+            210,
+            221,
             1,
             0,
             0,
@@ -17323,8 +16010,8 @@
             0,
             229,
             2,
-            26,
-            122,
+            110,
+            222,
             1,
             0,
             0,
@@ -17391,7 +16078,7 @@
     {
       "room_index": 19,
       "block_size": 1661,
-      "room_start": 73236,
+      "room_start": 65396,
       "room_name": "Cư dân Niêm Thổ Thành 1",
       "string_pool_count": 13,
       "string_pool": [
@@ -17797,7 +16484,7 @@
     {
       "room_index": 20,
       "block_size": 830,
-      "room_start": 74897,
+      "room_start": 67057,
       "room_name": "Cư dân Niêm Thổ Thành 2",
       "string_pool_count": 0,
       "string_pool": [],
@@ -18012,7 +16699,7 @@
     {
       "room_index": 21,
       "block_size": 2289,
-      "room_start": 75727,
+      "room_start": 67887,
       "room_name": "Cư dân Niêm Thổ Thành 3",
       "string_pool_count": 19,
       "string_pool": [
@@ -18214,7 +16901,7 @@
           "param_len": 13,
           "values": [
             0,
-            60,
+            59,
             0,
             190,
             110,
@@ -18542,7 +17229,7 @@
     {
       "room_index": 22,
       "block_size": 2972,
-      "room_start": 78016,
+      "room_start": 70176,
       "room_name": "Cư dân Niêm Thổ Thành 4",
       "string_pool_count": 27,
       "string_pool": [
@@ -18752,7 +17439,7 @@
           "param_len": 13,
           "values": [
             0,
-            52,
+            75,
             0,
             55,
             186,
@@ -19160,7 +17847,7 @@
     {
       "room_index": 23,
       "block_size": 800,
-      "room_start": 80988,
+      "room_start": 73148,
       "room_name": "Hắc Thạch Tiểu Ốc",
       "string_pool_count": 0,
       "string_pool": [],
@@ -19339,7 +18026,7 @@
     {
       "room_index": 24,
       "block_size": 840,
-      "room_start": 81788,
+      "room_start": 73948,
       "room_name": "Hắc Thạch Mã Đầu",
       "string_pool_count": 0,
       "string_pool": [],
@@ -19556,7 +18243,7 @@
     {
       "room_index": 25,
       "block_size": 990,
-      "room_start": 82628,
+      "room_start": 74788,
       "room_name": "Hắc Thạch Thương Điếm 1",
       "string_pool_count": 0,
       "string_pool": [],
@@ -19665,7 +18352,7 @@
             20,
             0,
             62,
-            128,
+            132,
             1,
             1,
             1,
@@ -19702,8 +18389,8 @@
             0,
             229,
             0,
-            59,
-            159,
+            60,
+            160,
             1,
             0,
             1,
@@ -19740,8 +18427,8 @@
             0,
             229,
             2,
-            109,
-            219,
+            108,
+            220,
             1,
             0,
             0,
@@ -19759,8 +18446,8 @@
             0,
             229,
             2,
-            211,
-            220,
+            212,
+            219,
             1,
             0,
             0,
@@ -19797,8 +18484,8 @@
             0,
             229,
             2,
-            43,
-            136,
+            28,
+            123,
             1,
             0,
             0,
@@ -19871,7 +18558,7 @@
     {
       "room_index": 26,
       "block_size": 1042,
-      "room_start": 83618,
+      "room_start": 75778,
       "room_name": "Hắc Thạch Thương Điếm 2",
       "string_pool_count": 0,
       "string_pool": [],
@@ -19979,7 +18666,7 @@
             0,
             24,
             0,
-            103,
+            96,
             197,
             1,
             1,
@@ -20055,8 +18742,8 @@
             0,
             229,
             2,
-            82,
-            198,
+            29,
+            186,
             1,
             0,
             0,
@@ -20074,8 +18761,8 @@
             0,
             229,
             2,
-            29,
-            185,
+            80,
+            198,
             1,
             0,
             0,
@@ -20208,7 +18895,7 @@
     {
       "room_index": 27,
       "block_size": 944,
-      "room_start": 84660,
+      "room_start": 76820,
       "room_name": "Cư dân Hắc Thạch",
       "string_pool_count": 0,
       "string_pool": [],
@@ -20336,7 +19023,7 @@
             236,
             1,
             150,
-            225,
+            223,
             1,
             0,
             1,
@@ -20469,7 +19156,7 @@
     {
       "room_index": 28,
       "block_size": 1073,
-      "room_start": 85604,
+      "room_start": 77764,
       "room_name": "Thiên Không Thương Điếm",
       "string_pool_count": 0,
       "string_pool": [],
@@ -20520,7 +19207,7 @@
             0,
             20,
             0,
-            121,
+            126,
             213,
             1,
             1,
@@ -20577,7 +19264,7 @@
             0,
             229,
             0,
-            119,
+            124,
             240,
             1,
             0,
@@ -20615,8 +19302,8 @@
             0,
             229,
             2,
-            70,
-            108,
+            73,
+            107,
             1,
             0,
             0,
@@ -20653,7 +19340,7 @@
             0,
             229,
             4,
-            147,
+            152,
             201,
             1,
             0,
@@ -20672,7 +19359,7 @@
             0,
             229,
             3,
-            134,
+            139,
             212,
             1,
             0,

@@ -3,9 +3,13 @@
  */
 package a;
 
-import a.c;
+import game.m;
+import java.util.TimerTask;
 
-public interface b {
-    public int a(c var1, int var2);
+public final class b
+extends TimerTask {
+    public final void run() {
+        m.a().repaint();
+    }
 }
 

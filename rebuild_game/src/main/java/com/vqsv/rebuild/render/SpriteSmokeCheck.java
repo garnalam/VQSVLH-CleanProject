@@ -24,7 +24,7 @@ public final class SpriteSmokeCheck {
                 + " cells:" + metadata.cellCount()
                 + " anims:" + metadata.animationCount()
                 + " currentCell:" + animator.currentCellId());
-        lines.add("sprite86Special=frames:" + specialMetadata.frameCount()
+        lines.add("sprite86Source=frames:" + specialMetadata.frameCount()
                 + " cells:" + specialMetadata.cellCount()
                 + " anims:" + specialMetadata.animationCount());
 

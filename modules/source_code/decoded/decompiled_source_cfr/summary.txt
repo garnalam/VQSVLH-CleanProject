@@ -1,56 +1,37 @@
-Summary for work\S40-VuongQuoc-SungVat-LietHoa-240x320.jar
+Summary for C:\Users\itado\Downloads\AowVN.org-S60-VuongQuoc-Pokemon-240x320.jar
 Decompiled with CFR 0.152
 
 
-a.h
+c.c
+----------------------------
+
+a(javax.microedition.lcdui.Graphics )
+  Unable to fully structure code
+  Could not resolve type clashes
+
+
+d.h
 ----------------------------
 
 b(java.lang.Object int )
   Unable to fully structure code
 
 
-ao
+e.a.a.a.b.b
 ----------------------------
 
-a(javax.microedition.lcdui.Graphics )
+keyPressed(int )
   Unable to fully structure code
-  Could not resolve type clashes
 
 
-b
+game.a
 ----------------------------
 
-a(javax.microedition.lcdui.Graphics )
-  Unable to fully structure code
-
-
-game.b
-----------------------------
-
-a(game.b )
-  Unable to fully structure code
-b(game.b )
-  Unable to fully structure code
-
-
-game.c
-----------------------------
-
-b()
-  Unable to fully structure code
-  Could not resolve type clashes
-n()
+a()
   Unable to fully structure code
 
 
 game.d
-----------------------------
-
-b()
-  Unable to fully structure code
-
-
-game.j
 ----------------------------
 
 a(javax.microedition.lcdui.Graphics )
@@ -59,15 +40,38 @@ a(javax.microedition.lcdui.Graphics int int )
   Unable to fully structure code
 
 
-game.k
+game.e
 ----------------------------
 
-b()
+a()
+  Unable to fully structure code
+  Could not resolve type clashes
+J()
   Unable to fully structure code
 
 
-q
+game.g
 ----------------------------
 
-keyPressed(int )
+a()
+  Unable to fully structure code
+
+
+game.i
+----------------------------
+
+K()
+  Unable to fully structure code
+a(game.i )
+  Unable to fully structure code
+b(game.i )
+  Unable to fully structure code
+
+
+game.l
+----------------------------
+
+a()
+  Unable to fully structure code
+af()
   Unable to fully structure code

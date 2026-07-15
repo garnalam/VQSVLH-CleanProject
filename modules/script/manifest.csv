@@ -1,33 +1,35 @@
-original,decoded,kind,note
-modules/script/original/backPic.mid,,original,Original file from JAR path data/script/backPic.mid
-modules/script/original/battleNpc.mid,,original,Original file from JAR path data/script/battleNpc.mid
-modules/script/original/blood.mid,,original,Original file from JAR path data/script/blood.mid
-modules/script/original/bqTask.mid,,original,Original file from JAR path data/script/bqTask.mid
-modules/script/original/bTask.mid,,original,Original file from JAR path data/script/bTask.mid
-modules/script/original/bufDebuf.mid,,original,Original file from JAR path data/script/bufDebuf.mid
-modules/script/original/chs.mid,,original,Original file from JAR path data/script/chs.mid
-modules/script/original/cpos.mid,,original,Original file from JAR path data/script/cpos.mid
-modules/script/original/db.mid,,original,Original file from JAR path data/script/db.mid
-modules/script/original/effect.mid,,original,Original file from JAR path data/script/effect.mid
-modules/script/original/mTask.mid,,original,Original file from JAR path data/script/mTask.mid
-modules/script/original/npcDialog.mid,,original,Original file from JAR path data/script/npcDialog.mid
-modules/script/original/petArea.mid,,original,Original file from JAR path data/script/petArea.mid
-modules/script/original/petRide.mid,,original,Original file from JAR path data/script/petRide.mid
-modules/script/original/pos.mid,,original,Original file from JAR path data/script/pos.mid
-modules/script/original/speffect.mid,,original,Original file from JAR path data/script/speffect.mid
-modules/script/original/sprite.mid,,original,Original file from JAR path data/script/sprite.mid
-modules/script/original/bTask.mid,modules/script/decoded/data__script__bTask.mid.json,string_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/mTask.mid,modules/script/decoded/data__script__mTask.mid.json,string_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/chs.mid,modules/script/decoded/data__script__chs.mid.json,string_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/npcDialog.mid,modules/script/decoded/data__script__npcDialog.mid.json,string_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/sprite.mid,modules/script/decoded/data__script__sprite.mid.json,short_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/pos.mid,modules/script/decoded/data__script__pos.mid.json,short_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/speffect.mid,modules/script/decoded/data__script__speffect.mid.json,short_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/blood.mid,modules/script/decoded/data__script__blood.mid.json,short_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/petArea.mid,modules/script/decoded/data__script__petArea.mid.json,short_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/backPic.mid,modules/script/decoded/data__script__backPic.mid.json,short_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/effect.mid,modules/script/decoded/data__script__effect.mid.json,byte_matrix,Decoded JSON generated from the original binary format.
-modules/script/original/bqTask.mid,modules/script/decoded/data__script__bqTask.mid.json,two_byte_matrices,Decoded JSON generated from the original binary format.
-modules/script/original/db.mid,modules/script/decoded/data__script__db.mid.json,nine_short_matrices,Decoded JSON generated from the original binary format.
-modules/script/original/cpos.mid,modules/script/decoded/data__script__cpos.mid.json,three_short_matrices,Decoded JSON generated from the original binary format.
-modules/script/original/bufDebuf.mid,modules/script/decoded/data__script__bufDebuf.mid.json,three_byte_matrices,Decoded JSON generated from the original binary format.
+﻿"original","decoded","kind","note"
+"script/original/backPic.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/battleNpc.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/blood.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/bqTask.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/bTask.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/bufDebuf.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/chs.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/cpos.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/db.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/effect.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/layer.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/media.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/mTask.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/npcDialog.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/petArea.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/petRide.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/pos.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/speffect.mid","","original","Candidate original file from extracted AowVN JAR"
+"script/original/sprite.mid","","original","Candidate original file from extracted AowVN JAR"
+"","script/decoded/data__script__backPic.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__blood.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__bqTask.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__bTask.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__bufDebuf.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__chs.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__cpos.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__db.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__effect.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__mTask.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__npcDialog.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__petArea.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__pos.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__speffect.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","script/decoded/data__script__sprite.mid.json","decoded_json","Candidate decoded/decompiled output"

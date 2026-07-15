@@ -32,7 +32,10 @@ if ($OutDir -eq "") {
     $OutDir = Join-Path $ProjectRoot "build_intro_demo\battle_lab_suites"
 }
 
-$ClassesDir = Join-Path $ProjectRoot "build\classes"
+$JarPath = Join-Path $ProjectRoot "build\libs\vqsv-liet-hoa-rebuild.jar"
+if (!(Test-Path $JarPath)) {
+    throw "Missing battle lab jar: $JarPath. Run without -NoBuild once to build it."
+}
 $LanesToRun = if ($Lane -eq "all") { @("npc", "catch") } else { @($Lane) }
 $Failures = New-Object System.Collections.Generic.List[string]
 $Total = 0
@@ -57,8 +60,11 @@ foreach ($CurrentLane in $LanesToRun) {
         $Total += 1
 
         Write-Host "battle-lab-suite-step lane=$CurrentLane suite=$Suite scenario=$Scenario checkpoint=$Checkpoint"
-        java "-Dvqsv.modules=$ModulesRoot" -cp $ClassesDir VqsvIntroDemo --smoke-checkpoint $Checkpoint $OutPng
-        if ($LASTEXITCODE -ne 0) {
+        if (Test-Path $OutPng) {
+            Remove-Item -Force $OutPng
+        }
+        java "-Dvqsv.modules=$ModulesRoot" -cp $JarPath VqsvIntroDemo --smoke-checkpoint $Checkpoint $OutPng
+        if ($LASTEXITCODE -ne 0 -or !(Test-Path $OutPng)) {
             $Failures.Add("failed lane=$CurrentLane suite=$Suite scenario=$Scenario checkpoint=$Checkpoint")
         }
     }

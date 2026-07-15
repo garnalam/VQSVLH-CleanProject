@@ -25,7 +25,7 @@ final class Room0Group3PetOffer implements Blocking {
     private static final int[] PET_BRANCH_TARGETS = {4, 8, 12};
     private static final int[][] OP87_ARGS = {
             {0, 51, 7, 3, 2, 30, 45, 0},
-            {0, 17, 7, 3, 2, 10, 45, 0},
+            {0, 16, 7, 3, 2, 10, 45, 0},
             {0, 6, 7, 3, 2, 0, 45, 0}
     };
     private boolean started;
@@ -64,8 +64,11 @@ final class Room0Group3PetOffer implements Blocking {
                     s.stopPlayerForSourceEvent();
                     s.sourceStateTrace.add("PORTED room0 group3 op38 selected actor="
                             + petId + " branch=" + PET_BRANCH_TARGETS[i]);
+                    s.sourceStateTrace.add("PORTED op4 dialog.ui speaker=\""
+                            + VqsvText.Scene1Room0Group3.ELDER
+                            + "\" side=0 portrait=-1");
                     s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group3.ELDER,
-                            petDescription(petId), 1);
+                            petDescription(petId), 0, -1);
                     phase = 1;
                     return false;
                 }
@@ -143,13 +146,23 @@ final class Room0Group3PetOffer implements Blocking {
     }
 
     private void applyOp87(VqsvIntroDemo.Scene s) {
+        applySourceOp87(s, selectedPetIndex);
+    }
+
+    static void applySourceOp87(VqsvIntroDemo.Scene s, int selectedPetIndex) {
         int[] args = OP87_ARGS[selectedPetIndex];
         if (args[0] == 0) {
             SourcePetState pet = new SourcePetState(args[7], args[1], args[2], args[3], args[4], args[5], args[6]);
-            s.sourcePets.add(pet);
-            s.sourceStateTrace.add("PORTED/APPROX room0 group3 op87 addPet args="
+            int insertAt = Math.max(0, Math.min(args[7], s.sourcePets.size()));
+            s.sourcePets.add(insertAt, pet);
+            for (int i = 0; i < s.sourcePets.size(); i++) {
+                s.sourcePets.get(i).slot = i;
+            }
+            s.sourceStateTrace.add("PORTED room0 group3 op87 insertPet args="
                     + Arrays.toString(args)
-                    + " stored slot=" + pet.slot
+                    + " source=game.e case87 -> game.j.a(slot,species,level,...)"
+                    + " insertAt=" + insertAt
+                    + " stored slot=" + s.sourcePets.get(insertAt).slot
                     + " species=" + pet.speciesId
                     + " level=" + pet.level
                     + " skills=[" + pet.skillIds[0] + "," + pet.skillIds[1] + "]"

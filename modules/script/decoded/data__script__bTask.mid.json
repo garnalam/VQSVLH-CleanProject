@@ -86,6 +86,12 @@
       "Dây may mắn 4"
     ],
     [
+      "Sứ giả thần linh"
+    ],
+    [
+      "Long kỵ sĩ"
+    ],
+    [
       "Đến [Đường nhỏ phía Đông] bắt Khốc Tị Mộc Linh giao cho Dodo tại [Phượng Chi Thủ Hộ Hương]."
     ],
     [
@@ -107,7 +113,7 @@
       "Ấp trứng giao cho Moose tại [Trung tâm Niêm Thổ]."
     ],
     [
-      "Đem tư liệu đưa cho Hắc Thạch Fisher tại [Chính Điện]."
+      "Đem tư liệu đưa cho Fisher tại Hắc Thạch [Chính Điện]."
     ],
     [
       "Đem Đại Quỷ dị hoá thành Thi Đại Quỷ giao cho Kate tại [Trung tâm Nguyên Mộc]."
@@ -116,7 +122,7 @@
       "Đến Niêm Thổ [Mỏ quặng phía Đông 1] hỏi thăm Senta có tiến triển gì mới."
     ],
     [
-      "Đem chiếc hộp tiện dụng giao tại giao giới giữa Niêm Thổ và Hắc Thạch cho [Mỏ quặng phía Bắc] Mu."
+      "Đem chiếc hộp tiện dụng giao tại giao giới giữa Niêm Thổ và Hắc Thạch cho Mu tại [Mỏ quặng phía Bắc]."
     ],
     [
       "Đến phía bắc Bích Thủy Thành [Cây cầu nhỏ] bắt Lắc Lắc."
@@ -131,7 +137,7 @@
       "Đến [Bình nguyên phía Tây] Nguyên Mộc bắt Bạch Châm Bảo Bảo giao cho Amocxi tại [Bến tàu phía Đông] Nguyên Mộc."
     ],
     [
-      "Tìm được Bạch Châm Bảo Bảo lỗ tai có lỗ hổng giao cho Nguyên Mộc [Bến tàu phía Đông] Amocxi."
+      "Tìm được Bạch Châm Bảo Bảo lỗ tai có lỗ hổng giao cho Amocxi tại Nguyên Mộc [Bến tàu phía Đông]."
     ],
     [
       "Tại Thương Điếm mua 3 khôi phục dược tề giao cho Slavic tại [Bích Thủy Đạp Sa]."
@@ -140,16 +146,16 @@
       "Tại [Trung tâm Niêm Thổ] tìm binh lính Hắc Long lấy lại gói hành lý Nailuo."
     ],
     [
-      "Đem thư mật giao cho [Trung tâm Niêm Thổ] Hughes."
+      "Đem thư mật giao cho Hughes tại [Trung tâm Niêm Thổ]."
     ],
     [
       "Tại [Trung tâm Niêm Thổ] tìm Locke chuyển thư nhà."
     ],
     [
-      "Đem thư mật giao cho JaniLa tại [phía đông Hắc Thạch Thành]."
+      "Đem thư mật giao cho JaniLa tại [Phía đông Hắc Thạch Thành]."
     ],
     [
-      "Đến [địa lao Hắc Thạch] cứu Edern."
+      "Đến [Địa lao Hắc Thạch] cứu Edern."
     ],
     [
       "Tại Thiên Giới [Khiết Bạch Môn Phi] cho Zuzu xem bốn thuộc tính của sủng vật Địa Giới."
@@ -164,12 +170,18 @@
       "Đem quả may mắn dâng cho Camille tại [Thánh Điện]."
     ],
     [
-      "Đem quả may mắn dâng cho [Khoan thứ tội ác] AimiDe."
+      "Đem quả may mắn dâng cho AimiDe tại [Khoan thứ tội ác]."
     ],
     [
       "Đem quả may mắn dâng cho Tomas tại [Thánh Điện]."
+    ],
+    [
+      "Đến [Khu rừng mưa] diệt trừ dã thú ăn thịt người."
+    ],
+    [
+      "Cho Kay 20 chocolate."
     ]
   ],
-  "bytes_consumed": 4856,
-  "bytes_total": 4856
+  "bytes_consumed": 5092,
+  "bytes_total": 5092
 }

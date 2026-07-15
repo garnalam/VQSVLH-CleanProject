@@ -3,23 +3,17 @@
  */
 package a;
 
-import a.f;
-import a.h;
-import a.j;
+public interface d {
+    public void j(int var1);
 
-public final class d {
-    public f a;
-    public h b;
-    public j[] c;
+    public void k(int var1);
 
-    public d(f f2, h h2) {
-        this.a = f2;
-        this.b = h2;
-        this.c = new j[f2.f];
-    }
+    public void d(boolean var1);
 
-    public final String toString() {
-        return "";
-    }
+    public void z();
+
+    public void c(int var1, int var2);
+
+    public void d(int var1, int var2);
 }
 

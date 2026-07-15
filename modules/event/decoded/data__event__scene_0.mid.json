@@ -3,16 +3,16 @@
   "scene_id": 0,
   "block_count": 2,
   "block_sizes": [
-    6129,
-    1134
+    6285,
+    1155
   ],
   "rooms": [
     {
       "room_index": 0,
-      "block_size": 6129,
+      "block_size": 6285,
       "room_start": 6,
       "room_name": "Bản đồ trống",
-      "string_pool_count": 169,
+      "string_pool_count": 172,
       "string_pool": [
         "#FFFFFF Nghe đồn Thiên Địa chi sơ, vạn năm về trước có hai vị thần, một người duy trì trật tự, một người cai quản thế giới hỗn loạn, kiềm chế lẫn nhau, duy trì cân bằng của thế giới.",
         "1,0",
@@ -35,27 +35,30 @@
         "257,262,249#125,120,133",
         "193,188,195#248,253,247",
         "0,1",
-        "18,19,20,22,23,24",
-        "1,3,1,1,1,1",
-        "1,1,1,1,1,1",
-        "18,19,20,22,23,24",
-        "1,1,1,1,1,1",
+        "18,19,20,21,22,23,24,25",
+        "1,3,1,3,1,1,1,1",
+        "1,1,1,1,1,1,1,1",
+        "18,19,20,21,22,23,24,25",
+        "1,1,1,1,1,1,1,1",
         "257,262,249#125,120,133",
         "193,188,195#248,253,247",
         "0,1",
-        "26,27,28,14,15,16",
-        "1,1,1,1,1,1",
-        "1,1,1,1,1,1",
-        "26,27,28,14,15,16",
-        "1,1,1,1,1,1",
+        "26,27,28,29,30",
+        "1,1,1,1,1",
+        "1,1,1,1,1",
+        "26,27,28,29,30",
+        "1,1,1,1,1",
         "257,262,249#125,120,133",
         "193,188,195#248,253,247",
         "0,1",
-        "32,33,35",
-        "1,1,1",
-        "1,1,1",
-        "32,33,35",
-        "1,1,1",
+        "31,34",
+        "1,1",
+        "1,1",
+        "32,33,35,36,37,38",
+        "1,1,1,1,1,1",
+        "1,1,1,1,1,1",
+        "31,32,33,34,35,36,37,38",
+        "1,1,1,1,1,1,1,1",
         "0",
         "75",
         "0",
@@ -385,7 +388,235 @@
             0,
             266,
             0,
-            618,
+            185,
+            131,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            0,
+            152,
+            171,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            0,
+            198,
+            207,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            0,
+            224,
+            164,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            0,
+            158,
+            153,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            0,
+            216,
+            198,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            0,
+            226,
+            138,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            0,
+            155,
+            217,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            5,
+            155,
+            147,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            5,
+            226,
+            133,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            5,
+            156,
+            215,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            5,
+            217,
+            196,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            2,
+            177,
             130,
             0,
             0,
@@ -403,66 +634,9 @@
           "values": [
             0,
             266,
-            0,
-            617,
-            144,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            617,
-            145,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            617,
-            145,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            267,
             2,
-            255,
-            223,
+            242,
+            122,
             0,
             0,
             1,
@@ -478,13 +652,13 @@
           "param_len": 13,
           "values": [
             0,
-            267,
+            266,
             2,
-            196,
-            239,
+            185,
+            206,
             0,
             0,
-            0,
+            1,
             0,
             0,
             0,
@@ -497,371 +671,200 @@
           "param_len": 13,
           "values": [
             0,
-            267,
+            266,
             2,
-            156,
-            211,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            262,
-            0,
-            602,
-            199,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            262,
-            0,
-            132,
-            227,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            262,
-            0,
-            201,
-            222,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            262,
-            0,
-            264,
-            219,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            262,
-            0,
-            601,
-            199,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            264,
-            0,
-            148,
-            201,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            264,
-            0,
-            204,
-            221,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            264,
-            0,
-            262,
-            205,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            615,
-            149,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            267,
-            0,
-            153,
-            199,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            267,
-            0,
-            188,
-            249,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            267,
-            0,
-            260,
-            233,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            615,
-            149,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            616,
-            149,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            617,
-            149,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            158,
-            210,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            211,
-            257,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
-            617,
-            148,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            266,
-            0,
             251,
-            203,
+            190,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            5,
+            200,
+            164,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            128,
+            139,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            265,
+            220,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            265,
+            121,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            143,
+            217,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            177,
+            181,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            224,
+            262,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            108,
+            251,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            284,
+            185,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            1,
+            198,
+            220,
             0,
             0,
             1,
@@ -878,28 +881,9 @@
           "values": [
             0,
             262,
-            0,
-            603,
-            196,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            262,
-            0,
-            601,
-            197,
+            8,
+            175,
+            169,
             0,
             0,
             1,
@@ -916,9 +900,28 @@
           "values": [
             0,
             262,
+            8,
+            200,
+            228,
             0,
-            602,
-            197,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            8,
+            243,
+            170,
             0,
             0,
             1,
@@ -957,7 +960,7 @@
           "scene_id": 0,
           "room_index": 0,
           "world_key": 0,
-          "record_count": 61,
+          "record_count": 62,
           "records": [
             {
               "opcode": 1,
@@ -1157,20 +1160,20 @@
               "opcode": 2,
               "total_arg_count": 4,
               "short_args": [
-                6
+                8
               ],
               "string_args": [
                 {
                   "string_index": 21,
-                  "text": "18,19,20,22,23,24"
+                  "text": "18,19,20,21,22,23,24,25"
                 },
                 {
                   "string_index": 22,
-                  "text": "1,3,1,1,1,1"
+                  "text": "1,3,1,3,1,1,1,1"
                 },
                 {
                   "string_index": 23,
-                  "text": "1,1,1,1,1,1"
+                  "text": "1,1,1,1,1,1,1,1"
                 }
               ]
             },
@@ -1186,16 +1189,16 @@
               "opcode": 3,
               "total_arg_count": 3,
               "short_args": [
-                6
+                8
               ],
               "string_args": [
                 {
                   "string_index": 24,
-                  "text": "18,19,20,22,23,24"
+                  "text": "18,19,20,21,22,23,24,25"
                 },
                 {
                   "string_index": 25,
-                  "text": "1,1,1,1,1,1"
+                  "text": "1,1,1,1,1,1,1,1"
                 }
               ]
             },
@@ -1237,20 +1240,20 @@
               "opcode": 2,
               "total_arg_count": 4,
               "short_args": [
-                6
+                5
               ],
               "string_args": [
                 {
                   "string_index": 29,
-                  "text": "26,27,28,14,15,16"
+                  "text": "26,27,28,29,30"
                 },
                 {
                   "string_index": 30,
-                  "text": "1,1,1,1,1,1"
+                  "text": "1,1,1,1,1"
                 },
                 {
                   "string_index": 31,
-                  "text": "1,1,1,1,1,1"
+                  "text": "1,1,1,1,1"
                 }
               ]
             },
@@ -1266,16 +1269,16 @@
               "opcode": 3,
               "total_arg_count": 3,
               "short_args": [
-                6
+                5
               ],
               "string_args": [
                 {
                   "string_index": 32,
-                  "text": "26,27,28,14,15,16"
+                  "text": "26,27,28,29,30"
                 },
                 {
                   "string_index": 33,
-                  "text": "1,1,1,1,1,1"
+                  "text": "1,1,1,1,1"
                 }
               ]
             },
@@ -1317,20 +1320,41 @@
               "opcode": 2,
               "total_arg_count": 4,
               "short_args": [
-                3
+                2
               ],
               "string_args": [
                 {
                   "string_index": 37,
-                  "text": "32,33,35"
+                  "text": "31,34"
                 },
                 {
                   "string_index": 38,
-                  "text": "1,1,1"
+                  "text": "1,1"
                 },
                 {
                   "string_index": 39,
-                  "text": "1,1,1"
+                  "text": "1,1"
+                }
+              ]
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                6
+              ],
+              "string_args": [
+                {
+                  "string_index": 40,
+                  "text": "32,33,35,36,37,38"
+                },
+                {
+                  "string_index": 41,
+                  "text": "1,1,1,1,1,1"
+                },
+                {
+                  "string_index": 42,
+                  "text": "1,1,1,1,1,1"
                 }
               ]
             },
@@ -1359,16 +1383,16 @@
               "opcode": 3,
               "total_arg_count": 3,
               "short_args": [
-                3
+                8
               ],
               "string_args": [
                 {
-                  "string_index": 40,
-                  "text": "32,33,35"
+                  "string_index": 43,
+                  "text": "31,32,33,34,35,36,37,38"
                 },
                 {
-                  "string_index": 41,
-                  "text": "1,1,1"
+                  "string_index": 44,
+                  "text": "1,1,1,1,1,1,1,1"
                 }
               ]
             },
@@ -1380,23 +1404,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 42,
-                  "text": "0"
-                },
-                {
-                  "string_index": 43,
-                  "text": "75"
-                },
-                {
-                  "string_index": 44,
-                  "text": "0"
-                },
-                {
                   "string_index": 45,
-                  "text": "2"
+                  "text": "0"
                 },
                 {
                   "string_index": 46,
+                  "text": "75"
+                },
+                {
+                  "string_index": 47,
+                  "text": "0"
+                },
+                {
+                  "string_index": 48,
+                  "text": "2"
+                },
+                {
+                  "string_index": 49,
                   "text": "0"
                 }
               ]
@@ -1409,15 +1433,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 47,
+                  "string_index": 50,
                   "text": "185"
                 },
                 {
-                  "string_index": 48,
+                  "string_index": 51,
                   "text": "200"
                 },
                 {
-                  "string_index": 49,
+                  "string_index": 52,
                   "text": "1"
                 }
               ]
@@ -1430,23 +1454,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 50,
+                  "string_index": 53,
                   "text": "1"
                 },
                 {
-                  "string_index": 51,
+                  "string_index": 54,
                   "text": "0"
                 },
                 {
-                  "string_index": 52,
+                  "string_index": 55,
                   "text": "4"
                 },
                 {
-                  "string_index": 53,
+                  "string_index": 56,
                   "text": "0"
                 },
                 {
-                  "string_index": 54,
+                  "string_index": 57,
                   "text": "6"
                 }
               ]
@@ -1490,7 +1514,7 @@
               ],
               "string_args": [
                 {
-                  "string_index": 55,
+                  "string_index": 58,
                   "text": "#FFFFFF Vi Bạch Long, vị thần đứng đầu Thiên Giới phụ trách cai quản trật tự. Ba vị thủ hộ thánh thú lần lượt là Lôi Kỳ Lân, Tinh Vân Hạc cùng Minh Vương Long."
                 }
               ]
@@ -1503,23 +1527,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 56,
+                  "string_index": 59,
                   "text": "1"
                 },
                 {
-                  "string_index": 57,
+                  "string_index": 60,
                   "text": "0"
                 },
                 {
-                  "string_index": 58,
+                  "string_index": 61,
                   "text": "-4"
                 },
                 {
-                  "string_index": 59,
+                  "string_index": 62,
                   "text": "0"
                 },
                 {
-                  "string_index": 60,
+                  "string_index": 63,
                   "text": "18"
                 }
               ]
@@ -1540,15 +1564,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 61,
+                  "string_index": 64,
                   "text": "2,3,4"
                 },
                 {
-                  "string_index": 62,
+                  "string_index": 65,
                   "text": "1,1,3"
                 },
                 {
-                  "string_index": 63,
+                  "string_index": 66,
                   "text": "0,0,0"
                 }
               ]
@@ -1561,23 +1585,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 64,
-                  "text": "2"
-                },
-                {
-                  "string_index": 65,
-                  "text": "35"
-                },
-                {
-                  "string_index": 66,
-                  "text": "0"
-                },
-                {
                   "string_index": 67,
                   "text": "2"
                 },
                 {
                   "string_index": 68,
+                  "text": "35"
+                },
+                {
+                  "string_index": 69,
+                  "text": "0"
+                },
+                {
+                  "string_index": 70,
+                  "text": "2"
+                },
+                {
+                  "string_index": 71,
                   "text": "0"
                 }
               ]
@@ -1602,24 +1626,24 @@
                 1
               ],
               "string_args": [
-                {
-                  "string_index": 69,
-                  "text": "4"
-                },
-                {
-                  "string_index": 70,
-                  "text": "-30"
-                },
-                {
-                  "string_index": 71,
-                  "text": "0"
-                },
                 {
                   "string_index": 72,
                   "text": "4"
                 },
                 {
                   "string_index": 73,
+                  "text": "-30"
+                },
+                {
+                  "string_index": 74,
+                  "text": "0"
+                },
+                {
+                  "string_index": 75,
+                  "text": "4"
+                },
+                {
+                  "string_index": 76,
                   "text": "0"
                 }
               ]
@@ -1645,23 +1669,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 74,
+                  "string_index": 77,
                   "text": "3"
                 },
                 {
-                  "string_index": 75,
+                  "string_index": 78,
                   "text": "0"
                 },
                 {
-                  "string_index": 76,
+                  "string_index": 79,
                   "text": "-32"
                 },
                 {
-                  "string_index": 77,
+                  "string_index": 80,
                   "text": "0"
                 },
                 {
-                  "string_index": 78,
+                  "string_index": 81,
                   "text": "5"
                 }
               ]
@@ -1700,11 +1724,11 @@
               ],
               "string_args": [
                 {
-                  "string_index": 79,
+                  "string_index": 82,
                   "text": "1,2,3,4"
                 },
                 {
-                  "string_index": 80,
+                  "string_index": 83,
                   "text": "0,0,0,0"
                 }
               ]
@@ -1717,23 +1741,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 81,
+                  "string_index": 84,
                   "text": "0"
                 },
                 {
-                  "string_index": 82,
+                  "string_index": 85,
                   "text": "-100"
                 },
                 {
-                  "string_index": 83,
+                  "string_index": 86,
                   "text": "-14"
                 },
                 {
-                  "string_index": 84,
+                  "string_index": 87,
                   "text": "2"
                 },
                 {
-                  "string_index": 85,
+                  "string_index": 88,
                   "text": "2"
                 }
               ]
@@ -1772,7 +1796,7 @@
               ],
               "string_args": [
                 {
-                  "string_index": 86,
+                  "string_index": 89,
                   "text": "#FFFFFF Vi Hắc Long, vị thần đứng đầu Địa Giới phụ trách cai quản thế giới hỗn loạn. Bốn vị chiến thần thú lần lượt là Chiến Thần Đà, Tương Quân Giải, Linh Quang Lộc và Hỏa Phượng Hoàng."
                 }
               ]
@@ -1793,15 +1817,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 87,
+                  "string_index": 90,
                   "text": "5,6,7,8"
                 },
                 {
-                  "string_index": 88,
+                  "string_index": 91,
                   "text": "1,1,1,1"
                 },
                 {
-                  "string_index": 89,
+                  "string_index": 92,
                   "text": "0,0,0,0"
                 }
               ]
@@ -1814,66 +1838,24 @@
               ],
               "string_args": [
                 {
-                  "string_index": 90,
+                  "string_index": 93,
                   "text": "7"
                 },
                 {
-                  "string_index": 91,
+                  "string_index": 94,
                   "text": "30"
                 },
                 {
-                  "string_index": 92,
-                  "text": "0"
-                },
-                {
-                  "string_index": 93,
-                  "text": "3"
-                },
-                {
-                  "string_index": 94,
-                  "text": "0"
-                }
-              ]
-            },
-            {
-              "opcode": 9,
-              "total_arg_count": 6,
-              "short_args": [
-                10,
-                1,
-                0,
-                0,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 29,
-              "total_arg_count": 6,
-              "short_args": [
-                1
-              ],
-              "string_args": [
-                {
                   "string_index": 95,
-                  "text": "8"
+                  "text": "0"
                 },
                 {
                   "string_index": 96,
-                  "text": "-38"
+                  "text": "3"
                 },
                 {
                   "string_index": 97,
                   "text": "0"
-                },
-                {
-                  "string_index": 98,
-                  "text": "3"
-                },
-                {
-                  "string_index": 99,
-                  "text": "0"
                 }
               ]
             },
@@ -1898,23 +1880,65 @@
               ],
               "string_args": [
                 {
+                  "string_index": 98,
+                  "text": "8"
+                },
+                {
+                  "string_index": 99,
+                  "text": "-38"
+                },
+                {
                   "string_index": 100,
-                  "text": "6"
+                  "text": "0"
                 },
                 {
                   "string_index": 101,
-                  "text": "-33"
+                  "text": "3"
                 },
                 {
                   "string_index": 102,
                   "text": "0"
-                },
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                10,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 29,
+              "total_arg_count": 6,
+              "short_args": [
+                1
+              ],
+              "string_args": [
                 {
                   "string_index": 103,
-                  "text": "3"
+                  "text": "6"
                 },
                 {
                   "string_index": 104,
+                  "text": "-33"
+                },
+                {
+                  "string_index": 105,
+                  "text": "0"
+                },
+                {
+                  "string_index": 106,
+                  "text": "3"
+                },
+                {
+                  "string_index": 107,
                   "text": "0"
                 }
               ]
@@ -1940,23 +1964,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 105,
+                  "string_index": 108,
                   "text": "5"
                 },
                 {
-                  "string_index": 106,
+                  "string_index": 109,
                   "text": "38"
                 },
                 {
-                  "string_index": 107,
+                  "string_index": 110,
                   "text": "0"
                 },
                 {
-                  "string_index": 108,
+                  "string_index": 111,
                   "text": "3"
                 },
                 {
-                  "string_index": 109,
+                  "string_index": 112,
                   "text": "0"
                 }
               ]
@@ -2003,11 +2027,11 @@
               ],
               "string_args": [
                 {
-                  "string_index": 110,
+                  "string_index": 113,
                   "text": "5,6,7,8"
                 },
                 {
-                  "string_index": 111,
+                  "string_index": 114,
                   "text": "0,0,0,0"
                 }
               ]
@@ -2070,15 +2094,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 112,
+                  "string_index": 115,
                   "text": "9"
                 },
                 {
-                  "string_index": 113,
+                  "string_index": 116,
                   "text": "1"
                 },
                 {
-                  "string_index": 114,
+                  "string_index": 117,
                   "text": "1"
                 }
               ]
@@ -2109,7 +2133,7 @@
               ],
               "string_args": [
                 {
-                  "string_index": 115,
+                  "string_index": 118,
                   "text": "#FFFFFF Không lâu sau đó, thế gian xuất hiện hai Bảo Châu, một trắng, một đen. Người ta tin rằng đây chính là linh hồn của các vị thần cổ đại, có năng lượng vô tận."
                 }
               ]
@@ -2135,7 +2159,7 @@
               ],
               "string_args": [
                 {
-                  "string_index": 116,
+                  "string_index": 119,
                   "text": "#FFFFFF Về sau, hai Bảo Châu này, một bay lên Thiên Giới, một rơi xuống nhân gian, tiếp tục sứ mệnh bảo vệ thế giới."
                 }
               ]
@@ -2187,23 +2211,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 117,
+                  "string_index": 120,
                   "text": "9"
                 },
                 {
-                  "string_index": 118,
+                  "string_index": 121,
                   "text": "0"
                 },
                 {
-                  "string_index": 119,
+                  "string_index": 122,
                   "text": "-2"
                 },
                 {
-                  "string_index": 120,
+                  "string_index": 123,
                   "text": "0"
                 },
                 {
-                  "string_index": 121,
+                  "string_index": 124,
                   "text": "52"
                 }
               ]
@@ -2265,9 +2289,9 @@
               "opcode": 15,
               "total_arg_count": 3,
               "short_args": [
-                11,
-                3,
-                7
+                8,
+                6,
+                0
               ],
               "string_args": []
             },
@@ -2279,11 +2303,11 @@
               ],
               "string_args": [
                 {
-                  "string_index": 122,
+                  "string_index": 125,
                   "text": "0"
                 },
                 {
-                  "string_index": 123,
+                  "string_index": 126,
                   "text": "1"
                 }
               ]
@@ -2309,44 +2333,44 @@
               ],
               "string_args": [
                 {
-                  "string_index": 124,
+                  "string_index": 127,
                   "text": "1,0"
                 },
                 {
-                  "string_index": 125,
-                  "text": "1,3"
-                },
-                {
-                  "string_index": 126,
-                  "text": "0,0"
-                }
-              ]
-            },
-            {
-              "opcode": 29,
-              "total_arg_count": 6,
-              "short_args": [
-                2
-              ],
-              "string_args": [
-                {
-                  "string_index": 127,
-                  "text": "0,1"
-                },
-                {
                   "string_index": 128,
-                  "text": "-26,23"
+                  "text": "1,3"
                 },
                 {
                   "string_index": 129,
                   "text": "0,0"
-                },
+                }
+              ]
+            },
+            {
+              "opcode": 29,
+              "total_arg_count": 6,
+              "short_args": [
+                2
+              ],
+              "string_args": [
                 {
                   "string_index": 130,
-                  "text": "5,5"
+                  "text": "0,1"
                 },
                 {
                   "string_index": 131,
+                  "text": "-26,23"
+                },
+                {
+                  "string_index": 132,
+                  "text": "0,0"
+                },
+                {
+                  "string_index": 133,
+                  "text": "5,5"
+                },
+                {
+                  "string_index": 134,
                   "text": "0,0"
                 }
               ]
@@ -2359,23 +2383,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 132,
+                  "string_index": 135,
                   "text": "0,1"
                 },
                 {
-                  "string_index": 133,
+                  "string_index": 136,
                   "text": "0,0"
                 },
                 {
-                  "string_index": 134,
+                  "string_index": 137,
                   "text": "3,-3"
                 },
                 {
-                  "string_index": 135,
+                  "string_index": 138,
                   "text": "0,0"
                 },
                 {
-                  "string_index": 136,
+                  "string_index": 139,
                   "text": "20,20"
                 }
               ]
@@ -2388,23 +2412,23 @@
               ],
               "string_args": [
                 {
-                  "string_index": 137,
+                  "string_index": 140,
                   "text": "0,1"
                 },
                 {
-                  "string_index": 138,
+                  "string_index": 141,
                   "text": "0,0"
                 },
                 {
-                  "string_index": 139,
+                  "string_index": 142,
                   "text": "-3,3"
                 },
                 {
-                  "string_index": 140,
+                  "string_index": 143,
                   "text": "0,0"
                 },
                 {
-                  "string_index": 141,
+                  "string_index": 144,
                   "text": "10,10"
                 }
               ]
@@ -2417,15 +2441,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 142,
+                  "string_index": 145,
                   "text": "257,262,249#125,120,133"
                 },
                 {
-                  "string_index": 143,
+                  "string_index": 146,
                   "text": "193,188,195#248,253,247"
                 },
                 {
-                  "string_index": 144,
+                  "string_index": 147,
                   "text": "0,1"
                 }
               ]
@@ -2451,15 +2475,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 145,
+                  "string_index": 148,
                   "text": "18,19,20,21,22,23,24,25"
                 },
                 {
-                  "string_index": 146,
+                  "string_index": 149,
                   "text": "1,3,1,3,1,1,1,1"
                 },
                 {
-                  "string_index": 147,
+                  "string_index": 150,
                   "text": "1,1,1,1,1,1,1,1"
                 }
               ]
@@ -2480,11 +2504,11 @@
               ],
               "string_args": [
                 {
-                  "string_index": 148,
+                  "string_index": 151,
                   "text": "18,19,20,21,22,23,24,25"
                 },
                 {
-                  "string_index": 149,
+                  "string_index": 152,
                   "text": "1,1,1,1,1,1,1,1"
                 }
               ]
@@ -2497,15 +2521,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 150,
+                  "string_index": 153,
                   "text": "257,262,249#125,120,133"
                 },
                 {
-                  "string_index": 151,
+                  "string_index": 154,
                   "text": "193,188,195#248,253,247"
                 },
                 {
-                  "string_index": 152,
+                  "string_index": 155,
                   "text": "0,1"
                 }
               ]
@@ -2526,35 +2550,6 @@
             {
               "opcode": 2,
               "total_arg_count": 4,
-              "short_args": [
-                5
-              ],
-              "string_args": [
-                {
-                  "string_index": 153,
-                  "text": "26,27,28,29,30"
-                },
-                {
-                  "string_index": 154,
-                  "text": "1,1,1,1,1"
-                },
-                {
-                  "string_index": 155,
-                  "text": "1,1,1,1,1"
-                }
-              ]
-            },
-            {
-              "opcode": 12,
-              "total_arg_count": 1,
-              "short_args": [
-                15
-              ],
-              "string_args": []
-            },
-            {
-              "opcode": 3,
-              "total_arg_count": 3,
               "short_args": [
                 5
               ],
@@ -2566,6 +2561,35 @@
                 {
                   "string_index": 157,
                   "text": "1,1,1,1,1"
+                },
+                {
+                  "string_index": 158,
+                  "text": "1,1,1,1,1"
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                15
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                5
+              ],
+              "string_args": [
+                {
+                  "string_index": 159,
+                  "text": "26,27,28,29,30"
+                },
+                {
+                  "string_index": 160,
+                  "text": "1,1,1,1,1"
                 }
               ]
             },
@@ -2577,15 +2601,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 158,
+                  "string_index": 161,
                   "text": "257,262,249#125,120,133"
                 },
                 {
-                  "string_index": 159,
+                  "string_index": 162,
                   "text": "193,188,195#248,253,247"
                 },
                 {
-                  "string_index": 160,
+                  "string_index": 163,
                   "text": "0,1"
                 }
               ]
@@ -2611,15 +2635,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 161,
+                  "string_index": 164,
                   "text": "31,34"
                 },
                 {
-                  "string_index": 162,
+                  "string_index": 165,
                   "text": "1,1"
                 },
                 {
-                  "string_index": 163,
+                  "string_index": 166,
                   "text": "1,1"
                 }
               ]
@@ -2632,15 +2656,15 @@
               ],
               "string_args": [
                 {
-                  "string_index": 164,
+                  "string_index": 167,
                   "text": "32,33,35,36,37,38"
                 },
                 {
-                  "string_index": 165,
+                  "string_index": 168,
                   "text": "1,1,1,1,1,1"
                 },
                 {
-                  "string_index": 166,
+                  "string_index": 169,
                   "text": "1,1,1,1,1,1"
                 }
               ]
@@ -2661,11 +2685,11 @@
               ],
               "string_args": [
                 {
-                  "string_index": 167,
+                  "string_index": 170,
                   "text": "31,32,33,34,35,36,37,38"
                 },
                 {
-                  "string_index": 168,
+                  "string_index": 171,
                   "text": "1,1,1,1,1,1,1,1"
                 }
               ]
@@ -2697,8 +2721,8 @@
               "short_args": [
                 1,
                 0,
-                256,
-                256,
+                272,
+                117,
                 240,
                 320
               ],
@@ -2708,9 +2732,9 @@
               "opcode": 6,
               "total_arg_count": 4,
               "short_args": [
-                11,
-                3,
-                21,
+                8,
+                6,
+                23,
                 0
               ],
               "string_args": []
@@ -2724,13 +2748,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 6129,
-      "declared_block_size": 6129
+      "bytes_consumed_in_room": 6285,
+      "declared_block_size": 6285
     },
     {
       "room_index": 1,
-      "block_size": 1134,
-      "room_start": 6135,
+      "block_size": 1155,
+      "room_start": 6291,
       "room_name": "Phá hủy thôn trang",
       "string_pool_count": 16,
       "string_pool": [
@@ -2753,7 +2777,7 @@
       ],
       "unknown_ab": 100,
       "unknown_skip": 0,
-      "actor_count": 31,
+      "actor_count": 32,
       "actors": [
         {
           "kind": 0,
@@ -3343,6 +3367,25 @@
             0,
             -1
           ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            292,
+            0,
+            232,
+            128,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
         }
       ],
       "post_actor_strings": [],
@@ -3572,8 +3615,8 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 1134,
-      "declared_block_size": 1134
+      "bytes_consumed_in_room": 1155,
+      "declared_block_size": 1155
     }
   ]
 }

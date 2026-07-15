@@ -431,6 +431,7 @@ final class WoodSkill implements Skill {
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(11)) + "\n"
                     + "speffect10=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(10)) + "\n"
                     + "actorEffect=21 actorSprite=263 actorState=1 actorSide=enemy\n"
+                    + "sourceExtraChunk=actorEffect25 actorSprite267 actorState9 playerSide before speffect10\n"
                     + "healSpecial=AH9 attackerSide row=[9,120,218,217,169,0,4,2]\n"
                     + "before hp=" + beforePlayerHp + "/" + s.battlePlayerMaxHp
                     + ":" + beforeEnemyHp + "/" + s.battleEnemyMaxHp
@@ -517,7 +518,7 @@ final class WoodSkill implements Skill {
             }
             if (!s.battleP7ActorEffectVisible
                     || s.battleP7ActorEffectSpriteId != 263
-                    || s.battleP7ActorEffectState != 1
+                    || s.battleP7ActorEffectState != 8
                     || s.battleP7ActorEffectOnPlayerSide
                     || s.battleEnemyHp != s.battleEnemyMaxHp
                     || runtime.debugPlayerSkillPpForSmoke(0) != 29
@@ -633,7 +634,8 @@ final class WoodSkill implements Skill {
                     + "effect.mid[17]="
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(17)) + "\n"
                     + "speffect10=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(10)) + "\n"
-                    + "actorEffect=21 actorSprite=263 actorState=1 actorSide=enemy\n"
+                    + "actorEffect=21 actorSprite=263 actorState=8 actorSide=enemy\n"
+                    + "sourceExtraChunk=actorEffect25 actorSprite267 actorState9 playerSide before speffect10\n"
                     + "healSpecial=AH9 attackerSide row=[9,120,218,217,169,0,4,2]\n"
                     + "before hp=" + beforePlayerHp + "/" + s.battlePlayerMaxHp
                     + ":" + beforeEnemyHp + "/" + s.battleEnemyMaxHp
@@ -719,15 +721,15 @@ final class WoodSkill implements Skill {
             }
             if (!s.battleP7ActorEffectVisible
                     || s.battleP7ActorEffectSpriteId != 263
-                    || s.battleP7ActorEffectState != 0
+                    || s.battleP7ActorEffectState != 3
                     || s.battleP7ActorEffectOnPlayerSide
                     || s.battleEnemyHp != beforeEnemyHp
                     || runtime.debugPlayerSkillPpForSmoke(0) != 44
                     || !traceContains(s, "battle P7 source n() skill=12")
                     || !traceContains(s, "battle P7 actor u.a() start skill=12")
                     || !traceContains(s, "id=21")
-                    || !traceContains(s, "param=0")) {
-                throw new IllegalStateException(checkpoint + " expected skill12 actor u21/state0 before damage"
+                    || !traceContains(s, "param=3")) {
+                throw new IllegalStateException(checkpoint + " expected skill12 actor u21/state3 before damage"
                         + " actorVisible=" + s.battleP7ActorEffectVisible
                         + " actorSprite=" + s.battleP7ActorEffectSpriteId
                         + " actorState=" + s.battleP7ActorEffectState
@@ -888,7 +890,7 @@ final class WoodSkill implements Skill {
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(12)) + "\n"
                     + "speffect6=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(6)) + "\n"
                     + "aq.c[7][2]=" + java.util.Arrays.toString(debuff.raw) + "\n"
-                    + "actorEffect=21 actorSprite=263 actorState=0 actorSide=enemy\n"
+                    + "actorEffect=21 actorSprite=263 actorState=3 actorSide=enemy\n"
                     + "special=speffect6 AH8 targetSide\n"
                     + "debuff2=Quan Quanh duration=3 value=0 icon=3 durationCell=137\n"
                     + "logic=damage powerPercent 50; apply debuff2; blocks item/pet/run while active; no HP tick; duration decrements.\n"
@@ -979,7 +981,7 @@ final class WoodSkill implements Skill {
             }
             if (!s.battleP7ActorEffectVisible
                     || s.battleP7ActorEffectSpriteId != 263
-                    || s.battleP7ActorEffectState != 0
+                    || s.battleP7ActorEffectState != 10
                     || s.battleP7ActorEffectOnPlayerSide
                     || s.battleP7SpecialVisible
                     || s.battleEnemyHp != beforeEnemyHp
@@ -987,9 +989,9 @@ final class WoodSkill implements Skill {
                     || !traceContains(s, "battle P7 source n() skill=18")
                     || !traceContains(s, "battle P7 actor u.a() start skill=18")
                     || !traceContains(s, "id=21")
-                    || !traceContains(s, "param=0")
+                    || !traceContains(s, "param=10")
                     || traceContains(s, "battle P7 speffect skill=18")) {
-                throw new IllegalStateException(checkpoint + " expected skill18 actor u21/state0 one-chunk before damage"
+                throw new IllegalStateException(checkpoint + " expected skill18 actor u21/state10 one-chunk before damage"
                         + " actorVisible=" + s.battleP7ActorEffectVisible
                         + " actorSprite=" + s.battleP7ActorEffectSpriteId
                         + " actorState=" + s.battleP7ActorEffectState
@@ -1131,7 +1133,7 @@ final class WoodSkill implements Skill {
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(18)) + "\n"
                     + "speffect6=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(6)) + "\n"
                     + "aq.c[7][2]=" + java.util.Arrays.toString(debuff.raw) + "\n"
-                    + "actorEffect=21 actorSprite=263 actorState=0 actorSide=enemy\n"
+                    + "actorEffect=21 actorSprite=263 actorState=10 actorSide=enemy\n"
                     + "p7Special=none; activeQueueSpecial=speffect6 AH8 targetSide\n"
                     + "debuff2=Quan Quanh duration=3 value=0 icon=3 durationCell=137\n"
                     + "logic=damage powerPercent 150; apply debuff2; blocks item/pet/run while active; no HP tick; duration decrements.\n"
@@ -1222,15 +1224,15 @@ final class WoodSkill implements Skill {
             }
             if (!s.battleP7ActorEffectVisible
                     || s.battleP7ActorEffectSpriteId != 263
-                    || s.battleP7ActorEffectState != 0
+                    || s.battleP7ActorEffectState != 4
                     || s.battleP7ActorEffectOnPlayerSide
                     || s.battleEnemyHp != beforeEnemyHp
                     || runtime.debugPlayerSkillPpForSmoke(0) != 29
                     || !traceContains(s, "battle P7 source n() skill=13")
                     || !traceContains(s, "battle P7 actor u.a() start skill=13")
                     || !traceContains(s, "id=21")
-                    || !traceContains(s, "param=0")) {
-                throw new IllegalStateException(checkpoint + " expected skill13 actor u21/state0 before damage"
+                    || !traceContains(s, "param=4")) {
+                throw new IllegalStateException(checkpoint + " expected skill13 actor u21/state4 before damage"
                         + " actorVisible=" + s.battleP7ActorEffectVisible
                         + " actorSprite=" + s.battleP7ActorEffectSpriteId
                         + " actorState=" + s.battleP7ActorEffectState
@@ -1315,10 +1317,10 @@ final class WoodSkill implements Skill {
                     || s.battleActiveQueueSegment != 0
                     || !s.battleP7ActorEffectVisible
                     || s.battleP7ActorEffectSpriteId != 263
-                    || s.battleP7ActorEffectState != 0
+                    || s.battleP7ActorEffectState != 4
                     || s.battleP7SpecialVisible
                     || !traceContainsAll(s, "active queue visual start bank=1 id=3",
-                    "visual=aq id=3", "row=[0, 21, 0, -1]")) {
+                    "visual=aq id=3", "row=[0, 21, 4, -1]")) {
                 throw new IllegalStateException(checkpoint + " expected skill13 debuff3 P12 actor body visual"
                         + " activeVisible=" + s.battleActiveQueueVisible
                         + " bank=" + s.battleActiveQueueBank
@@ -1421,8 +1423,8 @@ final class WoodSkill implements Skill {
                     + "effect.mid[13]="
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(13)) + "\n"
                     + "aq.c[7][3]=" + java.util.Arrays.toString(debuff.raw) + "\n"
-                    + "bufDebuf ar[1][3]=[0,21,0,-1]\n"
-                    + "actorEffect=21 actorSprite=263 actorState=0 actorSide=enemy\n"
+                    + "bufDebuf ar[1][3]=[0,21,4,-1]\n"
+                    + "actorEffect=21 actorSprite=263 actorState=4 actorSide=enemy\n"
                     + "debuff3=Thuc Loai duration=3 storedRaw=" + storedRaw
                     + " icon=4 durationCell=137\n"
                     + "logic=damage powerPercent 50; apply debuff3; tick1/tick2 no damage;"
@@ -1522,15 +1524,15 @@ final class WoodSkill implements Skill {
             }
             if (!s.battleP7ActorEffectVisible
                     || s.battleP7ActorEffectSpriteId != 263
-                    || s.battleP7ActorEffectState != 0
+                    || s.battleP7ActorEffectState != 11
                     || s.battleP7ActorEffectOnPlayerSide
                     || s.battleEnemyHp != beforeEnemyHp
                     || runtime.debugPlayerSkillPpForSmoke(0) != 14
                     || !traceContains(s, "battle P7 source n() skill=19")
                     || !traceContains(s, "battle P7 actor u.a() start skill=19")
                     || !traceContains(s, "id=21")
-                    || !traceContains(s, "param=0")) {
-                throw new IllegalStateException(checkpoint + " expected skill19 actor u21/state0 before damage"
+                    || !traceContains(s, "param=11")) {
+                throw new IllegalStateException(checkpoint + " expected skill19 actor u21/state11 before damage"
                         + " actorVisible=" + s.battleP7ActorEffectVisible
                         + " actorSprite=" + s.battleP7ActorEffectSpriteId
                         + " actorState=" + s.battleP7ActorEffectState
@@ -1615,10 +1617,10 @@ final class WoodSkill implements Skill {
                     || s.battleActiveQueueSegment != 0
                     || !s.battleP7ActorEffectVisible
                     || s.battleP7ActorEffectSpriteId != 263
-                    || s.battleP7ActorEffectState != 0
+                    || s.battleP7ActorEffectState != 4
                     || s.battleP7SpecialVisible
                     || !traceContainsAll(s, "active queue visual start bank=1 id=3",
-                    "visual=aq id=3", "row=[0, 21, 0, -1]")) {
+                    "visual=aq id=3", "row=[0, 21, 4, -1]")) {
                 throw new IllegalStateException(checkpoint + " expected skill19 debuff3 P12 actor body visual"
                         + " activeVisible=" + s.battleActiveQueueVisible
                         + " bank=" + s.battleActiveQueueBank
@@ -1723,8 +1725,8 @@ final class WoodSkill implements Skill {
                     + "effect.mid[19]="
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(19)) + "\n"
                     + "aq.c[7][3]=" + java.util.Arrays.toString(debuff.raw) + "\n"
-                    + "bufDebuf ar[1][3]=[0,21,0,-1]\n"
-                    + "actorEffect=21 actorSprite=263 actorState=0 actorSide=enemy\n"
+                    + "bufDebuf ar[1][3]=[0,21,4,-1]\n"
+                    + "actorEffect=21 actorSprite=263 actorState=11 actorSide=enemy\n"
                     + "debuff3=Thuc Loai duration=3 storedRaw=" + storedRaw
                     + " icon=4 durationCell=137\n"
                     + "logic=damage powerPercent 150; apply debuff3; tick1/tick2 no damage;"
@@ -1823,15 +1825,15 @@ final class WoodSkill implements Skill {
             }
             if (!s.battleP7ActorEffectVisible
                     || s.battleP7ActorEffectSpriteId != 263
-                    || s.battleP7ActorEffectState != 1
+                    || s.battleP7ActorEffectState != 5
                     || s.battleEnemyHp != beforeEnemyHp
                     || s.battlePlayerHp != beforePlayerHp
                     || runtime.debugPlayerSkillPpForSmoke(0) != 9
                     || !traceContains(s, "battle P7 source n() skill=14")
                     || !traceContains(s, "battle P7 actor u.a() start skill=14")
                     || !traceContains(s, "id=21")
-                    || !traceContains(s, "param=1")) {
-                throw new IllegalStateException(checkpoint + " expected skill14 actor u21/state1 before post effect"
+                    || !traceContains(s, "param=5")) {
+                throw new IllegalStateException(checkpoint + " expected skill14 actor u21/state5 before post effect"
                         + " actorVisible=" + s.battleP7ActorEffectVisible
                         + " actorSprite=" + s.battleP7ActorEffectSpriteId
                         + " actorState=" + s.battleP7ActorEffectState
@@ -1842,7 +1844,7 @@ final class WoodSkill implements Skill {
                         + " trace=" + tailTrace(s, 72));
             }
             boolean actorOnPlayerSide = s.battleP7ActorEffectOnPlayerSide;
-            writeScenePng(s, new java.io.File(dir, skill14DangChiBichLuyPngName("actor_u21_state1")));
+            writeScenePng(s, new java.io.File(dir, skill14DangChiBichLuyPngName("actor_u21_state5")));
 
             tickUntilBattleP7Phase(s, 3, 340);
             int afterApplyDefense = runtime.debugPlayerCurrentStatForSmoke(BattleUnit.STAT_DEFENSE);
@@ -2027,7 +2029,7 @@ final class WoodSkill implements Skill {
                     + "effect.mid[14]="
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(14)) + "\n"
                     + "aq.c[6][2]=" + java.util.Arrays.toString(buff.raw) + "\n"
-                    + "actorEffect=21 actorSprite=263 actorState=1 actorSidePlayer="
+                    + "actorEffect=21 actorSprite=263 actorState=5 actorSidePlayer="
                     + actorOnPlayerSide + "\n"
                     + "logic=no direct damage; no hitroll; no speffect; apply self buff2 Kinh Cuc; icon=14 durationCell=137.\n"
                     + "before hp=" + beforePlayerHp + "/" + s.battlePlayerMaxHp
@@ -2380,7 +2382,9 @@ final class WoodSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(11);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(11);
         short[] speffect10 = VqsvBattleAnimationTables.instance().speffectRow(10);
-        byte[] expectedEffect = new byte[]{0, 0, 21, 1, -1, -1, 0, 1, 1, 10, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 21, 1, -1, -1, 0,
+                1, 0, 25, 9, 5, -1, 0,
+                1, 1, 10, 0, -1, -1, 0};
         short[] expectedSpeffect = new short[]{9, 120, 218, 217, 169, 0, 4, 2};
         if (row == null
                 || row.elementFamily != 1
@@ -2416,7 +2420,9 @@ final class WoodSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(17);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(17);
         short[] speffect10 = VqsvBattleAnimationTables.instance().speffectRow(10);
-        byte[] expectedEffect = new byte[]{0, 0, 21, 1, -1, -1, 0, 1, 1, 10, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 21, 8, -1, -1, 0,
+                1, 0, 25, 9, 5, -1, 0,
+                1, 1, 10, 0, -1, -1, 0};
         short[] expectedSpeffect = new short[]{9, 120, 218, 217, 169, 0, 4, 2};
         if (row == null
                 || row.elementFamily != 1
@@ -2453,7 +2459,8 @@ final class WoodSkill implements Skill {
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(2);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(12);
         short[] speffect6 = VqsvBattleAnimationTables.instance().speffectRow(6);
-        byte[] expectedEffect = new byte[]{0, 0, 21, 0, -1, -1, 0, 0, 1, 6, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 21, 3, 3, -1, 0,
+                0, 1, 6, 0, -1, -1, 0};
         short[] expectedSpeffect = new short[]{
                 8, 0, 10, 1, 5, 1, 10, 0, 0,
                 8, 0, -5, 10, 0, 0,
@@ -2500,7 +2507,7 @@ final class WoodSkill implements Skill {
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(2);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(18);
         short[] speffect6 = VqsvBattleAnimationTables.instance().speffectRow(6);
-        byte[] expectedEffect = new byte[]{0, 0, 21, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 21, 10, -1, -1, 0};
         short[] expectedSpeffect = new short[]{
                 8, 0, 10, 1, 5, 1, 10, 0, 0,
                 8, 0, -5, 10, 0, 0,
@@ -2546,7 +2553,7 @@ final class WoodSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(13);
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(3);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(13);
-        byte[] expectedEffect = new byte[]{0, 0, 21, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 21, 4, -1, -1, 0};
         if (row == null
                 || debuff == null
                 || row.elementFamily != 1
@@ -2584,7 +2591,7 @@ final class WoodSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(19);
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(3);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(19);
-        byte[] expectedEffect = new byte[]{0, 0, 21, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 21, 11, -1, -1, 0};
         if (row == null
                 || debuff == null
                 || row.elementFamily != 1
@@ -2622,7 +2629,7 @@ final class WoodSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(14);
         BattleBuffRow buff = VqsvBattleTables.instance().buff(2);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(14);
-        byte[] expectedEffect = new byte[]{0, 0, 21, 1, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 21, 5, -1, -1, 0};
         if (row == null
                 || buff == null
                 || row.elementFamily != 1
@@ -2855,7 +2862,14 @@ final class WoodSkill implements Skill {
     }
 
     private static int directBaseActorState(int skillId) {
-        return 1;
+        switch (skillId) {
+            case 10:
+                return 0;
+            case 16:
+                return 7;
+            default:
+                throw new IllegalArgumentException("Not a wood direct smoke skill: " + skillId);
+        }
     }
 
     private static int directBaseExpectedPower(int skillId) {

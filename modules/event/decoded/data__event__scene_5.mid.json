@@ -8,7 +8,7 @@
     650,
     7571,
     1520,
-    4543,
+    4539,
     6878
   ],
   "rooms": [
@@ -4807,7 +4807,7 @@
     },
     {
       "room_index": 5,
-      "block_size": 4543,
+      "block_size": 4539,
       "room_start": 12349,
       "room_name": "Hắc Thạch Thành Nhị",
       "string_pool_count": 32,
@@ -4832,7 +4832,7 @@
         "x1",
         "",
         "7,11",
-        "Tiếp nhận, từ chối",
+        "Thật không phải.",
         "Jani Las",
         "Đa tạ, Edern hiện trong địa lao Hắc Thạch, ngươi phải hết sức cẩn thận!",
         "Đến địa lao Hắc Thạch cứu Edern.",
@@ -5516,7 +5516,7 @@
                 },
                 {
                   "string_index": 20,
-                  "text": "Tiếp nhận, từ chối"
+                  "text": "Thật không phải."
                 }
               ]
             },
@@ -5686,13 +5686,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 4543,
-      "declared_block_size": 4543
+      "bytes_consumed_in_room": 4539,
+      "declared_block_size": 4539
     },
     {
       "room_index": 6,
       "block_size": 6878,
-      "room_start": 16892,
+      "room_start": 16888,
       "room_name": "Địa lao Hắc Thạch",
       "string_pool_count": 126,
       "string_pool": [

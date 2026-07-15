@@ -54,31 +54,10 @@ final class VqsvBattleRenderer {
             drawBattleUiCellTopLeft(g, 158, 101, 1);
         }
         drawBattleGroundMarkers(g, s);
-        if (s.battleLVisible && !s.battleLDrawAfter) {
-            drawState1LEffect(g, s);
-        }
-        if (!s.battleEnemyHiddenByCatch && !s.battleP7BaseHiddenEnemySide) {
-            drawBattleSpriteAtSource(g, s.battleEnemyVisualId,
-                    sourceBattleActorX(s, false) + enemyOffsetX(s),
-                    sourceBattleActorY(s, false) + enemyOffsetY(s), sourceBattleOrientation(false),
-                    s.battleP7BaseStateEnemySide,
-                    baseCursor(s.battleEnemyVisualId, s.battleP7BaseStateEnemySide,
-                            s.battleP7BaseCursorEnemySide, s.battleAnimationTick));
-        }
-        if (!s.battleP7BaseHiddenPlayerSide) {
-            drawBattleSpriteAtSource(g, s.battlePlayerVisualId,
-                    sourceBattleActorX(s, true) + playerOffsetX(s),
-                    sourceBattleActorY(s, true) + playerOffsetY(s), sourceBattleOrientation(true),
-                    s.battleP7BaseStatePlayerSide,
-                    baseCursor(s.battlePlayerVisualId, s.battleP7BaseStatePlayerSide,
-                            s.battleP7BaseCursorPlayerSide, s.battleAnimationTick));
-        }
-        if (s.battleLVisible && s.battleLDrawAfter) {
-            drawState1LEffect(g, s);
-        }
-        drawP7ActorEffect(g, s);
-        drawP7DeathEffect(g, s);
         drawP7SpecialEffect(g, s);
+        drawBattleActorWithAttachedEffects(g, s, false);
+        drawBattleActorWithAttachedEffects(g, s, true);
+        drawP7DeathEffect(g, s);
 
         if (!fullOverlayMode) {
             drawBattleUiCellTopLeft(g, 101, 97, 14);
@@ -1594,11 +1573,40 @@ final class VqsvBattleRenderer {
         return frames[safeCursor * 2 + 1];
     }
 
-    private static void drawP7ActorEffect(Graphics2D g, VqsvIntroDemo.Scene s) {
+    private static void drawBattleActorWithAttachedEffects(Graphics2D g, VqsvIntroDemo.Scene s, boolean playerSide) {
+        if (s.battleLVisible && s.battleLPlayerSide == playerSide && !s.battleLDrawAfter) {
+            drawState1LEffect(g, s);
+        }
+        if (playerSide) {
+            if (!s.battleP7BaseHiddenPlayerSide) {
+                drawBattleSpriteAtSource(g, s.battlePlayerVisualId,
+                        sourceBattleActorX(s, true) + playerOffsetX(s),
+                        sourceBattleActorY(s, true) + playerOffsetY(s), sourceBattleOrientation(true),
+                        s.battleP7BaseStatePlayerSide,
+                        baseCursor(s.battlePlayerVisualId, s.battleP7BaseStatePlayerSide,
+                                s.battleP7BaseCursorPlayerSide, s.battleAnimationTick));
+            }
+        } else if (!s.battleEnemyHiddenByCatch && !s.battleP7BaseHiddenEnemySide) {
+            drawBattleSpriteAtSource(g, s.battleEnemyVisualId,
+                    sourceBattleActorX(s, false) + enemyOffsetX(s),
+                    sourceBattleActorY(s, false) + enemyOffsetY(s), sourceBattleOrientation(false),
+                    s.battleP7BaseStateEnemySide,
+                    baseCursor(s.battleEnemyVisualId, s.battleP7BaseStateEnemySide,
+                            s.battleP7BaseCursorEnemySide, s.battleAnimationTick));
+        }
+        if (s.battleLVisible && s.battleLPlayerSide == playerSide && s.battleLDrawAfter) {
+            drawState1LEffect(g, s);
+        }
+        drawP7ActorEffectForSide(g, s, playerSide);
+    }
+
+    private static void drawP7ActorEffectForSide(Graphics2D g, VqsvIntroDemo.Scene s, boolean playerSide) {
         if (!s.battleP7ActorEffectVisible || s.battleP7ActorEffectSpriteId < 0) {
             return;
         }
-        boolean playerSide = s.battleP7ActorEffectOnPlayerSide;
+        if (s.battleP7ActorEffectOnPlayerSide != playerSide) {
+            return;
+        }
         int x = sourceBattleActorX(s, playerSide) + sideOffsetX(s, playerSide);
         int y = sourceBattleActorY(s, playerSide) + sideOffsetY(s, playerSide);
         if ((s.battleP7ActorEffectSourceId == 20 && s.battleP7ActorEffectState == 3)
@@ -2169,10 +2177,14 @@ final class VqsvBattleRenderer {
         ball.setState(Math.max(0, s.battleCatchPhase));
         ball.cursor = Math.max(0, s.battleCatchAnimCursor);
         if (s.battleCatchPhase == 3) {
-            drawCatchSuccessBallOnEnemyGround(g, ball, s);
+            int[] target = enemyCaptureBallPoint(s, ball);
+            drawCatchBallVisibleCenterAt(g, ball, target[0], target[1]);
+        } else if (s.battleCatchPhase == 0) {
+            int[] target = catchThrowPoint(s, ball);
+            drawCatchBallVisibleCenterAt(g, ball, target[0], target[1]);
         } else {
-            int[] target = enemyVisibleSpriteRect(s);
-            ball.drawAligned(g, target[0], target[1], target[2], target[3], 4, 0);
+            int[] target = enemyCaptureBallPoint(s, ball);
+            drawCatchBallVisibleCenterAt(g, ball, target[0], target[1]);
         }
     }
 
@@ -2409,22 +2421,68 @@ final class VqsvBattleRenderer {
         }
     }
 
-    private static void drawCatchSuccessBallOnEnemyGround(Graphics2D g, SpriteAnim ball, VqsvIntroDemo.Scene s) {
-        int[] marker = enemyGroundMarkerRect(s);
+    private static void drawCatchBallVisibleCenterAt(Graphics2D g, SpriteAnim ball, int centerX, int centerY) {
+        int cellId = ball.currentCellId();
         int[] bounds = ball.currentCellBounds();
-        if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
-            bounds = ball.animationBounds(Math.max(0, s.battleCatchPhase));
-        }
-        if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
+        if (cellId < 0 || bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
             return;
         }
-        // Sprite 269 q3 keeps the red/white ball core slightly above/right of its cell bounds center.
-        // Bias the source-backed cell so the visible ball core sits in the enemy platform center.
-        int centerX = marker[0] + marker[2] / 2 - 1;
-        int centerY = marker[1] + marker[3] / 2 + 3;
-        int drawX = centerX - bounds[0] - bounds[2] / 2;
-        int drawY = centerY - bounds[1] - bounds[3] / 2;
-        ball.draw(g, drawX, drawY, 0);
+        BufferedImage image = renderSpriteCellImage(ball, cellId, bounds, 0);
+        if (image == null) {
+            return;
+        }
+        int[] opaque = opaqueBounds(image);
+        if (opaque == null) {
+            return;
+        }
+        int drawX = centerX - opaque[0] - opaque[2] / 2;
+        int drawY = centerY - opaque[1] - opaque[3] / 2;
+        g.drawImage(image, drawX, drawY, null);
+    }
+
+    private static int[] catchThrowPoint(VqsvIntroDemo.Scene s, SpriteAnim ball) {
+        int[] start = playerThrowBallPoint(s);
+        int[] end = enemyCaptureBallPoint(s, ball);
+        int frames = ball.data.anim == null || ball.state < 0 || ball.state >= ball.data.anim.length
+                ? 1 : Math.max(1, ball.data.anim[ball.state].length / 2);
+        int cursor = Math.max(0, Math.min(ball.cursor, frames - 1));
+        int x = start[0] + (end[0] - start[0]) * cursor / Math.max(1, frames - 1);
+        int y = start[1] + (end[1] - start[1]) * cursor / Math.max(1, frames - 1);
+        return new int[]{x, y};
+    }
+
+    private static int[] playerThrowBallPoint(VqsvIntroDemo.Scene s) {
+        int[] rect = playerVisibleSpriteRect(s);
+        return new int[]{rect[0] + rect[2] / 2, rect[1] + rect[3] / 2};
+    }
+
+    private static int[] enemyCaptureBallPoint(VqsvIntroDemo.Scene s, SpriteAnim ball) {
+        int[] rect = enemyVisibleSpriteRect(s);
+        int[] marker = enemyGroundMarkerRect(s);
+        int ballHeight = catchBallVisibleHeight(ball);
+        int x = marker[0] + marker[2] / 2;
+        int y = rect[1] - Math.max(3, ballHeight / 2) + 1;
+        return new int[]{x, y};
+    }
+
+    private static int catchBallVisibleHeight(SpriteAnim ball) {
+        int cellId = ball.currentCellId();
+        int[] bounds = ball.currentCellBounds();
+        if (cellId < 0 || bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
+            return 12;
+        }
+        BufferedImage image = renderSpriteCellImage(ball, cellId, bounds, 0);
+        int[] opaque = image == null ? null : opaqueBounds(image);
+        return opaque == null ? Math.max(1, bounds[3]) : Math.max(1, opaque[3]);
+    }
+
+    private static BufferedImage renderSpriteCellImage(SpriteAnim sprite, int cellId, int[] bounds, int orientation) {
+        BufferedImage img = new BufferedImage(bounds[2], bounds[3], BufferedImage.TYPE_INT_ARGB);
+        Graphics2D ig = img.createGraphics();
+        sprite.drawCell(ig, cellId, -bounds[0], -bounds[1], orientation);
+        ig.dispose();
+        normalizeJavaMeEffectPixels(img);
+        return img;
     }
 
     private static void drawCatchEffectType8(Graphics2D g, VqsvIntroDemo.Scene s) {
@@ -2481,6 +2539,20 @@ final class VqsvBattleRenderer {
         return new int[]{x + bounds[0], y + bounds[1], bounds[2], bounds[3]};
     }
 
+    private static int[] playerVisibleSpriteRect(VqsvIntroDemo.Scene s) {
+        int x = sourceBattleActorX(s, true) + playerOffsetX(s);
+        int y = sourceBattleActorY(s, true) + playerOffsetY(s);
+        if (s.battlePlayerVisualId < 0) {
+            return new int[]{x, y, PLAYER_RECT_W, PLAYER_RECT_H};
+        }
+        SpriteAnim player = SpriteAnim.load(s.battlePlayerVisualId);
+        int[] bounds = player.animationBounds(Math.max(0, s.battleP7BaseStatePlayerSide));
+        if (bounds == null || bounds[2] <= 0 || bounds[3] <= 0) {
+            return new int[]{x, y, PLAYER_RECT_W, PLAYER_RECT_H};
+        }
+        return new int[]{x + bounds[0], y + bounds[1], bounds[2], bounds[3]};
+    }
+
     private static int[] enemyGroundMarkerRect(VqsvIntroDemo.Scene s) {
         SpriteAnim marker = SpriteAnim.load(294);
         marker.setState(0);
@@ -2491,6 +2563,29 @@ final class VqsvBattleRenderer {
             return new int[]{x, y, 64, 24};
         }
         return new int[]{x + bounds[0], y + bounds[1], bounds[2], bounds[3]};
+    }
+
+    private static int[] opaqueBounds(BufferedImage image) {
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int argb = image.getRGB(x, y);
+                if ((argb >>> 24) == 0 || argb == JAVA_ME_EFFECT_TRANSPARENT_KEY) {
+                    continue;
+                }
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
+                maxX = Math.max(maxX, x);
+                maxY = Math.max(maxY, y);
+            }
+        }
+        if (minX == Integer.MAX_VALUE) {
+            return null;
+        }
+        return new int[]{minX, minY, maxX - minX + 1, maxY - minY + 1};
     }
 
     private static void brightenOpaquePixels(BufferedImage image, int add) {

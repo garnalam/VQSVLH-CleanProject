@@ -6,11 +6,11 @@
     845,
     2157,
     1124,
-    13541,
+    13547,
     1296,
     2005,
     5789,
-    5788
+    5760
   ],
   "rooms": [
     {
@@ -1694,7 +1694,7 @@
           "param_len": 13,
           "values": [
             0,
-            69,
+            14,
             0,
             174,
             145,
@@ -1715,8 +1715,8 @@
             0,
             225,
             0,
-            147,
-            271,
+            143,
+            276,
             1,
             0,
             2,
@@ -1735,7 +1735,7 @@
             225,
             0,
             276,
-            30,
+            53,
             1,
             0,
             2,
@@ -1772,8 +1772,8 @@
             0,
             225,
             1,
-            236,
-            132,
+            225,
+            144,
             1,
             0,
             2,
@@ -2526,7 +2526,7 @@
           "param_len": 13,
           "values": [
             0,
-            81,
+            40,
             0,
             34,
             232,
@@ -2759,7 +2759,7 @@
     },
     {
       "room_index": 3,
-      "block_size": 13541,
+      "block_size": 13547,
       "room_start": 4144,
       "room_name": "Nguyên Mộc Thành Nhất",
       "string_pool_count": 147,
@@ -2811,7 +2811,7 @@
         "",
         "4,7",
         "Tiếp nhận, từ chối",
-        "Senta đang tại Niêm Thổ Thành nghiên cứu tinh quặng mỏ.",
+        "Senta hiện đang ở Niêm Thổ Thành nghiên cứu tinh quặng mỏ.",
         "Nhiệm vụ phụ đã được cập nhật, vui lòng nhấn nút 1 để tra xét nhiệm vụ.",
         "Kate",
         "Ừ, không có mối liên hệ nào.",
@@ -3838,7 +3838,7 @@
           "param_len": 13,
           "values": [
             0,
-            81,
+            55,
             2,
             250,
             244,
@@ -3876,7 +3876,7 @@
           "param_len": 13,
           "values": [
             0,
-            81,
+            55,
             0,
             483,
             185,
@@ -3895,7 +3895,7 @@
           "param_len": 13,
           "values": [
             0,
-            23,
+            74,
             0,
             230,
             386,
@@ -4960,7 +4960,7 @@
               "string_args": [
                 {
                   "string_index": 47,
-                  "text": "Senta đang tại Niêm Thổ Thành nghiên cứu tinh quặng mỏ."
+                  "text": "Senta hiện đang ở Niêm Thổ Thành nghiên cứu tinh quặng mỏ."
                 }
               ]
             },
@@ -6172,13 +6172,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 13541,
-      "declared_block_size": 13541
+      "bytes_consumed_in_room": 13547,
+      "declared_block_size": 13547
     },
     {
       "room_index": 4,
       "block_size": 1296,
-      "room_start": 17685,
+      "room_start": 17691,
       "room_name": "Nguyên Mộc Thành Tả Nhất",
       "string_pool_count": 7,
       "string_pool": [
@@ -6535,7 +6535,7 @@
           "param_len": 13,
           "values": [
             0,
-            53,
+            55,
             0,
             36,
             85,
@@ -6613,8 +6613,8 @@
             0,
             225,
             0,
-            13,
-            158,
+            12,
+            157,
             1,
             0,
             2,
@@ -6766,7 +6766,7 @@
     {
       "room_index": 5,
       "block_size": 2005,
-      "room_start": 18981,
+      "room_start": 18987,
       "room_name": "Nguyên Mộc Thành Tả Nhị Phân Chi",
       "string_pool_count": 27,
       "string_pool": [
@@ -6938,7 +6938,7 @@
           "param_len": 13,
           "values": [
             0,
-            81,
+            70,
             0,
             230,
             269,
@@ -7602,7 +7602,7 @@
     {
       "room_index": 6,
       "block_size": 5789,
-      "room_start": 20986,
+      "room_start": 20992,
       "room_name": "Nguyên Mộc Thành Mã Đầu",
       "string_pool_count": 73,
       "string_pool": [
@@ -8311,7 +8311,7 @@
           "values": [
             0,
             50,
-            0,
+            4,
             175,
             119,
             1,
@@ -8367,7 +8367,7 @@
           "param_len": 13,
           "values": [
             0,
-            52,
+            67,
             1,
             75,
             239,
@@ -9492,8 +9492,8 @@
     },
     {
       "room_index": 7,
-      "block_size": 5788,
-      "room_start": 26775,
+      "block_size": 5760,
+      "room_start": 26781,
       "room_name": "Khiêu chiến thi đấu Lục Hành Điểu",
       "string_pool_count": 63,
       "string_pool": [
@@ -9513,7 +9513,7 @@
         "Jill",
         "Luật chơi nằm trọn trong một vòng tròn, người chơi phải về đích trong thời gian quy định và thoát khỏi những chướng ngại vật ngẫu nhiên gặp phải. Một khi đã chơi không thể dừng, cũng không chạy được.",
         "Jill",
-        "Chiến thắng trong vòng 200 giây có thể đạt được Tam đẳng thưởng 600 kim tiền. 130 giây đạt Nhị đẳng, 750 kim tiền. 80 giây đạt Nhất đẳng thưởng 1000 kim tiền. 65 giây sẽ đạt được giải thưởng thần bí!",
+        "Chiến thắng trong vòng 200 giây có thể đạt được Tam đẳng thưởng 600 kim tiền. 130 giây đạt Nhị đẳng, 750 kim tiền. 70 giây đạt Nhất đẳng thưởng 1000 kim tiền. 65 giây sẽ đạt được giải thưởng thần bí!",
         "-1",
         "0",
         "3",
@@ -9527,7 +9527,7 @@
         "Ngươi đã chạy %s lần, thời gian còn lại %s.",
         "Jill",
         "Tốt, nơi này là đấu trường thi Lục Hành Điểu. Muốn bắt đầu chơi chứ?",
-        "Xem các quy tắc để bắt đầu trò chơi và chuyển đi",
+        "Bắt đầu trò chơi, xem xét quy tắc, rời đi",
         "7,9,22",
         "",
         "Jill",
@@ -9535,13 +9535,13 @@
         "Tiếp nhận, từ chối",
         "14,22",
         "",
-        "Quy tắc trận đấu, phần thưởng, quay trở lại",
+        "Quy tắc trận đấu, phần thưởng, quay trở về",
         "10,12,6",
         "",
         "Jill",
-        "Luật chơi nằm trọn trong một vòng tròn, người chơi phải về đích trong thời gian quy định và thoát khỏi những chướng ngại vật ngẫu nhiên gặp phải. Một khi đã chơi không thể dừng, cũng không chạy được.",
+        "Luật chơi nằm gọn trong một vòng tròn. Kẻ về đích trước trong thời gian quy định là thắng cuộc. Cần vượt qua các trở ngại ngẫu nhiên. Một khi đã bắt đầu thì không thể tạm dừng, cũng không thể chạy trốn được.",
         "Jill",
-        "Chiến thắng trong vòng 200 giây có thể đạt được Tam đẳng thưởng 600 kim tiền. 130 giây đạt Nhị đẳng, 750 kim tiền. 80 giây đạt Nhất đẳng thưởng 1000 kim tiền. 65 giây sẽ đạt được giải thưởng thần bí!",
+        "Chiến thắng trong 200 giây đạt được Tam đẳng thưởng 600 kim tiền. 130 giây đạt Nhị đẳng, 750 kim tiền. 70 giây đạt Nhất đẳng, 1000 kim tiền. 65 giây có thể đạt được giải thưởng thần bí!",
         "-1",
         "0",
         "3",
@@ -10328,7 +10328,7 @@
           "param_len": 13,
           "values": [
             0,
-            35,
+            11,
             1,
             201,
             57,
@@ -10765,7 +10765,7 @@
                 },
                 {
                   "string_index": 16,
-                  "text": "Chiến thắng trong vòng 200 giây có thể đạt được Tam đẳng thưởng 600 kim tiền. 130 giây đạt Nhị đẳng, 750 kim tiền. 80 giây đạt Nhất đẳng thưởng 1000 kim tiền. 65 giây sẽ đạt được giải thưởng thần bí!"
+                  "text": "Chiến thắng trong vòng 200 giây có thể đạt được Tam đẳng thưởng 600 kim tiền. 130 giây đạt Nhị đẳng, 750 kim tiền. 70 giây đạt Nhất đẳng thưởng 1000 kim tiền. 65 giây sẽ đạt được giải thưởng thần bí!"
                 }
               ]
             },
@@ -10988,7 +10988,7 @@
               "string_args": [
                 {
                   "string_index": 30,
-                  "text": "Xem các quy tắc để bắt đầu trò chơi và chuyển đi"
+                  "text": "Bắt đầu trò chơi, xem xét quy tắc, rời đi"
                 },
                 {
                   "string_index": 31,
@@ -11050,7 +11050,7 @@
               "string_args": [
                 {
                   "string_index": 38,
-                  "text": "Quy tắc trận đấu, phần thưởng, quay trở lại"
+                  "text": "Quy tắc trận đấu, phần thưởng, quay trở về"
                 },
                 {
                   "string_index": 39,
@@ -11076,7 +11076,7 @@
                 },
                 {
                   "string_index": 42,
-                  "text": "Luật chơi nằm trọn trong một vòng tròn, người chơi phải về đích trong thời gian quy định và thoát khỏi những chướng ngại vật ngẫu nhiên gặp phải. Một khi đã chơi không thể dừng, cũng không chạy được."
+                  "text": "Luật chơi nằm gọn trong một vòng tròn. Kẻ về đích trước trong thời gian quy định là thắng cuộc. Cần vượt qua các trở ngại ngẫu nhiên. Một khi đã bắt đầu thì không thể tạm dừng, cũng không thể chạy trốn được."
                 }
               ]
             },
@@ -11102,7 +11102,7 @@
                 },
                 {
                   "string_index": 44,
-                  "text": "Chiến thắng trong vòng 200 giây có thể đạt được Tam đẳng thưởng 600 kim tiền. 130 giây đạt Nhị đẳng, 750 kim tiền. 80 giây đạt Nhất đẳng thưởng 1000 kim tiền. 65 giây sẽ đạt được giải thưởng thần bí!"
+                  "text": "Chiến thắng trong 200 giây đạt được Tam đẳng thưởng 600 kim tiền. 130 giây đạt Nhị đẳng, 750 kim tiền. 70 giây đạt Nhất đẳng, 1000 kim tiền. 65 giây có thể đạt được giải thưởng thần bí!"
                 }
               ]
             },
@@ -11384,8 +11384,8 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 5788,
-      "declared_block_size": 5788
+      "bytes_consumed_in_room": 5760,
+      "declared_block_size": 5760
     }
   ]
 }

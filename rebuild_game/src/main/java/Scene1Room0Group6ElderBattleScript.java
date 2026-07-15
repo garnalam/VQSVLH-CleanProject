@@ -17,25 +17,27 @@ final class Scene1Room0Group6ElderBattleScript {
     static void appendTo(List<Event> e) {
             // scene_1 room0 group6, records 0..21. Battle remains a controlled game.d stub.
             e.add(s -> new Room0Group6Start());
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_ATTACK, 1));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group6.ELDER,
+                    VqsvText.Scene1Room0Group6.ELDER_ATTACK, 0, -1));
             e.add(s -> { s.op67SetBattleActor(52); return null; });
             e.add(VqsvBattleScripts::room0Group6ElderBattleRuntime);
             e.add(s -> { VqsvBattleEventDescriptor.SCENE1_ROOM0_GROUP6_ELDER.consumeOp47(s); return null; });
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_REWARD, 1));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group6.ELDER,
+                    VqsvText.Scene1Room0Group6.ELDER_REWARD, 0, -1));
             e.add(s -> s.op31CurrencyReward(0, 0, 500));
             e.add(s -> s.op17Item(0, 4, 10));
             e.add(s -> s.op17Item(0, 11, 2));
             e.add(s -> s.op19SpecialReward(5, 1));
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_BOOK, 1));
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group6.ELDER, VqsvText.Scene1Room0Group6.ELDER_ABRA, 1));
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group6.NEIL, VqsvText.Scene1Room0Group6.NEIL_REMEMBER));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group6.ELDER,
+                    VqsvText.Scene1Room0Group6.ELDER_BOOK, 0, -1));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group6.ELDER,
+                    VqsvText.Scene1Room0Group6.ELDER_ABRA, 0, -1));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group6.NEIL,
+                    VqsvText.Scene1Room0Group6.NEIL_REMEMBER, 0, 0));
             e.add(s -> { s.op23MarkEventComplete(1, 0, 4); return null; });
             e.add(s -> { s.op23MarkEventComplete(1, 0, 5); return null; });
-            e.add(s -> {
-                s.sourceStateTrace.add("PORTED/APPROX room0 group6 op45 taskFlag=2");
-                s.text = TextBox.taskTip(VqsvText.Scene1Room0Group6.TASK_BICH_THUY);
-                return VqsvSceneScriptSupport.waitForText();
-            });
+            e.add(VqsvSceneScriptSupport.taskNoticeOp45(2,
+                    VqsvText.Scene1Room0Group6.TASK_BICH_THUY, "scene1 room0 group6"));
             e.add(s -> {
                 s.sourceStateTrace.add("PORTED/APPROX room0 group6 op40 free-world notice");
                 s.text = TextBox.openBox(VqsvText.Scene1Room0Group6.FREE_WORLD);

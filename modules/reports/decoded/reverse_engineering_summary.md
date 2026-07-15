@@ -1,17 +1,17 @@
 # Reverse Engineering Summary
 
 ## What Was Decoded
-- event_scene_binary: 12
-- java_class: 68
-- map_binary: 94
-- midi_audio: 1
+- event_scene_binary: 15
+- java_class: 72
+- map_binary: 102
+- midi_audio: 7
 - module_tileset_binary: 8
-- png_chunk_container_or_raw_png: 22
-- png_image: 246
-- script_table_binary: 17
-- sprite_binary: 299
-- ui_layout_binary: 40
-- unknown_or_misc: 6
+- png_chunk_container_or_raw_png: 24
+- png_image: 311
+- script_table_binary: 19
+- sprite_binary: 325
+- ui_layout_binary: 42
+- unknown_or_misc: 5
 - vm_bytecode_script: 1
 
 ## Runtime Entry Points

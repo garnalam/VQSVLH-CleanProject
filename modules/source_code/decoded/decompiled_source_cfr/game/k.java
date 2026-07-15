@@ -1,2898 +1,6386 @@
 /*
  * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  javax.microedition.lcdui.Graphics
- *  javax.microedition.lcdui.Image
  */
 package game;
 
+import a.a.d;
+import a.b.c;
+import c.h;
 import game.a;
-import game.c;
-import game.d;
+import game.b;
+import game.e;
+import game.f;
 import game.g;
-import game.h;
 import game.i;
 import game.j;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FilterInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import game.l;
 import java.util.Vector;
-import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.Image;
 
 public final class k
-extends an {
-    private static k Z;
-    public j a;
-    private ai aa;
-    public t b;
-    public g c;
-    public a[] d;
-    public Vector e;
-    private int ab;
-    public int f;
-    public int g;
-    private int ac;
-    public short h;
-    public short i;
-    public int j;
-    public String k;
-    public static int[] l;
-    public static Image m;
-    private static Image ad;
-    private static Image ae;
-    public static ah n;
-    private static ar[] af;
-    private static byte[][][] ag;
-    private static short[][][] ah;
-    private static boolean[][] ai;
-    private static String[] aj;
-    private static short[][] ak;
-    private static Vector al;
-    private static Vector am;
-    private static Vector an;
-    private static Vector ao;
-    public f o;
-    private f ap;
-    public f p;
-    public static int q;
-    public static byte r;
-    public static byte s;
-    public static byte t;
-    public static short u;
-    public static short v;
-    public static byte w;
-    public static boolean x;
-    public static int y;
-    public static int z;
-    public static int A;
-    public static int B;
-    public static int C;
-    private static byte[] aq;
-    private int[] ar;
-    private int[] as;
-    private short[] at;
-    private static String[] au;
-    public static boolean D;
-    public static Vector E;
-    public static Vector F;
-    public static byte G;
-    public static Vector H;
-    public static byte I;
-    public static boolean J;
-    protected static boolean K;
-    public static byte[] L;
-    private Image[] av;
-    public c M;
-    public static String[] N;
-    private byte[][] aw;
-    private short[][] ax;
-    private int ay;
-    private String az;
-    private byte aA;
-    private byte aB;
-    private byte aC;
-    private byte aD;
-    private int aE;
-    private int aF;
-    private int aG;
-    private int aH;
-    private boolean aI;
-    private f aJ;
-    private f[] aK;
-    private int aL;
-    private int[] aM;
-    private int[] aN;
-    private int[] aO;
-    private int[][] aP;
-    private int[] aQ;
-    public static byte O;
-    private boolean aR;
-    private boolean[] aS;
-    private byte[] aT;
-    private byte aU;
-    private byte aV;
-    private boolean aW;
+implements c.a {
+    private static k n;
+    private a.a o;
+    private c.j p = c.j.a();
+    private j q;
+    protected int a;
+    protected int b;
+    protected int c;
+    private int r;
+    protected int d;
+    protected int e;
+    private int s;
+    protected int f;
+    protected boolean g;
+    private byte t;
+    private byte u;
+    private int v;
+    protected int h;
+    private int w;
+    protected int i;
+    private int[] x;
+    private int[] y;
+    public byte j = (byte)-1;
+    private static String[] z;
+    private static short[] A;
+    private Vector B = new Vector();
+    private int C = 0;
+    private int D = 0;
+    private int E = 0;
+    private int F = 0;
+    public int k = 0;
+    boolean l = false;
+    private int G;
+    private int H;
+    private int I = 0;
+    private int J = 0;
+    private int K = 0;
+    private int L = 0;
+    private String[] M = new String[]{"/data/ui/option.ui", "/data/ui/answer.ui", "/data/ui/wharf1.ui"};
+    public short[] m = new short[]{9, 0, 120, 448, 9, 1, 136, 272, 9, 2, 208, 256, 9, 3, 80, 264, 9, 4, 112, 288, 9, 5, 40, 280, 9, 6, 136, 328, 9, 7, 104, 328};
+    private String[] N = new String[]{"\u0110\u1ea1t \u0111\u01b0\u1ee3c 2000 kim ti\u1ec1n", "\u0110\u1ea1t \u0111\u01b0\u1ee3c 5 Phong \u1ea5n c\u1ea7u", "\u0110\u1ea1t \u0111\u01b0\u1ee3c 5 B\u00e1nh Sandwich", "\u0110\u1ea1t \u0111\u01b0\u1ee3c 2 Sinh m\u1ec7nh th\u1ea1ch", "\u0110\u1ea1t \u0111\u01b0\u1ee3c 2 huy hi\u1ec7u"};
+    private short[][] O = new short[][]{{621, 622}, {623, 624}, {625, 626}, {627, 628}, {629, 630, 631, 632}};
+    private short[][] P = new short[][]{{5, 2, 112, 224, 2, 2, 5, 6, 1, 6, 0, 112, 224, 2, 0, 1, 0, 10}, {4, 0, 48, 176, 2, 2, 3, 6, 3, 6, 0, 112, 224, 2, 2, 1, 0, 10}, {3, 6, 288, 224, 3, 0, 3, 6, 3, 6, 0, 112, 224, 2, 2, 1, 0, 10}, {1, 5, 272, 128, 3, 0, 5, 6, 1, 6, 0, 112, 224, 2, 0, 1, 0, 10}, {1, 5, 272, 128, 3, 2, 0, 0, 0, 3, 6, 288, 224, 3, 0, 0, 0, 0, 4, 0, 48, 176, 2, 0, 0, 0, 0, 5, 2, 112, 224, 2, 2, 0, 0, 0}};
+    private byte Q;
+    private byte R;
+    private String[] S = new String[]{"D\u1eabn th\u01b0\u1edfng", "Ti\u1ebfn h\u00f3a", "D\u1ecb h\u00f3a", "T\u00e0i li\u1ec7u", "C\u00e1ch m\u1edf"};
 
     public static k a() {
-        if (Z == null) {
-            Z = new k();
+        if (n == null) {
+            n = new k();
         }
-        return Z;
+        return n;
     }
 
     public k() {
-        game.j.a();
-        this.e = new Vector();
-        this.f = 0;
-        this.g = 0;
-        this.ac = 0;
-        this.h = (short)128;
-        this.i = (short)256;
-        this.j = -1;
-        this.k = "G\u1ed7 th\u00f4";
-        this.o = null;
-        this.ap = null;
-        this.p = null;
-        this.ar = new int[]{21, 35, 50, 0, 45};
-        this.as = new int[]{9, 0, 20, 3, 9, 1, 17, 1, 9, 2, 9, 4, 9, 6, 86, 5, 9, 6, 58, 6, 9, 5, 21, 2, 9, 4, 3, 0};
-        this.at = new short[]{1, 5, 0, 616, 3, 6, 0, 617, 4, 0, 0, 618, 5, 2, 0, 619, 6, 0, 1, 620};
-        this.aw = null;
-        this.ax = null;
-        this.ay = 0;
-        this.az = "Ngo\u1ea1i tr\u1eeb ti\u1ebfn h\u00f3a, s\u1ee7ng v\u1eadt c\u00f2n c\u00f3 th\u1ec3 d\u1ecb ho\u00e1, d\u1ecb ho\u00e1 sau s\u1ee7ng v\u1eadt \u0111em c\u00e0ng c\u1ee5 t\u00ednh c\u00f4ng k\u00edch. M\u1eb7t kh\u00e1c t\u1eebng ch\u1ee7 th\u00e0nh li\u00ean minh hu\u1ea5n luy\u1ec7n s\u01b0 c\u0169ng s\u1ebd cung c\u1ea5p ti\u1ebfn h\u00f3a c\u00f9ng d\u1ecb ho\u00e1 ph\u1ee5c v\u1ee5, ng\u01b0\u01a1i c\u00f3 th\u1ec3 th\u01b0\u1eddng \u0111i xem.";
-        this.aI = false;
-        this.aJ = null;
-        this.aK = null;
-        this.aL = 8;
-        this.aM = new int[]{2, 1, 73, 158, 3, 3, 216, 165, 4, 5, 161, 338, 5, 3, 111, 385, 5, 5, 112, 124, 6, 1, 140, 100, 7, 2, 48, 58};
-        this.aN = new int[]{1, 5, 265, 113, 3, 6, 281, 192, 4, 0, 24, 144, 5, 2, 88, 175, 6, 0, 55, 190};
-        this.aO = new int[]{16735795, 5708544, 5693667, 28273, 7796622, 1924393, 16774529, 7760896, 3291479, 10268671, 2038828, 13341951, 4443391, 0xFFFFFF, 1862959, 13886935};
-        this.aP = new int[][]{{0, 0, 1, 0, 386, 5, 5, 5, 0, 1, 1, 387, 5, 5, 0, 5, 1, 2, 388, 5, 5, 0, 10, 1, 3, 389, 5, 5, 5, 10, 1, 4, 390, 5, 5, 10, 10, 1, 5, 391, 5, 5, 10, 15, 1, 6, 392, 5, 5, 10, 20, -1, -1, 518, 5, 5}, {0, 0, -1, -1, 517, 5, 5, 0, 5, 2, 0, 393, 5, 5, 0, 10, 2, 1, 394, 5, 5, 0, 15, 2, 2, 395, 5, 5, 5, 10, 2, 3, 396, 5, 5, 5, 5, 2, 4, 397, 5, 5, 5, 15, 2, 5, 398, 5, 5, 5, 20, 2, 6, 399, 5, 5, 5, 25, 2, 7, 400, 5, 5}, {15, 0, -1, -1, 518, 5, 5, 15, 5, 3, 0, 401, 5, 5, 15, 10, 3, 1, 402, 5, 5, 10, 10, 3, 2, 403, 5, 5, 10, 15, 3, 3, 404, 5, 5, 5, 15, 3, 4, 405, 5, 5, 0, 15, 3, 5, 406, 5, 5, 15, 15, 3, 6, 407, 5, 5, 15, 20, 3, 7, 408, 5, 5}, {0, 15, 4, 0, 409, 5, 5, 5, 15, 4, 1, 410, 5, 5, 10, 15, 4, 5, 414, 5, 5, 10, 20, 4, 6, 415, 5, 5, 15, 20, 4, 7, 416, 5, 5, 20, 20, 4, 8, 417, 5, 5, 15, 15, 4, 9, 418, 5, 5, 20, 15, 4, 10, 419, 5, 5, 15, 10, 4, 11, 420, 5, 5, 15, 5, 4, 12, 421, 5, 5, 0, 10, 4, 2, 411, 5, 5, 5, 10, 4, 3, 412, 5, 5, 10, 10, 4, 4, 413, 5, 5, 15, 0, -1, -1, 524, 5, 5}, {10, 5, 5, 0, 422, 5, 5, 5, 5, 5, 1, 423, 5, 5, 0, 5, 5, 2, 424, 5, 5, 5, 0, 5, 3, 425, 5, 5, 15, 5, 5, 4, 426, 5, 5, 20, 5, 5, 5, 427, 5, 5, 18, 0, 5, 6, 428, 5, 5, 10, 10, -1, -1, 522, 5, 5}, {0, 5, 6, 0, 429, 5, 5, 0, 0, 6, 1, 430, 5, 5}, {5, 15, 7, 0, 431, 5, 5, 5, 10, 7, 1, 432, 5, 5, 5, 5, 7, 2, 433, 5, 5, 0, 5, 7, 3, 434, 5, 5, 0, 0, 7, 4, 435, 5, 5, 0, 10, 7, 5, 436, 5, 5, 0, 15, 7, 6, 437, 5, 5, 10, 5, 7, 7, 438, 5, 5, 10, 0, 7, 8, 439, 5, 5, 15, 0, 7, 9, 440, 5, 5, 15, 5, 7, 10, 441, 5, 5, 10, 10, 7, 11, 442, 5, 5, 10, 15, 7, 12, 443, 5, 5}, {5, 10, 8, 0, 444, 5, 5, 5, 15, 8, 1, 445, 5, 5, 0, 15, 8, 2, 446, 5, 5, 0, 10, 8, 3, 447, 5, 5, 0, 5, 8, 4, 448, 5, 5, 5, 5, 8, 5, 449, 5, 5, 5, 0, 8, 6, 450, 5, 5}};
-        this.aQ = new int[]{3, 5, 2, 6, 4, 5, 5, 5, 5, 3, 1, 2, 4, 4, 2, 4};
-        this.aR = false;
-        this.aS = new boolean[]{false, false, false, false, false, false, false};
-        this.aT = new byte[]{10, 15, 20, 30, 40, 50, 100};
-        this.aW = false;
-        this.a = j.a();
-        this.aa = ai.a();
-        this.b = new t();
+        if (this.q == null) {
+            this.q = game.j.p();
+        }
     }
 
-    public final boolean c() {
-        return ak[l[this.f] + this.g][2] != -1;
+    public final void b() {
+        n = null;
+        this.q = null;
     }
 
-    private void T() {
-        int n2;
-        Object object;
-        if (ak == null) {
-            try {
-                object = ae.a("/data/script/petArea.mid");
-                ak = ae.a((InputStream)object);
-                ((InputStream)object).close();
-            }
-            catch (IOException iOException) {
-                iOException.printStackTrace();
+    public final void a(a.a a2) {
+        if (this.o != null) {
+            this.o = null;
+        }
+        this.o = a2;
+        this.g = true;
+    }
+
+    public final void c() {
+        this.p.a("/data/ui/world.ui", 257, this);
+        this.t = 0;
+    }
+
+    public final void d() {
+        this.p.a.a(5).a(true);
+        this.p.a.a(7).a(true);
+    }
+
+    private void aU() {
+        if (this.p.b("/data/ui/world.ui")) {
+            for (int i2 = 1; i2 <= 7; ++i2) {
+                this.p.a.a(i2).a(false);
             }
         }
-        if (!this.c()) {
+    }
+
+    public final void e() {
+        if (this.t < 2 && !game.e.r && game.l.T && this.p.c("/data/ui/world.ui")) {
+            int n2 = 4;
+            n2 = 1;
+            c.c c2 = this.p.d("/data/ui/world.ui");
+            if (((h)c2.a((int)1)).i().m.a().b(4)) {
+                ((h)this.p.d((String)"/data/ui/world.ui").a((int)6)).i().a = ((l)this.o).u;
+                this.t = 1;
+            } else if (this.t == 1) {
+                boolean bl = true;
+                c.c c3 = this.p.d("/data/ui/world.ui");
+                if (((h)c3.a((int)1)).i().m.a().h() >= 5) {
+                    ((h)this.p.d((String)"/data/ui/world.ui").a((int)6)).i().a = "";
+                    this.t = (byte)2;
+                    game.l.T = false;
+                }
+            }
+        }
+        this.f();
+    }
+
+    public final boolean f() {
+        if (this.u < 2 && this.p.b("/data/ui/openbox.ui")) {
+            if (this.u == 1) {
+                if (this.o.g(196640)) {
+                    this.p.a.a((int)2).i().a = "";
+                    this.u = (byte)2;
+                    this.g = true;
+                    this.az();
+                    return true;
+                }
+            } else {
+                this.u = 1;
+            }
+        }
+        return this.g();
+    }
+
+    public final boolean g() {
+        if (this.u < 2) {
+            if (this.p.b("/data/ui/taskTip.ui")) {
+                if (this.u == 1) {
+                    if (this.o.g(196640)) {
+                        this.u = (byte)2;
+                        this.g = true;
+                        k k2 = this;
+                        if (k2.p.b("/data/ui/taskTip.ui")) {
+                            k2.p.a("/data/ui/taskTip.ui");
+                        }
+                        return true;
+                    }
+                } else {
+                    this.u = 1;
+                }
+            }
+            this.g = true;
+        }
+        return false;
+    }
+
+    public final void h() {
+        this.p.a("/data/ui/transmit.ui", 257, this);
+        ((c.b)this.p.a.a((int)0)).a.a = z.length;
+        ((c.b)this.p.a.a((int)0)).a.a(1);
+        this.aV();
+    }
+
+    private void aV() {
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        for (int i2 = 0; i2 < 5; ++i2) {
+            this.p.a.a((int)(i2 + 5)).i().a = z[i2 + this.v];
+        }
+        this.p.a.a(13).b(109 + this.h * 88 / z.length, this.p.a.a());
+    }
+
+    public final void i() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.aV();
             return;
         }
-        object = new int[ak[l[this.f] + this.g].length - 5];
-        for (n2 = 0; n2 < ((Object)object).length; ++n2) {
-            object[n2] = ak[l[this.f] + this.g][n2 + 5];
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.aV();
+            return;
         }
-        block9: for (n2 = 0; n2 < ((Object)object).length / 4; ++n2) {
-            int[] nArray = new int[4];
-            switch (object[(n2 << 2) + 1]) {
+        if (this.o.g(196640)) {
+            game.l.B().p = A[this.h * 5];
+            game.l.B().q = A[this.h * 5 + 1];
+            game.l.B().r = A[this.h * 5 + 2];
+            game.l.B().s = A[this.h * 5 + 3];
+            game.l.G = (byte)A[this.h * 5 + 4];
+            game.l.B().t = -1;
+            game.f.B().a((byte)9);
+            return;
+        }
+        if (this.o.g(262144)) {
+            this.o.a((byte)8);
+            this.p.a("/data/ui/transmit.ui");
+        }
+    }
+
+    public final boolean j() {
+        return this.p.b("/data/ui/openbox.ui") || this.p.b("/data/ui/taskTip.ui");
+    }
+
+    public final void k() {
+        String[] stringArray = new String[]{"T\u00f9y th\u00e2n c\u1eeda h\u00e0ng", "S\u1ee7ng v\u1eadt", "L\u01b0ng bao", "\u0110\u1ed3 gi\u00e1m", "Nhi\u1ec7m v\u1ee5", "L\u01b0u d\u1eef li\u1ec7u"};
+        this.aU();
+        this.p.a("/data/ui/gamemenu.ui", 257, this);
+        if (a.a.i) {
+            ((c.b)this.p.a.a((int)0)).a.a = 6;
+            this.p.a.a((int)14).i().a = a.a.c(605 + this.b);
+            this.p.a.a((int)15).i().a = stringArray[0];
+            for (int i2 = 0; i2 < 5; ++i2) {
+                this.p.a.a((int)(i2 + 5)).i().a = stringArray[i2 + 1];
+            }
+        } else {
+            ((c.b)this.p.a.a((int)0)).a.a = 5;
+            this.p.a.a((int)14).i().a = a.a.c(606 + this.b);
+            this.p.a.a((int)15).i().a = stringArray[1];
+            for (int i3 = 0; i3 < 4; ++i3) {
+                this.p.a.a((int)(i3 + 5)).i().a = stringArray[i3 + 2];
+            }
+            this.p.a.a(9).a(false);
+        }
+        ((c.b)this.p.a.a((int)0)).a.f = this.b;
+        this.p.a.a((int)18).i().a = "" + this.q.G();
+        this.p.a.a((int)19).i().a = "" + this.q.F();
+        this.f = 0;
+    }
+
+    public final void l() {
+        this.o.q();
+        if (!a.a.a(this.b, 0) && !this.j() && this.o.g(4100)) {
+            this.p.a.b(0);
+        } else if (!a.a.a(this.b, 0) && !this.j() && this.o.g(8448)) {
+            this.p.a.b(1);
+        } else if (!this.j() && a.a.s() && this.o.g(196640)) {
+            if (a.a.p() && !a.a.a(this.b, 0)) {
+                return;
+            }
+            if (a.a.i) {
+                switch (this.b) {
+                    case 0: {
+                        this.o.a((byte)14);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 1: {
+                        this.c = 0;
+                        this.o.r();
+                        this.o.a((byte)7);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 2: {
+                        this.o.r();
+                        this.o.a((byte)8);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 3: {
+                        this.c = 0;
+                        this.o.a((byte)9);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 4: {
+                        this.b = 0;
+                        this.o.a((byte)10);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 5: {
+                        this.p.a.a(11).a(false);
+                        this.p.a.a(12).a(false);
+                        this.o.a((byte)22);
+                    }
+                }
+            } else {
+                switch (this.b) {
+                    case 0: {
+                        this.c = 0;
+                        this.o.r();
+                        this.o.a((byte)7);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 1: {
+                        this.o.r();
+                        this.o.a((byte)8);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 2: {
+                        this.c = 0;
+                        this.o.a((byte)9);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 3: {
+                        this.b = 0;
+                        this.o.a((byte)10);
+                        this.p.a("/data/ui/gamemenu.ui");
+                        break;
+                    }
+                    case 4: {
+                        this.p.a.a(11).a(false);
+                        this.p.a.a(12).a(false);
+                        this.o.a((byte)22);
+                    }
+                }
+            }
+        } else if (a.a.t() && this.o.g(262144)) {
+            this.p.a("/data/ui/gamemenu.ui");
+            this.o.a((byte)0);
+        }
+        this.g();
+    }
+
+    public final void m() {
+        this.aU();
+        this.p.a("/data/ui/gamesystem.ui", 257, this);
+        ((c.b)this.p.a.a((int)0)).a.f = this.b;
+        this.f = 0;
+    }
+
+    public final void n() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            return;
+        }
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            return;
+        }
+        if (this.o.g(196640)) {
+            switch (this.b) {
                 case 0: {
-                    System.arraycopy(object, n2 << 2, nArray, 0, nArray.length);
-                    al.addElement(nArray);
-                    continue block9;
+                    this.p.a("/data/ui/gamesystem.ui");
+                    this.o.a((byte)0);
+                    return;
                 }
                 case 1: {
-                    System.arraycopy(object, n2 << 2, nArray, 0, nArray.length);
-                    am.addElement(nArray);
-                    continue block9;
+                    this.o.a((byte)20);
+                    this.p.a("/data/ui/gamesystem.ui");
+                    return;
                 }
                 case 2: {
-                    System.arraycopy(object, n2 << 2, nArray, 0, nArray.length);
-                    an.addElement(nArray);
-                    continue block9;
+                    this.o.a((byte)21);
+                    this.p.a("/data/ui/gamesystem.ui");
+                    return;
                 }
-                case 4: {
-                    System.arraycopy(object, n2 << 2, nArray, 0, nArray.length);
-                    ao.addElement(nArray);
+                case 3: {
+                    if (this.f == 0) {
+                        this.p.a("/data/ui/option.ui", 257, this);
+                        ((c.b)this.p.a.a((int)0)).a.f = this.c = 1;
+                        this.p.a.a((int)12).i().a = "";
+                        this.p.a.a((int)13).i().a = "Kh\u00f4ng";
+                        this.f = 1;
+                        return;
+                    }
+                    switch (this.c) {
+                        case 1: {
+                            this.p.a("/data/ui/option.ui");
+                            this.f = 0;
+                            this.g = true;
+                            return;
+                        }
+                        case 0: {
+                            game.f.B().l = 0L;
+                            game.f.B().k = 0L;
+                            game.j.p().z = false;
+                            game.f.B().a((byte)7);
+                            this.p.a("/data/ui/gamesystem.ui");
+                        }
+                    }
                 }
             }
-        }
-    }
-
-    private void U() {
-        int n2;
-        if (this.aw == null) {
-            try {
-                InputStream inputStream = ae.a("/data/script/petRide.mid");
-                this.aw = ae.b(inputStream);
-                inputStream.close();
-            }
-            catch (IOException iOException) {
-                iOException.printStackTrace();
-            }
-        }
-        this.c.Q = this.aw[l[this.f] + this.g];
-        if (this.c.t >= 0 && !this.c.g(this.c.t)) {
-            this.c.s();
-        }
-        this.aA = this.c.Q[4];
-        this.aB = (byte)-1;
-        for (n2 = 0; n2 < this.aM.length / 4; n2 = (int)((byte)(n2 + 1))) {
-            if (this.f != this.aM[n2 << 2] || this.g != this.aM[(n2 << 2) + 1]) continue;
-            this.aB = (byte)n2;
-            break;
-        }
-        this.aC = (byte)-1;
-        for (n2 = 0; n2 < this.aN.length / 4; n2 = (int)((byte)(n2 + 1))) {
-            if (this.f != this.aN[n2 << 2] || this.g != this.aN[(n2 << 2) + 1]) continue;
-            this.aC = (byte)n2;
             return;
         }
+        if (this.o.g(262144)) {
+            if (this.f == 0) {
+                this.p.a("/data/ui/gamesystem.ui");
+                this.o.a((byte)0);
+                return;
+            }
+            if (this.f == 1) {
+                this.g = true;
+                this.p.a("/data/ui/option.ui");
+                this.f = 0;
+            }
+        }
     }
 
-    private void V() {
-        m = null;
-        try {
-            if (this.ax == null) {
-                InputStream inputStream = ae.a("/data/script/backPic.mid");
-                this.ax = ae.a(inputStream);
-                inputStream.close();
+    public final void o() {
+        this.p.a("/data/ui/help1.ui", 257, this);
+        this.b = 0;
+        this.p.a.a(6).a(true);
+        this.p.a.a(7).a(false);
+        this.e(this.b);
+    }
+
+    private void e(int n2) {
+        if (n2 == 0) {
+            this.p.a.a((int)5).i().a = "Tr\u1ee3 gi\u00fap";
+            this.p.a.a((int)8).i().a = "Nh\u1ea5n n\u00fat 2, 4, 6, 8 \u0111\u1ec3 di chuy\u1ec3n#nN\u00fat 5: c\u00f4ng k\u00edch, \u0111\u1ed1i tho\u1ea1i, x\u00e1c nh\u1eadn#nN\u00fat 1: Xem nhi\u1ec7m v\u1ee5#nN\u00fat 9: l\u1ef1a ch\u1ecdn s\u1ee7ng v\u1eadt c\u01b0\u1ee1i#nN\u00fat 0: Xem b\u1ea3n \u0111\u1ed3#nN\u00fat m\u1ec1m tr\u00e1i: menu h\u1ec7 th\u1ed1ng#nN\u00fat m\u1ec1m ph\u1ea3i: menu tr\u00f2 ch\u01a1i";
+            for (int i2 = 0; i2 < 28; ++i2) {
+                this.p.a.a(i2 + 9).a(false);
+            }
+        } else if (n2 > 0) {
+            this.p.a.a((int)8).i().a = "";
+            for (int i3 = 0; i3 < 14; ++i3) {
+                this.p.a.a(9 + (i3 << 1)).a(true);
+                this.p.a.a(9 + (i3 << 1) + 1).a(true);
+                if ((n2 - 1) * 14 + i3 < 26) {
+                    this.p.a.a((int)(9 + (i3 << 1))).i().m = new c.g();
+                    this.p.a.a((int)(9 + (i3 << 1))).i().m.a(0);
+                    this.p.a.a((int)(9 + (i3 << 1))).i().m.a = (byte)2;
+                    this.p.a.a((int)(9 + (i3 << 1))).i().m.a(325, false, (byte)-2);
+                    this.p.a.a((int)(9 + (i3 << 1))).i().m.a((n2 - 1) * 14 + i3 + 1);
+                    if ((n2 - 1) * 14 + i3 <= 10) {
+                        this.p.a.a((int)(9 + (i3 << 1) + 1)).i().a = a.a.c(i3 + 311);
+                        continue;
+                    }
+                    this.p.a.a((int)(9 + (i3 << 1) + 1)).i().a = a.a.c(333 + ((n2 - 1) * 14 + i3 - 11));
+                    continue;
+                }
+                this.p.a.a(9 + (i3 << 1)).a(false);
+                this.p.a.a(9 + (i3 << 1) + 1).a(false);
             }
         }
-        catch (IOException iOException) {
-            iOException.printStackTrace();
+        this.p.a.a((int)39).i().a = n2 + 1 + "/3";
+    }
+
+    public final void p() {
+        if (this.o.g(16400)) {
+            --this.b;
+            if (this.b <= 0) {
+                this.b = 0;
+            }
+            this.e(this.b);
+            return;
         }
-        for (int i2 = 0; i2 < this.ax.length; ++i2) {
-            if (this.ax[i2][0] == this.f && this.ax[i2][1] == this.g) {
-                if (this.ax[i2][2] == 0) {
-                    m = ae.b("/data/img/", "img_" + this.ax[i2][3]);
+        if (this.o.g(32832)) {
+            ++this.b;
+            if (this.b >= 2) {
+                this.b = 2;
+            }
+            this.e(this.b);
+            return;
+        }
+        if (this.o.g(262144)) {
+            this.o.a((byte)0);
+            this.p.a("/data/ui/help1.ui");
+        }
+    }
+
+    public final void q() {
+        this.p.a("/data/ui/help.ui", 257, this);
+        this.p.a.a((int)5).i().a = "Quan t\u1ea1i";
+        this.p.a.a((int)8).i().a = "T\u00ean tr\u00f2 ch\u01a1i: S\u1ee7ng v\u1eadt V\u01b0\u01a1ng qu\u1ed1c - Li\u1ec7t h\u1ecfa#nVi\u1ec7t h\u00f3a: BIGAME";
+        this.p.a.a(6).a(true);
+        this.p.a.a(7).a(false);
+        for (int i2 = 9; i2 < 13; ++i2) {
+            this.p.a.a(i2).a(false);
+        }
+    }
+
+    public final void r() {
+        if (this.o.g(262144)) {
+            this.o.a((byte)0);
+            this.p.a("/data/ui/help.ui");
+        }
+    }
+
+    public final void s() {
+        this.p.a("/data/ui/help.ui", 257, this);
+        this.p.a.a((int)5).i().a = "T\u00f9y ch\u1ecdn";
+        this.p.a.a((int)8).i().a = "";
+        this.p.a.a(6).a(false);
+        this.p.a.a(7).a(true);
+        for (int i2 = 9; i2 < 13; ++i2) {
+            this.p.a.a(i2).a(true);
+        }
+        this.aW();
+    }
+
+    private void aW() {
+        for (int i2 = 1; i2 < 4; ++i2) {
+            this.p.a.a((int)(i2 + 9)).i().j = i2 <= game.f.B().r ? -2148 : -8540732;
+        }
+    }
+
+    public final void t() {
+        if (this.o.g(16400)) {
+            game.f.B().G();
+            this.aW();
+            return;
+        }
+        if (this.o.g(32832)) {
+            game.f.B().F();
+            this.aW();
+            return;
+        }
+        if (this.o.g(131072)) {
+            game.g.B().k = game.f.B().r;
+            this.o.a((byte)0);
+            this.p.a("/data/ui/help.ui");
+        }
+    }
+
+    public final void u() {
+        this.p.a("/data/ui/menu.ui", 336, this);
+    }
+
+    public final void v() {
+        this.p.a("/data/ui/menu1.ui", 336, this);
+    }
+
+    public final void w() {
+        this.p.a("/data/ui/menu1.ui");
+    }
+
+    public final void a(int n2, int n3) {
+        switch (n2) {
+            case 0: {
+                this.p.a.a(n3).a(false);
+                return;
+            }
+            case 1: {
+                this.p.a.a(8).a(false);
+                this.p.a.a(9).a(false);
+                return;
+            }
+            case 2: {
+                this.p.a.a(10).a(false);
+                this.p.a.a(11).a(false);
+                return;
+            }
+            case 3: {
+                this.p.a.a(12).a(false);
+                this.p.a.a(13).a(false);
+                return;
+            }
+            case 4: {
+                for (n2 = 0; n2 < 2; ++n2) {
+                    if (this.p.a.a((int)(n2 + 16)).i().m != null) continue;
+                    this.p.a.a((int)(n2 + 16)).i().m = new c.g();
+                    this.p.a.a((int)(n2 + 16)).i().m.a = (byte)2;
+                    this.p.a.a((int)(n2 + 16)).i().m.a(0);
+                    this.p.a.a((int)(n2 + 16)).i().m.a(336, false, (byte)0);
+                    if (n2 == 0) {
+                        this.p.a.a((int)(n2 + 16)).i().m.a(8);
+                        continue;
+                    }
+                    this.p.a.a((int)(n2 + 16)).i().m.a(10);
+                }
+                return;
+            }
+            case 5: {
+                this.p.a.a(16).a(false);
+                this.p.a.a(17).a(false);
+                for (n2 = 0; n2 < 2; ++n2) {
+                    this.p.a.a(n2 + 16).l();
+                    if (this.p.a.a((int)(n2 + 18)).i().m != null) continue;
+                    this.p.a.a((int)(n2 + 18)).i().m = new c.g();
+                    this.p.a.a((int)(n2 + 18)).i().m.a = (byte)2;
+                    this.p.a.a((int)(n2 + 18)).i().m.a(0);
+                    this.p.a.a((int)(n2 + 18)).i().m.a(336, false, (byte)0);
+                    if (n2 == 0) {
+                        this.p.a.a((int)(n2 + 18)).i().m.a(8);
+                        continue;
+                    }
+                    this.p.a.a((int)(n2 + 18)).i().m.a(11);
+                }
+                return;
+            }
+            case 6: {
+                this.p.a.a(19).a(false);
+                this.p.a.a(19).l();
+                if (this.p.a.a((int)20).i().m != null) break;
+                this.p.a.a((int)20).i().m = new c.g();
+                this.p.a.a((int)20).i().m.a = (byte)2;
+                this.p.a.a((int)20).i().m.a(0);
+                this.p.a.a((int)20).i().m.a(336, false, (byte)0);
+                this.p.a.a((int)20).i().m.a(12);
+                return;
+            }
+            case 7: {
+                this.p.a.a(20).a(false);
+                this.p.a.a(20).l();
+                return;
+            }
+            case 8: {
+                for (n2 = 0; n2 < 2; ++n2) {
+                    if (this.p.a.a((int)(n2 + 21)).i().m != null) continue;
+                    this.p.a.a((int)(n2 + 21)).i().m = new c.g();
+                    this.p.a.a((int)(n2 + 21)).i().m.a = (byte)2;
+                    this.p.a.a((int)(n2 + 21)).i().m.a(0);
+                    this.p.a.a((int)(n2 + 21)).i().m.a(336, false, (byte)0);
+                    if (n2 == 0) {
+                        this.p.a.a((int)(n2 + 21)).i().m.a(7);
+                        continue;
+                    }
+                    this.p.a.a((int)(n2 + 21)).i().m.a(13);
+                }
+                return;
+            }
+            case 9: {
+                this.p.a.a(21).a(false);
+                this.p.a.a(22).a(false);
+                for (n2 = 0; n2 < 2; ++n2) {
+                    this.p.a.a(n2 + 21).l();
+                    if (this.p.a.a((int)(n2 + 23)).i().m != null) continue;
+                    this.p.a.a((int)(n2 + 23)).i().m = new c.g();
+                    this.p.a.a((int)(n2 + 23)).i().m.a = (byte)2;
+                    this.p.a.a((int)(n2 + 23)).i().m.a(0);
+                    this.p.a.a((int)(n2 + 23)).i().m.a(336, false, (byte)0);
+                    if (n2 == 0) {
+                        this.p.a.a((int)(n2 + 23)).i().m.a(7);
+                        continue;
+                    }
+                    this.p.a.a((int)(n2 + 23)).i().m.a(14);
+                }
+                return;
+            }
+            case 10: {
+                this.p.a.a(24).a(false);
+                this.p.a.a(24).l();
+                if (this.p.a.a((int)25).i().m != null) break;
+                this.p.a.a((int)25).i().m = new c.g();
+                this.p.a.a((int)25).i().m.a = (byte)2;
+                this.p.a.a((int)25).i().m.a(0);
+                this.p.a.a((int)25).i().m.a(336, false, (byte)0);
+                this.p.a.a((int)25).i().m.a(15);
+                return;
+            }
+            case 11: {
+                this.p.a.a(25).a(false);
+                this.p.a.a(25).l();
+                return;
+            }
+            case 12: {
+                if (this.p.a.a((int)26).i().m != null) break;
+                this.p.a.a((int)26).i().m = new c.g();
+                this.p.a.a((int)26).i().m.a = (byte)2;
+                this.p.a.a((int)26).i().m.a(0);
+                this.p.a.a((int)26).i().m.a(336, false, (byte)0);
+                this.p.a.a((int)26).i().m.a(5);
+                return;
+            }
+            case 13: {
+                this.p.a.a(26).a(false);
+                this.p.a.a(26).l();
+                if (this.p.a.a((int)27).i().m != null) break;
+                this.p.a.a((int)27).i().m = new c.g();
+                this.p.a.a((int)27).i().m.a = (byte)2;
+                this.p.a.a((int)27).i().m.a(0);
+                this.p.a.a((int)27).i().m.a(336, false, (byte)0);
+                this.p.a.a((int)27).i().m.a(5);
+                return;
+            }
+            case 14: {
+                return;
+            }
+            case 15: {
+                if (this.p.a.a((int)28).i().m != null) break;
+                this.p.a.a((int)28).i().m = new c.g();
+                this.p.a.a((int)28).i().m.a = (byte)2;
+                this.p.a.a((int)28).i().m.a(0);
+                this.p.a.a((int)28).i().m.a(336, false, (byte)0);
+                this.p.a.a((int)28).i().m.a(6);
+                return;
+            }
+            case 16: {
+                this.p.a.a(28).a(false);
+                this.p.a.a(28).l();
+                if (this.p.a.a((int)29).i().m != null) break;
+                this.p.a.a((int)29).i().m = new c.g();
+                this.p.a.a((int)29).i().m.a = (byte)2;
+                this.p.a.a((int)29).i().m.a(0);
+                this.p.a.a((int)29).i().m.a(336, false, (byte)0);
+                this.p.a.a((int)29).i().m.a(6);
+                return;
+            }
+            case 17: {
+                this.p.a.a(29).a(false);
+                this.p.a.a(29).l();
+                if (this.p.a.a((int)30).i().m != null) break;
+                this.p.a.a((int)30).i().m = new c.g();
+                this.p.a.a((int)30).i().m.a = (byte)2;
+                this.p.a.a((int)30).i().m.a(0);
+                this.p.a.a((int)30).i().m.a(336, false, (byte)0);
+                this.p.a.a((int)30).i().m.a(6);
+                return;
+            }
+            case 18: 
+            case 19: {
+                this.p.a.a(30).a(false);
+                this.p.a.a(30).l();
+                if (this.p.a.a((int)31).i().m != null) break;
+                this.p.a.a((int)31).i().m = new c.g();
+                this.p.a.a((int)31).i().m.a = (byte)2;
+                this.p.a.a((int)31).i().m.a(0);
+                this.p.a.a((int)31).i().m.a(336, false, (byte)0);
+                this.p.a.a((int)31).i().m.a(6);
+                return;
+            }
+            case 20: {
+                a.a.f.a().c(0xFFFFFF, 2);
+                a.a.f.a().g = 85;
+                return;
+            }
+            case 21: 
+            case 22: 
+            case 23: {
+                this.p.a.a(18).a(false);
+                this.p.a.a(18).l();
+                this.p.a.a(23).a(false);
+                this.p.a.a(23).l();
+                this.p.a.a(27).a(false);
+                this.p.a.a(27).l();
+                this.p.a.a(31).a(false);
+                this.p.a.a(31).l();
+                this.p.a.a(14).a(false);
+                this.p.a.a(15).a(false);
+                return;
+            }
+            case 24: {
+                a.a.f.a().c(0xFFFFFF, 1);
+                a.a.f.a().g = 255;
+                if (this.p.a.a((int)32).i().m != null) break;
+                this.p.a.a((int)32).i().m = new c.g();
+                this.p.a.a((int)32).i().m.a = (byte)2;
+                this.p.a.a((int)32).i().m.a(0);
+                this.p.a.a((int)32).i().m.a(336, false, (byte)0);
+                return;
+            }
+            case 25: {
+                this.p.a.a(32).a(false);
+                this.p.a.a(32).l();
+                for (n2 = 0; n2 < 5; ++n2) {
+                    if (this.p.a.a((int)(n2 + 33)).i().m != null) continue;
+                    this.p.a.a((int)(n2 + 33)).i().m = new c.g();
+                    this.p.a.a((int)(n2 + 33)).i().m.a = (byte)2;
+                    this.p.a.a((int)(n2 + 33)).i().m.a(336, false, (byte)0);
+                    if (n2 == 0) {
+                        this.p.a.a((int)(n2 + 33)).i().m.a(0);
+                        continue;
+                    }
+                    if (n2 == 1) {
+                        this.p.a.a((int)(n2 + 33)).i().m.a(8);
+                        continue;
+                    }
+                    if (n2 == 2) {
+                        this.p.a.a((int)(n2 + 33)).i().m.a(5);
+                        continue;
+                    }
+                    if (n2 == 3) {
+                        this.p.a.a((int)(n2 + 33)).i().m.a(7);
+                        continue;
+                    }
+                    if (n2 != 4) continue;
+                    this.p.a.a((int)(n2 + 33)).i().m.a(6);
+                }
+                return;
+            }
+            case 26: {
+                game.f.B().q = a.a.d.b(game.f.B().q, n3);
+                return;
+            }
+            case 27: {
+                if (n3 > 38) {
+                    this.p.a.a(n3 - 1).a(false);
+                    this.p.a.a(n3 - 1).l();
+                }
+                if (this.p.a.a((int)n3).i().m != null) break;
+                this.p.a.a((int)n3).i().m = new c.g();
+                this.p.a.a((int)n3).i().m.a = (byte)2;
+                this.p.a.a((int)n3).i().m.a(4);
+                this.p.a.a((int)n3).i().m.a(336, false, (byte)0);
+                return;
+            }
+            case 28: {
+                if (n3 > 43) {
+                    this.p.a.a(n3 - 1).a(false);
+                    this.p.a.a(n3 - 1).l();
+                }
+                if (this.p.a.a((int)n3).i().m != null) break;
+                this.p.a.a((int)n3).i().m = new c.g();
+                this.p.a.a((int)n3).i().m.a = (byte)2;
+                this.p.a.a((int)n3).i().m.a(1);
+                this.p.a.a((int)n3).i().m.a(336, false, (byte)0);
+            }
+        }
+    }
+
+    public final void x() {
+        this.p.a("/data/ui/help1.ui", 257, this);
+        this.p.a("/data/ui/gamesystem.ui");
+        this.r = 0;
+        this.p.a.a(6).a(true);
+        this.p.a.a(7).a(false);
+        this.e(this.r);
+    }
+
+    public final void y() {
+        if (this.o.g(16400)) {
+            --this.r;
+            if (this.r <= 0) {
+                this.r = 0;
+            }
+            this.e(this.r);
+            return;
+        }
+        if (this.o.g(32832)) {
+            ++this.r;
+            if (this.r >= 2) {
+                this.r = 2;
+            }
+            this.e(this.r);
+            return;
+        }
+        if (this.o.g(262144)) {
+            this.o.a((byte)13);
+            this.p.a("/data/ui/help1.ui");
+        }
+    }
+
+    public final void z() {
+        this.s();
+        this.p.a("/data/ui/gamesystem.ui");
+    }
+
+    public final void A() {
+        if (this.o.g(16400)) {
+            this.p.a.b(2);
+            game.f.B().G();
+            if (game.l.B().W != null) {
+                game.l.B().W.b(game.f.B().r);
+            }
+            this.aW();
+            return;
+        }
+        if (this.o.g(32832)) {
+            this.p.a.b(3);
+            game.f.B().F();
+            if (game.l.B().W != null) {
+                game.l.B().W.b(game.f.B().r);
+            }
+            this.aW();
+            return;
+        }
+        if (this.o.g(131072)) {
+            this.o.a((byte)13);
+            this.p.a("/data/ui/help.ui");
+        }
+    }
+
+    public final void B() {
+        this.p.a("/data/ui/petstate.ui", 257, this);
+        this.f = 0;
+        if (this.q.P.size() > 6) {
+            ((c.b)this.p.a.a((int)0)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)0)).a.a(-1);
+        }
+        this.p.a.a((int)2).i().a = "Ng\u00e2n h\u00e0ng S\u1ee7ng v\u1eadt";
+        this.p.a.a(75).a(false);
+        this.p.a.a(76).a(false);
+        this.aX();
+    }
+
+    private void aX() {
+        ((c.b)this.p.a.a((int)0)).a.a = this.q.P.size();
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        ((c.b)this.p.a.a((int)0)).a.d = this.q.P.size() >= 6 ? 6 : this.q.P.size();
+        if (this.h >= this.q.P.size()) {
+            ((c.b)this.p.a.a((int)0)).a.f = this.h = this.q.P.size() - 1;
+        }
+        if (this.v > 0 && this.h - this.v < 5) {
+            --this.v;
+            ((c.b)this.p.a.a((int)0)).a.e = this.v;
+        }
+        for (int i2 = 0; i2 < 6; ++i2) {
+            if (this.v + i2 < this.q.P.size()) {
+                int[] nArray = (int[])this.q.P.elementAt(this.v + i2);
+                if (i2 == 0) {
+                    this.p.a.a((int)(14 + i2 * 6)).i().a = "" + (this.v + i2 + 1);
+                } else {
+                    this.p.a.a((int)(15 + i2 * 6)).i().a = "" + (this.v + i2 + 1);
+                }
+                this.p.a.a((int)(16 + i2 * 6)).i().a = "#P" + nArray[6] * 100 / game.i.a(nArray[0], nArray[1], nArray[4], 1);
+                this.p.a.a((int)(17 + i2 * 6)).i().a = "#P" + game.i.a((short)nArray[7], (short)nArray[1]);
+                continue;
+            }
+            this.p.a.a((int)(16 + i2 * 6)).i().a = "#P0";
+            this.p.a.a((int)(17 + i2 * 6)).i().a = "#P0";
+        }
+        int[] nArray = null;
+        if (this.q.P.size() > 0) {
+            this.p.a.a(64).a(true);
+            nArray = (int[])this.q.P.elementAt(this.h);
+        } else {
+            this.p.a.a(64).a(false);
+        }
+        if (nArray != null) {
+            if (this.p.a.a((int)48).i().m != null) {
+                this.p.a.a((int)48).i().m.c();
+            } else {
+                this.p.a.a((int)48).i().m = new c.g();
+                this.p.a.a((int)48).i().m.a(0);
+                this.p.a.a((int)48).i().m.a = (byte)3;
+            }
+            this.p.a.a((int)48).i().m.a(a.b.c.a((byte)0, (short)nArray[0], (byte)17), false, (byte)-1);
+            this.p.a.a((int)51).i().a = a.a.c(a.b.c.a((byte)0, (short)nArray[0], (byte)0));
+            this.p.a.a((int)52).i().a = a.a.c(365 + a.b.c.a((byte)0, (short)nArray[0], (byte)1));
+            if (a.b.c.a((byte)0, (short)nArray[0], (byte)19) == -1) {
+                this.p.a.a((int)62).i().a = "";
+            } else if (a.b.c.c[0][a.b.c.a((byte)0, (short)nArray[0], (byte)19)][2] == 1 || a.b.c.c[0][a.b.c.a((byte)0, (short)nArray[0], (byte)19)][2] == 2) {
+                this.p.a.a((int)62).i().a = "C\u00f3 th\u1ec3 ti\u1ebfn h\u00f3a";
+            } else if (a.b.c.c[0][a.b.c.a((byte)0, (short)nArray[0], (byte)19)][2] == 3) {
+                this.p.a.a((int)62).i().a = "C\u00f3 th\u1ec3 d\u1ecb ho\u00e1";
+            }
+            this.p.a.a((int)61).i().a = game.i.y(nArray[0]);
+            if (this.p.a.a((int)59).i().m == null) {
+                this.p.a.a((int)59).i().m = new c.g();
+                this.p.a.a((int)59).i().m.a(0);
+                this.p.a.a((int)59).i().m.a = (byte)2;
+                this.p.a.a((int)59).i().m.a(258, false, (byte)-1);
+            }
+            if (nArray[2] != -1) {
+                this.p.a.a((int)59).i().m.a(a.b.c.c[3][nArray[2]][1]);
+                this.p.a.a((int)60).i().a = a.a.c(a.b.c.c[3][nArray[2]][0]);
+            } else {
+                this.p.a.a((int)59).i().m.a(0);
+                this.p.a.a((int)60).i().a = "";
+            }
+            this.p.a.a((int)65).i().a = "" + nArray[1];
+            this.p.a.a((int)66).i().a = "" + game.i.a(nArray[0], nArray[1], nArray[4], 2);
+            this.p.a.a((int)67).i().a = "" + game.i.a(nArray[0], nArray[1], nArray[4], 3);
+            this.p.a.a((int)68).i().a = "" + game.i.a(nArray[0], nArray[1], nArray[4], 4);
+            int n2 = nArray[4];
+            int n3 = a.b.c.a((byte)0, (short)nArray[0], (byte)4) - 1;
+            for (int i3 = 0; i3 < 5; ++i3) {
+                this.p.a.a(74 - i3).a(true);
+                this.p.a.a((int)(74 - i3)).i().m.a = (byte)3;
+                if (i3 > n3) {
+                    this.p.a.a(74 - i3).a(false);
+                    continue;
+                }
+                if (n2 > 0) {
+                    this.p.a.a((int)(74 - i3)).i().m.a((byte)14, (byte)-1);
+                    --n2;
+                    continue;
+                }
+                this.p.a.a((int)(74 - i3)).i().m.a((byte)16, (byte)-1);
+            }
+            if (this.b == 1) {
+                this.p.a.a((int)64).i().a = "L\u1ea5y ra";
+                return;
+            }
+            if (this.b == 2) {
+                this.p.a.a((int)64).i().a = "Ph\u00f3ng sinh";
+            }
+        }
+    }
+
+    public final void C() {
+        if (this.f == 0 && this.o.g(4100)) {
+            this.p.a.b(0);
+            this.aX();
+        } else if (this.f == 0 && this.o.g(8448)) {
+            this.p.a.b(1);
+            this.aX();
+        }
+        if (this.f == 0) {
+            if (this.o.g(196640)) {
+                if (this.b == 1) {
+                    if (this.q.B >= 6) {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("Ba l\u00f4 S\u1ee7ng v\u1eadt \u0111\u00e3 \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        this.f = 1;
+                    } else {
+                        if (this.q.P.size() <= 0) {
+                            return;
+                        }
+                        this.q.r(this.h);
+                        if (this.q.P.size() <= 0) {
+                            this.o.a((byte)16);
+                            this.p.a("/data/ui/petstate.ui");
+                        } else {
+                            this.aX();
+                        }
+                    }
+                } else if (this.b == 2) {
+                    if (this.q.P.size() <= 0) {
+                        return;
+                    }
+                    int[] nArray = (int[])this.q.P.elementAt(this.h);
+                    if (a.b.c.a((byte)0, (short)nArray[0], (byte)22) == 2) {
+                        this.f = 2;
+                        this.H();
+                        this.a("Th\u1ea7n th\u00fa kh\u00f4ng th\u1ec3 ph\u00f3ng sinh", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    } else {
+                        this.f = 1;
+                        this.p.a("/data/ui/msgconfirm.ui", 257, this);
+                        this.b("B\u1ea1n mu\u1ed1n ph\u00f3ng sinh s\u1ee7ng v\u1eadt n\u00e0y?", "X\u00e1c nh\u1eadn");
+                    }
+                }
+            } else if (this.o.g(786432)) {
+                this.o.a((byte)16);
+                this.p.a("/data/ui/petstate.ui");
+            }
+        } else if (this.f > 0) {
+            if (this.o.g(196640) && this.b == 1 || this.o.g(131072) && this.b == 2 && this.f == 1 || this.o.g(196640) && this.b == 2 && this.f == 2) {
+                if (this.b == 1) {
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.f = 0;
+                } else if (this.b == 2) {
+                    if (this.f == 1) {
+                        this.p.a("/data/ui/msgconfirm.ui");
+                        int[] nArray = (int[])this.q.P.elementAt(this.h);
+                        this.q.m(nArray[2]);
+                        this.q.q(this.h);
+                        this.aX();
+                    } else if (this.f == 2) {
+                        this.I();
+                    }
+                    this.f = 0;
+                }
+            } else if (this.o.g(786432)) {
+                if (this.b == 1) {
+                    return;
+                }
+                this.p.a("/data/ui/msgconfirm.ui");
+                this.f = 0;
+            }
+        }
+        this.g = true;
+    }
+
+    public final void D() {
+        this.aU();
+        this.p.a("/data/ui/shop.ui", 257, this);
+        this.b = 0;
+        this.p.a.a((int)5).i().a = "Ng\u00e2n h\u00e0ng S\u1ee7ng v\u1eadt";
+        this.p.a.a((int)6).i().a = "G\u1edfi l\u1ea1i";
+        this.p.a.a((int)7).i().a = "L\u1ea5y ra";
+        this.p.a.a((int)9).i().a = "Ph\u00f3ng sinh";
+    }
+
+    public final void E() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            return;
+        }
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            return;
+        }
+        if (this.o.g(196640)) {
+            switch (this.b) {
+                case 0: {
+                    this.c = 0;
+                    this.o.a((byte)7);
+                    this.p.a("/data/ui/shop.ui");
+                    return;
+                }
+                case 1: {
+                    this.o.a((byte)15);
+                    this.p.a("/data/ui/shop.ui");
+                    return;
+                }
+                case 2: {
+                    this.o.a((byte)15);
+                    this.p.a("/data/ui/shop.ui");
+                    return;
+                }
+                case 3: {
+                    game.e.q = true;
+                    this.p.a("/data/ui/shop.ui");
+                    this.o.a((byte)0);
+                }
+            }
+            return;
+        }
+        if (this.o.g(262144)) {
+            game.e.q = true;
+            this.p.a("/data/ui/shop.ui");
+            this.o.a((byte)0);
+        }
+    }
+
+    public final void F() {
+        this.aU();
+        this.p.a("/data/ui/shop.ui", 257, this);
+        this.b = 0;
+    }
+
+    public final void G() {
+        this.o.q();
+        if (!a.a.a(this.b, 0) && !this.j() && this.f == 0 && this.o.g(4100) && this.aY()) {
+            this.p.a.b(0);
+        } else if (!a.a.a(this.b, 0) && !this.j() && this.f == 0 && this.o.g(8448) && this.aY()) {
+            this.p.a.b(1);
+        } else if (this.aY() && !this.j() && a.a.s() && this.o.g(196640)) {
+            if (a.a.p() && !a.a.a(this.b, 0)) {
+                return;
+            }
+            switch (this.b) {
+                case 0: {
+                    this.o.r();
+                    this.o.a((byte)2);
+                    this.p.a("/data/ui/shop.ui");
                     break;
                 }
-                if (this.ax[i2][2] != 1) break;
-                an.e(this.ax[i2][3] << 16 | this.ax[i2][4] << 8 | this.ax[i2][5]);
+                case 1: {
+                    this.o.a((byte)3);
+                    this.p.a("/data/ui/shop.ui");
+                    break;
+                }
+                case 2: {
+                    if (this.f == 0) {
+                        if (game.j.p().B() == -1) {
+                            this.f = 6;
+                            this.H();
+                            this.a("To\u00e0n b\u1ed9 tr\u1ea1ng th\u00e1i \u0111\u00e3 \u0111\u1ea7y, kh\u00f4ng c\u1ea7n kh\u00f4i ph\u1ee5c", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                            break;
+                        }
+                        if (!a.a.i) {
+                            this.f = 3;
+                            for (int i2 = 0; i2 < this.q.B; ++i2) {
+                                this.q.A[i2].J();
+                            }
+                            this.b("Ba l\u00f4 s\u1ee7ng v\u1eadt tr\u1ea1ng th\u00e1i to\u00e0n b\u1ed9 kh\u00f4i ph\u1ee5c");
+                            break;
+                        }
+                        k k2 = this;
+                        k2.p.a("/data/ui/msgRecover.ui", 257, k2);
+                        k2.p.a.a((int)4).i().a = "C\u00f3 kh\u00f4i ph\u1ee5c tr\u1ea1ng th\u00e1i ba l\u00f4 s\u1ee7ng v\u1eadt kh\u00f4ng?";
+                        k2.p.a.a((int)5).i().a = "C\u1ea7n ti\u1ec1n t\u00e0i: ";
+                        k2.p.a.a((int)6).i().a = "" + game.j.p().B();
+                        k2.p.a.a((int)8).i().a = "" + game.j.p().F();
+                        this.p.a("/data/ui/shop.ui");
+                        this.f = 1;
+                        break;
+                    }
+                    if (this.f == 1) {
+                        int n2 = game.j.p().B();
+                        if (game.j.p().u(n2)) {
+                            this.f = 3;
+                            game.j.p().s(-n2);
+                            for (n2 = 0; n2 < this.q.B; ++n2) {
+                                this.q.A[n2].J();
+                            }
+                            this.b("Ba l\u00f4 s\u1ee7ng v\u1eadt tr\u1ea1ng th\u00e1i to\u00e0n b\u1ed9 kh\u00f4i ph\u1ee5c");
+                        } else {
+                            this.f = 2;
+                            this.H();
+                            this.a("Kim ti\u1ec1n ch\u01b0a \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        }
+                        this.p.a("/data/ui/msgRecover.ui");
+                        break;
+                    }
+                    if (this.f == 2 && a.a.i) {
+                        this.o.a((byte)102);
+                    }
+                    this.f = 0;
+                    this.I();
+                    break;
+                }
+                case 3: {
+                    game.e.q = true;
+                    this.p.a("/data/ui/shop.ui");
+                    this.o.a((byte)0);
+                }
+            }
+        } else if (!this.j() && this.o.g(262144) && a.a.t() && this.aY()) {
+            if (this.f == 1) {
+                this.p.a("/data/ui/shop.ui", 257, this);
+                this.p.a("/data/ui/msgRecover.ui");
+                this.b = 0;
+                this.f = 0;
+            } else if (this.f == 0) {
+                game.e.q = true;
+                this.p.a("/data/ui/shop.ui");
+                this.o.a((byte)0);
+            }
+        }
+        if (this.f == 3 && this.aA()) {
+            this.f = 4;
+            this.p.a("/data/ui/shop.ui", 257, this);
+            this.K();
+            this.a("\u0110ang l\u01b0u...");
+            this.M();
+        } else if (this.f == 4 && ((l)this.o).I()) {
+            this.a("L\u01b0u th\u00e0nh c\u00f4ng");
+            this.f = 5;
+        } else if (this.f == 5) {
+            this.L();
+            this.f = 0;
+            this.b = 0;
+        }
+        this.f();
+        this.g = true;
+    }
+
+    public final void a(int n2, byte by) {
+        this.p.a("/data/ui/shopbuy.ui", 257, this);
+        this.b = 0;
+        this.f = 0;
+        ((c.b)this.p.a.a((int)0)).a.a = a.b.c.c[n2].length;
+        ((c.b)this.p.a.a((int)0)).a.a(1);
+        this.p.a.a((int)5).i().a = "Mua";
+        if (this.o instanceof l) {
+            this.p.a.a(57).a(true);
+            this.p.a.a(58).a(true);
+            this.p.a.a((int)57).i().a = "Mua s\u1eafm";
+            this.p.a.a((int)58).i().a = "Quay l\u1ea1i";
+            this.p.a.a(39).a(false);
+            this.p.a.a(40).a(false);
+        } else if (this.o instanceof a) {
+            this.p.a.a(57).a(false);
+            this.p.a.a(58).a(false);
+            this.p.a.a(39).a(true);
+            this.p.a.a(40).a(true);
+            this.p.a.a((int)39).i().a = "Mua s\u1eafm";
+            this.p.a.a((int)40).i().a = "Quay l\u1ea1i";
+        }
+        this.b(n2, by);
+    }
+
+    private void b(int n2, byte by) {
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        for (int i2 = 0; i2 < 5; ++i2) {
+            if (this.p.a.a((int)(i2 + 51)).i().m == null) {
+                this.p.a.a((int)(i2 + 51)).i().m = new c.g();
+                this.p.a.a((int)(i2 + 51)).i().m.a(0);
+                this.p.a.a((int)(i2 + 51)).i().m.a = (byte)2;
+                this.p.a.a((int)(i2 + 51)).i().m.a(258, false, (byte)-1);
+            }
+            this.p.a.a((int)(i2 + 51)).i().m.a(a.b.c.c[n2][this.v + i2][1]);
+            this.p.a.a((int)(14 + i2 * 5)).i().a = a.a.c(a.b.c.c[n2][this.v + i2][0]);
+            if (this.o instanceof l) {
+                if (this.j == 1 || this.j == 3) {
+                    this.p.a.a((int)(15 + i2 * 5)).i().a = "" + a.b.c.c[n2][this.v + i2][3];
+                } else if (this.j == 2) {
+                    this.p.a.a((int)(15 + i2 * 5)).i().a = a.b.c.c[n2][this.v + i2][4] == 0 ? "" + a.b.c.c[n2][this.v + i2][3] * 3 / 2 : "" + a.b.c.c[n2][this.v + i2][3];
+                }
+            } else {
+                this.p.a.a((int)(15 + i2 * 5)).i().a = by == 0 && n2 == 4 && this.v + i2 == 0 ? "" + a.b.c.c[n2][this.v + i2][3] : "" + (a.b.c.c[n2][this.v + i2][3] << 1);
+            }
+            if (a.b.c.c[n2][this.v + i2][4] == 0) {
+                this.p.a.a((int)(i2 + 45)).i().m.a(84);
+                continue;
+            }
+            if (a.b.c.c[n2][this.v + i2][4] == 1) {
+                this.p.a.a((int)(i2 + 45)).i().m.a(83);
+                continue;
+            }
+            if (a.b.c.c[n2][this.v + i2][4] != 2) continue;
+            this.p.a.a((int)(i2 + 45)).i().m.a(74);
+        }
+        this.p.a.a((int)56).i().a = a.a.c(a.b.c.c[n2][this.h][2]);
+        this.p.a.a((int)43).i().a = "" + this.q.G();
+        this.p.a.a((int)44).i().a = "" + this.q.F();
+        this.p.a.a(38).b(102 + this.h * 84 / a.b.c.c[n2].length, this.p.a.a());
+    }
+
+    public final void a(byte by, byte by2) {
+        this.o.q();
+        if (!a.a.a(this.b, 0) && this.f <= 1 && this.o.g(4100) && !this.j()) {
+            this.p.a.b(0);
+            if (this.f == 0) {
+                this.b((int)by, by2);
+            }
+        } else if (!a.a.a(this.b, 0) && this.f <= 1 && this.o.g(8448) && !this.j()) {
+            this.p.a.b(1);
+            if (this.f == 0) {
+                this.b((int)by, by2);
+            }
+        } else if (this.f == 1 && this.o.g(16400) && this.c > 0 && !this.j()) {
+            --this.c;
+            if (this.c <= 0) {
+                this.c = 99 - this.q.a(this.h, by2);
+            }
+            this.a(this.c, this.c * a.b.c.c[by][this.h][3], (int)a.b.c.c[by][this.h][4], (int)by);
+        } else if (this.f == 1 && this.o.g(32832) && !this.j()) {
+            ++this.c;
+            if (this.c > 99 - this.q.a(this.h, by2)) {
+                this.c = 1;
+            }
+            this.a(this.c, this.c * a.b.c.c[by][this.h][3], (int)a.b.c.c[by][this.h][4], (int)by);
+        } else if (a.a.s() && this.o.g(196640) && !this.j()) {
+            if (a.a.p() && !a.a.a(this.b, 0)) {
+                return;
+            }
+            if (a.b.c.c[by][this.h][4] == 2) {
+                if (this.f == 0) {
+                    if (a.a.i) {
+                        if (!this.q.a(this.h, 1, (byte)0)) {
+                            this.f = 3;
+                            this.H();
+                            this.a("\u0110\u1ea1o c\u1ee5 \u0111\u00e3 \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        } else {
+                            this.o.a((byte)101);
+                        }
+                    } else {
+                        this.f = 3;
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("C\u00f4ng n\u0103ng c\u00f2n ch\u01b0a m\u1edf", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    }
+                } else {
+                    this.f = 0;
+                    this.p.a("/data/ui/msgwarm.ui");
+                }
+            } else if (by2 == 2 && this.h < 12) {
+                this.c = 1;
+                if (this.q.a(this.h, this.c, by2)) {
+                    if (this.f == 0) {
+                        this.r = 0;
+                        this.b(by, by2);
+                    } else if (this.f > 0) {
+                        if (a.a.i) {
+                            if (this.f == 4) {
+                                this.o.a((byte)104);
+                            } else if (this.f == 3) {
+                                this.o.a((byte)102);
+                            }
+                        }
+                        this.f = 0;
+                        this.p.a("/data/ui/msgwarm.ui");
+                    }
+                } else if (this.f == 0) {
+                    this.f = 2;
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("\u0110\u1ea1o c\u1ee5 n\u00e0y \u0111\u00e3 \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                } else {
+                    this.o.r();
+                    this.f = 0;
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.b((int)by, by2);
+                }
+            } else if (this.q.a(this.h, this.c, by2)) {
+                if (this.f == 0) {
+                    this.f = 1;
+                    this.p.a("/data/ui/msgyn.ui", 257, this);
+                    this.c = 1;
+                    this.r = 0;
+                    this.a(this.c, this.c * a.b.c.c[by][this.h][3], (int)a.b.c.c[by][this.h][4], (int)by);
+                } else if (this.f == 1) {
+                    this.b(by, by2);
+                } else if (this.f == 2) {
+                    game.l.B().Z.G();
+                    this.f = 0;
+                    this.c = 0;
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.b((int)by, by2);
+                } else {
+                    if (a.a.i) {
+                        if (this.f == 4) {
+                            this.p.a("/data/ui/msgyn.ui");
+                            this.o.a((byte)104);
+                        } else if (this.f == 3) {
+                            this.p.a("/data/ui/msgyn.ui");
+                            this.o.a((byte)102);
+                        }
+                    }
+                    this.f = 0;
+                    this.c = 0;
+                    this.p.a("/data/ui/msgwarm.ui");
+                }
+            } else if (this.f == 0) {
+                this.f = 2;
+                this.p.a("/data/ui/msgwarm.ui", 257, this);
+                this.a("\u0110\u1ea1o c\u1ee5 n\u00e0y \u0111\u00e3 \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+            } else {
+                this.f = 0;
+                this.p.a("/data/ui/msgwarm.ui");
+            }
+        } else if (this.o.g(262144) && !this.j() && a.a.t()) {
+            if (this.f == 0) {
+                if (this.o instanceof l) {
+                    if (this.j == 1) {
+                        this.o.a((byte)1);
+                    } else if (this.j == 2) {
+                        this.o.a((byte)14);
+                    } else if (this.j == 3) {
+                        this.o.a((byte)27);
+                    }
+                    this.p.a("/data/ui/shopbuy.ui");
+                } else {
+                    this.p.a("/data/ui/shopbuy.ui");
+                    this.o.a((byte)20);
+                }
+            } else if (this.f == 1) {
+                this.f = 0;
+                this.c = 0;
+                this.p.a("/data/ui/msgyn.ui");
+            }
+        }
+        this.f();
+    }
+
+    private void b(byte by, byte by2) {
+        block29: {
+            block25: {
+                block26: {
+                    int n2;
+                    block28: {
+                        block27: {
+                            if (this.o instanceof l && (this.j == 1 || this.j == 3) && this.q.b(this.h, this.c * a.b.c.c[by][this.h][3], (int)by) || this.j == 2 && (a.b.c.c[by][this.h][4] == 0 && this.q.b(this.h, this.c * a.b.c.c[by][this.h][3] * 3 / 2, (int)by) || a.b.c.c[by][this.h][4] != 0 && this.q.b(this.h, this.c * a.b.c.c[by][this.h][3], (int)by))) {
+                                if (this.r == 0) {
+                                    this.q.c(this.h, this.c, by2);
+                                    if (a.b.c.c[by][this.h][4] == 0) {
+                                        if (this.j == 1 || this.j == 3) {
+                                            this.q.s(-this.c * a.b.c.c[by][this.h][3]);
+                                        } else if (this.j == 2) {
+                                            this.q.s(-this.c * a.b.c.c[by][this.h][3] * 3 / 2);
+                                        }
+                                    } else if (this.j == 1 || this.j == 3) {
+                                        this.q.v(-this.c * a.b.c.c[by][this.h][3]);
+                                    } else if (this.j == 2) {
+                                        this.q.v(-this.c * a.b.c.c[by][this.h][3]);
+                                    }
+                                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                    if (by == 3 && this.h == 17) {
+                                        this.a("\u0110\u00e3 th\u00e0nh c\u00f4ng mua s\u1eafm #2" + a.a.c(a.b.c.c[by][this.h][0]) + " * " + 5 * this.c, "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                    } else {
+                                        this.a("\u0110\u00e3 th\u00e0nh c\u00f4ng mua s\u1eafm #2" + a.a.c(a.b.c.c[by][this.h][0]) + " * " + this.c, "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                    }
+                                    this.f = 2;
+                                    this.c = 1;
+                                } else {
+                                    this.f = 0;
+                                }
+                                this.p.a("/data/ui/msgyn.ui");
+                                return;
+                            }
+                            if (this.o instanceof a && this.q.b(this.h, this.c * a.b.c.c[by][this.h][3] << 1, (int)by)) {
+                                if (this.r == 0) {
+                                    this.q.c(this.h, this.c, by2);
+                                    if (a.b.c.c[by][this.h][4] == 0) {
+                                        this.q.s(-this.c * a.b.c.c[by][this.h][3] << 1);
+                                    } else {
+                                        this.q.v(-this.c * a.b.c.c[by][this.h][3] << 1);
+                                    }
+                                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                    if (by == 3 && this.h == 17) {
+                                        this.a("\u0110\u00e3 th\u00e0nh c\u00f4ng mua s\u1eafm #2" + a.a.c(a.b.c.c[by][this.h][0]) + " * " + 5 * this.c, "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                    } else {
+                                        this.a("\u0110\u00e3 th\u00e0nh c\u00f4ng mua s\u1eafm #2" + a.a.c(a.b.c.c[by][this.h][0]) + " * " + this.c, "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                    }
+                                    this.f = 2;
+                                    this.c = 1;
+                                } else {
+                                    this.f = 0;
+                                }
+                                this.p.a("/data/ui/msgyn.ui");
+                                return;
+                            }
+                            if (this.r != 0) break block25;
+                            this.p.a("/data/ui/msgwarm.ui", 257, this);
+                            if (a.b.c.c[by][this.h][4] == 0) {
+                                this.f = 3;
+                                this.a("Kim ti\u1ec1n ch\u01b0a \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                            } else {
+                                this.f = 4;
+                                this.a("S\u1ed1 l\u01b0\u1ee3ng Huy hi\u1ec7u ch\u01b0a \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                            }
+                            if (!(this.o instanceof l)) break block26;
+                            if (this.j != 1 && this.j != 3) break block27;
+                            n2 = this.c * a.b.c.c[by][this.h][3];
+                            break block28;
+                        }
+                        if (this.j != 2) break block29;
+                        n2 = a.b.c.c[by][this.h][4] == 0 ? this.c * a.b.c.c[by][this.h][3] * 3 / 2 : this.c * a.b.c.c[by][this.h][3];
+                    }
+                    this.a(new int[]{by, by2, this.h, a.b.c.c[by][this.h][4], n2, this.c});
+                    break block29;
+                }
+                if (this.o instanceof a) {
+                    int n3 = this.c * a.b.c.c[by][this.h][3] << 1;
+                    this.a(new int[]{by, by2, this.h, a.b.c.c[by][this.h][4], n3, this.c});
+                }
+                break block29;
+            }
+            this.f = 0;
+        }
+        this.p.a("/data/ui/msgyn.ui");
+    }
+
+    private void a(int[] nArray) {
+        if (this.B == null) {
+            this.B = new Vector();
+        } else {
+            this.B.removeAllElements();
+        }
+        this.B.addElement(nArray);
+    }
+
+    private void a(int n2, int n3, int n4, int n5) {
+        this.p.a.a((int)9).i().a = n5 == 3 && this.h == 17 ? "" + n2 * 5 : "" + n2;
+        if (this.o instanceof l) {
+            if (this.j == 1 || this.j == 3) {
+                this.p.a.a((int)11).i().a = "" + n3;
+            } else if (this.j == 2) {
+                this.p.a.a((int)11).i().a = n4 == 0 ? "" + n3 * 3 / 2 : "" + n3;
+            }
+        } else {
+            this.p.a.a((int)11).i().a = "" + (n3 << 1);
+        }
+        if (n4 == 0) {
+            this.p.a.a((int)12).i().m.a(84);
+            return;
+        }
+        if (n4 == 1) {
+            this.p.a.a((int)12).i().m.a(83);
+        }
+    }
+
+    public final void H() {
+        this.p.a("/data/ui/msgwarm.ui", 257, this);
+    }
+
+    public final void I() {
+        this.p.a("/data/ui/msgwarm.ui");
+    }
+
+    public final boolean J() {
+        return !this.p.b("/data/ui/msgwarm.ui");
+    }
+
+    public final void a(String string, String string2) {
+        this.p.a.a((int)6).i().a = string2;
+        this.p.a.a((int)7).i().a = string;
+    }
+
+    public final void K() {
+        this.p.a("/data/ui/msgtip.ui", 257, this);
+    }
+
+    public final void L() {
+        this.p.a("/data/ui/msgtip.ui");
+    }
+
+    private boolean aY() {
+        return !this.p.b("/data/ui/msgtip.ui");
+    }
+
+    public final void a(String string) {
+        this.p.a.a((int)2).i().a = string;
+    }
+
+    public final void M() {
+        this.p.a.a(3).a(false);
+        this.p.a.a(4).a(false);
+    }
+
+    public final void N() {
+        if (this.f == 0) {
+            if (this.o.g(196640)) {
+                this.f = 1;
+                this.a("\u0110ang l\u01b0u...");
+                this.M();
+                return;
+            }
+            if (this.o.g(262144)) {
+                this.b = a.a.i ? 5 : 4;
+                this.o.a((byte)6);
+                this.p.a("/data/ui/msgtip.ui");
+                this.f = 0;
+                return;
+            }
+        } else if (this.f == 1) {
+            if (((l)this.o).I()) {
+                this.a("L\u01b0u th\u00e0nh c\u00f4ng");
+                this.f = 2;
+                return;
+            }
+        } else if (this.f == 2) {
+            this.p.a("/data/ui/msgtip.ui");
+            this.p.a("/data/ui/gamemenu.ui");
+            this.o.a((byte)0);
+            this.f = 0;
+        }
+    }
+
+    private void b(String string, String string2) {
+        this.p.a.a((int)2).i().a = string2;
+        this.p.a.a((int)4).i().a = string;
+    }
+
+    public final void O() {
+        this.p.a("/data/ui/shopbuy.ui", 257, this);
+        this.b = 0;
+        this.f = 0;
+        this.p.a.a((int)5).i().a = "B\u00e1n ra";
+        this.p.a.a((int)39).i().a = "";
+        this.p.a.a((int)40).i().a = "";
+        this.p.a.a((int)57).i().a = "B\u00e1n \u0111i";
+        this.p.a.a((int)58).i().a = "Quay l\u1ea1i";
+        this.q.y();
+        this.aZ();
+    }
+
+    private void aZ() {
+        if (this.q.T.size() > 5) {
+            ((c.b)this.p.a.a((int)0)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)0)).a.a(0);
+        }
+        ((c.b)this.p.a.a((int)0)).a.a = this.q.T.size();
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        if (this.h >= this.q.T.size()) {
+            ((c.b)this.p.a.a((int)0)).a.f = this.h = this.q.T.size() - 1;
+        }
+        if (this.v > 0 && this.h - this.v < 4) {
+            --this.v;
+            ((c.b)this.p.a.a((int)0)).a.e = this.v;
+        }
+        for (int i2 = 0; i2 < 5; ++i2) {
+            if (this.v + i2 < this.q.T.size()) {
+                int n2 = ((int[])this.q.T.elementAt(this.v + i2))[0];
+                if (this.p.a.a((int)(i2 + 51)).i().m == null) {
+                    this.p.a.a((int)(i2 + 51)).i().m = new c.g();
+                    this.p.a.a((int)(i2 + 51)).i().m.a(0);
+                    this.p.a.a((int)(i2 + 51)).i().m.a = (byte)2;
+                    this.p.a.a((int)(i2 + 51)).i().m.a(258, false, (byte)-1);
+                }
+                this.p.a.a((int)(i2 + 51)).i().m.a(a.b.c.c[4][n2][1]);
+                this.p.a.a((int)(14 + i2 * 5)).i().a = a.a.c(a.b.c.c[4][n2][0]);
+                this.p.a.a((int)(15 + i2 * 5)).i().a = "" + a.b.c.c[4][n2][3] / 2;
+                if (a.b.c.c[4][n2][4] == 0) {
+                    this.p.a.a((int)(i2 + 45)).i().m.a(84);
+                    continue;
+                }
+                if (a.b.c.c[4][n2][4] == 1) {
+                    this.p.a.a((int)(i2 + 45)).i().m.a(83);
+                    continue;
+                }
+                if (a.b.c.c[4][n2][4] != 2) continue;
+                this.p.a.a((int)(i2 + 45)).i().m.a(74);
+                continue;
+            }
+            if (this.p.a.a((int)(i2 + 51)).i().m != null) {
+                this.p.a.a((int)(i2 + 51)).i().m.c();
+            }
+            this.p.a.a((int)(14 + i2 * 5)).i().a = "";
+            this.p.a.a((int)(15 + i2 * 5)).i().a = "";
+            this.p.a.a((int)(i2 + 45)).i().m.a(86);
+        }
+        this.p.a.a((int)56).i().a = this.q.T.size() > 0 ? a.a.c(a.b.c.c[4][((int[])this.q.T.elementAt(this.h))[0]][2]) : "";
+        if (this.q.T.size() <= 0) {
+            return;
+        }
+        this.p.a.a((int)43).i().a = "" + this.q.G();
+        this.p.a.a((int)44).i().a = "" + this.q.F();
+        this.p.a.a(38).b(102 + this.h * 84 / this.q.T.size(), this.p.a.a());
+    }
+
+    /*
+     * Enabled aggressive block sorting
+     */
+    public final void P() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            return;
+        }
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            return;
+        }
+        if (this.f == 1 && this.o.g(16400) && this.c > 0) {
+            int[] nArray = (int[])this.q.T.elementAt(this.h);
+            --this.c;
+            if (this.c <= 0) {
+                this.c = this.q.a(nArray[0], (byte)0);
+            }
+            this.a(this.c, this.c * a.b.c.c[4][nArray[0]][3] / 2, (int)a.b.c.c[4][nArray[0]][4], 4);
+            return;
+        }
+        if (this.f == 1 && this.o.g(32832)) {
+            int[] nArray = (int[])this.q.T.elementAt(this.h);
+            ++this.c;
+            if (this.c > this.q.a(nArray[0], (byte)0)) {
+                this.c = 1;
+            }
+            this.a(this.c, this.c * a.b.c.c[4][nArray[0]][3] / 2, (int)a.b.c.c[4][nArray[0]][4], 4);
+            return;
+        }
+        if (this.o.g(196640) && this.q.T.size() > 0) {
+            int[] nArray = (int[])this.q.T.elementAt(this.h);
+            if (this.f == 0) {
+                this.f = 1;
+                this.p.a("/data/ui/msgyn.ui", 257, this);
+                this.c = 1;
+                this.r = 0;
+                this.a(this.c, this.c * a.b.c.c[4][nArray[0]][3] / 2, (int)a.b.c.c[4][nArray[0]][4], 4);
+                return;
+            }
+            if (this.r != 0) {
+                this.p.a("/data/ui/msgyn.ui");
+                this.f = 0;
+                return;
+            }
+            this.q.d(nArray[0], this.c, (byte)0);
+            this.q.s(this.c * a.b.c.c[4][nArray[0]][3] / 2);
+        } else {
+            if (!this.o.g(262144)) return;
+            if (this.f == 0) {
+                this.o.a((byte)1);
+                this.p.a("/data/ui/shopbuy.ui");
+                ((c.b)this.p.a.a((int)0)).a.f = this.b = 1;
+                return;
+            }
+        }
+        this.f = 0;
+        this.p.a("/data/ui/msgyn.ui");
+        this.q.y();
+        this.aZ();
+    }
+
+    public final void Q() {
+        this.p.a("/data/ui/record.ui", 257, this);
+        this.p.a("/data/ui/gamemenu.ui");
+        this.p.a.a((int)14).i().a = "" + (this.q.B + this.q.P.size());
+        this.p.a.a((int)17).i().a = "" + this.q.G;
+        this.p.a.a((int)20).i().a = "" + this.q.I;
+        this.p.a.a((int)26).i().a = "" + this.q.H;
+        int n2 = 0;
+        for (byte by = 0; by < this.q.C.length; by = (byte)(by + 1)) {
+            if (this.q.b(by, (byte)0) != 2) continue;
+            ++n2;
+        }
+        this.p.a.a((int)29).i().a = "" + n2;
+        long l2 = game.f.B().n + game.f.B().o - game.f.B().p;
+        c.i i2 = this.p.a.a(31).i();
+        game.l.B();
+        i2.a = game.l.a(l2)[1];
+        ((c.b)this.p.a.a((int)0)).b.f = this.c;
+        this.b = 0;
+        this.f = 0;
+        this.g = true;
+    }
+
+    public final void R() {
+        if (this.o.g(16400)) {
+            this.p.a.b(2);
+            this.g = true;
+        } else if (this.o.g(32832)) {
+            this.p.a.b(3);
+            this.g = true;
+        } else if (this.o.g(196640)) {
+            if (this.f == 0) {
+                switch (this.c) {
+                    case 0: {
+                        if (game.j.p().l(5)) {
+                            this.o.a((byte)11);
+                            break;
+                        }
+                        this.H();
+                        this.a("Kh\u00f4ng \u0111\u1ea1t \u0111\u01b0\u1ee3c s\u1ee7ng v\u1eadt s\u00e1ch tranh \u0111\u1ea1o c\u1ee5", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        this.f = 1;
+                        break;
+                    }
+                    case 1: {
+                        this.o.a((byte)12);
+                    }
+                }
+            } else {
+                this.f = 0;
+                this.I();
+            }
+        } else if (this.o.g(262144) && this.f == 0) {
+            this.b = a.a.i ? 3 : 2;
+            this.o.a((byte)6);
+            this.p.a("/data/ui/record.ui");
+        }
+        this.g = true;
+    }
+
+    public final void S() {
+        this.p.a("/data/ui/petmap.ui", 257, this);
+        this.p.a("/data/ui/record.ui");
+        this.b = 0;
+        this.c = 0;
+        this.f = 0;
+        ((c.b)this.p.a.a((int)0)).a.a(1);
+        this.bb();
+        this.g = true;
+    }
+
+    private void ba() {
+        ((c.b)this.p.a.a((int)0)).a.e = 0;
+        ((c.b)this.p.a.a((int)0)).a.f = 0;
+    }
+
+    private void bb() {
+        int n2;
+        ((c.b)this.p.a.a((int)0)).a.a = this.q.Y[this.b];
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        int n3 = a.b.c.c[0][this.q.X[this.b] + this.h][17];
+        if (this.q.a((byte)this.b, this.h + this.q.X[this.b]) > 0) {
+            this.p.a.a(21).a(true);
+            if (this.p.a.a((int)21).i().m != null) {
+                this.p.a.a((int)21).i().m.c();
+            } else {
+                this.p.a.a((int)21).i().m = new c.g();
+                this.p.a.a((int)21).i().m.a(0);
+                this.p.a.a((int)21).i().m.a = (byte)3;
+            }
+            this.p.a.a((int)21).i().m.a(n3, false, (byte)-1);
+            this.p.a.a((int)21).i().m.a((byte)1);
+        } else {
+            this.p.a.a(21).a(false);
+        }
+        n3 = 0;
+        for (n2 = 0; n2 < this.q.Y[this.b]; ++n2) {
+            if (this.q.a((byte)this.b, this.q.X[this.b] + n2) != 2) continue;
+            ++n3;
+        }
+        for (n2 = 0; n2 < 5; ++n2) {
+            if (this.p.a.a((int)(n2 + 44)).i().m == null) {
+                this.p.a.a((int)(n2 + 44)).i().m = new c.g();
+                this.p.a.a((int)(n2 + 44)).i().m.a(102);
+                this.p.a.a((int)(n2 + 44)).i().m.a = (byte)2;
+                this.p.a.a((int)(n2 + 44)).i().m.a(257, false, (byte)-1);
+            }
+            if (this.q.a((byte)this.b, n2 + this.v + this.q.X[this.b]) == 2) {
+                this.p.a.a((int)(n2 + 44)).i().m.a(101);
+            } else {
+                this.p.a.a((int)(n2 + 44)).i().m.a(102);
+            }
+            this.p.a.a((int)(24 + (n2 << 2) + 3)).i().a = a.a.c(a.b.c.c[0][this.q.X[this.b] + n2 + this.v][0]);
+        }
+        this.p.a.a((int)20).i().a = a.a.c(365 + this.b) + n3 + "/" + this.q.Y[this.b];
+        this.p.a.a(23).b(99 + (this.h << 6) / this.q.Y[this.b], this.p.a.a());
+    }
+
+    public final void T() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.bb();
+        } else if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.bb();
+        } else if (this.o.g(16400)) {
+            this.p.a.b(2);
+            this.ba();
+            this.bb();
+        } else if (this.o.g(32832)) {
+            this.p.a.b(3);
+            this.ba();
+            this.bb();
+        } else if (!this.o.g(196640) && this.o.g(786432)) {
+            if (this.o.b == 8) {
+                this.o.a((byte)8);
+            } else {
+                this.c = 0;
+                this.o.a((byte)9);
+            }
+            this.p.a("/data/ui/petmap.ui");
+        }
+        this.g = true;
+    }
+
+    public final void U() {
+        this.p.a("/data/ui/task.ui", 257, this);
+        this.p.a("/data/ui/gamemenu.ui");
+        ((c.b)this.p.a.a((int)0)).b.f = this.b;
+        this.c = 0;
+        this.r = 0;
+        this.bc();
+        this.bd();
+    }
+
+    private void bc() {
+        switch (this.b) {
+            case 0: {
+                if (game.e.G >= game.e.E.length / 2 - 1) {
+                    ((c.b)this.p.a.a((int)0)).a.a = game.e.E.length / 2;
+                    ((c.b)this.p.a.a((int)0)).a.f = game.e.E.length / 2 - 1;
+                } else {
+                    ((c.b)this.p.a.a((int)0)).a.a = game.e.G + 1;
+                    ((c.b)this.p.a.a((int)0)).a.f = game.e.G;
+                }
+                this.p.a.a((int)36).i().a = "";
+                this.h = game.e.G;
+                this.v = game.e.G - 4;
+                if (this.h <= 0) {
+                    this.h = 0;
+                }
+                if (this.v <= 0) {
+                    this.v = 0;
+                }
+                ((c.b)this.p.a.a((int)0)).a.e = this.v;
+                this.p.a.a((int)37).i().a = "\u0110\u1ea7u m\u1ed1i ch\u00ednh ho\u00e0n th\u00e0nh \u0111\u1ed9: ";
+                this.p.a.a((int)38).i().a = game.e.G >= game.e.E.length / 2 ? game.e.E[game.e.E.length - 1] : game.e.E[game.e.E.length / 2 + game.e.G];
+                int n2 = game.e.G * 1000 / (game.e.E.length / 2);
+                if (!a.a.i) {
+                    int n3 = n2 % 10;
+                    if (n3 == 0) {
+                        n3 = 1;
+                    }
+                    this.p.a.a((int)38).i().a = n2 / 50 + "." + n3 + "%";
+                } else {
+                    this.p.a.a((int)38).i().a = n2 / 10 + "." + n2 % 10 + "%";
+                }
+                if (game.e.G > 4) {
+                    ((c.b)this.p.a.a((int)0)).a.a(1);
+                } else {
+                    ((c.b)this.p.a.a((int)0)).a.a(0);
+                }
+                this.p.a.a((int)8).i().g = 11290624;
                 break;
             }
-            an.e(2996676);
+            case 1: {
+                int n4;
+                ((c.b)this.p.a.a((int)0)).a.a = game.e.H;
+                ((c.b)this.p.a.a((int)0)).a.f = 0;
+                ((c.b)this.p.a.a((int)0)).a.e = 0;
+                this.p.a.a((int)36).i().a = "";
+                this.p.a.a((int)37).i().a = "Chi nh\u00e1nh ho\u00e0n th\u00e0nh \u0111\u1ed9: ";
+                int n5 = 0;
+                for (n4 = 0; n4 < game.e.F.length; ++n4) {
+                    if (game.e.F[n4][1] != 3) continue;
+                    ++n5;
+                }
+                n4 = n5 * 1000 / (game.e.D.length / 2);
+                this.p.a.a((int)38).i().a = n4 / 10 + "." + n4 % 10 + "%";
+                if (game.e.H > 5) {
+                    ((c.b)this.p.a.a((int)0)).a.a(1);
+                } else {
+                    ((c.b)this.p.a.a((int)0)).a.a(0);
+                }
+                this.p.a.a((int)9).i().g = 11290624;
+            }
         }
-        if (ad == null) {
-            ad = ae.b("/data/tex/", "gold");
+        this.bd();
+    }
+
+    private void bd() {
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        for (int i2 = 0; i2 < 5; ++i2) {
+            if (this.b == 0) {
+                if (game.e.G > 0) {
+                    if (this.v + i2 < game.e.G) {
+                        this.p.a.a((int)(10 + i2 * 5 + 2)).i().a = "" + (i2 + this.v + 1);
+                        this.p.a.a((int)(10 + i2 * 5 + 3)).i().a = game.e.E[this.v + i2];
+                        this.p.a.a((int)(10 + i2 * 5 + 4)).i().a = "Ho\u00e0n th\u00e0nh";
+                        continue;
+                    }
+                    if (this.v + i2 == game.e.G && this.v + i2 <= game.e.E.length / 2 - 1) {
+                        this.p.a.a((int)(10 + i2 * 5 + 2)).i().a = "" + (i2 + this.v + 1);
+                        this.p.a.a((int)(10 + i2 * 5 + 3)).i().a = game.e.E[this.v + i2];
+                        this.p.a.a((int)(10 + i2 * 5 + 4)).i().a = "";
+                        continue;
+                    }
+                    this.p.a.a((int)(10 + i2 * 5 + 2)).i().a = "";
+                    this.p.a.a((int)(10 + i2 * 5 + 3)).i().a = "";
+                    this.p.a.a((int)(10 + i2 * 5 + 4)).i().a = "";
+                    this.p.a.a((int)36).i().a = "";
+                    continue;
+                }
+                this.p.a.a((int)12).i().a = "1";
+                this.p.a.a((int)13).i().a = game.e.E[0];
+                this.p.a.a((int)14).i().a = "";
+                continue;
+            }
+            if (this.b != 1) continue;
+            if (this.v + i2 < game.e.H) {
+                this.p.a.a((int)(10 + i2 * 5 + 2)).i().a = "" + (i2 + this.v + 1);
+                this.p.a.a((int)(10 + i2 * 5 + 3)).i().a = game.e.D[game.e.F[this.v + i2][0]];
+                if (game.e.F[this.v + i2][1] == 3) {
+                    this.p.a.a((int)(10 + i2 * 5 + 4)).i().a = "Ho\u00e0n th\u00e0nh";
+                    continue;
+                }
+                this.p.a.a((int)(10 + i2 * 5 + 4)).i().a = "";
+                continue;
+            }
+            this.p.a.a((int)(10 + i2 * 5 + 2)).i().a = "";
+            this.p.a.a((int)(10 + i2 * 5 + 3)).i().a = "";
+            this.p.a.a((int)(10 + i2 * 5 + 4)).i().a = "";
         }
-        if (ae == null) {
-            ae = ae.b("/data/img/", "img_10023");
+        switch (this.b) {
+            case 0: {
+                this.p.a.a((int)36).i().a = game.e.E[game.e.E.length / 2 + this.h];
+                break;
+            }
+            case 1: {
+                if (game.e.H <= 0) break;
+                this.p.a.a((int)36).i().a = game.e.D[game.e.D.length / 2 + game.e.F[this.h][0]];
+            }
+        }
+        if (((c.b)this.p.a.a((int)0)).a.a > 0) {
+            this.p.a.a(40).b(104 + (this.h << 6) / ((c.b)this.p.a.a((int)0)).a.a, this.p.a.a());
+        }
+    }
+
+    public final void V() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.bd();
+            return;
+        }
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.bd();
+            return;
+        }
+        if (this.o.g(16400)) {
+            this.p.a.b(2);
+            this.bc();
+            return;
+        }
+        if (this.o.g(32832)) {
+            this.p.a.b(3);
+            this.bc();
+            return;
+        }
+        if (this.o.g(983072)) {
+            this.b = a.a.i ? 4 : 3;
+            this.p.a("/data/ui/task.ui");
+            if (this.o.b == 0) {
+                this.b = 0;
+                this.o.a((byte)0);
+                return;
+            }
+            if (this.o.b == 33) {
+                this.o.a((byte)33);
+                return;
+            }
+            this.o.a((byte)6);
+            return;
+        }
+        if (this.o.g(10)) {
+            this.p.a("/data/ui/task.ui");
+            this.o.a((byte)0);
+        }
+    }
+
+    public final void W() {
+        this.p.a("/data/ui/badge.ui", 257, this);
+        this.p.a("/data/ui/record.ui");
+        this.b = 0;
+        this.f = 0;
+        for (int i2 = 0; i2 < 8; ++i2) {
+            if (this.q.C[i2][0] == 0) continue;
+            this.p.a.a((int)(i2 + 25)).i().m.a(i2 + 46);
+        }
+        this.be();
+    }
+
+    private void be() {
+        this.p.a.a((int)13).i().a = a.a.c(a.b.c.c[2][this.b][0]);
+        this.p.a.a((int)14).i().a = a.a.c(a.b.c.c[2][this.b][2 + this.q.b((byte)this.b, (byte)1)]);
+        if (this.q.b((byte)this.b, (byte)0) == 0) {
+            this.p.a.a((int)16).i().a = "Ch\u01b0a \u0111\u1ea1t";
+            return;
+        }
+        this.p.a.a((int)16).i().a = "\u0110\u00e3 \u0111\u1ea1t \u0111\u01b0\u1ee3c";
+        this.q.b((byte)this.b, (byte)1);
+        this.p.a.a((int)33).i().a = "";
+    }
+
+    public final void X() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.be();
+            return;
+        }
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.be();
+            return;
+        }
+        if (this.o.g(16400)) {
+            this.p.a.b(2);
+            this.be();
+            return;
+        }
+        if (this.o.g(32832)) {
+            this.p.a.b(3);
+            this.be();
+            return;
+        }
+        if (this.o.g(786432)) {
+            if (this.o.b == 8) {
+                this.o.a((byte)8);
+            } else {
+                this.c = 1;
+                this.o.a((byte)9);
+            }
+            this.p.a("/data/ui/badge.ui");
+        }
+    }
+
+    public final void a(int n2) {
+        this.p.a("/data/ui/smsTip.ui", 257, this);
+        if (this.p.a.a((int)6).i().m == null) {
+            this.p.a.a((int)6).i().m = new c.g();
+            this.p.a.a((int)6).i().m.a = (byte)2;
+            this.p.a.a((int)6).i().m.a(-1);
+            this.p.a.a((int)6).i().m.a(257, false, (byte)-1);
+            this.p.a.a((int)6).i().m.a(n2 + 46);
+        }
+        this.p.a.a((int)7).i().a = a.a.c(n2 + 187) + ":" + a.a.c(n2 + 195);
+        this.p.a.a((int)8).i().a = a.a.c(377);
+    }
+
+    public final void Y() {
+        this.p.a("/data/ui/smsTip.ui");
+    }
+
+    public final void Z() {
+        this.b = 0;
+        this.f(this.c);
+    }
+
+    private void f(int n2) {
+        int n3 = n2;
+        i[] iArray = this.q.A;
+        k k2 = this;
+        k2.p.a("/data/ui/petstate.ui", 257, k2);
+        k2.g(n3);
+        k2.f = 0;
+        if (k2.o instanceof l) {
+            for (int i2 = 0; i2 < 6; ++i2) {
+                if (iArray[i2] != null) {
+                    k2.p.a.a((int)(16 + i2 * 6)).i().a = "#P" + iArray[i2].M();
+                    k2.p.a.a((int)(17 + i2 * 6)).i().a = "#P" + iArray[i2].P();
+                    continue;
+                }
+                k2.p.a.a((int)(16 + i2 * 6)).i().a = "#P0";
+                k2.p.a.a((int)(17 + i2 * 6)).i().a = "#P0";
+            }
+            if (k2.o.b == 16) {
+                k2.p.a.a((int)64).i().a = "G\u1edfi l\u1ea1i";
+            }
+            k2.p.a.a(75).a(false);
+            k2.p.a.a(76).a(false);
+        } else if (k2.o instanceof a) {
+            for (int i3 = 0; i3 < 6; ++i3) {
+                if (i3 < ((a)k2.o).p.length && iArray[((a)k2.o).p[i3]] != null) {
+                    k2.p.a.a((int)(16 + i3 * 6)).i().a = "#P" + iArray[((a)k2.o).p[i3]].M();
+                    k2.p.a.a((int)(17 + i3 * 6)).i().a = "#P" + iArray[((a)k2.o).p[i3]].P();
+                    continue;
+                }
+                k2.p.a.a((int)(16 + i3 * 6)).i().a = "#P0";
+                k2.p.a.a((int)(17 + i3 * 6)).i().a = "#P0";
+            }
+            k2.p.a.a(63).a(false);
+            k2.p.a.a(64).a(false);
+            if (k2.o.b == 4) {
+                k2.p.a.a((int)75).i().a = "S\u1eed d\u1ee5ng";
+            } else if (k2.o.a == 5) {
+                k2.p.a.a((int)75).i().a = "Xu\u1ea5t chi\u1ebfn";
+            }
+        }
+        ((c.b)k2.p.a.a((int)0)).a.a = k2.q.B;
+        ((c.b)k2.p.a.a((int)0)).a.d = k2.q.B;
+        ((c.b)k2.p.a.a((int)0)).a.f = n3;
+        k2.g = true;
+    }
+
+    private void a(i[] iArray, int n2) {
+        if (iArray[n2] != null) {
+            if (this.p.a.a((int)48).i().m != null) {
+                this.p.a.a((int)48).i().m.c();
+            } else {
+                this.p.a.a((int)48).i().m = new c.g();
+                this.p.a.a((int)48).i().m.a(0);
+                this.p.a.a((int)48).i().m.a = (byte)3;
+            }
+            this.p.a.a((int)48).i().m.a(iArray[n2].D, false, (byte)-1);
+            this.p.a.a((int)51).i().a = a.a.c(iArray[n2].j((byte)0));
+            this.p.a.a((int)52).i().a = a.a.c(365 + iArray[n2].j((byte)1));
+            if (iArray[n2].j((byte)19) == -1) {
+                this.p.a.a((int)62).i().a = "";
+            } else if (a.b.c.c[0][iArray[n2].j((byte)19)][2] == 1 || a.b.c.c[0][iArray[n2].j((byte)19)][2] == 2) {
+                this.p.a.a((int)62).i().a = "C\u00f3 th\u1ec3 ti\u1ebfn h\u00f3a";
+            } else if (a.b.c.c[0][iArray[n2].j((byte)19)][2] == 3) {
+                this.p.a.a((int)62).i().a = "C\u00f3 th\u1ec3 d\u1ecb ho\u00e1";
+            }
+            this.p.a.a((int)61).i().a = iArray[n2].U();
+            if (this.o instanceof a) {
+                this.p.a.a((int)64).i().a = "Xu\u1ea5t chi\u1ebfn";
+            } else if (this.o instanceof l) {
+                this.p.a.a((int)64).i().a = "X\u00e1c nh\u1eadn";
+            }
+            if (this.p.a.a((int)59).i().m == null) {
+                this.p.a.a((int)59).i().m = new c.g();
+                this.p.a.a((int)59).i().m.a(0);
+                this.p.a.a((int)59).i().m.a = (byte)2;
+                this.p.a.a((int)59).i().m.a(258, false, (byte)-1);
+            }
+            int n3 = 5;
+            i i2 = iArray[n2];
+            if (i2.d[n3] != -1) {
+                n3 = 5;
+                i2 = iArray[n2];
+                this.p.a.a((int)59).i().m.a(a.b.c.c[3][i2.d[n3]][1]);
+                n3 = 5;
+                i2 = iArray[n2];
+                this.p.a.a((int)60).i().a = a.a.c(a.b.c.c[3][i2.d[n3]][0]);
+            } else {
+                this.p.a.a((int)59).i().m.a(0);
+                this.p.a.a((int)60).i().a = "";
+            }
+            this.p.a.a((int)65).i().a = "" + iArray[n2].t();
+            this.p.a.a((int)66).i().a = "" + iArray[n2].a((byte)2);
+            this.p.a.a((int)67).i().a = "" + iArray[n2].a((byte)3);
+            this.p.a.a((int)68).i().a = "" + iArray[n2].a((byte)4);
+            n3 = 0;
+            i2 = iArray[n2];
+            int n4 = i2.e[n3];
+            int n5 = a.b.c.a((byte)0, (short)iArray[n2].r(), (byte)4) - 1;
+            for (n2 = 0; n2 < 5; ++n2) {
+                this.p.a.a(74 - n2).a(true);
+                this.p.a.a((int)(74 - n2)).i().m.a(257, false, (byte)-1);
+                this.p.a.a((int)(74 - n2)).i().m.a = (byte)3;
+                if (n2 > n5) {
+                    this.p.a.a(74 - n2).a(false);
+                    continue;
+                }
+                if (n4 > 0) {
+                    this.p.a.a((int)(74 - n2)).i().m.a((byte)14, (byte)-1);
+                    --n4;
+                    continue;
+                }
+                this.p.a.a((int)(74 - n2)).i().m.a((byte)16, (byte)-1);
+            }
+        }
+    }
+
+    private void g(int n2) {
+        if (this.o instanceof l) {
+            this.a(this.q.A, n2);
+            return;
+        }
+        if (this.o instanceof a) {
+            this.a(this.q.A, (int)((a)this.o).p[n2]);
+        }
+    }
+
+    public final void aa() {
+        block89: {
+            block92: {
+                block91: {
+                    block90: {
+                        block88: {
+                            if (this.f != 0) break block88;
+                            if (!a.a.a(this.b, 0) && !this.j() && this.o.g(4100)) {
+                                this.p.a.b(0);
+                            } else if (!a.a.a(this.b, 0) && !this.j() && this.o.g(8448)) {
+                                this.p.a.b(1);
+                            } else if (a.a.s() && !this.j() && this.o.g(196640)) {
+                                if (a.a.p() && !a.a.a(this.b, 0)) {
+                                    return;
+                                }
+                                if (this.o instanceof a) {
+                                    int n2 = ((a)this.o).l(this.b);
+                                    if (n2 == 0) {
+                                        this.f = 2;
+                                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                        this.a("S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng th\u1ec3 tham chi\u1ebfn", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                        this.p.a("/data/ui/petsetting.ui");
+                                    } else if (n2 == 1) {
+                                        this.f = 2;
+                                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                        this.a("S\u1ee7ng v\u1eadt n\u00e0y \u0111\u00e3 \u0111\u1eb7t \u1edf v\u1ecb tr\u00ed chi\u1ebfn \u0111\u1ea5u", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                        this.p.a("/data/ui/petsetting.ui");
+                                    } else if (n2 == -1) {
+                                        ((a)this.o).e(((a)this.o).q, 0);
+                                        this.a = 0;
+                                        this.o.a((byte)15);
+                                        this.p.a("/data/ui/petsetting.ui");
+                                        this.p.a("/data/ui/petstate.ui");
+                                    }
+                                } else if (this.o instanceof l) {
+                                    if (this.o.b == 16) {
+                                        if (this.q.A()) {
+                                            if (this.q.i(this.b)) {
+                                                this.q.m(this.q.A[this.b].b((byte)5));
+                                                this.q.A[this.b].a((byte)5, (short)-1);
+                                                this.q.b(this.q.A[this.b].Q());
+                                                this.q.n(this.b);
+                                                if (this.b >= this.q.B) {
+                                                    --this.b;
+                                                }
+                                                this.f(this.b);
+                                            } else {
+                                                this.f = 1;
+                                                this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                                this.a("Ba l\u00f4 ph\u1ea3i l\u01b0u \u00edt nh\u1ea5t 1 s\u1ee7ng v\u1eadt", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                            }
+                                        } else {
+                                            this.f = 1;
+                                            this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                            this.a("Ng\u00e2n h\u00e0ng \u0111\u00e3 \u0111\u1ea7y, kh\u00f4ng th\u1ec3 g\u1edfi l\u1ea1i", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                        }
+                                    } else if (this.o.b == 6 || this.o.b == 0) {
+                                        this.c = 0;
+                                        this.o.r();
+                                        this.f = 1;
+                                        this.p.a("/data/ui/petsetting.ui", 257, this);
+                                        ((c.b)this.p.a.a((int)0)).a.f = this.c;
+                                        if (this.q.A[this.b].S() == 2) {
+                                            this.p.a.a((int)9).i().a = "D\u1ecb ho\u00e1";
+                                            ((c.b)this.p.a.a((int)0)).a.a = 6;
+                                            ((c.b)this.p.a.a((int)0)).a.d = 6;
+                                        } else if (this.q.A[this.b].S() == 1) {
+                                            this.p.a.a((int)9).i().a = "Ti\u1ebfn h\u00f3a";
+                                            ((c.b)this.p.a.a((int)0)).a.a = 6;
+                                            ((c.b)this.p.a.a((int)0)).a.d = 6;
+                                        } else {
+                                            this.p.a.a((int)9).i().a = "";
+                                            ((c.b)this.p.a.a((int)0)).a.a = 5;
+                                            ((c.b)this.p.a.a((int)0)).a.d = 5;
+                                        }
+                                    } else if (this.o.b == 27) {
+                                        if (this.d == 1 && this.q.A[this.b].S() == 1 || this.d == 2 && this.q.A[this.b].S() == 2) {
+                                            this.bl();
+                                        } else {
+                                            this.f = 4;
+                                            this.H();
+                                            if (this.d == 1) {
+                                                this.a("S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng th\u1ec3 ti\u1ebfn h\u00f3a", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                            } else if (this.d == 2) {
+                                                this.a("S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng th\u1ec3 d\u1ecb ho\u00e1", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                            } else {
+                                                this.a("Kh\u00f4ng th\u1ec3 v\u00e0o h\u00f3a c\u00f9ng d\u1ecb ho\u00e1", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (game.e.t() && !this.j() && this.o.g(262144)) {
+                                if (this.o instanceof l) {
+                                    if (this.o.b == 16) {
+                                        this.o.a((byte)16);
+                                    } else if (this.o.b == 6) {
+                                        this.b = a.a.i ? 1 : 0;
+                                        this.o.a((byte)6);
+                                    } else if (this.o.b == 27) {
+                                        this.o.a((byte)27);
+                                    } else if (this.o.b == 0) {
+                                        this.o.a((byte)23);
+                                    }
+                                    this.p.a("/data/ui/petstate.ui");
+                                } else if (this.o instanceof a) {
+                                    if (((a)this.o).b == 7 || ((a)this.o).b == 13) {
+                                        return;
+                                    }
+                                    this.p.a("/data/ui/petstate.ui");
+                                    game.a.B().u = false;
+                                    this.a = 0;
+                                    this.o.a((byte)20);
+                                }
+                            }
+                            break block89;
+                        }
+                        if (this.f != 1) break block90;
+                        if (!a.a.a(this.c, 0) && !this.j() && this.o.g(4100)) {
+                            this.p.a.b(0);
+                        } else if (!a.a.a(this.c, 0) && !this.j() && this.o.g(8448)) {
+                            this.p.a.b(1);
+                        } else if (a.a.s() && !this.j() && this.o.g(196640)) {
+                            if (a.a.p() && !a.a.a(this.c, 0)) {
+                                return;
+                            }
+                            if (this.o.b == 16) {
+                                this.o.a((byte)16);
+                                this.p.a("/data/ui/msgwarm.ui");
+                                this.p.a("/data/ui/petstate.ui");
+                                this.f = 0;
+                            } else if (this.o.b == 6 || this.o.b == 0) {
+                                switch (this.c) {
+                                    case 0: {
+                                        this.bh();
+                                        break;
+                                    }
+                                    case 1: {
+                                        if (!this.q.A[this.b].T()) {
+                                            this.f = 2;
+                                            this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                            this.a("S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng th\u1ec3 tham chi\u1ebfn", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                            this.p.a("/data/ui/petsetting.ui");
+                                            this.b = 0;
+                                            break;
+                                        }
+                                        if (this.b == 0) {
+                                            this.f = 2;
+                                            this.b = 0;
+                                            this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                            this.a("S\u1ee7ng v\u1eadt n\u00e0y \u0111\u00e3 xu\u1ea5t chi\u1ebfn", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                            this.p.a("/data/ui/petsetting.ui");
+                                            break;
+                                        }
+                                        this.q.p(this.b);
+                                        this.f = 0;
+                                        this.b = 0;
+                                        this.f(this.b);
+                                        this.p.a("/data/ui/petsetting.ui");
+                                        ((c.b)this.p.a.a((int)0)).a.f = 0;
+                                        ((c.b)this.p.a.a((int)0)).a.e = 0;
+                                        break;
+                                    }
+                                    case 2: {
+                                        this.o.r();
+                                        this.bf();
+                                        break;
+                                    }
+                                    case 3: {
+                                        if (a.b.c.a((byte)0, (short)this.q.A[this.b].r(), (byte)22) == 2) {
+                                            this.f = 3;
+                                            this.H();
+                                            this.p.a("/data/ui/petsetting.ui");
+                                            this.a("Th\u1ea7n th\u00fa kh\u00f4ng th\u1ec3 ph\u00f3ng sinh", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                            break;
+                                        }
+                                        this.f = 2;
+                                        this.p.a("/data/ui/msgconfirm.ui", 257, this);
+                                        this.p.a("/data/ui/petsetting.ui");
+                                        this.b("B\u1ea1n mu\u1ed1n ph\u00f3ng sinh s\u1ee7ng v\u1eadt n\u00e0y?", "X\u00e1c nh\u1eadn");
+                                        break;
+                                    }
+                                    case 4: {
+                                        this.bj();
+                                        break;
+                                    }
+                                    case 5: {
+                                        this.o.r();
+                                        this.bl();
+                                    }
+                                    default: {
+                                        break;
+                                    }
+                                }
+                            }
+                        } else if (game.e.t() && !this.j() && this.o.g(262144)) {
+                            if (this.o.b == 16) {
+                                return;
+                            }
+                            this.f = 0;
+                            this.p.a("/data/ui/petsetting.ui");
+                        }
+                        break block89;
+                    }
+                    if (this.f < 2) break block89;
+                    if (!(this.o instanceof a)) break block91;
+                    if (this.o.g(196640)) {
+                        this.f = 0;
+                        this.p.a("/data/ui/msgwarm.ui");
+                    }
+                    break block89;
+                }
+                if (this.o.b != 6 && this.o.b != 0) break block92;
+                switch (this.c) {
+                    case 1: {
+                        if (this.o.g(196640)) {
+                            this.f = 0;
+                            this.p.a("/data/ui/msgwarm.ui");
+                            break;
+                        }
+                        break block89;
+                    }
+                    case 2: {
+                        this.bm();
+                        break;
+                    }
+                    case 0: {
+                        this.bn();
+                        break;
+                    }
+                    case 4: {
+                        this.bo();
+                        break;
+                    }
+                    case 3: {
+                        if (this.o.g(131072) && this.f == 2 || this.o.g(196640) && this.f == 3) {
+                            if (this.f == 2) {
+                                if (this.q.i(this.b)) {
+                                    this.q.m(this.q.A[this.b].b((byte)5));
+                                    this.q.A[this.b].a((byte)5, (short)-1);
+                                    this.q.n(this.b);
+                                    if (this.b >= this.q.B) {
+                                        --this.b;
+                                    }
+                                    this.f(this.b);
+                                    ((l)this.o).Z.G();
+                                    this.p.a("/data/ui/msgconfirm.ui");
+                                    this.f = 0;
+                                    break;
+                                }
+                                this.f = 3;
+                                this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                this.a("Ba l\u00f4 ph\u1ea3i l\u01b0u \u00edt nh\u1ea5t 1 s\u1ee7ng v\u1eadt", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                this.p.a("/data/ui/msgconfirm.ui");
+                                break;
+                            }
+                            this.f = 0;
+                            this.p.a("/data/ui/msgwarm.ui");
+                            break;
+                        }
+                        if (this.o.g(786432) && this.f <= 2) {
+                            this.f = 0;
+                            this.p.a("/data/ui/msgconfirm.ui");
+                            break;
+                        }
+                        break block89;
+                    }
+                    case 5: {
+                        this.bp();
+                    }
+                }
+                break block89;
+            }
+            if (this.f <= 3) {
+                this.bp();
+            } else if (this.f == 4 && this.o.g(196640)) {
+                this.f = 0;
+                this.p.a("/data/ui/msgwarm.ui");
+            }
+        }
+        this.g = true;
+        this.g();
+    }
+
+    private void bf() {
+        this.f = 2;
+        this.r = 0;
+        this.p.a("/data/ui/choice.ui", 257, this);
+        this.p.a("/data/ui/petsetting.ui");
+        this.p.a("/data/ui/petstate.ui");
+        this.p.a.a((int)8).i().a = "V\u1eadt ph\u1ea9m trang s\u1ee9c";
+        this.p.a.a((int)9).i().a = "Tr\u1ea1ng th\u00e1i";
+        if (this.o instanceof l) {
+            this.p.a.a(5).a(false);
+            this.p.a.a(6).a(false);
+            this.p.a.a(59).a(true);
+            this.p.a.a(60).a(true);
+            this.p.a.a((int)59).i().a = "Mang theo";
+        } else {
+            this.p.a.a(5).a(true);
+            this.p.a.a(6).a(true);
+            this.p.a.a(59).a(false);
+            this.p.a.a(60).a(false);
+            this.p.a.a((int)5).i().a = "Mang theo";
+        }
+        this.bg();
+        this.g = true;
+    }
+
+    private void bg() {
+        if (this.q.M.size() > 5) {
+            ((c.b)this.p.a.a((int)0)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)0)).a.a(0);
+        }
+        ((c.b)this.p.a.a((int)0)).a.a = this.q.M.size();
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        if (this.h >= this.q.M.size()) {
+            ((c.b)this.p.a.a((int)0)).a.f = this.h = this.q.M.size() - 1;
+        }
+        if (this.v > 0 && this.h - this.v < 4) {
+            --this.v;
+            ((c.b)this.p.a.a((int)0)).a.e = this.v;
+        }
+        if (this.q.M.size() <= 0) {
+            return;
+        }
+        int n2 = 5;
+        i i2 = this.q.A[this.b];
+        if (i2.d[n2] == ((int[])this.q.M.elementAt(this.h))[0]) {
+            if (this.o instanceof l) {
+                this.p.a.a((int)59).i().a = "D\u1ee1 xu\u1ed1ng";
+            } else {
+                this.p.a.a((int)5).i().a = "D\u1ee1 xu\u1ed1ng";
+            }
+        } else if (this.o instanceof l) {
+            this.p.a.a((int)59).i().a = "Mang theo";
+        } else {
+            this.p.a.a((int)5).i().a = "Mang theo";
+        }
+        for (int i3 = 0; i3 < 5; ++i3) {
+            if (this.v + i3 < this.q.M.size()) {
+                int[] nArray = (int[])this.q.M.elementAt(this.v + i3);
+                if (this.p.a.a((int)(i3 + 54)).i().m == null) {
+                    this.p.a.a((int)(i3 + 54)).i().m = new c.g();
+                    this.p.a.a((int)(i3 + 54)).i().m.a(0);
+                    this.p.a.a((int)(i3 + 54)).i().m.a = (byte)2;
+                    this.p.a.a((int)(i3 + 54)).i().m.a(258, false, (byte)-1);
+                }
+                this.p.a.a((int)(i3 + 54)).i().m.a(a.b.c.c[3][nArray[0]][1]);
+                this.p.a.a((int)(13 + i3 * 5)).i().a = a.a.c(a.b.c.c[3][nArray[0]][0]);
+                n2 = 5;
+                i2 = game.j.p().A[this.b];
+                if (i2.d[n2] == nArray[0]) {
+                    this.p.a.a((int)(14 + i3 * 5)).i().a = "\u0110\u00e3 mang theo";
+                    continue;
+                }
+                if (nArray[1] == 1) {
+                    this.p.a.a((int)(14 + i3 * 5)).i().a = "B\u1ecb mang theo";
+                    continue;
+                }
+                this.p.a.a((int)(14 + i3 * 5)).i().a = "";
+                continue;
+            }
+            if (this.p.a.a((int)(i3 + 54)).i().m != null) {
+                this.p.a.a((int)(i3 + 54)).i().m.c();
+            }
+            this.p.a.a((int)(13 + i3 * 5)).i().a = "";
+            this.p.a.a((int)(14 + i3 * 5)).i().a = "";
+        }
+        this.p.a.a((int)53).i().a = this.q.M.size() > 0 ? a.a.c(a.b.c.c[3][((int[])this.q.M.elementAt(this.h))[0]][2]) : "";
+        if (this.q.M.size() > 0) {
+            this.p.a.a(51).b(98 + this.h * 62 / this.q.M.size(), this.p.a.a());
+            return;
+        }
+        this.p.a.a(51).b(98, this.p.a.a());
+    }
+
+    private void bh() {
+        this.f = 2;
+        this.r = 0;
+        this.p.a("/data/ui/choice.ui", 257, this);
+        this.p.a("/data/ui/petsetting.ui");
+        this.p.a("/data/ui/petstate.ui");
+        this.p.a.a((int)8).i().a = "\u0110\u1ea1o c\u1ee5";
+        this.p.a.a((int)9).i().a = "S\u1ed1 l\u01b0\u1ee3ng";
+        if (this.o instanceof l) {
+            this.p.a.a(5).a(false);
+            this.p.a.a(6).a(false);
+            this.p.a.a(59).a(true);
+            this.p.a.a(60).a(true);
+            this.p.a.a((int)59).i().a = "S\u1eed d\u1ee5ng";
+        } else {
+            this.p.a.a(5).a(true);
+            this.p.a.a(6).a(true);
+            this.p.a.a(59).a(false);
+            this.p.a.a(60).a(false);
+            this.p.a.a((int)5).i().a = "S\u1eed d\u1ee5ng";
+        }
+        this.bi();
+        this.g = true;
+    }
+
+    private void bi() {
+        if (this.q.K.size() > 5) {
+            ((c.b)this.p.a.a((int)0)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)0)).a.a(0);
+        }
+        ((c.b)this.p.a.a((int)0)).a.a = this.q.K.size();
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        if (this.h >= this.q.K.size()) {
+            ((c.b)this.p.a.a((int)0)).a.f = this.h = this.q.K.size() - 1;
+        }
+        if (this.v > 0 && this.h - this.v < 4) {
+            --this.v;
+            ((c.b)this.p.a.a((int)0)).a.e = this.v;
+        }
+        for (int i2 = 0; i2 < 5; ++i2) {
+            if (this.v + i2 < this.q.K.size()) {
+                int[] nArray = (int[])this.q.K.elementAt(this.v + i2);
+                if (this.p.a.a((int)(i2 + 54)).i().m == null) {
+                    this.p.a.a((int)(i2 + 54)).i().m = new c.g();
+                    this.p.a.a((int)(i2 + 54)).i().m.a(0);
+                    this.p.a.a((int)(i2 + 54)).i().m.a = (byte)2;
+                    this.p.a.a((int)(i2 + 54)).i().m.a(258, false, (byte)-1);
+                }
+                this.p.a.a((int)(i2 + 54)).i().m.a(a.b.c.c[4][nArray[0]][1]);
+                this.p.a.a((int)(13 + i2 * 5)).i().a = a.a.c(a.b.c.c[4][nArray[0]][0]);
+                this.p.a.a((int)(14 + i2 * 5)).i().a = "" + nArray[1];
+                continue;
+            }
+            if (this.p.a.a((int)(i2 + 54)).i().m != null) {
+                this.p.a.a((int)(i2 + 54)).i().m.c();
+            }
+            this.p.a.a((int)(13 + i2 * 5)).i().a = "";
+            this.p.a.a((int)(14 + i2 * 5)).i().a = "";
+        }
+        this.p.a.a((int)53).i().a = this.q.K.size() > 0 ? a.a.c(a.b.c.c[4][((int[])this.q.K.elementAt(this.h))[0]][2]) : "";
+        if (this.q.K.size() > 0) {
+            this.p.a.a(51).b(98 + this.h * 80 / this.q.K.size(), this.p.a.a());
+            return;
+        }
+        this.p.a.a(51).b(98, this.p.a.a());
+    }
+
+    private void bj() {
+        this.f = 2;
+        this.r = 0;
+        this.p.a("/data/ui/skill.ui", 257, this);
+        this.p.a("/data/ui/petsetting.ui");
+        this.p.a("/data/ui/petstate.ui");
+        this.p.a.a((int)12).i().a = a.a.c(this.q.A[this.b].j((byte)0));
+        this.p.a.a((int)14).i().a = "" + this.q.A[this.b].t();
+        if (this.p.a.a((int)16).i().m != null) {
+            this.p.a.a((int)16).i().m.c();
+        } else {
+            this.p.a.a((int)16).i().m = new c.g();
+            this.p.a.a((int)16).i().m.a(0);
+            this.p.a.a((int)16).i().m.a = (byte)3;
+        }
+        this.p.a.a((int)16).i().m.a(this.q.A[this.b].D, false, (byte)-1);
+        int n2 = this.q.A[this.b].F();
+        for (int i2 = 0; i2 < n2; ++i2) {
+            this.p.a.a((int)(i2 + 18)).i().a = a.a.c(a.b.c.c[1][this.q.A[this.b].t(i2)][1]);
+        }
+        this.bk();
+        this.g = true;
+    }
+
+    private void bk() {
+        if (this.q.A[this.b].t(this.r) != -1) {
+            String[] stringArray = new String[]{"Nh\u1ea5t \u0111\u1ecbnh", "Nh\u1ea5t \u0111\u1ecbnh"};
+            this.p.a.a((int)9).i().a = a.a.a((int)a.b.c.c[1][this.q.A[this.b].t(this.r)][2], stringArray);
+            return;
+        }
+        this.p.a.a((int)9).i().a = "";
+    }
+
+    private void bl() {
+        this.f = 2;
+        this.r = 0;
+        this.p.a("/data/ui/evolve.ui", 257, this);
+        this.p.a("/data/ui/petsetting.ui");
+        this.p.a("/data/ui/petstate.ui");
+        if (this.p.a.a((int)10).i().m == null) {
+            this.p.a.a((int)10).i().m = new c.g();
+            this.p.a.a((int)10).i().m.a(0);
+            this.p.a.a((int)10).i().m.a = (byte)3;
+        }
+        this.p.a.a((int)10).i().m.a(this.q.A[this.b].D, false, (byte)-1);
+        int n2 = a.b.c.a((byte)0, (byte)this.q.A[this.b].r(), (byte)20) + 12;
+        short s = a.b.c.a((byte)0, (byte)this.q.A[this.b].r(), (byte)21);
+        this.p.a.a((int)38).i().a = a.a.c(a.b.c.a((byte)0, (byte)this.q.A[this.b].r(), (byte)0));
+        this.p.a.a((int)40).i().a = "" + this.q.A[this.b].t();
+        this.p.a.a((int)45).i().a = a.a.c(a.b.c.a((byte)3, (short)n2, (byte)0));
+        this.p.a.a((int)46).i().a = this.q.a(n2, (byte)2) + "/" + s;
+        n2 = a.b.c.a((byte)0, (byte)this.q.A[this.b].r(), (byte)19);
+        i i2 = new i();
+        i2.a(n2, (byte)this.q.A[this.b].t(), (short)-1, (byte)-1, (short)-1, (byte)-1);
+        for (n2 = 0; n2 < 4; ++n2) {
+            byte by = (byte)(n2 + 1);
+            i i3 = this.q.A[this.b];
+            this.p.a.a((int)(n2 + 19)).i().a = "" + i3.d[by];
+            by = (byte)(n2 + 1);
+            i3 = i2;
+            this.p.a.a((int)(n2 + 31)).i().a = "" + i3.d[by];
+        }
+        this.g = true;
+    }
+
+    private void bm() {
+        if (!a.a.a(this.b, 0) && !this.j() && this.f == 2 && this.o.g(4100)) {
+            this.p.a.b(0);
+            this.bg();
+            return;
+        }
+        if (!a.a.a(this.b, 0) && !this.j() && this.f == 2 && this.o.g(8448)) {
+            this.p.a.b(1);
+            this.bg();
+            return;
+        }
+        if (a.a.s() && !this.j() && this.o.g(196640) && this.q.M.size() > 0) {
+            if (a.a.p() && !a.a.a(this.b, 0)) {
+                return;
+            }
+            if (this.f == 2) {
+                int[] nArray = (int[])this.q.M.elementAt(this.h);
+                int n2 = 5;
+                i i2 = this.q.A[this.b];
+                if (i2.d[n2] == nArray[0]) {
+                    n2 = 5;
+                    i2 = this.q.A[this.b];
+                    this.q.m(i2.d[n2]);
+                    int n3 = -1;
+                    n2 = 5;
+                    i2 = this.q.A[this.b];
+                    i2.d[n2] = n3;
+                    this.bg();
+                    this.H();
+                    this.a("Th\u00e0nh c\u00f4ng d\u1ee1 xu\u1ed1ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                } else {
+                    this.q.f(nArray[0], this.b);
+                    this.bg();
+                    this.H();
+                    this.a("Th\u00e0nh c\u00f4ng mang theo", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                }
+                this.f = 3;
+                return;
+            }
+            this.f = 2;
+            this.o.r();
+            this.f(this.b);
+            this.I();
+            this.p.a("/data/ui/choice.ui");
+            return;
+        }
+        if (game.e.t() && !this.j() && this.f == 2 && this.o.g(262144)) {
+            this.f(this.b);
+            this.p.a("/data/ui/choice.ui");
+        }
+    }
+
+    private void bn() {
+        if (this.f == 2 && this.o.g(4100)) {
+            this.p.a.b(0);
+            return;
+        }
+        if (this.f == 2 && this.o.g(8448)) {
+            this.p.a.b(1);
+            return;
+        }
+        if (this.o.g(196640)) {
+            if (this.q.K.size() <= 0) {
+                return;
+            }
+            if (this.f == 2) {
+                this.f = 3;
+                int[] nArray = (int[])this.q.K.elementAt(this.r);
+                switch (nArray[0]) {
+                    case 13: 
+                    case 14: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("\u0110\u1ea1o c\u1ee5 n\u00e0y kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                }
+                switch (this.q.A[this.b].x(nArray[0])) {
+                    case 0: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("S\u1ee7ng v\u1eadt n\u00e0y \u0111\u00e3 t\u1eed vong, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    case 1: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng c\u00f3, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    case 2: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("M\u00e1u \u0111\u1ea7y, kh\u00f4ng c\u1ea7n s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    case 3: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("K\u1ef9 n\u0103ng gi\u00e1 tr\u1ecb \u0111\u00e3 \u0111\u1ea7y, kh\u00f4ng c\u1ea7n s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    case 4: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("Tr\u00ean ng\u01b0\u1eddi \u0111\u1ec1u b\u1ecb l\u1ee3i hi\u1ec7u qu\u1ea3", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    case 5: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("Trong h\u01b0ng ph\u1ea5n, kh\u00f4ng th\u1ec3 d\u00f9ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    case 7: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("M\u00e1u v\u00e0 tinh kh\u00ed \u0111\u1ec1u \u0111\u00e3 \u0111\u1ea7y, kh\u00f4ng c\u1ea7n s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    case 8: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("S\u1ee7ng v\u1eadt \u0111\u00e3 ch\u1ebft, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                }
+                this.q.A[this.b].w(nArray[0]);
+                this.f(this.b);
+                this.f = 4;
+                this.p.a("/data/ui/msgwarm.ui", 257, this);
+                this.a("Th\u00e0nh c\u00f4ng s\u1eed d\u1ee5ng \u0111\u1ea1o c\u1ee5", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                this.p.a("/data/ui/choice.ui");
+                return;
+            }
+            if (this.f == 3) {
+                this.f = 2;
+                this.p.a("/data/ui/msgwarm.ui");
+                return;
+            }
+            if (this.f == 4) {
+                this.f = 0;
+                this.p.a("/data/ui/msgwarm.ui");
+                return;
+            }
+        } else if (this.f == 2 && this.o.g(262144)) {
+            this.f(this.b);
+            this.p.a("/data/ui/choice.ui");
+        }
+    }
+
+    private void bo() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.bk();
+            return;
+        }
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.bk();
+            return;
+        }
+        if (this.o.g(16400)) {
+            this.p.a.b(2);
+            this.bk();
+            return;
+        }
+        if (this.o.g(32832)) {
+            this.p.a.b(3);
+            this.bk();
+            return;
+        }
+        if (this.o.g(262144)) {
+            this.f(this.b);
+            this.p.a("/data/ui/skill.ui");
+        }
+    }
+
+    private void bp() {
+        if (game.l.x != null) {
+            if (!game.l.x.j()) {
+                short s = a.b.c.a((byte)0, (byte)this.q.A[this.b].r(), (byte)19);
+                String string = a.a.c(a.b.c.a((byte)0, s, (byte)0));
+                k k2 = this;
+                short s2 = a.b.c.a((byte)0, (byte)k2.q.A[k2.b].r(), (byte)19);
+                short s3 = a.b.c.a((byte)0, s2, (byte)17);
+                a.b.c.a((byte)0, (byte)k2.q.A[k2.b].r(), (byte)21);
+                k2.p.a.a(10).a(true);
+                k2.p.a.a((int)10).i().m.a(s3, false, (byte)-1);
+                k2.p.a.a((int)38).i().a = a.a.c(a.b.c.a((byte)0, s2, (byte)0));
+                i i2 = new i();
+                short s4 = a.b.c.a((byte)0, s2, (byte)3);
+                int n2 = -1;
+                int n3 = 0;
+                i i3 = k2.q.A[k2.b];
+                if (i3.d[n3] >= s4) {
+                    n3 = 0;
+                    i3 = k2.q.A[k2.b];
+                    n2 = (byte)i3.d[n3];
+                }
+                n3 = 5;
+                i3 = k2.q.A[k2.b];
+                short s5 = i3.d[n3];
+                n3 = 6;
+                i3 = k2.q.A[k2.b];
+                i2.a(s2, k2.q.A[k2.b].t(), s5, (byte)i3.e[n3], (short)n2, (byte)-1);
+                n3 = 1;
+                i3 = i2;
+                i2.a(i3.d[n3], k2.q.A[k2.b].A(), (int)k2.q.A[k2.b].F);
+                i2.b(k2.q.A[k2.b].R());
+                k2.q.a((byte)k2.q.A[k2.b].j((byte)1), (int)s2, (byte)2);
+                k2.q.A[k2.b].a(i2.Q());
+                s4 = (short)(a.b.c.a((byte)0, (byte)k2.q.A[k2.b].r(), (byte)20) + 12);
+                short s6 = a.b.c.a((byte)0, (byte)k2.q.A[k2.b].r(), (byte)21);
+                s2 = a.b.c.a((byte)0, (byte)k2.q.A[k2.b].r(), (byte)19);
+                n2 = k2.q.a((int)s4, (byte)2);
+                if (s2 == -1) {
+                    k2.p.a.a((int)42).i().a = "";
+                    k2.p.a.a((int)45).i().a = "";
+                    k2.p.a.a((int)46).i().a = "";
+                } else {
+                    k2.p.a.a((int)45).i().a = a.a.c(a.b.c.a((byte)3, s4, (byte)0));
+                    k2.p.a.a((int)46).i().a = n2 + "/" + s6;
+                }
+                if (this.q.A[this.b].S() == 2) {
+                    this.f = 3;
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("D\u1ecb ho\u00e1 th\u00e0nh #2" + string, "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                } else {
+                    this.f = 3;
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("Ti\u1ebfn h\u00f3a th\u00e0nh #2" + string, "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                }
+                game.l.x = null;
+            }
+            return;
+        }
+        if (a.a.s() && !this.j() && this.o.g(196640)) {
+            if (this.f == 2) {
+                short s = (short)(a.b.c.a((byte)0, (byte)this.q.A[this.b].r(), (byte)20) + 12);
+                short s7 = a.b.c.a((byte)0, (byte)this.q.A[this.b].r(), (byte)21);
+                short s8 = a.b.c.a((byte)0, (byte)this.q.A[this.b].r(), (byte)19);
+                if (s8 == -1) {
+                    this.f = 3;
+                    this.H();
+                    this.a("Kh\u00f4ng th\u1ec3 l\u1ea1i ti\u1ebfn h\u00f3a ho\u1eb7c d\u1ecb ho\u00e1", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                short s9 = a.b.c.a((byte)0, s8, (byte)17);
+                if (this.q.A[this.b].t() >= game.i.u[a.b.c.a((byte)0, s8, (byte)2) - 1]) {
+                    if (this.q.a((int)s, (byte)2) >= s7) {
+                        this.p.a.a(10).a(false);
+                        game.l.x = new a.a.b();
+                        short[] sArray = new short[]{0, 0, 10, 116, 164, this.q.A[this.b].D, 0, 0, s9, 0, 0};
+                        game.l.x.a(sArray);
+                        game.l.x.d(true);
+                        game.l.x.a();
+                        this.q.d(s, s7, (byte)2);
+                        return;
+                    }
+                    this.f = 3;
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    if (this.q.A[this.b].S() == 2) {
+                        this.a("T\u00e0i li\u1ec7u ch\u01b0a \u0111\u1ee7, kh\u00f4ng th\u1ec3 d\u1ecb ho\u00e1", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    this.a("T\u00e0i li\u1ec7u ch\u01b0a \u0111\u1ee7, kh\u00f4ng th\u1ec3 ti\u1ebfn h\u00f3a", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                this.f = 3;
+                this.p.a("/data/ui/msgwarm.ui", 257, this);
+                this.a("C\u00f2n ch\u01b0a t\u1edbi" + game.i.u[a.b.c.a((byte)0, s8, (byte)2) - 1] + " c\u1ea5p, kh\u00f4ng th\u1ec3 v\u00e0o h\u00f3a", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                return;
+            }
+            if (this.f == 3) {
+                if (this.o.b == 6 || this.o.b == 0) {
+                    this.f = 2;
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.o.r();
+                    return;
+                }
+                if (this.o.b == 27) {
+                    this.f(this.b);
+                    this.f = 0;
+                    this.c = 0;
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.p.a("/data/ui/evolve.ui");
+                    return;
+                }
+            }
+        } else if (this.f < 3 && this.o.g(262144) && !this.j() && a.a.t()) {
+            this.f = 0;
+            this.f(this.b);
+            this.p.a("/data/ui/evolve.ui");
+        }
+    }
+
+    public final void ab() {
+        this.p.a("/data/ui/bag.ui", 257, this);
+        this.b = 0;
+        this.bq();
+        this.p.a.b(5);
+        this.p.a.a((int)14).i().a = "V\u1eadt ph\u1ea9m";
+        this.b = 0;
+    }
+
+    private void bq() {
+        ((c.b)this.p.a.a((int)(8 + this.b * 39))).a.e = 0;
+        ((c.b)this.p.a.a((int)(8 + this.b * 39))).a.f = 0;
+        this.br();
+    }
+
+    private void br() {
+        block0 : switch (this.b) {
+            case 0: {
+                this.bs();
+                break;
+            }
+            case 1: {
+                k k2 = this;
+                if (k2.q.M.size() > 5) {
+                    ((c.b)k2.p.a.a((int)47)).a.a(1);
+                } else {
+                    ((c.b)k2.p.a.a((int)47)).a.a(0);
+                }
+                ((c.b)k2.p.a.a((int)47)).a.a = k2.q.M.size();
+                k2.v = ((c.b)k2.p.a.a((int)47)).a.e;
+                k2.h = ((c.b)k2.p.a.a((int)47)).a.f;
+                k2.p.a.a(7).a(false);
+                for (int i2 = 0; i2 < 5; ++i2) {
+                    if (k2.v + i2 < k2.q.M.size()) {
+                        int[] nArray = (int[])k2.q.M.elementAt(k2.v + i2);
+                        if (k2.p.a.a((int)(59 + i2 * 5)).i().m == null) {
+                            k2.p.a.a((int)(59 + i2 * 5)).i().m = new c.g();
+                            k2.p.a.a((int)(59 + i2 * 5)).i().m.a(0);
+                            k2.p.a.a((int)(59 + i2 * 5)).i().m.a = (byte)2;
+                            k2.p.a.a((int)(59 + i2 * 5)).i().m.a(258, false, (byte)-1);
+                        }
+                        if (k2.p.a.a((int)(59 + i2 * 5)).i().i == null) {
+                            k2.p.a.a((int)(59 + i2 * 5)).i().i = new c.g();
+                            k2.p.a.a((int)(59 + i2 * 5)).i().i.a(0);
+                            k2.p.a.a((int)(59 + i2 * 5)).i().i.a = (byte)2;
+                            k2.p.a.a((int)(59 + i2 * 5)).i().i.a(258, false, (byte)-1);
+                        }
+                        k2.p.a.a((int)(59 + i2 * 5)).i().m.a(a.b.c.c[3][nArray[0]][1]);
+                        k2.p.a.a((int)(59 + i2 * 5)).i().i.a(a.b.c.c[3][nArray[0]][1]);
+                        k2.p.a.a((int)(60 + i2 * 5)).i().a = a.a.c(a.b.c.c[3][nArray[0]][0]);
+                        if (nArray[1] == 1) {
+                            k2.p.a.a((int)(61 + i2 * 5)).i().a = "\u0110\u00e3 mang theo";
+                            continue;
+                        }
+                        k2.p.a.a((int)(61 + i2 * 5)).i().a = "";
+                        continue;
+                    }
+                    if (k2.p.a.a((int)(59 + i2 * 5)).i().m != null) {
+                        k2.p.a.a((int)(59 + i2 * 5)).i().m.c();
+                    }
+                    k2.p.a.a((int)(60 + i2 * 5)).i().a = "";
+                    k2.p.a.a((int)(61 + i2 * 5)).i().a = "";
+                }
+                k2.p.a.a((int)85).i().a = k2.q.M.size() > 0 ? a.a.c(a.b.c.c[3][((int[])k2.q.M.elementAt(k2.h))[0]][2]) : "";
+                if (k2.q.M.size() > 0) {
+                    k2.p.a.a(84).b(127 + k2.h * 72 / k2.q.M.size(), k2.p.a.a());
+                    break;
+                }
+                k2.p.a.a(84).b(127, k2.p.a.a());
+                break;
+            }
+            case 2: {
+                this.bt();
+                break;
+            }
+            case 3: {
+                this.bu();
+                if (this.h < 0 || this.q.O.size() <= 0) {
+                    return;
+                }
+                int[] nArray = (int[])this.q.O.elementAt(this.h);
+                this.p.a.a(164).a(false);
+                this.p.a.a(165).a(false);
+                switch (nArray[0]) {
+                    case 0: {
+                        if (this.q.l(nArray[0])) {
+                            this.p.a.a(7).a(true);
+                            this.p.a.a((int)7).i().a = "\u1ea4p tr\u1ee9ng";
+                            this.p.a.a(164).a(true);
+                            this.p.a.a(165).a(true);
+                            if (this.q.J == 0) {
+                                this.p.a.a((int)164).i().a = "#P" + game.l.A * 100 / 10;
+                                this.p.a.a((int)165).i().a = game.l.A + "/10";
+                                break block0;
+                            }
+                            this.p.a.a((int)164).i().a = "#P" + game.l.A * 100 / 30;
+                            this.p.a.a((int)165).i().a = game.l.A + "/30";
+                            break block0;
+                        }
+                        this.p.a.a(7).a(false);
+                        break block0;
+                    }
+                    case 1: 
+                    case 2: 
+                    case 3: 
+                    case 4: {
+                        this.p.a.a(7).a(false);
+                        break block0;
+                    }
+                    case 5: 
+                    case 6: 
+                    case 10: {
+                        this.p.a.a((int)7).i().a = "M\u1edf ra";
+                        break block0;
+                    }
+                    case 7: 
+                    case 8: 
+                    case 9: {
+                        this.p.a.a((int)7).i().a = "S\u1eed d\u1ee5ng";
+                    }
+                }
+            }
+        }
+        this.g = true;
+    }
+
+    private void bs() {
+        int n2 = this.q.L.size() + this.q.K.size();
+        if (n2 > 5) {
+            ((c.b)this.p.a.a((int)8)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)8)).a.a(0);
+        }
+        ((c.b)this.p.a.a((int)8)).a.a = n2;
+        this.v = ((c.b)this.p.a.a((int)8)).a.e;
+        this.h = ((c.b)this.p.a.a((int)8)).a.f;
+        this.p.a.a(7).a(true);
+        this.p.a.a((int)7).i().a = "S\u1eed d\u1ee5ng";
+        for (int i2 = 0; i2 < 5; ++i2) {
+            if (this.v + i2 < n2) {
+                int[] nArray = this.v + i2 < this.q.L.size() ? (int[])this.q.L.elementAt(this.v + i2) : (int[])this.q.K.elementAt(this.v + i2 - this.q.L.size());
+                if (this.p.a.a((int)(18 + i2 * 5)).i().m == null) {
+                    this.p.a.a((int)(18 + i2 * 5)).i().m = new c.g();
+                    this.p.a.a((int)(18 + i2 * 5)).i().m.a(0);
+                    this.p.a.a((int)(18 + i2 * 5)).i().m.a = (byte)2;
+                    this.p.a.a((int)(18 + i2 * 5)).i().m.a(258, false, (byte)-1);
+                }
+                if (this.p.a.a((int)(18 + i2 * 5)).i().i == null) {
+                    this.p.a.a((int)(18 + i2 * 5)).i().i = new c.g();
+                    this.p.a.a((int)(18 + i2 * 5)).i().i.a(0);
+                    this.p.a.a((int)(18 + i2 * 5)).i().i.a = (byte)2;
+                    this.p.a.a((int)(18 + i2 * 5)).i().i.a(258, false, (byte)-1);
+                }
+                this.p.a.a((int)(18 + i2 * 5)).i().m.a(a.b.c.c[4][nArray[0]][1]);
+                this.p.a.a((int)(18 + i2 * 5)).i().i.a(a.b.c.c[4][nArray[0]][1]);
+                this.p.a.a((int)(19 + i2 * 5)).i().a = a.a.c(a.b.c.c[4][nArray[0]][0]);
+                this.p.a.a((int)(20 + i2 * 5)).i().a = "" + nArray[1];
+                continue;
+            }
+            if (this.p.a.a((int)(18 + i2 * 5)).i().m != null) {
+                this.p.a.a((int)(18 + i2 * 5)).i().m.c();
+            }
+            this.p.a.a((int)(19 + i2 * 5)).i().a = "";
+            this.p.a.a((int)(20 + i2 * 5)).i().a = "";
+        }
+        this.p.a.a((int)46).i().a = n2 > 0 ? (this.h < this.q.L.size() ? a.a.c(a.b.c.c[4][((int[])this.q.L.elementAt(this.h))[0]][2]) : a.a.c(a.b.c.c[4][((int[])this.q.K.elementAt(this.h - this.q.L.size()))[0]][2])) : "";
+        if (n2 > 0) {
+            this.p.a.a(43).b(127 + this.h * 72 / n2, this.p.a.a());
+            return;
+        }
+        this.p.a.a(43).b(127, this.p.a.a());
+    }
+
+    private void bt() {
+        if (this.q.N.size() > 5) {
+            ((c.b)this.p.a.a((int)86)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)86)).a.a(0);
+        }
+        ((c.b)this.p.a.a((int)86)).a.a = this.q.N.size();
+        this.v = ((c.b)this.p.a.a((int)86)).a.e;
+        this.h = ((c.b)this.p.a.a((int)86)).a.f;
+        this.p.a.a(7).a(false);
+        for (int i2 = 0; i2 < 5; ++i2) {
+            if (this.v + i2 < this.q.N.size()) {
+                int[] nArray = (int[])this.q.N.elementAt(this.v + i2);
+                if (this.p.a.a((int)(98 + i2 * 5)).i().m == null) {
+                    this.p.a.a((int)(98 + i2 * 5)).i().m = new c.g();
+                    this.p.a.a((int)(98 + i2 * 5)).i().m.a(0);
+                    this.p.a.a((int)(98 + i2 * 5)).i().m.a = (byte)2;
+                    this.p.a.a((int)(98 + i2 * 5)).i().m.a(258, false, (byte)-1);
+                }
+                if (this.p.a.a((int)(98 + i2 * 5)).i().i == null) {
+                    this.p.a.a((int)(98 + i2 * 5)).i().i = new c.g();
+                    this.p.a.a((int)(98 + i2 * 5)).i().i.a(0);
+                    this.p.a.a((int)(98 + i2 * 5)).i().i.a = (byte)2;
+                    this.p.a.a((int)(98 + i2 * 5)).i().i.a(258, false, (byte)-1);
+                }
+                this.p.a.a((int)(98 + i2 * 5)).i().m.a(a.b.c.c[3][nArray[0]][1]);
+                this.p.a.a((int)(98 + i2 * 5)).i().i.a(a.b.c.c[3][nArray[0]][1]);
+                this.p.a.a((int)(99 + i2 * 5)).i().a = nArray[0] == 17 ? "Ch\u00eca kh\u00f3a v\u00e0ng" : a.a.c(a.b.c.c[3][nArray[0]][0]);
+                this.p.a.a((int)(100 + i2 * 5)).i().a = "" + nArray[1];
+                continue;
+            }
+            if (this.p.a.a((int)(98 + i2 * 5)).i().m != null) {
+                this.p.a.a((int)(98 + i2 * 5)).i().m.c();
+            }
+            this.p.a.a((int)(99 + i2 * 5)).i().a = "";
+            this.p.a.a((int)(100 + i2 * 5)).i().a = "";
+        }
+        this.p.a.a((int)124).i().a = this.q.N.size() > 0 ? a.a.c(a.b.c.c[3][((int[])this.q.N.elementAt(this.h))[0]][2]) : "";
+        if (this.q.N.size() > 0) {
+            this.p.a.a(123).b(127 + this.h * 72 / this.q.N.size(), this.p.a.a());
+            return;
+        }
+        this.p.a.a(123).b(127, this.p.a.a());
+    }
+
+    private void bu() {
+        int n2;
+        if (this.q.O.size() > 5) {
+            ((c.b)this.p.a.a((int)125)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)125)).a.a(0);
+        }
+        ((c.b)this.p.a.a((int)125)).a.a = this.q.O.size();
+        this.v = ((c.b)this.p.a.a((int)125)).a.e;
+        this.h = ((c.b)this.p.a.a((int)125)).a.f;
+        for (n2 = 0; n2 < 5; ++n2) {
+            if (this.v + n2 < this.q.O.size()) {
+                int[] nArray = (int[])this.q.O.elementAt(this.v + n2);
+                if (this.p.a.a((int)(137 + n2 * 5)).i().m == null) {
+                    this.p.a.a((int)(137 + n2 * 5)).i().m = new c.g();
+                    this.p.a.a((int)(137 + n2 * 5)).i().m.a(0);
+                    this.p.a.a((int)(137 + n2 * 5)).i().m.a = (byte)2;
+                    this.p.a.a((int)(137 + n2 * 5)).i().m.a(258, false, (byte)-1);
+                }
+                if (this.p.a.a((int)(137 + n2 * 5)).i().i == null) {
+                    this.p.a.a((int)(137 + n2 * 5)).i().i = new c.g();
+                    this.p.a.a((int)(137 + n2 * 5)).i().i.a(0);
+                    this.p.a.a((int)(137 + n2 * 5)).i().i.a = (byte)2;
+                    this.p.a.a((int)(137 + n2 * 5)).i().i.a(258, false, (byte)-1);
+                }
+                this.p.a.a((int)(137 + n2 * 5)).i().m.a(a.b.c.c[5][nArray[0]][1]);
+                this.p.a.a((int)(137 + n2 * 5)).i().i.a(a.b.c.c[5][nArray[0]][1]);
+                this.p.a.a((int)(138 + n2 * 5)).i().a = a.a.c(a.b.c.c[5][nArray[0]][0]);
+                switch (nArray[0]) {
+                    case 0: {
+                        if (this.q.l(nArray[0])) {
+                            this.p.a.a((int)163).i().a = a.a.c(a.b.c.c[5][nArray[0]][2]);
+                            if (game.l.B().O()) {
+                                this.p.a.a((int)(139 + n2 * 5)).i().a = "Ho\u00e0n th\u00e0nh";
+                                break;
+                            }
+                            this.p.a.a((int)(139 + n2 * 5)).i().a = "1 c\u00e1i";
+                            break;
+                        }
+                        this.p.a.a((int)163).i().a = a.a.c(634);
+                        this.p.a.a((int)(139 + n2 * 5)).i().a = "0 c\u00e1i";
+                        break;
+                    }
+                    default: {
+                        this.p.a.a((int)(139 + n2 * 5)).i().a = "";
+                        break;
+                    }
+                }
+                continue;
+            }
+            if (this.p.a.a((int)(137 + n2 * 5)).i().m != null) {
+                this.p.a.a((int)(137 + n2 * 5)).i().m.c();
+            }
+            this.p.a.a((int)(138 + n2 * 5)).i().a = "";
+            this.p.a.a((int)(139 + n2 * 5)).i().a = "";
+        }
+        if (this.q.O.size() > 0) {
+            n2 = ((int[])this.q.O.elementAt(this.h))[0];
+            if (n2 != 0) {
+                this.p.a.a((int)163).i().a = a.a.c(a.b.c.c[5][n2][2]);
+                this.p.a.a(7).a(true);
+            }
+            this.p.a.a((int)7).i().a = n2 == 0 ? (((int[])this.q.O.elementAt(this.h))[1] == 1 ? "\u0110\u00f3ng c\u1eeda" : "M\u1edf ra") : (n2 > 0 || n2 <= 4 ? (this.q.u == n2 - 1 ? "Tri\u1ec7u h\u1ed3i" : "Tri\u1ec7u ho\u00e1n") : (n2 == 10 ? "Gia t\u1ed1c" : "S\u1eed d\u1ee5ng"));
+        } else {
+            this.p.a.a((int)163).i().a = "";
+            this.p.a.a(7).a(false);
+        }
+        if (this.q.O.size() > 0) {
+            this.p.a.a(162).b(127 + this.h * 72 / this.q.O.size(), this.p.a.a());
+            return;
+        }
+        this.p.a.a(162).b(127, this.p.a.a());
+    }
+
+    public final void ac() {
+        if (this.f == 0 && this.o.g(4100)) {
+            this.p.a.b(0);
+            this.g(this.c);
+            return;
+        }
+        if (this.f == 0 && this.o.g(8448)) {
+            this.p.a.b(1);
+            this.g(this.c);
+            return;
+        }
+        if (this.o.g(196640)) {
+            this.bx();
+            return;
+        }
+        if (this.f == 0 && this.o.g(262144)) {
+            this.o.a((byte)8);
+            this.p.a("/data/ui/petstate.ui");
+        }
+    }
+
+    public final void ad() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.g(this.b);
+            return;
+        }
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.g(this.b);
+            return;
+        }
+        if (this.o.g(196640)) {
+            this.q.f(this.s, this.b);
+            this.o.a((byte)8);
+            return;
+        }
+        if (this.o.g(262144)) {
+            this.o.a((byte)8);
+            this.p.a("/data/ui/petstate.ui");
+        }
+    }
+
+    public final void ae() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.g(this.b);
+            return;
+        }
+        if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.g(this.b);
+            return;
+        }
+        if (this.o.g(196640)) {
+            if (this.f == 0) {
+                if (this.q.A[this.b].t() < 50) {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("Ch\u1ec9 c\u00f3 th\u1ec3 cho 50 c\u1ea5p s\u1ee7ng v\u1eadt s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    this.f = 2;
+                    return;
+                }
+                if (this.q.e(this.s, this.b)) {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("S\u1eed d\u1ee5ng th\u00e0nh c\u00f4ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    this.f = 1;
+                    return;
+                }
+            } else {
+                if (this.f == 1) {
+                    this.f = 0;
+                    this.o.a((byte)8);
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.p.a("/data/ui/petstate.ui");
+                    return;
+                }
+                if (this.f == 2) {
+                    this.f = 0;
+                    this.p.a("/data/ui/msgwarm.ui");
+                    return;
+                }
+            }
+        } else if (this.o.g(262144) && this.f == 0) {
+            this.o.a((byte)8);
+            this.p.a("/data/ui/petstate.ui");
         }
     }
 
     /*
      * Enabled aggressive block sorting
-     * Enabled unnecessary exception pruning
-     * Enabled aggressive exception aggregation
      */
-    public final boolean d() {
-        int n2;
-        this.s();
-        if (af == null) {
-            af = new ar[10];
-        }
-        for (n2 = 0; n2 < af.length; ++n2) {
-            if (af[n2] != null) continue;
-            game.k.af[n2] = new ar(au[n2]);
-        }
-        this.M = game.c.a();
-        this.M.a(this);
-        this.c = game.g.o();
-        game.k.L[1] = -1;
-        game.k.L[0] = -1;
-        if (ag == null) {
-            ag = new byte[127][][];
-            ah = new short[127][][];
-            ai = new boolean[127][2];
-        }
-        if (!this.c.y) {
-            if (W) {
-                this.Y();
-                this.aa();
-            }
-            game.k.ac();
-        }
-        Object object = "/data/event/";
-        int n3 = this.g;
-        n2 = this.f;
-        Object object2 = this;
-        Object object3 = (String)object + "scene_" + n2 + ".mid";
-        try {
-            int n4;
-            int n5;
-            int n6;
-            "".getClass();
-            object3 = aj.a((String)object3);
-            object = new DataInputStream((InputStream)object3);
-            int n7 = ((DataInputStream)object).readShort();
-            short[] sArray = new short[n7];
-            for (n6 = 0; n6 < n7; ++n6) {
-                sArray[n6] = ((DataInputStream)object).readShort();
-            }
-            n6 = 0;
-            for (n7 = 0; n7 < n3; n6 += sArray[n7], ++n7) {
-            }
-            ((DataInputStream)object).skipBytes(n6);
-            n7 = ((DataInputStream)object).readShort();
-            String[] stringArray = null;
-            if (n7 > 0) {
-                stringArray = new String[n7];
-                for (int i2 = 0; i2 < n7; ++i2) {
-                    n6 = ((DataInputStream)object).readShort();
-                    StringBuffer stringBuffer = new StringBuffer();
-                    for (n5 = 0; n5 < n6; ++n5) {
-                        stringBuffer.append((char)(((FilterInputStream)object).read() << 8 | ((FilterInputStream)object).read() & 0xFF));
-                    }
-                    stringArray[i2] = stringBuffer.toString();
-                }
-            }
-            int n8 = ((DataInputStream)object).readByte();
-            StringBuffer stringBuffer = new StringBuffer();
-            for (n4 = 0; n4 < n8; ++n4) {
-                stringBuffer.append((char)(((FilterInputStream)object).read() << 8 | ((FilterInputStream)object).read() & 0xFF));
-            }
-            ((k)object2).ab = ((DataInputStream)object).readShort();
-            aj = null;
-            ((DataInputStream)object).readShort();
-            n5 = ((DataInputStream)object).readShort();
-            Object object4 = new boolean[2];
-            int n9 = ((k)object2).g;
-            int n10 = ((k)object2).f;
-            if (ag[l[n10] + n9] == null) {
-                n9 = ((k)object2).g;
-                n10 = ((k)object2).f;
-                game.k.ag[game.k.l[n10] + n9] = new byte[n5][3];
-                object4[0] = true;
-            }
-            if (((k)object2).f == 9) {
-                n9 = ((k)object2).g;
-                n10 = ((k)object2).f;
-                game.k.ah[game.k.l[n10] + n9] = null;
-            }
-            if (ah[l[n10 = ((k)object2).f] + (n9 = ((k)object2).g)] == null) {
-                n9 = ((k)object2).g;
-                n10 = ((k)object2).f;
-                game.k.ah[game.k.l[n10] + n9] = new short[n5][2];
-                object4[1] = true;
-            }
-            if (n5 > 0) {
-                int n11;
-                ((k)object2).d = new a[n5];
-                n8 = -1;
-                block16: for (n11 = 0; n11 < n5; ++n11) {
-                    try {
-                        ((k)object2).d[n11] = new a();
-                        short[] sArray2 = new short[((DataInputStream)object).readShort()];
-                        short[] sArray3 = sArray2;
-                        sArray2[0] = ((DataInputStream)object).readByte();
-                        sArray3[1] = ((DataInputStream)object).readShort();
-                        n8 = sArray3[1];
-                        sArray3[2] = ((DataInputStream)object).readShort();
-                        sArray3[3] = ((DataInputStream)object).readShort();
-                        sArray3[4] = ((DataInputStream)object).readShort();
-                        sArray3[5] = ((DataInputStream)object).readByte();
-                        sArray3[6] = ((DataInputStream)object).readByte();
-                        switch (sArray3[0]) {
-                            case 1: {
-                                sArray3[7] = ((DataInputStream)object).readByte();
-                                sArray3[8] = ((DataInputStream)object).readShort();
-                                sArray3[9] = ((DataInputStream)object).readShort();
-                                sArray3[10] = ((DataInputStream)object).readShort();
-                                if (object4[0] != false && sArray3[6] == 3) {
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    game.k.ag[game.k.l[n10] + n9][n11][0] = (byte)sArray3[2];
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    game.k.ag[game.k.l[n10] + n9][n11][1] = (byte)sArray3[5];
-                                }
-                                if (sArray3[6] == 3) {
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    sArray3[2] = ag[l[n10] + n9][n11][0];
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    sArray3[5] = ag[l[n10] + n9][n11][1];
-                                }
-                                ((k)object2).d[n11].a(sArray3, n11);
-                                continue block16;
-                            }
-                            case 2: {
-                                sArray3[7] = ((DataInputStream)object).readShort();
-                                if (sArray3[7] == 1) {
-                                    sArray3[8] = ((DataInputStream)object).readByte();
-                                    sArray3[9] = ((DataInputStream)object).readByte();
-                                    sArray3[10] = ((DataInputStream)object).readByte();
-                                    sArray3[11] = ((DataInputStream)object).readByte();
-                                    sArray3[12] = ((DataInputStream)object).readByte();
-                                }
-                                ((k)object2).d[n11].a(sArray3, n11);
-                                continue block16;
-                            }
-                            case 0: {
-                                sArray3[7] = ((DataInputStream)object).readByte();
-                                sArray3[8] = ((DataInputStream)object).readByte();
-                                sArray3[9] = ((DataInputStream)object).readByte();
-                                sArray3[10] = ((DataInputStream)object).readByte();
-                                sArray3[11] = ((DataInputStream)object).readShort();
-                                sArray3[12] = ((DataInputStream)object).readShort();
-                                if (object4[0] != false) {
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    game.k.ag[game.k.l[n10] + n9][n11][0] = (byte)sArray3[2];
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    game.k.ag[game.k.l[n10] + n9][n11][1] = (byte)sArray3[5];
-                                } else {
-                                    if (sArray3[6] != 7 && sArray3[6] != 6) {
-                                        n9 = ((k)object2).g;
-                                        n10 = ((k)object2).f;
-                                        sArray3[2] = ag[l[n10] + n9][n11][0];
-                                    }
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    sArray3[5] = ag[l[n10] + n9][n11][1];
-                                }
-                                if (object4[1] != false) {
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    game.k.ah[game.k.l[n10] + n9][n11][0] = sArray3[3];
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    game.k.ah[game.k.l[n10] + n9][n11][1] = sArray3[4];
-                                } else {
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    sArray3[3] = ah[l[n10] + n9][n11][0];
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    sArray3[4] = ah[l[n10] + n9][n11][1];
-                                }
-                                if (sArray3[1] == 324) continue block16;
-                                ((k)object2).d[n11].a(sArray3, n11);
-                                if (object4[0] == false) {
-                                    if (sArray3[6] != 1) break;
-                                    if (sArray3[6] != 7 && sArray3[6] != 6) {
-                                        n9 = ((k)object2).g;
-                                        n10 = ((k)object2).f;
-                                        sArray3[2] = ag[l[n10] + n9][n11][0];
-                                    }
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    n9 = ag[l[n10] + n9][n11][2];
-                                    ((k)object2).d[n11].n = (byte)n9;
-                                    ((k)object2).d[n11].d((byte)sArray3[2]);
-                                    continue block16;
-                                }
-                                n9 = ((k)object2).g;
-                                n10 = ((k)object2).f;
-                                game.k.ag[game.k.l[n10] + n9][n11][2] = ((k)object2).d[n11].n;
-                                continue block16;
-                            }
-                            case 3: {
-                                sArray3[7] = ((DataInputStream)object).readByte();
-                                sArray3[8] = ((DataInputStream)object).readByte();
-                                sArray3[9] = ((DataInputStream)object).readByte();
-                                sArray3[10] = ((DataInputStream)object).readShort();
-                                sArray3[11] = ((DataInputStream)object).readShort();
-                                if (object4[0] != false) {
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    game.k.ag[game.k.l[n10] + n9][n11][0] = (byte)sArray3[2];
-                                } else {
-                                    n9 = ((k)object2).g;
-                                    n10 = ((k)object2).f;
-                                    sArray3[2] = ag[l[n10] + n9][n11][0];
-                                }
-                                ((k)object2).d[n11].a(sArray3, n11);
-                            }
-                        }
-                        continue;
-                    }
-                    catch (Exception exception) {
-                        System.out.println(" k = " + n11 + " e = " + exception + " actorId = " + n8);
-                    }
-                }
-                short s2 = ((DataInputStream)object).readShort();
-                n11 = s2;
-                aj = new String[s2];
-                for (n4 = 0; n4 < n11; ++n4) {
-                    object4 = new StringBuffer();
-                    n8 = ((DataInputStream)object).readByte();
-                    for (n5 = 0; n5 < n8; ++n5) {
-                        ((StringBuffer)object4).append((char)(((DataInputStream)object).readByte() << 8 | ((DataInputStream)object).readByte() & 0xFF));
-                    }
-                    game.k.aj[n4] = ((StringBuffer)object4).toString();
-                }
-            }
-            ((k)object2).ay = 1;
-            short s3 = ((DataInputStream)object).readShort();
-            ((k)object2).ay = 2;
-            if (s3 > 0) {
-                ((k)object2).M.a((DataInputStream)object, ((k)object2).f, ((k)object2).g, s3, stringArray);
-            }
-            ((FilterInputStream)object).close();
-            ((InputStream)object3).close();
-        }
-        catch (Exception exception) {
-            System.out.println(" initRoom = " + exception + " bug = " + ((k)object2).ay);
-        }
-        object2 = this;
-        if (((k)object2).p == null) {
-            ((k)object2).p = new f();
-            ((k)object2).p.a(259, false);
-        }
-        this.T();
-        this.U();
-        this.V();
-        object2 = this;
-        this.k = game.k.f(384 + l[((k)object2).f] + ((k)object2).g);
-        ((k)object2).a.a(((k)object2).ab);
-        ((k)object2).a.a(0, 0);
-        ((k)object2).b.a(((k)object2).a);
-        this.ak();
-        if (x) {
-            game.c.f = false;
-            object2 = this;
-            if (!((k)object2).c.y) {
-                if (W) {
-                    ((k)object2).d(((k)object2).c);
-                } else {
-                    object3 = new short[]{((k)object2).h, ((k)object2).i, w, 4, 4, 8, 40, 100, 0};
-                    ((k)object2).c.a((short[])object3);
-                }
-            } else if (((k)object2).j >= 0) {
-                int n12 = ((k)object2).d[((k)object2).j].i - ((k)object2).d[((k)object2).j].i % ((k)object2).c.c[2];
-                int n13 = ((k)object2).d[((k)object2).j].j - ((k)object2).d[((k)object2).j].j % ((k)object2).c.c[2];
-                ((k)object2).c.b(n12, n13);
-                ((k)object2).c.b.b(n12, n13);
-                ((k)object2).c.b((byte)0, ((k)object2).d[((k)object2).j].C);
-                if (((k)object2).d[((k)object2).j].a.a == 222) {
-                    ((k)object2).c.a(24);
-                } else {
-                    ((k)object2).c.a(32);
-                }
-            } else {
-                object3 = new short[]{((k)object2).h, ((k)object2).i, w, 4, 4, 8, 40, 100, 0};
-                ((k)object2).c.a((short[])object3);
-            }
-            ((k)object2).b.a(((k)object2).c);
-            ((k)object2).c.B();
-            ((k)object2).c.c();
-            ((k)object2).a((f)((k)object2).c);
-            object2 = this;
-            ((k)object2).aa.a(((k)object2).c, true);
-            ((k)object2).b.a(((k)object2).aa);
-            ((k)object2).b.b();
-        } else {
-            if (!this.c.y) {
-                object2 = new short[]{this.h, this.i, w, 4, 4, 8, 40, 100, 0};
-                this.c.a((short[])object2);
-                this.c.I();
-            }
-            if (y == -1) {
-                this.aa.a(z, A, true);
-                this.b.a(this.aa);
-                this.b.b();
-            } else {
-                this.aa.a(this.d[y], true);
-                this.b.a(this.aa);
-                this.b.b();
-            }
-            x = true;
-        }
-        this.W();
-        if (this.f == 3 && this.g == 7) {
-            if (this.c.x > 0) {
-                this.c.x = 0;
-                this.c.c(0);
-            }
-            if (this.av == null) {
-                this.av = new Image[4];
-                for (int i3 = 0; i3 < this.av.length; ++i3) {
-                    this.av[i3] = ae.b("/data/tex/", "down" + i3);
-                }
-            }
-            this.c.s();
-            this.c.h(0);
-        }
-        if (this.f == 5 && this.g == 6 || this.f == 4 && (this.g == 3 || this.g == 4)) {
-            if (this.c.B[0][0] == 2) {
-                b.a().a(this.aa.i, this.aa.j - this.ar[this.c.t + 1], game.k.w(), game.k.x(), 110, 110);
-            } else {
-                b.a().a(this.aa.i, this.aa.j - this.ar[this.c.t + 1], game.k.w(), game.k.x(), 50, 50);
-            }
-        } else {
-            b.a().c();
-        }
-        this.S = game.h.a();
-        this.S.a(this);
-        this.R = ab.a();
-        this.M.i();
-        this.M.b();
-        J = true;
-        this.a((byte)0);
-        game.k.t();
-        return true;
-    }
-
-    private void W() {
-        for (int i2 = 0; i2 < this.d.length; ++i2) {
-            this.d[i2].f();
-            this.b.a(this.d[i2]);
-        }
-    }
-
-    public final void a(int n2, int n3, f f2) {
-        if (this.p.i()) {
-            return;
-        }
-        this.p.a.a((byte)13, (byte)-1);
-        this.p.s = 0;
-        this.p.c();
-        this.b.a(this.p);
-        this.p.b(n2, n3);
-        f f3 = f2;
-        this.p.p = f3;
-    }
-
-    public final void e() {
-        if (this.p != null) {
-            this.p.d();
-            this.b.b(this.p);
-        }
-    }
-
-    public final void a(int n2) {
-        if (this.o == null) {
-            this.o = new f();
-            this.o.a(n2, false);
-            this.o.s = 1;
-        }
-    }
-
-    public final void a(f f2) {
-        if (this.o == null) {
-            return;
-        }
-        this.ap = f2;
-        f f3 = f2;
-        this.o.p = f3;
-        this.o.c(f2.a.g());
-        this.o.c();
-        this.b.a(this.o);
-    }
-
-    public final void g() {
-        if (this.o != null) {
-            this.b.b(this.o);
-            this.o = null;
-        }
-    }
-
-    private boolean a(g g2) {
-        try {
-            int n2;
-            int n3;
-            int n4;
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            if (this.f == 9) {
-                dataOutputStream.writeShort(this.S.m[(this.g << 2) + 2]);
-                dataOutputStream.writeShort(this.S.m[(this.g << 2) + 3]);
-                dataOutputStream.writeByte(2);
-            } else if (this.f == 3 && this.g == 7) {
-                dataOutputStream.writeShort(240);
-                dataOutputStream.writeShort(40);
-                dataOutputStream.writeByte(0);
-            } else {
-                dataOutputStream.writeShort(g2.i);
-                dataOutputStream.writeShort(g2.j);
-                dataOutputStream.writeByte(g2.n);
-            }
-            for (n4 = 0; n4 < g2.B.length; ++n4) {
-                for (n3 = 0; n3 < g2.B[n4].length; ++n3) {
-                    dataOutputStream.writeByte(g2.B[n4][n3]);
-                }
-            }
-            for (n4 = 0; n4 < g2.P.length; ++n4) {
-                dataOutputStream.writeByte(g2.P[n4]);
-            }
-            for (n4 = 0; n4 < g2.C.length; ++n4) {
-                for (n3 = 0; n3 < g2.C[n4].length; ++n3) {
-                    dataOutputStream.writeByte(g2.C[n4][n3]);
-                }
-            }
-            for (n4 = 0; n4 < g2.E.length; ++n4) {
-                dataOutputStream.writeByte(g2.E[n4]);
-            }
-            for (n4 = 0; n4 < g2.D.length; ++n4) {
-                for (n3 = 0; n3 < g2.D[n4].length; ++n3) {
-                    dataOutputStream.writeByte(this.c.D[n4][n3]);
-                }
-            }
-            dataOutputStream.writeByte(this.c.H);
-            dataOutputStream.writeByte(this.c.G);
-            dataOutputStream.writeByte(this.c.F);
-            dataOutputStream.writeByte(this.c.I);
-            for (n4 = 0; n4 < this.c.R.length; ++n4) {
-                dataOutputStream.writeByte(this.c.R[n4]);
-            }
-            if (!this.j()) {
-                return false;
-            }
-            if (!this.ah()) {
-                return false;
-            }
-            if (!this.af()) {
-                return false;
-            }
-            dataOutputStream.writeInt(g2.L.size());
-            for (n4 = 0; n4 < g2.L.size(); ++n4) {
-                int[] nArray = (int[])g2.L.elementAt(n4);
-                dataOutputStream.writeInt(nArray.length);
-                for (n2 = 0; n2 < nArray.length; ++n2) {
-                    dataOutputStream.writeInt(nArray[n2]);
-                }
-            }
-            dataOutputStream.writeInt(g2.M.size());
-            for (n4 = 0; n4 < g2.M.size(); ++n4) {
-                int[] nArray = (int[])g2.M.elementAt(n4);
-                dataOutputStream.writeInt(nArray.length);
-                for (n2 = 0; n2 < nArray.length; ++n2) {
-                    dataOutputStream.writeInt(nArray[n2]);
-                }
-            }
-            dataOutputStream.writeInt(g2.N.size());
-            for (n4 = 0; n4 < g2.N.size(); ++n4) {
-                int[] nArray = (int[])g2.N.elementAt(n4);
-                dataOutputStream.writeInt(nArray.length);
-                for (n2 = 0; n2 < nArray.length; ++n2) {
-                    dataOutputStream.writeInt(nArray[n2]);
-                }
-            }
-            for (n4 = 0; n4 < g2.T.length; ++n4) {
-                dataOutputStream.writeBoolean(g2.T[n4]);
-            }
-            if (!this.ad()) {
-                return false;
-            }
-            if (F == null) {
-                F = new Vector();
-            }
-            dataOutputStream.writeByte(F.size());
-            for (n4 = 0; n4 < F.size(); ++n4) {
-                String string = (String)F.elementAt(n4);
-                dataOutputStream.writeByte(ae.d(string));
-            }
-            for (n4 = 0; n4 < this.aS.length; ++n4) {
-                dataOutputStream.writeBoolean(this.aS[n4]);
-            }
-            if (this.o == null) {
-                dataOutputStream.writeByte(-1);
-            } else {
-                dataOutputStream.writeByte(this.o.a.a);
-            }
-            dataOutputStream.write(this.c.u);
-            dataOutputStream.writeInt(q);
-            dataOutputStream.writeBoolean(K);
-            long l2 = game.i.a().d + game.i.a().e - game.i.a().f;
-            dataOutputStream.writeLong(l2);
-            dataOutputStream.writeByte(this.c.t);
-            af[0].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (Exception exception) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean b(g g2) {
-        try {
-            int n2;
-            int n3;
-            int[] nArray;
-            int n4;
-            int n5;
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[0].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            this.h = dataInputStream.readShort();
-            this.i = dataInputStream.readShort();
-            short s2 = dataInputStream.readByte();
-            for (n5 = 0; n5 < g2.B.length; ++n5) {
-                for (n4 = 0; n4 < g2.B[n5].length; ++n4) {
-                    g2.B[n5][n4] = dataInputStream.readByte();
-                }
-            }
-            for (n5 = 0; n5 < g2.P.length; ++n5) {
-                g2.P[n5] = dataInputStream.readByte();
-            }
-            for (n5 = 0; n5 < g2.C.length; ++n5) {
-                for (n4 = 0; n4 < g2.C[n5].length; ++n4) {
-                    g2.C[n5][n4] = dataInputStream.readByte();
-                }
-            }
-            for (n5 = 0; n5 < g2.E.length; ++n5) {
-                g2.E[n5] = dataInputStream.readByte();
-            }
-            for (n5 = 0; n5 < g2.D.length; ++n5) {
-                for (n4 = 0; n4 < g2.D[n5].length; ++n4) {
-                    this.c.D[n5][n4] = dataInputStream.readByte();
-                }
-            }
-            this.c.H = dataInputStream.readByte();
-            this.c.G = dataInputStream.readByte();
-            this.c.F = dataInputStream.readByte();
-            this.c.I = dataInputStream.readByte();
-            for (n5 = 0; n5 < this.c.R.length; ++n5) {
-                this.c.R[n5] = dataInputStream.readByte();
-            }
-            this.aj();
-            this.ai();
-            this.ag();
-            n5 = dataInputStream.readInt();
-            g2.L.removeAllElements();
-            for (n4 = 0; n4 < n5; ++n4) {
-                nArray = new int[dataInputStream.readInt()];
-                for (n3 = 0; n3 < nArray.length; ++n3) {
-                    nArray[n3] = dataInputStream.readInt();
-                }
-                g2.L.addElement(nArray);
-            }
-            n5 = dataInputStream.readInt();
-            g2.M.removeAllElements();
-            for (n4 = 0; n4 < n5; ++n4) {
-                nArray = new int[dataInputStream.readInt()];
-                for (n3 = 0; n3 < nArray.length; ++n3) {
-                    nArray[n3] = dataInputStream.readInt();
-                }
-                g2.M.addElement(nArray);
-            }
-            n5 = dataInputStream.readInt();
-            g2.N.removeAllElements();
-            for (n4 = 0; n4 < n5; ++n4) {
-                nArray = new int[dataInputStream.readInt()];
-                for (n3 = 0; n3 < nArray.length; ++n3) {
-                    nArray[n3] = dataInputStream.readInt();
-                }
-                g2.N.addElement(nArray);
-            }
-            for (n4 = 0; n4 < g2.T.length; ++n4) {
-                g2.T[n4] = dataInputStream.readBoolean();
-            }
-            this.ae();
-            if (E == null) {
-                E = new Vector();
-            }
-            E.removeAllElements();
-            byte by = dataInputStream.readByte();
-            n5 = by;
-            int[] nArray2 = new int[by];
-            for (n2 = 0; n2 < n5; ++n2) {
-                nArray2[n2] = dataInputStream.readByte();
-                if (this.c.z[nArray2[n2]] == null) continue;
-                this.c.z[nArray2[n2]].w();
-                E.addElement(this.c.z[nArray2[n2]]);
-            }
-            for (n2 = 0; n2 < this.aS.length; ++n2) {
-                this.aS[n2] = dataInputStream.readBoolean();
-            }
-            byte by2 = dataInputStream.readByte();
-            n2 = by2;
-            if (by2 != -1) {
-                this.a(n2);
-            }
-            this.c.u = dataInputStream.readByte();
-            q = dataInputStream.readInt();
-            K = dataInputStream.readBoolean();
-            game.i.a().d += dataInputStream.readLong();
-            g2.t = dataInputStream.readByte();
-            g2.a(new short[]{this.h, this.i, s2, 4, 4, 8, 40, 100, 0});
-            byteArrayInputStream.close();
-            dataInputStream.close();
-        }
-        catch (Exception exception) {
-            System.out.println(" ex = " + exception);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean X() {
-        try {
-            int n2;
-            int n3;
-            int n4;
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            dataOutputStream.writeInt(this.f);
-            dataOutputStream.writeInt(this.g);
-            for (n4 = 0; n4 < ag.length; ++n4) {
-                if (ag[n4] == null) {
-                    dataOutputStream.writeShort(-1);
-                    continue;
-                }
-                dataOutputStream.writeShort(ag[n4].length);
-                for (n3 = 0; n3 < ag[n4].length; ++n3) {
-                    if (ag[n4][n3] == null) {
-                        dataOutputStream.writeByte(-1);
-                        continue;
-                    }
-                    dataOutputStream.writeByte(ag[n4][n3].length);
-                    for (n2 = 0; n2 < ag[n4][n3].length; ++n2) {
-                        dataOutputStream.writeByte(ag[n4][n3][n2]);
-                    }
-                }
-            }
-            for (n4 = 0; n4 < ah.length; ++n4) {
-                if (ah[n4] == null) {
-                    dataOutputStream.writeShort(-1);
-                    continue;
-                }
-                dataOutputStream.writeShort(ah[n4].length);
-                for (n3 = 0; n3 < ah[n4].length; ++n3) {
-                    if (ah[n4][n3] == null) {
-                        dataOutputStream.writeByte(-1);
-                        continue;
-                    }
-                    dataOutputStream.writeByte(ah[n4][n3].length);
-                    for (n2 = 0; n2 < ah[n4][n3].length; ++n2) {
-                        dataOutputStream.writeShort(ah[n4][n3][n2]);
-                    }
-                }
-            }
-            af[1].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean Y() {
-        try {
-            int n2;
-            int n3;
-            int n4;
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[1].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            this.f = dataInputStream.readInt();
-            this.g = dataInputStream.readInt();
-            for (n4 = 0; n4 < ag.length; ++n4) {
-                n3 = dataInputStream.readShort();
-                if (n3 == -1) {
-                    game.k.ag[n4] = null;
-                    continue;
-                }
-                game.k.ag[n4] = new byte[n3][];
-                for (n2 = 0; n2 < ag[n4].length; ++n2) {
-                    byte by = dataInputStream.readByte();
-                    n3 = by;
-                    if (by == -1) {
-                        game.k.ag[n4][n2] = null;
-                        continue;
-                    }
-                    game.k.ag[n4][n2] = new byte[n3];
-                    for (n3 = 0; n3 < ag[n4][n2].length; ++n3) {
-                        game.k.ag[n4][n2][n3] = dataInputStream.readByte();
-                    }
-                }
-            }
-            for (n4 = 0; n4 < ah.length; ++n4) {
-                n3 = dataInputStream.readShort();
-                if (n3 == -1) {
-                    game.k.ah[n4] = null;
-                    continue;
-                }
-                game.k.ah[n4] = new short[n3][];
-                for (n2 = 0; n2 < ah[n4].length; ++n2) {
-                    byte by = dataInputStream.readByte();
-                    n3 = by;
-                    if (by == -1) {
-                        game.k.ah[n4][n2] = null;
-                        continue;
-                    }
-                    game.k.ah[n4][n2] = new short[n3];
-                    for (n3 = 0; n3 < ah[n4][n2].length; ++n3) {
-                        game.k.ah[n4][n2][n3] = dataInputStream.readShort();
-                    }
-                }
-            }
-            byteArrayInputStream.close();
-            dataInputStream.close();
-        }
-        catch (IOException iOException) {
-            System.out.println(" sceneId ex = " + iOException);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean Z() {
-        try {
-            int n2;
-            int n3;
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            for (n3 = 0; n3 < this.M.b.length; ++n3) {
-                if (this.M.b[n3] == null) {
-                    dataOutputStream.writeByte(-1);
-                    continue;
-                }
-                dataOutputStream.writeByte(this.M.b[n3].length);
-                for (n2 = 0; n2 < this.M.b[n3].length; ++n2) {
-                    dataOutputStream.writeByte(this.M.b[n3][n2]);
-                }
-            }
-            dataOutputStream.writeByte(game.c.t);
-            dataOutputStream.writeByte(game.c.u);
-            for (n3 = 0; n3 < game.c.u; ++n3) {
-                dataOutputStream.writeShort(game.c.s[n3][0]);
-                dataOutputStream.writeShort(game.c.s[n3][1]);
-            }
-            int[] nArray = this.M.k();
-            if (nArray == null) {
-                dataOutputStream.writeByte(-1);
-            } else {
-                dataOutputStream.writeByte(nArray.length);
-                for (n2 = 0; n2 < nArray.length; ++n2) {
-                    dataOutputStream.writeInt(nArray[n2]);
-                }
-                dataOutputStream.writeByte(this.M.p);
-            }
-            af[2].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean aa() {
-        try {
-            int n2;
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[2].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            for (n2 = 0; n2 < this.M.b.length; ++n2) {
-                int n3 = dataInputStream.readByte();
-                if (n3 == -1) {
-                    this.M.b[n2] = null;
-                    continue;
-                }
-                this.M.b[n2] = new byte[n3];
-                for (n3 = 0; n3 < this.M.b[n2].length; ++n3) {
-                    this.M.b[n2][n3] = dataInputStream.readByte();
-                }
-            }
-            game.c.t = dataInputStream.readByte();
-            game.c.u = dataInputStream.readByte();
-            for (n2 = 0; n2 < game.c.u; ++n2) {
-                game.c.s[n2][0] = dataInputStream.readShort();
-                game.c.s[n2][1] = dataInputStream.readShort();
-            }
-            byte by = dataInputStream.readByte();
-            n2 = by;
-            if (by != -1) {
-                int n4;
-                int[] nArray = new int[n2];
-                int[] nArray2 = this.M.j();
-                for (n4 = 0; n4 < n2; ++n4) {
-                    nArray[n4] = dataInputStream.readInt();
-                }
-                this.M.a(nArray);
-                n4 = 0;
-                if (nArray2[0] > nArray[0] || nArray2[1] > nArray[1] || nArray2[2] > nArray[2] || nArray2[3] - nArray[3] >= 20) {
-                    n4 = 1;
-                }
-                this.M.p = dataInputStream.readByte();
-                if (n4 != 0) {
-                    this.M.p = 0;
-                }
-            }
-            x = true;
-            byteArrayInputStream.close();
-            dataInputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean h() {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            W = true;
-            dataOutputStream.writeBoolean(W);
-            dataOutputStream.writeBoolean(x);
-            dataOutputStream.writeBoolean(D);
-            dataOutputStream.writeByte(G);
-            af[3].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean i() {
-        if (af[3] == null) {
-            game.k.af[3] = new ar(au[3]);
-        }
-        try {
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[3].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            W = dataInputStream.readBoolean();
-            x = dataInputStream.readBoolean();
-            D = dataInputStream.readBoolean();
-            G = dataInputStream.readByte();
-            byteArrayInputStream.close();
-            dataInputStream.close();
-            return true;
-        }
-        catch (IOException iOException) {
-            W = false;
-            return false;
-        }
-    }
-
-    private static boolean ab() {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            dataOutputStream.writeBoolean(X);
-            af[4].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    private static boolean ac() {
-        try {
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[4].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            X = dataInputStream.readBoolean();
-            byteArrayInputStream.close();
-            dataInputStream.close();
-            return true;
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-    }
-
-    private boolean ad() {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            dataOutputStream.writeInt(this.c.E());
-            dataOutputStream.writeInt(this.c.G());
-            af[6].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean ae() {
-        try {
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[6].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            this.c.F();
-            this.c.H();
-            this.c.s(dataInputStream.readInt());
-            this.c.u(dataInputStream.readInt());
-            byteArrayInputStream.close();
-            dataInputStream.close();
-            return true;
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-    }
-
-    private boolean af() {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            dataOutputStream.writeInt(this.c.K.size());
-            for (int i2 = 0; i2 < this.c.K.size(); ++i2) {
-                int[] nArray = (int[])this.c.K.elementAt(i2);
-                dataOutputStream.writeInt(nArray.length);
-                for (int i3 = 0; i3 < nArray.length; ++i3) {
-                    dataOutputStream.writeInt(nArray[i3]);
-                }
-            }
-            af[9].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean ag() {
-        try {
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[9].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            int n2 = dataInputStream.readInt();
-            this.c.K.removeAllElements();
-            for (int i2 = 0; i2 < n2; ++i2) {
-                int[] nArray = new int[dataInputStream.readInt()];
-                for (int i3 = 0; i3 < nArray.length; ++i3) {
-                    nArray[i3] = dataInputStream.readInt();
-                }
-                this.c.K.addElement(nArray);
-            }
-            byteArrayInputStream.close();
-            dataInputStream.close();
-            return true;
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-    }
-
-    private boolean ah() {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            dataOutputStream.writeInt(this.c.J.size());
-            for (int i2 = 0; i2 < this.c.J.size(); ++i2) {
-                int[] nArray = (int[])this.c.J.elementAt(i2);
-                dataOutputStream.writeInt(nArray.length);
-                for (int i3 = 0; i3 < nArray.length; ++i3) {
-                    dataOutputStream.writeInt(nArray[i3]);
-                }
-            }
-            af[8].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean ai() {
-        try {
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[8].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            int n2 = dataInputStream.readInt();
-            this.c.J.removeAllElements();
-            for (int i2 = 0; i2 < n2; ++i2) {
-                int[] nArray = new int[dataInputStream.readInt()];
-                for (int i3 = 0; i3 < nArray.length; ++i3) {
-                    nArray[i3] = dataInputStream.readInt();
-                }
-                this.c.J.addElement(nArray);
-            }
-            byteArrayInputStream.close();
-            dataInputStream.close();
-            return true;
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-    }
-
-    public final boolean j() {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-            dataOutputStream.writeByte(this.c.A);
-            for (int i2 = 0; i2 < this.c.A; ++i2) {
-                int[] nArray = this.c.z[i2].P();
-                dataOutputStream.writeInt(nArray.length);
-                for (int i3 = 0; i3 < nArray.length; ++i3) {
-                    dataOutputStream.writeInt(nArray[i3]);
-                }
-            }
-            af[7].a(byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            dataOutputStream.close();
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean aj() {
-        try {
-            int n2;
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(af[7].a());
-            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-            byte by = dataInputStream.readByte();
-            for (n2 = 0; n2 < this.c.A; ++n2) {
-                this.c.z[n2] = null;
-            }
-            this.c.A = 0;
-            for (n2 = 0; n2 < by; ++n2) {
-                int[] nArray = new int[dataInputStream.readInt()];
-                for (int i2 = 0; i2 < nArray.length; ++i2) {
-                    nArray[i2] = dataInputStream.readInt();
-                }
-                this.c.a(nArray);
-            }
-            byteArrayInputStream.close();
-            dataInputStream.close();
-            return true;
-        }
-        catch (IOException iOException) {
-            return false;
-        }
-    }
-
-    public final boolean k() {
-        if (!this.c(this.c)) {
-            return false;
-        }
-        if (!this.X()) {
-            return false;
-        }
-        if (!this.Z()) {
-            return false;
-        }
-        if (!game.k.h()) {
-            return false;
-        }
-        return game.k.ab();
-    }
-
-    public final boolean n() {
-        if (!game.k.ab()) {
-            return false;
-        }
-        if (!this.ad()) {
-            return false;
-        }
-        return this.af();
-    }
-
-    public static void o() {
-        ag = null;
-        ah = null;
-        for (int i2 = 0; i2 < 10; ++i2) {
-            if (i2 == 4 || af[i2] == null) continue;
-            af[i2].b();
-            game.k.af[i2] = null;
-        }
-        af = null;
-    }
-
-    public final boolean p() {
-        this.M.a(this);
-        this.S.a(this);
-        game.c.f = false;
-        J = true;
-        this.a((byte)0);
-        this.R.a("/data/ui/battle.ui");
-        return true;
-    }
-
-    private void ak() {
-        for (int i2 = 0; i2 < this.d.length; ++i2) {
-            if (this.d[i2].t != 0 || this.d[i2].v != 14) continue;
-            a a2 = this.d[i2];
-            this.d[i2].A = 0;
-            while (true) {
-                int n2 = 16 * (a2.A + 1);
-                byte by = a2.a.g();
-                a a3 = a2;
-                byte by2 = 0;
-                switch (by) {
-                    case 2: {
-                        by2 = j.a().b(a3.i, a3.j - n2);
-                        break;
-                    }
-                    case 0: {
-                        by2 = j.a().b(a3.i, a3.j + n2);
-                        break;
-                    }
-                    case 3: {
-                        by2 = j.a().b(a3.i - n2, a3.j);
-                        break;
-                    }
-                    case 1: {
-                        by2 = j.a().b(a3.i + n2, a3.j);
-                    }
-                }
-                if (!(by2 == 0)) break;
-                ++a2.A;
-            }
-            a2.B = a2.A;
-            a2.A = 0;
-        }
-    }
-
-    public final void f() {
-        this.b.a();
-        this.a.b();
-        if (this.d != null) {
-            for (int i2 = 0; i2 < this.d.length; ++i2) {
-                a a2 = this.d[i2];
-                a2.e();
-                if (a2.b != null) {
-                    a2.b.a.a();
-                    a2.b = null;
-                }
-                if (a2.I != -1 && a2.a.a != 0 && a2.a.a != 8) {
-                    a2.a.b();
-                    a2.a = null;
-                }
-                if (a2.G != null) {
-                    a2.G.a.b();
-                    a2.G = null;
-                }
-                if (a2.H != null) {
-                    a2.H.a.b();
-                    a2.H = null;
-                }
-                a2.I = (short)-1;
-                this.d[i2] = null;
-            }
-            this.d = null;
-        }
-        m = null;
-        ad = null;
-        ak = null;
-        this.aw = null;
-        this.ax = null;
-        this.av = null;
-        this.p.a.b();
-        this.p = null;
-        this.e.removeAllElements();
-        al.removeAllElements();
-        an.removeAllElements();
-        ao.removeAllElements();
-        am.removeAllElements();
-        if (H != null) {
-            H.removeAllElements();
-            H = null;
-        }
-        this.R.b();
-        this.M.f();
-        u = (short)-1;
-    }
-
-    public final void a(byte by) {
-        this.Q = this.P;
-        switch (by) {
-            case 0: {
-                an.c(1, -1);
-                an.c(0, 0);
-                an.U = (byte)-1;
-                an.V = 0;
-                if (!game.c.f) {
-                    if (J) {
-                        this.S.c();
-                    } else {
-                        this.S.d();
-                    }
-                }
-                this.c.b((byte)0, this.c.n);
-                break;
-            }
-            case 1: {
-                this.S.j = 1;
-                this.S.C();
-                break;
-            }
-            case 2: {
-                if (u != -1 && this.d[u] != null && this.d[game.k.u].a.a == 24) {
-                    this.S.a(4, (byte)0);
-                    break;
-                }
-                if (u == -1 || this.d[u] == null || this.d[game.k.u].a.a != 20) break;
-                this.S.a(3, (byte)2);
-                break;
-            }
-            case 32: {
-                this.S.j = (byte)3;
-                this.S.a(3, (byte)2);
-                break;
-            }
-            case 26: {
-                this.S.j = (byte)2;
-                this.S.a(4, (byte)0);
-                break;
-            }
-            case 3: {
-                this.S.L();
-                break;
-            }
-            case 4: {
-                break;
-            }
-            case 5: {
-                this.S.ad();
-                break;
-            }
-            case 6: {
-                this.S.k();
-                break;
-            }
-            case 7: {
-                this.S.c = 0;
-                this.S.W();
-                break;
-            }
-            case 8: {
-                this.S.Y();
-                break;
-            }
-            case 9: {
-                this.S.N();
-                break;
-            }
-            case 10: {
-                this.S.R();
-                break;
-            }
-            case 22: {
-                this.S.H();
-                this.S.a("C\u00f3 l\u01b0u d\u1eef li\u1ec7u kh\u00f4ng?");
-                break;
-            }
-            case 11: {
-                this.S.P();
-                break;
-            }
-            case 12: {
-                this.S.T();
-                break;
-            }
-            case 13: {
-                this.S.m();
-                break;
-            }
-            case 14: {
-                this.S.az();
-                break;
-            }
-            case 16: {
-                this.S.A();
-                break;
-            }
-            case 15: {
-                this.S.y();
-                break;
-            }
-            case 17: {
-                this.S.l = false;
-            }
-            case 18: 
-            case 19: {
-                this.S.c = 0;
-                this.S.W();
-                break;
-            }
-            case 20: {
-                this.S.u();
-                break;
-            }
-            case 21: {
-                this.S.w();
-                break;
-            }
-            case 23: {
-                if (this.Q == 7) {
-                    this.S.a("", this.az, -1);
-                    break;
-                }
-                if (this.d == null) break;
-                if (this.d[game.k.u].a.a == 68) {
-                    this.S.a(aj[this.d[game.k.u].y], "Mu\u1ed1n l\u00ean thuy\u1ec1n \u0111i \u0111\u00e2u?", 1);
-                    break;
-                }
-                if (this.d[game.k.u].x < 0) {
-                    this.S.a(aj[this.d[game.k.u].y], N[0], 1);
-                    break;
-                }
-                this.S.a(aj[this.d[game.k.u].y], N[this.d[game.k.u].x], 1);
-                break;
-            }
-            case 27: {
-                this.S.aQ();
-                break;
-            }
-            case 31: {
-                this.S.f = 0;
-                Object object = this;
-                int n2 = 0;
-                ((k)object).al();
-                if (((k)object).aV >= ((k)object).aU) {
-                    n2 = 1;
-                }
-                this.aW = n2;
-                if (this.aW) {
-                    if (this.aU == this.aT.length - 1) {
-                        this.S.a(aj[this.d[game.k.u].y], game.k.f(613), 1);
-                        break;
-                    }
-                    if (this.aU == this.aT.length - 2) {
-                        this.S.a(aj[this.d[game.k.u].y], game.k.f(612), 1);
-                        break;
-                    }
-                    object = new int[]{this.aT[this.aU], this.aT[this.aU + 1]};
-                    this.S.a(aj[this.d[game.k.u].y], game.k.a(611, (int[])object), 1);
-                    break;
-                }
-                if (this.aU < this.aT.length) {
-                    byte by2 = this.aT[this.aU];
-                    n2 = an.f(614).indexOf("%s");
-                    this.S.a(aj[this.d[game.k.u].y], n2 == -1 ? an.f(614) : an.f(614).substring(0, n2) + by2 + an.f(614).substring(n2 + 2), 1);
-                    break;
-                }
-                this.S.a(aj[this.d[game.k.u].y], game.k.f(615), 1);
-                break;
-            }
-            case 24: {
-                this.S.h();
-                break;
-            }
-            case 29: {
-                b.a().c(0, 2);
-                break;
-            }
-            case 30: {
-                this.S.aO();
-                break;
-            }
-            case 100: {
-                this.S.aG();
-                break;
-            }
-            case 101: {
-                this.S.aH();
-                break;
-            }
-            case 102: {
-                this.S.aJ();
-                break;
-            }
-            case 104: {
-                this.S.aI();
-                break;
-            }
-            case 25: {
-                this.S.ar();
-                break;
-            }
-            case 28: {
-                byte by3;
-                for (by3 = 0; by3 < this.at.length / 4 && (this.at[by3 << 2] != this.f || this.at[(by3 << 2) + 1] != this.g); by3 = (byte)((byte)(by3 + 1))) {
-                }
-                this.S.a(by3, (int)this.at[(by3 << 2) + 2], (int)this.at[(by3 << 2) + 3]);
-            }
-        }
-        this.S.g = true;
-        this.P = by;
-        this.P();
-    }
-
-    /*
-     * Unable to fully structure code
-     */
-    public final void b() {
-        if (!this.Y) {
-            return;
-        }
-        this.S();
-        switch (this.P) {
-            case 0: {
-                var1_1 = this;
-                if (!var1_1.M.h() && var1_1.c.h() < 5 && !var1_1.S.j() && var1_1.S.G()) {
-                    if (var1_1.l(4100)) {
-                        var1_1.c.b((byte)1, (byte)2);
-                    } else if (var1_1.l(8448)) {
-                        var1_1.c.b((byte)1, (byte)0);
-                    } else if (var1_1.l(16400)) {
-                        var1_1.c.b((byte)1, (byte)3);
-                    } else if (var1_1.l(32832)) {
-                        var1_1.c.b((byte)1, (byte)1);
-                    }
-                    if (var1_1.k(65568)) {
-                        if (game.k.u != -1) {
-                            var1_1.c.b((byte)0, var1_1.c.n);
-                            if (game.c.g) {
-                                game.c.h = true;
-                                game.c.g = false;
-                            } else {
-                                if (var1_1.d[game.k.u].a.a <= 85) {
-                                    var1_1.d[game.k.u].m = var1_1.d[game.k.u].n;
-                                    switch (var1_1.c.n) {
-                                        case 0: {
-                                            var1_1.d[game.k.u].n = (byte)2;
-                                            break;
+    public final void af() {
+        block46: {
+            block50: {
+                block54: {
+                    block52: {
+                        block44: {
+                            int n2;
+                            block53: {
+                                block51: {
+                                    block49: {
+                                        block48: {
+                                            block47: {
+                                                block45: {
+                                                    this.o.q();
+                                                    if (this.f != 0 || !this.o.g(16400) || this.j() || a.a.a(this.b, 1)) break block45;
+                                                    this.p.a.b(7);
+                                                    this.p.a.b(2);
+                                                    this.p.a.b(5);
+                                                    this.bq();
+                                                    this.o.r();
+                                                    break block46;
+                                                }
+                                                if (this.f != 0 || !this.o.g(32832) || this.j() || a.a.a(this.b, 1)) break block47;
+                                                this.p.a.b(7);
+                                                this.p.a.b(3);
+                                                this.p.a.b(5);
+                                                this.bq();
+                                                this.o.r();
+                                                break block46;
+                                            }
+                                            if (this.f != 0 || !this.o.g(4100) || this.j() || a.a.a(this.h, 0)) break block48;
+                                            this.p.a.b(0);
+                                            break block46;
                                         }
-                                        case 2: {
-                                            var1_1.d[game.k.u].n = 0;
+                                        if (this.f != 0 || !this.o.g(8448) || this.j() || a.a.a(this.h, 0)) break block49;
+                                        this.p.a.b(1);
+                                        break block46;
+                                    }
+                                    if (!this.o.g(196640) || this.j() || !a.a.s()) break block50;
+                                    if (this.f != 0) break block51;
+                                    if (a.a.p() && !a.a.a(this.h, 0)) {
+                                        return;
+                                    }
+                                    block0 : switch (this.b) {
+                                        case 0: {
+                                            int[] nArray;
+                                            if (this.h >= this.q.L.size()) {
+                                                if (this.q.K.size() <= 0) {
+                                                    return;
+                                                }
+                                                nArray = (int[])this.q.K.elementAt(this.h - this.q.L.size());
+                                            } else {
+                                                nArray = (int[])this.q.L.elementAt(this.h);
+                                            }
+                                            switch (nArray[0]) {
+                                                case 0: 
+                                                case 1: 
+                                                case 2: 
+                                                case 3: {
+                                                    if (this.f == 0) {
+                                                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                                        this.a("Kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                        this.f = 1;
+                                                        break;
+                                                    }
+                                                    this.p.a("/data/ui/msgwarm.ui");
+                                                    this.f = 0;
+                                                    break;
+                                                }
+                                                case 14: {
+                                                    if (this.f != 0) break;
+                                                    if (this.q.l(0) && (this.q.J == 0 && game.l.A < 10 || this.q.J > 0 && game.l.A < 30)) {
+                                                        if (!this.q.b(nArray[0], 1, (byte)0)) break;
+                                                        game.l.A = this.q.J == 0 ? 10 : 30;
+                                                        this.q.d(nArray[0], 1, (byte)0);
+                                                        int n3 = this.q.L.size() + this.q.K.size();
+                                                        if (this.h >= n3) {
+                                                            ((c.b)this.p.a.a((int)8)).a.f = this.h = n3 - 1;
+                                                        }
+                                                        if (this.v > 0 && this.h - this.v < 4) {
+                                                            --this.v;
+                                                            ((c.b)this.p.a.a((int)8)).a.e = this.v;
+                                                        }
+                                                        this.bs();
+                                                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                                        this.a("Th\u00e0nh c\u00f4ng s\u1eed d\u1ee5ng, tranh th\u1ee7 th\u1eddi gian \u0111i \u1ea5p tr\u1ee9ng tr\u01b0\u0301ng su\u0309ng v\u00e2\u0323t a!", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                        this.f = 1;
+                                                        break;
+                                                    }
+                                                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                                    this.a("Kh\u00f4ng c\u00f3 tr\u1ee9ng c\u00f3 th\u1ec3 \u1ea5p tr\u1ee9ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                    this.f = 1;
+                                                    break;
+                                                }
+                                                case 13: {
+                                                    if (this.f != 0) break;
+                                                    if (this.q.y <= 0) {
+                                                        if (game.l.B().p == 3 && game.l.B().q == 7) {
+                                                            this.H();
+                                                            this.a("N\u01a1i n\u00e0y kh\u00f4ng c\u00e1ch n\u00e0o s\u1eed d\u1ee5ng tr\u00e1nh qu\u00e1i ho\u00e0n", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                            this.f = 1;
+                                                            break;
+                                                        }
+                                                        if (!this.q.b(nArray[0], 1, (byte)0)) break;
+                                                        this.q.d(nArray[0], 1, (byte)0);
+                                                        this.q.y = a.b.c.c[4][nArray[0]][6];
+                                                        this.q.x = 0;
+                                                        int n4 = this.q.L.size() + this.q.K.size();
+                                                        if (this.h >= n4) {
+                                                            ((c.b)this.p.a.a((int)8)).a.f = this.h = n4 - 1;
+                                                        }
+                                                        if (this.v > 0 && this.h - this.v < 4) {
+                                                            --this.v;
+                                                            ((c.b)this.p.a.a((int)8)).a.e = this.v;
+                                                        }
+                                                        this.bs();
+                                                        this.H();
+                                                        this.q.b(1);
+                                                        this.a("Th\u00e0nh c\u00f4ng s\u1eed d\u1ee5ng \u0111\u1ea1o c\u1ee5, c\u0169ng c\u00f3 th\u1eddi gian ng\u1eafn tr\u00e1nh qu\u00e1i hi\u1ec7u qu\u1ea3", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                        this.f = 1;
+                                                        break;
+                                                    }
+                                                    this.H();
+                                                    this.a("\u0110\u00e3 c\u00f3 \u0111\u01b0\u1ee3c th\u1eddi gian ng\u1eafn tr\u00e1nh qu\u00e1i hi\u1ec7u qu\u1ea3", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                    this.f = 1;
+                                                    break;
+                                                }
+                                                default: {
+                                                    this.s = nArray[0];
+                                                    this.o.a((byte)17);
+                                                    this.p.a("/data/ui/bag.ui");
+                                                    break;
+                                                }
+                                            }
                                             break;
                                         }
                                         case 3: {
-                                            var1_1.d[game.k.u].n = 1;
-                                            break;
-                                        }
-                                        case 1: {
-                                            var1_1.d[game.k.u].n = (byte)3;
+                                            int[] nArray = (int[])this.q.O.elementAt(this.h);
+                                            switch (nArray[0]) {
+                                                case 0: {
+                                                    if (!this.q.l(nArray[0])) break block0;
+                                                    if (game.l.B().O()) {
+                                                        if (this.q.z() == 2) {
+                                                            this.H();
+                                                            this.a("Kh\u00f4ng gian kh\u00f4ng \u0111\u1ee7, h\u00e3y thanh l\u00fd l\u1ea1i kh\u00f4ng gian \u1ea5p tr\u1ee9ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                            this.f = 1;
+                                                            break block0;
+                                                        }
+                                                        game.l.A = 0;
+                                                        if (game.l.B().Z.n[game.l.e(4, 5)] != null) {
+                                                            game.l.B().Z.n[game.l.e((int)4, (int)5)][15] = 4;
+                                                            if (game.l.B().p == 4 && game.l.B().q == 5) {
+                                                                game.l.B().Z.l[15].a((byte)4);
+                                                            }
+                                                        }
+                                                        this.q.k(nArray[0]);
+                                                        this.bu();
+                                                        this.H();
+                                                        this.a("\u1ea4p tr\u1ee9ng th\u00e0nh c\u00f4ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                        this.f = 2;
+                                                        break block0;
+                                                    }
+                                                    this.H();
+                                                    this.a("V\u1eabn ch\u01b0a th\u1ec3 \u1ea5p tr\u1ee9ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                                    this.f = 1;
+                                                    break block0;
+                                                }
+                                                case 5: {
+                                                    this.o.a((byte)11);
+                                                    this.p.a("/data/ui/bag.ui");
+                                                    break block0;
+                                                }
+                                                case 10: {
+                                                    this.o.a((byte)24);
+                                                    this.p.a("/data/ui/bag.ui");
+                                                    break block0;
+                                                }
+                                                case 6: {
+                                                    this.o.a((byte)12);
+                                                    this.p.a("/data/ui/bag.ui");
+                                                    break block0;
+                                                }
+                                                case 7: 
+                                                case 8: 
+                                                case 9: {
+                                                    this.s = nArray[0];
+                                                    this.o.a((byte)19);
+                                                    this.p.a("/data/ui/bag.ui");
+                                                    break block0;
+                                                }
+                                            }
                                         }
                                     }
-                                    var1_1.d[game.k.u].d((byte)0);
+                                    break block46;
                                 }
-                                if (var1_1.d[game.k.u].a.a == 17) {
-                                    var1_1.S.d = 0;
-                                    var1_1.a((byte)27);
+                                if (this.f != 1 && this.f != 2) break block46;
+                                if (this.f != 2) break block52;
+                                if (this.q.J != 0) break block53;
+                                byte by = this.h(58);
+                                this.q.a((short)58);
+                                if (by == 0) {
+                                    this.c("\u1ea4p tr\u1ee9ng t\u00ecm \u0111\u01b0\u1ee3c #2" + a.a.c(a.b.c.c[0][58][0]) + "#0 \u0111\u1ec3 v\u00e0o ba l\u00f4");
+                                    break block44;
+                                } else if (by == 1) {
+                                    this.c("\u1ea4p tr\u1ee9ng t\u00ecm \u0111\u01b0\u1ee3c #2" + a.a.c(a.b.c.c[0][58][0]) + "#0 \u0111\u1ec3 v\u00e0o ng\u00e2n h\u00e0ng");
+                                    break block44;
                                 } else {
-                                    var1_1.a((byte)23);
+                                    this.c("Kh\u00f4ng c\u00f3 kh\u00f4ng gian, \u0111\u00e3 ph\u00f3ng sinh");
                                 }
+                                break block44;
                             }
-                            game.k.a().e();
-                        } else if ((a)var1_1.c.p != null && ((a)var1_1.c.p).t == 3) {
-                            var1_1.c.v();
-                        } else {
-                            var1_1.c.w();
-                        }
-                    }
-                    if (var1_1.R()) {
-                        var1_1.c.b((byte)0, var1_1.c.n);
-                    }
-                    if (var1_1.k(262144)) {
-                        var1_1.m();
-                        var1_1.S.b = 0;
-                        var1_1.a((byte)6);
-                    } else if (var1_1.k(131072)) {
-                        var1_1.S.b = 0;
-                        var1_1.a((byte)13);
-                    } else if (var1_1.k(1)) {
-                        var2_5 = var1_1;
-                        var3_8 = true;
-                        for (var4_13 = 0; var4_13 < game.k.aq.length; ++var4_13) {
-                            if (game.k.aq[var4_13] != var2_5.f) continue;
-                            var3_8 = false;
-                            break;
-                        }
-                        if (var3_8) {
-                            for (var4_13 = 0; var4_13 < var2_5.aP[var2_5.aA].length / 7; var4_13 = (byte)((byte)(var4_13 + 1))) {
-                                if (var2_5.aP[var2_5.aA][var4_13 * 7 + 2] != var2_5.f || var2_5.aP[var2_5.aA][var4_13 * 7 + 3] != var2_5.g) continue;
-                                var2_5.aD = var4_13;
-                                break;
+                            int n5 = a.e.a(new int[]{76, 52, 28, 4, 0}, a.e.a(100));
+                            short[] sArray = new short[]{0, 56, 58, 95, 72};
+                            byte by = this.h(sArray[n5]);
+                            for (n2 = 0; n2 < this.q.J && this.q.S[n2] != sArray[n5]; ++n2) {
                             }
-                            var2_5.aG = (game.k.w() >> 1) - (var2_5.aP[var2_5.aA][var2_5.aD * 7] << 4) - 40;
-                            var2_5.aH = (game.k.x() >> 1) - (var2_5.aP[var2_5.aA][var2_5.aD * 7 + 1] << 3) - 20;
-                            var2_5.aI = true;
-                            if (var2_5.aJ == null) {
-                                var2_5.aJ = new f();
-                                var2_5.aJ.a(0, false);
-                                var2_5.aJ.a((byte)3, (byte)-1, false);
-                                var2_5.aJ.c();
+                            if (n2 >= this.q.J) {
+                                this.q.a(sArray[n5]);
                             }
-                            if (var2_5.aK == null) {
-                                var2_5.aK = new f[4];
-                                for (var4_13 = 0; var4_13 < var2_5.aK.length; var4_13 = (byte)(var4_13 + 1)) {
-                                    var2_5.aK[var4_13] = new f();
-                                    var2_5.aK[var4_13].a(223, false);
-                                    if (var4_13 <= 1) {
-                                        var2_5.aK[var4_13].b(game.k.w() >> 1, 20 + var4_13 * (game.k.x() - 20));
-                                    } else {
-                                        var2_5.aK[var4_13].b(10 + var4_13 % 2 * (game.k.w() - 20), game.k.x() >> 1);
-                                    }
-                                    var2_5.aK[var4_13].a(var4_13, (byte)-1, false);
-                                    super.c((int)var4_13);
-                                }
-                            }
-                            game.d.a().c = Image.createImage((int)an.w(), (int)an.x());
-                            var4_14 = game.d.a().c.getGraphics();
-                            var2_5.c.b((byte)0, var2_5.c.n);
-                            var2_5.b.b(var4_14);
-                            var2_5.a((byte)4);
-                        } else {
-                            var2_5.S.b("Khu n\u00e0y kh\u00f4ng c\u00f3 b\u1ea3n \u0111\u1ed3");
-                        }
-                    } else if (var1_1.k(2)) {
-                        var1_1.S.b = 0;
-                        var1_1.a((byte)10);
-                    } else if (var1_1.k(8)) {
-                        var1_1.S.b = 1;
-                        var1_1.a((byte)10);
-                    } else if (var1_1.k(512)) {
-                        if (var1_1.f == 3 && var1_1.g == 7) break;
-                        if (var1_1.c.t >= 0 && var1_1.M.k) {
-                            if (var1_1.c.r()) {
-                                var1_1.c.s();
-                            }
-                        } else if (var1_1.M.k) {
-                            var1_1.a((byte)5);
-                        }
-                    }
-                }
-                var1_1.c.q();
-                for (var2_6 = 0; var2_6 < var1_1.d.length; ++var2_6) {
-                    if (var1_1.d[var2_6] == null) continue;
-                    var1_1.d[var2_6].o();
-                }
-                if (var1_1.o != null && var1_1.o.i()) {
-                    var1_1.o.a(var1_1.ap.a, var1_1.o.a);
-                }
-                var1_1.c.o = var1_1.c.n;
-                var1_1.b.b();
-                var2_7 = var1_1;
-                if (!var2_7.c.D()) ** GOTO lbl195
-                var3_9 = var2_7;
-                var4_15 = j.a().b(game.g.o().i, game.g.o().j);
-                var5_19 = null;
-                game.k.O = var4_15;
-                switch (var4_15) {
-                    case 0: {
-                        if (game.k.al.size() <= 0) {
-                            v0 = false;
-                            break;
-                        }
-                        var5_19 = (int[])game.k.al.elementAt(ae.a(game.k.al.size()));
-                        ** GOTO lbl167
-                    }
-                    case 1: {
-                        if (game.k.am.size() <= 0) {
-                            v0 = false;
-                            break;
-                        }
-                        var5_19 = (int[])game.k.am.elementAt(ae.a(game.k.am.size()));
-                        ** GOTO lbl167
-                    }
-                    case 2: {
-                        if (game.k.an.size() <= 0) {
-                            v0 = false;
-                            break;
-                        }
-                        var5_19 = (int[])game.k.an.elementAt(ae.a(game.k.an.size()));
-                        ** GOTO lbl167
-                    }
-                    case 4: {
-                        if (game.k.ao.size() <= 0) {
-                            v0 = false;
-                            break;
-                        }
-                        var5_19 = (int[])game.k.ao.elementAt(ae.a(game.k.ao.size()));
-                        ** GOTO lbl167
-                    }
-                    case 3: {
-                        v0 = false;
-                        break;
-                    }
-lbl167:
-                    // 5 sources
-
-                    default: {
-                        var4_16 = var5_19;
-                        var5_20 = -1;
-                        if (var4_16[2] != -1) {
-                            var5_20 = ae.b(var4_16[2], var4_16[3]);
-                        }
-                        if (!var3_9.c()) {
-                            v0 = false;
-                            break;
-                        }
-                        var6_21 = ae.b(game.k.ak[game.k.l[var3_9.f] + var3_9.g][3], (int)game.k.ak[game.k.l[var3_9.f] + var3_9.g][4]);
-                        var3_9.c.a((byte)aq.c[0][var4_16[0]][1], var4_16[0], (byte)1);
-                        game.d.a().a(new int[][]{{var4_16[0], var6_21, var5_20}});
-                        v0 = true;
-                    }
-                }
-                if (!v0) {
-                    var2_7.c.v = var2_7.c.C();
-                } else {
-                    game.c.j = var2_7.f != 3 || var2_7.g != 7;
-                    var3_9 = var2_7;
-                    v1 = game.d.a();
-                    game.d.a().getClass();
-                    v1.a = 0;
-                    game.d.a().b = 0;
-                    game.d.a().c = Image.createImage((int)an.w(), (int)an.x());
-                    var4_17 = game.d.a().c.getGraphics();
-                    var3_9.b.b(var4_17);
-                    var3_9.c.b((byte)0, var3_9.c.n);
-                    var3_9.c.v = var3_9.c.C();
-                    game.i.a().a((byte)12);
-                }
-lbl195:
-                // 3 sources
-
-                if (game.k.G == 1 && game.k.X) {
-                    var1_1.a((byte)25);
-                }
-                if (!var1_1.M.h() && !var1_1.S.G() && !game.k.K && game.k.L[0] != -1 && var1_1.k(32)) {
-                    game.k.U = (byte)4;
-                    game.k.K = true;
-                    var1_1.S.c = 0;
-                    var1_1.a((byte)7);
-                    var1_1.S.F();
-                }
-                if (!var1_1.S.j() && game.k.r == 0 && var1_1.r()) {
-                    var1_1.S.b("C\u00f3 th\u1ec3 ti\u1ebfn h\u00e0nh s\u1ea3n xu\u1ea5t tr\u01b0\u0301ng su\u0309ng v\u00e2\u0323t");
-                    game.k.r = 1;
-                }
-                var1_1.M.c();
-                var1_1.S.e();
-                var2_7 = var1_1;
-                for (var3_10 = 0; var3_10 < var2_7.c.V.size(); ++var3_10) {
-                    v2 = (int[])var2_7.c.V.elementAt(var3_10);
-                    var4_18 = v2;
-                    v2[3] = v2[3] + 5;
-                    if (var4_18[3] <= 30) continue;
-                    var2_7.c.V.removeElementAt(var3_10);
-                    --var3_10;
-                }
-                if (var1_1.S.j()) break;
-                var1_1.M.b();
-                var1_1.l();
-                break;
-            }
-            case 1: {
-                this.S.D();
-                break;
-            }
-            case 2: {
-                if (game.k.u != -1 && this.d[game.k.u] != null && this.d[game.k.u].a.a == 24 || this.M.c == 0) {
-                    this.S.a((byte)4, (byte)0);
-                    break;
-                }
-                if ((game.k.u == -1 || this.d[game.k.u] == null || this.d[game.k.u].a.a != 20) && this.M.c != 1) break;
-                this.S.a((byte)3, (byte)2);
-                break;
-            }
-            case 32: {
-                this.S.a((byte)3, (byte)2);
-                break;
-            }
-            case 26: {
-                this.S.a((byte)4, (byte)0);
-                break;
-            }
-            case 3: {
-                this.S.M();
-                break;
-            }
-            case 4: {
-                if (this.aI) {
-                    if (this.aE == this.aG && this.aF == this.aH) {
-                        this.aI = false;
-                    }
-                    if ((var1_2 = ae.a(this.aE, this.aF, this.aG, this.aH)) < this.aL) {
-                        this.aE = this.aG;
-                        this.aF = this.aH;
-                    } else {
-                        this.aE += (this.aG - this.aE) * this.aL / var1_2;
-                        this.aF += (this.aH - this.aF) * this.aL / var1_2;
-                    }
-                }
-                if (!this.aI) {
-                    if (this.l(16400)) {
-                        if (this.aE < 0) {
-                            this.aE += this.aL;
-                        }
-                    } else if (this.l(32832)) {
-                        if (this.aE + (this.aQ[this.aA << 1] << 4) * 5 > game.k.w()) {
-                            this.aE -= this.aL;
-                        }
-                    } else if (this.l(4100)) {
-                        if (this.aF < 0) {
-                            this.aF += this.aL;
-                        }
-                    } else if (this.l(8448)) {
-                        if (this.aF + (this.aQ[(this.aA << 1) + 1] << 3) * 5 > game.k.x() - 30) {
-                            this.aF -= this.aL;
-                        }
-                    } else if (this.k(262145)) {
-                        game.d.a().c = null;
-                        this.a((byte)0);
-                    }
-                }
-                this.aJ.a();
-                for (var1_2 = 0; var1_2 < this.aK.length; ++var1_2) {
-                    this.c(var1_2);
-                    this.aK[var1_2].a();
-                }
-                break;
-            }
-            case 5: {
-                this.S.ae();
-                break;
-            }
-            case 6: {
-                this.S.l();
-                break;
-            }
-            case 7: {
-                this.S.X();
-                this.l();
-                break;
-            }
-            case 8: {
-                this.S.ac();
-                break;
-            }
-            case 9: {
-                this.S.O();
-                break;
-            }
-            case 10: {
-                this.S.S();
-                break;
-            }
-            case 22: {
-                this.S.K();
-                break;
-            }
-            case 11: {
-                this.S.Q();
-                break;
-            }
-            case 12: {
-                this.S.U();
-                break;
-            }
-            case 13: {
-                this.S.n();
-                break;
-            }
-            case 14: {
-                this.S.aA();
-                break;
-            }
-            case 16: {
-                this.S.B();
-                break;
-            }
-            case 15: {
-                this.S.z();
-                break;
-            }
-            case 17: {
-                this.S.Z();
-                break;
-            }
-            case 18: {
-                this.S.aa();
-                break;
-            }
-            case 19: {
-                this.S.ab();
-                break;
-            }
-            case 20: {
-                this.S.v();
-                break;
-            }
-            case 21: {
-                this.S.x();
-                break;
-            }
-            case 23: {
-                var1_3 = this;
-                if (!var1_3.S.c(game.k.t, game.k.s) || !var1_3.k(196640)) ** GOTO lbl358
-                if (ae.b >= ae.b()) ** GOTO lbl340
-                ae.c();
-                var1_3.S.b(ae.b);
-                ** GOTO lbl358
-lbl340:
-                // 1 sources
-
-                var1_3.S.aC();
-                if (var1_3.Q == 7) ** GOTO lbl357
-                if (var1_3.d[game.k.u].a.a <= 85) {
-                    var1_3.d[game.k.u].n = var3_11 = var1_3.d[game.k.u].m;
-                }
-                var1_3.d[game.k.u].d((byte)0);
-                var1_3.c.b((byte)0, var1_3.c.n);
-                if (var1_3.d[game.k.u].a.a == 24 || var1_3.d[game.k.u].a.a == 20) {
-                    var1_3.a((byte)1);
-                } else if (var1_3.d[game.k.u].a.a == 25) {
-                    var1_3.a((byte)16);
-                } else if (var1_3.d[game.k.u].a.a == 68) {
-                    var1_3.a((byte)28);
-                } else {
-                    if (game.k.u != -1) {
-                        game.k.a().a(game.k.a().d[game.k.u].i, game.k.a().d[game.k.u].j - 40, game.k.a().d[game.k.u]);
-                    }
-lbl357:
-                    // 4 sources
-
-                    var1_3.a((byte)0);
-                }
-lbl358:
-                // 6 sources
-
-                var1_3.b.b();
-                break;
-            }
-            case 31: {
-                var1_4 = this;
-                if (var1_4.S.c(game.k.t, game.k.s) && !var1_4.S.j() && var1_4.k(196640)) {
-                    if (ae.b < ae.b()) {
-                        ae.c();
-                        var1_4.S.b(ae.b);
-                    } else {
-                        var1_4.S.aC();
-                        if (var1_4.d[game.k.u].a.a <= 85) {
-                            var1_4.d[game.k.u].n = var3_12 = var1_4.d[game.k.u].m;
-                        }
-                        var1_4.d[game.k.u].d((byte)0);
-                        var1_4.c.b((byte)0, var1_4.c.n);
-                        var1_4.S.f = 1;
-                        if (var1_4.aW) {
-                            var1_4.aS[var1_4.aU] = true;
-                            if (var1_4.aU < var1_4.aT.length - 1) {
-                                var1_4.c.u(1);
-                                var1_4.S.b("\u0110\u1ea1t \u0111\u01b0\u1ee3c 1 huy hi\u1ec7u");
-                            } else if (var1_4.c.c((byte)7, (byte)0) == 0) {
-                                var1_4.S.b("\u0110\u1ea1t \u0111\u01b0\u1ee3c ho\u00e0ng kim huy hi\u1ec7u");
-                                var1_4.c.a((byte)7, (byte)0, (byte)2);
-                                game.c.t = (byte)(game.c.r.length / 2);
+                            if (by == 0) {
+                                this.c("\u1ea4p tr\u1ee9ng t\u00ecm \u0111\u01b0\u1ee3c #2" + a.a.c(a.b.c.c[0][sArray[n5]][0]) + "#0 \u0111\u1ec3 v\u00e0o ba l\u00f4");
+                            } else if (by == 1) {
+                                this.c("\u1ea4p tr\u1ee9ng t\u00ecm \u0111\u01b0\u1ee3c #2" + a.a.c(a.b.c.c[0][sArray[n5]][0]) + "#0 \u0111\u1ec3 v\u00e0o ng\u00e2n h\u00e0ng");
+                            } else {
+                                this.c("Kh\u00f4ng c\u00f3 kh\u00f4ng gian, \u0111\u00e3 ph\u00f3ng sinh");
                             }
                         }
+                        this.f = 3;
+                        break block54;
                     }
+                    this.o.r();
+                    this.f = 0;
                 }
-                var1_4.S.f();
-                if (var1_4.S.f == 1 && var1_4.S.ax()) {
-                    var1_4.S.d = 0;
-                    var1_4.a((byte)27);
-                }
-                var1_4.b.b();
-                break;
+                this.I();
+                break block46;
             }
-            case 27: {
-                this.S.aR();
-                break;
-            }
-            case 24: {
-                this.S.i();
-                break;
-            }
-            case 28: {
-                this.S.aN();
-                break;
-            }
-            case 29: {
-                b.a().b();
-                if (!b.a().b) break;
-                b.a().a = -1;
-                game.i.a().a((byte)23);
-                break;
-            }
-            case 30: {
-                this.S.aP();
-                break;
-            }
-            case 100: 
-            case 101: 
-            case 102: 
-            case 104: {
-                this.S.aM();
-                break;
-            }
-            case 25: {
-                this.S.as();
+            if (this.f == 0 && this.o.g(262144) && !this.j() && a.a.t()) {
+                this.b = a.a.i ? 2 : 1;
+                this.o.a((byte)6);
+                this.p.a("/data/ui/bag.ui");
             }
         }
-        if (this.P == 0 && !this.M.h() && game.k.I == 0 && game.k.H != null && game.k.H.size() > 0) {
-            if (this.ac >= game.k.H.size()) {
-                game.k.H.removeAllElements();
-                this.ac = 0;
-                game.k.I = 1;
-            } else if (this.S.ax()) {
-                var1_1 = (int[])game.k.H.elementAt(this.ac);
-                var2_7 = "Ti\u1ebfn h\u00f3a";
-                if (aq.c[0][aq.a((byte)0, (short)var1_1[0], (byte)19)][2] == 3) {
-                    var2_7 = "D\u1ecb ho\u00e1";
-                }
-                if (!game.k.K && game.k.L[0] != -1) {
-                    if (this.ac == game.k.H.size() - 1) {
-                        this.S.E();
-                        this.S.a("Nh\u1ea5n #2" + game.k.f((int)var1_1[1]) + "#0 \u0111\u1ea1t t\u1edbi c\u00f3 th\u1ec3" + (String)var2_7 + " \u0111i\u1ec1u ki\u1ec7n", "Nh\u1ea5n n\u00fat 5 \u0111\u1ec3 ti\u1ebfp t\u1ee5c");
-                    } else {
-                        this.S.b("#2" + game.k.f((int)var1_1[1]) + "#0 c\u00f3 th\u1ec3" + (String)var2_7);
-                    }
-                } else {
-                    this.S.b("#2" + game.k.f((int)var1_1[1]) + "#0 c\u00f3 th\u1ec3" + (String)var2_7);
-                }
-                ++this.ac;
+        if (this.f == 3 && !this.j()) {
+            this.o.r();
+            this.br();
+            this.f = 0;
+        }
+        this.f();
+        this.g = true;
+    }
+
+    private byte h(int n2) {
+        int[][] nArrayArray = new int[][]{{60, 20, 0}, {75, 50, 20, 0}};
+        int n3 = -1;
+        int n4 = 0;
+        if (a.b.c.c[0][n2][4] == 5) {
+            if (a.b.c.c[0][n2][3] == 2) {
+                n3 = 1;
+                n4 = 2;
+            } else if (a.b.c.c[0][n2][3] == 3) {
+                n3 = 0;
+                n4 = 3;
             }
         }
-        this.R.c();
-        if (game.k.n != null) {
-            game.k.n.e();
+        int n5 = a.b.c.c[0][n2][1] * 10;
+        int n6 = a.b.c.c[1][n5][5];
+        byte by = this.q.z();
+        if (n3 == -1) {
+            if (by == 0) {
+                this.q.a(n2, 5, (short)-1, (byte)2, (short)-1, (byte)-1, new int[]{1, n5, n6});
+            } else if (by == 1) {
+                int n7 = a.e.b(a.b.c.c[0][n2][3], a.b.c.c[0][n2][3]);
+                this.q.a(n2, 5, (short)-1, (byte)2, (byte)n7, (byte)-1, game.i.b(n2, 5, n7), 0, -1, new int[]{1, n5, n6});
+            }
+        } else {
+            n4 = (byte)(n4 + (byte)a.e.a(nArrayArray[n3], a.e.a(100)));
+            if (by == 0) {
+                this.q.a(n2, 5, (short)-1, (byte)2, (short)n4, (byte)-1, new int[]{1, n5, n6});
+            } else if (by == 1) {
+                this.q.a(n2, 5, (short)-1, (byte)2, (short)n4, (byte)-1, game.i.b(n2, 5, n4), 0, -1, new int[]{1, n5, n6});
+            }
+        }
+        return by;
+    }
+
+    public final void ag() {
+        this.aU();
+        this.p.a("/data/ui/ride.ui", 257, this);
+        this.b = 0;
+        this.bv();
+    }
+
+    private void bv() {
+        for (int i2 = 0; i2 < 4; ++i2) {
+            if (this.p.a.a((int)(i2 + 4)).i().m == null) {
+                this.p.a.a((int)(i2 + 4)).i().m = new c.g();
+                this.p.a.a((int)(i2 + 4)).i().m.a(0);
+                this.p.a.a((int)(i2 + 4)).i().m.a = (byte)3;
+                this.p.a.a((int)(i2 + 4)).i().m.a(260, false, (byte)-1);
+            }
+            if (this.p.a.a((int)(i2 + 16)).i().m == null) {
+                this.p.a.a((int)(i2 + 16)).i().m = new c.g();
+                this.p.a.a((int)(i2 + 16)).i().m.a(131);
+                this.p.a.a((int)(i2 + 16)).i().m.a = (byte)2;
+                this.p.a.a((int)(i2 + 16)).i().m.a(257, false, (byte)0);
+            }
+            if (this.q.f(i2)) {
+                if (this.b == i2) {
+                    this.p.a.a((int)(i2 + 4)).i().m.a((byte)i2, (byte)-1);
+                    if (this.b == 0) {
+                        this.p.a.a((int)(i2 + 8)).i().a = "L\u1ee5c \u0111i \u0111i\u1ec3u";
+                    } else if (this.b == 1) {
+                        this.p.a.a((int)(i2 + 8)).i().a = "H\u01b0 kh\u00f4ng h\u00e0nh gi\u1ea3";
+                    } else if (this.b == 2) {
+                        this.p.a.a((int)(i2 + 8)).i().a = "H\u1ea3i \u00e2u";
+                    } else if (this.b == 3) {
+                        this.p.a.a((int)(i2 + 8)).i().a = "Nham s\u01a1n long";
+                    }
+                } else {
+                    this.p.a.a((int)(i2 + 4)).i().m.a((byte)(i2 + 8), (byte)-1);
+                    this.p.a.a((int)(i2 + 8)).i().a = "";
+                }
+                if (!this.q.g(i2)) {
+                    this.p.a.a(i2 + 16).a(true);
+                    continue;
+                }
+                this.p.a.a(i2 + 16).a(false);
+                continue;
+            }
+            this.p.a.a(i2 + 16).a(false);
+            this.p.a.a((int)(i2 + 4)).i().m.a((byte)(i2 + 4), (byte)-1);
+            this.p.a.a((int)(i2 + 8)).i().a = "";
         }
     }
 
-    public static void a(Graphics graphics, int n2, int n3, int n4, int n5) {
-        graphics.setColor(game.k.C());
-        int n6 = (n2 << 4) - j.a().a;
-        int n7 = (n3 << 4) - j.a().b;
-        graphics.fillRect(n6, n7, n4 - n2 << 4, n5 - n3 << 4);
-    }
-
-    private void c(int n2) {
-        switch (n2) {
-            case 0: {
-                if (this.aF >= 0) {
-                    this.aK[n2].d();
-                    return;
-                }
-                this.aK[n2].c();
-                return;
-            }
-            case 1: {
-                if (this.aF + (this.aQ[(this.aA << 1) + 1] << 3) * 5 <= game.k.x()) {
-                    this.aK[n2].d();
-                    return;
-                }
-                this.aK[n2].c();
-                return;
-            }
-            case 2: {
-                if (this.aE >= 0) {
-                    this.aK[n2].d();
-                    return;
-                }
-                this.aK[n2].c();
-                return;
-            }
-            case 3: {
-                if (this.aE + (this.aQ[this.aA << 1] << 4) * 5 <= game.k.w()) {
-                    this.aK[n2].d();
-                    return;
-                }
-                this.aK[n2].c();
-            }
-        }
-    }
-
-    private void a(Graphics graphics) {
-        try {
-            if (this.P == 4) {
-                int n2;
-                int n3;
-                Graphics graphics2 = graphics;
-                k k2 = this;
-                graphics2.drawImage(game.d.a().c, 0, 0, 20);
-                for (n3 = 0; n3 < k2.aP[k2.aA].length / 7; ++n3) {
-                    if (k2.f == k2.aP[k2.aA][n3 * 7 + 2] && k2.g == k2.aP[k2.aA][n3 * 7 + 3]) {
-                        graphics2.setColor(188, 122, 255);
-                    } else {
-                        graphics2.setColor(k2.aO[k2.aA << 1]);
-                    }
-                    graphics2.fillRoundRect(k2.aE + (k2.aP[k2.aA][n3 * 7] << 4), k2.aF + (k2.aP[k2.aA][n3 * 7 + 1] << 3), k2.aP[k2.aA][n3 * 7 + 5] << 4, k2.aP[k2.aA][n3 * 7 + 6] << 3, 12, 12);
-                    graphics2.setColor(0);
-                    graphics2.drawRoundRect(k2.aE + (k2.aP[k2.aA][n3 * 7] << 4), k2.aF + (k2.aP[k2.aA][n3 * 7 + 1] << 3), k2.aP[k2.aA][n3 * 7 + 5] << 4, k2.aP[k2.aA][n3 * 7 + 6] << 3, 12, 12);
-                    if (n3 == k2.aD) {
-                        k2.aJ.b(k2.aE + (k2.aP[k2.aA][k2.aD * 7] << 4) + 16 * k2.aP[k2.aA][k2.aD * 7 + 5] / 2, k2.aF + (k2.aP[k2.aA][k2.aD * 7 + 1] << 3) + 8 * k2.aP[k2.aA][k2.aD * 7 + 6] / 2 + 20);
-                        k2.aJ.a(graphics2, 0, 0);
-                    }
-                    y cfr_ignored_0 = k2.R.b;
-                    ae.a(graphics2, game.k.f(k2.aP[k2.aA][n3 * 7 + 4]), k2.aO[(k2.aA << 1) + 1], k2.aE + (k2.aP[k2.aA][n3 * 7] << 4) + 16 * k2.aP[k2.aA][n3 * 7 + 5] / 2, k2.aF + (k2.aP[k2.aA][n3 * 7 + 1] << 3) + 8 * k2.aP[k2.aA][n3 * 7 + 6] / 2 - s.a / 2, k2.R.b, -1);
-                }
-                graphics2.setColor(65280);
-                for (int i2 = 0; i2 < k2.e.size(); ++i2) {
-                    n3 = (((a)k2.e.elementAt((int)i2)).i * k2.aP[k2.aA][k2.aD * 7 + 5] << 4) / j.a().c + (k2.aP[k2.aA][k2.aD * 7] << 4) + k2.aE;
-                    n2 = (((a)k2.e.elementAt((int)i2)).j * k2.aP[k2.aA][k2.aD * 7 + 6] << 3) / j.a().d + (k2.aP[k2.aA][k2.aD * 7 + 1] << 3) + k2.aF;
-                    if (((a)k2.e.elementAt(i2)).h() == 0 || ((a)k2.e.elementAt(i2)).h() == 1) {
-                        graphics2.fillRect(n3, n2 - 2, 9, 3);
-                        continue;
-                    }
-                    graphics2.fillRect(n3, n2 - 5, 3, 9);
-                }
-                if (k2.aB != -1) {
-                    n3 = (k2.aM[(k2.aB << 2) + 2] * k2.aP[k2.aA][k2.aD * 7 + 5] << 4) / j.a().c + (k2.aP[k2.aA][k2.aD * 7] << 4) + k2.aE;
-                    n2 = (k2.aM[(k2.aB << 2) + 3] * k2.aP[k2.aA][k2.aD * 7 + 6] << 3) / j.a().d + (k2.aP[k2.aA][k2.aD * 7 + 1] << 3) + k2.aF;
-                    graphics2.setColor(0xFF0000);
-                    graphics2.fillRect(n3, n2, 6, 6);
-                }
-                if (k2.aC != -1) {
-                    n3 = (k2.aN[(k2.aC << 2) + 2] * k2.aP[k2.aA][k2.aD * 7 + 5] << 4) / j.a().c + (k2.aP[k2.aA][k2.aD * 7] << 4) + k2.aE;
-                    n2 = (k2.aN[(k2.aC << 2) + 3] * k2.aP[k2.aA][k2.aD * 7 + 6] << 3) / j.a().d + (k2.aP[k2.aA][k2.aD * 7 + 1] << 3) + k2.aF;
-                    graphics2.setColor(2758133);
-                    graphics2.fillRect(n3, n2, 6, 6);
-                }
-                graphics2.setColor(1862801);
-                graphics2.fillRect(0, game.k.x() - 30, (int)game.k.w(), 30);
-                graphics2.setColor(65280);
-                graphics2.fillRect(25, game.k.x() - 22, 16, 16);
-                graphics2.drawString("C\u1eeda ra v\u00e0o", 45, game.k.x() - 25, 20);
-                graphics2.setColor(2758133);
-                graphics2.fillRect(90, game.k.x() - 22, 16, 16);
-                graphics2.drawString("B\u1ebfn t\u00e0u", 115, game.k.x() - 25, 20);
-                graphics2.setColor(0xFF0000);
-                graphics2.fillRect(155, game.k.x() - 22, 16, 16);
-                graphics2.drawString("\u0110\u1ea1o qu\u00e1n v\u00e0o c\u1eeda", 175, game.k.x() - 25, 20);
-                return;
-            }
-            if (this.P == 0 || this.P == 23 || this.S.g) {
-                this.b.a(graphics);
-                b.a().c(graphics);
-                if (this.S.g) {
-                    this.S.g = false;
-                }
-            }
-            if (b.a().d != -1) {
-                if (this.aa.p instanceof g) {
-                    b.a().b(this.aa.i - j.a().a, this.aa.j - j.a().b - this.ar[this.c.t + 1]);
+    public final void ah() {
+        if (!this.j() && this.o.g(16400)) {
+            this.p.a.b(2);
+        } else if (!this.j() && this.o.g(32832)) {
+            this.p.a.b(3);
+        } else if (!this.j() && this.o.g(512)) {
+            this.p.a("/data/ui/ride.ui");
+            this.o.a((byte)0);
+        } else if (!this.j() && this.o.g(196640)) {
+            if (this.q.f(this.b)) {
+                if (this.q.g(this.b)) {
+                    this.q.h(this.b);
+                    this.p.a("/data/ui/ride.ui");
+                    this.o.a((byte)0);
                 } else {
-                    b.a().b(this.aa.i - j.a().a, this.aa.j - j.a().b - 20);
+                    this.b("N\u01a1i n\u00e0y kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng s\u1ee7ng v\u1eadt c\u01b0\u1ee1i");
                 }
-                b.a().b(graphics);
+            } else {
+                this.b("Ch\u01b0a c\u00f3 s\u1ee7ng v\u1eadt c\u01b0\u1ee1i n\u00e0y");
             }
-            game.c.a(graphics);
-            this.R.a(graphics);
-            if (n != null) {
-                n.a(graphics);
+        } else if (!this.j() && this.o.g(262144)) {
+            this.p.a("/data/ui/ride.ui");
+            this.o.a((byte)0);
+        }
+        this.f();
+        this.g = true;
+    }
+
+    public final void a(i object, i i2) {
+        this.p.a("/data/ui/battle.ui", 257, this);
+        this.a = 0;
+        this.e = 0;
+        this.a((i)object, false);
+        this.b(i2, false);
+        object = this;
+        this.p.a.a((int)59).i().a = "100%";
+        ((k)object).p.a.a((int)58).i().a = "100%";
+        ((a)((k)object).o).D();
+        this.p.a("/data/ui/world.ui");
+    }
+
+    public final void b(i i2, i i3) {
+        if (i2.a(i3) == 0) {
+            if (i2.s() == 0) {
+                this.p.a.a((int)59).i().a = "300%";
+                this.p.a.a((int)58).i().a = "60%";
+                return;
             }
-            Graphics graphics3 = graphics;
-            k k3 = this;
-            for (int i3 = 0; i3 < k3.c.V.size(); ++i3) {
-                int[] nArray = (int[])k3.c.V.elementAt(i3);
-                ae.a(graphics3, "+" + nArray[0], 16704699, nArray[1] + 12 - k3.a.a, nArray[2] - nArray[3] - k3.a.b, k3.R.b, 2);
-                graphics3.drawImage(ad, nArray[1] - k3.a.a - 6, nArray[2] - nArray[3] - k3.a.b, 20);
-            }
-            if (!this.S.j() && !game.k.H()) {
-                this.M.b(graphics);
-            }
-            if (this.f == 3 && this.g == 7 && this.P == 0) {
-                if (this.M.n > 0) {
-                    if (this.av != null) {
-                        graphics.drawImage(this.av[this.M.n - 1], game.k.w() >> 1, game.k.x() >> 1, 3);
-                        return;
-                    }
-                } else if (game.i.a().b != 0L) {
-                    graphics.setColor(896);
-                    graphics.setFont(game.k.E());
-                    graphics.drawString(game.k.a(game.i.a().b - game.i.a().a)[0], 10, 40, 20);
-                }
-            }
+            this.p.a.a((int)59).i().a = "60%";
+            this.p.a.a((int)58).i().a = "300%";
             return;
         }
-        catch (Exception exception) {
-            h.a(exception, "res = " + this.P);
+        if (i2.a(i3) == 1) {
+            if (i2.s() == 0) {
+                this.p.a.a((int)59).i().a = "60%";
+                this.p.a.a((int)58).i().a = "300%";
+                return;
+            }
+            this.p.a.a((int)59).i().a = "300%";
+            this.p.a.a((int)58).i().a = "60%";
             return;
         }
+        this.p.a.a((int)59).i().a = "100%";
+        this.p.a.a((int)58).i().a = "100%";
     }
 
-    public final void q() {
-    }
-
-    public static int a(int n2, int n3) {
-        return l[n2] + n3;
-    }
-
-    public final void a(int n2, int n3, byte by, boolean bl) {
-        int n4 = this.f;
-        int n5 = this.g;
-        if (ag[l[n4] + n5][n2] != null) {
-            n5 = this.g;
-            n4 = this.f;
-            game.k.ai[game.k.l[n4] + n5][0] = bl;
-            n5 = this.g;
-            n4 = this.f;
-            game.k.ag[game.k.l[n4] + n5][n2][n3] = by;
+    public final void a(i i2, i i3, i i4, int n2, int n3) {
+        if (i2.a(i3) == 0) {
+            if (i4.s() == 0) {
+                if ((n2 *= 200 / n3) == n3 && n2 != 200) {
+                    n2 = 200;
+                }
+                this.p.a.a((int)59).i().a = n2 + 100 + "%";
+                return;
+            }
+            if (i4.s() == 1) {
+                if ((n2 *= 40 / n3) == n3 && n2 != 40) {
+                    n2 = 40;
+                }
+                this.p.a.a((int)58).i().a = 100 - n2 + "%";
+                return;
+            }
+        } else if (i2.a(i3) == 1) {
+            if (i4.s() == 0) {
+                if ((n2 *= 40 / n3) == n3 && n2 != 40) {
+                    n2 = 40;
+                }
+                this.p.a.a((int)59).i().a = 100 - n2 + "%";
+                return;
+            }
+            if (i4.s() == 1) {
+                if ((n2 *= 200 / n3) == n3 && n2 != 200) {
+                    n2 = 200;
+                }
+                this.p.a.a((int)58).i().a = n2 + 100 + "%";
+                return;
+            }
+        } else {
+            this.p.a.a((int)59).i().a = "100%";
+            this.p.a.a((int)58).i().a = "100%";
         }
     }
 
-    public final void a(int n2, int n3, int n4) {
-        int n5 = this.f;
-        int n6 = this.g;
-        if (ah[l[n5] + n6][n2] != null) {
-            n6 = this.g;
-            n5 = this.f;
-            game.k.ah[game.k.l[n5] + n6][n2][n3] = (short)n4;
+    public final void a(i i2, i i3, int n2, int n3) {
+        this.D = 0;
+        this.C = 0;
+        if (i2.a(i3) == 0) {
+            this.C += n2 * (200 / n3);
+            if (this.C == n3 && this.C != 200) {
+                this.C = 200;
+            }
+            this.p.a.a((int)59).i().a = 100 + this.C + "%";
+            this.D += n2 * (40 / n3);
+            if (this.D == n3 && this.D != 40) {
+                this.D = 40;
+            }
+            this.p.a.a((int)58).i().a = 100 - this.D + "%";
+            return;
         }
-    }
-
-    public final boolean b(int n2) {
-        for (int i2 = 0; i2 < this.as.length / 4; ++i2) {
-            if (this.as[i2 << 2] != this.f || this.as[(i2 << 2) + 1] != this.g || n2 != this.as[(i2 << 2) + 2] || this.c.B[this.as[(i2 << 2) + 3]][0] != 2) continue;
-            return true;
+        if (i2.a(i3) == 1) {
+            this.C += n2 * (40 / n3);
+            if (this.C == n3 && this.C != 40) {
+                this.C = 40;
+            }
+            this.p.a.a((int)59).i().a = 100 - this.C + "%";
+            this.D += n2 * (200 / n3);
+            if (this.D == n3 && this.D != 200) {
+                this.D = 200;
+            }
+            this.p.a.a((int)58).i().a = 100 + this.D + "%";
+            return;
         }
-        return false;
+        this.p.a.a((int)59).i().a = "100%";
+        this.p.a.a((int)58).i().a = "100%";
     }
 
-    public final boolean r() {
-        return this.c.I == 0 && q >= 10 || this.c.I > 0 && q >= 30;
-    }
-
-    private void al() {
+    public final boolean a(i i2, boolean bl) {
+        i i3;
         int n2;
-        this.aU = (byte)this.aS.length;
-        for (n2 = 0; n2 < this.aS.length; ++n2) {
-            if (this.aS[n2]) continue;
-            this.aU = (byte)n2;
-            break;
-        }
-        n2 = 0;
-        for (int i2 = this.aT.length - 1; i2 >= 0; --i2) {
-            if (this.c.F < this.aT[i2]) continue;
-            this.aV = (byte)i2;
+        int n3 = 0;
+        if (this.E == 0) {
             n2 = 1;
-            break;
-        }
-        if (n2 == 0) {
-            this.aV = (byte)-1;
-        }
-    }
-
-    public final void l() {
-        switch (U) {
-            case 1: {
-                if (V == 0) {
-                    game.k.c(0, 1);
-                    if (X) {
-                        game.k.c(1, 1);
-                    } else {
-                        game.k.c(1, 0);
-                    }
-                    V = (byte)(V + 1);
-                    this.a((byte)6);
-                    return;
-                }
-                if (V == 1) {
-                    V = (byte)(V + 1);
-                    this.S.c("H\u00e3y l\u1ef1a ch\u1ecdn #2S\u1ee7ng v\u1eadt");
-                    return;
-                }
-                if (V == 3) {
-                    game.k.c(1, 0);
-                    String string = game.k.f(aq.c[0][this.c.z[an.K()].q()][0]);
-                    V = (byte)(V + 1);
-                    this.S.c("H\u00e3y l\u1ef1a ch\u1ecdn #2" + string);
-                    return;
-                }
-                if (V == 4) {
-                    if (!this.S.ay() || !an.b(this.S.b, 0)) break;
-                    V = (byte)(V + 1);
-                    this.S.c("H\u00e3y nh\u1ea5n #2n\u00fat 5");
-                    return;
-                }
-                if (V == 6) {
-                    V = (byte)(V + 1);
-                    this.S.c("H\u00e3y l\u1ef1a ch\u1ecdn #2V\u1eadt ph\u1ea9m trang s\u1ee9c");
-                    return;
-                }
-                if (V == 8) {
-                    game.k.c(1, 0);
-                    V = (byte)(V + 1);
-                    this.S.c("Nh\u1ea5n #2n\u00fat 5#1 trang th\u01b0\u1ee3ng v\u1eadt ph\u1ea9m trang s\u1ee9c");
-                    return;
-                }
-                if (V != 10) break;
-                this.S.c("Nh\u1ea5n #2n\u00fat m\u1ec1m ph\u1ea3i#0 \u0111\u1ec3 quay l\u1ea1i");
-                game.k.c(1, -1);
-                game.k.c(0, 2);
-                V = (byte)(V + 1);
-                return;
-            }
-            case 3: {
-                if (V == 0) {
-                    V = (byte)(V + 1);
-                    game.k.c(1, 0);
-                    game.k.c(0, 1);
-                    this.a((byte)1);
-                    return;
-                }
-                if (V == 1) {
-                    if (!game.k.b(this.S.b, 0)) break;
-                    V = (byte)(V + 1);
-                    this.S.c("H\u00e3y nh\u1ea5n v\u00e0o m\u1ee5c #2Mua s\u1eafm");
-                    return;
-                }
-                if (V == 3) {
-                    V = (byte)(V + 1);
-                    this.S.c("Tr\u01b0\u1edbc ti\u00ean h\u00e3y mua #2H\u1ed3ng s\u1eafc \u1ed1c bi\u1ec3n#1");
-                    return;
-                }
-                if (V == 4) {
-                    if (!this.S.ay()) break;
-                    game.k.c(1, 1);
-                    V = (byte)(V + 1);
-                    return;
-                }
-                if (V == 5) {
-                    if (!game.k.b(this.S.b, 0)) break;
-                    V = (byte)(V + 1);
-                    this.S.c("Nh\u1ea5n #2n\u00fat 5#1 mua s\u1eafm");
-                    return;
-                }
-                if (V != 7) break;
-                this.S.c("H\u00e3y nh\u1ea5n #2n\u00fat m\u1ec1m ph\u1ea3i#1 \u0111\u1ec3 quay l\u1ea1i");
-                game.k.c(1, -1);
-                game.k.c(0, 2);
-                V = (byte)(V + 1);
-                return;
-            }
-            case 4: {
-                if (V == 0) {
-                    game.k.c(0, 1);
-                    for (int i2 = 0; i2 < this.c.A; ++i2) {
-                        if (this.c.z[i2].s() != L[0] || this.c.z[i2].q() != L[1]) continue;
-                        game.k.c(1, i2);
-                        break;
-                    }
-                    V = (byte)(V + 1);
-                    String string = game.k.f(aq.a((byte)0, (short)this.c.z[an.K()].q(), (byte)0));
-                    this.S.c("H\u00e3y l\u1ef1a ch\u1ecdn #2" + string + "#0 ti\u1ebfn h\u00e0nh ti\u1ebfn h\u00f3a");
-                    return;
-                }
-                if (V == 1) {
-                    if (!game.k.b(this.S.b, 0) || !this.S.ay()) break;
-                    V = (byte)(V + 1);
-                    this.S.c("H\u00e3y nh\u1ea5n #2n\u00fat 5#0 \u0111\u1ec3 ti\u1ebfp t\u1ee5c");
-                    return;
-                }
-                if (V == 3) {
-                    if (!game.k.b(this.S.c, 0)) break;
-                    V = (byte)(V + 1);
-                    this.S.c("Nh\u1ea5n #2n\u00fat 5#0 \u0111\u1ec3 v\u00e0o m\u1ee5c Ti\u1ebfn h\u00f3a");
-                    return;
-                }
-                if (V != 5) break;
-                V = (byte)(V + 1);
-                this.S.c("Nh\u1ea5n #2n\u00fat m\u1ec1m tr\u00e1i#0 \u0111\u1ec3 Ti\u1ebfn h\u00f3a");
-                return;
-            }
-            case 6: {
-                if (V == 0) {
-                    V = (byte)(V + 1);
-                    game.k.c(0, 1);
-                    game.k.c(1, 2);
-                    this.a((byte)6);
-                    return;
-                }
-                if (V == 1) {
-                    V = (byte)(V + 1);
-                    this.S.c("H\u00e3y l\u1ef1a ch\u1ecdn #2Ba l\u00f4#0");
-                    return;
-                }
-                if (V == 2) {
-                    if (!this.S.ay() || !game.k.b(this.S.b, 0)) break;
-                    this.S.c("Nh\u1ea5n #2n\u00fat m\u1ec1m tr\u00e1i#0 v\u00e0o Tuy\u1ec3n h\u1ea1ng");
-                    V = (byte)(V + 1);
-                    return;
-                }
-                if (V == 4) {
-                    V = (byte)(V + 1);
-                    this.S.c("H\u00e3y s\u1eed d\u1ee5ng #2Gia t\u1ed1c d\u01b0\u1ee3c#0");
-                    return;
-                }
-                if (V == 5) {
-                    if (!this.S.ay() || !game.k.b(this.S.h, 0)) break;
-                    V = (byte)(V + 1);
-                    this.S.c("Nh\u1ea5n #2n\u00fat m\u1ec1m tr\u00e1i#0 s\u1eed d\u1ee5ng");
-                    return;
-                }
-                if (V == 7) {
-                    V = (byte)(V + 1);
-                    game.k.c(0, 3);
-                    game.k.c(2, 1);
-                    game.k.c(1, 3);
-                    this.S.c("H\u00e3y l\u1ef1a ch\u1ecdn #2\u0110\u1eb7c th\u00f9 \u0111\u1ea1o c\u1ee5#0 \u1ea5p tr\u1ee9ng tr\u01b0\u0301ng su\u0309ng v\u00e2\u0323t");
-                    return;
-                }
-                if (V == 9) {
-                    if (!this.S.ay() || !game.k.b(this.S.h, 0)) break;
-                    game.k.c(0, 1);
-                    this.S.c("Nh\u1ea5n #2n\u00fat m\u1ec1m tr\u00e1i#0 \u0111\u1ec3 \u1ea4p tr\u1ee9ng");
-                    V = (byte)(V + 1);
-                    return;
-                }
-                if (V != 11) break;
-                V = (byte)(V + 1);
-                game.k.c(0, 2);
-                game.k.c(1, -1);
-                this.S.c("Nh\u1ea5n #2n\u00fat m\u1ec1m ph\u1ea3i#0 \u0111\u1ec3 quay l\u1ea1i");
+            i3 = i2;
+            n3 = Math.abs(i2.O() - i3.e[n2]) / 11;
+            if (n3 <= 1) {
+                n3 = 1;
             }
         }
-    }
-
-    public final void m() {
-        switch (U) {
-            case 1: {
-                if (V == 2 || V == 7) {
-                    V = (byte)(V + 1);
-                    return;
+        int n4 = i2.O();
+        n2 = 1;
+        i3 = i2;
+        int n5 = i3.e[n2];
+        if (n4 != n5) {
+            ++this.F;
+            if (this.F < 4) {
+                if (bl) {
+                    this.p.a.a((int)55).i().a = "#P" + i2.M();
+                    this.p.a.a((int)11).i().a = "#P" + i2.N();
+                } else {
+                    this.p.a.a((int)55).i().a = "#P" + i2.N();
+                    this.p.a.a((int)11).i().a = "#P" + i2.M();
                 }
-                if (V == 5) {
-                    game.k.c(1, 2);
-                    V = (byte)(V + 1);
-                    return;
-                }
-                if (V != 9) break;
-                V = (byte)(V + 1);
-                int n2 = this.g;
-                int n3 = this.f;
-                this.M.b[game.k.l[n3] + n2][this.M.g()] = 3;
-                if (this.M.a == null) break;
-                this.M.a[this.M.g()].a((byte)3);
-                return;
-            }
-            case 3: {
-                if (V != 6 && V != 2) break;
-                V = (byte)(V + 1);
-                return;
-            }
-            case 4: {
-                if (V == 2) {
-                    game.k.c(1, 5);
-                    V = (byte)(V + 1);
-                    return;
-                }
-                if (V == 4) {
-                    V = (byte)(V + 1);
-                    return;
-                }
-                if (V != 6) break;
-                this.S.c("Nh\u1ea5n #2n\u00fat m\u1ec1m ph\u1ea3i#0 \u0111\u1ec3 quay l\u1ea1i");
-                game.k.c(1, -1);
-                game.k.c(0, 2);
-                V = (byte)(V + 1);
-                return;
-            }
-            case 6: {
-                if (V == 3) {
-                    for (int i2 = 0; i2 < this.c.J.size() + this.c.K.size(); ++i2) {
-                        if (i2 < this.c.K.size()) continue;
-                        if (this.c.J.size() <= 0) break;
-                        if (((int[])this.c.J.elementAt(i2 - this.c.K.size()))[0] != 14) continue;
-                        game.k.c(1, i2);
-                        break;
-                    }
-                    V = (byte)(V + 1);
-                    return;
-                }
-                if (V == 6 || V == 10) {
-                    V = (byte)(V + 1);
-                    return;
-                }
-                if (V != 8 || !game.k.b(this.S.b, 1)) break;
-                this.S.c("H\u00e3y l\u1ef1a ch\u1ecdn #2Tr\u01b0\u0301ng su\u0309ng v\u00e2\u0323t#0 \u0111\u1ec3 \u1ea5p tr\u1ee9ng");
-                game.k.c(2, 0);
-                game.k.c(1, 0);
-                V = (byte)(V + 1);
-            }
-        }
-    }
-
-    protected static String[] a(long l2) {
-        String[] stringArray = new String[2];
-        String[] stringArray2 = stringArray;
-        stringArray2[0] = "0'00\"000";
-        stringArray[1] = "0'00\"000";
-        long l3 = l2 % 1000L;
-        long l4 = (l2 /= 1000L) % 60L;
-        long l5 = (l2 /= 60L) % 60L;
-        long l6 = l2 / 60L;
-        String string = l3 < 10L ? "00" + l3 : (l3 < 100L ? "0" + l3 : "" + l3);
-        String string2 = l4 < 10L ? "0" + l4 + "\"" : l4 + "\"";
-        String string3 = l2 + "'";
-        stringArray2[0] = string3 + string2 + string;
-        String string4 = l6 + "'";
-        string3 = l5 + "\"";
-        string2 = l4 < 10L ? "0" + l4 : "" + l4;
-        stringArray2[1] = string4 + string3 + string2;
-        return stringArray2;
-    }
-
-    static {
-        l = new int[]{0, 2, 9, 17, 25, 38, 45, 47, 60, 67, 75, 90};
-        m = null;
-        ad = null;
-        ae = null;
-        n = null;
-        af = new ar[10];
-        ag = null;
-        ah = null;
-        ai = null;
-        al = new Vector();
-        am = new Vector();
-        an = new Vector();
-        ao = new Vector();
-        q = 0;
-        r = 0;
-        u = (short)-1;
-        v = (short)-1;
-        w = 0;
-        x = false;
-        y = -1;
-        z = 0;
-        A = 0;
-        B = game.k.w();
-        C = game.k.x();
-        aq = new byte[]{9, 10, 11};
-        au = new String[]{"PK6_RMS_ACTOR", "PK6_RMS_WORLD", "PK6_RMS_EVENT", "PK6_RMS_RMS", "PK6_RMS_SMS", "PK6_RMS_CNTSMS", "PK6_RMS_GOLD", "PK6_RMS_POKPET", "PK6_RMS_CONITEM", "PK6_RMS_PETBALL"};
-        D = false;
-        E = null;
-        H = null;
-        I = 0;
-        J = false;
-        K = false;
-        L = new byte[2];
-        O = (byte)-1;
-    }
-
-    public final void b(Graphics graphics) {
-        try {
-            if (this.P == 4) {
-                int n2;
-                int[] nArray = this.aP[this.aA];
-                int n3 = nArray.length;
-                int n4 = this.aD * 7;
-                graphics.drawImage(game.d.a().c, 0, 0, 20);
-                int n5 = 0;
-                while (n5 < n3) {
-                    if (this.f == nArray[n5 + 2] && this.g == nArray[n5 + 3]) {
-                        graphics.setColor(188, 122, 255);
-                    } else {
-                        graphics.setColor(this.aO[this.aA << 1]);
-                    }
-                    graphics.fillRoundRect(this.aE + (nArray[n5] << 4), this.aF + (nArray[n5 + 1] << 3), nArray[n5 + 5] << 4, nArray[n5 + 6] << 3, 12, 12);
-                    graphics.setColor(0);
-                    graphics.drawRoundRect(this.aE + (nArray[n5] << 4), this.aF + (nArray[n5 + 1] << 3), nArray[n5 + 5] << 4, nArray[n5 + 6] << 3, 12, 12);
-                    if (n5 == n4) {
-                        this.aJ.b(this.aE + (nArray[n4] << 4) + 16 * nArray[n4 + 5] / 2, this.aF + (nArray[n4 + 1] << 3) + 8 * nArray[n4 + 6] / 2 + 20);
-                        this.aJ.a(graphics, 0, 0);
-                    }
-                    String[] stringArray = s.a(game.k.f(nArray[n5 + 4]), nArray[n5 + 5] << 4);
-                    n2 = stringArray.length;
-                    int n6 = 0;
-                    while (n6 < n2) {
-                        ae.a(graphics, stringArray[n6], this.aO[(this.aA << 1) + 1], this.aE + (nArray[n5] << 4) + 16 * nArray[n5 + 5] / 2, this.aF + (nArray[n5 + 1] << 3) + 8 * nArray[n5 + 6] / 2 + (n6 - n2 / 2) * (s.a + 1), this.R.b, -1);
-                        ++n6;
-                    }
-                    n5 += 7;
-                }
-                graphics.setColor(65280);
-                n2 = 0;
-                while (n2 < this.e.size()) {
-                    a a2 = (a)this.e.elementAt(n2);
-                    n5 = (a2.i * nArray[n4 + 5] << 4) / j.a().c + (nArray[n4] << 4) + this.aE;
-                    int n7 = (a2.j * nArray[n4 + 6] << 3) / j.a().d + (nArray[n4 + 1] << 3) + this.aF;
-                    if (a2.h() == 0 || a2.h() == 1) {
-                        graphics.fillRect(n5, n7 - 2, 9, 3);
-                    } else {
-                        graphics.fillRect(n5, n7 - 5, 3, 9);
-                    }
-                    ++n2;
-                }
-                if (this.aB != -1) {
-                    n5 = (this.aM[(this.aB << 2) + 2] * nArray[n4 + 5] << 4) / j.a().c + (nArray[n4] << 4) + this.aE;
-                    int n8 = (this.aM[(this.aB << 2) + 3] * nArray[n4 + 6] << 3) / j.a().d + (nArray[n4 + 1] << 3) + this.aF;
-                    graphics.setColor(0xFF0000);
-                    graphics.fillRect(n5, n8, 6, 6);
-                }
-                if (this.aC != -1) {
-                    n5 = (this.aN[(this.aC << 2) + 2] * nArray[n4 + 5] << 4) / j.a().c + (nArray[n4] << 4) + this.aE;
-                    int n9 = (this.aN[(this.aC << 2) + 3] * nArray[n4 + 6] << 3) / j.a().d + (nArray[n4 + 1] << 3) + this.aF;
-                    graphics.setColor(2758133);
-                    graphics.fillRect(n5, n9, 6, 6);
-                }
-                graphics.setColor(1862801);
-                graphics.fillRect(0, an.x() - 30, (int)an.w(), 30);
-                graphics.setColor(65280);
-                graphics.fillRect(25, an.x() - 22, 16, 16);
-                s.a(graphics, "C\u1eeda ra v\u00e0o", 45, an.x() - 18);
-                graphics.setColor(2758133);
-                graphics.fillRect(90, an.x() - 22, 16, 16);
-                s.a(graphics, "B\u1ebfn t\u00e0u", 115, an.x() - 18);
-                graphics.setColor(0xFF0000);
-                graphics.fillRect(155, an.x() - 22, 16, 16);
-                s.a(graphics, "C\u1eeda \u0111\u1ea1o qu\u00e1n", 175, an.x() - 18);
-                return;
-            }
-            this.a(graphics);
-            return;
-        }
-        catch (Exception exception) {
-            return;
-        }
-    }
-
-    private boolean c(g g2) {
-        game.k.af[0].a = true;
-        if (this.a(g2)) {
-            game.k.af[0].a = false;
-            try {
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-                dataOutputStream.writeInt(g2.O.size());
-                int n2 = 0;
-                while (n2 < g2.O.size()) {
-                    int[] nArray = (int[])g2.O.elementAt(n2);
-                    dataOutputStream.writeInt(nArray.length);
-                    int n3 = 0;
-                    while (n3 < nArray.length) {
-                        dataOutputStream.writeInt(nArray[n3]);
-                        ++n3;
-                    }
-                    ++n2;
-                }
-                dataOutputStream.flush();
-                af[0].a(byteArrayOutputStream.toByteArray());
-                return true;
-            }
-            catch (Exception exception) {
-                Exception exception2 = exception;
-                exception.printStackTrace();
                 return false;
             }
         }
-        game.k.af[0].a = false;
-        return false;
-    }
-
-    private boolean d(g g2) {
-        if (this.b(g2)) {
-            if (game.k.af[0].b != null) {
-                try {
-                    InputStream inputStream = new ByteArrayInputStream(game.k.af[0].b);
-                    inputStream = new DataInputStream(inputStream);
-                    int n2 = ((DataInputStream)inputStream).readInt();
-                    if (n2 > 0) {
-                        g2.O.removeAllElements();
-                        int n3 = 0;
-                        while (n3 < n2) {
-                            int[] nArray = new int[((DataInputStream)inputStream).readInt()];
-                            int n4 = 0;
-                            while (n4 < nArray.length) {
-                                nArray[n4] = ((DataInputStream)inputStream).readInt();
-                                ++n4;
-                            }
-                            g2.O.addElement(nArray);
-                            ++n3;
-                        }
-                    }
-                }
-                catch (Exception exception) {
-                    Exception exception2 = exception;
-                    exception.printStackTrace();
-                    return false;
-                }
+        this.E += n3;
+        if (bl) {
+            if ((n4 += this.E) >= n5) {
+                n4 = n5;
             }
+            i2.u(n4);
+            this.p.a.a((int)41).i().a = "#P" + i2.M();
+            this.p.a.a((int)11).i().a = "#P" + i2.N();
+            this.p.a.a((int)55).i().a = "#P" + i2.N();
+        } else {
+            if ((n4 -= this.E) <= n5) {
+                n4 = n5;
+            }
+            i2.u(n4);
+            this.p.a.a((int)41).i().a = "#P" + i2.N();
+            this.p.a.a((int)55).i().a = "#P" + i2.M();
+            this.p.a.a((int)11).i().a = "#P" + i2.M();
+        }
+        n2 = 1;
+        i3 = i2;
+        this.p.a.a((int)38).i().a = i2.O() + "/" + i3.d[n2];
+        this.p.a.a((int)9).i().a = "#P" + i2.P();
+        this.p.a.a((int)40).i().a = i2.A() + "/" + i2.v();
+        this.p.a.a((int)12).i().a = a.a.c(i2.j((byte)0));
+        this.p.a.a((int)13).i().a = "lv" + i2.t();
+        this.p.a.a((int)17).i().m.a(94 + i2.j((byte)1));
+        if (n4 == n5) {
+            this.E = 0;
+            this.F = 0;
+            this.k = 0;
             return true;
         }
         return false;
+    }
+
+    public final void a(i i2) {
+        int n2;
+        for (n2 = 0; n2 < 6; ++n2) {
+            if (this.p.a.a((int)(n2 + 26)).i().m == null) {
+                this.p.a.a((int)(n2 + 26)).i().m = new c.g();
+                this.p.a.a((int)(n2 + 26)).i().m.a = (byte)2;
+                this.p.a.a((int)(n2 + 26)).i().m.a(0);
+                this.p.a.a((int)(n2 + 26)).i().m.a(325, false, (byte)0);
+            }
+            if (this.p.a.a((int)(n2 + 43)).i().m == null) {
+                this.p.a.a((int)(n2 + 43)).i().m = new c.g();
+                this.p.a.a((int)(n2 + 43)).i().m.a = (byte)2;
+                this.p.a.a((int)(n2 + 43)).i().m.a(145);
+                this.p.a.a((int)(n2 + 43)).i().m.a(257, false, (byte)0);
+            }
+            this.p.a.a((int)(n2 + 43)).i().m.a(145);
+            this.p.a.a((int)(n2 + 26)).i().m.a(0);
+        }
+        for (n2 = 0; n2 < 3; ++n2) {
+            if (i2.y[0][n2] != -1 && i2.w[i2.y[0][n2]][0] > 0) {
+                this.p.a.a((int)(43 + this.k)).i().m.a(134 + i2.w[i2.y[0][n2]][0]);
+                this.p.a.a((int)(26 + this.k)).i().m.a(i2.y[0][n2] + 12);
+                ++this.k;
+            }
+            if (i2.y[1][n2] == -1 || i2.x[i2.y[1][n2]][0] <= 0) continue;
+            this.p.a.a((int)(43 + this.k)).i().m.a(134 + i2.x[i2.y[1][n2]][0]);
+            this.p.a.a((int)(26 + this.k)).i().m.a(i2.y[1][n2] + 1);
+            ++this.k;
+        }
+    }
+
+    private void g(i i2) {
+        this.p.a.a((int)11).i().a = "#P" + i2.M();
+        int n2 = 1;
+        i i3 = i2;
+        this.p.a.a((int)38).i().a = i2.O() + "/" + i3.d[n2];
+        this.p.a.a((int)16).i().a = "lv" + i2.t();
+    }
+
+    public final boolean b(i i2, boolean bl) {
+        i i3;
+        int n2;
+        int n3 = 0;
+        if (this.E == 0) {
+            n2 = 1;
+            i3 = i2;
+            n3 = Math.abs(i2.O() - i3.e[n2]) / 11;
+            if (n3 <= 1) {
+                n3 = 1;
+            }
+        }
+        int n4 = i2.O();
+        n2 = 1;
+        i3 = i2;
+        int n5 = i3.e[n2];
+        if (n4 != n5) {
+            ++this.F;
+            if (this.F < 4) {
+                if (bl) {
+                    this.p.a.a((int)56).i().a = "#P" + i2.M();
+                    this.p.a.a((int)14).i().a = "#P" + i2.N();
+                } else {
+                    this.p.a.a((int)56).i().a = "#P" + i2.N();
+                    this.p.a.a((int)14).i().a = "#P" + i2.M();
+                }
+                return false;
+            }
+        }
+        this.E += n3;
+        if (bl) {
+            if ((n4 += this.E) >= n5) {
+                n4 = n5;
+            }
+            i2.u(n4);
+            this.p.a.a((int)42).i().a = "#P" + i2.M();
+            this.p.a.a((int)14).i().a = "#P" + i2.N();
+            this.p.a.a((int)56).i().a = "#P" + i2.N();
+        } else {
+            if ((n4 -= this.E) <= n5) {
+                n4 = n5;
+            }
+            i2.u(n4);
+            this.p.a.a((int)42).i().a = "#P" + i2.N();
+            this.p.a.a((int)14).i().a = "#P" + i2.M();
+            this.p.a.a((int)56).i().a = "#P" + i2.M();
+        }
+        n2 = 1;
+        i3 = i2;
+        this.p.a.a((int)39).i().a = i2.O() + "/" + i3.d[n2];
+        if (this.q.a((byte)i2.j((byte)1), i2.r()) == 2) {
+            this.p.a.a((int)19).i().m.a(101);
+        } else {
+            this.p.a.a((int)19).i().m.a(102);
+        }
+        this.p.a.a((int)15).i().a = a.a.c(i2.j((byte)0));
+        this.p.a.a((int)16).i().a = "lv" + i2.t();
+        this.p.a.a((int)18).i().m.a(94 + i2.j((byte)1));
+        if (n4 == n5) {
+            this.E = 0;
+            this.F = 0;
+            this.k = 0;
+            return true;
+        }
+        return false;
+    }
+
+    public final void b(i i2) {
+        int n2;
+        for (n2 = 0; n2 < 6; ++n2) {
+            if (this.p.a.a((int)(n2 + 32)).i().m == null) {
+                this.p.a.a((int)(n2 + 32)).i().m = new c.g();
+                this.p.a.a((int)(n2 + 32)).i().m.a = (byte)2;
+                this.p.a.a((int)(n2 + 32)).i().m.a(0);
+                this.p.a.a((int)(n2 + 32)).i().m.a(325, false, (byte)0);
+            }
+            if (this.p.a.a((int)(n2 + 49)).i().m == null) {
+                this.p.a.a((int)(n2 + 49)).i().m = new c.g();
+                this.p.a.a((int)(n2 + 49)).i().m.a = (byte)2;
+                this.p.a.a((int)(n2 + 49)).i().m.a(145);
+                this.p.a.a((int)(n2 + 49)).i().m.a(257, false, (byte)0);
+            }
+            this.p.a.a((int)(n2 + 49)).i().m.a(145);
+            this.p.a.a((int)(n2 + 32)).i().m.a(0);
+        }
+        for (n2 = 0; n2 < 3; ++n2) {
+            if (i2.y[0][n2] != -1 && i2.w[i2.y[0][n2]][0] > 0) {
+                this.p.a.a((int)(49 + this.k)).i().m.a(134 + i2.w[i2.y[0][n2]][0]);
+                this.p.a.a((int)(32 + this.k)).i().m.a(i2.y[0][n2] + 12);
+                ++this.k;
+            }
+            if (i2.y[1][n2] == -1 || i2.x[i2.y[1][n2]][0] <= 0) continue;
+            this.p.a.a((int)(49 + this.k)).i().m.a(134 + i2.x[i2.y[1][n2]][0]);
+            this.p.a.a((int)(32 + this.k)).i().m.a(i2.y[1][n2] + 1);
+            ++this.k;
+        }
+    }
+
+    public final void ai() {
+        this.a = 0;
+        this.x = null;
+        this.p.a("/data/ui/battle.ui");
+    }
+
+    public final void aj() {
+        ((c.b)this.p.a.a((int)0)).b.f = this.a;
+        this.p.a.a(20 + this.a).a(true);
+    }
+
+    public final void c(i i2) {
+        this.f = 0;
+        this.a(i2, false);
+        this.aj();
+    }
+
+    public final void d(i i2) {
+        ((a)this.o).q();
+        if (!a.a.a(this.a, 1) && this.f == 0 && !this.j() && this.o.g(16400)) {
+            this.p.a.b(2);
+        } else if (!a.a.a(this.a, 1) && this.f == 0 && !this.j() && this.o.g(32832)) {
+            this.p.a.b(3);
+        } else if (!this.j() && this.o.g(196640)) {
+            switch (this.a) {
+                case 0: {
+                    this.p.a.a(20 + this.a).a(false);
+                    this.o.a((byte)3);
+                    break;
+                }
+                case 2: {
+                    if (this.f == 0) {
+                        if (i2.p(2)) {
+                            this.p.a("/data/ui/msgwarm.ui", 257, this);
+                            this.a("Tr\u1ea1ng th\u00e1i b\u1ecb qu\u1ea5n, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng \u0111\u1ea1o c\u1ee5", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                            this.f = 1;
+                            break;
+                        }
+                        this.p.a.a(20 + this.a).a(false);
+                        this.o.a((byte)4);
+                        break;
+                    }
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.f = 0;
+                    break;
+                }
+                case 3: {
+                    if (this.f == 0) {
+                        if (i2.p(2)) {
+                            this.p.a("/data/ui/msgwarm.ui", 257, this);
+                            this.a("Tr\u1ea1ng th\u00e1i b\u1ecb qu\u1ea5n, kh\u00f4ng th\u1ec3 \u0111\u1ed5i s\u1ee7ng v\u1eadt", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                            this.f = 1;
+                            break;
+                        }
+                        this.p.a.a(20 + this.a).a(false);
+                        ((a)this.o).q = ((a)this.o).o[((a)this.o).s];
+                        game.a.B().u = true;
+                        this.o.a((byte)5);
+                        break;
+                    }
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.f = 0;
+                    break;
+                }
+                case 1: {
+                    if (((a)this.o).l == 2) {
+                        this.b("Tr\u1eadn chi\u1ebfn n\u00e0y kh\u00f4ng cho b\u1eaft s\u1ee7ng v\u1eadt");
+                        break;
+                    }
+                    if (this.q.z() == 2) {
+                        this.b("Kh\u00f4ng gian kh\u00f4ng \u0111\u1ee7, kh\u00f4ng c\u00e1ch n\u00e0o b\u1eaft \u0111\u01b0\u1ee3c");
+                        break;
+                    }
+                    this.b = 0;
+                    this.p.a.a(20 + this.a).a(false);
+                    ((a)this.o).r();
+                    this.o.a((byte)21);
+                    break;
+                }
+                case 4: {
+                    this.p.a.a(20 + this.a).a(false);
+                    this.o.a((byte)11);
+                    break;
+                }
+                case 5: {
+                    if (this.f == 0) {
+                        if (i2.p(2)) {
+                            this.p.a("/data/ui/msgwarm.ui", 257, this);
+                            this.a("Tr\u1ea1ng th\u00e1i b\u1ecb qu\u1ea5n, kh\u00f4ng th\u1ec3 ch\u1ea1y tr\u1ed1n", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                            this.f = 1;
+                            break;
+                        }
+                        if (((a)this.o).l > 0 || !game.e.v) {
+                            this.p.a.a(20 + this.a).a(false);
+                            this.f = 3;
+                            this.b("Tr\u1eadn chi\u1ebfn n\u00e0y kh\u00f4ng th\u1ec3 tr\u1ed1n ch\u1ea1y");
+                            break;
+                        }
+                        boolean bl = false;
+                        if (((a)this.o).r.t() > ((a)this.o).n[0].t()) {
+                            bl = true;
+                        } else if (((a)this.o).r.t() == ((a)this.o).n[0].t()) {
+                            if (a.e.a(100) <= 95) {
+                                bl = true;
+                            }
+                        } else {
+                            int n2 = ((a)this.o).n[0].t() - ((a)this.o).r.t();
+                            if ((n2 = 95 - n2 * 10) <= 15) {
+                                n2 = 15;
+                            }
+                            if (a.e.a(100) < n2) {
+                                bl = true;
+                            }
+                        }
+                        if (bl) {
+                            this.p.a.a(20 + this.a).a(false);
+                            game.f.B().a((byte)10);
+                            break;
+                        }
+                        this.f = 2;
+                        this.b("Ch\u1ea1y tr\u1ed1n th\u1ea5t b\u1ea1i");
+                        break;
+                    }
+                    this.p.a("/data/ui/msgwarm.ui");
+                    this.f = 0;
+                }
+            }
+        }
+        this.f();
+        if (this.f >= 2 && this.aA()) {
+            if (this.f == 2) {
+                ((a)this.o).r.K = true;
+                ((a)this.o).s = (byte)(((a)this.o).s + 1);
+                this.o.a((byte)1);
+            } else {
+                this.p.a.a(20 + this.a).a(true);
+            }
+            this.f = 0;
+        }
+    }
+
+    public final void e(i i2) {
+        this.p.a("/data/ui/choiceskill.ui", 257, this);
+        ((c.b)this.p.a.a((int)0)).a.a = i2.F();
+        if (this.e >= i2.F()) {
+            this.e = i2.F() - 1;
+        }
+        if (i2.F() > 5) {
+            ((c.b)this.p.a.a((int)0)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)0)).a.a(-1);
+        }
+        this.p.a.a((int)5).i().a = "S\u1eed d\u1ee5ng";
+        ((c.b)this.p.a.a((int)0)).a.f = this.e;
+        this.h(i2);
+        this.f = 0;
+    }
+
+    private void h(i i2) {
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        int n2 = i2.F();
+        for (int i3 = 0; i3 < 5; ++i3) {
+            if (i3 >= n2) {
+                this.p.a.a((int)(13 + i3 * 5)).i().a = "";
+                this.p.a.a((int)(14 + i3 * 5)).i().a = "";
+                continue;
+            }
+            this.p.a.a((int)(13 + i3 * 5)).i().a = a.a.c(a.b.c.c[1][i2.t(this.v + i3)][1]);
+            this.p.a.a((int)(14 + i3 * 5)).i().a = i2.z[this.v + i3] + "/" + a.b.c.c[1][i2.t(this.v + i3)][5];
+        }
+        this.i(i2.A[this.e]);
+        this.p.a.a(51).b(98 + this.h * 80 / n2, this.p.a.a());
+    }
+
+    private void i(int n2) {
+        this.p.a.a((int)53).i().a = a.a.c(a.b.c.c[1][n2][2]);
+    }
+
+    public final void f(i i2) {
+        if (this.aB()) {
+            if (this.f == 0 && this.o.g(4100)) {
+                this.p.a.b(0);
+                this.h(i2);
+            } else if (this.f == 0 && this.o.g(8448)) {
+                this.p.a.b(1);
+                this.h(i2);
+            } else if (this.o.g(196640)) {
+                if (this.f == 0) {
+                    if (i2.s(this.e)) {
+                        this.p.a("/data/ui/choiceskill.ui");
+                        ((a)this.o).d(i2.A[this.e]);
+                        int n2 = ((a)this.o).k;
+                        ((a)this.o).getClass();
+                        if (n2 == 0) {
+                            ((a)this.o).G();
+                        } else {
+                            this.o.a((byte)6);
+                        }
+                    } else {
+                        this.f = 1;
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("K\u1ef9 n\u0103ng gi\u00e1 tr\u1ecb ch\u01b0a \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    }
+                } else {
+                    this.f = 0;
+                    this.p.a("/data/ui/msgwarm.ui");
+                    if (i2.p(2) && i2.s() == 0) {
+                        boolean bl = false;
+                        for (int i3 = 0; i3 < i2.z.length; ++i3) {
+                            if (i2.z[i3] == 0) continue;
+                            bl = true;
+                        }
+                        if (!bl) {
+                            this.p.a("/data/ui/choiceskill.ui");
+                            this.c("Kh\u00f4ng c\u00f3 k\u1ef9 n\u0103ng gi\u00e1 tr\u1ecb, kh\u00f4ng c\u00e1ch n\u00e0o chi\u1ebfn \u0111\u1ea5u");
+                            ((a)this.o).F();
+                        }
+                    }
+                }
+            } else if (this.o.g(262144) && this.f == 0) {
+                this.p.a("/data/ui/choiceskill.ui");
+                this.o.a((byte)20);
+            }
+        }
+        this.g();
+    }
+
+    public final void ak() {
+        this.f = 0;
+        this.p.a("/data/ui/choice.ui", 257, this);
+        this.p.a.a((int)8).i().a = "Pokemon ball";
+        this.p.a.a((int)9).i().a = "T\u1ec9 l\u1ec7 b\u1eaft";
+        this.p.a.a((int)5).i().a = "S\u1eed d\u1ee5ng";
+        ((c.b)this.p.a.a((int)0)).a.f = this.b;
+        ((c.b)this.p.a.a((int)0)).a.a(0);
+        ((c.b)this.p.a.a((int)0)).a.a = this.q.L.size();
+        for (int i2 = 0; i2 < this.q.L.size(); ++i2) {
+            int[] nArray = (int[])this.q.L.elementAt(i2);
+            if (this.p.a.a((int)(i2 + 54)).i().m == null) {
+                this.p.a.a((int)(i2 + 54)).i().m = new c.g();
+                this.p.a.a((int)(i2 + 54)).i().m.a(0);
+                this.p.a.a((int)(i2 + 54)).i().m.a = (byte)2;
+                this.p.a.a((int)(i2 + 54)).i().m.a(258, false, (byte)-1);
+            }
+            this.p.a.a((int)(i2 + 54)).i().m.a(a.b.c.c[4][nArray[0]][1]);
+            this.p.a.a((int)(13 + i2 * 5)).i().a = a.a.c(a.b.c.c[4][nArray[0]][0]);
+            this.p.a.a((int)(14 + i2 * 5)).i().a = ((a)this.o).m(nArray[0]) + "%";
+        }
+        this.p.a.a(59).a(false);
+        this.p.a.a(60).a(false);
+        this.bw();
+    }
+
+    private void bw() {
+        int[] nArray = (int[])this.q.L.elementAt(this.b);
+        this.p.a.a((int)53).i().a = "S\u1ed1 l\u01b0\u1ee3ng: " + nArray[1] + " c\u00e1i ";
+    }
+
+    public final void al() {
+        this.o.q();
+        if (!a.a.a(this.b, 0) && this.f == 0 && this.o.g(4100) && !this.j()) {
+            this.p.a.b(0);
+            this.bw();
+        } else if (!a.a.a(this.b, 0) && this.f == 0 && this.o.g(8448) && !this.j()) {
+            this.p.a.b(1);
+            this.bw();
+        } else if (this.o.g(196640) && !this.j() && a.a.s()) {
+            if (a.a.p() && !a.a.a(this.b, 0)) {
+                return;
+            }
+            game.e.w = true;
+            if (this.f == 0) {
+                int[] nArray = (int[])this.q.L.elementAt(this.b);
+                if (!this.q.b(nArray[0], 1, (byte)0)) {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("S\u1ed1 l\u01b0\u1ee3ng Pokemon ball kh\u00f4ng \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    this.f = 1;
+                } else {
+                    this.f = 0;
+                    game.a.v = (byte)nArray[0];
+                    this.o.r();
+                    this.q.d(nArray[0], 1, (byte)0);
+                    this.o.a((byte)17);
+                    this.p.a("/data/ui/choice.ui");
+                }
+            } else if (this.f == 1) {
+                if (a.a.i && ((int[])this.q.L.elementAt(this.b))[0] == 0) {
+                    this.p.a("/data/ui/choice.ui");
+                    this.o.a((byte)101);
+                }
+                this.f = 0;
+                this.p.a("/data/ui/msgwarm.ui");
+            }
+        } else if (game.e.t() && this.f == 0 && this.o.g(262144) && !this.j()) {
+            this.p.a("/data/ui/choice.ui");
+            this.o.a((byte)20);
+        }
+        this.g();
+    }
+
+    public final void am() {
+        this.s = 0;
+        this.f = 0;
+        this.b = 0;
+        this.p.a("/data/ui/choice.ui", 257, this);
+        this.p.a.a((int)8).i().a = "\u0110\u1ea1o c\u1ee5";
+        this.p.a.a((int)9).i().a = "S\u1ed1 l\u01b0\u1ee3ng";
+        this.p.a.a((int)5).i().a = "S\u1eed d\u1ee5ng";
+        this.p.a.a(59).a(false);
+        this.p.a.a(60).a(false);
+        this.bi();
+    }
+
+    public final void an() {
+        if (this.f == 0 && this.o.g(4100)) {
+            this.p.a.b(0);
+            return;
+        }
+        if (this.f == 0 && this.o.g(8448)) {
+            this.p.a.b(1);
+            return;
+        }
+        if (this.o.g(196640)) {
+            if (this.q.K.size() <= 0) {
+                return;
+            }
+            this.s = ((int[])this.q.K.elementAt(this.h))[0];
+            if (this.f == 0) {
+                switch (a.b.c.c[4][this.s][5]) {
+                    case 7: 
+                    case 8: 
+                    case 9: 
+                    case 10: {
+                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                        this.a("Trong chi\u1ebfn \u0111\u1ea5u kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        this.f = 1;
+                        return;
+                    }
+                }
+                this.o.a((byte)16);
+                this.p.a("/data/ui/choice.ui");
+                return;
+            }
+            if (this.f == 1) {
+                this.p.a("/data/ui/msgwarm.ui");
+                this.f = 0;
+                return;
+            }
+        } else if (this.f == 0 && this.o.g(262144)) {
+            this.p.a("/data/ui/choice.ui");
+            this.o.a((byte)20);
+        }
+    }
+
+    private void bx() {
+        if (this.f == 0) {
+            this.f = 1;
+            int n2 = this.o instanceof l ? this.q.A[this.c].x(this.s) : this.q.A[((a)this.o).p[this.c]].x(this.s);
+            switch (n2) {
+                case 0: {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("S\u1ee7ng v\u1eadt n\u00e0y \u0111\u00e3 t\u1eed vong, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                case 1: {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("S\u1ee7ng v\u1eadt n\u00e0y kh\u00f4ng c\u00f3, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                case 2: {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("M\u00e1u \u0111\u1ea7y, kh\u00f4ng c\u1ea7n s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                case 3: {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("K\u1ef9 n\u0103ng gi\u00e1 tr\u1ecb \u0111\u00e3 \u0111\u1ea7y, kh\u00f4ng c\u1ea7n s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                case 4: {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("Tr\u00ean ng\u01b0\u1eddi \u0111\u1ec1u b\u1ecb l\u1ee3i hi\u1ec7u qu\u1ea3", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                case 5: {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("Trong h\u01b0ng ph\u1ea5n, kh\u00f4ng th\u1ec3 d\u00f9ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                case 7: {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("M\u00e1u v\u00e0 tinh kh\u00ed \u0111\u1ec1u \u0111\u00e3 \u0111\u1ea7y, kh\u00f4ng c\u1ea7n s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+                case 8: {
+                    this.p.a("/data/ui/msgwarm.ui", 257, this);
+                    this.a("S\u1ee7ng v\u1eadt \u0111\u00e3 ch\u1ebft, kh\u00f4ng th\u1ec3 s\u1eed d\u1ee5ng", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    return;
+                }
+            }
+            if (this.q.b(this.s, 1, (byte)0)) {
+                if (this.o instanceof l) {
+                    this.q.A[this.c].w(this.s);
+                } else {
+                    ((a)this.o).r.K = true;
+                    this.q.A[((a)this.o).p[this.c]].w(this.s);
+                }
+                this.f(this.c);
+                this.f = 1;
+                this.l = true;
+                this.p.a("/data/ui/msgwarm.ui", 257, this);
+                this.a("Th\u00e0nh c\u00f4ng s\u1eed d\u1ee5ng \u0111\u1ea1o c\u1ee5", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                return;
+            }
+            this.f = 2;
+            this.H();
+            this.a("Kh\u00f4ng c\u00f3 \u0111\u1ea1o n\u00e0y c\u1ee5, h\u00e3y mua s\u1eafm", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+            return;
+        }
+        if (this.f == 1) {
+            this.f = 0;
+            this.p.a("/data/ui/msgwarm.ui");
+            return;
+        }
+        if (this.f == 2) {
+            this.f = 0;
+            this.p.a("/data/ui/msgwarm.ui");
+            this.p.a("/data/ui/petstate.ui");
+            if (this.o instanceof l) {
+                this.o.a((byte)8);
+                return;
+            }
+            if (game.a.B().r.equals(((a)this.o).n(this.c))) {
+                this.g(((a)this.o).o(this.c));
+            }
+            if (((a)this.o).r.K) {
+                ((a)this.o).s = (byte)(((a)this.o).s + 1);
+                ((a)this.o).a((byte)1);
+                return;
+            }
+            ((a)this.o).a((byte)4);
+        }
+    }
+
+    public final void ao() {
+        if (this.f == 0 && this.o.g(4100)) {
+            this.p.a.b(0);
+            return;
+        }
+        if (this.f == 0 && this.o.g(8448)) {
+            this.p.a.b(1);
+            return;
+        }
+        if (this.o.g(196640)) {
+            this.bx();
+            return;
+        }
+        if (this.f == 0 && this.o.g(262144)) {
+            if (this.l) {
+                if (game.a.B().r.equals(((a)this.o).n(this.c))) {
+                    this.g(((a)this.o).o(this.c));
+                }
+                if (((a)this.o).r.K) {
+                    ((a)this.o).s = (byte)(((a)this.o).s + 1);
+                    ((a)this.o).a((byte)1);
+                } else {
+                    ((a)this.o).a((byte)4);
+                }
+                this.p.a("/data/ui/petstate.ui");
+                return;
+            }
+            ((a)this.o).a((byte)4);
+            this.p.a("/data/ui/petstate.ui");
+        }
+    }
+
+    public final void b(int n2, int n3) {
+        i i2;
+        if (this.i >= game.a.t.size()) {
+            this.i = 0;
+            game.f.B().a((byte)10);
+            return;
+        }
+        block0: while (true) {
+            i2 = (i)game.a.t.elementAt(this.i);
+            while (this.i < game.a.t.size() && i2.u()) {
+                ++this.i;
+                if (this.i >= game.a.t.size()) continue;
+                continue block0;
+            }
+            break;
+        }
+        this.G = n2;
+        this.H = n3;
+        i2.c();
+        i2.b(n2, n3);
+        this.w = 0;
+    }
+
+    public final void ap() {
+        block20: {
+            block19: {
+                int n2;
+                int n3;
+                i i2;
+                block18: {
+                    if (this.i >= game.a.t.size()) {
+                        this.i = 0;
+                        game.f.B().a((byte)10);
+                        return;
+                    }
+                    if (this.w <= 0) {
+                        this.I += 8;
+                    }
+                    i2 = (i)game.a.t.elementAt(this.i);
+                    n3 = i2.B() + this.I;
+                    int n4 = i2.v();
+                    n2 = i2.A();
+                    if (n3 >= n4) {
+                        n3 = n4;
+                    } else if (n3 >= n2) {
+                        n3 = n2;
+                    }
+                    if (this.o.g(196640)) {
+                        if (n2 >= n4) {
+                            n3 = n4;
+                            this.p.a.a((int)40).i().a = n3 + "/" + n3;
+                            this.p.a.a((int)9).i().a = "#P" + i2.v(n3);
+                            i2.j(0);
+                            this.w = 0;
+                            ((a)this.o).a((byte)22);
+                            return;
+                        }
+                        if (n3 >= n2) {
+                            this.p.a.a((int)40).i().a = n2 + "/" + i2.v();
+                            this.p.a.a((int)9).i().a = "#P" + i2.v(n2);
+                            i2.j(n3);
+                            ++this.i;
+                            while (this.i < game.a.t.size() && ((i)game.a.t.elementAt(this.i)).u()) {
+                                ++this.i;
+                            }
+                            if (this.i >= game.a.t.size()) {
+                                this.i = 0;
+                                game.f.B().a((byte)10);
+                            } else {
+                                ((i)game.a.t.elementAt(this.i)).b(this.G, this.H);
+                            }
+                            this.w = 0;
+                            this.I = 0;
+                            return;
+                        }
+                        this.I = 0;
+                        n3 = n2;
+                        i2.j(n3);
+                        this.p.a.a((int)40).i().a = n3 + "/" + i2.v();
+                        this.p.a.a((int)9).i().a = "#P" + i2.v(n3);
+                        return;
+                    }
+                    this.p.a.a((int)40).i().a = n3 + "/" + i2.v();
+                    this.p.a.a((int)9).i().a = "#P" + i2.v(n3);
+                    i i3 = i2;
+                    k k2 = this;
+                    this.p.a.a((int)12).i().a = a.a.c(i3.j((byte)0));
+                    k2.p.a.a((int)13).i().a = "lv" + i3.t();
+                    k2.p.a.a((int)17).i().m.a(94 + i3.j((byte)1));
+                    if (n3 < n4) break block18;
+                    i2.j(0);
+                    ((a)this.o).a((byte)22);
+                    break block19;
+                }
+                if (n3 < n2) break block20;
+                ++this.w;
+                i2.j(n3);
+                if (this.w >= 10) {
+                    ++this.i;
+                    while (this.i < game.a.t.size() && ((i)game.a.t.elementAt(this.i)).u()) {
+                        ++this.i;
+                    }
+                    if (this.i >= game.a.t.size()) {
+                        this.i = 0;
+                        game.f.B().a((byte)10);
+                    } else {
+                        ((i)game.a.t.elementAt(this.i)).b(this.G, this.H);
+                    }
+                    this.w = 0;
+                }
+            }
+            this.I = 0;
+        }
+    }
+
+    public final void aq() {
+        i i2;
+        byte by;
+        int n2;
+        i i3 = (i)game.a.t.elementAt(this.i);
+        String[] stringArray = new String[4];
+        for (n2 = 0; n2 < 4; ++n2) {
+            by = (byte)(n2 + 1);
+            i2 = i3;
+            stringArray[n2] = "" + i2.d[by];
+        }
+        i3.w();
+        this.g(i3);
+        this.p.a("/data/ui/levelUp.ui", 257, this);
+        for (n2 = 0; n2 < 4; ++n2) {
+            this.p.a.a((int)(n2 + 19)).i().a = stringArray[n2];
+        }
+        if (i3.F() < 5 && i3.F() < i3.t() / 10 + 1) {
+            this.x = i3.G();
+            this.p.a.a((int)51).i().a = "C\u00f3 th\u1ec3 h\u1ecdc t\u1eadp k\u1ef9 n\u0103ng m\u1edbi";
+        } else {
+            this.p.a.a((int)51).i().a = "";
+        }
+        this.p.a.a((int)38).i().a = a.a.c(a.b.c.c[0][i3.r()][0]);
+        this.p.a.a((int)40).i().a = "" + i3.t();
+        if (this.p.a.a((int)10).i().m == null) {
+            this.p.a.a((int)10).i().m = new c.g();
+            this.p.a.a((int)10).i().m.a = (byte)3;
+            this.p.a.a((int)10).i().m.a(0);
+            this.p.a.a((int)10).i().m.a(i3.D, false, (byte)-1);
+        }
+        for (n2 = 0; n2 < 4; ++n2) {
+            by = (byte)(n2 + 1);
+            i2 = i3;
+            this.p.a.a((int)(n2 + 31)).i().a = "" + i2.d[by];
+        }
+    }
+
+    public final void ar() {
+        ++this.J;
+        if (this.J > 40) {
+            this.J = 0;
+            if (this.x != null) {
+                ((a)this.o).a((byte)23);
+            } else if (this.i + 1 >= game.a.t.size()) {
+                if (((i)game.a.t.elementAt(this.i)).A() > 0) {
+                    this.o.a((byte)8);
+                } else {
+                    this.i = 0;
+                    game.f.B().a((byte)10);
+                }
+                this.p.a("/data/ui/levelUp.ui");
+            } else {
+                this.o.a((byte)8);
+                this.p.a("/data/ui/levelUp.ui");
+            }
+        }
+        if (this.o.g(196640)) {
+            this.J = 0;
+            if (this.x != null) {
+                this.o.a((byte)23);
+                return;
+            }
+            if (this.i + 1 >= game.a.t.size()) {
+                if (((i)game.a.t.elementAt(this.i)).A() > 0) {
+                    this.o.a((byte)8);
+                } else {
+                    this.i = 0;
+                    game.f.B().a((byte)10);
+                }
+                this.p.a("/data/ui/levelUp.ui");
+                return;
+            }
+            this.o.a((byte)8);
+            this.p.a("/data/ui/levelUp.ui");
+        }
+    }
+
+    public final void as() {
+        this.p.a("/data/ui/choiceskill.ui", 257, this);
+        this.p.a("/data/ui/levelUp.ui");
+        this.b = 0;
+        this.f = 0;
+        ((c.b)this.p.a.a((int)0)).a.a = this.x.length;
+        if (this.x.length > 5) {
+            ((c.b)this.p.a.a((int)0)).a.a(1);
+        } else {
+            ((c.b)this.p.a.a((int)0)).a.a(-1);
+        }
+        if (this.p.a.a((int)5).i().m == null) {
+            this.p.a.a((int)5).i().m = new c.g();
+            this.p.a.a((int)5).i().m.a = (byte)3;
+            this.p.a.a((int)5).i().m.a(0);
+            this.p.a.a((int)5).i().m.a(257, false, (byte)-1);
+        }
+        this.p.a.a((int)5).i().m.a((byte)11, (byte)-1);
+        this.p.a.a(6).a(false);
+        this.by();
+        if (!game.l.N) {
+            this.b("C\u00f3 th\u1ec3 nh\u1ea5n #1n\u00fat m\u1ec1m tr\u00e1i#0 \u0111\u1ec3 h\u1ecdc t\u1eadp k\u1ef9 n\u0103ng");
+            game.l.N = true;
+        }
+    }
+
+    private void by() {
+        this.v = ((c.b)this.p.a.a((int)0)).a.e;
+        this.h = ((c.b)this.p.a.a((int)0)).a.f;
+        for (int i2 = 0; i2 < 5; ++i2) {
+            if (i2 >= this.x.length) {
+                this.p.a.a((int)(13 + i2 * 5)).i().a = "";
+                this.p.a.a((int)(14 + i2 * 5)).i().a = "";
+                continue;
+            }
+            this.p.a.a((int)(13 + i2 * 5)).i().a = a.a.c(a.b.c.c[1][this.x[this.v + i2]][1]);
+            this.p.a.a((int)(14 + i2 * 5)).i().a = "" + a.b.c.c[1][this.x[this.v + i2]][5];
+        }
+        this.i(this.x[this.h]);
+        this.p.a.a(51).b(98 + this.h * 62 / this.x.length, this.p.a.a());
+    }
+
+    public final void at() {
+        if (!this.j() && this.o.g(4100) && this.f == 0) {
+            this.p.a.b(0);
+            this.by();
+        } else if (!this.j() && this.o.g(8448) && this.f == 0) {
+            this.p.a.b(1);
+            this.by();
+        } else if (!this.j() && this.f == 0 && (this.o.g(131072) || this.o.a(40, 228, 45, 20)) || this.f == 1 && this.o.g(196640)) {
+            if (this.f == 0) {
+                this.f = 1;
+                this.p.a("/data/ui/msgwarm.ui", 257, this);
+                this.a("H\u1ecdc t\u1eadp" + a.a.c(a.b.c.c[1][this.x[this.b]][1]), "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+            } else if (this.f == 1) {
+                i i2 = (i)game.a.t.elementAt(this.i);
+                i2.g((byte)this.x[this.h]);
+                this.x = null;
+                if (this.i + 1 >= game.a.t.size() && i2.A() <= 0) {
+                    this.i = 0;
+                    game.f.B().a((byte)10);
+                } else {
+                    this.o.a((byte)8);
+                }
+                this.p.a("/data/ui/msgwarm.ui");
+                this.p.a("/data/ui/choiceskill.ui");
+            }
+        }
+        this.f();
+    }
+
+    public final void au() {
+        this.f = 0;
+        this.b("Ba l\u00f4 s\u1ee7ng v\u1eadt \u0111\u1ec1u th\u0103ng 5 c\u1ea5p");
+    }
+
+    /*
+     * Enabled aggressive block sorting
+     */
+    public final void av() {
+        block14: {
+            k k2;
+            block17: {
+                block22: {
+                    block21: {
+                        block19: {
+                            block20: {
+                                block18: {
+                                    block16: {
+                                        block15: {
+                                            if (this.f != 0) break block15;
+                                            if (this.aA()) {
+                                                this.f = 1;
+                                                if (game.l.O.size() <= 0) {
+                                                    this.o.a((byte)14);
+                                                }
+                                            }
+                                            break block14;
+                                        }
+                                        if (this.f != 1) break block16;
+                                        this.p.a("/data/ui/bodyShop.ui");
+                                        this.bz();
+                                        this.g = true;
+                                        break block14;
+                                    }
+                                    k2 = this;
+                                    if (k2.f < 3) break block17;
+                                    if (k2.f != 5) break block18;
+                                    k2.f = 6;
+                                    k2.K();
+                                    k2.a("\u0110ang l\u01b0u...");
+                                    k2.M();
+                                    break block19;
+                                }
+                                if (k2.f != 6) break block20;
+                                game.l.Q = (byte)2;
+                                a.a cfr_ignored_0 = k2.o;
+                                game.l.F();
+                                if (((l)k2.o).H()) {
+                                    k2.a("L\u01b0u th\u00e0nh c\u00f4ng");
+                                    k2.f = 7;
+                                }
+                                break block19;
+                            }
+                            if (k2.f != 7) break block19;
+                            k2.p.a("/data/ui/msgtip.ui");
+                            k2.f = 0;
+                            if (k2.o.b == 14) {
+                                k2.o.a((byte)14);
+                                break block14;
+                            } else {
+                                k2.o.a((byte)0);
+                            }
+                            break block14;
+                        }
+                        if (k2.j() || !k2.o.g(4100) || k2.f != 3) break block21;
+                        k2.p.a.b(0);
+                        k2.by();
+                        break block14;
+                    }
+                    if (k2.j() || !k2.o.g(8448) || k2.f != 3) break block22;
+                    k2.p.a.b(1);
+                    k2.by();
+                    break block14;
+                }
+                if ((k2.j() || k2.f != 3 || !k2.o.g(131072) && !k2.o.a(40, 228, 45, 20)) && (k2.f != 4 || !k2.o.g(196640))) break block14;
+                if (k2.f == 3) {
+                    k2.f = 4;
+                    k2.p.a("/data/ui/msgwarm.ui", 257, k2);
+                    k2.a("H\u1ecdc t\u1eadp" + a.a.c(a.b.c.c[1][k2.x[k2.h]][1]), "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    break block14;
+                } else if (k2.f == 4) {
+                    ((i)game.l.O.elementAt(k2.i)).g((byte)k2.x[k2.h]);
+                    k2.x = null;
+                    ++k2.i;
+                    if (k2.i >= game.l.O.size()) {
+                        k2.i = 0;
+                        k2.f = 5;
+                    } else {
+                        k2.bz();
+                    }
+                    k2.p.a("/data/ui/msgwarm.ui");
+                    k2.p.a("/data/ui/choiceskill.ui");
+                }
+                break block14;
+            }
+            if (k2.o.g(196640)) {
+                k k3 = k2;
+                k3.p.a("/data/ui/choiceskill.ui", 257, k3);
+                k3.p.a("/data/ui/levelUp.ui");
+                k3.b = 0;
+                k3.f = 3;
+                ((c.b)k3.p.a.a((int)0)).a.a = k3.x.length;
+                if (k3.x.length > 5) {
+                    ((c.b)k3.p.a.a((int)0)).a.a(1);
+                } else {
+                    ((c.b)k3.p.a.a((int)0)).a.a(-1);
+                }
+                if (k3.p.a.a((int)5).i().m == null) {
+                    k3.p.a.a((int)5).i().m = new c.g();
+                    k3.p.a.a((int)5).i().m.a = (byte)3;
+                    k3.p.a.a((int)5).i().m.a(0);
+                    k3.p.a.a((int)5).i().m.a(257, false, (byte)-1);
+                }
+                k3.p.a.a((int)5).i().m.a((byte)11, (byte)-1);
+                k3.p.a.a(6).a(false);
+                k3.by();
+                k2.g = true;
+            }
+        }
+        this.f();
+    }
+
+    private void bz() {
+        int n2;
+        this.f = 2;
+        i i2 = (i)game.l.O.elementAt(this.i);
+        this.p.a("/data/ui/levelUp.ui", 257, this);
+        for (n2 = 0; n2 < 4; ++n2) {
+            this.p.a.a((int)(n2 + 19)).i().a = "" + i2.i((int)((byte)(n2 + 1 - 1)));
+        }
+        if (i2.F() < 5 && i2.F() < i2.t() / 10 + 1) {
+            this.x = i2.G();
+            this.p.a.a((int)51).i().a = "Nh\u1ea5n n\u00fat 5 h\u1ecdc t\u1eadp k\u1ef9 n\u0103ng m\u1edbi";
+        } else {
+            this.p.a.a((int)51).i().a = "";
+        }
+        this.p.a.a((int)38).i().a = a.a.c(a.b.c.c[0][i2.r()][0]);
+        this.p.a.a((int)40).i().a = "" + i2.t();
+        if (this.p.a.a((int)10).i().m == null) {
+            this.p.a.a((int)10).i().m = new c.g();
+            this.p.a.a((int)10).i().m.a = (byte)3;
+            this.p.a.a((int)10).i().m.a(0);
+            this.p.a.a((int)10).i().m.a(i2.D, false, (byte)-1);
+        }
+        for (n2 = 0; n2 < 4; ++n2) {
+            byte by = (byte)(n2 + 1);
+            i i3 = i2;
+            this.p.a.a((int)(n2 + 31)).i().a = "" + i3.d[by];
+        }
+    }
+
+    public final void aw() {
+        this.p.a("/data/ui/npcEnemy.ui", 296, this);
+        if (this.p.a.a((int)1).i().m == null) {
+            this.p.a.a((int)1).i().m = new c.g();
+            this.p.a.a((int)1).i().m.a = (byte)2;
+            this.p.a.a((int)1).i().m.a(296, false, (byte)0);
+            this.p.a.a((int)1).i().m.a(0);
+        }
+        this.p.a.a(36).a(false);
+    }
+
+    private void a(int n2, int n3, int n4) {
+        if (n4 != -1 && this.p.a.a((int)n4).i().m != null) {
+            this.p.a.a(n4).a(false);
+        }
+        if (this.p.a.a((int)n2).i().m == null) {
+            this.p.a.a((int)n2).i().m = new c.g();
+            this.p.a.a((int)n2).i().m.a = (byte)2;
+            this.p.a.a((int)n2).i().m.a(296, false, (byte)0);
+            this.p.a.a((int)n2).i().m.a(0);
+        }
+        this.p.a.a((int)n2).i().m.a(n3);
+    }
+
+    public final void c(int n2, int n3) {
+        switch (n2) {
+            case 0: {
+                this.p.a.a((int)1).i().m.a(n3);
+                return;
+            }
+            case 1: {
+                for (n2 = 2; n2 < 4; ++n2) {
+                    if (this.p.a.a((int)n2).i().m == null) {
+                        this.p.a.a((int)n2).i().m = new c.g();
+                        this.p.a.a((int)n2).i().m.a = (byte)2;
+                        this.p.a.a((int)n2).i().m.a(0);
+                    }
+                    if (n2 % 2 == 1) {
+                        this.p.a.a((int)n2).i().m.a(0, false, (byte)-1);
+                    } else if (game.l.E == -1) {
+                        if (game.l.F == -1) {
+                            this.p.a.a((int)n2).i().m.a(game.l.B().n[8].a.a, false, (byte)-1);
+                        } else {
+                            this.p.a.a((int)n2).i().m.a(game.l.B().n[game.l.F].a.a, false, (byte)-1);
+                        }
+                    } else {
+                        this.p.a.a((int)n2).i().m.a(game.l.B().n[game.l.E].a.a, false, (byte)-1);
+                    }
+                    this.p.a.a((int)n2).i().m.a(1);
+                }
+                this.p.a.a((int)1).i().m.a(n3);
+                return;
+            }
+            case 2: {
+                for (n2 = 2; n2 < 4; ++n2) {
+                    if (this.p.a.a((int)n2).i().m != null) {
+                        this.p.a.a(n2).a(false);
+                    }
+                    if (this.p.a.a((int)(n2 + 32)).i().m == null) {
+                        this.p.a.a((int)(n2 + 32)).i().m = new c.g();
+                        this.p.a.a((int)(n2 + 32)).i().m.a = (byte)2;
+                        this.p.a.a((int)(n2 + 32)).i().m.a(0);
+                    }
+                    if (n2 % 2 == 1) {
+                        this.p.a.a((int)(n2 + 32)).i().m.a(0, false, (byte)-1);
+                    } else if (game.l.E == -1) {
+                        if (game.l.F == -1) {
+                            this.p.a.a((int)(n2 + 32)).i().m.a(game.l.B().n[8].a.a, false, (byte)-1);
+                        } else {
+                            this.p.a.a((int)(n2 + 32)).i().m.a(game.l.B().n[game.l.F].a.a, false, (byte)-1);
+                        }
+                    } else {
+                        this.p.a.a((int)(n2 + 32)).i().m.a(game.l.B().n[game.l.E].a.a, false, (byte)-1);
+                    }
+                    this.p.a.a((int)(n2 + 32)).i().m.a(1);
+                }
+                this.p.a.a((int)1).i().m.a(n3);
+                return;
+            }
+            case 3: {
+                for (n2 = 2; n2 < 4; ++n2) {
+                    if (this.p.a.a((int)(n2 + 32)).i().m != null) {
+                        this.p.a.a(n2 + 32).a(false);
+                    }
+                    if (this.p.a.a((int)(n2 + 2)).i().m == null) {
+                        this.p.a.a((int)(n2 + 2)).i().m = new c.g();
+                        this.p.a.a((int)(n2 + 2)).i().m.a = (byte)2;
+                        this.p.a.a((int)(n2 + 2)).i().m.a(0);
+                    }
+                    if (n2 % 2 == 1) {
+                        this.p.a.a((int)(n2 + 2)).i().m.a(0, false, (byte)-1);
+                    } else if (game.l.E == -1) {
+                        if (game.l.F == -1) {
+                            this.p.a.a((int)(n2 + 2)).i().m.a(game.l.B().n[8].a.a, false, (byte)-1);
+                        } else {
+                            this.p.a.a((int)(n2 + 2)).i().m.a(game.l.B().n[game.l.F].a.a, false, (byte)-1);
+                        }
+                    } else {
+                        this.p.a.a((int)(n2 + 2)).i().m.a(game.l.B().n[game.l.E].a.a, false, (byte)-1);
+                    }
+                    this.p.a.a((int)(n2 + 2)).i().m.a(1);
+                }
+                this.p.a.a((int)1).i().m.a(n3);
+                this.K = game.a.B().H();
+                this.L = this.q.B;
+                if (n3 - 3 < this.K) {
+                    this.a(6, 6, -1);
+                }
+                if (n3 - 3 >= this.L) break;
+                this.a(18, 6, -1);
+                return;
+            }
+            case 4: {
+                if (n3 - 3 < this.K) {
+                    this.a(6 + (n3 - 3 << 1), 6, 6 + (n3 - 4 << 1));
+                } else {
+                    this.a(6 + (n3 - 3 << 1), 5, 6 + (n3 - 4 << 1));
+                }
+                if (n3 - 4 < this.K) {
+                    this.a(7 + (n3 - 4 << 1), 6, 6 + (n3 - 4 << 1));
+                } else {
+                    this.a(7 + (n3 - 4 << 1), 5, 6 + (n3 - 4 << 1));
+                }
+                if (n3 - 4 < this.L) {
+                    this.a(19 + (n3 - 4 << 1), 6, 18 + (n3 - 4 << 1));
+                } else {
+                    this.a(19 + (n3 - 4 << 1), 5, 18 + (n3 - 4 << 1));
+                }
+                if (n3 - 3 < this.L) {
+                    this.a(18 + (n3 - 3 << 1), 6, 18 + (n3 - 4 << 1));
+                    return;
+                }
+                this.a(18 + (n3 - 3 << 1), 5, 18 + (n3 - 4 << 1));
+                return;
+            }
+            case 5: {
+                if (n3 - 4 < this.K) {
+                    this.a(7 + (n3 - 4 << 1), 6, 6 + (n3 - 4 << 1));
+                } else {
+                    this.a(7 + (n3 - 4 << 1), 5, 6 + (n3 - 4 << 1));
+                }
+                if (n3 - 4 < this.L) {
+                    this.a(19 + (n3 - 4 << 1), 6, 18 + (n3 - 4 << 1));
+                    return;
+                }
+                this.a(19 + (n3 - 4 << 1), 5, 18 + (n3 - 4 << 1));
+                return;
+            }
+            case 6: {
+                this.a(30, 8, -1);
+                this.a(31, 7, -1);
+                return;
+            }
+            case 7: {
+                this.a(32, 8, 30);
+                this.a(33, 7, 31);
+                return;
+            }
+            case 8: {
+                this.p.a.a(36).a(true);
+                return;
+            }
+            case 9: {
+                this.p.a.a(36).a(false);
+                return;
+            }
+            case 10: {
+                this.a(1, 4, 32);
+                this.a(1, 4, 33);
+                for (n2 = 4; n2 < 6; ++n2) {
+                    this.p.a.a(n2).a(false);
+                }
+                for (n2 = 7; n2 < 19; n2 += 2) {
+                    this.p.a.a(n2).a(172 + 17 * (n2 - 7) / 2, this.p.a.a());
+                    this.p.a.a(n2 + 12).a(-30 + 17 * (n2 - 7) / 2, this.p.a.a());
+                }
+                return;
+            }
+            case 11: {
+                for (n2 = 4; n2 < 6; ++n2) {
+                    this.p.a.a(n2).a(false);
+                }
+                for (n2 = 7; n2 < 19; n2 += 2) {
+                    this.p.a.a(n2).a(false);
+                    this.p.a.a(n2 + 12).a(false);
+                }
+                this.a(1, 0, -1);
+            }
+        }
+    }
+
+    private void e(String string) {
+        if (this.p.a.a((int)1).i().m == null) {
+            this.p.a.a((int)1).i().m = new c.g();
+            this.p.a.a((int)1).i().m.a(0);
+            this.p.a.a((int)1).i().m.a = (byte)3;
+            this.p.a.a((int)1).i().m.a(257, false, (byte)-2);
+        }
+        this.p.a.a((int)1).i().m.a((byte)9, (byte)-2);
+        this.p.a.a((int)2).i().a = string;
+        this.u = 0;
+    }
+
+    public final void ax() {
+        this.p.a("/data/ui/openbox.ui", 257, this);
+        this.e("Kh\u00f4ng c\u00f3 c\u00e1i ch\u00eca kh\u00f3a, c\u00f3 th\u1ec3 \u0111\u1ebfn t\u00e0i li\u1ec7u c\u1eeda h\u00e0ng mua s\u1eafm");
+    }
+
+    public final void ay() {
+        this.p.a("/data/ui/openbox.ui", 257, this);
+        this.e("\u0110\u1ea1o c\u1ee5 \u0111\u00e3 \u0111\u1ee7");
+    }
+
+    public final void a(String string, int n2) {
+        this.p.a("/data/ui/openbox.ui", 257, this);
+        this.e(string + " x " + n2);
+    }
+
+    public final void b(String string) {
+        this.p.a("/data/ui/openbox.ui", 257, this);
+        this.e(string);
+    }
+
+    public final void az() {
+        if (this.p.b("/data/ui/openbox.ui")) {
+            this.p.a("/data/ui/openbox.ui");
+        }
+    }
+
+    public final boolean aA() {
+        return !this.p.b("/data/ui/openbox.ui");
+    }
+
+    public final void c(String object) {
+        this.p.a("/data/ui/taskTip.ui", 257, this);
+        String string = object;
+        object = this;
+        if (((k)object).p.a.a((int)1).i().m == null) {
+            ((k)object).p.a.a((int)1).i().m = new c.g();
+            ((k)object).p.a.a((int)1).i().m.a(0);
+            ((k)object).p.a.a((int)1).i().m.a = (byte)3;
+            ((k)object).p.a.a((int)1).i().m.a(257, false, (byte)-2);
+        }
+        ((k)object).p.a.a((int)1).i().m.a((byte)10, (byte)-2);
+        ((k)object).p.a.a((int)2).i().a = string;
+        ((k)object).u = 0;
+    }
+
+    public final boolean aB() {
+        return !this.p.b("/data/ui/taskTip.ui");
+    }
+
+    public final void aC() {
+        this.c = 0;
+        this.f = 0;
+        this.p.a("/data/ui/bodyShop.ui", 257, this);
+        this.bA();
+    }
+
+    private void bA() {
+        Object object = "";
+        switch (this.c) {
+            case 0: {
+                object = "T\u00f9y th\u1eddi mua s\u1eafm c\u00e1c lo\u1ea1i \u0111\u1ea1o c\u1ee5, gi\u00e0 tr\u1ebb kh\u00f4ng g\u1ea1t.";
+                break;
+            }
+            case 1: {
+                object = new int[]{2, 1, 2};
+                object = a.a.c(602) + a.a.a(604, (int[])object);
+                break;
+            }
+            case 2: {
+                object = new int[]{2, 1, 2};
+                object = a.a.c(603) + a.a.a(604, (int[])object);
+                break;
+            }
+            case 3: {
+                object = new int[]{2, 1, 2};
+                object = a.a.c(601) + a.a.a(604, (int[])object);
+            }
+        }
+        this.p.a.a((int)11).i().a = (String)object;
+        if (this.c > 0) {
+            this.o.c((byte)0);
+            this.bB();
+        }
+    }
+
+    private void bB() {
+        switch (this.c) {
+            case 1: {
+                this.o.b((byte)3);
+                return;
+            }
+            case 2: {
+                this.o.b((byte)4);
+                return;
+            }
+            case 3: {
+                this.o.b((byte)2);
+            }
+        }
+    }
+
+    public final void aD() {
+        block0 : switch (this.c) {
+            case 0: {
+                if (this.o.g(4100) && this.f == 0) {
+                    this.p.a.b(0);
+                    this.bA();
+                    return;
+                }
+                if (this.o.g(8448) && this.f == 0) {
+                    this.p.a.b(1);
+                    this.bA();
+                    return;
+                }
+                if (this.o.g(196640)) {
+                    this.o.a((byte)26);
+                    this.p.a("/data/ui/bodyShop.ui");
+                    return;
+                }
+                if (!this.o.g(786432)) break;
+                this.b = 0;
+                this.o.a((byte)6);
+                this.p.a("/data/ui/bodyShop.ui");
+                return;
+            }
+            default: {
+                switch (this.o.x()) {
+                    case 0: {
+                        if (this.o.g(4100) && this.f == 0) {
+                            this.p.a.b(0);
+                            this.bA();
+                            return;
+                        }
+                        if (this.o.g(8448) && this.f == 0) {
+                            this.p.a.b(1);
+                            this.bA();
+                            return;
+                        }
+                        if (this.f == 0 && this.o.g(131072) || this.f == 1 && this.o.g(65568)) {
+                            if (this.f == 0) {
+                                this.bB();
+                                if (this.o.v() == 3) {
+                                    int n2;
+                                    if (game.l.R != null) {
+                                        game.l.R.removeAllElements();
+                                    }
+                                    for (n2 = 0; n2 < game.j.p().B && game.j.p().A[n2].t() >= 50; ++n2) {
+                                    }
+                                    if (n2 >= game.j.p().B) {
+                                        this.f = 1;
+                                        this.p.a("/data/ui/msgwarm.ui", 257, this);
+                                        this.a("Trong ba l\u00f4 s\u1ee7ng v\u1eadt \u0111\u1ec1u \u0111\u00e3 max level", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                                        return;
+                                    }
+                                }
+                                if (this.o.y() > 1) {
+                                    this.o.c((byte)1);
+                                    return;
+                                }
+                                if (!this.p.a.a(11).i().b()) break block0;
+                                this.o.e(1);
+                                return;
+                            }
+                            this.f = 0;
+                            this.p.a("/data/ui/msgwarm.ui");
+                            return;
+                        }
+                        if (!this.o.g(786432) || this.f != 0) break block0;
+                        this.b = 0;
+                        this.o.a((byte)6);
+                        this.p.a("/data/ui/bodyShop.ui");
+                        return;
+                    }
+                    case 1: {
+                        if (this.o.g(131072)) {
+                            this.o.f(1);
+                            return;
+                        }
+                        if (!this.o.g(262144)) break block0;
+                        this.o.f(2);
+                        return;
+                    }
+                    case 2: {
+                        if (!this.bC() || !this.o.g(917504)) break block0;
+                        if (this.o.w()) {
+                            if (this.o.v() == 3) {
+                                this.o.a((byte)25);
+                            }
+                            this.o.c((byte)5);
+                        } else {
+                            this.o.c((byte)1);
+                        }
+                        this.f = 0;
+                        return;
+                    }
+                    case 3: {
+                        if (!this.o.g(393216)) break block0;
+                        this.o.f(1);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean bC() {
+        if (this.f == 0) {
+            this.f = 1;
+            this.K();
+            this.a("\u0110ang l\u01b0u...");
+            this.M();
+        } else if (this.f == 1) {
+            if (this.o.v() == 3) {
+                if (game.l.B().I()) {
+                    this.a("L\u01b0u th\u00e0nh c\u00f4ng");
+                    this.f = 2;
+                }
+            } else if (game.l.B().J()) {
+                this.a("L\u01b0u th\u00e0nh c\u00f4ng");
+                this.f = 2;
+            }
+        } else if (this.f == 2) {
+            this.p.a("/data/ui/msgtip.ui");
+            this.f = 3;
+        } else if (this.f == 3) {
+            return true;
+        }
+        return false;
+    }
+
+    public final void aE() {
+        this.p.a("/data/ui/dialog.ui", 257, this);
+        this.p.a.a(12).a(false);
+        this.p.a.a(13).a(false);
+    }
+
+    public final void a(String string, String string2, int n2, int n3) {
+        this.p.a("/data/ui/dialog.ui", 257, this);
+        a.e.a(string2, a.a.o(), this.p.a.a(14).e(), a.a.m(), true, (byte)-1, this.o.c.b);
+        a.e.d(this.p.a.a(14).f());
+        this.p.a.a((int)14).i().a = a.e.e(1);
+        game.l.D = (byte)n2;
+        game.l.C = (byte)n3;
+        this.p.a.a(8).a(false);
+        this.p.a.a(11).a(false);
+        this.p.a.a(12).a(true);
+        this.p.a.a(13).a(true);
+        if (n2 == -1) {
+            this.p.a.a(12).a(false);
+            this.p.a.a(13).a(false);
+        }
+        switch (n2) {
+            case 0: {
+                if (n3 != -1) {
+                    if (this.p.a.a((int)11).i().m == null) {
+                        this.p.a.a((int)11).i().m = new c.g();
+                        this.p.a.a((int)11).i().m.a = (byte)3;
+                        this.p.a.a((int)11).i().m.a(0);
+                        this.p.a.a((int)11).i().m.a(323, false, (byte)-2);
+                    }
+                    this.p.a.a(11).a(true);
+                    this.p.a.a((int)11).i().m.a((byte)(n2 + (n3 << 1)), (byte)-2);
+                }
+                this.p.a.a(13).a(false);
+                this.p.a.a((int)12).i().a = string;
+                return;
+            }
+            case 1: {
+                if (n3 != -1) {
+                    if (this.p.a.a((int)8).i().m == null) {
+                        this.p.a.a((int)8).i().m = new c.g();
+                        this.p.a.a((int)8).i().m.a = (byte)3;
+                        this.p.a.a((int)8).i().m.a(0);
+                        this.p.a.a((int)8).i().m.a(323, false, (byte)-2);
+                    }
+                    this.p.a.a(8).a(true);
+                    this.p.a.a((int)8).i().m.a((byte)(n2 + (n3 << 1)), (byte)-2);
+                }
+                this.p.a.a(12).a(false);
+                this.p.a.a((int)13).i().a = string;
+            }
+        }
+    }
+
+    public final void b(int n2) {
+        this.p.a.a((int)14).i().a = a.e.e(n2);
+    }
+
+    public final void aF() {
+        this.p.a("/data/ui/dialog.ui");
+    }
+
+    public final boolean d(int n2, int n3) {
+        if (n3 == -1) {
+            return true;
+        }
+        switch (n2) {
+            case 0: {
+                if (!this.p.a.a((int)11).i().m.a().f()) break;
+                return true;
+            }
+            case 1: {
+                if (!this.p.a.a((int)8).i().m.a().f()) break;
+                return true;
+            }
+        }
+        this.g = true;
+        return false;
+    }
+
+    public final void a(int n2, int n3, String[] stringArray, String string) {
+        this.b = 0;
+        this.p.a(this.M[n2], 257, this);
+        ((c.b)this.p.a.a((int)0)).a.a = n3;
+        switch (n2) {
+            case 0: {
+                for (n2 = 0; n2 < stringArray.length; ++n2) {
+                    this.p.a.a((int)(n2 + 12)).i().a = stringArray[n2];
+                }
+                return;
+            }
+            case 1: {
+                this.p.a.a((int)5).i().a = string;
+                for (n2 = 0; n2 < stringArray.length; ++n2) {
+                    this.p.a.a((int)(9 + (n2 << 2))).i().a = stringArray[n2];
+                }
+                return;
+            }
+            case 2: {
+                this.p.a.a(10).a(false);
+                this.p.a.a((int)8).i().a = "Tr\u00f2 ch\u01a1i";
+                this.p.a.a((int)9).i().a = "X\u00e1c nh\u1eadn";
+                for (n2 = 0; n2 < stringArray.length; ++n2) {
+                    this.p.a.a((int)(n2 + 5)).i().a = stringArray[n2];
+                }
+                break;
+            }
+        }
+    }
+
+    public final int c(int n2) {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.b = this.y[0];
+        } else if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.b = this.y[0];
+        } else if (this.o.g(196640)) {
+            int n3 = n2;
+            k k2 = this;
+            k2.p.a(k2.M[n3]);
+            return this.b;
+        }
+        return -1;
+    }
+
+    public final void a(int[] nArray, int[] nArray2, String[] stringArray, String[] stringArray2) {
+        int n2;
+        this.b = 0;
+        this.p.a("/data/ui/taskOption.ui", 257, this);
+        for (n2 = 0; n2 < stringArray2.length; ++n2) {
+            this.p.a.a((int)(n2 + 17)).i().a = stringArray2[n2];
+        }
+        block10: for (n2 = 0; n2 < nArray.length; ++n2) {
+            if (this.p.a.a((int)((n2 << 1) + 13)).i().m == null) {
+                this.p.a.a((int)((n2 << 1) + 13)).i().m = new c.g();
+                this.p.a.a((int)((n2 << 1) + 13)).i().m.a = (byte)2;
+                if (nArray[n2] < 3 || nArray[n2] >= 5) {
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(0);
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(258, false, (byte)0);
+                } else {
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(-1);
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(257, false, (byte)0);
+                }
+            }
+            switch (nArray[n2]) {
+                case 0: {
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(a.b.c.c[4][nArray2[n2]][1]);
+                    this.p.a.a((int)((n2 << 1) + 14)).i().a = stringArray[n2];
+                    continue block10;
+                }
+                case 1: {
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(a.b.c.c[3][nArray2[n2]][1]);
+                    this.p.a.a((int)((n2 << 1) + 14)).i().a = stringArray[n2];
+                    continue block10;
+                }
+                case 2: {
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(a.b.c.c[5][nArray2[n2]][1]);
+                    this.p.a.a((int)((n2 << 1) + 14)).i().a = stringArray[n2];
+                    continue block10;
+                }
+                case 3: {
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(84);
+                    this.p.a.a((int)((n2 << 1) + 14)).i().a = stringArray[n2];
+                    continue block10;
+                }
+                case 4: {
+                    this.p.a.a((int)((n2 << 1) + 13)).i().m.a(83);
+                    this.p.a.a((int)((n2 << 1) + 14)).i().a = stringArray[n2];
+                    continue block10;
+                }
+                case 5: {
+                    continue block10;
+                }
+                case 6: {
+                    this.p.a.a((int)21).i().a = "#2" + a.a.c(a.b.c.a((byte)0, (short)nArray2[n2], (byte)0)) + " #0" + stringArray[n2];
+                }
+            }
+        }
+    }
+
+    public final int aG() {
+        if (this.o.g(4100)) {
+            this.p.a.b(0);
+            this.b = this.y[0];
+        } else if (this.o.g(8448)) {
+            this.p.a.b(1);
+            this.b = this.y[0];
+        } else {
+            if (this.o.g(196640)) {
+                this.p.a("/data/ui/taskOption.ui");
+                return this.b;
+            }
+            if (this.o.g(262144)) {
+                this.p.a("/data/ui/taskOption.ui");
+                return 1;
+            }
+        }
+        return -1;
+    }
+
+    public final void aH() {
+        this.bE();
+        this.c("C\u00f3 d\u00f9ng 10000 kim ti\u1ec1n \u0111\u1ec3 kh\u00f4i ph\u1ee5c tr\u1ea1ng th\u00e1i c\u1ee7a t\u1ea5t c\u1ea3 s\u1ee7ng v\u1eadt trong ba l\u00f4 kh\u00f4ng?", "T\u1ea1i ch\u1ed7 s\u1ed1ng l\u1ea1i");
+    }
+
+    private void bD() {
+        int n2;
+        int n3 = -1;
+        if (game.l.B().p == 9) {
+            n3 = (byte)game.l.B().q;
+        }
+        if (n3 == -1) {
+            game.l.B();
+            if (game.l.G()) {
+                game.l.B().c();
+                this.q.z = false;
+                game.f.B().a((byte)9);
+                return;
+            }
+            game.f.B().a((byte)7);
+            return;
+        }
+        for (n2 = 0; n2 < this.q.B; ++n2) {
+            this.q.A[n2].l(1);
+            this.q.A[n2].u(1);
+            this.q.A[n2].c();
+        }
+        game.l.E = (short)-1;
+        if (game.l.B().q == 0) {
+            short[] sArray = new short[]{15, 194, 433, 16, 142, 357, 17, 97, 268, 18, 183, 224};
+            for (int i2 = 0; i2 < game.l.B().n.length; ++i2) {
+                for (int i3 = 0; i3 < sArray.length / 3; ++i3) {
+                    if (game.l.B().n[i2].J != sArray[i3 * 3]) continue;
+                    game.l.B().n[i2].b(sArray[i3 * 3 + 1], (int)sArray[i3 * 3 + 2]);
+                }
+            }
+        }
+        game.l.B().p = this.m[n3 << 2];
+        game.l.B().q = this.m[(n3 << 2) + 1];
+        game.j.p().b(this.m[(n3 << 2) + 2], (int)this.m[(n3 << 2) + 3]);
+        game.j.p().b.b(this.m[(n3 << 2) + 2], (int)this.m[(n3 << 2) + 3]);
+        n2 = 2;
+        j j2 = game.j.p();
+        game.j.p().o = (byte)n2;
+        game.f.B().a((byte)10);
+    }
+
+    public final void aI() {
+        if (this.o.g(196640)) {
+            if (this.f == 0) {
+                if (this.q.u(10000)) {
+                    this.q.s(-10000);
+                    for (int i2 = 0; i2 < this.q.B; ++i2) {
+                        this.q.A[i2].J();
+                        int n2 = 1;
+                        i i3 = this.q.A[i2];
+                        this.q.A[i2].u(i3.e[n2]);
+                    }
+                    game.a.B().C();
+                    this.o.a((byte)0);
+                    this.bF();
+                    return;
+                }
+                this.H();
+                this.a("Kim ti\u1ec1n ch\u01b0a \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                this.f = 1;
+                return;
+            }
+            for (int i4 = 0; i4 < this.q.B; ++i4) {
+                this.q.A[i4].l(1);
+                this.q.A[i4].u(1);
+                this.q.A[i4].c();
+            }
+            if (a.a.i) {
+                this.o.a((byte)102);
+            } else {
+                this.bD();
+            }
+            this.I();
+            return;
+        }
+        if (this.f == 0 && this.o.g(786432)) {
+            this.bD();
+            this.bF();
+        }
+    }
+
+    public final void d(int n2) {
+        this.o.b((byte)0);
+        this.o.c((byte)0);
+        this.bE();
+        Object object = new int[]{4, 1, 4};
+        object = a.a.c(599) + a.a.a(604, object);
+        this.c((String)object, "K\u00edch ho\u1ea1t tr\u00f2 ch\u01a1i");
+    }
+
+    public final void aJ() {
+        this.o.b((byte)1);
+        this.o.c((byte)0);
+        this.bE();
+        Object object = new int[]{2, 1, 2};
+        object = a.a.c(600) + a.a.a(604, object);
+        this.c((String)object, "Mua s\u1eafm t\u1ea5t tr\u00fang c\u1ea7u");
+    }
+
+    public final void aK() {
+        this.f = 0;
+        this.o.b((byte)4);
+        this.o.c((byte)0);
+        this.bE();
+        Object object = new int[]{2, 1, 2};
+        object = a.a.c(603) + a.a.a(604, object);
+        this.c((String)object, "Mua huy hi\u1ec7u");
+    }
+
+    public final void aL() {
+        this.f = 0;
+        this.o.b((byte)2);
+        this.o.c((byte)0);
+        this.bE();
+        Object object = new int[]{2, 1, 2};
+        object = a.a.c(601) + a.a.a(604, object);
+        this.c((String)object, "Mua kim ti\u1ec1n");
+    }
+
+    private void bE() {
+        this.p.a("/data/ui/smsInfo.ui", 257, this);
+        if (this.o instanceof l) {
+            this.p.a.a(6).a(true);
+            this.p.a.a(7).a(true);
+            this.p.a.a(10).a(false);
+            this.p.a.a(11).a(false);
+            return;
+        }
+        this.p.a.a(6).a(false);
+        this.p.a.a(7).a(false);
+        this.p.a.a(10).a(true);
+        this.p.a.a(11).a(true);
+        this.p.a.a((int)10).i().a = "X\u00e1c nh\u1eadn";
+        this.p.a.a((int)11).i().a = "Quay l\u1ea1i";
+    }
+
+    private void c(String string, String string2) {
+        this.p.a.a((int)8).i().a = string;
+        this.p.a.a((int)5).i().a = string2;
+    }
+
+    private void bF() {
+        this.p.a("/data/ui/smsInfo.ui");
+    }
+
+    public final void aM() {
+        if (!this.p.c("/data/ui/smsTip.ui")) {
+            this.p.a("/data/ui/smsTip.ui", 257, this);
+        }
+        for (int i2 = 0; i2 < 3; ++i2) {
+            this.p.a.a(i2 + 6).a(false);
+        }
+        this.g = true;
+    }
+
+    public final void d(String string) {
+        this.g = true;
+        this.p.a.a((int)5).i().a = string;
+    }
+
+    public final void aN() {
+        this.p.a("/data/ui/smsTip.ui");
+    }
+
+    public final void aO() {
+        switch (this.o.x()) {
+            case 0: {
+                if (this.o.g(16400) || this.o.g(32832)) break;
+                if (this.o.g(131072)) {
+                    if (this.o.y() > 1) {
+                        this.o.c((byte)1);
+                        return;
+                    }
+                    this.o.e(1);
+                    return;
+                }
+                if (!this.o.g(786432)) break;
+                this.bF();
+                this.o.c((byte)5);
+                this.o.a(this.o.b);
+                return;
+            }
+            case 1: {
+                if (this.o.g(131072)) {
+                    this.o.f(1);
+                    return;
+                }
+                if (!this.o.g(262144)) break;
+                this.o.f(2);
+                return;
+            }
+            case 2: {
+                boolean bl = false;
+                if (this.o.a == 100) {
+                    if (this.w >= this.N.length && this.aA()) {
+                        bl = true;
+                    } else if (this.aA()) {
+                        this.b(this.N[this.w]);
+                        ++this.w;
+                    }
+                    this.f();
+                } else {
+                    bl = true;
+                }
+                if (!bl || !this.bC() || !this.o.g(917504)) break;
+                this.w = 0;
+                if (this.o.w()) {
+                    this.bF();
+                    this.aN();
+                    this.o.a(this.o.b);
+                } else {
+                    this.o.c((byte)5);
+                }
+                this.f = 0;
+                return;
+            }
+            case 3: {
+                if (!this.o.g(393216)) break;
+                this.o.f(1);
+            }
+        }
+    }
+
+    public final void a(byte by, int n2, int n3) {
+        this.c = 0;
+        this.Q = by;
+        this.R = (byte)n2;
+        switch (n2) {
+            case 0: {
+                this.p.a("/data/ui/wharf1.ui", 257, this);
+                this.p.a.a((int)8).i().a = a.a.c(n3);
+                for (n2 = 0; n2 < this.O[by].length; ++n2) {
+                    this.p.a.a((int)(n2 + 5)).i().a = a.a.c(this.O[by][n2]);
+                }
+                break;
+            }
+            case 1: {
+                this.p.a("/data/ui/wharf2.ui", 257, this);
+                this.p.a.a((int)10).i().a = a.a.c(n3);
+                for (n2 = 0; n2 < this.O[by].length; ++n2) {
+                    this.p.a.a((int)(n2 + 5)).i().a = a.a.c(this.O[by][n2]);
+                }
+                break;
+            }
+        }
+        this.p.a.a((int)(5 + this.O[by].length)).i().a = "Kh\u00f4ng ra h\u00e0ng";
+    }
+
+    public final void aP() {
+        if (this.o.g(4100) && !this.j()) {
+            this.p.a.b(0);
+        } else if (this.o.g(8448) && !this.j()) {
+            this.p.a.b(1);
+        } else if (this.o.g(196640) && !this.j()) {
+            if (this.c == this.P[this.Q].length / 9) {
+                switch (this.R) {
+                    case 0: {
+                        this.p.a("/data/ui/wharf1.ui");
+                        break;
+                    }
+                    case 1: {
+                        this.p.a("/data/ui/wharf2.ui");
+                    }
+                }
+                if (game.l.E != -1 && game.l.B().n[game.l.E].v() == 0) {
+                    game.l.B().a((byte)13, game.l.B().n[game.l.E].j, game.l.B().n[game.l.E].k - 40, game.l.B().n[game.l.E]);
+                }
+                this.o.a((byte)0);
+            } else if (game.l.B().Z.n[game.l.e(this.P[this.Q][this.c * 9 + 6], this.P[this.Q][this.c * 9 + 7])] != null && game.l.B().Z.n[game.l.e(this.P[this.Q][this.c * 9 + 6], this.P[this.Q][this.c * 9 + 7])][this.P[this.Q][this.c * 9 + 8]] == 3) {
+                game.l.B().p = this.P[this.Q][this.c * 9];
+                game.l.B().q = this.P[this.Q][this.c * 9 + 1];
+                game.l.B().r = this.P[this.Q][this.c * 9 + 2];
+                game.l.B().s = this.P[this.Q][this.c * 9 + 3];
+                game.l.G = (byte)this.P[this.Q][this.c * 9 + 4];
+                game.l.B().t = -1;
+                game.b.B().d((byte)this.P[this.Q][this.c * 9 + 5]);
+                this.o.a((byte)29);
+                switch (this.R) {
+                    case 0: {
+                        this.p.a("/data/ui/wharf1.ui");
+                        break;
+                    }
+                    case 1: {
+                        this.p.a("/data/ui/wharf2.ui");
+                    }
+                }
+            } else {
+                this.b("\u0110\u01b0\u1eddng th\u1ee7y ch\u01b0a m\u1edf");
+            }
+        } else if (this.o.g(262144) && !this.j()) {
+            if (game.l.E != -1 && game.l.B().n[game.l.E].v() == 0) {
+                game.l.B().a((byte)13, game.l.B().n[game.l.E].j, game.l.B().n[game.l.E].k - 40, game.l.B().n[game.l.E]);
+            }
+            switch (this.R) {
+                case 0: {
+                    this.p.a("/data/ui/wharf1.ui");
+                    break;
+                }
+                case 1: {
+                    this.p.a("/data/ui/wharf2.ui");
+                }
+            }
+            this.o.a((byte)0);
+        }
+        this.f();
+    }
+
+    public final void aQ() {
+        this.b = 0;
+        this.p.a("/data/ui/shopbuy.ui", 257, this);
+        this.b = 0;
+        this.f = 0;
+        ((c.b)this.p.a.a((int)0)).a.a = 1;
+        ((c.b)this.p.a.a((int)0)).a.a(0);
+        this.p.a.a(41).a(false);
+        this.p.a.a(43).a(false);
+        this.p.a.a((int)5).i().a = "Mua";
+        this.p.a.a(57).a(true);
+        this.p.a.a(58).a(true);
+        this.p.a.a((int)57).i().a = "Mua s\u1eafm";
+        this.p.a.a((int)58).i().a = "Quay l\u1ea1i";
+        this.p.a.a(39).a(false);
+        this.p.a.a(40).a(false);
+        k k2 = this;
+        this.v = ((c.b)k2.p.a.a((int)0)).a.e;
+        k2.h = ((c.b)k2.p.a.a((int)0)).a.f;
+        if (k2.p.a.a((int)51).i().m == null) {
+            k2.p.a.a((int)51).i().m = new c.g();
+            k2.p.a.a((int)51).i().m.a(0);
+            k2.p.a.a((int)51).i().m.a = (byte)2;
+            k2.p.a.a((int)51).i().m.a(258, false, (byte)-1);
+        }
+        k2.p.a.a((int)51).i().m.a(a.b.c.c[5][0][1]);
+        k2.p.a.a((int)14).i().a = a.a.c(a.b.c.c[5][0][0]);
+        k2.p.a.a((int)15).i().a = "5000";
+        k2.p.a.a((int)45).i().m.a(84);
+        k2.p.a.a((int)56).i().a = "\u1ea4p tr\u1ee9ng ra s\u1ee7ng v\u1eadt";
+        k2.p.a.a((int)44).i().a = "" + k2.q.F();
+        k2.p.a.a(38).b(102 + k2.h * 84 / a.b.c.c[5].length, k2.p.a.a());
+    }
+
+    private void bG() {
+        this.p.a("/data/ui/shopbuy.ui");
+    }
+
+    public final int aR() {
+        if (this.o.g(196640)) {
+            if (this.f == 0) {
+                if (this.q.u(5000)) {
+                    if (this.q.l(0)) {
+                        this.H();
+                        this.a("\u0110\u00e3 c\u00f3 tr\u01b0\u0301ng su\u0309ng v\u00e2\u0323t, kh\u00f4ng c\u1ea7n mua s\u1eafm", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        this.f = 2;
+                    } else {
+                        this.q.e(0, -1);
+                        this.H();
+                        this.a("\u0110\u00e3 th\u00e0nh c\u00f4ng mua s\u1eafm #2 tr\u01b0\u0301ng su\u0309ng v\u00e2\u0323t", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        this.f = 2;
+                    }
+                } else {
+                    this.H();
+                    this.a("Kim ti\u1ec1n ch\u01b0a \u0111\u1ee7", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                    this.f = 1;
+                }
+            } else if (this.f > 0) {
+                this.I();
+                if (this.f == 1) {
+                    this.o.a((byte)102);
+                } else if (this.f == 2) {
+                    game.e.z = 0;
+                    this.bG();
+                    this.o.a((byte)0);
+                }
+            }
+        } else if (this.o.g(262144) && this.f == 0) {
+            game.e.z = 1;
+            this.bG();
+            this.o.a((byte)0);
+        }
+        return -1;
+    }
+
+    public final void aS() {
+        this.p.a("/data/ui/wharf2.ui", 257, this);
+        ((c.b)this.p.a.a((int)0)).a.f = this.d;
+        this.f = 0;
+        this.p.a.a((int)10).i().a = "Ti\u1ec7n l\u1ee3i \u0111i\u1ebfm";
+        this.p.a.a((int)12).i().a = "Ti\u1ebfn v\u00e0o";
+        for (int i2 = 0; i2 < this.S.length; ++i2) {
+            this.p.a.a((int)(i2 + 5)).i().a = this.S[i2];
+        }
+    }
+
+    public final void aT() {
+        if (this.o.g(4100) && !this.j()) {
+            this.p.a.b(0);
+            return;
+        }
+        if (this.o.g(8448) && !this.j()) {
+            this.p.a.b(1);
+            return;
+        }
+        if (this.o.g(196640) && !this.j()) {
+            if (this.f == 0) {
+                switch (this.d) {
+                    case 0: {
+                        this.p.a("/data/ui/wharf2.ui");
+                        this.o.a((byte)31);
+                        return;
+                    }
+                    case 1: 
+                    case 2: {
+                        game.l.B();
+                        if (game.l.U) {
+                            this.p.a("/data/ui/wharf2.ui");
+                            this.c = 0;
+                            this.o.a((byte)7);
+                            return;
+                        }
+                        this.H();
+                        this.f = 1;
+                        this.a("C\u00f4ng n\u0103ng theo \u0111\u1ea1o h\u1ecdc sau m\u1edf ra", "Nh\u1ea5n n\u00fat 5 ti\u1ebfp t\u1ee5c");
+                        return;
+                    }
+                    case 3: {
+                        this.p.a("/data/ui/wharf2.ui");
+                        this.o.a((byte)32);
+                        return;
+                    }
+                    case 4: {
+                        this.p.a("/data/ui/wharf2.ui");
+                        this.o.a((byte)0);
+                    }
+                }
+                return;
+            }
+            this.f = 0;
+            this.I();
+            this.g = true;
+            return;
+        }
+        if (this.o.g(262144) && this.f == 0 && !this.j()) {
+            this.p.a("/data/ui/wharf2.ui");
+            this.o.a((byte)0);
+        }
+    }
+
+    /*
+     * Enabled force condition propagation
+     * Lifted jumps to return sites
+     */
+    public final void a(int[] nArray, int[] object) {
+        this.y = nArray;
+        if (this.o instanceof l) {
+            switch (((l)this.o).a) {
+                case 0: {
+                    return;
+                }
+                case 1: {
+                    int[] nArray2 = nArray;
+                    object = this;
+                    this.b = nArray2[0];
+                    return;
+                }
+                case 2: 
+                case 26: 
+                case 32: {
+                    this.c(nArray);
+                    return;
+                }
+                case 3: {
+                    int[] nArray3 = nArray;
+                    object = this;
+                    if (((k)object).f == 0) {
+                        ((k)object).b = nArray3[0];
+                        super.aZ();
+                        return;
+                    }
+                    ((k)object).r = nArray3[0];
+                    return;
+                }
+                case 4: {
+                    return;
+                }
+                case 5: {
+                    int[] nArray4 = nArray;
+                    object = this;
+                    this.b = nArray4[1];
+                    super.bv();
+                    return;
+                }
+                case 6: {
+                    int[] nArray5 = nArray;
+                    object = this;
+                    this.b = nArray5[0];
+                    if (a.a.i) {
+                        ((k)object).p.a.a((int)14).i().a = a.a.c(605 + ((k)object).b);
+                        return;
+                    }
+                    ((k)object).p.a.a((int)14).i().a = a.a.c(606 + ((k)object).b);
+                    return;
+                }
+                case 7: {
+                    this.b(nArray);
+                    return;
+                }
+                case 8: {
+                    int[] nArray6 = nArray;
+                    object = this;
+                    if (nArray6[0] >= 0) {
+                        ((k)object).c = nArray6[0];
+                    }
+                    if (nArray6[1] >= 0) {
+                        ((k)object).b = nArray6[1];
+                    }
+                    super.br();
+                    return;
+                }
+                case 9: {
+                    int[] nArray7 = nArray;
+                    object = this;
+                    this.c = nArray7[1];
+                    return;
+                }
+                case 10: {
+                    int[] nArray8 = nArray;
+                    object = this;
+                    this.b = nArray8[1];
+                    switch (((k)object).b) {
+                        case 0: {
+                            ((k)object).c = nArray8[0];
+                            return;
+                        }
+                        case 1: {
+                            ((k)object).r = nArray8[0];
+                        }
+                        default: {
+                            return;
+                        }
+                    }
+                }
+                case 11: {
+                    int[] nArray9 = nArray;
+                    object = this;
+                    this.c = nArray9[0];
+                    ((k)object).b = nArray9[1];
+                    return;
+                }
+                case 12: {
+                    int[] nArray10 = nArray;
+                    object = this;
+                    this.b = nArray10[1];
+                    return;
+                }
+                case 13: {
+                    if (this.f == 0) {
+                        this.b = nArray[0];
+                        return;
+                    }
+                    this.c = nArray[0];
+                    return;
+                }
+                case 14: {
+                    int[] nArray11 = nArray;
+                    object = this;
+                    this.c = nArray11[0];
+                    return;
+                }
+                case 15: {
+                    int[] nArray12 = nArray;
+                    object = this;
+                    this.c = nArray12[0];
+                    return;
+                }
+                case 16: {
+                    int[] nArray13 = nArray;
+                    object = this;
+                    this.b = nArray13[0];
+                    return;
+                }
+                case 17: 
+                case 18: 
+                case 19: {
+                    int[] nArray14 = nArray;
+                    object = this;
+                    this.c = nArray14[0];
+                    return;
+                }
+                case 20: {
+                    this.c = nArray[1];
+                    return;
+                }
+                case 24: {
+                    int[] nArray15 = nArray;
+                    object = this;
+                    this.c = nArray15[0];
+                    return;
+                }
+                case 28: {
+                    int[] nArray16 = nArray;
+                    object = this;
+                    this.c = nArray16[0];
+                    return;
+                }
+                case 27: {
+                    this.d = nArray[0];
+                }
+                default: {
+                    return;
+                }
+            }
+        }
+        if (!(this.o instanceof a)) return;
+        switch (((a)this.o).a) {
+            case 2: {
+                return;
+            }
+            case 3: {
+                int[] nArray17 = nArray;
+                object = this;
+                this.e = nArray17[0];
+                return;
+            }
+            case 4: {
+                int[] nArray18 = nArray;
+                object = this;
+                this.b = nArray18[0];
+                super.bi();
+                return;
+            }
+            case 5: {
+                this.b(nArray);
+                return;
+            }
+            case 6: {
+                return;
+            }
+            case 7: {
+                return;
+            }
+            case 8: {
+                return;
+            }
+            case 9: {
+                return;
+            }
+            case 10: {
+                return;
+            }
+            case 11: {
+                this.c(nArray);
+                return;
+            }
+            case 12: {
+                return;
+            }
+            case 13: {
+                return;
+            }
+            case 14: {
+                return;
+            }
+            case 15: {
+                return;
+            }
+            case 16: {
+                int[] nArray19 = nArray;
+                object = this;
+                this.c = nArray19[0];
+                super.g(((k)object).c);
+                return;
+            }
+            case 17: {
+                return;
+            }
+            case 18: {
+                return;
+            }
+            case 19: {
+                return;
+            }
+            case 20: {
+                int[] nArray20 = nArray;
+                object = this;
+                this.a = nArray20[1];
+                ((k)object).p.a.a(20 + ((k)object).a).a(true);
+                return;
+            }
+            case 21: {
+                int[] nArray21 = nArray;
+                object = this;
+                this.b = nArray21[0];
+            }
+            case 23: {
+                int[] nArray21 = nArray;
+                object = this;
+                this.b = nArray21[0];
+            }
+        }
+    }
+
+    private void b(int[] nArray) {
+        if (this.f == 0) {
+            this.b = nArray[0];
+            this.g(this.b);
+            return;
+        }
+        if (this.f == 1) {
+            this.c = nArray[0];
+            return;
+        }
+        if (this.f == 2) {
+            this.r = nArray[0];
+            switch (this.c) {
+                case 0: {
+                    this.bi();
+                }
+            }
+        }
+    }
+
+    private void c(int[] nArray) {
+        if (this.f == 0) {
+            this.b = nArray[0];
+            return;
+        }
+        this.r = nArray[0];
+    }
+
+    static {
+        z = new String[]{"Th\u1ee7y Kimura", "B\u00edch Th\u1ee7y th\u00e0nh", "Nguy\u00ean M\u1ed9c Th\u00e0nh", "Ni\u00eam Th\u1ed5 Th\u00e0nh", "H\u1eafc Th\u1ea1ch th\u00e0nh", "Thi\u00ean kh\u00f4ng", "Xa c\u1ed5"};
+        A = new short[]{1, 0, 196, 208, 0, 2, 1, 196, 208, 0, 3, 3, 196, 208, 0, 4, 5, 320, 352, 0, 5, 3, 320, 196, 0, 7, 2, 288, 112, 0, 8, 0, 160, 144, 0};
     }
 }
 

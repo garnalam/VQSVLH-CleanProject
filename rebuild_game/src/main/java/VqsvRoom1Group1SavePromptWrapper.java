@@ -17,14 +17,15 @@ final class VqsvRoom1Group1SavePromptWrapper implements Blocking {
             s.sourceStateTrace.add("PORTED/PARTIAL room1 group1 save wrapper op46 "
                     + VqsvText.Common.SAVE_PROMPT);
         }
-        if (!completed && s.key0 && s.savePromptSelected == 0) {
-            completeGroup(s, "op46 save-before-game.k.k");
+        boolean done = prompt.tick(s);
+        if (!completed && prompt.savedSuccessfully()) {
+            completeGroup(s, "op46 f=1 save-success-before-success-text");
         }
-        if (!prompt.tick(s)) {
+        if (!done) {
             return false;
         }
         if (!completed) {
-            completeGroup(s, "op14");
+            completeGroup(s, prompt.cancelled() ? "op46 cancel then op14" : "op14");
         }
         return true;
     }

@@ -1,0 +1,6430 @@
+{
+  "format": "event_scene",
+  "scene_id": 8,
+  "block_count": 7,
+  "block_sizes": [
+    7357,
+    377,
+    740,
+    554,
+    483,
+    815,
+    10662
+  ],
+  "rooms": [
+    {
+      "room_index": 0,
+      "block_size": 7357,
+      "room_start": 16,
+      "room_name": "Thôn Tachi",
+      "string_pool_count": 87,
+      "string_pool": [
+        "Yajin",
+        "Đứng lại, kẻ xâm nhập kia!!",
+        "Neil",
+        "Không không, ta chỉ đi ngang qua ... nhưng đúng là người bình thường sẽ không đi ngang qua ...",
+        "Yajin",
+        "Ngươi là ai?!",
+        "Neil",
+        "(xem ra chỉ có thể tuy cơ ứng phó ...)",
+        "Neil",
+        "Ta là ... sứ giả của các vị thần.",
+        "Yajin",
+        "Các vị thần cuối cùng đã chịu giúp đỡ ta sao?",
+        "Neil",
+        "Hả?",
+        "Yajin trong lòng đầy xúc động chỉ về phía tây.",
+        "Yajin",
+        "Nơi đó có loài dã thú hung mãnh, chuyên tập kích người, xin các vị thần hãy giúp chúng ta!",
+        "x3",
+        "",
+        "13,16",
+        "Tiếp nhận, từ chối",
+        "Yajin",
+        "Chúng ta sẽ cảm tạ ngài lắm lắm!",
+        "Nhiệm vụ phụ đã cập nhật, vui lòng ấn nút 1 để tra xét nhiệm vụ.",
+        "Yajin",
+        "Thần muốn vứt bỏ chúng ta sao?!",
+        "Yajin",
+        "Quả nhiên là sứ giả của các vị thần, dũng sĩ chân chính! Những vật này xin dâng lên ngài.",
+        "Kay",
+        "Đây là thứ ta mang về từ vực sâu của khu rừng mưa. Thần cho chúng ta sáng tạo Rồng, lại không nói cho chúng ta biết làm sao để thức tỉnh nó.",
+        "Neil",
+        "Rồng? Chẳng lẽ là một trong 4 sủng vật cưỡi?!",
+        "Hỏa Phượng Hoàng",
+        "Ta nhớ ra rồi, Hắc Long đại nhân từng nói đến Nham Sơn Long, tính tình của nó quả thực không khác Hắc Long đại nhân.",
+        "Neil",
+        "Liệt Hỏa, ngươi ... linh vị Tucao?",
+        "Hỏa Phượng Hoàng",
+        "Tucao? Ta chỉ nói thật. Cưỡi Rồng dù gặp chướng ngại vật cũng không cần dừng lại.",
+        "Neil",
+        "Làm thế nào để thức tỉnh được nó?",
+        "Kay",
+        "Nghe nói cần 20 phần chocolate, nhưng chúng ta chưa thấy qua bao giờ.",
+        "Neil",
+        "(Hắn muốn ta giúp hắn sao?)",
+        "x1",
+        "",
+        "11,14",
+        "Tiếp nhận, từ chối",
+        "Kay",
+        "Chúng ta đã tập hợp đông đủ chờ ngài!",
+        "Nhiệm vụ phụ đã cập nhật, vui lòng ấn nút 1 để tra xét nhiệm vụ.",
+        "Kay",
+        "Thần đã vứt bỏ chúng ta sao?!",
+        "Nham Sơn Long nhìn thấy chocolate liền lập tức nuốt toàn bộ.",
+        "Neil",
+        "Tốt thật.",
+        "Kay",
+        "Quá thần kỳ! Quả nhiên chỉ có thần mới có thể làm được!",
+        "Neil",
+        "Không. Kỳ thật thế giới này tất cả động vật đều có thể trở thành bằng hữu của loài người, chỉ là phải biết được chúng yêu thích những gì...",
+        "Neil đem những kiến thức mình đã biết về sủng vật dạy cho mọi người.",
+        "Honey",
+        "Ngài nhất định là do thần phái tới trợ giúp chúng ta thoát ly khỏi cực khổ lại còn truyền thụ tri thức, chúng tôi sẽ mãi tôn vinh công đức của ngài, Kỵ sĩ rồng đầu tiên của đại lục!",
+        "Neil",
+        "Thôi không cần đâu.",
+        "Honey",
+        "Chúng thôi sẽ dùng đá khắc hình tượng ngài. Từ nay về sau bộ lạc ai ai cũng biết đến công đức của ngài",
+        "Neil",
+        "Tạc tượng sao?",
+        "Neil",
+        "Từ từ đã! Nói như vậy! Hiện tại trên đại lục khắp nơi đều có không minh điêu khắc chẳng lẽ chính là ... ...!",
+        "Kay",
+        "Sứ giả của các vị thần, Kỵ sĩ rồng đầu tiên đã đến đây!",
+        "Honey",
+        "Sứ giả của các vị thần, Kỵ sĩ rồng đầu tiên đã đến đây!",
+        "Tìm được dây cương rồng.",
+        "Tomas",
+        "Thiên Địa vạn vật từ lúc hình thành đã mang hình thái tươi đẹp thế này.",
+        "Đến [Nguyên Thủy Đích Ngự Toa] tìm được Sophie và Silia.",
+        "Hiện tại có thể tự do di chuyển.",
+        "Tomas",
+        "Trời và đất vỗn dĩ chia không gian thành hai cực. Không gian thánh thú tụ hội mở cánh cửa Thời Gian Thiên Khải Chi Môn. Lẽ nào phải về Thiên Địa Chi Sơ sao?",
+        "Đúng vậy, tạm thời chưa thể đi",
+        "4,9",
+        "",
+        "Tomas",
+        "Ừ."
+      ],
+      "unknown_ab": 14,
+      "unknown_skip": 0,
+      "actor_count": 35,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            119,
+            321,
+            1,
+            1,
+            2,
+            8,
+            1,
+            0
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            0,
+            161,
+            20,
+            1,
+            1,
+            0,
+            8,
+            5,
+            0
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            2,
+            10,
+            178,
+            1,
+            1,
+            1,
+            8,
+            3,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            10,
+            248,
+            197,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            319,
+            0,
+            440,
+            129,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            293,
+            1,
+            353,
+            253,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            303,
+            0,
+            593,
+            157,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            303,
+            0,
+            353,
+            255,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            231,
+            3,
+            248,
+            27,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            231,
+            18,
+            270,
+            47,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            231,
+            3,
+            249,
+            61,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            290,
+            1,
+            237,
+            121,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            12,
+            58,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            2,
+            -8,
+            104,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            9,
+            249,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            1,
+            42,
+            296,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            215,
+            264,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            15,
+            267,
+            319,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            199,
+            296,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            14,
+            610,
+            304,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            6,
+            566,
+            319,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            364,
+            37,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            293,
+            0,
+            440,
+            141,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            296,
+            53,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            615,
+            88,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            293,
+            1,
+            593,
+            159,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            57,
+            0,
+            71,
+            82,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            79,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            58,
+            0,
+            295,
+            106,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            80,
+            1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            58,
+            0,
+            406,
+            159,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            78,
+            2
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            56,
+            1,
+            274,
+            129,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            3
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            58,
+            0,
+            530,
+            123,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            77,
+            4
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            56,
+            2,
+            60,
+            240,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            5
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            57,
+            2,
+            357,
+            280,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            6
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            42,
+            0,
+            104,
+            161,
+            1,
+            1,
+            1,
+            7,
+            0,
+            0,
+            0,
+            7
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            127,
+            0,
+            343,
+            127,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Yajin",
+        "Kay",
+        "Keynes",
+        "Honey",
+        "Maik",
+        "Tamara",
+        "Parker",
+        "Tomas"
+      ],
+      "event_group_count": 7,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 8,
+          "room_index": 0,
+          "world_key": 2048,
+          "record_count": 17,
+          "records": [
+            {
+              "opcode": 43,
+              "total_arg_count": 11,
+              "short_args": [
+                28,
+                1,
+                8,
+                0,
+                26,
+                0,
+                0,
+                -1,
+                -1,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Yajin"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Đứng lại, kẻ xâm nhập kia!!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 3,
+                  "text": "Không không, ta chỉ đi ngang qua ... nhưng đúng là người bình thường sẽ không đi ngang qua ..."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 4,
+                  "text": "Yajin"
+                },
+                {
+                  "string_index": 5,
+                  "text": "Ngươi là ai?!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 6,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 7,
+                  "text": "(xem ra chỉ có thể tuy cơ ứng phó ...)"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 8,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 9,
+                  "text": "Ta là ... sứ giả của các vị thần."
+                }
+              ]
+            },
+            {
+              "opcode": 5,
+              "total_arg_count": 5,
+              "short_args": [
+                1,
+                26,
+                7,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 10,
+                  "text": "Yajin"
+                },
+                {
+                  "string_index": 11,
+                  "text": "Các vị thần cuối cùng đã chịu giúp đỡ ta sao?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 12,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 13,
+                  "text": "Hả?"
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 14,
+                  "text": "Yajin trong lòng đầy xúc động chỉ về phía tây."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 15,
+                  "text": "Yajin"
+                },
+                {
+                  "string_index": 16,
+                  "text": "Nơi đó có loài dã thú hung mãnh, chuyên tập kích người, xin các vị thần hãy giúp chúng ta!"
+                }
+              ]
+            },
+            {
+              "opcode": 49,
+              "total_arg_count": 8,
+              "short_args": [
+                0,
+                5,
+                -1,
+                -1
+              ],
+              "string_args": [
+                {
+                  "string_index": 17,
+                  "text": "x3"
+                },
+                {
+                  "string_index": 18,
+                  "text": ""
+                },
+                {
+                  "string_index": 19,
+                  "text": "13,16"
+                },
+                {
+                  "string_index": 20,
+                  "text": "Tiếp nhận, từ chối"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 21,
+                  "text": "Yajin"
+                },
+                {
+                  "string_index": 22,
+                  "text": "Chúng ta sẽ cảm tạ ngài lắm lắm!"
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 23,
+                  "text": "Nhiệm vụ phụ đã cập nhật, vui lòng ấn nút 1 để tra xét nhiệm vụ."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 24,
+                  "text": "Yajin"
+                },
+                {
+                  "string_index": 25,
+                  "text": "Thần muốn vứt bỏ chúng ta sao?!"
+                }
+              ]
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 8,
+          "room_index": 0,
+          "world_key": 2048,
+          "record_count": 4,
+          "records": [
+            {
+              "opcode": 44,
+              "total_arg_count": 12,
+              "short_args": [
+                28,
+                1,
+                8,
+                0,
+                26,
+                8,
+                4,
+                0,
+                2,
+                8,
+                4,
+                1
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 26,
+                  "text": "Yajin"
+                },
+                {
+                  "string_index": 27,
+                  "text": "Quả nhiên là sứ giả của các vị thần, dũng sĩ chân chính! Những vật này xin dâng lên ngài."
+                }
+              ]
+            },
+            {
+              "opcode": 17,
+              "total_arg_count": 3,
+              "short_args": [
+                0,
+                5,
+                3
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 8,
+          "room_index": 0,
+          "world_key": 2048,
+          "record_count": 15,
+          "records": [
+            {
+              "opcode": 43,
+              "total_arg_count": 11,
+              "short_args": [
+                29,
+                1,
+                8,
+                0,
+                27,
+                8,
+                0,
+                1,
+                1,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 28,
+                  "text": "Kay"
+                },
+                {
+                  "string_index": 29,
+                  "text": "Đây là thứ ta mang về từ vực sâu của khu rừng mưa. Thần cho chúng ta sáng tạo Rồng, lại không nói cho chúng ta biết làm sao để thức tỉnh nó."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 30,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 31,
+                  "text": "Rồng? Chẳng lẽ là một trong 4 sủng vật cưỡi?!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 32,
+                  "text": "Hỏa Phượng Hoàng"
+                },
+                {
+                  "string_index": 33,
+                  "text": "Ta nhớ ra rồi, Hắc Long đại nhân từng nói đến Nham Sơn Long, tính tình của nó quả thực không khác Hắc Long đại nhân."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 34,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 35,
+                  "text": "Liệt Hỏa, ngươi ... linh vị Tucao?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 36,
+                  "text": "Hỏa Phượng Hoàng"
+                },
+                {
+                  "string_index": 37,
+                  "text": "Tucao? Ta chỉ nói thật. Cưỡi Rồng dù gặp chướng ngại vật cũng không cần dừng lại."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 38,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 39,
+                  "text": "Làm thế nào để thức tỉnh được nó?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 40,
+                  "text": "Kay"
+                },
+                {
+                  "string_index": 41,
+                  "text": "Nghe nói cần 20 phần chocolate, nhưng chúng ta chưa thấy qua bao giờ."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 42,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 43,
+                  "text": "(Hắn muốn ta giúp hắn sao?)"
+                }
+              ]
+            },
+            {
+              "opcode": 49,
+              "total_arg_count": 8,
+              "short_args": [
+                2,
+                4,
+                -1,
+                -1
+              ],
+              "string_args": [
+                {
+                  "string_index": 44,
+                  "text": "x1"
+                },
+                {
+                  "string_index": 45,
+                  "text": ""
+                },
+                {
+                  "string_index": 46,
+                  "text": "11,14"
+                },
+                {
+                  "string_index": 47,
+                  "text": "Tiếp nhận, từ chối"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 48,
+                  "text": "Kay"
+                },
+                {
+                  "string_index": 49,
+                  "text": "Chúng ta đã tập hợp đông đủ chờ ngài!"
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 50,
+                  "text": "Nhiệm vụ phụ đã cập nhật, vui lòng ấn nút 1 để tra xét nhiệm vụ."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 51,
+                  "text": "Kay"
+                },
+                {
+                  "string_index": 52,
+                  "text": "Thần đã vứt bỏ chúng ta sao?!"
+                }
+              ]
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 3,
+          "scene_id": 8,
+          "room_index": 0,
+          "world_key": 2048,
+          "record_count": 19,
+          "records": [
+            {
+              "opcode": 44,
+              "total_arg_count": 12,
+              "short_args": [
+                29,
+                1,
+                8,
+                0,
+                27,
+                8,
+                0,
+                2,
+                3,
+                5,
+                20,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 17,
+              "total_arg_count": 3,
+              "short_args": [
+                1,
+                5,
+                20
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 53,
+                  "text": "Nham Sơn Long nhìn thấy chocolate liền lập tức nuốt toàn bộ."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 54,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 55,
+                  "text": "Tốt thật."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 56,
+                  "text": "Kay"
+                },
+                {
+                  "string_index": 57,
+                  "text": "Quá thần kỳ! Quả nhiên chỉ có thần mới có thể làm được!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 58,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 59,
+                  "text": "Không. Kỳ thật thế giới này tất cả động vật đều có thể trở thành bằng hữu của loài người, chỉ là phải biết được chúng yêu thích những gì..."
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 60,
+                  "text": "Neil đem những kiến thức mình đã biết về sủng vật dạy cho mọi người."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 61,
+                  "text": "Honey"
+                },
+                {
+                  "string_index": 62,
+                  "text": "Ngài nhất định là do thần phái tới trợ giúp chúng ta thoát ly khỏi cực khổ lại còn truyền thụ tri thức, chúng tôi sẽ mãi tôn vinh công đức của ngài, Kỵ sĩ rồng đầu tiên của đại lục!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 63,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 64,
+                  "text": "Thôi không cần đâu."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 65,
+                  "text": "Honey"
+                },
+                {
+                  "string_index": 66,
+                  "text": "Chúng thôi sẽ dùng đá khắc hình tượng ngài. Từ nay về sau bộ lạc ai ai cũng biết đến công đức của ngài"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 67,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 68,
+                  "text": "Tạc tượng sao?"
+                }
+              ]
+            },
+            {
+              "opcode": 5,
+              "total_arg_count": 5,
+              "short_args": [
+                0,
+                0,
+                13,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                15
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 69,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 70,
+                  "text": "Từ từ đã! Nói như vậy! Hiện tại trên đại lục khắp nơi đều có không minh điêu khắc chẳng lẽ chính là ... ...!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 71,
+                  "text": "Kay"
+                },
+                {
+                  "string_index": 72,
+                  "text": "Sứ giả của các vị thần, Kỵ sĩ rồng đầu tiên đã đến đây!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 73,
+                  "text": "Honey"
+                },
+                {
+                  "string_index": 74,
+                  "text": "Sứ giả của các vị thần, Kỵ sĩ rồng đầu tiên đã đến đây!"
+                }
+              ]
+            },
+            {
+              "opcode": 19,
+              "total_arg_count": 2,
+              "short_args": [
+                4,
+                1
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 75,
+                  "text": "Tìm được dây cương rồng."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 4,
+          "scene_id": 8,
+          "room_index": 0,
+          "world_key": 2048,
+          "record_count": 6,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                2,
+                6
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 76,
+                  "text": "Tomas"
+                },
+                {
+                  "string_index": 77,
+                  "text": "Thiên Địa vạn vật từ lúc hình thành đã mang hình thái tươi đẹp thế này."
+                }
+              ]
+            },
+            {
+              "opcode": 45,
+              "total_arg_count": 2,
+              "short_args": [
+                47
+              ],
+              "string_args": [
+                {
+                  "string_index": 78,
+                  "text": "Đến [Nguyên Thủy Đích Ngự Toa] tìm được Sophie và Silia."
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 79,
+                  "text": "Hiện tại có thể tự do di chuyển."
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 5,
+          "scene_id": 8,
+          "room_index": 0,
+          "world_key": 2048,
+          "record_count": 10,
+          "records": [
+            {
+              "opcode": 16,
+              "total_arg_count": 1,
+              "short_args": [
+                33
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 80,
+                  "text": "Tomas"
+                },
+                {
+                  "string_index": 81,
+                  "text": "Trời và đất vỗn dĩ chia không gian thành hai cực. Không gian thánh thú tụ hội mở cánh cửa Thời Gian Thiên Khải Chi Môn. Lẽ nào phải về Thiên Địa Chi Sơ sao?"
+                }
+              ]
+            },
+            {
+              "opcode": 35,
+              "total_arg_count": 5,
+              "short_args": [
+                2,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 82,
+                  "text": "Đúng vậy, tạm thời chưa thể đi"
+                },
+                {
+                  "string_index": 83,
+                  "text": "4,9"
+                },
+                {
+                  "string_index": 84,
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "opcode": 77,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                2,
+                8
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 22,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                0,
+                262,
+                262,
+                240,
+                320
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 6,
+              "total_arg_count": 4,
+              "short_args": [
+                7,
+                2,
+                60,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 85,
+                  "text": "Tomas"
+                },
+                {
+                  "string_index": 86,
+                  "text": "Ừ."
+                }
+              ]
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 6,
+          "scene_id": 8,
+          "room_index": 0,
+          "world_key": 2048,
+          "record_count": 4,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                2,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 77,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                0,
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 7357,
+      "declared_block_size": 7357
+    },
+    {
+      "room_index": 1,
+      "block_size": 377,
+      "room_start": 7373,
+      "room_name": "Thôn Tachi Hạ",
+      "string_pool_count": 0,
+      "string_pool": [],
+      "unknown_ab": 70,
+      "unknown_skip": 0,
+      "actor_count": 12,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            0,
+            121,
+            25,
+            1,
+            1,
+            0,
+            8,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            2,
+            15,
+            72,
+            1,
+            1,
+            1,
+            8,
+            2,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            38,
+            9,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            2,
+            39,
+            146,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            56,
+            167,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            2,
+            232,
+            167,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            264,
+            216,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            42,
+            203,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            10,
+            203,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            218,
+            207,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            39,
+            298,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            217,
+            300,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Yajin",
+        "Kay",
+        "Keynes",
+        "Honey",
+        "Maik",
+        "Tamara",
+        "Parker",
+        "Tomas"
+      ],
+      "event_group_count": 0,
+      "event_groups": [],
+      "bytes_consumed_in_room": 377,
+      "declared_block_size": 377
+    },
+    {
+      "room_index": 2,
+      "block_size": 740,
+      "room_start": 7750,
+      "room_name": "Phía trái Thôn Tachi Hạ",
+      "string_pool_count": 8,
+      "string_pool": [
+        "Neil",
+        "Thật tốt quá! Đang lo không bắt được!",
+        "0",
+        "2",
+        "4",
+        "4",
+        "Neil",
+        "Oh, uy phong quá!"
+      ],
+      "unknown_ab": 72,
+      "unknown_skip": 1,
+      "actor_count": 17,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            3,
+            312,
+            71,
+            1,
+            1,
+            3,
+            8,
+            1,
+            1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            232,
+            60,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            200,
+            113,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            2,
+            248,
+            119,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            248,
+            183,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            6,
+            226,
+            255,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 3,
+          "param_len": 12,
+          "values": [
+            3,
+            244,
+            0,
+            136,
+            207,
+            1,
+            1,
+            2,
+            10,
+            12,
+            20,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            265,
+            257,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            281,
+            256,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            296,
+            257,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            312,
+            257,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            168,
+            462,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            169,
+            477,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            10,
+            160,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            25,
+            161,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            182,
+            112,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            131,
+            0,
+            150,
+            281,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Yajin",
+        "Kay",
+        "Keynes",
+        "Honey",
+        "Maik",
+        "Tamara",
+        "Parker",
+        "Tomas"
+      ],
+      "event_group_count": 1,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 8,
+          "room_index": 2,
+          "world_key": 2050,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                112,
+                240,
+                80,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Thật tốt quá! Đang lo không bắt được!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 37,
+              "total_arg_count": 3,
+              "short_args": [
+                45,
+                48,
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                1
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 10,
+              "total_arg_count": 5,
+              "short_args": [
+                -1
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "0"
+                },
+                {
+                  "string_index": 3,
+                  "text": "2"
+                },
+                {
+                  "string_index": 4,
+                  "text": "4"
+                },
+                {
+                  "string_index": 5,
+                  "text": "4"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 6,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 7,
+                  "text": "Oh, uy phong quá!"
+                }
+              ]
+            },
+            {
+              "opcode": 42,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 740,
+      "declared_block_size": 740
+    },
+    {
+      "room_index": 3,
+      "block_size": 554,
+      "room_start": 8490,
+      "room_name": "Thôn Tachi Tả Nhất",
+      "string_pool_count": 0,
+      "string_pool": [],
+      "unknown_ab": 71,
+      "unknown_skip": 1,
+      "actor_count": 20,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            3,
+            461,
+            184,
+            1,
+            1,
+            3,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            0,
+            120,
+            30,
+            1,
+            1,
+            0,
+            8,
+            4,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            80,
+            76,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            37,
+            105,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            329,
+            72,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            2,
+            246,
+            88,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            295,
+            103,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            6,
+            378,
+            44,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            7,
+            455,
+            44,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 3,
+          "param_len": 12,
+          "values": [
+            3,
+            243,
+            0,
+            416,
+            48,
+            1,
+            0,
+            2,
+            10,
+            7,
+            21,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            291,
+            0,
+            364,
+            144,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            11,
+            79,
+            190,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            15,
+            180,
+            230,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            10,
+            220,
+            234,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            108,
+            210,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            6,
+            390,
+            324,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            358,
+            329,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            4,
+            408,
+            344,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            2,
+            456,
+            361,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            292,
+            0,
+            200,
+            272,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Yajin",
+        "Kay",
+        "Keynes",
+        "Honey",
+        "Maik",
+        "Tamara",
+        "Parker",
+        "Tomas"
+      ],
+      "event_group_count": 0,
+      "event_groups": [],
+      "bytes_consumed_in_room": 554,
+      "declared_block_size": 554
+    },
+    {
+      "room_index": 4,
+      "block_size": 483,
+      "room_start": 9044,
+      "room_name": "Một nhánh Thôn Tachi Tả",
+      "string_pool_count": 4,
+      "string_pool": [
+        "Neil",
+        "Hảo Suất Đích Long quả lợi hại! nhưng cũng phải đánh bại nó.",
+        "Neil",
+        "Hoàn thành, trở về đi!"
+      ],
+      "unknown_ab": 91,
+      "unknown_skip": 0,
+      "actor_count": 3,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            129,
+            325,
+            1,
+            1,
+            2,
+            8,
+            3,
+            1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            131,
+            0,
+            131,
+            143,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            240,
+            2,
+            161,
+            93,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Yajin",
+        "Kay",
+        "Keynes",
+        "Honey",
+        "Maik",
+        "Tamara",
+        "Parker",
+        "Tomas"
+      ],
+      "event_group_count": 1,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 8,
+          "room_index": 4,
+          "world_key": 2052,
+          "record_count": 9,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                64,
+                144,
+                128,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 1,
+                  "text": "Hảo Suất Đích Long quả lợi hại! nhưng cũng phải đánh bại nó."
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                1
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 37,
+              "total_arg_count": 3,
+              "short_args": [
+                45,
+                50,
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                8,
+                8,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 2,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 3,
+                  "text": "Hoàn thành, trở về đi!"
+                }
+              ]
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 483,
+      "declared_block_size": 483
+    },
+    {
+      "room_index": 5,
+      "block_size": 815,
+      "room_start": 9527,
+      "room_name": "Thôn Tachi Thượng Nhất",
+      "string_pool_count": 0,
+      "string_pool": [],
+      "unknown_ab": 69,
+      "unknown_skip": 0,
+      "actor_count": 32,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            136,
+            634,
+            1,
+            1,
+            2,
+            8,
+            0,
+            1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            87,
+            589,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            87,
+            398,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            88,
+            206,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            186,
+            206,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            185,
+            398,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            185,
+            591,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            3,
+            284,
+            153,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            0,
+            137,
+            27,
+            1,
+            1,
+            0,
+            8,
+            6,
+            0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            72,
+            464,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            90,
+            465,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            107,
+            465,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            124,
+            465,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            141,
+            465,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            158,
+            465,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            175,
+            465,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            192,
+            465,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            75,
+            480,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            92,
+            481,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            109,
+            481,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            127,
+            482,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            144,
+            482,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            161,
+            482,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            178,
+            483,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            195,
+            484,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            83,
+            499,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            101,
+            499,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            119,
+            498,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            137,
+            498,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            155,
+            500,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            173,
+            500,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            191,
+            502,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Yajin",
+        "Kay",
+        "Keynes",
+        "Honey",
+        "Maik",
+        "Tamara",
+        "Parker",
+        "Tomas"
+      ],
+      "event_group_count": 0,
+      "event_groups": [],
+      "bytes_consumed_in_room": 815,
+      "declared_block_size": 815
+    },
+    {
+      "room_index": 6,
+      "block_size": 10662,
+      "room_start": 10342,
+      "room_name": "Thôn Tachi Thượng Viễn Cổ Thần Điện",
+      "string_pool_count": 167,
+      "string_pool": [
+        "-1",
+        "0",
+        "2",
+        "17",
+        "0",
+        "1",
+        "18",
+        "0",
+        "1",
+        "17,18",
+        "1,1",
+        "??",
+        "Cần phải quyết định, lúc này không thể làm tổn hại đến những người vô tội!",
+        "???",
+        "Vô tội sao? Đã nhiều lần cản trở kế hoạch của chúng ta.",
+        "Neil",
+        "(Sophie. Nhưng sao âm thanh này nghe có phần hoảng hốt...)",
+        "??",
+        "Kế hoạch của người đúng như như lời người nói chứ? Đồng tình với ý nguyện của chúng ta?",
+        "???",
+        "Đương nhiên rồi, con gái của ta, ha ha!",
+        "Neil",
+        "Sophie!",
+        "Sophie",
+        "Nha ...",
+        "19",
+        "1",
+        "1",
+        "20",
+        "3",
+        "1",
+        "-1",
+        "2",
+        "4",
+        "16",
+        "-1",
+        "0",
+        "1",
+        "Silia",
+        "Con người lại dám can thiệp vào cuộc chiến của các vị thần sao?!",
+        "Neil",
+        "Cuộc chiến giữa các vị thần...",
+        "Sophie",
+        "Đủ rồi, từ khi Thiên Địa chi sơ đến nay, Thiên Địa tranh đấu, nhân loại chịu nhiều tai ương. Chúng ta, Thiên Địa vạn vật ngàn vạn sinh linh trở thành bàn cơ đen trắng trong tay các vị thần. Sau này cuộc chiến mới chấm dứt! Hắc Long!",
+        "Silia",
+        "Như vậy, nếu ngươi biến mất, Thiên Địa sẽ chỉ còn nghe hiệu triệu của một mình ta, từ đây sẽ không còn phân tranh nữa.",
+        "Sophie",
+        "Đây mới là mục đích thực sự của ngươi phải không? Ngươi muốn trở thành trung tâm quyền lực Thiên Địa?",
+        "Silia",
+        "Không sai! Thiên Địa Chi Vương, không ta còn ai xứng đáng?!",
+        "23",
+        "2",
+        "1",
+        "Hỏa Phượng Hoàng",
+        "Ôi, Chủ nhân đáng mến.",
+        "Silia",
+        "Liệt Hỏa, ngươi còn biết đến chủ nhân này sao?! Mười sáu năm trước, ngươi được hóa kiếp thành Bạch Long cũng nhờ ta!",
+        "Hỏa Phượng Hoàng",
+        "Đúng vậy, chính là vì ngài, ta mới chịu cứu nàng. Bạch Long đại nhân cùng ngài chẳng khác nào là hai mặt của một thực thể cùng nhau cân đối vạn vật. Thân thể của ta trở thành thủ hộ thánh thú, mang trên mình sứ mạng bảo vệ  sự an uy của ngài!",
+        "Silia",
+        "Ngươi muốn nói đến sự diệt vong?",
+        "Hỏa Phượng Hoàng",
+        "Đúng. Mất đi trật tự, khí huyết của ngài sẽ hỗn loạn mà tiêu tán. Bạch Long đại nhân cũng sẽ theo đó mà tiêu vong.",
+        "Sophie",
+        "Tranh đấu ngàn vạn năm mới hiểu rõ nguyên nhân của sự thù hận lại không nằm ở số mệnh của chúng ta, Hắc Long!",
+        "Silia",
+        "Số mệnh nào? Số mệnh của ta là do ta định đoạt chứ không do ai cả!!",
+        "20",
+        "1",
+        "21",
+        "3",
+        "0",
+        "Sophie",
+        "Nhất định phải một mất một còn hay sao chứ?!",
+        "Neil",
+        "Sophie, ta tới giúp nàng!",
+        "Sophie",
+        "Ừ!",
+        "19",
+        "1",
+        "1",
+        "1",
+        "23",
+        "1",
+        "22",
+        "1",
+        "0",
+        "21,22",
+        "0,0",
+        "-4,-4",
+        "0,0",
+        "20,20",
+        "21,22",
+        "1,1",
+        "24,25,26,27,28",
+        "0,0,0,0,0",
+        "1,1,1,1,1",
+        "Neil",
+        "Cái này!",
+        "28",
+        "0",
+        "1",
+        "28",
+        "0",
+        "2",
+        "28",
+        "0",
+        "3",
+        "28",
+        "0",
+        "0",
+        "Linh Quang Lộc",
+        "Ta sẽ không để cho ngươi làm ảnh hưởng Hắc Long đại nhân.",
+        "Chiến Thần Đà",
+        "Muốn giúp Bạch Long hãy qua ta trước.",
+        "Tương Quân Giải",
+        "Chúng ta là Hắc Long thần thú, há lại để con người làm càn ở nơi này!",
+        "Hỏa Phượng Hoàng",
+        "Con người, tại sao?",
+        "Neil",
+        "Ta hiểu, các vị là 4 vị Địa Giới Thần Thú, chuyện tương lai không thể đoán trước được.",
+        "Hỏa Phượng Hoàng",
+        "Ngươi nói cái gì?",
+        "Thanh âm thánh thú Thiên Giới truyền đến tận trời xanh.",
+        "Lôi Kỳ Lân",
+        "Đánh bại chúng có thể suy yếu lực lượng Hắc Long.",
+        "Tinh Vân Hạc",
+        "Chúng ta là thủ hộ trên Thiên Giới của Bạch Long đại nhân.",
+        "Neil",
+        "Ra vậy! Bốn vị Địa Giới thần thú, đắc tội!",
+        "15,31,47,63",
+        "52,52,52,52",
+        "5,5,5,5",
+        "Hỏa Phượng Hoàng",
+        "Làm sao biết được vị thế tương lai của ngươi để ta có thể đứng về phía ngươi? Rốt cục ngươi là ai?",
+        "Neil",
+        "Rồi sẽ biết, Liệt Hỏa. Thật có lỗi.",
+        "Lực lượng Hắc Long bị suy yếu!",
+        "0",
+        "1",
+        "19",
+        "1",
+        "1",
+        "21,22",
+        "1,1",
+        "Sophie nâng Hắc Bảo Châu thả mạnh xuống đất.",
+        "Sophie",
+        "Thiên Địa chi sơ, ngàn vạn năm trước, một là Bạch Long ôn hòa rộng lượng, cùng Hắc Long chí tình chí nghĩa. Hắc Long nói, muốn sáng tạo một thứ chứa đựng đủ hoan hỉ và niềm hy vọng của thế giới. Bạch Long nói, thứ đó cần phải có sinh ly tử biệt.",
+        "Sophie",
+        "Vì thế, bọn họ rời đến Nguyên Thủy Đích Ngự Toa cùng khai sáng nên trời và đất. Trật tự cùng hỗn loạn tựa như Thiên Địa bị ngăn bởi Vạn Lý Vân.",
+        "Sophie",
+        "Không biết vì sao trải qua hàng trăm năm, Bạch Long ôn hòa lại biến thành lạnh giá vô tình như băng tuyết, Hắc Long chí tình chí nghĩa dần dần bị dục vọng chi phối.",
+        "Sophie",
+        "Bọn họ biến thế giới thành bàn cờ, Thiên Địa vạn vật thành quân cờ, từng ngày điên cuồng bởi những trận chiến tàn khốc. Cuối cùng, Hắc Bạch Long rơi xuống Địa Giới.",
+        "Sophie",
+        "Nếu không phải bị Liệt Hỏa mang đến, nếu không phải bị Hắc Long lợi dụng bắt đi, Bạch Long lúc nào cũng sợ sệt, công tư không rạch ròi.",
+        "Sophie",
+        "Hắn đóng vai phụ thân, lừa gạt ta là con gái hắn.Lo cho ta đầy đủ nhưng kỳ thực chưa từng dành tình thân nào cho ta.",
+        "Lúc đó, bên trong Phi Không Đĩnh...",
+        "0",
+        "1",
+        "19",
+        "1",
+        "1",
+        "Sophie",
+        "Nhưng là Yafei, thật sự nàng ta rất yêu phụ thân mình!",
+        "#FFFFFF Sophie đã quay trở về Thiên Giới. Ta chưa thể quay trở lại nhân gian. Đột nhiên ta nhớ tới lời nói của nàng khi xưa, khi nhìn thấy cái trứng đó, chẳng khác nào thấy nàng..."
+      ],
+      "unknown_ab": 90,
+      "unknown_skip": 0,
+      "actor_count": 29,
+      "actors": [
+        {
+          "kind": 1,
+          "param_len": 11,
+          "values": [
+            1,
+            223,
+            1,
+            280,
+            476,
+            1,
+            1,
+            2,
+            8,
+            5,
+            8
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            7,
+            231,
+            124,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            6,
+            329,
+            124,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            424,
+            125,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            361,
+            123,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            393,
+            156,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            425,
+            190,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            393,
+            222,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            4,
+            425,
+            254,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            199,
+            128,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            136,
+            126,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            167,
+            160,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            136,
+            192,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            167,
+            235,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            5,
+            136,
+            255,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            8,
+            177,
+            320,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            289,
+            9,
+            382,
+            321,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            266,
+            6,
+            272,
+            201,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            262,
+            1,
+            280,
+            197,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            8,
+            1,
+            246,
+            190,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            65,
+            1,
+            309,
+            193,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            84,
+            0,
+            348,
+            195,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            85,
+            0,
+            196,
+            194,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            83,
+            2,
+            281,
+            237,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            101,
+            0,
+            189,
+            138,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            117,
+            0,
+            375,
+            138,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            133,
+            0,
+            194,
+            245,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            149,
+            0,
+            375,
+            248,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            0,
+            0,
+            280,
+            206,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "post_actor_strings": [
+        "Yajin",
+        "Kay",
+        "Keynes",
+        "Honey",
+        "Maik",
+        "Tamara",
+        "Parker",
+        "Tomas",
+        "Neil"
+      ],
+      "event_group_count": 3,
+      "event_groups": [
+        {
+          "group_index": 0,
+          "scene_id": 8,
+          "room_index": 6,
+          "world_key": 2054,
+          "record_count": 82,
+          "records": [
+            {
+              "opcode": 13,
+              "total_arg_count": 4,
+              "short_args": [
+                222,
+                273,
+                112,
+                16
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 8,
+              "total_arg_count": 2,
+              "short_args": [
+                272,
+                255
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 7,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 0,
+                  "text": "-1"
+                },
+                {
+                  "string_index": 1,
+                  "text": "0"
+                },
+                {
+                  "string_index": 2,
+                  "text": "2"
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 3,
+                  "text": "17"
+                },
+                {
+                  "string_index": 4,
+                  "text": "0"
+                },
+                {
+                  "string_index": 5,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                15
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 6,
+                  "text": "18"
+                },
+                {
+                  "string_index": 7,
+                  "text": "0"
+                },
+                {
+                  "string_index": 8,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                15
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 9,
+                  "text": "17,18"
+                },
+                {
+                  "string_index": 10,
+                  "text": "1,1"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 11,
+                  "text": "??"
+                },
+                {
+                  "string_index": 12,
+                  "text": "Cần phải quyết định, lúc này không thể làm tổn hại đến những người vô tội!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 13,
+                  "text": "???"
+                },
+                {
+                  "string_index": 14,
+                  "text": "Vô tội sao? Đã nhiều lần cản trở kế hoạch của chúng ta."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 15,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 16,
+                  "text": "(Sophie. Nhưng sao âm thanh này nghe có phần hoảng hốt...)"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 17,
+                  "text": "??"
+                },
+                {
+                  "string_index": 18,
+                  "text": "Kế hoạch của người đúng như như lời người nói chứ? Đồng tình với ý nguyện của chúng ta?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 19,
+                  "text": "???"
+                },
+                {
+                  "string_index": 20,
+                  "text": "Đương nhiên rồi, con gái của ta, ha ha!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 21,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 22,
+                  "text": "Sophie!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 23,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 24,
+                  "text": "Nha ..."
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                10,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 25,
+                  "text": "19"
+                },
+                {
+                  "string_index": 26,
+                  "text": "1"
+                },
+                {
+                  "string_index": 27,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 28,
+                  "text": "20"
+                },
+                {
+                  "string_index": 29,
+                  "text": "3"
+                },
+                {
+                  "string_index": 30,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 10,
+              "total_arg_count": 5,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 31,
+                  "text": "-1"
+                },
+                {
+                  "string_index": 32,
+                  "text": "2"
+                },
+                {
+                  "string_index": 33,
+                  "text": "4"
+                },
+                {
+                  "string_index": 34,
+                  "text": "16"
+                }
+              ]
+            },
+            {
+              "opcode": 7,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 35,
+                  "text": "-1"
+                },
+                {
+                  "string_index": 36,
+                  "text": "0"
+                },
+                {
+                  "string_index": 37,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                2,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 38,
+                  "text": "Silia"
+                },
+                {
+                  "string_index": 39,
+                  "text": "Con người lại dám can thiệp vào cuộc chiến của các vị thần sao?!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 40,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 41,
+                  "text": "Cuộc chiến giữa các vị thần..."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 42,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 43,
+                  "text": "Đủ rồi, từ khi Thiên Địa chi sơ đến nay, Thiên Địa tranh đấu, nhân loại chịu nhiều tai ương. Chúng ta, Thiên Địa vạn vật ngàn vạn sinh linh trở thành bàn cơ đen trắng trong tay các vị thần. Sau này cuộc chiến mới chấm dứt! Hắc Long!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                2,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 44,
+                  "text": "Silia"
+                },
+                {
+                  "string_index": 45,
+                  "text": "Như vậy, nếu ngươi biến mất, Thiên Địa sẽ chỉ còn nghe hiệu triệu của một mình ta, từ đây sẽ không còn phân tranh nữa."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 46,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 47,
+                  "text": "Đây mới là mục đích thực sự của ngươi phải không? Ngươi muốn trở thành trung tâm quyền lực Thiên Địa?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                2,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 48,
+                  "text": "Silia"
+                },
+                {
+                  "string_index": 49,
+                  "text": "Không sai! Thiên Địa Chi Vương, không ta còn ai xứng đáng?!"
+                }
+              ]
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 50,
+                  "text": "23"
+                },
+                {
+                  "string_index": 51,
+                  "text": "2"
+                },
+                {
+                  "string_index": 52,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 53,
+                  "text": "Hỏa Phượng Hoàng"
+                },
+                {
+                  "string_index": 54,
+                  "text": "Ôi, Chủ nhân đáng mến."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                2,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 55,
+                  "text": "Silia"
+                },
+                {
+                  "string_index": 56,
+                  "text": "Liệt Hỏa, ngươi còn biết đến chủ nhân này sao?! Mười sáu năm trước, ngươi được hóa kiếp thành Bạch Long cũng nhờ ta!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 57,
+                  "text": "Hỏa Phượng Hoàng"
+                },
+                {
+                  "string_index": 58,
+                  "text": "Đúng vậy, chính là vì ngài, ta mới chịu cứu nàng. Bạch Long đại nhân cùng ngài chẳng khác nào là hai mặt của một thực thể cùng nhau cân đối vạn vật. Thân thể của ta trở thành thủ hộ thánh thú, mang trên mình sứ mạng bảo vệ  sự an uy của ngài!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                2,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 59,
+                  "text": "Silia"
+                },
+                {
+                  "string_index": 60,
+                  "text": "Ngươi muốn nói đến sự diệt vong?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 61,
+                  "text": "Hỏa Phượng Hoàng"
+                },
+                {
+                  "string_index": 62,
+                  "text": "Đúng. Mất đi trật tự, khí huyết của ngài sẽ hỗn loạn mà tiêu tán. Bạch Long đại nhân cũng sẽ theo đó mà tiêu vong."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 63,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 64,
+                  "text": "Tranh đấu ngàn vạn năm mới hiểu rõ nguyên nhân của sự thù hận lại không nằm ở số mệnh của chúng ta, Hắc Long!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                2,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 65,
+                  "text": "Silia"
+                },
+                {
+                  "string_index": 66,
+                  "text": "Số mệnh nào? Số mệnh của ta là do ta định đoạt chứ không do ai cả!!"
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                10,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 67,
+                  "text": "20"
+                },
+                {
+                  "string_index": 68,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 69,
+                  "text": "21"
+                },
+                {
+                  "string_index": 70,
+                  "text": "3"
+                },
+                {
+                  "string_index": 71,
+                  "text": "0"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 72,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 73,
+                  "text": "Nhất định phải một mất một còn hay sao chứ?!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 74,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 75,
+                  "text": "Sophie, ta tới giúp nàng!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 76,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 77,
+                  "text": "Ừ!"
+                }
+              ]
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 78,
+                  "text": "19"
+                },
+                {
+                  "string_index": 79,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                -1
+              ],
+              "string_args": [
+                {
+                  "string_index": 80,
+                  "text": "1"
+                },
+                {
+                  "string_index": 81,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 82,
+                  "text": "23"
+                },
+                {
+                  "string_index": 83,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 84,
+                  "text": "22"
+                },
+                {
+                  "string_index": 85,
+                  "text": "1"
+                },
+                {
+                  "string_index": 86,
+                  "text": "0"
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                15
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 29,
+              "total_arg_count": 6,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 87,
+                  "text": "21,22"
+                },
+                {
+                  "string_index": 88,
+                  "text": "0,0"
+                },
+                {
+                  "string_index": 89,
+                  "text": "-4,-4"
+                },
+                {
+                  "string_index": 90,
+                  "text": "0,0"
+                },
+                {
+                  "string_index": 91,
+                  "text": "20,20"
+                }
+              ]
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 92,
+                  "text": "21,22"
+                },
+                {
+                  "string_index": 93,
+                  "text": "1,1"
+                }
+              ]
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                5
+              ],
+              "string_args": [
+                {
+                  "string_index": 94,
+                  "text": "24,25,26,27,28"
+                },
+                {
+                  "string_index": 95,
+                  "text": "0,0,0,0,0"
+                },
+                {
+                  "string_index": 96,
+                  "text": "1,1,1,1,1"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 97,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 98,
+                  "text": "Cái này!"
+                }
+              ]
+            },
+            {
+              "opcode": 5,
+              "total_arg_count": 5,
+              "short_args": [
+                1,
+                28,
+                7,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 7,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 99,
+                  "text": "28"
+                },
+                {
+                  "string_index": 100,
+                  "text": "0"
+                },
+                {
+                  "string_index": 101,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 7,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 102,
+                  "text": "28"
+                },
+                {
+                  "string_index": 103,
+                  "text": "0"
+                },
+                {
+                  "string_index": 104,
+                  "text": "2"
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 7,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 105,
+                  "text": "28"
+                },
+                {
+                  "string_index": 106,
+                  "text": "0"
+                },
+                {
+                  "string_index": 107,
+                  "text": "3"
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                5
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 7,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 108,
+                  "text": "28"
+                },
+                {
+                  "string_index": 109,
+                  "text": "0"
+                },
+                {
+                  "string_index": 110,
+                  "text": "0"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 111,
+                  "text": "Linh Quang Lộc"
+                },
+                {
+                  "string_index": 112,
+                  "text": "Ta sẽ không để cho ngươi làm ảnh hưởng Hắc Long đại nhân."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 113,
+                  "text": "Chiến Thần Đà"
+                },
+                {
+                  "string_index": 114,
+                  "text": "Muốn giúp Bạch Long hãy qua ta trước."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 115,
+                  "text": "Tương Quân Giải"
+                },
+                {
+                  "string_index": 116,
+                  "text": "Chúng ta là Hắc Long thần thú, há lại để con người làm càn ở nơi này!"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 117,
+                  "text": "Hỏa Phượng Hoàng"
+                },
+                {
+                  "string_index": 118,
+                  "text": "Con người, tại sao?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 119,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 120,
+                  "text": "Ta hiểu, các vị là 4 vị Địa Giới Thần Thú, chuyện tương lai không thể đoán trước được."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 121,
+                  "text": "Hỏa Phượng Hoàng"
+                },
+                {
+                  "string_index": 122,
+                  "text": "Ngươi nói cái gì?"
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 123,
+                  "text": "Thanh âm thánh thú Thiên Giới truyền đến tận trời xanh."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 124,
+                  "text": "Lôi Kỳ Lân"
+                },
+                {
+                  "string_index": 125,
+                  "text": "Đánh bại chúng có thể suy yếu lực lượng Hắc Long."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 126,
+                  "text": "Tinh Vân Hạc"
+                },
+                {
+                  "string_index": 127,
+                  "text": "Chúng ta là thủ hộ trên Thiên Giới của Bạch Long đại nhân."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 128,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 129,
+                  "text": "Ra vậy! Bốn vị Địa Giới thần thú, đắc tội!"
+                }
+              ]
+            },
+            {
+              "opcode": 67,
+              "total_arg_count": 1,
+              "short_args": [
+                20
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 54,
+              "total_arg_count": 4,
+              "short_args": [
+                4
+              ],
+              "string_args": [
+                {
+                  "string_index": 130,
+                  "text": "15,31,47,63"
+                },
+                {
+                  "string_index": 131,
+                  "text": "52,52,52,52"
+                },
+                {
+                  "string_index": 132,
+                  "text": "5,5,5,5"
+                }
+              ]
+            },
+            {
+              "opcode": 32,
+              "total_arg_count": 2,
+              "short_args": [
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 47,
+              "total_arg_count": 3,
+              "short_args": [
+                75,
+                75,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 133,
+                  "text": "Hỏa Phượng Hoàng"
+                },
+                {
+                  "string_index": 134,
+                  "text": "Làm sao biết được vị thế tương lai của ngươi để ta có thể đứng về phía ngươi? Rốt cục ngươi là ai?"
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 135,
+                  "text": "Neil"
+                },
+                {
+                  "string_index": 136,
+                  "text": "Rồi sẽ biết, Liệt Hỏa. Thật có lỗi."
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 137,
+                  "text": "Lực lượng Hắc Long bị suy yếu!"
+                }
+              ]
+            },
+            {
+              "opcode": 25,
+              "total_arg_count": 1,
+              "short_args": [
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 22,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                0,
+                190,
+                160,
+                240,
+                320
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 6,
+              "total_arg_count": 4,
+              "short_args": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 1,
+          "scene_id": 8,
+          "room_index": 6,
+          "world_key": 2054,
+          "record_count": 19,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                0,
+                0,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                -1
+              ],
+              "string_args": [
+                {
+                  "string_index": 138,
+                  "text": "0"
+                },
+                {
+                  "string_index": 139,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 140,
+                  "text": "19"
+                },
+                {
+                  "string_index": 141,
+                  "text": "1"
+                },
+                {
+                  "string_index": 142,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                2
+              ],
+              "string_args": [
+                {
+                  "string_index": 143,
+                  "text": "21,22"
+                },
+                {
+                  "string_index": 144,
+                  "text": "1,1"
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 145,
+                  "text": "Sophie nâng Hắc Bảo Châu thả mạnh xuống đất."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 146,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 147,
+                  "text": "Thiên Địa chi sơ, ngàn vạn năm trước, một là Bạch Long ôn hòa rộng lượng, cùng Hắc Long chí tình chí nghĩa. Hắc Long nói, muốn sáng tạo một thứ chứa đựng đủ hoan hỉ và niềm hy vọng của thế giới. Bạch Long nói, thứ đó cần phải có sinh ly tử biệt."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 148,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 149,
+                  "text": "Vì thế, bọn họ rời đến Nguyên Thủy Đích Ngự Toa cùng khai sáng nên trời và đất. Trật tự cùng hỗn loạn tựa như Thiên Địa bị ngăn bởi Vạn Lý Vân."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 150,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 151,
+                  "text": "Không biết vì sao trải qua hàng trăm năm, Bạch Long ôn hòa lại biến thành lạnh giá vô tình như băng tuyết, Hắc Long chí tình chí nghĩa dần dần bị dục vọng chi phối."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 152,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 153,
+                  "text": "Bọn họ biến thế giới thành bàn cờ, Thiên Địa vạn vật thành quân cờ, từng ngày điên cuồng bởi những trận chiến tàn khốc. Cuối cùng, Hắc Bạch Long rơi xuống Địa Giới."
+                }
+              ]
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 154,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 155,
+                  "text": "Nếu không phải bị Liệt Hỏa mang đến, nếu không phải bị Hắc Long lợi dụng bắt đi, Bạch Long lúc nào cũng sợ sệt, công tư không rạch ròi."
+                }
+              ]
+            },
+            {
+              "opcode": 12,
+              "total_arg_count": 1,
+              "short_args": [
+                15
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                -1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 156,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 157,
+                  "text": "Hắn đóng vai phụ thân, lừa gạt ta là con gái hắn.Lo cho ta đầy đủ nhưng kỳ thực chưa từng dành tình thân nào cho ta."
+                }
+              ]
+            },
+            {
+              "opcode": 40,
+              "total_arg_count": 1,
+              "short_args": [],
+              "string_args": [
+                {
+                  "string_index": 158,
+                  "text": "Lúc đó, bên trong Phi Không Đĩnh..."
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 33,
+              "total_arg_count": 1,
+              "short_args": [
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 22,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                2,
+                116,
+                133,
+                240,
+                320
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 6,
+              "total_arg_count": 4,
+              "short_args": [
+                11,
+                2,
+                11,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "scene_id": 8,
+          "room_index": 6,
+          "world_key": 2054,
+          "record_count": 11,
+          "records": [
+            {
+              "opcode": 15,
+              "total_arg_count": 3,
+              "short_args": [
+                11,
+                2,
+                3
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 3,
+              "total_arg_count": 3,
+              "short_args": [
+                -1
+              ],
+              "string_args": [
+                {
+                  "string_index": 159,
+                  "text": "0"
+                },
+                {
+                  "string_index": 160,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 2,
+              "total_arg_count": 4,
+              "short_args": [
+                1
+              ],
+              "string_args": [
+                {
+                  "string_index": 161,
+                  "text": "19"
+                },
+                {
+                  "string_index": 162,
+                  "text": "1"
+                },
+                {
+                  "string_index": 163,
+                  "text": "1"
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 4,
+              "total_arg_count": 4,
+              "short_args": [
+                1,
+                0
+              ],
+              "string_args": [
+                {
+                  "string_index": 164,
+                  "text": "Sophie"
+                },
+                {
+                  "string_index": 165,
+                  "text": "Nhưng là Yafei, thật sự nàng ta rất yêu phụ thân mình!"
+                }
+              ]
+            },
+            {
+              "opcode": 1,
+              "total_arg_count": 4,
+              "short_args": [
+                10,
+                30,
+                90
+              ],
+              "string_args": [
+                {
+                  "string_index": 166,
+                  "text": "#FFFFFF Sophie đã quay trở về Thiên Giới. Ta chưa thể quay trở lại nhân gian. Đột nhiên ta nhớ tới lời nói của nàng khi xưa, khi nhìn thấy cái trứng đó, chẳng khác nào thấy nàng..."
+                }
+              ]
+            },
+            {
+              "opcode": 9,
+              "total_arg_count": 6,
+              "short_args": [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 77,
+              "total_arg_count": 3,
+              "short_args": [
+                7,
+                2,
+                2
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 22,
+              "total_arg_count": 6,
+              "short_args": [
+                1,
+                1,
+                255,
+                224,
+                240,
+                320
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 6,
+              "total_arg_count": 4,
+              "short_args": [
+                7,
+                2,
+                60,
+                0
+              ],
+              "string_args": []
+            },
+            {
+              "opcode": 14,
+              "total_arg_count": 0,
+              "short_args": [],
+              "string_args": []
+            }
+          ]
+        }
+      ],
+      "bytes_consumed_in_room": 10662,
+      "declared_block_size": 10662
+    }
+  ]
+}

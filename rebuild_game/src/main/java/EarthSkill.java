@@ -26,6 +26,9 @@ final class EarthSkill implements Skill {
     private static final String[] SKILL24_NGUOI_BAO_VE_DIA_GIOI_TIMELINE_SUITE = {
             "battle_skill24_nguoi_bao_ve_dia_gioi_timeline"
     };
+    private static final String[] SKILL25_29_EARTH_CLOSEOUT_SUITE = {
+            "battle_earth_skills_25_29_closeout"
+    };
 
     private EarthSkill() {
     }
@@ -50,17 +53,77 @@ final class EarthSkill implements Skill {
         if ("battle_skill24_nguoi_bao_ve_dia_gioi_timeline".equals(suite)) {
             return SKILL24_NGUOI_BAO_VE_DIA_GIOI_TIMELINE_SUITE;
         }
+        if ("battle_earth_skills_25_29_closeout".equals(suite)) {
+            return SKILL25_29_EARTH_CLOSEOUT_SUITE;
+        }
         return null;
     }
 
     @Override
     public boolean runTimeline(String checkpoint, String outPath) {
-        return runSkill24NguoiBaoVeDiaGioiTimelineSmokeIfNeeded(checkpoint, outPath)
+        return runEarthSkills25To29CloseoutSmokeIfNeeded(checkpoint, outPath)
+                || runSkill24NguoiBaoVeDiaGioiTimelineSmokeIfNeeded(checkpoint, outPath)
                 || runSkill23NhamBangTimelineSmokeIfNeeded(checkpoint, outPath)
                 || runSkill22BaoCatTimelineSmokeIfNeeded(checkpoint, outPath)
                 || runSkill21ThoThuanTimelineSmokeIfNeeded(checkpoint, outPath)
                 || runSkill20HatBuiSourceStageSmokeIfNeeded(checkpoint, outPath)
                 || runSkill20HatBuiTimelineSmokeIfNeeded(checkpoint, outPath);
+    }
+
+    private static boolean runEarthSkills25To29CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"battle_earth_skills_25_29_closeout".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            java.io.File out = new java.io.File(outPath);
+            java.io.File dir = out.getParentFile();
+            if (dir == null) {
+                dir = new java.io.File(".");
+            }
+            if (!dir.exists() && !dir.mkdirs()) {
+                throw new IllegalStateException("Could not create smoke directory " + dir);
+            }
+
+            assertEarthSkills25To29SourceRows(checkpoint);
+            EarthSkillCaseResult skill25 = runEarthSkill25To29Case(
+                    25, "thach_phu_thuat", 14, -1, false, dir, false);
+            EarthSkillCaseResult skill26 = runEarthSkill25To29Case(
+                    26, "nham_bao", -1, -1, false, dir, false);
+            EarthSkillCaseResult skill27 = runEarthSkill25To29Case(
+                    27, "hang_rao_cat_da", 4, -1, false, dir, false);
+            EarthSkillCaseResult skill28 = runEarthSkill25To29Case(
+                    28, "bao_cat", -1, 1, false, dir, false);
+            EarthSkillCaseResult skill29 = runEarthSkill25To29Case(
+                    29, "tho_chi_loan_vu", -1, -1, true, dir, true);
+
+            String debug = "checkpoint=" + checkpoint + "\n"
+                    + "source=aq.c[1][25..29] + effect.mid[25..29] from S60 merged tables\n"
+                    + "status=PORTED/PARTIAL runtime source row/effect/HP/PP/status verified; pixel-perfect pending\n"
+                    + skill25.describe()
+                    + skill26.describe()
+                    + skill27.describe()
+                    + skill28.describe()
+                    + skill29.describe();
+            Files.write(new java.io.File(dir,
+                            "battle_earth_skills_25_29_closeout_debug.txt").toPath(),
+                    debug.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            writeScenePngForCheckpointSummary(out, new EarthSkillCaseResult[]{
+                    skill25, skill26, skill27, skill28, skill29
+            });
+
+            System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                    + " skill25=buff14:" + skill25.playerBuffActive
+                    + " skill26Damage=" + skill26.damage
+                    + " skill27Damage=" + skill27.damage + "/buff4:" + skill27.playerBuffActive
+                    + " skill28Damage=" + skill28.damage + "/debuff1:" + skill28.enemyDebuffActive
+                    + " skill29Damage=" + skill29.damage + "/preloadedDebuff1:" + skill29.preloadedDebuff1
+                    + " images=skill25..skill29 before/effect/result");
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
     }
 
     private static boolean runSkill24NguoiBaoVeDiaGioiTimelineSmokeIfNeeded(String checkpoint, String outPath) {
@@ -184,8 +247,10 @@ final class EarthSkill implements Skill {
                     || !s.battleActiveQueuePlayerSide
                     || s.battleActiveQueueBank != 0
                     || s.battleActiveQueueBuffId != 13
-                    || !s.battleP7SpecialVisible
-                    || s.battleP7SpecialType != 1
+                    || !s.battleP7ActorEffectVisible
+                    || s.battleP7ActorEffectSpriteId != 264
+                    || s.battleP7ActorEffectState != 6
+                    || !s.battleP7ActorEffectOnPlayerSide
                     || !traceContains(s, "visual=ap id=13")) {
                 throw new IllegalStateException(checkpoint + " expected skill24 P13 buff13 body visual"
                         + " state=" + s.battleStateName
@@ -193,11 +258,15 @@ final class EarthSkill implements Skill {
                         + " sidePlayer=" + s.battleActiveQueuePlayerSide
                         + " bank=" + s.battleActiveQueueBank
                         + " buffId=" + s.battleActiveQueueBuffId
+                        + " actorVisible=" + s.battleP7ActorEffectVisible
+                        + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                        + " actorState=" + s.battleP7ActorEffectState
+                        + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
                         + " specialVisible=" + s.battleP7SpecialVisible
                         + " specialType=" + s.battleP7SpecialType
                         + " trace=" + tailTrace(s, 120));
             }
-            writeScenePng(s, new java.io.File(dir, skill24NguoiBaoVeDiaGioiPngName("p13_body_visual_type1")));
+            writeScenePng(s, new java.io.File(dir, skill24NguoiBaoVeDiaGioiPngName("p13_body_visual_actor22")));
 
             int hpBeforeActiveTick = s.battlePlayerHp;
             tickUntilTraceContains(s, "active queue apply bank=0 id=13", 1200);
@@ -255,7 +324,7 @@ final class EarthSkill implements Skill {
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(skillId)) + "\n"
                     + "speffect17=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(17)) + "\n"
                     + "aq.c[6][13]=" + java.util.Arrays.toString(buff.raw) + "\n"
-                    + "actorEffect=22 actorSprite=264 actorState=0 actorSide=player\n"
+                    + "actorEffect=22 actorSprite=264 actorState=6 actorSide=player\n"
                     + "special=speffect17 AH type1 playerSide\n"
                     + "logic=no damage; game.d.q applies buff13; clearDebuffs; heal=maxHp*20/100="
                     + expectedHeal + "; duration=3.\n"
@@ -290,7 +359,7 @@ final class EarthSkill implements Skill {
                     + " buff13Expired=" + !runtime.debugPlayerHasBuffForSmoke(13)
                     + " special=AH1"
                     + " images=before_wounded_debuff5,actor_u22_start,speffect17_type1,"
-                    + "after_apply_cleanse_heal,p13_body_visual_type1,p13_heal_tick_duration2,expired");
+                    + "after_apply_cleanse_heal,p13_body_visual_actor22,p13_heal_tick_duration2,expired");
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1431,7 +1500,9 @@ final class EarthSkill implements Skill {
         BattleBuffRow buff = VqsvBattleTables.instance().buff(4);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(21);
         short[] speffect5 = VqsvBattleAnimationTables.instance().speffectRow(5);
-        byte[] expectedEffect = new byte[]{0, 0, 22, 0, -1, -1, 0, 1, 1, 5, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 22, 1, -1, -1, 0,
+                1, 1, 5, 0, -1, -1, 0,
+                1, 0, 22, 2, 0, -1, 0};
         if (row == null
                 || buff == null
                 || row.elementFamily != 2
@@ -1471,7 +1542,8 @@ final class EarthSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(22);
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(1);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(22);
-        byte[] expectedEffect = new byte[]{0, 0, 22, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 22, 3, -1, -1, 0,
+                0, 0, 22, 4, -1, -1, 1};
         short[] speffect14 = VqsvBattleAnimationTables.instance().speffectRow(14);
         if (row == null
                 || row.elementFamily != 2
@@ -1508,7 +1580,8 @@ final class EarthSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(23);
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(1);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(23);
-        byte[] expectedEffect = new byte[]{0, 0, 22, 0, -1, -1, 0, 0, 1, 6, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 22, 5, -1, -1, 0,
+                0, 1, 6, 0, -1, -1, 0};
         short[] speffect6 = VqsvBattleAnimationTables.instance().speffectRow(6);
         if (row == null
                 || row.elementFamily != 2
@@ -1545,7 +1618,8 @@ final class EarthSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(24);
         BattleBuffRow buff = VqsvBattleTables.instance().buff(13);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(24);
-        byte[] expectedEffect = new byte[]{0, 0, 22, 0, -1, -1, 0, 0, 1, 17, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 22, 6, -1, -1, 0,
+                0, 1, 17, 0, -1, -1, 0};
         short[] speffect17 = VqsvBattleAnimationTables.instance().speffectRow(17);
         if (row == null
                 || row.elementFamily != 2
@@ -1580,6 +1654,225 @@ final class EarthSkill implements Skill {
                 + " speffect17=" + java.util.Arrays.toString(speffect17)
                 + " name=" + row.name("skill24")
                 + " buffName=" + buff.name("buff13"));
+    }
+
+    private static void assertEarthSkills25To29SourceRows(String checkpoint) {
+        assertEarthSkillSourceRow(checkpoint, 25, 142, 554, 0, 1, 10, 1, 14, -1, 1,
+                new byte[]{0, 1, 4, 0, -1, -1, 0, 0, 1, 17, 0, -1, -1, 0});
+        assertEarthSkillSourceRow(checkpoint, 26, 143, 555, 150, 2, 30, 0, -1, -1, 0,
+                new byte[]{0, 0, 22, 6, -1, -1, 0, 0, 1, 6, 0, -1, -1, 0});
+        assertEarthSkillSourceRow(checkpoint, 27, 144, 556, 100, 2, 30, 1, 4, 10, 0,
+                new byte[]{0, 0, 22, 7, -1, -1, 0,
+                        1, 0, 32, 0, 0, -1, 0,
+                        1, 1, 7, 0, -1, -1, 0});
+        assertEarthSkillSourceRow(checkpoint, 28, 145, 557, 150, 3, 15, 2, 1, 25, 0,
+                new byte[]{0, 0, 22, 5, -1, -1, 0, 0, 0, 22, 4, -1, -1, 1});
+        assertEarthSkillSourceRow(checkpoint, 29, 146, 558, 180, 3, 15, 0, -1, 300, 0,
+                new byte[]{0, 0, 22, 8, -1, -1, 0});
+
+        BattleBuffRow buff4 = VqsvBattleTables.instance().buff(4);
+        BattleBuffRow buff14 = VqsvBattleTables.instance().buff(14);
+        BattleDebuffRow debuff1 = VqsvBattleTables.instance().debuff(1);
+        short[] speffect4 = VqsvBattleAnimationTables.instance().speffectRow(4);
+        short[] speffect6 = VqsvBattleAnimationTables.instance().speffectRow(6);
+        short[] speffect7 = VqsvBattleAnimationTables.instance().speffectRow(7);
+        short[] speffect17 = VqsvBattleAnimationTables.instance().speffectRow(17);
+        if (buff4 == null || buff4.raw[0] != 337 || buff4.raw[2] != 2
+                || buff14 == null || buff14.raw[0] != 347 || buff14.duration != 3
+                || debuff1 == null || debuff1.duration != 2
+                || speffect4.length == 0 || speffect4[0] != 7
+                || speffect6.length == 0 || speffect6[0] != 8
+                || speffect7.length == 0 || speffect7[0] != 9
+                || speffect17.length == 0 || speffect17[0] != 1) {
+            throw new IllegalStateException(checkpoint + " earth skill 25..29 status/effect table mismatch"
+                    + " buff4=" + (buff4 == null ? "null" : java.util.Arrays.toString(buff4.raw))
+                    + " buff14=" + (buff14 == null ? "null" : java.util.Arrays.toString(buff14.raw))
+                    + " debuff1=" + (debuff1 == null ? "null" : java.util.Arrays.toString(debuff1.raw))
+                    + " speffect4=" + java.util.Arrays.toString(speffect4)
+                    + " speffect6=" + java.util.Arrays.toString(speffect6)
+                    + " speffect7=" + java.util.Arrays.toString(speffect7)
+                    + " speffect17=" + java.util.Arrays.toString(speffect17));
+        }
+    }
+
+    private static void assertEarthSkillSourceRow(String checkpoint, int skillId,
+                                                  int nameTextId, int descriptionTextId,
+                                                  int powerPercent, int tier, int ppMax,
+                                                  int effectMode, int effectId,
+                                                  int chanceOrParam, int targetSide,
+                                                  byte[] expectedEffect) {
+        BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
+        byte[] effect = VqsvBattleAnimationTables.instance().effectRow(skillId);
+        if (row == null
+                || row.elementFamily != 2
+                || row.nameTextId != nameTextId
+                || row.descriptionTextId != descriptionTextId
+                || row.powerPercent != powerPercent
+                || row.learnTier != tier
+                || row.ppMax != ppMax
+                || row.effectMode != effectMode
+                || row.effectId != effectId
+                || row.chanceOrParam != chanceOrParam
+                || row.targetSide != targetSide
+                || !java.util.Arrays.equals(effect, expectedEffect)) {
+            throw new IllegalStateException(checkpoint + " skill" + skillId + " source row mismatch"
+                    + " skill=" + (row == null ? "null" : java.util.Arrays.toString(row.raw))
+                    + " effect=" + java.util.Arrays.toString(effect)
+                    + " expectedEffect=" + java.util.Arrays.toString(expectedEffect));
+        }
+    }
+
+    private static EarthSkillCaseResult runEarthSkill25To29Case(int skillId, String slug,
+                                                                 int expectedPlayerBuffId,
+                                                                 int expectedEnemyDebuffId,
+                                                                 boolean preloadDebuff1,
+                                                                 java.io.File dir,
+                                                                 boolean conditionalLabel)
+            throws java.io.IOException {
+        VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+        SourceBattleRuntime runtime = enterElderP3BeforeConfirm(s, skillId);
+        BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
+        if (row == null) {
+            throw new IllegalStateException("Missing skill row " + skillId);
+        }
+        if (preloadDebuff1) {
+            runtime.debugEnemySourceDebuffForSmoke(s, 1, 0, 22);
+            if (!runtime.debugEnemyHasDebuffForSmoke(1)) {
+                throw new IllegalStateException("Expected skill" + skillId + " preload debuff1");
+            }
+        }
+
+        int beforePlayerHp = s.battlePlayerHp;
+        int beforeEnemyHp = s.battleEnemyHp;
+        int beforePp = runtime.debugPlayerSkillPpForSmoke(0);
+        String prefix = "battle_skill" + skillId + "_" + slug
+                + (conditionalLabel ? "_debuff1" : "") + "_timeline_";
+        writeScenePng(s, new java.io.File(dir, prefix + "before.png"));
+
+        runtime.debugSetNextDamageCritRollForSmoke(99);
+        runtime.debugSetNextP7HitRollForSmoke(99);
+        runtime.debugSetNextDamageDebuffRollForSmoke(0);
+        for (int i = 0; i < 24 && !"P7".equals(s.battleStateName); i++) {
+            s.press0();
+            s.tick();
+        }
+        tickUntilBattleState(s, "P7", 160);
+        tickUntilBattleP7Phase(s, 1, 180);
+        for (int i = 0; i < 40
+                && !s.battleP7ActorEffectVisible
+                && !s.battleP7SpecialVisible; i++) {
+            s.tick();
+        }
+        assertEarthSkill25To29FirstVisual(s, runtime, skillId, beforeEnemyHp, beforePp);
+        writeScenePng(s, new java.io.File(dir, prefix + "effect_start.png"));
+
+        int damage = 0;
+        if (row.powerPercent > 0) {
+            tickUntilBattleP7Phase(s, 2, 360);
+            damage = latestTraceDamage(s, "battle P7 damage frame skill=" + skillId);
+            if (damage <= 0) {
+                throw new IllegalStateException("Expected skill" + skillId + " to apply damage"
+                        + " damage=" + damage
+                        + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                        + " beforeEnemyHp=" + beforeEnemyHp
+                        + " trace=" + tailTrace(s, 120));
+            }
+        }
+
+        int guard = 0;
+        while ("P7".equals(s.battleStateName) && s.battleP7Phase < 3 && guard++ < 520) {
+            s.tick();
+        }
+        for (int i = 0; i < 12; i++) {
+            s.tick();
+        }
+
+        boolean playerBuffActive = expectedPlayerBuffId >= 0
+                && runtime.debugPlayerHasBuffForSmoke(expectedPlayerBuffId);
+        boolean enemyDebuffActive = expectedEnemyDebuffId >= 0
+                && runtime.debugEnemyHasDebuffForSmoke(expectedEnemyDebuffId);
+        if (expectedPlayerBuffId >= 0 && !playerBuffActive) {
+            throw new IllegalStateException("Expected skill" + skillId + " player buff"
+                    + " id=" + expectedPlayerBuffId
+                    + " duration=" + runtime.debugPlayerBuffDurationForSmoke(expectedPlayerBuffId)
+                    + " trace=" + tailTrace(s, 120));
+        }
+        if (expectedEnemyDebuffId >= 0 && !enemyDebuffActive) {
+            throw new IllegalStateException("Expected skill" + skillId + " enemy debuff"
+                    + " id=" + expectedEnemyDebuffId
+                    + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(expectedEnemyDebuffId)
+                    + " trace=" + tailTrace(s, 120));
+        }
+        if (skillId == 25 && s.battleEnemyHp != beforeEnemyHp) {
+            throw new IllegalStateException("Expected skill25 no damage"
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " beforeEnemyHp=" + beforeEnemyHp);
+        }
+        if (runtime.debugPlayerSkillPpForSmoke(0) != beforePp - 1) {
+            throw new IllegalStateException("Expected skill" + skillId + " PP to decrement by 1"
+                    + " beforePp=" + beforePp
+                    + " afterPp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " trace=" + tailTrace(s, 80));
+        }
+        writeScenePng(s, new java.io.File(dir, prefix + "result.png"));
+
+        EarthSkillCaseResult result = new EarthSkillCaseResult(skillId, row.name("skill" + skillId),
+                beforePlayerHp, s.battlePlayerHp,
+                beforeEnemyHp, s.battleEnemyHp,
+                beforePp, runtime.debugPlayerSkillPpForSmoke(0),
+                damage,
+                expectedPlayerBuffId, playerBuffActive,
+                expectedPlayerBuffId >= 0 ? runtime.debugPlayerBuffDurationForSmoke(expectedPlayerBuffId) : 0,
+                expectedEnemyDebuffId, enemyDebuffActive,
+                expectedEnemyDebuffId >= 0 ? runtime.debugEnemyDebuffDurationForSmoke(expectedEnemyDebuffId) : 0,
+                preloadDebuff1,
+                java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(skillId)));
+        s.sourceStateTrace.add("SMOKE verified earth skill" + skillId + " closeout " + result.describe());
+        return result;
+    }
+
+    private static void assertEarthSkill25To29FirstVisual(VqsvIntroDemo.Scene s,
+                                                           SourceBattleRuntime runtime,
+                                                           int skillId,
+                                                           int beforeEnemyHp,
+                                                           int beforePp) {
+        boolean ok;
+        if (skillId == 25) {
+            ok = s.battleP7SpecialVisible
+                    && s.battleP7SpecialType == 7
+                    && !s.battleP7ActorEffectVisible
+                    && !traceContains(s, "battle P7 damage frame skill=25");
+        } else {
+            int expectedState;
+            if (skillId == 26) {
+                expectedState = 6;
+            } else if (skillId == 27) {
+                expectedState = 7;
+            } else if (skillId == 28) {
+                expectedState = 5;
+            } else {
+                expectedState = 8;
+            }
+            ok = s.battleP7ActorEffectVisible
+                    && s.battleP7ActorEffectSpriteId == 264
+                    && s.battleP7ActorEffectState == expectedState
+                    && !s.battleP7ActorEffectOnPlayerSide;
+        }
+        if (!ok
+                || s.battleEnemyHp != beforeEnemyHp
+                || runtime.debugPlayerSkillPpForSmoke(0) != beforePp - 1
+                || !traceContains(s, "battle P7 source n() skill=" + skillId)) {
+            throw new IllegalStateException("Expected earth skill" + skillId + " first visual from effect.mid"
+                    + " actorVisible=" + s.battleP7ActorEffectVisible
+                    + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                    + " actorState=" + s.battleP7ActorEffectState
+                    + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
+                    + " specialVisible=" + s.battleP7SpecialVisible
+                    + " specialType=" + s.battleP7SpecialType
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " trace=" + tailTrace(s, 96));
+        }
     }
 
     private static void assertSkill20P3BeforeConfirm(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
@@ -1721,14 +2014,14 @@ final class EarthSkill implements Skill {
                                                     String checkpoint) {
         if (!s.battleP7ActorEffectVisible
                 || s.battleP7ActorEffectSpriteId != 264
-                || s.battleP7ActorEffectState != 0
+                || s.battleP7ActorEffectState != 1
                 || s.battleP7ActorEffectOnPlayerSide
                 || s.battleEnemyHp != s.battleEnemyMaxHp
                 || runtime.debugPlayerSkillPpForSmoke(0) != 44
                 || runtime.debugPlayerHasBuffForSmoke(4)
                 || !traceContains(s, "battle P7 source n() skill=21")
                 || !traceContains(s, "id=22")
-                || !traceContains(s, "param=0")
+                || !traceContains(s, "param=1")
                 || !traceContains(s, "battle P7 actor u.a() start skill=21")
                 || traceContains(s, "battle P7 damage frame skill=21")) {
             throw new IllegalStateException(checkpoint + " expected skill21 actor effect"
@@ -1748,14 +2041,14 @@ final class EarthSkill implements Skill {
                                                     String checkpoint) {
         if (!s.battleP7ActorEffectVisible
                 || s.battleP7ActorEffectSpriteId != 264
-                || s.battleP7ActorEffectState != 0
+                || s.battleP7ActorEffectState != 3
                 || s.battleP7ActorEffectOnPlayerSide
                 || s.battleEnemyHp != s.battleEnemyMaxHp
                 || runtime.debugPlayerSkillPpForSmoke(0) != 44
                 || runtime.debugEnemyHasDebuffForSmoke(1)
                 || !traceContains(s, "battle P7 source n() skill=22")
                 || !traceContains(s, "id=22")
-                || !traceContains(s, "param=0")
+                || !traceContains(s, "param=3")
                 || !traceContains(s, "battle P7 actor u.a() start skill=22")
                 || traceContains(s, "battle P7 speffect skill=22")
                 || traceContains(s, "battle P7 damage frame skill=22")) {
@@ -1776,14 +2069,14 @@ final class EarthSkill implements Skill {
                                                     String checkpoint, boolean preloadDebuff1) {
         if (!s.battleP7ActorEffectVisible
                 || s.battleP7ActorEffectSpriteId != 264
-                || s.battleP7ActorEffectState != 0
+                || s.battleP7ActorEffectState != 5
                 || s.battleP7ActorEffectOnPlayerSide
                 || s.battleEnemyHp != s.battleEnemyMaxHp
                 || runtime.debugPlayerSkillPpForSmoke(0) != 29
                 || runtime.debugEnemyHasDebuffForSmoke(1) != preloadDebuff1
                 || !traceContains(s, "battle P7 source n() skill=23")
                 || !traceContains(s, "id=22")
-                || !traceContains(s, "param=0")
+                || !traceContains(s, "param=5")
                 || !traceContains(s, "battle P7 actor u.a() start skill=23")
                 || traceContains(s, "battle P7 damage frame skill=23")) {
             throw new IllegalStateException(checkpoint + " expected skill23 actor effect before special/damage"
@@ -1804,7 +2097,7 @@ final class EarthSkill implements Skill {
                                                     String checkpoint, int startHp) {
         if (!s.battleP7ActorEffectVisible
                 || s.battleP7ActorEffectSpriteId != 264
-                || s.battleP7ActorEffectState != 0
+                || s.battleP7ActorEffectState != 6
                 || !s.battleP7ActorEffectOnPlayerSide
                 || s.battlePlayerHp != startHp
                 || s.battleEnemyHp != s.battleEnemyMaxHp
@@ -1813,7 +2106,7 @@ final class EarthSkill implements Skill {
                 || runtime.debugPlayerHasBuffForSmoke(13)
                 || !traceContains(s, "battle P7 source n() skill=24")
                 || !traceContains(s, "id=22")
-                || !traceContains(s, "param=0")
+                || !traceContains(s, "param=6")
                 || !traceContains(s, "battle P7 actor u.a() start skill=24")
                 || traceContains(s, "battle P7 damage frame skill=24")) {
             throw new IllegalStateException(checkpoint + " expected skill24 player-side actor before heal/cleanse"
@@ -1992,6 +2285,20 @@ final class EarthSkill implements Skill {
         ImageIO.write(img, "png", out);
     }
 
+    private static void writeScenePngForCheckpointSummary(java.io.File out,
+                                                          EarthSkillCaseResult[] results)
+            throws java.io.IOException {
+        java.io.File parent = out.getParentFile();
+        if (parent == null) {
+            parent = new java.io.File(".");
+        }
+        String lastResultName = "battle_skill"
+                + results[results.length - 1].skillId
+                + "_tho_chi_loan_vu_debuff1_timeline_result.png";
+        java.nio.file.Files.copy(new java.io.File(parent, lastResultName).toPath(), out.toPath(),
+                java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+    }
+
     private static SourceBattleRuntime enterElderP3BeforeConfirm(VqsvIntroDemo.Scene s, int skillId) {
         s.eventIndex = s.events.size();
         s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, skillId, 45));
@@ -2056,6 +2363,70 @@ final class EarthSkill implements Skill {
             this.hadDebuff1 = hadDebuff1;
             this.specialType = specialType;
             this.traceTail = traceTail;
+        }
+    }
+
+    private static final class EarthSkillCaseResult {
+        final int skillId;
+        final String name;
+        final int beforePlayerHp;
+        final int afterPlayerHp;
+        final int beforeEnemyHp;
+        final int afterEnemyHp;
+        final int beforePp;
+        final int afterPp;
+        final int damage;
+        final int playerBuffId;
+        final boolean playerBuffActive;
+        final int playerBuffDuration;
+        final int enemyDebuffId;
+        final boolean enemyDebuffActive;
+        final int enemyDebuffDuration;
+        final boolean preloadedDebuff1;
+        final String effectRow;
+
+        EarthSkillCaseResult(int skillId, String name,
+                             int beforePlayerHp, int afterPlayerHp,
+                             int beforeEnemyHp, int afterEnemyHp,
+                             int beforePp, int afterPp,
+                             int damage,
+                             int playerBuffId, boolean playerBuffActive, int playerBuffDuration,
+                             int enemyDebuffId, boolean enemyDebuffActive, int enemyDebuffDuration,
+                             boolean preloadedDebuff1,
+                             String effectRow) {
+            this.skillId = skillId;
+            this.name = name;
+            this.beforePlayerHp = beforePlayerHp;
+            this.afterPlayerHp = afterPlayerHp;
+            this.beforeEnemyHp = beforeEnemyHp;
+            this.afterEnemyHp = afterEnemyHp;
+            this.beforePp = beforePp;
+            this.afterPp = afterPp;
+            this.damage = damage;
+            this.playerBuffId = playerBuffId;
+            this.playerBuffActive = playerBuffActive;
+            this.playerBuffDuration = playerBuffDuration;
+            this.enemyDebuffId = enemyDebuffId;
+            this.enemyDebuffActive = enemyDebuffActive;
+            this.enemyDebuffDuration = enemyDebuffDuration;
+            this.preloadedDebuff1 = preloadedDebuff1;
+            this.effectRow = effectRow;
+        }
+
+        String describe() {
+            return "skill=" + skillId
+                    + " name=" + name
+                    + " hpPlayer=" + beforePlayerHp + "->" + afterPlayerHp
+                    + " hpEnemy=" + beforeEnemyHp + "->" + afterEnemyHp
+                    + " pp=" + beforePp + "->" + afterPp
+                    + " damage=" + damage
+                    + " playerBuff=" + playerBuffId + ":" + playerBuffActive
+                    + "/" + playerBuffDuration
+                    + " enemyDebuff=" + enemyDebuffId + ":" + enemyDebuffActive
+                    + "/" + enemyDebuffDuration
+                    + " preloadedDebuff1=" + preloadedDebuff1
+                    + " effect.mid=" + effectRow
+                    + "\n";
         }
     }
 }

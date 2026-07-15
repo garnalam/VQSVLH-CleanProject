@@ -388,21 +388,6 @@ final class SpriteData {
             short[][] frames = asRows(readFlat(bytes, c));
             short[][] cells = readMatrix(bytes, c);
             short[][] anim = readMatrix(bytes, c);
-            if (sprId >= 86 && sprId <= 185) {
-                short[][] special = new short[5][4];
-                short[] offset = {0, 10, 3, 7, -10};
-                for (int i = 0; i < special.length; i++) {
-                    for (int j = 0; j < 4; j++) {
-                        special[i][j] = j == 1 ? (short) (cells[0][j] + offset[i]) : cells[0][j];
-                    }
-                }
-                cells = special;
-                anim = new short[][]{
-                        {2, 0},
-                        {1, 0, 1, 1, 1, 2, 1, 3, 1, 2},
-                        {5, 0, 5, 4}
-                };
-            }
             short[][] collisionMasks = masksByCell(readFlat(bytes, c), cells.length);
             short[][] hitMasks = masksByCell(readFlat(bytes, c), cells.length);
             if (imageIds == null || imageIds.length == 0) {

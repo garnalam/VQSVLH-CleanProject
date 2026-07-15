@@ -1,47 +1,49 @@
-original,decoded,kind,note
-modules/tex/original/bk.mid,,original,Original file from JAR path data/tex/bk.mid
-modules/tex/original/blood_0.mid,,original,Original file from JAR path data/tex/blood_0.mid
-modules/tex/original/blood_1.mid,,original,Original file from JAR path data/tex/blood_1.mid
-modules/tex/original/blood_2.mid,,original,Original file from JAR path data/tex/blood_2.mid
-modules/tex/original/down0.mid,,original,Original file from JAR path data/tex/down0.mid
-modules/tex/original/down1.mid,,original,Original file from JAR path data/tex/down1.mid
-modules/tex/original/down2.mid,,original,Original file from JAR path data/tex/down2.mid
-modules/tex/original/down3.mid,,original,Original file from JAR path data/tex/down3.mid
-modules/tex/original/fire0.mid,,original,Original file from JAR path data/tex/fire0.mid
-modules/tex/original/fire1.mid,,original,Original file from JAR path data/tex/fire1.mid
-modules/tex/original/fire2.mid,,original,Original file from JAR path data/tex/fire2.mid
-modules/tex/original/gold.mid,,original,Original file from JAR path data/tex/gold.mid
-modules/tex/original/hide.mid,,original,Original file from JAR path data/tex/hide.mid
-modules/tex/original/ikon_1.mid,,original,Original file from JAR path data/tex/ikon_1.mid
-modules/tex/original/menu.mid,,original,Original file from JAR path data/tex/menu.mid
-modules/tex/original/star0.mid,,original,Original file from JAR path data/tex/star0.mid
-modules/tex/original/star1.mid,,original,Original file from JAR path data/tex/star1.mid
-modules/tex/original/star2.mid,,original,Original file from JAR path data/tex/star2.mid
-modules/tex/original/star3.mid,,original,Original file from JAR path data/tex/star3.mid
-modules/tex/original/tex_0.mid,,original,Original file from JAR path data/tex/tex_0.mid
-modules/tex/original/tex_1.mid,,original,Original file from JAR path data/tex/tex_1.mid
-modules/tex/original/tex_2.mid,,original,Original file from JAR path data/tex/tex_2.mid
-modules/tex/original/tex_3.mid,,original,Original file from JAR path data/tex/tex_3.mid
-modules/tex/original/bk.mid,modules/tex/decoded/data__tex__bk.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/blood_0.mid,modules/tex/decoded/data__tex__blood_0.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/blood_1.mid,modules/tex/decoded/data__tex__blood_1.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/blood_2.mid,modules/tex/decoded/data__tex__blood_2.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/down0.mid,modules/tex/decoded/data__tex__down0.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/down1.mid,modules/tex/decoded/data__tex__down1.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/down2.mid,modules/tex/decoded/data__tex__down2.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/down3.mid,modules/tex/decoded/data__tex__down3.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/fire0.mid,modules/tex/decoded/data__tex__fire0.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/fire1.mid,modules/tex/decoded/data__tex__fire1.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/fire2.mid,modules/tex/decoded/data__tex__fire2.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/gold.mid,modules/tex/decoded/data__tex__gold.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/hide.mid,modules/tex/decoded/data__tex__hide.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/ikon_1.mid,modules/tex/decoded/data__tex__ikon_1.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/menu.mid,modules/tex/decoded/data__tex__menu.mid.png,raw_png,PNG decoded/reconstructed from original asset.
-modules/tex/original/star0.mid,modules/tex/decoded/data__tex__star0.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/star1.mid,modules/tex/decoded/data__tex__star1.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/star2.mid,modules/tex/decoded/data__tex__star2.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/star3.mid,modules/tex/decoded/data__tex__star3.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/tex_0.mid,modules/tex/decoded/data__tex__tex_0.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/tex_1.mid,modules/tex/decoded/data__tex__tex_1.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/tex_2.mid,modules/tex/decoded/data__tex__tex_2.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
-modules/tex/original/tex_3.mid,modules/tex/decoded/data__tex__tex_3.png,reconstructed_png_chunks,PNG decoded/reconstructed from original asset.
+﻿"original","decoded","kind","note"
+"tex/original/bk.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/blood_0.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/blood_1.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/blood_2.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/down0.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/down1.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/down2.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/down3.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/fire0.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/fire1.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/fire2.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/gold.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/hide.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/ikon_1.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/ikon_2.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/ikon_3.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/star0.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/star1.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/star2.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/star3.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/tex_0.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/tex_1.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/tex_2.mid","","original","Candidate original file from extracted AowVN JAR"
+"tex/original/tex_3.mid","","original","Candidate original file from extracted AowVN JAR"
+"","tex/decoded/data__tex__bk.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__blood_0.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__blood_1.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__blood_2.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__down0.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__down1.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__down2.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__down3.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__fire0.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__fire1.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__fire2.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__gold.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__hide.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__ikon_1.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__ikon_2.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__ikon_3.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__star0.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__star1.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__star2.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__star3.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__tex_0.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__tex_1.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__tex_2.png","decoded_png","Candidate decoded/decompiled output"
+"","tex/decoded/data__tex__tex_3.png","decoded_png","Candidate decoded/decompiled output"

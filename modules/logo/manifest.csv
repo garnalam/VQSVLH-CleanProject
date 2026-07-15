@@ -1,6 +1,5 @@
-original,decoded,kind,note
-modules/logo/original/0.png,,original,Original file from JAR path data/logo/0.png
-modules/logo/original/cwalogo.png,,original,Original file from JAR path data/logo/cwalogo.png
-modules/logo/original/Thumbs.db,,original,Original file from JAR path data/logo/Thumbs.db
-modules/logo/original/0.png,modules/logo/decoded/data__logo__0.png,raw_png,PNG decoded/reconstructed from original asset.
-modules/logo/original/cwalogo.png,modules/logo/decoded/data__logo__cwalogo.png,raw_png,PNG decoded/reconstructed from original asset.
+﻿"original","decoded","kind","note"
+"logo/original/0.png","","original","Candidate original file from extracted AowVN JAR"
+"logo/original/cwalogo.png","","original","Candidate original file from extracted AowVN JAR"
+"","logo/decoded/data__logo__0.png","decoded_png","Candidate decoded/decompiled output"
+"","logo/decoded/data__logo__cwalogo.png","decoded_png","Candidate decoded/decompiled output"

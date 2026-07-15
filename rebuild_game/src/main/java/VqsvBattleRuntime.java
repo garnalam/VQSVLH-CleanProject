@@ -238,6 +238,8 @@ final class SourceBattleRuntime implements Blocking {
     private boolean p7FlagZ;
     private boolean p7FlagA;
     private boolean p7FlagB;
+    private boolean p7InitialTargetEffectGatePending;
+    private boolean p7InitialTargetEffectGateReleased;
     private int p7SpecialType = -1;
     private int loseRevivePhase;
     private boolean p7SpecialPrepared;
@@ -2253,7 +2255,7 @@ final class SourceBattleRuntime implements Blocking {
                     + " rerouteSlots=" + slots
                     + " randomIndex=" + chosen
                     + " excludesAttacker=true"
-                    + " ordinarySkill55Producer=NOT_REACHED");
+                    + " skill55Producer=GAMEPLAY_FIXED");
             targetUnits = units.toArray(new SourceBattleUnit[0]);
             targetSlots = new int[slots.size()];
             for (int i = 0; i < slots.size(); i++) {
@@ -2300,7 +2302,7 @@ final class SourceBattleRuntime implements Blocking {
                     + " selectedTarget=" + (units.isEmpty() ? "none" : units.get(selectedTargetIndex).name)
                     + " includesAttacker=true"
                     + " outgoingDamageBonus=10"
-                    + " ordinarySkill54Producer=NOT_REACHED");
+                    + " skill54Producer=GAMEPLAY_FIXED");
         }
         targetUnits = units.toArray(new SourceBattleUnit[0]);
         targetSlots = new int[slots.size()];
@@ -2395,7 +2397,7 @@ final class SourceBattleRuntime implements Blocking {
                 + " selectedIndex=" + selectedTargetIndex
                 + " includesAttacker=true"
                 + " outgoingDamageBonus=10"
-                + " ordinarySkill54Producer=NOT_REACHED");
+                + " skill54Producer=GAMEPLAY_FIXED");
     }
 
     void debugSeededDebuff8GameplayFixedP7ForSmoke(VqsvIntroDemo.Scene s, int skillId, int forcedRoll) {
@@ -2473,7 +2475,7 @@ final class SourceBattleRuntime implements Blocking {
                 + " rerouteSlots=" + java.util.Arrays.toString(s.battleTargetSlots)
                 + " rerouteSelectedPlayerSide=" + s.battleTargetPlayerSide
                 + " excludesAttacker=true"
-                + " ordinarySkill55Producer=NOT_REACHED");
+                + " skill55Producer=GAMEPLAY_FIXED");
     }
 
     private int sourceFormation() {
@@ -4728,6 +4730,8 @@ final class SourceBattleRuntime implements Blocking {
         p7FlagZ = false;
         p7FlagA = false;
         p7FlagB = false;
+        p7InitialTargetEffectGatePending = false;
+        p7InitialTargetEffectGateReleased = false;
         p7SpecialPrepared = false;
         p7SpecialActive = false;
         p7SpecialTicks = 0;
@@ -4766,6 +4770,10 @@ final class SourceBattleRuntime implements Blocking {
             boolean targetSide = p7EffectValue(0) == 0;
             boolean playerSide = targetSide ? p7Target == player : p7Attacker == player;
             p7ActorAnimation = new P7ActorAnimation(playerSide, p7EffectValue(2), p7EffectValue(3));
+        }
+        if ("initial".equals(reason) && p7EffectValue(0) == 0) {
+            p7InitialTargetEffectGatePending = true;
+            p7InitialTargetEffectGateReleased = false;
         }
         p7SourceI++;
         s.sourceStateTrace.add("PORTED/PARTIAL battle P7 source n() skill=" + p7SkillId
@@ -4819,6 +4827,18 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private boolean tickP7SourceEffectSequence(VqsvIntroDemo.Scene s) {
+        if (p7InitialTargetEffectGatePending && !p7InitialTargetEffectGateReleased) {
+            int cursor = p7BaseCursor(s, p7Attacker == player);
+            if (cursor < 1) {
+                return true;
+            }
+            p7InitialTargetEffectGateReleased = true;
+            s.sourceStateTrace.add("PORTED/PARTIAL battle P7 attacker state1 gate before target effect"
+                    + " skill=" + p7SkillId
+                    + " cursor=" + cursor
+                    + " source=game.a case7 I() then r.a((byte)1,true) before target v/S playback");
+            return true;
+        }
         boolean actorBranchActive = false;
         if (p7ActorAnimation != null && !p7ActorAnimation.stopped()) {
             actorBranchActive = tickP7ActorAnimation(s);
@@ -4891,6 +4911,7 @@ final class SourceBattleRuntime implements Blocking {
             }
             p7FlagA = true;
             p7FlagB = true;
+            p7InitialTargetEffectGatePending = false;
             return false;
         }
         p7ActorAnimation.tick();
@@ -4943,6 +4964,7 @@ final class SourceBattleRuntime implements Blocking {
         }
         p7FlagB = true;
         p7FlagA = true;
+        p7InitialTargetEffectGatePending = false;
         return false;
     }
 
@@ -5508,6 +5530,10 @@ final class SourceBattleRuntime implements Blocking {
         boolean leechRollPassed = false;
         int attackerHpBefore = p7Attacker.hp;
         switch (p7SkillId) {
+            case 54:
+            case 55:
+                applyP7NoDamageDebuffProducer(s, row);
+                break;
             case 11:
             case 17:
                 if (p7Attacker.battleUnit != null) {
@@ -5579,6 +5605,43 @@ final class SourceBattleRuntime implements Blocking {
                     + " buffHeal=" + buffHeal
                     + " leechRollPassed=" + leechRollPassed);
         }
+    }
+
+    private void applyP7NoDamageDebuffProducer(VqsvIntroDemo.Scene s, BattleSkillRow row) {
+        if (p7Attacker == null || p7Attacker.battleUnit == null
+                || p7Target == null || p7Target.battleUnit == null
+                || row == null || row.effectMode != 2 || row.effectId < 0) {
+            return;
+        }
+        BattlePendingDebuff pending = VqsvBattleEffectLogic.planTargetDebuff(
+                p7Attacker.battleUnit, p7Target.battleUnit,
+                p7SkillId, row.effectId, row.chanceOrParam, 0);
+        if (pending == null) {
+            s.sourceStateTrace.add("INTENTIONAL battle P7 no-damage debuff producer blocked"
+                    + " skill=" + p7SkillId
+                    + " debuffId=" + row.effectId
+                    + " chance=" + row.chanceOrParam
+                    + " targetBuff14=" + p7Target.battleUnit.hasBuff(14)
+                    + " sourceDeviation=GAMEPLAY_FIXED zero-power table debuff now applies through postEffect");
+            return;
+        }
+        pending.commit();
+        if (row.effectId == 8) {
+            p7Target.battleUnit.debuffSlots[8][1] = 10;
+        } else if (row.effectId == 9) {
+            p7Target.battleUnit.debuffSlots[9][1] = (short) row.chanceOrParam;
+        }
+        BattleEffectRow debuff = VqsvBattleTables.instance().effect(BattleEffectRow.BANK_DEBUFF, row.effectId);
+        p7PostEffectText = debuff == null ? "" : debuff.name("");
+        p7PostEffectPlayerSide = p7Target == player;
+        s.sourceStateTrace.add("INTENTIONAL battle P7 no-damage debuff producer applied"
+                + " skill=" + p7SkillId
+                + " debuffId=" + row.effectId
+                + " chance=" + row.chanceOrParam
+                + " duration=" + p7Target.battleUnit.debuffSlots[row.effectId][0]
+                + " value=" + p7Target.battleUnit.debuffSlots[row.effectId][1]
+                + " target=" + p7Target.name
+                + " sourceDeviation=GAMEPLAY_FIXED zero-power table debuff now has visible gameplay");
     }
 
     private boolean sourceP7LeechRollPassed(VqsvIntroDemo.Scene s) {

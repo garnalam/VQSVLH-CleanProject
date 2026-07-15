@@ -6,13 +6,6 @@ import com.vqsv.rebuild.resource.BinaryTables;
 import com.vqsv.rebuild.resource.ResourceLocator;
 
 public final class SpriteMetadata {
-    private static final short[] SPECIAL_OFFSETS = new short[]{0, 10, 3, 7, -10};
-    private static final short[][] SPECIAL_ANIMS = new short[][]{
-            {2, 0},
-            {1, 0, 1, 1, 1, 2, 1, 3, 1, 2},
-            {5, 0, 5, 4}
-    };
-
     private final int sprId;
     private final short[] frames;
     private final short[][] cells;
@@ -35,17 +28,8 @@ public final class SpriteMetadata {
         ResourceLocator locator = new ResourceLocator(paths);
         BinaryReader reader = locator.binary(paths.sprOriginal(sprId));
         short[] frames = BinaryTables.readPackedFlatShorts(reader);
-        short[][] cells;
-        short[][] animations;
-        if (sprId >= 86 && sprId <= 185) {
-            short[][] rawCells = BinaryTables.readPackedShortRows(reader);
-            cells = synthesizeSpecialCells(rawCells);
-            BinaryTables.readPackedShortRows(reader);
-            animations = SPECIAL_ANIMS;
-        } else {
-            cells = BinaryTables.readPackedShortRows(reader);
-            animations = BinaryTables.readPackedShortRows(reader);
-        }
+        short[][] cells = BinaryTables.readPackedShortRows(reader);
+        short[][] animations = BinaryTables.readPackedShortRows(reader);
         short[][] hitBoxes = remapBoxes(BinaryTables.readPackedFlatShorts(reader), cells.length);
         short[][] collisionBoxes = remapBoxes(BinaryTables.readPackedFlatShorts(reader), cells.length);
         return new SpriteMetadata(sprId, frames, cells, animations, hitBoxes, collisionBoxes);
@@ -93,19 +77,6 @@ public final class SpriteMetadata {
 
     public void setExtendedAnimation(boolean extendedAnimation) {
         this.extendedAnimation = extendedAnimation;
-    }
-
-    private static short[][] synthesizeSpecialCells(short[][] rawCells) {
-        if (rawCells == null || rawCells.length == 0 || rawCells[0].length < 4) {
-            return rawCells;
-        }
-        short[][] cells = new short[5][4];
-        for (int row = 0; row < cells.length; row++) {
-            for (int col = 0; col < 4; col++) {
-                cells[row][col] = col == 1 ? (short) (rawCells[0][col] + SPECIAL_OFFSETS[row]) : rawCells[0][col];
-            }
-        }
-        return cells;
     }
 
     private static short[][] remapBoxes(short[] flatBoxes, int cellCount) {

@@ -188,13 +188,23 @@ final class WorldUi {
             return BUTTON_NONE;
         }
         VqsvUiLayout layout = VqsvUiLayout.load("world.ui");
-        if (widgetHit(layout, 7, x, y, 1, 303, 18, 17)) {
+        if (widgetHit(layout, 7, x, y, 1, 303, 18, 17)
+                || leftSoftkeyHit(x, y)) {
             return BUTTON_SYSTEM;
         }
-        if (widgetHit(layout, 5, x, y, 222, 303, 16, 17)) {
+        if (widgetHit(layout, 5, x, y, 222, 303, 16, 17)
+                || rightSoftkeyHit(x, y)) {
             return BUTTON_MENU;
         }
         return BUTTON_NONE;
+    }
+
+    private static boolean leftSoftkeyHit(int x, int y) {
+        return x <= 48 && y >= 288;
+    }
+
+    private static boolean rightSoftkeyHit(int x, int y) {
+        return x >= 188 && y >= 288;
     }
 
     private static boolean widgetHit(VqsvUiLayout layout, int widgetId, int x, int y,

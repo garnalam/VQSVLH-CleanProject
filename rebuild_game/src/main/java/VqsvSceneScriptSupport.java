@@ -35,8 +35,26 @@ final class VqsvSceneScriptSupport {
         };
     }
 
+    static Event dialogOp4(String speaker, String text, int side, int portraitIndex) {
+        return s -> {
+            s.sourceStateTrace.add("PORTED op4 dialog.ui speaker=\"" + speaker
+                    + "\" side=" + side + " portrait=" + portraitIndex);
+            s.text = TextBox.dialog(s.font, speaker, text, side, portraitIndex);
+            return waitForText();
+        };
+    }
+
     static Event taskNotice(String text) {
         return s -> {
+            s.text = TextBox.taskTip(text);
+            return waitForText();
+        };
+    }
+
+    static Event taskNoticeOp45(int taskFlag, String text, String routeLabel) {
+        return s -> {
+            s.sourceStateTrace.add("PORTED op45 taskTip.ui route=" + routeLabel
+                    + " taskFlag=" + taskFlag + " text=\"" + text + "\"");
             s.text = TextBox.taskTip(text);
             return waitForText();
         };

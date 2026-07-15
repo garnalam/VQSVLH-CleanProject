@@ -33,8 +33,8 @@ numbers. The roadmap order is unchanged; only document numbers are shifted.
 | Phase 6 | P7 Effect Animation Engine | CLOSED FOR CURRENT ROUTES / PORTED-PARTIAL | `134..142`; P7 effect chunks, damage text/HP tween, death state, queue/follow-up branches smoke-covered | Do not reopen without original capture or a concrete source-route mismatch. |
 | Phase 7 | Actor Motion / Hit / Recover / Dead | CLOSED FOR CURRENT ROUTES / PORTED-PARTIAL | `135..142`; synthetic recoil removed, state 1/2 source-asset compare, state 3 death timing/hidden actor smoke-covered | Exact MIDP pixel parity remains future capture work. |
 | Phase 8 | Battle Entry/Exit + Event Integration | CLOSED FOR CURRENT MANUAL ROUTES / PORTED-PARTIAL | `143..154`; Sophie/Bunny/Elder route regressions pass, op47/downstream/save/world-resume wrappers cover current manual boundaries | Do not build generic decoded event VM unless a source-backed design task is chosen. |
-| Phase 9 | Broad Skill Coverage | CLOSED / PORTED-PARTIAL + SMOKE-COVERED | `155..187`; `156` matrix covers `aq.c[1][0..69]`; `187` closeout confirms no skill row remains missing/pending/unknown | Do not reopen broad skill coverage unless a source-route mismatch is found. |
-| Phase 10 | Regression / Visual Status Foundation | CLOSED / PARTIAL | `190..192`, `222`; `--smoke-suite battle_quick` passes 20/20 checkpoints | Use `battle_quick` after every battle code change; expand focused suites only when needed. |
+| Phase 9 | Broad Skill Coverage | CLOSED / PORTED-PARTIAL + SMOKE-COVERED | `155..187`, `355..363`; `363` is the current S60 closeout for skill `0..69` after Battle Lab integration | Do not reopen broad skill coverage unless a named skill mismatch, original-capture mismatch, or new source proof is found. |
+| Phase 10 | Regression / Visual Status Foundation | CLOSED / PARTIAL | `190..192`, `222`; `--smoke-suite battle_quick` passes 227/227 checkpoints after skill closeout | Use `battle_quick` after every battle code change; expand focused suites only when needed. |
 | Phase 11 | Battle UI Widget Runtime Parity | ACTIVE / PARTIAL | `193..199`, `221`; choice/msgwarm/openbox runtime slices are source-backed for current battle flows; `choice.ui` wheel/hover/click mapping is verified for P4/P21 and P16 is verified not-applicable | Continue only with a chosen UI runtime gap such as `petstate.ui`, or move to Phase 12 animation/effect gaps if staying on battle visuals. |
 
 ## Phase 1 Progress Against Roadmap
@@ -258,6 +258,17 @@ Recommended ordering now:
    is now in `battle_quick`, and Battle Lab has `npc.exp_normal_gain` so manual
    testing no longer has to use the intentional threshold-forced `exp_levelup`
    scenario as the default EXP check.
+30. S60 skill group closeout is complete in
+   `363_battle_skill_group_0_69_closeout_and_remaining_gap_matrix.md`.
+   Battle Lab group suites `fire_skills_0_9`, `wood_skills_10_19`,
+   `earth_skills_20_29`, `water_skills_30_39`, `electric_skills_40_49`,
+   `shadow_skills_50_59`, and `wind_skills_60_69` pass 10/10 each. Focused
+   closeout suites for Earth 25..29, Water 30..39, Electric 40..49, Shadow
+   50..59, and Wind 60..69 pass. Current classification is
+   CLOSED / PORTED-PARTIAL + SMOKE-COVERED, with no pixel-perfect claim.
+   Known non-source/gameplay decisions remain explicitly classified:
+   buff6, buff10, debuff8, and debuff9 are
+   INTENTIONAL_DEVIATION / GAMEPLAY_FIXED; skill67 remains SOURCE_ODDITY.
 30. `223_battle_exp_formula_and_source_flow_audit.md` locks the source EXP
    formula and flow:
    enemy KO -> `game.d.h()` pending `B` -> `game.d.X()` commit to `S` ->
@@ -372,6 +383,50 @@ Recommended ordering now:
    active queue `speffect6/AH8`, no-op HP/stat tick `74 -> 74`, duration
    `3 -> 2`, and expiry/clear after three ticks. Next Wood Lane slice is skill
    `19`, stronger direct damage plus delayed debuff id `3`.
+45. `356_battle_wood_skill_10_19_s60_reaudit_and_battle_lab.md` updates the
+   Wood group after the S60 merge and adds Battle Lab scenarios/suite
+   `wood_skills_10_19`. This supersedes stale pre-S60 effect row assumptions
+   for manual skill testing.
+46. `357_battle_p7_attacker_action_before_target_effect_audit.md` fixes the P7
+   order bug where target-side skill effects could appear before the attacker's
+   action animation. Runtime now gates the initial target-side chunk until the
+   attacker's base state has visibly advanced. This is PORTED/PARTIAL and not a
+   pixel-perfect claim.
+47. `358_battle_earth_skill_20_29_s60_reaudit_and_battle_lab.md` closes the
+   Earth group `20..29` for current source-backed verification. Skills `20..24`
+   have dedicated timeline smoke. Skills `25..29` have a closeout smoke with
+   before/effect/result PNGs and HP/PP/status data. Battle Lab suite
+   `earth_skills_20_29` is available for manual testing.
+48. `359_battle_water_skill_30_39_s60_reaudit_and_battle_lab.md` closes the
+   Water/Ice group `30..39` for current source-backed verification. The
+   closeout smoke covers before/effect/result PNGs and HP/PP/status data for
+   all ten skills, including debuff4/5/6 producers and self buff5/6 producers.
+   Battle Lab suite `water_skills_30_39` is available for manual testing.
+49. `360_battle_electric_skill_40_49_s60_reaudit_and_battle_lab.md` closes the
+   Electric group `40..49` for current source-backed verification. The closeout
+   smoke covers before/effect/result PNGs and HP/PP/status data for all ten
+   skills, including debuff10 producers, buff7 producers, and self buff8/9
+   producers. Battle Lab suite `electric_skills_40_49` is available for manual
+   testing.
+50. `361_battle_shadow_skill_50_59_s60_reaudit_and_battle_lab.md` closes the
+   Shadow/family-5 group `50..59` for current source-backed verification. The
+   closeout smoke covers before/effect/result PNGs and HP/PP/debuff/heal data
+   for all ten skills, including debuff7 producers, forced-pass leech gates
+   for skills `52/58`, and the user-approved no-damage producers for
+   `54`/`55`. Skills `54`/`55` are still documented honestly as source
+   zero-power rows, but rebuild gameplay now applies debuff8/debuff9 through
+   `INTENTIONAL_DEVIATION/GAMEPLAY_FIXED` post-effect producer logic so they
+   visibly affect later actions. Battle Lab suite `shadow_skills_50_59` is
+   available for manual testing.
+51. `362_battle_wind_skill_60_69_s60_reaudit_and_battle_lab.md` closes the
+   Wind/family-6 group `60..69` for current source-backed verification. The
+   closeout smoke covers before/effect/result PNGs and HP/PP/status/copy/
+   follow-up data for all ten skills, including debuff5 producer skill `61`,
+   buff10 producers `62/68`, buff11 copy skill `64`, buff12 K12 producer
+   `65`, and forced pass/fail q() follow-up for `63/69`. Skill `67` is
+   documented as a source oddity: the S60 row advertises debuff5, but current
+   bytecode-backed damage logic treats it as raw/default damage with no debuff.
+   Battle Lab suite `wind_skills_60_69` is available for manual testing.
 
 ## Phase Dependency Rules
 
@@ -388,35 +443,45 @@ Recommended ordering now:
 
 Phase 9 broad skill coverage is closed in `155..187`, Phase 10 quick-gate
 regression foundation is closed in `190..192`, and P8 EXP source formula/timing
-is current through `222..225`.
+is current through `222..225`. After the S60 merge, deeper skill/effect parity
+has been reopened source-first. Current completed S60 skill groups:
 
-The user has chosen the next active direction:
+- Fire `0..9`: Battle Lab integrated and user-tested.
+- Wood `10..19`: S60 reaudit and Battle Lab integrated in `356`.
+- Earth `20..29`: S60 reaudit, focused smoke, and Battle Lab integrated in
+  `358`.
+- Water/Ice `30..39`: S60 reaudit, focused smoke, and Battle Lab integrated in
+  `359`.
+- Electric `40..49`: S60 reaudit, focused smoke, and Battle Lab integrated in
+  `360`.
+- Shadow/family-5 `50..59`: S60 reaudit, focused smoke, and Battle Lab
+  integrated in `361`.
+- Wind/family-6 `60..69`: S60 reaudit, focused smoke, and Battle Lab integrated
+  in `362`.
+
+The user has chosen the current active direction:
 
 ```text
 1. Treat Battle Lab as the standard battle test module/workflow.
-2. Finish item logic across battle, panel/bag, shop, rewards, equipment, and
-   save/load.
-3. Then continue deeper skill completion/parity beyond broad Phase 9 row
-   coverage.
+2. Continue deeper skill/effect parity by source skill groups after the S60
+   merge.
+3. For each group: source row/effect row audit -> Battle Lab scenarios ->
+   PNG smoke before/effect/result -> honest PORTED/PARTIAL/PENDING status.
 ```
 
 Immediate next concrete task:
 
 ```text
-Create 228_panel_state17_petsetting_item_behavior_smoke_matrix.md.
+Run skill-group closeout across `0..69`: verify every Battle Lab skill suite is
+registered, run all skill suites after a fresh build, and create a compact
+remaining-gap matrix for non-pixel-perfect visuals/source oddities.
 ```
-
-This should add focused PNG checkpoints for source-proven existing item
-behaviors before changing logic: item `6` PP restore, item `8` HP+PP restore,
-item `10` debuff clear success/warning, item `12` stronger revive, and
-item `8/9` warning code `7` in panel state17/petsetting paths.
 
 Rules for the next step:
 
-- Do not recreate Phase 9 or add more skill-row smoke just to reduce matrix
-  anxiety; `187` is the controlling closeout.
-- Do not code random item behavior before the `227` matrix and focused smoke
-  plan are used.
+- Source row/effect row first; no visual guessing.
+- Do not claim pixel-perfect without original-vs-rebuild frame compare.
+- Battle Lab smoke does not replace dedicated closeout smoke for changed rows.
 - Keep `battle_quick` after every battle code change.
 - Keep `panel_wheel` after every input/list/panel UI change.
 - Use Battle Lab suites for focused NPC/catch item and skill testing, but keep

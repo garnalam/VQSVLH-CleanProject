@@ -1403,7 +1403,7 @@ final class VqsvPanelRuntime {
             drawMultilineText(g, font, layout, 8,
                     "Nh\u1ea5n n\u00fat 2, 4, 6, 8 \u0111\u1ec3 di chuy\u1ec3n"
                             + "#nN\u00fat 5: c\u00f4ng k\u00edch, \u0111\u1ed1i tho\u1ea1i, x\u00e1c nh\u1eadn"
-                            + "#nN\u00fat 1, 3: Xem nhi\u1ec7m v\u1ee5"
+                            + "#nN\u00fat 1: Xem nhi\u1ec7m v\u1ee5"
                             + "#nN\u00fat 9: l\u1ef1a ch\u1ecdn s\u1ee7ng v\u1eadt c\u01b0\u1ee1i"
                             + "#nN\u00fat 0: Xem b\u1ea3n \u0111\u1ed3"
                             + "#nN\u00fat m\u1ec1m tr\u00e1i: menu h\u1ec7 th\u1ed1ng"
@@ -1561,8 +1561,15 @@ final class VqsvPanelRuntime {
             int textColor = rowIndex == selected ? 0xffa500 : color(layout.widget(TASK_ROW_NAMES[i]), 0x1c6c91);
             drawText(g, font, layout, TASK_ROW_NUMBERS[i], String.valueOf(row.number),
                     color(layout.widget(TASK_ROW_NUMBERS[i]), 0x1c6c91));
-            drawText(g, font, layout, TASK_ROW_NAMES[i], row.title, textColor);
-            drawText(g, font, layout, TASK_ROW_STATUS[i], row.completed ? "Ho\u00e0n th\u00e0nh" : "",
+            VqsvUiLayout.UiWidget nameWidget = layout.widget(TASK_ROW_NAMES[i]);
+            VqsvUiLayout.UiWidget statusWidget = layout.widget(TASK_ROW_STATUS[i]);
+            int nameWidth = nameWidget == null || statusWidget == null
+                    ? layout.w(TASK_ROW_NAMES[i], 72)
+                    : Math.max(1, statusWidget.x - nameWidget.x - 10);
+            drawTextWide(g, font, layout, TASK_ROW_NAMES[i], row.title, 0,
+                    nameWidth, textColor);
+            drawTextWide(g, font, layout, TASK_ROW_STATUS[i], row.completed ? "Ho\u00e0n th\u00e0nh" : "",
+                    0, layout.w(TASK_ROW_STATUS[i], 24),
                     color(layout.widget(TASK_ROW_STATUS[i]), 0x1c6c91));
         }
         String detail = "";
@@ -1582,7 +1589,7 @@ final class VqsvPanelRuntime {
     private void renderRecord(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
         VqsvUiLayout layout = VqsvUiLayout.load("record.ui");
         SpriteAnim ui = SpriteAnim.load(257);
-        drawRecordFrame(g, layout, ui);
+        drawRecordFrame(g, font, layout, ui, recordSelected);
         drawTextWide(g, font, layout, 11, layout.text(11, "Hinh Kam"), -8, 156,
                 color(layout.widget(11), 0xd0010e));
         drawText(g, font, layout, 12, layout.text(12, "Bat duoc sung vat"),
@@ -1622,7 +1629,8 @@ final class VqsvPanelRuntime {
                 color(layout.widget(2), 0xd0010e));
         for (int i = 0; i < PETMAP_TAB_CELLS.length; i++) {
             drawCellState(layout, ui, g, PETMAP_TAB_CELLS[i], i == petmapTab);
-            drawTextWide(g, font, layout, PETMAP_TAB_LABELS[i], PETMAP_TAB_NAMES[i], -1, 18,
+            drawTextWide(g, font, layout, PETMAP_TAB_LABELS[i], PETMAP_TAB_NAMES[i], -1,
+                    Math.max(1, layout.w(PETMAP_TAB_LABELS[i], 12) - 6),
                     i == petmapTab ? colorSelected(layout.widget(PETMAP_TAB_LABELS[i]))
                             : color(layout.widget(PETMAP_TAB_LABELS[i]), 0x00009a));
         }
@@ -1729,14 +1737,53 @@ final class VqsvPanelRuntime {
         drawCell(layout, ui, g, 42);
     }
 
-    private void drawRecordFrame(Graphics2D g, VqsvUiLayout layout, SpriteAnim ui) {
+    private void drawRecordFrame(Graphics2D g, FontBitmap font, VqsvUiLayout layout, SpriteAnim ui,
+                                 int selectedOption) {
         drawCell(layout, ui, g, 1);
         fillBand(g, layout, 2, 0xBDE8D7, 7);
         fillBand(g, layout, 3, 0x51D069, 132);
-        drawCell(layout, ui, g, 4);
-        drawCell(layout, ui, g, 32);
+        VqsvUiLayout.UiWidget left = layout.widget(4);
+        VqsvUiLayout.UiWidget cursor = layout.widget(6);
+        if (left != null && cursor != null) {
+            g.setColor(new Color(0x51D069));
+            g.fillRect(left.x - 8, left.y - 5, 144,
+                    Math.max(34, cursor.y - left.y + 18));
+        }
+        drawRecordOptionButton(g, font, layout, ui, 4, 6,
+                "H\u1ec7 th\u1ed1ng", "S\u1ee7ng v\u1eadt", selectedOption == 0);
+        drawRecordOptionButton(g, font, layout, ui, 32, 7,
+                "H\u1ec7 th\u1ed1ng", "Huy ch\u01b0\u01a1ng", selectedOption == 1);
         drawCell(layout, ui, g, 33);
         drawCell(layout, ui, g, 34);
+    }
+
+    private static void drawRecordOptionButton(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                               SpriteAnim ui, int widgetId, int cursorWidgetId,
+                                               String line1, String line2, boolean selectedOption) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget == null) {
+            return;
+        }
+        g.setColor(new Color(selectedOption ? 0xffe866 : 0xfff29a));
+        g.fillRect(widget.x, widget.y, Math.max(1, widget.w), 24);
+        g.setColor(new Color(selectedOption ? 0xff7a00 : 0xb97000));
+        g.drawRect(widget.x, widget.y, Math.max(1, widget.w), 24);
+        drawCenteredLine(g, font, line1, widget.x, widget.y + 3, Math.max(1, widget.w), 0x162c27);
+        drawCenteredLine(g, font, line2, widget.x, widget.y + 13, Math.max(1, widget.w), 0x162c27);
+        if (selectedOption) {
+            VqsvUiLayout.UiWidget cursor = layout.widget(cursorWidgetId);
+            if (cursor != null && cursor.imageId >= 0) {
+                drawCellTopLeft(ui, g, cursor.imageId, cursor.x, cursor.y);
+            }
+        }
+    }
+
+    private static void drawCenteredLine(Graphics2D g, FontBitmap font, String text,
+                                         int x, int y, int width, int color) {
+        int textWidth = font.taggedWidth(text);
+        int textX = x + Math.max(0, (width - textWidth) / 2);
+        font.drawTaggedLine(g, text, textX, y,
+                TextBox.visibleLength(TextBox.decodeMojibake(text)), color);
     }
 
     private void drawRecordSelection(Graphics2D g, VqsvUiLayout layout, int selectedOption) {

@@ -80,8 +80,8 @@ Source note: decompiled `game.b.a(byte,int,int)` has a `case 15`, but decoded `a
 | 5 | Chậm Chạp | Temporary value decreases for `Y` turns. | `[316,327,3]` | Duration `3`. Apply stores `w[5][1] = baseSpeed * skill[8] / 100`. Skills `32/38` use `10%`; skill `61` uses `5%`. Skill `67` has `skill[7]==5` but source bytecode routes it to default raw damage, so it is `NOT_REACHED` for debuff5. | Speed down immediately, reasserted on active queue tick, restored on expiry; lowered current speed feeds miss chance. | Icon `6`; source `bufDebuf` has `[1,0,0,-1,0,25,0,-1]` but `game.d.ai[1]` excludes id `5`, so P12/P13 skips body visual. | PORTED | Closeout `290`: producers `32/38/61`, skill67 no-debuff regression, P12 no-body-visual speed reassert, expiry speed restore, miss chance consumer, and buff14 block pass. |
 | 6 | Nhụt Chí | Damage ratio decreases for `Y` turns. | `[317,328,3]` | Duration `3`. Apply stores `w[6][1] = skill[8]`. Skills `33/39` use `10`, so affected unit outgoing damage is reduced by `damage * 10 / 100`. | Damage output down; source-immediate debuff mutation still commits on P7 miss, while HP/debuff text remain gated by hit. | Icon `7`; source `bufDebuf` has `[1,12,0,-1]` but `game.d.ai[1]` excludes id `6`, so P12/P13 skips body visual. | PORTED | Closeout `292`: producers `33/39`, stored value `10`, miss source-immediate mutation, P12 no-body-visual no-op, expiry clear, outgoing damage `80 -> 72`, and buff14 block pass. |
 | 7 | Phòng Ngự | Defense value decreases for `Y` turns. | `[318,329,3]` | Duration `3`. Apply stores `w[7][1] = baseDefense * skill[8] / 100`. Skills `51/57` use `20%`, so defense `-20%`. | Defense down. | Icon `8`; no body visual. | PORTED | `battle_status_debuff7_defense_down`; Phase 9-K. |
-| 8 | Quỷ Mị | Text says only by exploiting opponent attack can self attack opponent; exact source route is special. | `[319,330,4]` | Duration `4`. Skill `54` has table effect id `8`, but source P7 zero-power guard means normal damage/debuff producer does not behave like a regular direct hit. User-approved gameplay fix supersedes the unclear source consumer: attacker damage `+10%`, target roll `55%` self / `45%` opponent. | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED: unstable damage-up status. | Icon `9` if active; P12/P13 body visual exists if queued. | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED | Closeout `296`: skill54 ordinary producer `NOT_REACHED`, self-hit smoke `101 -> 111`, enemy-hit smoke `80 -> 88`, body visual, expiry. |
-| 9 | Hỗn Loạn | Confusion-like random target status; user confirmed it does not block pet switching. | `[320,331,1]` | Duration `1`. Skill `55` has table effect id `9`, but zero-power guard prevents treating it as ordinary damage/debuff. Active consumer rebuilds target list through `game.d.f(attacker)` and chooses by `ae.a(G.size())`. | Random target route when attacking; P5 pet switch remains allowed. | Icon `10` if active; P12/P13 body visual exists if queued. | PORTED/PARTIAL | Closeout `297`: zero-power no ordinary producer, seeded random target consumer, body visual, expiry. Direct P5 lock is `NOT_APPLICABLE / USER_CONFIRMED_ALLOWED`; only debuff2 Quan Quanh blocks pet switching. |
+| 8 | Quỷ Mị | Text says only by exploiting opponent attack can self attack opponent; exact source route is special. | `[319,330,4]` | Duration `4`. Skill `54` has table effect id `8`; rebuild now intentionally applies it through a no-damage post-effect producer using source chance `40`, stores value `10`, and remains blocked by buff14. User-approved gameplay fix: attacker damage `+10%`, target roll `55%` self / `45%` opponent. | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED: unstable damage-up status. | Icon `9` if active; P12/P13 body visual exists if queued. | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED | Closeout `296`: skill54 producer apply, buff14 block, self-hit smoke `101 -> 111`, enemy-hit smoke `80 -> 88`, body visual, expiry. |
+| 9 | Hỗn Loạn | Confusion-like random target status; user confirmed it does not block pet switching. | `[320,331,1]` | Duration `1`. Skill `55` has table effect id `9`; rebuild now intentionally applies it through a no-damage post-effect producer. Active consumer rebuilds target list through `game.d.f(attacker)` and chooses by `ae.a(G.size())`. | Random target route when attacking; P5 pet switch remains allowed. | Icon `10` if active; P12/P13 body visual exists if queued. | INTENTIONAL_DEVIATION / GAMEPLAY_FIXED | Closeout `297`: skill55 producer apply, seeded random target consumer, body visual, expiry. Direct P5 lock is `NOT_APPLICABLE / USER_CONFIRMED_ALLOWED`; only debuff2 Quan Quanh blocks pet switching. |
 | 10 | Tê Liệt | Each action costs extra wait time. | `[321,332,4]` | Duration `4`. No stored numeric value in source apply switch. Skills `41/47` apply this family with chance param `10`. Catch status multiplier index `3` uses `12/10`. Source search found no proven action-delay consumer for debuff slot `w[10]`; `game.d h.f((byte)10)` is held item/passive id `10`, not debuff10. | Catch modifier/status flag; action-delay scheduling remains source-unproven. | Icon `11`; P12/P13 body visual row `[1,19,0,-1,1,6,0,-1]` exists. | PORTED/PARTIAL | Closeout `299`: before, skill41/47 producer, P12/P13 body visual, catch multiplier, expiry clear. Action-delay is `NOT_FOUND_IN_PC_SOURCE / PENDING_SOURCE_PROOF`. |
 
 ## Producer Skill Quick Map
@@ -397,14 +397,15 @@ Debuff7 is now classified as `PORTED` with dedicated closeout smoke:
 ## Latest Update - Debuff8/9 Special Route Audit
 
 `295_battle_debuff8_9_special_route_audit.md` confirms that debuff8 and debuff9
-must not be patched as ordinary direct-hit debuffs from skills `54/55`.
+must not be patched as ordinary direct-hit debuffs from skills `54/55`. Rebuild
+now applies them through a no-damage post-effect producer for playable feedback.
 
 Current status:
 
 - skill54 visual: `PORTED/PARTIAL`;
-- skill54 ordinary debuff8 producer: `NOT_REACHED`;
+- skill54 no-damage debuff8 producer: `INTENTIONAL_DEVIATION / GAMEPLAY_FIXED`;
 - skill55 visual: `PORTED/PARTIAL`;
-- skill55 ordinary debuff9 producer: `NOT_REACHED`;
+- skill55 no-damage debuff9 producer: `INTENTIONAL_DEVIATION / GAMEPLAY_FIXED`;
 - debuff8 active gameplay consumer: `INTENTIONAL_DEVIATION / GAMEPLAY_FIXED`;
 - debuff9 active target-routing consumer: `PORTED/PARTIAL`;
 - debuff9 P5 switch-lock: `NOT_APPLICABLE / USER_CONFIRMED_ALLOWED`.
@@ -416,18 +417,18 @@ Debuff8 dedicated closeout is now present:
 Closeout checkpoints:
 
 - `battle_status_debuff8_before_no_effect`
-- `battle_status_debuff8_skill54_zero_power_no_apply`
-- `battle_status_debuff8_skill54_zero_power_buff14_no_apply`
+- `battle_status_debuff8_skill54_producer_apply`
+- `battle_status_debuff8_skill54_buff14_blocks`
 - `battle_status_debuff8_gameplay_fixed_self_hit_damage_up`
 - `battle_status_debuff8_gameplay_fixed_enemy_hit_damage_up`
 - `battle_status_debuff8_p12_body_visual_type1_actor25`
 - `battle_status_debuff8_expiry_clears_icon`
 
-It proves skill54 is a zero-power visual/special route with ordinary debuff8
-producer `NOT_REACHED`, then separately proves the user-approved gameplay fix:
-active debuff8 gives outgoing damage `+10%` and routes 1v1 attacks by `55%`
-self-hit / `45%` opponent-hit. This is intentionally marked
-`INTENTIONAL_DEVIATION / GAMEPLAY_FIXED`, not source-parity.
+It now proves skill54 is a zero-power visual/special route whose rebuild
+gameplay applies debuff8 through a no-damage post-effect producer. Active
+debuff8 gives outgoing damage `+10%` and routes 1v1 attacks by `55%` self-hit /
+`45%` opponent-hit. This is intentionally marked `INTENTIONAL_DEVIATION /
+GAMEPLAY_FIXED`, not source-parity.
 
 Debuff9 dedicated closeout is now present:
 
@@ -436,17 +437,17 @@ Debuff9 dedicated closeout is now present:
 Closeout checkpoints:
 
 - `battle_status_debuff9_before_no_effect`
-- `battle_status_debuff9_skill55_zero_power_no_apply`
+- `battle_status_debuff9_skill55_producer_apply`
 - `battle_status_debuff9_random_target_seeded_active`
 - `battle_status_debuff9_p12_body_visual_type12`
 - `battle_status_debuff9_expiry_clears_icon`
 
-It proves skill55 is a zero-power visual/special route with ordinary debuff9
-producer `NOT_REACHED`, then separately proves seeded active debuff9 random
-target routing, body visual, and expiry. The current status is
-`PORTED/PARTIAL`: source route and RNG index are ported, but the verified PC
-route is still 1v1, so full multi-active visible target divergence remains
-unproven. Direct P5 switch-lock is `NOT_APPLICABLE / USER_CONFIRMED_ALLOWED`;
+It now proves skill55 is a zero-power visual/special route whose rebuild
+gameplay applies debuff9 through a no-damage post-effect producer, then proves
+seeded active debuff9 random target routing, body visual, and expiry. The
+current status is `INTENTIONAL_DEVIATION / GAMEPLAY_FIXED`: source route and
+RNG index are ported for the consumer, but the producer was enabled for playable
+feedback. Direct P5 switch-lock is `NOT_APPLICABLE / USER_CONFIRMED_ALLOWED`;
 only debuff2 `Quan Quanh` blocks pet switching.
 
 Debuff10 dedicated closeout is now present:

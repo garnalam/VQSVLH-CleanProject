@@ -43,6 +43,9 @@ public final class VqsvIntroDemo extends JPanel {
         if (args.length > 0 && "--smoke-checkpoint".equals(args[0])) {
             String checkpoint = args.length > 1 ? args[1] : "room0_group2_first_dialog";
             String out = args.length > 2 ? args[2] : "build_intro_demo/smoke_checkpoint.png";
+            if (VqsvSmokeHarness.runBattleLabFocusedSkillSmokeIfNeeded(checkpoint, out)) {
+                return;
+            }
             if (VqsvSmokeHarness.runBattleLabSkillTestAllSmokeIfNeeded(checkpoint, out)) {
                 return;
             }

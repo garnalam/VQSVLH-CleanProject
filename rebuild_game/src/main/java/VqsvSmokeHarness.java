@@ -21,6 +21,14 @@ final class VqsvSmokeHarness {
     private static final String[] BATTLE_QUICK_SUITE = {
             "route_sophie_after_battle_branch",
             "route_bunny_after_battle_task",
+            "room0_group2_first_dialog",
+            "font_long_dialog",
+            "room0_group0_op45_tasktip_bunny",
+            "room1_bunny_save_prompt_click_tick_success",
+            "room1_bunny_save_prompt_click_x_cancel",
+            "route_starter_insert_party_order_before_elder",
+            "room0_group2_op45_tasktip_pet_choice",
+            "room0_group6_op45_tasktip_bich_thuy",
             "route_elder_after_battle_reward_state",
             "battle_elder_command_ui",
             "battle_elder_p3_skill_list",
@@ -214,14 +222,14 @@ final class VqsvSmokeHarness {
             "battle_status_debuff7_buff14_blocks_skill51",
             "battle_status_debuff7_defense_down",
             "battle_status_debuff8_before_no_effect",
-            "battle_status_debuff8_skill54_zero_power_no_apply",
-            "battle_status_debuff8_skill54_zero_power_buff14_no_apply",
+            "battle_status_debuff8_skill54_producer_apply",
+            "battle_status_debuff8_skill54_buff14_blocks",
             "battle_status_debuff8_gameplay_fixed_self_hit_damage_up",
             "battle_status_debuff8_gameplay_fixed_enemy_hit_damage_up",
             "battle_status_debuff8_p12_body_visual_type1_actor25",
             "battle_status_debuff8_expiry_clears_icon",
             "battle_status_debuff9_before_no_effect",
-            "battle_status_debuff9_skill55_zero_power_no_apply",
+            "battle_status_debuff9_skill55_producer_apply",
             "battle_status_debuff9_random_target_seeded_active",
             "battle_status_debuff9_p12_body_visual_type12",
             "battle_status_debuff9_expiry_clears_icon",
@@ -257,6 +265,58 @@ final class VqsvSmokeHarness {
             "world_petstate_mouse_wheel_scrollbar_no_confirm",
             "world_petstate_mouse_wheel_hover_click_viewport"
     };
+    private static final String[] WORLD_SOFTKEY_SUITE = {
+            "world_softkey_icons_render",
+            "panel_gamesystem_click_softkey_open",
+            "panel_gamemenu_click_softkey_open",
+            "world_softkey_left_corner_hitbox_opens_gamesystem",
+            "world_softkey_right_corner_hitbox_opens_gamemenu",
+            "world_softkey_gamemenu_save_confirm_opens_msgtip"
+    };
+    private static final String[] WORLD_PANEL_FULL_SUITE = {
+            "world_softkey_icons_render",
+            "panel_gamesystem_click_softkey_open",
+            "panel_gamemenu_click_softkey_open",
+            "world_softkey_left_corner_hitbox_opens_gamesystem",
+            "world_softkey_right_corner_hitbox_opens_gamemenu",
+            "panel_gamemenu_open_from_world",
+            "panel_gamemenu_navigation",
+            "panel_gamemenu_back_returns_world",
+            "panel_gamesystem_open_from_gamemenu",
+            "panel_gamesystem_navigation",
+            "panel_gamesystem_continue_returns_world",
+            "panel_gamesystem_back_returns_world",
+            "panel_gamesystem_help_open",
+            "panel_gamesystem_help_page_right",
+            "panel_gamesystem_help_back_returns_gamesystem",
+            "panel_gamesystem_settings_open",
+            "panel_gamesystem_settings_adjust_right",
+            "panel_gamesystem_settings_back_returns_gamesystem",
+            "panel_gamesystem_option_open",
+            "panel_gamesystem_option_navigate_up",
+            "panel_gamesystem_option_back_returns_gamesystem",
+            "panel_gamesystem_option_confirm_no_returns_gamesystem",
+            "panel_petstate_open_from_gamemenu",
+            "panel_bag_open_from_gamemenu",
+            "panel_bag_navigation",
+            "panel_bag_hover_preview_no_confirm",
+            "panel_bag_back_returns_gamemenu",
+            "panel_task_open_from_gamemenu",
+            "panel_task_tab_branch",
+            "panel_task_navigation",
+            "panel_task_hover_preview_no_confirm",
+            "panel_task_back_returns_gamemenu",
+            "panel_petmap_record_open_from_gamemenu",
+            "panel_petmap_open_from_record",
+            "panel_petmap_navigation",
+            "panel_petmap_tab_navigation",
+            "panel_petmap_back_returns_record",
+            "panel_petmap_record_back_returns_gamemenu",
+            "panel_save_prompt_from_gamemenu",
+            "panel_save_saving_status",
+            "panel_save_success_status",
+            "panel_save_success_closes_world"
+    };
     private static final String[] BATTLE_BUFF5_VISUAL_TIMELINE_SUITE = {
             "battle_phase10b_p7_type7_skill34_start",
             "battle_phase10b_p7_type7_skill34_overlay",
@@ -267,28 +327,34 @@ final class VqsvSmokeHarness {
     };
     private static final String[] BATTLE_SKILL10_DIRECT_ANIMATION_SUITE = {
             "battle_skill10_direct_before",
+            "battle_skill10_direct_attacker_action_gate",
             "battle_skill10_direct_actor_u21_start",
             "battle_skill10_direct_damage_frame",
             "battle_skill10_direct_hp_settled"
     };
     private static final String[] BATTLE_DIRECT_BASE_ONE_CHUNK_SUITE = {
             "battle_skill0_direct_before",
+            "battle_skill0_direct_attacker_action_gate",
             "battle_skill0_direct_actor_u20_start",
             "battle_skill0_direct_damage_frame",
             "battle_skill0_direct_hp_settled",
             "battle_skill20_direct_before",
+            "battle_skill20_direct_attacker_action_gate",
             "battle_skill20_direct_actor_u22_start",
             "battle_skill20_direct_damage_frame",
             "battle_skill20_direct_hp_settled",
             "battle_skill30_direct_before",
+            "battle_skill30_direct_attacker_action_gate",
             "battle_skill30_direct_actor_u23_start",
             "battle_skill30_direct_damage_frame",
             "battle_skill30_direct_hp_settled",
             "battle_skill40_direct_before",
+            "battle_skill40_direct_attacker_action_gate",
             "battle_skill40_direct_actor_u24_start",
             "battle_skill40_direct_damage_frame",
             "battle_skill40_direct_hp_settled",
             "battle_skill60_direct_before",
+            "battle_skill60_direct_attacker_action_gate",
             "battle_skill60_direct_actor_u26_start",
             "battle_skill60_direct_damage_frame",
             "battle_skill60_direct_hp_settled"
@@ -367,6 +433,18 @@ final class VqsvSmokeHarness {
             }
         }
         return null;
+    }
+
+    private static String sourcePetSpeciesList(VqsvIntroDemo.Scene s) {
+        StringBuilder out = new StringBuilder("[");
+        for (int i = 0; i < s.sourcePets.size(); i++) {
+            if (i > 0) {
+                out.append(',');
+            }
+            SourcePetState pet = s.sourcePets.get(i);
+            out.append(pet.speciesId).append(':').append(pet.slot);
+        }
+        return out.append(']').toString();
     }
 
     private static void openEvolutionUiForSmoke(VqsvIntroDemo.Scene s, int speciesId, int level,
@@ -894,6 +972,7 @@ final class VqsvSmokeHarness {
 
     private static boolean isSkill10DirectAnimationCheckpoint(String checkpoint) {
         return "battle_skill10_direct_before".equals(checkpoint)
+                || "battle_skill10_direct_attacker_action_gate".equals(checkpoint)
                 || "battle_skill10_direct_actor_u21_start".equals(checkpoint)
                 || "battle_skill10_direct_damage_frame".equals(checkpoint)
                 || "battle_skill10_direct_hp_settled".equals(checkpoint)
@@ -917,6 +996,19 @@ final class VqsvSmokeHarness {
         SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
         runtime.debugSetNextP7HitRollForSmoke(99);
         assertSkill10SourceRows(s, checkpoint);
+
+        if ("battle_skill10_direct_attacker_action_gate".equals(checkpoint)) {
+            tickUntilBattleP7AttackerActionGate(s, 120, 10);
+            assertP7AttackerActionGateBeforeEffect(s, runtime, checkpoint, 10);
+            s.sourceStateTrace.add("SMOKE verified skill10 direct attacker action gate before target effect"
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " baseState=" + s.battleP7BaseStatePlayerSide
+                    + " baseCursor=" + s.battleP7BaseCursorPlayerSide
+                    + " actorVisible=" + s.battleP7ActorEffectVisible);
+            return;
+        }
 
         if ("battle_skill10_direct_actor_u21_start".equals(checkpoint)) {
             tickUntilBattleP7Phase(s, 1, 120);
@@ -1007,7 +1099,7 @@ final class VqsvSmokeHarness {
                 || row.effectMode != 0
                 || row.effectId != -1
                 || row.targetSide != 0
-                || !java.util.Arrays.equals(effect, new byte[]{0, 0, 21, 1, -1, -1, 0})) {
+                || !java.util.Arrays.equals(effect, new byte[]{0, 0, 21, 0, -1, -1, 0})) {
             throw new IllegalStateException(checkpoint + " skill10 source row mismatch"
                     + " skill=" + (row == null ? "null" : java.util.Arrays.toString(row.raw))
                     + " effect=" + java.util.Arrays.toString(effect));
@@ -1042,13 +1134,13 @@ final class VqsvSmokeHarness {
                                                     String checkpoint) {
         if (!s.battleP7ActorEffectVisible
                 || s.battleP7ActorEffectSpriteId != 263
-                || s.battleP7ActorEffectState != 1
+                || s.battleP7ActorEffectState != 0
                 || s.battleP7ActorEffectOnPlayerSide
                 || s.battleEnemyHp != s.battleEnemyMaxHp
                 || runtime.debugPlayerSkillPpForSmoke(0) != 44
                 || !traceContains(s, "battle P7 source n() skill=10")
                 || !traceContains(s, "id=21")
-                || !traceContains(s, "param=1")
+                || !traceContains(s, "param=0")
                 || !traceContains(s, "battle P7 actor u.a() start skill=10")
                 || traceContains(s, "battle P7 damage frame skill=10")) {
             throw new IllegalStateException(checkpoint + " expected skill10 actor u21 before damage"
@@ -1093,6 +1185,7 @@ final class VqsvSmokeHarness {
             return false;
         }
         return checkpoint.equals(directBaseCheckpointName(skillId, "before"))
+                || checkpoint.equals(directBaseCheckpointName(skillId, "attacker_action_gate"))
                 || checkpoint.equals(directBaseActorCheckpointName(skillId))
                 || checkpoint.equals(directBaseCheckpointName(skillId, "damage_frame"))
                 || checkpoint.equals(directBaseCheckpointName(skillId, "hp_settled"));
@@ -1117,6 +1210,20 @@ final class VqsvSmokeHarness {
         SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
         runtime.debugSetNextP7HitRollForSmoke(99);
         assertDirectBaseSourceRows(s, checkpoint, skillId);
+
+        if (checkpoint.equals(directBaseCheckpointName(skillId, "attacker_action_gate"))) {
+            tickUntilBattleP7AttackerActionGate(s, 120, skillId);
+            assertP7AttackerActionGateBeforeEffect(s, runtime, checkpoint, skillId);
+            s.sourceStateTrace.add("SMOKE verified direct-base skill" + skillId
+                    + " attacker action gate before target effect"
+                    + " hp=" + s.battlePlayerHp + "/" + s.battlePlayerMaxHp
+                    + ":" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " baseState=" + s.battleP7BaseStatePlayerSide
+                    + " baseCursor=" + s.battleP7BaseCursorPlayerSide
+                    + " actorVisible=" + s.battleP7ActorEffectVisible);
+            return;
+        }
 
         if (checkpoint.equals(directBaseActorCheckpointName(skillId))) {
             tickUntilBattleP7Phase(s, 1, 120);
@@ -1286,6 +1393,53 @@ final class VqsvSmokeHarness {
                     + " actorState=" + s.battleP7ActorEffectState
                     + " actorCursor=" + s.battleP7ActorEffectCursor
                     + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
+                    + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
+                    + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
+                    + " trace=" + tailTrace(s, 36));
+        }
+    }
+
+    private static void tickUntilBattleP7AttackerActionGate(VqsvIntroDemo.Scene s, int maxTicks, int skillId) {
+        int guard = 0;
+        while (!traceContains(s, "battle P7 attacker state1 gate before target effect skill=" + skillId)) {
+            if (guard++ >= maxTicks) {
+                throw new IllegalStateException("Battle P7 attacker action gate timeout skill=" + skillId
+                        + " state=" + s.battleStateName
+                        + " phase=" + s.battleP7Phase
+                        + " baseState=" + s.battleP7BaseStatePlayerSide
+                        + " baseCursor=" + s.battleP7BaseCursorPlayerSide
+                        + " actorVisible=" + s.battleP7ActorEffectVisible
+                        + " trace=" + tailTrace(s, 36));
+            }
+            s.tick();
+        }
+    }
+
+    private static void assertP7AttackerActionGateBeforeEffect(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                               String checkpoint, int skillId) {
+        if (!"P7".equals(s.battleStateName)
+                || s.battleP7Phase != 1
+                || !s.battleP7AttackerPlayerSide
+                || s.battleP7BaseStatePlayerSide != 1
+                || s.battleP7BaseCursorPlayerSide < 1
+                || s.battleP7ActorEffectVisible
+                || s.battleP7SpecialVisible
+                || s.battleP7DamageVisible
+                || s.battleEnemyHp != s.battleEnemyMaxHp
+                || runtime.debugPlayerSkillPpForSmoke(0) != directBaseExpectedPpAfterUse(skillId)
+                || !traceContains(s, "battle P7 source n() skill=" + skillId)
+                || !traceContains(s, "battle P7 attacker state1 gate before target effect skill=" + skillId)
+                || traceContains(s, "battle P7 actor u.a() start skill=" + skillId)
+                || traceContains(s, "battle P7 damage frame skill=" + skillId)) {
+            throw new IllegalStateException(checkpoint + " expected attacker state1 gate before target effect"
+                    + " state=" + s.battleStateName
+                    + " phase=" + s.battleP7Phase
+                    + " attackerPlayer=" + s.battleP7AttackerPlayerSide
+                    + " baseState=" + s.battleP7BaseStatePlayerSide
+                    + " baseCursor=" + s.battleP7BaseCursorPlayerSide
+                    + " actorVisible=" + s.battleP7ActorEffectVisible
+                    + " specialVisible=" + s.battleP7SpecialVisible
+                    + " damageVisible=" + s.battleP7DamageVisible
                     + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
                     + " pp=" + runtime.debugPlayerSkillPpForSmoke(0)
                     + " trace=" + tailTrace(s, 36));
@@ -1476,6 +1630,30 @@ final class VqsvSmokeHarness {
         }
     }
 
+    private static void setupOp45TaskTipSmoke(VqsvIntroDemo.Scene s, int taskFlag,
+                                              String expectedText, String routeLabel) {
+        s.loadScene1Room0(199, 218);
+        s.setPlayerPositionApprox(200, 192);
+        Event event = VqsvSceneScriptSupport.taskNoticeOp45(taskFlag, expectedText, routeLabel);
+        Blocking wait = event.start(s);
+        if (wait == null || s.text == null || s.text.sourceUiKind != TextBox.SOURCE_TASKTIP
+                || !s.text.text.equals(TextBox.decodeMojibake(expectedText))
+                || !traceContains(s, "op45 taskTip.ui route=" + routeLabel)
+                || !traceContains(s, "taskFlag=" + taskFlag)) {
+            throw new IllegalStateException("op45 taskTip setup mismatch flag=" + taskFlag
+                    + " text=" + (s.text == null ? "null" : s.text.text)
+                    + " kind=" + (s.text == null ? -1 : s.text.sourceUiKind)
+                    + " trace=" + tailTrace(s, 16));
+        }
+        revealCheckpointText(s, 80);
+        assertRenderedVisiblePixels(s, "op45 taskTip frame " + routeLabel,
+                14, 147, 212, 42, 80);
+        assertRenderedVisiblePixels(s, "op45 taskTip widget3 " + routeLabel,
+                110, 162, 24, 24, 8);
+        s.sourceStateTrace.add("SMOKE verified op45 taskTip.ui route=" + routeLabel
+                + " taskFlag=" + taskFlag);
+    }
+
     private static void placePlayerForActorMaskSmoke(VqsvIntroDemo.Scene s, int actorId,
                                                      boolean actorHitMask, int direction) {
         Actor actor = s.actors[actorId];
@@ -1531,10 +1709,22 @@ final class VqsvSmokeHarness {
                 || checkpoint.startsWith("panel_task_")
                 || checkpoint.startsWith("panel_petmap_")
                 || checkpoint.startsWith("panel_save_")
+                || checkpoint.startsWith("world_softkey_")
                 || checkpoint.startsWith("world_petstate_mouse_");
     }
 
     private static void handlePanelCheckpoint(VqsvIntroDemo.Scene s, String checkpoint) {
+        if ("world_softkey_icons_render".equals(checkpoint)) {
+            setupPanelSmokeWorld(s);
+            s.worldUi.visible = true;
+            assertRenderedVisiblePixels(s, "world.ui left system softkey icon",
+                    0, 303, 24, 17, 20);
+            assertRenderedVisiblePixels(s, "world.ui right gamemenu softkey icon",
+                    216, 303, 24, 17, 20);
+            s.sourceStateTrace.add("SMOKE verified world.ui softkey icons render"
+                    + " widgets=7/5 cells=175/68");
+            return;
+        }
         if ("panel_gamemenu_open_from_world".equals(checkpoint)) {
             setupPanelSmokeWorld(s);
             s.keyBack = true;
@@ -1585,6 +1775,79 @@ final class VqsvSmokeHarness {
                 throw new IllegalStateException("Expected source world.ui left softkey trace, trace="
                         + tailTrace(s, 16));
             }
+            return;
+        }
+        if ("world_softkey_left_corner_hitbox_opens_gamesystem".equals(checkpoint)) {
+            setupPanelSmokeWorld(s);
+            s.worldUi.visible = true;
+            s.click(36 * VqsvIntroDemo.SCALE, 294 * VqsvIntroDemo.SCALE);
+            s.tick();
+            if (!s.panelRuntime.visible || !"GAMESYSTEM".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 0) {
+                throw new IllegalStateException("Expected enlarged left softkey hitbox to open gamesystem.ui"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 16));
+            }
+            if (!traceContains(s, "world.ui left softkey")) {
+                throw new IllegalStateException("Expected left softkey source trace, trace="
+                        + tailTrace(s, 16));
+            }
+            s.sourceStateTrace.add("SMOKE verified world.ui left corner hitbox -> gamesystem.ui");
+            return;
+        }
+        if ("world_softkey_right_corner_hitbox_opens_gamemenu".equals(checkpoint)) {
+            setupPanelSmokeWorld(s);
+            s.worldUi.visible = true;
+            s.click(202 * VqsvIntroDemo.SCALE, 294 * VqsvIntroDemo.SCALE);
+            s.tick();
+            if (!s.panelRuntime.visible || !"GAMEMENU".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 0) {
+                throw new IllegalStateException("Expected enlarged right softkey hitbox to open gamemenu.ui"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 16));
+            }
+            if (!traceContains(s, "world.ui right softkey")) {
+                throw new IllegalStateException("Expected right softkey source trace, trace="
+                        + tailTrace(s, 16));
+            }
+            s.sourceStateTrace.add("SMOKE verified world.ui right corner hitbox -> gamemenu.ui");
+            return;
+        }
+        if ("world_softkey_gamemenu_save_confirm_opens_msgtip".equals(checkpoint)) {
+            setupPanelSmokeWorld(s);
+            s.worldUi.visible = true;
+            s.click(202 * VqsvIntroDemo.SCALE, 294 * VqsvIntroDemo.SCALE);
+            s.tick();
+            for (int i = 0; i < 5; i++) {
+                s.keyDown = true;
+                s.tick();
+            }
+            if (!s.panelRuntime.visible || !"GAMEMENU".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 5) {
+                throw new IllegalStateException("Expected gamemenu save row selected before confirm"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 16));
+            }
+            s.key0 = true;
+            s.tick();
+            if (!s.panelRuntime.visible || !"SAVE".equals(s.panelRuntime.modeName())) {
+                throw new IllegalStateException("Expected save prompt mode after gamemenu save confirm"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 18));
+            }
+            if (!traceContains(s, "P=22 game.h.H msgtip.ui open")) {
+                throw new IllegalStateException("Expected source save prompt trace, trace="
+                        + tailTrace(s, 18));
+            }
+            s.sourceStateTrace.add("SMOKE verified world.ui right softkey -> gamemenu save row -> msgtip.ui");
             return;
         }
         if ("panel_gamemenu_navigation".equals(checkpoint)) {
@@ -5822,19 +6085,23 @@ final class VqsvSmokeHarness {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
                 s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group2.NEIL,
-                        VqsvText.Scene1Room0Group2.CAUGHT, 0);
+                        VqsvText.Scene1Room0Group2.CAUGHT, 0, 0);
                 for (int i = 0; i < 60; i++) {
                     s.text.tick(s.font);
                 }
+                assertRenderedVisiblePixels(s, "op4 dialog.ui Neil portrait sprite323 state0",
+                        70, 100, 100, 150, 80);
             } else if ("font_long_dialog".equals(checkpoint)) {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
                 s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group2.ELDER,
                         VqsvText.Scene1Room0Group2.ELDER_PET_OFFER,
-                        1);
+                        0, -1);
                 for (int i = 0; i < 120; i++) {
                     s.text.tick(s.font);
                 }
+                assertRenderedVisiblePixels(s, "op4 dialog.ui elder name tab no portrait",
+                        0, 231, 80, 89, 80);
             } else if ("font_tasktip".equals(checkpoint)) {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
@@ -5842,6 +6109,15 @@ final class VqsvSmokeHarness {
                 for (int i = 0; i < 80; i++) {
                     s.text.tick(s.font);
                 }
+            } else if ("room0_group0_op45_tasktip_bunny".equals(checkpoint)) {
+                setupOp45TaskTipSmoke(s, 0, VqsvText.Scene1Room0Group0.TASK_BUNNY,
+                        "scene1 room0 group0");
+            } else if ("room0_group2_op45_tasktip_pet_choice".equals(checkpoint)) {
+                setupOp45TaskTipSmoke(s, 1, VqsvText.Scene1Room0Group2.TASK_PET_CHOICE,
+                        "scene1 room0 group2");
+            } else if ("room0_group6_op45_tasktip_bich_thuy".equals(checkpoint)) {
+                setupOp45TaskTipSmoke(s, 2, VqsvText.Scene1Room0Group6.TASK_BICH_THUY,
+                        "scene1 room0 group6");
             } else if ("font_openbox".equals(checkpoint)) {
                 s.loadScene1Room0(199, 218);
                 s.setPlayerPositionApprox(200, 192);
@@ -5896,11 +6172,52 @@ final class VqsvSmokeHarness {
                             + " trace=" + tailTrace(s, 12));
                 }
                 if (!s.sourceEventStateComplete(1, 1, 1)
-                        || !traceContains(s, "save-before-game.k.k complete [1,1,1]")) {
+                        || !traceContains(s, "save-success-before-success-text complete [1,1,1]")) {
                     throw new IllegalStateException("Expected room1 group1 source event complete before save"
                             + " state=" + s.sourceEventState(1, 1, 1)
                             + " trace=" + tailTrace(s, 18));
                 }
+            } else if ("room1_bunny_save_prompt_click_tick_success".equals(checkpoint)) {
+                setupRoom1BunnySavePoint(s);
+                Blocking prompt = new VqsvRoom1Group1SavePromptWrapper();
+                prompt.tick(s);
+                s.click(229 * VqsvIntroDemo.SCALE, 309 * VqsvIntroDemo.SCALE);
+                prompt.tick(s);
+                if (!s.savePromptVisible
+                        || !VqsvText.Common.SAVE_SUCCESS.equals(s.savePromptStatus)
+                        || !s.sourceEventStateComplete(1, 1, 1)
+                        || !traceContains(s, "pointer right tick widget=3")
+                        || !traceContains(s, "key=196640 confirm right tick")
+                        || !traceContains(s, "save-success-before-success-text complete [1,1,1]")) {
+                    throw new IllegalStateException("Expected right tick click to save and complete group"
+                            + " visible=" + s.savePromptVisible
+                            + " status=" + s.savePromptStatus
+                            + " state=" + s.sourceEventState(1, 1, 1)
+                            + " trace=" + tailTrace(s, 24));
+                }
+            } else if ("room1_bunny_save_prompt_click_x_cancel".equals(checkpoint)) {
+                setupRoom1BunnySavePoint(s);
+                Blocking prompt = new VqsvRoom1Group1SavePromptWrapper();
+                prompt.tick(s);
+                s.click(12 * VqsvIntroDemo.SCALE, 309 * VqsvIntroDemo.SCALE);
+                boolean done = prompt.tick(s);
+                if (!done
+                        || s.savePromptVisible
+                        || VqsvText.Common.SAVE_SUCCESS.equals(s.savePromptStatus)
+                        || !s.sourceEventStateComplete(1, 1, 1)
+                        || !traceContains(s, "pointer left X widget=4")
+                        || !traceContains(s, "closed reason=skip")
+                        || traceContains(s, "confirm right tick")
+                        || traceContains(s, "save route snapshot")) {
+                    throw new IllegalStateException("Expected left X click to cancel without save"
+                            + " done=" + done
+                            + " visible=" + s.savePromptVisible
+                            + " status=" + s.savePromptStatus
+                            + " state=" + s.sourceEventState(1, 1, 1)
+                            + " trace=" + tailTrace(s, 24));
+                }
+                s.text = TextBox.taskTip("SMOKE op46 X cancel closes without save");
+                revealCheckpointText(s, 40);
             } else if ("room1_bunny_save_resume_state".equals(checkpoint)) {
                 setupRoom1BunnySavePoint(s);
                 VqsvSaveRuntime.save(s);
@@ -9656,159 +9973,7 @@ final class VqsvSmokeHarness {
                 if ("P7".equals(s.battleStateName)) {
                     throw new IllegalStateException("P7 did not resolve");
                 }
-            } else if ("battle_phase10b_p7_type12_skill55_start".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{55, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-            } else if ("battle_phase10b_p7_type12_skill55_overlay".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{55, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-                int guard = 0;
-                while ((!s.battleP7SpecialVisible || s.battleP7SpecialType != 12) && guard++ < 80) {
-                    s.tick();
-                }
-                if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 12
-                        || s.battleP7SpecialRow.length < 10
-                        || !traceContains(s, "battle P7 speffect skill=55")) {
-                    throw new IllegalStateException("Expected skill55 normal P7 AH type12 overlay, type="
-                            + s.battleP7SpecialType
-                            + " visible=" + s.battleP7SpecialVisible
-                            + " rowLength=" + s.battleP7SpecialRow.length
-                            + " trace=" + tailTrace(s, 14));
-                }
-                assertRenderedVisiblePixels(s, "Phase10B skill55 P7 AH type12 target overlay",
-                        132, 70, 96, 118, 200);
-            } else if ("battle_phase10b_p7_type12_skill55_after".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{55, 45}, 0);
-                int guard = 0;
-                while ("P7".equals(s.battleStateName) && guard++ < 180) {
-                    s.tick();
-                }
-                if ("P7".equals(s.battleStateName)) {
-                    throw new IllegalStateException("P7 skill55 type12 did not resolve");
-                }
-            } else if ("battle_phase10b_p7_type8_skill12_start".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{12, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-            } else if ("battle_phase10b_p7_type8_skill12_overlay".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{12, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-                int guard = 0;
-                while ((!s.battleP7SpecialVisible || s.battleP7SpecialType != 8) && guard++ < 160) {
-                    s.tick();
-                }
-                if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 8
-                        || s.battleP7SpecialRow.length < 9
-                        || !traceContains(s, "battle P7 speffect skill=12")) {
-                    throw new IllegalStateException("Expected skill12 normal P7 AH type8 overlay, type="
-                            + s.battleP7SpecialType
-                            + " visible=" + s.battleP7SpecialVisible
-                            + " rowLength=" + s.battleP7SpecialRow.length
-                            + " trace=" + tailTrace(s, 16));
-                }
-                assertRenderedVisiblePixels(s, "Phase10B skill12 P7 AH type8 target overlay",
-                        132, 70, 96, 118, 120);
-            } else if ("battle_phase10b_p7_type8_skill12_after".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{12, 45}, 0);
-                int guard = 0;
-                while ("P7".equals(s.battleStateName) && guard++ < 240) {
-                    s.tick();
-                }
-                if ("P7".equals(s.battleStateName)) {
-                    throw new IllegalStateException("P7 skill12 type8 did not resolve");
-                }
-            } else if ("battle_phase10b_p7_type7_skill34_start".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{34, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-            } else if ("battle_phase10b_p7_type7_skill34_overlay".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{34, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-                int guard = 0;
-                while ((!s.battleP7SpecialVisible || s.battleP7SpecialType != 7) && guard++ < 80) {
-                    s.tick();
-                }
-                if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 7
-                        || s.battleP7SpecialRow.length < 8
-                        || !traceContains(s, "battle P7 speffect skill=34")) {
-                    throw new IllegalStateException("Expected skill34 normal P7 AH type7 overlay, type="
-                            + s.battleP7SpecialType
-                            + " visible=" + s.battleP7SpecialVisible
-                            + " rowLength=" + s.battleP7SpecialRow.length
-                            + " trace=" + tailTrace(s, 16));
-                }
-                assertRenderedVisiblePixels(s, "Phase10B skill34 P7 AH type7 target overlay",
-                        132, 70, 96, 118, 120);
-            } else if ("battle_phase10b_p7_type7_skill34_after".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{34, 45}, 0);
-                int guard = 0;
-                while ("P7".equals(s.battleStateName) && guard++ < 180) {
-                    s.tick();
-                }
-                if ("P7".equals(s.battleStateName)) {
-                    throw new IllegalStateException("P7 skill34 type7 did not resolve");
-                }
-            } else if ("battle_elder_p7_skill15_start".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{15, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-            } else if ("battle_elder_p7_actor_u33_start".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{15, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-                s.tick();
-                if (!s.battleP7ActorEffectVisible
-                        || s.battleP7ActorEffectSpriteId != 308
-                        || s.battleP7ActorEffectState != 0
-                        || !s.battleP7ActorEffectOnPlayerSide
-                        || s.battleP7ActorEffectCursor != 0) {
-                    throw new IllegalStateException("Expected skill15 target AH u33 frame-trigger actor, visible="
-                            + s.battleP7ActorEffectVisible
-                            + " sprite=" + s.battleP7ActorEffectSpriteId
-                            + " state=" + s.battleP7ActorEffectState
-                            + " playerSide=" + s.battleP7ActorEffectOnPlayerSide
-                            + " cursor=" + s.battleP7ActorEffectCursor);
-                }
-            } else if ("battle_elder_p7_actor_u33_to_h7".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{15, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-                s.tick();
-                if (!s.battleP7ActorEffectVisible
-                        || s.battleP7ActorEffectSpriteId != 308
-                        || !s.battleP7ActorEffectOnPlayerSide
-                        || s.battleP7ActorEffectCursor != 0) {
-                    throw new IllegalStateException("Expected skill15 u33 before frame trigger, visible="
-                            + s.battleP7ActorEffectVisible
-                            + " sprite=" + s.battleP7ActorEffectSpriteId
-                            + " playerSide=" + s.battleP7ActorEffectOnPlayerSide
-                            + " cursor=" + s.battleP7ActorEffectCursor);
-                }
-                for (int i = 0; i < 12 && s.battleP7SpecialType != 9; i++) {
-                    s.tick();
-                }
-                if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 9) {
-                    throw new IllegalStateException("Expected skill15 u33 frame 0 trigger to enter H speffect7 type9, type="
-                            + s.battleP7SpecialType + " visible=" + s.battleP7SpecialVisible);
-                }
-            } else if ("battle_elder_p7_skill15_chunk4_trigger".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{15, 45}, 0);
-                tickUntilBattleP7Phase(s, 1, 80);
-                for (int i = 0; i < 12 && s.battleP7SpecialType != 9; i++) {
-                    s.tick();
-                }
-                if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 9) {
-                    throw new IllegalStateException("Expected skill 15 chunk4 trigger to reach AH type 9, type="
-                            + s.battleP7SpecialType + " visible=" + s.battleP7SpecialVisible);
-                }
-            } else if ("battle_elder_p7_skill15_after".equals(checkpoint)) {
-                enterElderP7WithSkills(s, new int[]{15, 45}, 0);
-                int guard = 0;
-                while ("P7".equals(s.battleStateName) && guard++ < 180) {
-                    s.tick();
-                }
-                if ("P7".equals(s.battleStateName)) {
-                    throw new IllegalStateException("P7 skill15 did not resolve");
-                }
-                if (s.battleEnemyHp != s.battleEnemyMaxHp) {
-                    throw new IllegalStateException("Skill 15 should not apply fake damage, enemy hp="
-                            + s.battleEnemyHp + "/" + s.battleEnemyMaxHp);
-                }
+            } else if (handlePhase10BCheckpointInExistingScene(s, checkpoint)) {
             } else if ("battle_state1_l_species0_start".equals(checkpoint)) {
                 enterSpecies0LP7(s);
                 tickUntilBattleP7Phase(s, 1, 80);
@@ -10157,6 +10322,33 @@ final class VqsvSmokeHarness {
                 assertP7SourceSpriteFrame(s, "Bunny P7 state2 hit", false,
                         s.battleP7BaseStateEnemySide, s.battleP7BaseCursorEnemySide,
                         s.battleEnemyVisualId, 24);
+            } else if ("battle_p17_throw_hits_enemy_anchor".equals(checkpoint)) {
+                s.eventIndex = s.events.size();
+                seedInitialDienMieu(s, "smoke P17 throw anchor");
+                seedRoom0Group0BunnyRewards(s);
+                s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                        new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+                tickUntilBattleState(s, "P20", 120);
+                s.battleClickX = 56;
+                s.battleClickY = 300;
+                tickUntilBattleState(s, "P21", 80);
+                assertBattleMenuIds(s, "Bunny P17 throw anchor ball list", new int[]{0, 1});
+                for (int i = 0; i < 18 && !"P17".equals(s.battleStateName); i++) {
+                    s.press0();
+                    s.tick();
+                }
+                tickUntilBattleState(s, "P17", 80);
+                tickUntilBattleCatchPhaseCursor(s, 0, 7, 40);
+                if (s.battleCatchPhase != 0 || s.battleCatchAnimCursor < 7
+                        || s.battleEnemyHiddenByCatch) {
+                    throw new IllegalStateException("Expected P17 q0 throw before target hide"
+                            + " phase=" + s.battleCatchPhase
+                            + " cursor=" + s.battleCatchAnimCursor
+                            + " hidden=" + s.battleEnemyHiddenByCatch
+                            + " trace=" + tailTrace(s, 16));
+                }
+                assertRenderedVisiblePixels(s, "P17 throw ball near enemy body",
+                        168, 58, 34, 50, 20);
             } else if ("battle_bunny_catch_p17_anim_or_result".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 seedInitialDienMieu(s, "smoke Bunny P17");
@@ -11503,6 +11695,196 @@ final class VqsvSmokeHarness {
         }
     }
 
+    private static boolean handlePhase10BCheckpointInExistingScene(VqsvIntroDemo.Scene s,
+                                                                   String checkpoint) {
+        if ("battle_phase10b_p7_type12_skill55_start".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{55, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            return true;
+        }
+        if ("battle_phase10b_p7_type12_skill55_overlay".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{55, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            int guard = 0;
+            while ((!s.battleP7SpecialVisible || s.battleP7SpecialType != 12) && guard++ < 80) {
+                s.tick();
+            }
+            if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 12
+                    || s.battleP7SpecialRow.length < 10
+                    || !traceContains(s, "battle P7 speffect skill=55")) {
+                throw new IllegalStateException("Expected skill55 normal P7 AH type12 overlay, type="
+                        + s.battleP7SpecialType
+                        + " visible=" + s.battleP7SpecialVisible
+                        + " rowLength=" + s.battleP7SpecialRow.length
+                        + " trace=" + tailTrace(s, 14));
+            }
+            assertRenderedVisiblePixels(s, "Phase10B skill55 P7 AH type12 target overlay",
+                    132, 70, 96, 118, 200);
+            return true;
+        }
+        if ("battle_phase10b_p7_type12_skill55_after".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{55, 45}, 0);
+            int guard = 0;
+            while ("P7".equals(s.battleStateName) && guard++ < 180) {
+                s.tick();
+            }
+            if ("P7".equals(s.battleStateName)) {
+                throw new IllegalStateException("P7 skill55 type12 did not resolve");
+            }
+            return true;
+        }
+        if ("battle_phase10b_p7_type8_skill12_start".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{12, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            return true;
+        }
+        if ("battle_phase10b_p7_type8_skill12_overlay".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{12, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            int guard = 0;
+            while ((!s.battleP7SpecialVisible || s.battleP7SpecialType != 8) && guard++ < 160) {
+                s.tick();
+            }
+            if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 8
+                    || s.battleP7SpecialRow.length < 9
+                    || !traceContains(s, "battle P7 speffect skill=12")) {
+                throw new IllegalStateException("Expected skill12 normal P7 AH type8 overlay, type="
+                        + s.battleP7SpecialType
+                        + " visible=" + s.battleP7SpecialVisible
+                        + " rowLength=" + s.battleP7SpecialRow.length
+                        + " trace=" + tailTrace(s, 16));
+            }
+            assertRenderedVisiblePixels(s, "Phase10B skill12 P7 AH type8 target overlay",
+                    132, 70, 96, 118, 120);
+            return true;
+        }
+        if ("battle_phase10b_p7_type8_skill12_after".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{12, 45}, 0);
+            int guard = 0;
+            while ("P7".equals(s.battleStateName) && guard++ < 240) {
+                s.tick();
+            }
+            if ("P7".equals(s.battleStateName)) {
+                throw new IllegalStateException("P7 skill12 type8 did not resolve");
+            }
+            return true;
+        }
+        if ("battle_phase10b_p7_type7_skill34_start".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{34, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            return true;
+        }
+        if ("battle_phase10b_p7_type7_skill34_overlay".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{34, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            int guard = 0;
+            while (!s.battleP7ActorEffectVisible && guard++ < 80) {
+                s.tick();
+            }
+            if (!s.battleP7ActorEffectVisible
+                    || s.battleP7ActorEffectSpriteId != 265
+                    || s.battleP7ActorEffectState != 4
+                    || !s.battleP7ActorEffectOnPlayerSide
+                    || !traceContains(s, "battle P7 actor u.a() start skill=34")
+                    || !traceContains(s, "sourceEffectId=23")) {
+                throw new IllegalStateException("Expected S60 skill34 P7 actor effect 23/state4, actorVisible="
+                        + s.battleP7ActorEffectVisible
+                        + " actorSprite=" + s.battleP7ActorEffectSpriteId
+                        + " actorState=" + s.battleP7ActorEffectState
+                        + " actorSidePlayer=" + s.battleP7ActorEffectOnPlayerSide
+                        + " trace=" + tailTrace(s, 16));
+            }
+            assertRenderedVisiblePixels(s, "Phase10B skill34 S60 actor effect 23/state4",
+                    6, 120, 112, 96, 120);
+            return true;
+        }
+        if ("battle_phase10b_p7_type7_skill34_after".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{34, 45}, 0);
+            int guard = 0;
+            while ("P7".equals(s.battleStateName) && guard++ < 180) {
+                s.tick();
+            }
+            if ("P7".equals(s.battleStateName)) {
+                throw new IllegalStateException("P7 skill34 type7 did not resolve");
+            }
+            return true;
+        }
+        if ("battle_elder_p7_skill15_start".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{15, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            return true;
+        }
+        if ("battle_elder_p7_actor_u33_start".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{15, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            s.tick();
+            if (!s.battleP7ActorEffectVisible
+                    || s.battleP7ActorEffectSpriteId != 308
+                    || s.battleP7ActorEffectState != 0
+                    || !s.battleP7ActorEffectOnPlayerSide
+                    || s.battleP7ActorEffectCursor != 0) {
+                throw new IllegalStateException("Expected skill15 target AH u33 frame-trigger actor, visible="
+                        + s.battleP7ActorEffectVisible
+                        + " sprite=" + s.battleP7ActorEffectSpriteId
+                        + " state=" + s.battleP7ActorEffectState
+                        + " playerSide=" + s.battleP7ActorEffectOnPlayerSide
+                        + " cursor=" + s.battleP7ActorEffectCursor);
+            }
+            return true;
+        }
+        if ("battle_elder_p7_actor_u33_to_h7".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{15, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            s.tick();
+            if (!s.battleP7ActorEffectVisible
+                    || s.battleP7ActorEffectSpriteId != 308
+                    || !s.battleP7ActorEffectOnPlayerSide
+                    || s.battleP7ActorEffectCursor != 0) {
+                throw new IllegalStateException("Expected skill15 u33 before frame trigger, visible="
+                        + s.battleP7ActorEffectVisible
+                        + " sprite=" + s.battleP7ActorEffectSpriteId
+                        + " playerSide=" + s.battleP7ActorEffectOnPlayerSide
+                        + " cursor=" + s.battleP7ActorEffectCursor);
+            }
+            for (int i = 0; i < 12 && s.battleP7SpecialType != 9; i++) {
+                s.tick();
+            }
+            if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 9) {
+                throw new IllegalStateException("Expected skill15 u33 frame 0 trigger to enter H speffect7 type9, type="
+                        + s.battleP7SpecialType + " visible=" + s.battleP7SpecialVisible);
+            }
+            return true;
+        }
+        if ("battle_elder_p7_skill15_chunk4_trigger".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{15, 45}, 0);
+            tickUntilBattleP7Phase(s, 1, 80);
+            for (int i = 0; i < 12 && s.battleP7SpecialType != 9; i++) {
+                s.tick();
+            }
+            if (!s.battleP7SpecialVisible || s.battleP7SpecialType != 9) {
+                throw new IllegalStateException("Expected skill 15 chunk4 trigger to reach AH type 9, type="
+                        + s.battleP7SpecialType + " visible=" + s.battleP7SpecialVisible);
+            }
+            return true;
+        }
+        if ("battle_elder_p7_skill15_after".equals(checkpoint)) {
+            enterElderP7WithSkills(s, new int[]{15, 45}, 0);
+            int guard = 0;
+            while ("P7".equals(s.battleStateName) && guard++ < 180) {
+                s.tick();
+            }
+            if ("P7".equals(s.battleStateName)) {
+                throw new IllegalStateException("P7 skill15 did not resolve");
+            }
+            if (s.battleEnemyHp != s.battleEnemyMaxHp) {
+                throw new IllegalStateException("Skill 15 should not apply fake damage, enemy hp="
+                        + s.battleEnemyHp + "/" + s.battleEnemyMaxHp);
+            }
+            return true;
+        }
+        return false;
+    }
+
     private static boolean runSkill45AnimationSmokeIfNeeded(String checkpoint, String outPath) {
         if (!"battle_elder_p7_speffect45_start".equals(checkpoint)
                 && !"battle_elder_p7_speffect45_overlay".equals(checkpoint)
@@ -12109,7 +12491,7 @@ final class VqsvSmokeHarness {
         y += 12;
         g.drawString("reroute target: " + target + " slot " + slots, 14, y);
         y += 12;
-        g.drawString("producer: NOT_REACHED | P7 damage: NO", 14, y);
+        g.drawString("producer: GAMEPLAY_FIXED | P7 damage: NO", 14, y);
         y += 12;
         g.setColor(new java.awt.Color(255, 220, 90));
         g.drawString("limit: 1v1, trace proves route not divergence", 14, y);
@@ -12911,9 +13293,45 @@ final class VqsvSmokeHarness {
             runBunnyCaughtPetRouteSmoke(s, "battle_bunny_caught_pet_p5_low_hp".equals(checkpoint));
             return true;
         }
+        if ("route_starter_insert_party_order_before_elder".equals(checkpoint)) {
+            s.eventIndex = s.events.size();
+            seedInitialDienMieu(s, "smoke route starter insert before Elder");
+            seedRoom0Group0BunnyRewards(s);
+            s.current = new SourceBattleRuntime(50, new int[]{34, 5, 1},
+                    new int[]{0, 1}, new int[]{0, 0}, new int[]{12, 0, 0}, -1);
+            tickBattleAutoUntilDone(s, 3000);
+            SourcePetState bunny = findSourcePet(s, 34);
+            if (bunny == null) {
+                throw new IllegalStateException("Expected Bunny caught before starter insert, pets="
+                        + s.sourcePets.size() + " trace=" + tailTrace(s, 18));
+            }
+            int bunnyHp = payloadHp(bunny);
+            int bunnyMaxHp = sourceMaxHp(bunny);
+            Room0Group3PetOffer.applySourceOp87(s, 1);
+            if (s.sourcePets.size() < 3
+                    || s.sourcePets.get(0).speciesId != 16
+                    || s.sourcePets.get(1).speciesId != 68
+                    || s.sourcePets.get(2).speciesId != 34
+                    || s.sourcePets.get(0).slot != 0
+                    || s.sourcePets.get(1).slot != 1
+                    || s.sourcePets.get(2).slot != 2
+                    || payloadHp(s.sourcePets.get(2)) != bunnyHp) {
+                throw new IllegalStateException("Expected op87 slot0 insert party=[16,68,34]"
+                        + " slots=[0,1,2] bunnyHp=" + bunnyHp + "/" + bunnyMaxHp
+                        + " actual=" + sourcePetSpeciesList(s)
+                        + " trace=" + tailTrace(s, 24));
+            }
+            s.current = VqsvBattleEventDescriptor.SCENE1_ROOM0_GROUP6_ELDER.runtime(s, 0);
+            tickUntilBattleState(s, "P20", 120);
+            assertActiveSourcePet(s, 16, "Elder battle after source op87 slot0 insert");
+            s.sourceStateTrace.add("SMOKE verified source op87 starter slot0 insert before Elder"
+                    + " party=" + sourcePetSpeciesList(s)
+                    + " bunnyHp=" + bunnyHp + "/" + bunnyMaxHp);
+            return true;
+        }
         if ("route_elder_after_battle_reward_state".equals(checkpoint)) {
             s.eventIndex = s.events.size();
-            s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
+            s.sourcePets.add(new SourcePetState(0, 16, 7, 3, 2, 10, 45));
             s.current = VqsvBattleEventDescriptor.SCENE1_ROOM0_GROUP6_ELDER.runtime(s, 0);
             tickBattleAutoUntilDone(s, 3000);
             if (s.battleResultIndex != 0 || s.battleBranchTarget != 10) {
@@ -13178,6 +13596,12 @@ final class VqsvSmokeHarness {
         }
         if ("panel_wheel".equals(suite)) {
             return PANEL_WHEEL_SUITE;
+        }
+        if ("world_softkeys".equals(suite)) {
+            return WORLD_SOFTKEY_SUITE;
+        }
+        if ("world_panel_full".equals(suite)) {
+            return WORLD_PANEL_FULL_SUITE;
         }
         if ("battle_buff5_visual_timeline".equals(suite)) {
             return BATTLE_BUFF5_VISUAL_TIMELINE_SUITE;
@@ -13532,6 +13956,50 @@ final class VqsvSmokeHarness {
                 + " scroll=" + s.battleSkillScroll);
     }
 
+    static boolean runBattleLabFocusedSkillSmokeIfNeeded(String checkpoint, String outPath) {
+        int skillId = battleLabFocusedSkillId(checkpoint);
+        if (skillId < 0) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            setupLiveCheckpoint(s, checkpoint);
+            if (!"P3".equals(s.battleStateName)
+                    || !"choiceskill".equals(s.battleUiMode)
+                    || s.battleSkillIds.length != 70
+                    || s.battleSkillIndex != skillId
+                    || s.battleSkillIds[s.battleSkillIndex] != skillId) {
+                throw new IllegalStateException("Expected battle lab focused skill"
+                        + " checkpoint=" + checkpoint
+                        + " state=" + s.battleStateName
+                        + " ui=" + s.battleUiMode
+                        + " index=" + s.battleSkillIndex
+                        + " selected=" + (s.battleSkillIds.length == 0 ? -1 : s.battleSkillIds[s.battleSkillIndex])
+                        + " ids=" + java.util.Arrays.toString(s.battleSkillIds)
+                        + " trace=" + tailTrace(s, 18));
+            }
+            BattleSkillRow row = VqsvBattleTables.instance().skill(skillId);
+            byte[] effect = VqsvBattleAnimationTables.instance().effectRow(skillId);
+            s.sourceStateTrace.add("SMOKE verified battle lab focused skill"
+                    + " skill=" + skillId
+                    + " name=" + (row == null ? "Skill " + skillId : row.name("Skill " + skillId))
+                    + " effect.mid=" + java.util.Arrays.toString(effect)
+                    + " scroll=" + s.battleSkillScroll);
+            writeScenePng(s, new java.io.File(outPath));
+            System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                    + " battleState=" + s.battleStateName
+                    + " ui=" + s.battleUiMode
+                    + " selected=" + skillId
+                    + " scroll=" + s.battleSkillScroll
+                    + " name=" + (row == null ? "Skill " + skillId : row.name("Skill " + skillId)));
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
     static boolean runBattleLabSkillTestAllSmokeIfNeeded(String checkpoint, String outPath) {
         if (!"battle_lab_skill_test_all".equals(checkpoint)) {
             return false;
@@ -13551,6 +14019,78 @@ final class VqsvSmokeHarness {
             ex.printStackTrace();
             System.exit(1);
             return true;
+        }
+    }
+
+    private static int battleLabFocusedSkillId(String checkpoint) {
+        if (checkpoint == null) {
+            return -1;
+        }
+        int fireSkillId = battleLabSkillIdForPrefix(checkpoint, "battle_lab_fire_skill", 0, 9);
+        if (fireSkillId >= 0) {
+            return fireSkillId;
+        }
+        int woodSkillId = battleLabSkillIdForPrefix(checkpoint, "battle_lab_wood_skill", 10, 19);
+        if (woodSkillId >= 0) {
+            return woodSkillId;
+        }
+        int earthSkillId = battleLabSkillIdForPrefix(checkpoint, "battle_lab_earth_skill", 20, 29);
+        if (earthSkillId >= 0) {
+            return earthSkillId;
+        }
+        int waterSkillId = battleLabSkillIdForPrefix(checkpoint, "battle_lab_water_skill", 30, 39);
+        if (waterSkillId >= 0) {
+            return waterSkillId;
+        }
+        int electricSkillId = battleLabSkillIdForPrefix(checkpoint, "battle_lab_electric_skill", 40, 49);
+        if (electricSkillId >= 0) {
+            return electricSkillId;
+        }
+        int shadowSkillId = battleLabSkillIdForPrefix(checkpoint, "battle_lab_shadow_skill", 50, 59);
+        if (shadowSkillId >= 0) {
+            return shadowSkillId;
+        }
+        return battleLabSkillIdForPrefix(checkpoint, "battle_lab_wind_skill", 60, 69);
+    }
+
+    private static int battleLabSkillIdForPrefix(String checkpoint, String prefix, int min, int max) {
+        if (!checkpoint.startsWith(prefix)) {
+            return -1;
+        }
+        String suffix = checkpoint.substring(prefix.length());
+        if (suffix.isEmpty()) {
+            return -1;
+        }
+        try {
+            int skillId = Integer.parseInt(suffix);
+            return skillId >= min && skillId <= max ? skillId : -1;
+        } catch (NumberFormatException ex) {
+            return -1;
+        }
+    }
+
+    private static void setupBattleLabSkillList(VqsvIntroDemo.Scene s, int selectedSkillId) {
+        s.sourcePets.add(new SourcePetState(0, 17, 50, 3, 2, 0, 45));
+        SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 50, 1},
+                new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
+        runtime.enableSkillLabAllSkills(s);
+        s.current = runtime;
+        tickUntilBattleState(s, "P20", 120);
+        s.battleClickX = 20;
+        s.battleClickY = 300;
+        tickUntilBattleState(s, "P3", 80);
+        for (int i = 0; i < 10; i++) {
+            s.tick();
+        }
+        if (selectedSkillId >= 0 && s.battleSkillIds.length > selectedSkillId) {
+            s.battleSkillIndex = selectedSkillId;
+            s.battleSkillScroll = Math.max(0, Math.min(
+                    Math.max(0, s.battleSkillIds.length - 5), selectedSkillId - 4));
+            BattleSkillRow row = VqsvBattleTables.instance().skill(selectedSkillId);
+            s.sourceStateTrace.add("LAB focused skill selected"
+                    + " skill=" + selectedSkillId
+                    + " name=" + (row == null ? "Skill " + selectedSkillId : row.name("Skill " + selectedSkillId))
+                    + " scroll=" + s.battleSkillScroll);
         }
     }
 
@@ -13630,19 +14170,10 @@ final class VqsvSmokeHarness {
         } else if ("battle_elder_skill45_p7".equals(checkpoint)) {
             enterElderP7WithSkillIndex(s, 1);
             tickUntilBattleP7Phase(s, 1, 80);
+        } else if (battleLabFocusedSkillId(checkpoint) >= 0) {
+            setupBattleLabSkillList(s, battleLabFocusedSkillId(checkpoint));
         } else if ("battle_lab_skill_test_all".equals(checkpoint)) {
-            s.sourcePets.add(new SourcePetState(0, 17, 50, 3, 2, 0, 45));
-            SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{68, 50, 1},
-                    new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
-            runtime.enableSkillLabAllSkills(s);
-            s.current = runtime;
-            tickUntilBattleState(s, "P20", 120);
-            s.battleClickX = 20;
-            s.battleClickY = 300;
-            tickUntilBattleState(s, "P3", 80);
-            for (int i = 0; i < 10; i++) {
-                s.tick();
-            }
+            setupBattleLabSkillList(s, -1);
         } else if ("battle_p11_shop_full_source_item_rows".equals(checkpoint)
                 || "battle_p11_shop_hover_preview_no_confirm".equals(checkpoint)
                 || "battle_p11_shop_mouse_wheel_no_confirm".equals(checkpoint)) {
@@ -14225,12 +14756,12 @@ final class VqsvSmokeHarness {
                 || runtime.debugPlayerBuffDurationForSmoke(5) != 3
                 || !traceContains(s, "active queue visual start bank=0 id=5")
                 || !traceContains(s, "active queue visual bank=0 buff=5")
-                || !traceContains(s, "row=[0, 23, 0, -1]")
+                || !traceContains(s, "row=[0, 23, 4, -1]")
                 || !s.battleP7ActorEffectVisible
                 || s.battleP7ActorEffectSpriteId != 265
-                || s.battleP7ActorEffectState != 0
+                || s.battleP7ActorEffectState != 4
                 || !isBattleState(s, "P13")) {
-            throw new IllegalStateException("Expected buff5 P13 body visual actor row [0,23,0,-1],"
+            throw new IllegalStateException("Expected buff5 P13 body visual actor row [0,23,4,-1],"
                     + " state=" + s.battleStateName
                     + " hasBuff5=" + runtime.debugPlayerHasBuffForSmoke(5)
                     + " duration=" + runtime.debugPlayerBuffDurationForSmoke(5)
@@ -15310,6 +15841,7 @@ final class VqsvSmokeHarness {
                 SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
                 runtime.debugQueueDebuffForSmoke(s, false, 0, 40, 1, 3, 50);
                 tickUntilTraceContains(s, "active queue visual start bank=1 id=0", 700);
+                tickUntilTraceContains(s, "speffect=18", 700);
                 if (!s.battleActiveQueueVisible
                         || s.battleActiveQueueBank != 1
                         || s.battleActiveQueueEffectId != 0
@@ -15332,7 +15864,7 @@ final class VqsvSmokeHarness {
                 assertPhase10AStatusSlots(s, false, "status debuff0 body visual",
                         new int[]{1}, new int[]{137});
                 s.sourceStateTrace.add("SMOKE verified debuff0 Gieo Hat body visual"
-                        + " bufDebuf aq[0]=[1,18,0,-1]"
+                        + " bufDebuf aq[0]=[0,28,0,0,1,18,0,-1]"
                         + " speffect=18"
                         + " AH type9"
                         + " anchoredBySourcePos=true");
@@ -16117,10 +16649,10 @@ final class VqsvSmokeHarness {
                         || s.battleActiveQueueSegment != 0
                         || !s.battleP7ActorEffectVisible
                         || s.battleP7ActorEffectSpriteId != 263
-                        || s.battleP7ActorEffectState != 0
+                        || s.battleP7ActorEffectState != 4
                         || s.battleP7SpecialVisible
                         || !traceContainsAll(s, "active queue visual start bank=1 id=3",
-                        "visual=aq id=3", "row=[0, 21, 0, -1]")) {
+                        "visual=aq id=3", "row=[0, 21, 4, -1]")) {
                     throw new IllegalStateException("Expected debuff3 P12/P13 body visual to use actor effect 21 only,"
                             + " activeVisible=" + s.battleActiveQueueVisible
                             + " bank=" + s.battleActiveQueueBank
@@ -16135,7 +16667,7 @@ final class VqsvSmokeHarness {
                 assertPhase10AStatusSlots(s, false, "status debuff3 body visual",
                         new int[]{4}, new int[]{137});
                 s.sourceStateTrace.add("SMOKE verified debuff3 Thuc Loai body visual"
-                        + " bufDebuf ar[1][3]=[0,21,0,-1]"
+                        + " bufDebuf ar[1][3]=[0,21,4,-1]"
                         + " actorEffect=21"
                         + " noSpeffectSegment=true");
             } else if ("battle_status_debuff3_tick1_no_damage_duration2".equals(checkpoint)
@@ -17439,8 +17971,8 @@ final class VqsvSmokeHarness {
 
     private static boolean runDebuff8CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
         if (!"battle_status_debuff8_before_no_effect".equals(checkpoint)
-                && !"battle_status_debuff8_skill54_zero_power_no_apply".equals(checkpoint)
-                && !"battle_status_debuff8_skill54_zero_power_buff14_no_apply".equals(checkpoint)
+                && !"battle_status_debuff8_skill54_producer_apply".equals(checkpoint)
+                && !"battle_status_debuff8_skill54_buff14_blocks".equals(checkpoint)
                 && !"battle_status_debuff8_gameplay_fixed_self_hit_damage_up".equals(checkpoint)
                 && !"battle_status_debuff8_gameplay_fixed_enemy_hit_damage_up".equals(checkpoint)
                 && !"battle_status_debuff8_p12_body_visual_type1_actor25".equals(checkpoint)
@@ -17467,34 +17999,41 @@ final class VqsvSmokeHarness {
                 s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi before snapshot"
                         + " hasDebuff8=false"
                         + " enemyIconCount=0");
-            } else if ("battle_status_debuff8_skill54_zero_power_no_apply".equals(checkpoint)) {
+            } else if ("battle_status_debuff8_skill54_producer_apply".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{54, 45}, 0);
                 SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
                 tickUntilBattleP7Phase(s, 3, 260);
                 if (s.battleP7DamageVisible
-                        || runtime.debugEnemyHasDebuffForSmoke(8)
+                        || !runtime.debugEnemyHasDebuffForSmoke(8)
+                        || runtime.debugEnemyDebuffDurationForSmoke(8) != 4
+                        || runtime.debugEnemyDebuffValueForSmoke(8) != 10
                         || s.battleEnemyHp != s.battleEnemyMaxHp
                         || !traceContains(s, "no-damage skill=54")
+                        || !traceContains(s, "no-damage debuff producer applied")
+                        || !traceContains(s, "GAMEPLAY_FIXED")
                         || traceContains(s, "battle P7 damage frame skill=54")
-                        || traceContains(s, "appliedDebuffId=8")
                         || traceContains(s, "battle P7 hitroll skill=54")) {
-                    throw new IllegalStateException("Expected skill54 zero-power source guard to skip damage and ordinary debuff8 apply,"
+                    throw new IllegalStateException("Expected skill54 Mi Anh to apply debuff8 without damage,"
                             + " damageVisible=" + s.battleP7DamageVisible
                             + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
                             + " hasDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(8)
+                            + " value=" + runtime.debugEnemyDebuffValueForSmoke(8)
                             + " trace=" + tailTrace(s, 100));
                 }
-                assertPhase10AStatusSlots(s, false, "status debuff8 skill54 no ordinary apply",
-                        new int[0], new int[0]);
-                s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi skill54 zero-power no ordinary producer"
+                assertPhase10AStatusSlots(s, false, "status debuff8 skill54 producer apply",
+                        new int[]{9}, new int[]{138});
+                s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi skill54 producer apply"
                         + " skill54=[5,171,583,0,1,10,2,8,40,0]"
                         + " damageVisible=false"
-                        + " appliedDebuff8=false"
-                        + " ordinarySkill54Producer=NOT_REACHED");
-            } else if ("battle_status_debuff8_skill54_zero_power_buff14_no_apply".equals(checkpoint)) {
+                        + " appliedDebuff8=true"
+                        + " status=INTENTIONAL_DEVIATION/GAMEPLAY_FIXED");
+            } else if ("battle_status_debuff8_skill54_buff14_blocks".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{54, 45}, 0);
                 SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
                 runtime.debugEnemySourceBuffForClearSmoke(s, 14, 0, 25);
+                runtime.debugSetNextDamageDebuffRollForSmoke(0);
                 assertPhase10AStatusSlots(s, false, "status debuff8 buff14 setup",
                         new int[]{26}, new int[]{137});
                 tickUntilBattleP7Phase(s, 3, 260);
@@ -17502,9 +18041,10 @@ final class VqsvSmokeHarness {
                         || runtime.debugEnemyHasDebuffForSmoke(8)
                         || !runtime.debugEnemyHasBuffForSmoke(14)
                         || !traceContains(s, "no-damage skill=54")
+                        || !traceContains(s, "no-damage debuff producer blocked")
                         || traceContains(s, "battle P7 damage frame skill=54")
-                        || traceContains(s, "appliedDebuffId=")) {
-                    throw new IllegalStateException("Expected skill54 zero-power path to skip debuff8 before buff14 block matters,"
+                        || traceContains(s, "no-damage debuff producer applied")) {
+                    throw new IllegalStateException("Expected skill54 Mi Anh to be blocked by buff14,"
                             + " damageVisible=" + s.battleP7DamageVisible
                             + " hasDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
                             + " hasBuff14=" + runtime.debugEnemyHasBuffForSmoke(14)
@@ -17513,8 +18053,8 @@ final class VqsvSmokeHarness {
                 assertPhase10AStatusSlots(s, false, "status debuff8 buff14 still only buff14",
                         new int[]{26}, new int[]{137});
                 s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi buff14 regression"
-                        + " skill54 ordinaryApply=NOT_REACHED"
-                        + " targetBuff14Irrelevant=true"
+                        + " skill54 producer=GAMEPLAY_FIXED"
+                        + " targetBuff14Blocks=true"
                         + " debuff8=false");
             } else if ("battle_status_debuff8_gameplay_fixed_self_hit_damage_up".equals(checkpoint)
                     || "battle_status_debuff8_gameplay_fixed_enemy_hit_damage_up".equals(checkpoint)) {
@@ -17566,8 +18106,7 @@ final class VqsvSmokeHarness {
                         || !traceContains(s, "percent=10")
                         || !traceContains(s, "selectedIndex=" + (selfHit ? 0 : 1))
                         || !traceContains(s, "roll=" + (selfHit ? 0 : 99))
-                        || !traceContains(s, "ordinarySkill54Producer=NOT_REACHED")
-                        || traceContains(s, "appliedDebuffId=8")
+                        || !traceContains(s, "skill54Producer=GAMEPLAY_FIXED")
                         || traceContains(s, "battle P7 damage frame skill=54")) {
                     throw new IllegalStateException("Expected debuff8 gameplay-fix to route target and boost outgoing damage,"
                             + " selfHit=" + selfHit
@@ -17600,7 +18139,7 @@ final class VqsvSmokeHarness {
                         + " hpPlayer=" + playerHpBefore + "->" + playerHpAfter
                         + " hpEnemy=" + enemyHpBefore + "->" + enemyHpAfter
                         + " status=INTENTIONAL_DEVIATION/GAMEPLAY_FIXED"
-                        + " ordinarySkill54Producer=NOT_REACHED");
+                        + " skill54Producer=GAMEPLAY_FIXED");
             } else if ("battle_status_debuff8_p12_body_visual_type1_actor25".equals(checkpoint)) {
                 SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
                 runtime.debugQueueDebuffForSmoke(s, false, 8, 40, 54, 4, 50);
@@ -17610,8 +18149,8 @@ final class VqsvSmokeHarness {
                 if (!runtime.debugEnemyHasDebuffForSmoke(8)
                         || runtime.debugEnemyDebuffDurationForSmoke(8) != 4
                         || !s.battleP7SpecialVisible
-                        || s.battleP7SpecialType < 0
-                        || !traceContains(s, "row=[1, 0, 0, -1, 0, 25, 0, -1]")) {
+                        || s.battleP7SpecialType != 9
+                        || !traceContains(s, "row=[1, 0, 0, -1, 0, 25, 5, -1]")) {
                     throw new IllegalStateException("Expected debuff8 P12/P13 to start source bufDebuf visual row,"
                             + " hasDebuff8=" + runtime.debugEnemyHasDebuffForSmoke(8)
                             + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(8)
@@ -17620,10 +18159,10 @@ final class VqsvSmokeHarness {
                             + " trace=" + tailTrace(s, 120));
                 }
                 s.sourceStateTrace.add("SMOKE verified debuff8 Quy Mi P12/P13 body visual start"
-                        + " bufDebuf ar[1][8]=[1,0,0,-1,0,25,0,-1]"
+                        + " bufDebuf ar[1][8]=[1,0,0,-1,0,25,5,-1]"
                         + " game.d.ai[1] includes id8"
-                        + " firstSegment=speffect0"
-                        + " secondSegment=actor25");
+                        + " firstSegment=speffect0/AH9"
+                        + " secondSegment=actor25/state5");
             } else {
                 SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
                 runtime.debugQueueDebuffForSmoke(s, false, 8, 40, 54, 4, 50);
@@ -17706,8 +18245,7 @@ final class VqsvSmokeHarness {
                     || !traceContains(s, "rerouteSlots=[1, 0]")
                     || !traceContains(s, "includesAttacker=true")
                     || !traceContains(s, "outgoingDamageBonus=10")
-                    || !traceContains(s, "ordinarySkill54Producer=NOT_REACHED")
-                    || traceContains(s, "appliedDebuffId=8")
+                    || !traceContains(s, "skill54Producer=GAMEPLAY_FIXED")
                     || traceContains(s, "battle P7 damage frame skill=54")) {
                 throw new IllegalStateException("Expected seeded debuff8 smoke to use gameplay-fixed"
                         + " 55/45 target routing without ordinary skill54 producer,"
@@ -17725,7 +18263,7 @@ final class VqsvSmokeHarness {
                     + " rerouteSlots=[1,0]"
                     + " status=INTENTIONAL_DEVIATION/GAMEPLAY_FIXED"
                     + " selfChance=55 opponentChance=45"
-                    + " gameplayMutation=false");
+                    + " gameplayMutation=producerEnabled");
             writeSmokeCheckpointImage(s, checkpoint, outPath);
             return true;
         } catch (Exception ex) {
@@ -17737,7 +18275,7 @@ final class VqsvSmokeHarness {
 
     private static boolean runDebuff9CloseoutSmokeIfNeeded(String checkpoint, String outPath) {
         if (!"battle_status_debuff9_before_no_effect".equals(checkpoint)
-                && !"battle_status_debuff9_skill55_zero_power_no_apply".equals(checkpoint)
+                && !"battle_status_debuff9_skill55_producer_apply".equals(checkpoint)
                 && !"battle_status_debuff9_random_target_seeded_active".equals(checkpoint)
                 && !"battle_status_debuff9_p12_body_visual_type12".equals(checkpoint)
                 && !"battle_status_debuff9_expiry_clears_icon".equals(checkpoint)) {
@@ -17763,30 +18301,33 @@ final class VqsvSmokeHarness {
                 s.sourceStateTrace.add("SMOKE verified debuff9 Hon Loan before snapshot"
                         + " hasDebuff9=false"
                         + " enemyIconCount=0");
-            } else if ("battle_status_debuff9_skill55_zero_power_no_apply".equals(checkpoint)) {
+            } else if ("battle_status_debuff9_skill55_producer_apply".equals(checkpoint)) {
                 enterElderP7WithSkills(s, new int[]{55, 45}, 0);
                 SourceBattleRuntime runtime = (SourceBattleRuntime) s.current;
                 tickUntilBattleP7Phase(s, 3, 260);
                 if (s.battleP7DamageVisible
-                        || runtime.debugEnemyHasDebuffForSmoke(9)
+                        || !runtime.debugEnemyHasDebuffForSmoke(9)
+                        || runtime.debugEnemyDebuffDurationForSmoke(9) != 1
                         || s.battleEnemyHp != s.battleEnemyMaxHp
                         || !traceContains(s, "no-damage skill=55")
+                        || !traceContains(s, "no-damage debuff producer applied")
+                        || !traceContains(s, "GAMEPLAY_FIXED")
                         || traceContains(s, "battle P7 damage frame skill=55")
-                        || traceContains(s, "appliedDebuffId=9")
                         || traceContains(s, "battle P7 hitroll skill=55")) {
-                    throw new IllegalStateException("Expected skill55 zero-power source guard to skip damage and ordinary debuff9 apply,"
+                    throw new IllegalStateException("Expected skill55 Hon Loan to apply debuff9 without damage,"
                             + " damageVisible=" + s.battleP7DamageVisible
                             + " hp=" + s.battleEnemyHp + "/" + s.battleEnemyMaxHp
                             + " hasDebuff9=" + runtime.debugEnemyHasDebuffForSmoke(9)
+                            + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(9)
                             + " trace=" + tailTrace(s, 100));
                 }
-                assertPhase10AStatusSlots(s, false, "status debuff9 skill55 no ordinary apply",
-                        new int[0], new int[0]);
-                s.sourceStateTrace.add("SMOKE verified debuff9 Hon Loan skill55 zero-power no ordinary producer"
+                assertPhase10AStatusSlots(s, false, "status debuff9 skill55 producer apply",
+                        new int[]{10}, new int[]{135});
+                s.sourceStateTrace.add("SMOKE verified debuff9 Hon Loan skill55 producer apply"
                         + " skill55=[5,172,584,0,1,10,2,9,-1,0]"
                         + " damageVisible=false"
-                        + " appliedDebuff9=false"
-                        + " ordinarySkill55Producer=NOT_REACHED");
+                        + " appliedDebuff9=true"
+                        + " status=INTENTIONAL_DEVIATION/GAMEPLAY_FIXED");
             } else if ("battle_status_debuff9_random_target_seeded_active".equals(checkpoint)) {
                 s.eventIndex = s.events.size();
                 s.sourcePets.add(new SourcePetState(0, 17, 7, 3, 2, 10, 45));
@@ -17807,8 +18348,7 @@ final class VqsvSmokeHarness {
                         || !traceContains(s, "source=game.d.f(attacker)")
                         || !traceContains(s, "randomIndex=0")
                         || !traceContains(s, "excludesAttacker=true")
-                        || !traceContains(s, "ordinarySkill55Producer=NOT_REACHED")
-                        || traceContains(s, "appliedDebuffId=9")
+                        || !traceContains(s, "skill55Producer=GAMEPLAY_FIXED")
                         || traceContains(s, "battle P7 damage frame skill=55")) {
                     throw new IllegalStateException("Expected debuff9 seeded active consumer to rebuild target vector and choose random index,"
                             + " targetCount=" + s.battleTargetCount
@@ -17959,11 +18499,12 @@ final class VqsvSmokeHarness {
                 assertPhase10AStatusSlots(s, false, "status debuff10 before active queue visual",
                         new int[]{11}, new int[]{138});
                 tickUntilTraceContains(s, "active queue visual start bank=1 id=10", 700);
+                tickUntilTraceContains(s, "speffect=19", 700);
                 if (!runtime.debugEnemyHasDebuffForSmoke(10)
                         || runtime.debugEnemyDebuffDurationForSmoke(10) != 4
                         || !s.battleP7SpecialVisible
                         || s.battleP7SpecialType != 9
-                        || !traceContains(s, "row=[1, 19, 0, -1, 1, 6, 0, -1]")) {
+                        || !traceContains(s, "row=[0, 27, 0, 0, 1, 19, 0, -1, 1, 6, 0, -1]")) {
                     throw new IllegalStateException("Expected debuff10 P12/P13 to start source bufDebuf visual row,"
                             + " hasDebuff10=" + runtime.debugEnemyHasDebuffForSmoke(10)
                             + " duration=" + runtime.debugEnemyDebuffDurationForSmoke(10)
@@ -17972,10 +18513,11 @@ final class VqsvSmokeHarness {
                             + " trace=" + tailTrace(s, 120));
                 }
                 s.sourceStateTrace.add("SMOKE verified debuff10 Te Liet P12/P13 body visual start"
-                        + " bufDebuf ar[1][10]=[1,19,0,-1,1,6,0,-1]"
+                        + " bufDebuf ar[1][10]=[0,27,0,0,1,19,0,-1,1,6,0,-1]"
                         + " game.d.ai[1] includes id10"
-                        + " firstSegment=speffect19/type9"
-                        + " secondSegment=speffect6");
+                        + " firstSegment=actor27"
+                        + " secondSegment=speffect19/type9"
+                        + " thirdSegment=speffect6");
             } else {
                 SourceBattleRuntime runtime = setupPhase10AStatusBattle(s);
                 runtime.debugQueueDebuffForSmoke(s, false, 10, 0, 41, 4, 50);
@@ -19060,8 +19602,9 @@ final class VqsvSmokeHarness {
                     || traceContains(s, "battle P7 damage frame skill=34")
                     || traceContains(s, "battle P7 hitroll skill=34")
                     || !traceContains(s, "battle P7 no-damage skill=34")
-                    || !traceContains(s, "battle P7 speffect skill=34")
-                    || !traceContains(s, "speffect=4")
+                    || !traceContains(s, "battle P7 actor u.a() start skill=34")
+                    || !traceContains(s, "sourceEffectId=23")
+                    || !traceContains(s, "state=4")
                     || !traceContains(s, "game.d.q postEffect skill=34")
                     || !traceContains(s, "buffId=5")
                     || !traceContains(s, "targetSide=1")) {
@@ -19076,7 +19619,7 @@ final class VqsvSmokeHarness {
             assertPhase10AStatusSlots(s, true, "status buff5 producer visual",
                     new int[]{17}, new int[]{137});
             s.sourceStateTrace.add("SMOKE verified buff5 Vo hinh producer skill34"
-                    + " visual=effect.mid[34] speffect4"
+                    + " visual=effect.mid[34] actorEffect23 state4"
                     + " value=30"
                     + " icon=17 durationCell=137"
                     + " source=game.b.a case5 aq.c[6][5][3]");

@@ -503,15 +503,23 @@ final class FireSkill implements Skill {
         FireSourceStageKind kind = fireSourceStageKind(skillId);
         java.io.File targetEffectPng = new java.io.File(dir, fireSourceStagePngName(skillId, "2_target_u_or_h"));
         if (kind == FireSourceStageKind.ACTOR_ONLY) {
-            tickUntilActorEffect(s, skillId, 20, 0, 80);
+            tickUntilActorEffect(s, skillId, 20, directBaseActorState(skillId), 80);
             assertFireTargetActorEffect(s, runtime, checkpoint, skillId);
         } else if (kind == FireSourceStageKind.ACTOR_THEN_H) {
-            tickUntilActorEffect(s, skillId, 20, 0, 80);
+            tickUntilActorEffect(s, skillId, 20, directBaseActorState(skillId), 80);
             assertFireTargetActorEffect(s, runtime, checkpoint, skillId);
-            writeScenePng(s, new java.io.File(dir, fireSourceStagePngName(skillId, "2a_target_u20")));
-            tickUntilSpecialEffect(s, skillId, 12, 14, 220);
-            assertFireTargetSpecialEffect(s, checkpoint, skillId, 12, 14);
+            writeScenePng(s, new java.io.File(dir, fireSourceStagePngName(skillId, "2a_target_u20_primary")));
+            tickUntilActorEffect(s, skillId, 20, 3, 160);
+            assertFireTargetActorState(s, runtime, checkpoint, skillId, 20, 262, 3, false);
+            writeScenePng(s, new java.io.File(dir, fireSourceStagePngName(skillId, "2b_target_u20_state3")));
+            tickUntilSpecialEffect(s, skillId, 9, 0, 220);
+            assertFireTargetSpecialEffect(s, checkpoint, skillId, 9, 0);
         } else {
+            int selfActorId = selfBuffActorEffectId(skillId);
+            tickUntilActorEffect(s, skillId, selfActorId, 0, 120);
+            assertFireTargetActorState(s, runtime, checkpoint, skillId,
+                    selfActorId, fireSourceEffectSpriteId(selfActorId), 0, true);
+            writeScenePng(s, new java.io.File(dir, fireSourceStagePngName(skillId, "2a_self_actor_u" + selfActorId)));
             tickUntilSpecialEffect(s, skillId, 9, 16, 120);
             assertFireTargetSpecialEffect(s, checkpoint, skillId, 9, 16);
             if (!s.battleP7SpecialOnPlayerSide || !s.battleP7BaseHiddenPlayerSide) {
@@ -651,18 +659,27 @@ final class FireSkill implements Skill {
 
     private static void assertFireTargetActorEffect(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
                                                     String checkpoint, int skillId) {
+        assertFireTargetActorState(s, runtime, checkpoint, skillId,
+                20, 262, directBaseActorState(skillId), false);
+    }
+
+    private static void assertFireTargetActorState(VqsvIntroDemo.Scene s, SourceBattleRuntime runtime,
+                                                   String checkpoint, int skillId,
+                                                   int sourceId, int spriteId, int state,
+                                                   boolean playerSide) {
         if (!s.battleP7ActorEffectVisible
-                || s.battleP7ActorEffectSourceId != 20
-                || s.battleP7ActorEffectSpriteId != 262
-                || s.battleP7ActorEffectState != 0
-                || s.battleP7ActorEffectOnPlayerSide
+                || s.battleP7ActorEffectSourceId != sourceId
+                || s.battleP7ActorEffectSpriteId != spriteId
+                || s.battleP7ActorEffectState != state
+                || s.battleP7ActorEffectOnPlayerSide != playerSide
                 || s.battleP7BaseStatePlayerSide != 1
                 || s.battleP7BaseStateEnemySide != 0
                 || s.battleP7SpecialVisible
                 || runtime.debugPlayerSkillPpForSmoke(0) != fireExpectedPpAfterUse(skillId)
                 || !traceContains(s, "battle P7 actor u.a() start skill=" + skillId)) {
             throw new IllegalStateException(checkpoint + " skill" + skillId
-                    + " expected target-side actor u20 with attacker state1"
+                    + " expected actor u" + sourceId + " state=" + state
+                    + " playerSide=" + playerSide
                     + " actorVisible=" + s.battleP7ActorEffectVisible
                     + " source=" + s.battleP7ActorEffectSourceId
                     + " sprite=" + s.battleP7ActorEffectSpriteId
@@ -712,16 +729,48 @@ final class FireSkill implements Skill {
             case 6:
             case 7:
             case 9:
-                return new byte[]{0, 0, 20, 0, -1, -1, 0};
+                return directBaseExpectedEffectRow(skillId);
             case 2:
-                return new byte[]{0, 0, 20, 0, -1, -1, 0, 0, 1, 14, 0, 0, 0, -1};
+                return new byte[]{0, 0, 20, 2, -1, -1, 0,
+                        0, 0, 20, 3, 1, -1, 0,
+                        0, 1, 0, 0, 0, -1, 1};
             case 8:
-                return new byte[]{0, 0, 20, 0, -1, -1, 0, 0, 1, 14, 0, 0, -1, 1};
+                return new byte[]{0, 0, 20, 7, -1, -1, 0,
+                        0, 0, 20, 3, 1, -1, 0,
+                        0, 1, 0, 0, 0, -1, 1};
             case 4:
+                return new byte[]{0, 0, 30, 0, 0, -1, 0,
+                        0, 1, 16, 0, -1, -1, 0,
+                        0, 1, 15, 0, -1, -1, 0};
             case 5:
-                return new byte[]{0, 1, 16, 0, -1, -1, 0, 0, 1, 15, 0, -1, -1, 0};
+                return new byte[]{0, 0, 31, 0, 0, -1, 0,
+                        0, 1, 16, 0, -1, -1, 0,
+                        0, 1, 15, 0, -1, -1, 0};
             default:
                 throw new IllegalArgumentException("Not a Fire skill: " + skillId);
+        }
+    }
+
+    private static int selfBuffActorEffectId(int skillId) {
+        if (skillId == 4) {
+            return 30;
+        }
+        if (skillId == 5) {
+            return 31;
+        }
+        throw new IllegalArgumentException("Not a Fire self-buff skill: " + skillId);
+    }
+
+    private static int fireSourceEffectSpriteId(int sourceEffectId) {
+        switch (sourceEffectId) {
+            case 20:
+                return 262;
+            case 30:
+                return 304;
+            case 31:
+                return 306;
+            default:
+                return sourceEffectId + 242;
         }
     }
 
@@ -1358,6 +1407,7 @@ final class FireSkill implements Skill {
 
             int hpBeforeTick = s.battleEnemyHp;
             tickUntilTraceContains(s, "active queue visual start bank=1 id=0", 700);
+            tickUntilTraceContains(s, "speffect=18", 700);
             if (!s.battleActiveQueueVisible
                     || s.battleActiveQueueBank != 1
                     || s.battleActiveQueueEffectId != 0
@@ -1528,17 +1578,17 @@ final class FireSkill implements Skill {
                 s.tick();
             }
             if (!s.battleP7SpecialVisible
-                    || s.battleP7SpecialType != 12
+                    || s.battleP7SpecialType != 9
                     || s.battleP7SpecialRow.length == 0
                     || !traceContainsAll(s, "battle P7 speffect skill=2",
-                    "chunk=1", "speffect=14", "AH type 12")) {
-                throw new IllegalStateException(checkpoint + " expected skill2 normal P7 speffect14 AH type12"
+                    "chunk=2", "speffect=0", "AH type 9")) {
+                throw new IllegalStateException(checkpoint + " expected skill2 S60 P7 speffect0 AH type9"
                         + " specialVisible=" + s.battleP7SpecialVisible
                         + " type=" + s.battleP7SpecialType
                         + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
                         + " trace=" + tailTrace(s, 60));
             }
-            writeScenePng(s, new java.io.File(dir, skill2DiemKichPngName("speffect14_type12")));
+            writeScenePng(s, new java.io.File(dir, skill2DiemKichPngName("speffect0_type9")));
 
             tickUntilBattleP7Phase(s, 2, 220);
             int damage = latestTraceDamage(s, "battle P7 damage frame skill=2");
@@ -1632,9 +1682,10 @@ final class FireSkill implements Skill {
                     + "effect.mid[2]="
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(2)) + "\n"
                     + "aq.c[7][1]=" + java.util.Arrays.toString(debuff.raw) + "\n"
-                    + "speffect14=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(14)) + "\n"
-                    + "actorEffect=20 actorSprite=262 actorState=0 actorSide=enemy\n"
-                    + "specialEffect=14 ahType=12\n"
+                    + "speffect0=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(0)) + "\n"
+                    + "speffect14_debuffTick=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(14)) + "\n"
+                    + "actorEffect=20 actorSprite=262 actorState=2 actorSide=enemy\n"
+                    + "producerSpecialEffect=0 ahType=9\n"
                     + "formula=raw*100/100; debuffChance=10; debuffDuration=2; debuffTick=noop\n"
                     + "before hp=" + beforePlayerHp + "/" + s.battlePlayerMaxHp
                     + ":" + beforeEnemyHp + "/" + s.battleEnemyMaxHp
@@ -1670,7 +1721,7 @@ final class FireSkill implements Skill {
                     + " pp=" + beforePp + "->" + runtime.debugPlayerSkillPpForSmoke(0)
                     + " damage=" + damage
                     + " debuffChance=10 forcedRoll=0"
-                    + " images=before,actor_u20_start,speffect14_type12,damage_debuff_frame,hp_settled_debuff_active,p12_body_visual_type12,tick_noop_duration1,expired");
+                    + " images=before,actor_u20_start,speffect0_type9,damage_debuff_frame,hp_settled_debuff_active,p12_body_visual_type12,tick_noop_duration1,expired");
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1728,17 +1779,17 @@ final class FireSkill implements Skill {
                 s.tick();
             }
             if (!s.battleP7SpecialVisible
-                    || s.battleP7SpecialType != 12
+                    || s.battleP7SpecialType != 9
                     || s.battleP7SpecialRow.length == 0
                     || !traceContainsAll(s, "battle P7 speffect skill=8",
-                    "chunk=1", "speffect=14", "AH type 12")) {
-                throw new IllegalStateException(checkpoint + " expected skill8 P7 speffect14 AH type12"
+                    "chunk=2", "speffect=0", "AH type 9")) {
+                throw new IllegalStateException(checkpoint + " expected skill8 S60 P7 speffect0 AH type9"
                         + " specialVisible=" + s.battleP7SpecialVisible
                         + " type=" + s.battleP7SpecialType
                         + " row=" + java.util.Arrays.toString(s.battleP7SpecialRow)
                         + " trace=" + tailTrace(s, 80));
             }
-            writeScenePng(s, new java.io.File(dir, skill8LietDiemPhongBaoPngName("speffect14_type12")));
+            writeScenePng(s, new java.io.File(dir, skill8LietDiemPhongBaoPngName("speffect0_type9")));
 
             tickUntilBattleP7Phase(s, 2, 240);
             int damage = latestTraceDamage(s, "battle P7 damage frame skill=8");
@@ -1834,9 +1885,10 @@ final class FireSkill implements Skill {
                     + "effect.mid[8]="
                     + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().effectRow(8)) + "\n"
                     + "aq.c[7][1]=" + java.util.Arrays.toString(debuff.raw) + "\n"
-                    + "speffect14=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(14)) + "\n"
-                    + "actorEffect=20 actorSprite=262 actorState=0 actorSide=enemy\n"
-                    + "specialEffect=14 ahType=12\n"
+                    + "speffect0=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(0)) + "\n"
+                    + "speffect14_debuffTick=" + java.util.Arrays.toString(VqsvBattleAnimationTables.instance().speffectRow(14)) + "\n"
+                    + "actorEffect=20 actorSprite=262 actorState=7 actorSide=enemy\n"
+                    + "producerSpecialEffect=0 ahType=9\n"
                     + "formula=raw*200/100 plus source jitter; debuffChance=20 forcedRoll=0; debuffDuration=2; debuffTick=noop\n"
                     + "before hp=" + beforePlayerHp + "/" + s.battlePlayerMaxHp
                     + ":" + beforeEnemyHp + "/" + s.battleEnemyMaxHp
@@ -1872,7 +1924,7 @@ final class FireSkill implements Skill {
                     + " pp=" + beforePp + "->" + runtime.debugPlayerSkillPpForSmoke(0)
                     + " damage=" + damage
                     + " debuffChance=20 forcedRoll=0"
-                    + " images=before,actor_u20_start,speffect14_type12,damage_debuff_frame,"
+                    + " images=before,actor_u20_start,speffect0_type9,damage_debuff_frame,"
                     + "hp_settled_debuff_active,p12_body_visual_type12,tick_noop_duration1,expired");
             return true;
         } catch (Exception ex) {
@@ -2105,8 +2157,8 @@ final class FireSkill implements Skill {
                             "effect.mid[1]: u20 -> sprite262",
                             new java.io.File(timelines, "skill1/" + skill1DuongViemPngName("actor_u20_start"))),
                     new FireAnimationCell(2, "Diem kich", "actor + speffect",
-                            "u20, then speffect14 / AH12",
-                            new java.io.File(timelines, "skill2/" + skill2DiemKichPngName("speffect14_type12"))),
+                            "u20 states 2/3, then speffect0 / AH9",
+                            new java.io.File(timelines, "skill2/" + skill2DiemKichPngName("speffect0_type9"))),
                     new FireAnimationCell(3, "Hoa Van trieu", "actor-only conditional",
                             "effect.mid[3]: u20 -> sprite262",
                             new java.io.File(timelines, "skill3/" + skill3HoaVanTrieuPngName("baseline_actor_u20_start"))),
@@ -2123,8 +2175,8 @@ final class FireSkill implements Skill {
                             "effect.mid[7]: u20 -> sprite262",
                             new java.io.File(timelines, "skill7/" + skill7ChuocNhietChiXucPngName("actor_u20_start"))),
                     new FireAnimationCell(8, "Liet diem phong bao", "actor + speffect",
-                            "u20, then speffect14 / AH12",
-                            new java.io.File(timelines, "skill8/" + skill8LietDiemPhongBaoPngName("speffect14_type12"))),
+                            "u20 states 7/3, then speffect0 / AH9",
+                            new java.io.File(timelines, "skill8/" + skill8LietDiemPhongBaoPngName("speffect0_type9"))),
                     new FireAnimationCell(9, "Vinh hang hoa anh", "actor-only conditional",
                             "effect.mid[9]: u20 -> sprite262",
                             new java.io.File(timelines, "skill9/" + skill9VinhHangHoaAnhPngName("actor_u20_start")))
@@ -2472,7 +2524,7 @@ final class FireSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(4);
         BattleBuffRow buff = VqsvBattleTables.instance().buff(0);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(4);
-        byte[] expectedEffect = new byte[]{0, 1, 16, 0, -1, -1, 0, 0, 1, 15, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 30, 0, 0, -1, 0, 0, 1, 16, 0, -1, -1, 0, 0, 1, 15, 0, -1, -1, 0};
         short[] speffect16 = VqsvBattleAnimationTables.instance().speffectRow(16);
         short[] speffect15 = VqsvBattleAnimationTables.instance().speffectRow(15);
         if (row == null
@@ -2912,7 +2964,7 @@ final class FireSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(5);
         BattleBuffRow buff = VqsvBattleTables.instance().buff(1);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(5);
-        byte[] expectedEffect = new byte[]{0, 1, 16, 0, -1, -1, 0, 0, 1, 15, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 31, 0, 0, -1, 0, 0, 1, 16, 0, -1, -1, 0, 0, 1, 15, 0, -1, -1, 0};
         short[] speffect16 = VqsvBattleAnimationTables.instance().speffectRow(16);
         short[] speffect15 = VqsvBattleAnimationTables.instance().speffectRow(15);
         if (row == null
@@ -3197,7 +3249,7 @@ final class FireSkill implements Skill {
     private static void assertSkill3HoaVanTrieuSourceRows(VqsvIntroDemo.Scene s, String checkpoint) {
         BattleSkillRow row = VqsvBattleTables.instance().skill(3);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(3);
-        byte[] expectedEffect = new byte[]{0, 0, 20, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 20, 4, -1, -1, 0};
         if (row == null
                 || row.elementFamily != 0
                 || row.nameTextId != 120
@@ -3252,7 +3304,7 @@ final class FireSkill implements Skill {
     private static void assertSkill9VinhHangHoaAnhSourceRows(VqsvIntroDemo.Scene s, String checkpoint) {
         BattleSkillRow row = VqsvBattleTables.instance().skill(9);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(9);
-        byte[] expectedEffect = new byte[]{0, 0, 20, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 20, 8, -1, -1, 0};
         if (row == null
                 || row.elementFamily != 0
                 || row.nameTextId != 126
@@ -3395,7 +3447,7 @@ final class FireSkill implements Skill {
         }
         sb.append("\n");
         sb.append("Source conclusion: skills 0/1/3/6/7/9 intentionally share actor effect u20/sprite262. ");
-        sb.append("Skills 2/8 add speffect14/AH12. Skills 4/5 are self-buff speffect16 then speffect15.\n");
+        sb.append("S60 skills 2/8 add producer speffect0/AH9 after a second u20 actor chunk; their debuff tick still uses speffect14/AH12. Skills 4/5 start with u30/u31 before self-buff speffect16 then speffect15.\n");
         Files.write(out.toPath(), sb.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
     }
 
@@ -3439,7 +3491,7 @@ final class FireSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(2);
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(1);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(2);
-        byte[] expectedEffect = new byte[]{0, 0, 20, 0, -1, -1, 0, 0, 1, 14, 0, 0, 0, -1};
+        byte[] expectedEffect = new byte[]{0, 0, 20, 2, -1, -1, 0, 0, 0, 20, 3, 1, -1, 0, 0, 1, 0, 0, 0, -1, 1};
         short[] speffect14 = VqsvBattleAnimationTables.instance().speffectRow(14);
         if (row == null
                 || row.elementFamily != 0
@@ -3515,7 +3567,7 @@ final class FireSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(8);
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(1);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(8);
-        byte[] expectedEffect = new byte[]{0, 0, 20, 0, -1, -1, 0, 0, 1, 14, 0, 0, -1, 1};
+        byte[] expectedEffect = new byte[]{0, 0, 20, 7, -1, -1, 0, 0, 0, 20, 3, 1, -1, 0, 0, 1, 0, 0, 0, -1, 1};
         short[] speffect14 = VqsvBattleAnimationTables.instance().speffectRow(14);
         if (row == null
                 || row.elementFamily != 0
@@ -3572,13 +3624,13 @@ final class FireSkill implements Skill {
                                                    String checkpoint) {
         if (!s.battleP7ActorEffectVisible
                 || s.battleP7ActorEffectSpriteId != 262
-                || s.battleP7ActorEffectState != 0
+                || s.battleP7ActorEffectState != directBaseActorState(8)
                 || s.battleP7ActorEffectOnPlayerSide
                 || s.battleEnemyHp != s.battleEnemyMaxHp
                 || runtime.debugPlayerSkillPpForSmoke(0) != 14
                 || !traceContains(s, "battle P7 source n() skill=8")
                 || !traceContains(s, "id=20")
-                || !traceContains(s, "param=0")
+                || !traceContains(s, "param=" + directBaseActorState(8))
                 || !traceContains(s, "battle P7 actor u.a() start skill=8")
                 || traceContains(s, "battle P7 damage frame skill=8")) {
             throw new IllegalStateException(checkpoint + " expected skill8 actor effect"
@@ -3638,7 +3690,7 @@ final class FireSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(1);
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(0);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(1);
-        byte[] expectedEffect = new byte[]{0, 0, 20, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 20, 1, -1, -1, 0};
         if (row == null
                 || row.elementFamily != 0
                 || row.nameTextId != 118
@@ -3706,7 +3758,7 @@ final class FireSkill implements Skill {
         BattleSkillRow row = VqsvBattleTables.instance().skill(7);
         BattleDebuffRow debuff = VqsvBattleTables.instance().debuff(0);
         byte[] effect = VqsvBattleAnimationTables.instance().effectRow(7);
-        byte[] expectedEffect = new byte[]{0, 0, 20, 0, -1, -1, 0};
+        byte[] expectedEffect = new byte[]{0, 0, 20, 6, -1, -1, 0};
         short[] speffect18 = VqsvBattleAnimationTables.instance().speffectRow(18);
         if (row == null
                 || row.elementFamily != 0
@@ -3763,13 +3815,13 @@ final class FireSkill implements Skill {
                                                    String checkpoint) {
         if (!s.battleP7ActorEffectVisible
                 || s.battleP7ActorEffectSpriteId != 262
-                || s.battleP7ActorEffectState != 0
+                || s.battleP7ActorEffectState != directBaseActorState(7)
                 || s.battleP7ActorEffectOnPlayerSide
                 || s.battleEnemyHp != s.battleEnemyMaxHp
                 || runtime.debugPlayerSkillPpForSmoke(0) != 29
                 || !traceContains(s, "battle P7 source n() skill=7")
                 || !traceContains(s, "id=20")
-                || !traceContains(s, "param=0")
+                || !traceContains(s, "param=" + directBaseActorState(7))
                 || !traceContains(s, "battle P7 actor u.a() start skill=7")
                 || traceContains(s, "battle P7 damage frame skill=7")) {
             throw new IllegalStateException(checkpoint + " expected skill7 actor effect"
@@ -3967,7 +4019,26 @@ final class FireSkill implements Skill {
     }
 
     private static int directBaseActorState(int skillId) {
-        return 0;
+        switch (skillId) {
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+            case 2:
+                return 2;
+            case 3:
+                return 4;
+            case 6:
+                return 5;
+            case 7:
+                return 6;
+            case 8:
+                return 7;
+            case 9:
+                return 8;
+            default:
+                throw new IllegalArgumentException("Not a fire smoke skill: " + skillId);
+        }
     }
 
     private static int directBaseExpectedPower(int skillId) {

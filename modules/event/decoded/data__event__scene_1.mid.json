@@ -3,18 +3,18 @@
   "scene_id": 1,
   "block_count": 7,
   "block_sizes": [
-    16303,
+    16325,
     2077,
-    3349,
-    15734,
-    2771,
-    964,
-    1510
+    3361,
+    15755,
+    2780,
+    973,
+    1519
   ],
   "rooms": [
     {
       "room_index": 0,
-      "block_size": 16303,
+      "block_size": 16325,
       "room_start": 16,
       "room_name": "Thủy Mộc Thôn",
       "string_pool_count": 206,
@@ -142,7 +142,7 @@
         "Dodo",
         "Dễ thương lắm! Cám ơn, Neil! Những vật này tặng cho ngươi",
         "Dodo",
-        "Neil ~ ca ~ ca ~",
+        "Nepal ~ Seoul ~ ... ~ ... ~",
         "Dodo",
         "Có hứng thú giúp ta một chuyện nho nhỏ không?",
         "Dodo",
@@ -833,10 +833,10 @@
           "param_len": 13,
           "values": [
             0,
-            209,
-            0,
-            231,
-            98,
+            211,
+            1,
+            234,
+            95,
             1,
             0,
             1,
@@ -852,7 +852,7 @@
           "param_len": 13,
           "values": [
             0,
-            69,
+            10,
             0,
             127,
             79,
@@ -871,7 +871,7 @@
           "param_len": 13,
           "values": [
             0,
-            66,
+            9,
             0,
             88,
             234,
@@ -890,7 +890,7 @@
           "param_len": 13,
           "values": [
             0,
-            66,
+            38,
             0,
             294,
             175,
@@ -909,7 +909,7 @@
           "param_len": 13,
           "values": [
             0,
-            81,
+            74,
             1,
             152,
             212,
@@ -966,7 +966,7 @@
           "param_len": 13,
           "values": [
             0,
-            52,
+            16,
             1,
             148,
             179,
@@ -1004,7 +1004,7 @@
           "param_len": 13,
           "values": [
             0,
-            23,
+            69,
             1,
             124,
             186,
@@ -1044,8 +1044,8 @@
             0,
             53,
             0,
-            158,
-            143,
+            159,
+            144,
             0,
             1,
             1,
@@ -1061,7 +1061,7 @@
           "param_len": 13,
           "values": [
             0,
-            69,
+            55,
             1,
             128,
             231,
@@ -1099,7 +1099,7 @@
           "param_len": 13,
           "values": [
             0,
-            23,
+            39,
             1,
             263,
             170,
@@ -1118,10 +1118,10 @@
           "param_len": 13,
           "values": [
             0,
-            69,
+            40,
             0,
-            280,
-            139,
+            131,
+            149,
             0,
             1,
             1,
@@ -1196,8 +1196,8 @@
             0,
             66,
             0,
-            386,
-            190,
+            383,
+            207,
             1,
             1,
             1,
@@ -1308,7 +1308,7 @@
           "param_len": 13,
           "values": [
             0,
-            8,
+            6,
             2,
             224,
             224,
@@ -2231,7 +2231,7 @@
               "total_arg_count": 8,
               "short_args": [
                 0,
-                17,
+                16,
                 7,
                 3,
                 2,
@@ -3066,7 +3066,7 @@
                 },
                 {
                   "string_index": 123,
-                  "text": "Neil ~ ca ~ ca ~"
+                  "text": "Nepal ~ Seoul ~ ... ~ ... ~"
                 }
               ]
             },
@@ -3983,13 +3983,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 16303,
-      "declared_block_size": 16303
+      "bytes_consumed_in_room": 16325,
+      "declared_block_size": 16325
     },
     {
       "room_index": 1,
       "block_size": 2077,
-      "room_start": 16319,
+      "room_start": 16341,
       "room_name": "Bắt được Thủy Mộc Thôn",
       "string_pool_count": 18,
       "string_pool": [
@@ -4874,8 +4874,8 @@
             0,
             204,
             0,
-            249,
-            253,
+            248,
+            257,
             1,
             0,
             1,
@@ -5334,8 +5334,8 @@
     },
     {
       "room_index": 2,
-      "block_size": 3349,
-      "room_start": 18396,
+      "block_size": 3361,
+      "room_start": 18418,
       "room_name": "Theo chỉ dẫn địa đồ tiếp theo là Thủy Mộc Thôn",
       "string_pool_count": 36,
       "string_pool": [
@@ -5350,7 +5350,7 @@
         "Lanni",
         "Xem, đáng yêu đấy chứ?",
         "Neil",
-        "Ừ.",
+        "Ừm.",
         "Lanni",
         "Tặng cho ngươi.",
         "Lanni",
@@ -5374,7 +5374,7 @@
         "À ... ta thua, nhưng ngươi cũng còn ít...",
         "Nhấn nút 0 tra xét tiểu địa đồ, nhấn nút 1 tra xét nhiệm vụ.",
         "Tập hợp đủ tất cả sủng vật rồi tìm liên minh sứ giả đạt được Hoàng Kim huy hiệu.",
-        "Giờ có thể tự do di chuyển."
+        "Hiện tại có thể tự do di chuyển."
       ],
       "unknown_ab": 6,
       "unknown_skip": 2,
@@ -5911,7 +5911,7 @@
           "param_len": 13,
           "values": [
             0,
-            69,
+            14,
             0,
             214,
             229,
@@ -6130,7 +6130,7 @@
                 },
                 {
                   "string_index": 11,
-                  "text": "Ừ."
+                  "text": "Ừm."
                 }
               ]
             },
@@ -6591,7 +6591,7 @@
               "string_args": [
                 {
                   "string_index": 35,
-                  "text": "Giờ có thể tự do di chuyển."
+                  "text": "Hiện tại có thể tự do di chuyển."
                 }
               ]
             },
@@ -6604,13 +6604,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 3349,
-      "declared_block_size": 3349
+      "bytes_consumed_in_room": 3361,
+      "declared_block_size": 3361
     },
     {
       "room_index": 3,
-      "block_size": 15734,
-      "room_start": 21745,
+      "block_size": 15755,
+      "room_start": 21779,
       "room_name": "Thủy Mộc Thôn hạ 2",
       "string_pool_count": 341,
       "string_pool": [
@@ -6827,17 +6827,17 @@
         "Neil",
         "... Ta quyết định kể từ giờ phút này chúng ta sẽ luôn bên cạnh nhau, cùng ở một nơi.",
         "Sophie",
-        "Thật sự sao? Neil cùng với Sophie sao?",
+        "Thật chứ? Neil cùng với Sophie sao?",
         "Neil",
         "...",
         "Sophie",
-        "Nói lại đi ~ Neil thật sự sẽ cùng với Sophie sao?",
+        "Nói thật nha ~ Neil thật sự cùng với Sophie sao?",
         "Neil",
-        "Đương nhiên! Nam nhân đại trượng phu nói một lời không thay đổi! Ta sẽ ở bên, bảo vệ, không cho bất cứ ai làm tổn thương Sophie!",
+        "Đúng vậy! Nam nhân đại trượng phu nói một lời không thay đổi! Không chỉ bên cạnh, Neil sẽ bảo vệ, không cho bất kỳ ai làm tổn thương đến Sophie!",
         "Sophie",
         "Ừm ~ Ước định ~ Neil cùng với Sophie, vĩnh viễn không xa rời nhau.",
         "Neil",
-        "Ừ, nhất định.",
+        "Ước định.",
         "58,59",
         "1,1",
         "1",
@@ -6951,7 +6951,7 @@
         "Neil",
         "(Sophie vừa rồi như là nhớ lại cái gì đó, cả người khí chất đều thay đổi, chỉ e ... Năm đó nhặt được nàng trưởng thôn nhất định biết rõ chân tướng!)",
         "Đến [Phượng Chi Thủ Hộ Hương] hướng trưởng thôn hỏi thăm thân thế Sophie.",
-        "Giờ có thể tự do di chuyển.",
+        "Hiện tại có thể tự do di chuyển.",
         "Neil",
         "Trước kia chưa từng nghĩ tới có một ngày có thể vào gặp thần thú.",
         "Đi đến khu di tích Phượng Hoàng."
@@ -7869,7 +7869,7 @@
           "param_len": 13,
           "values": [
             0,
-            0,
+            5,
             1,
             13,
             186,
@@ -7888,7 +7888,7 @@
           "param_len": 13,
           "values": [
             0,
-            8,
+            6,
             2,
             196,
             90,
@@ -7945,7 +7945,7 @@
           "param_len": 13,
           "values": [
             0,
-            81,
+            14,
             0,
             354,
             112,
@@ -8040,18 +8040,18 @@
           "param_len": 13,
           "values": [
             0,
-            200,
+            73,
             0,
-            40,
-            304,
+            401,
+            130,
+            0,
             1,
-            0,
             1,
             0,
             0,
             0,
             10,
-            -1
+            15
           ]
         },
         {
@@ -8059,7 +8059,7 @@
           "param_len": 13,
           "values": [
             0,
-            8,
+            6,
             0,
             143,
             168,
@@ -8078,7 +8078,7 @@
           "param_len": 13,
           "values": [
             0,
-            0,
+            5,
             2,
             144,
             236,
@@ -8118,8 +8118,8 @@
             0,
             7,
             0,
-            68,
-            55,
+            127,
+            56,
             0,
             1,
             1,
@@ -8165,7 +8165,8 @@
         "Maghull",
         "Lanni",
         "Johnny",
-        "George"
+        "George",
+        "Jack"
       ],
       "event_group_count": 9,
       "event_groups": [
@@ -8174,7 +8175,7 @@
           "scene_id": 1,
           "room_index": 3,
           "world_key": 259,
-          "record_count": 104,
+          "record_count": 103,
           "records": [
             {
               "opcode": 15,
@@ -9823,26 +9824,14 @@
               "string_args": []
             },
             {
-              "opcode": 34,
-              "total_arg_count": 5,
-              "short_args": [
-                1,
-                0,
-                70,
-                0,
-                0
-              ],
-              "string_args": []
-            },
-            {
               "opcode": 48,
               "total_arg_count": 7,
               "short_args": [
                 10,
                 20,
-                220,
+                90,
                 200,
-                40,
+                100,
                 1
               ],
               "string_args": [
@@ -10224,7 +10213,7 @@
                 },
                 {
                   "string_index": 213,
-                  "text": "Thật sự sao? Neil cùng với Sophie sao?"
+                  "text": "Thật chứ? Neil cùng với Sophie sao?"
                 }
               ]
             },
@@ -10260,7 +10249,7 @@
                 },
                 {
                   "string_index": 217,
-                  "text": "Nói lại đi ~ Neil thật sự sẽ cùng với Sophie sao?"
+                  "text": "Nói thật nha ~ Neil thật sự cùng với Sophie sao?"
                 }
               ]
             },
@@ -10278,7 +10267,7 @@
                 },
                 {
                   "string_index": 219,
-                  "text": "Đương nhiên! Nam nhân đại trượng phu nói một lời không thay đổi! Ta sẽ ở bên, bảo vệ, không cho bất cứ ai làm tổn thương Sophie!"
+                  "text": "Đúng vậy! Nam nhân đại trượng phu nói một lời không thay đổi! Không chỉ bên cạnh, Neil sẽ bảo vệ, không cho bất kỳ ai làm tổn thương đến Sophie!"
                 }
               ]
             },
@@ -10314,7 +10303,7 @@
                 },
                 {
                   "string_index": 223,
-                  "text": "Ừ, nhất định."
+                  "text": "Ước định."
                 }
               ]
             },
@@ -11536,7 +11525,7 @@
               "string_args": [
                 {
                   "string_index": 337,
-                  "text": "Giờ có thể tự do di chuyển."
+                  "text": "Hiện tại có thể tự do di chuyển."
                 }
               ]
             },
@@ -11648,13 +11637,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 15734,
-      "declared_block_size": 15734
+      "bytes_consumed_in_room": 15755,
+      "declared_block_size": 15755
     },
     {
       "room_index": 4,
-      "block_size": 2771,
-      "room_start": 37479,
+      "block_size": 2780,
+      "room_start": 37534,
       "room_name": "Đi thông bến tàu Thủy Mộc Thôn",
       "string_pool_count": 10,
       "string_pool": [
@@ -12678,7 +12667,7 @@
           "param_len": 13,
           "values": [
             0,
-            23,
+            14,
             0,
             182,
             57,
@@ -12689,7 +12678,7 @@
             0,
             0,
             7,
-            15
+            16
           ]
         }
       ],
@@ -12709,6 +12698,7 @@
         "Lanni",
         "Johnny",
         "George",
+        "Jack",
         "Chalcone"
       ],
       "event_group_count": 1,
@@ -12895,13 +12885,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 2771,
-      "declared_block_size": 2771
+      "bytes_consumed_in_room": 2780,
+      "declared_block_size": 2780
     },
     {
       "room_index": 5,
-      "block_size": 964,
-      "room_start": 40250,
+      "block_size": 973,
+      "room_start": 40314,
       "room_name": "Bến tàu Thủy Mộc Thôn",
       "string_pool_count": 0,
       "string_pool": [],
@@ -13413,7 +13403,7 @@
             0,
             0,
             0,
-            16
+            17
           ]
         },
         {
@@ -13432,7 +13422,7 @@
             0,
             0,
             84,
-            17
+            18
           ]
         },
         {
@@ -13451,7 +13441,7 @@
             0,
             0,
             27,
-            18
+            19
           ]
         },
         {
@@ -13470,7 +13460,7 @@
             0,
             0,
             161,
-            19
+            20
           ]
         }
       ],
@@ -13490,6 +13480,7 @@
         "Lanni",
         "Johnny",
         "George",
+        "Jack",
         "Chalcone",
         "Thuyền trưởng",
         "Salmond",
@@ -13498,13 +13489,13 @@
       ],
       "event_group_count": 0,
       "event_groups": [],
-      "bytes_consumed_in_room": 964,
-      "declared_block_size": 964
+      "bytes_consumed_in_room": 973,
+      "declared_block_size": 973
     },
     {
       "room_index": 6,
-      "block_size": 1510,
-      "room_start": 41214,
+      "block_size": 1519,
+      "room_start": 41287,
       "room_name": "Đi thông Bích Thủy",
       "string_pool_count": 8,
       "string_pool": [
@@ -13996,7 +13987,7 @@
           "param_len": 13,
           "values": [
             0,
-            52,
+            10,
             0,
             23,
             129,
@@ -14007,7 +13998,7 @@
             0,
             0,
             86,
-            20
+            21
           ]
         },
         {
@@ -14034,7 +14025,7 @@
           "param_len": 13,
           "values": [
             0,
-            69,
+            37,
             0,
             205,
             218,
@@ -14045,7 +14036,7 @@
             0,
             0,
             85,
-            21
+            22
           ]
         }
       ],
@@ -14065,6 +14056,7 @@
         "Lanni",
         "Johnny",
         "George",
+        "Jack",
         "Chalcone",
         "Thuyền trưởng",
         "Salmond",
@@ -14272,8 +14264,8 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 1510,
-      "declared_block_size": 1510
+      "bytes_consumed_in_room": 1519,
+      "declared_block_size": 1519
     }
   ]
 }

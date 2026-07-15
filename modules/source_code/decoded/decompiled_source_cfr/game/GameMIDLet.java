@@ -8,7 +8,7 @@
  */
 package game;
 
-import game.e;
+import game.m;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.midlet.MIDlet;
@@ -16,13 +16,13 @@ import javax.microedition.midlet.MIDlet;
 public class GameMIDLet
 extends MIDlet {
     private Display b;
-    private e c;
+    private m c;
     public static GameMIDLet a;
 
     public GameMIDLet() {
         a = this;
         this.b = Display.getDisplay((MIDlet)this);
-        this.c = e.a(this);
+        this.c = m.a(this);
         this.b.setCurrent((Displayable)this.c);
     }
 

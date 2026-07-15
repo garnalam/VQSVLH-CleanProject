@@ -32,21 +32,30 @@ final class Scene1Room0Group0Script {
             });
             e.add(s -> new Delay(60));
             e.add(s -> { s.spawnActorEffect(36, 13); return null; });
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group0.ALI, VqsvText.Scene1Room0Group0.ALI_TALENT));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group0.ALI,
+                    VqsvText.Scene1Room0Group0.ALI_TALENT, 0, -1));
             e.add(s -> { s.spawnActorEffect(50, 13); return null; });
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group0.TITAN, VqsvText.Scene1Room0Group0.TITAN_REPLY));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group0.TITAN,
+                    VqsvText.Scene1Room0Group0.TITAN_REPLY, 0, -1));
             e.add(s -> { s.spawnActorEffect(36, 13); return null; });
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group0.ALI, VqsvText.Scene1Room0Group0.ALI_MOTIVE));
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group0.ELDER, VqsvText.Scene1Room0Group0.ELDER_HO));
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group0.ELDER, VqsvText.Scene1Room0Group0.ELDER_EXAM));
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group0.NEIL, VqsvText.Scene1Room0Group0.NEIL_READY));
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group0.ELDER, VqsvText.Scene1Room0Group0.ELDER_BUNNY_TASK));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group0.ALI,
+                    VqsvText.Scene1Room0Group0.ALI_MOTIVE, 0, -1));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group0.ELDER,
+                    VqsvText.Scene1Room0Group0.ELDER_HO, 0, -1));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group0.ELDER,
+                    VqsvText.Scene1Room0Group0.ELDER_EXAM, 0, -1));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group0.NEIL,
+                    VqsvText.Scene1Room0Group0.NEIL_READY, 0, 0));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group0.ELDER,
+                    VqsvText.Scene1Room0Group0.ELDER_BUNNY_TASK, 0, -1));
             e.add(s -> s.op17Item(0, 0, 1));
             e.add(s -> s.op17Item(0, 1, 2));
             e.add(s -> s.op17Item(0, 4, 5));
             e.add(s -> { s.op39RefreshPets(); return null; });
-            e.add(VqsvSceneScriptSupport.dialog(VqsvText.Scene1Room0Group0.NEIL, VqsvText.Scene1Room0Group0.NEIL_SIMPLE));
-            e.add(VqsvSceneScriptSupport.taskNotice(VqsvText.Scene1Room0Group0.TASK_BUNNY));
+            e.add(VqsvSceneScriptSupport.dialogOp4(VqsvText.Scene1Room0Group0.NEIL,
+                    VqsvText.Scene1Room0Group0.NEIL_SIMPLE, 0, 0));
+            e.add(VqsvSceneScriptSupport.taskNoticeOp45(0,
+                    VqsvText.Scene1Room0Group0.TASK_BUNNY, "scene1 room0 group0"));
             e.add(s -> s.op10PlayerTimedAction(1, 4, 36));            e.add(s -> s.op10PlayerTimedAction(0, 4, 12));
             e.add(s -> s.op10PlayerTimedAction(1, 4, 8));
             e.add(s -> {

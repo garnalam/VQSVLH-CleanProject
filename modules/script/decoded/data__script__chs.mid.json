@@ -1403,7 +1403,7 @@
       "Tinh Vân Hạc 3"
     ],
     [
-      "Minh vương Long"
+      "Minh Vương Long"
     ],
     [
       "Cửu Sắc Lộc 1"
@@ -1544,7 +1544,7 @@
       "Tổng cộng gửi %s tin nhắn, đã thanh toán %s, bạn có muốn tiếp tục gửi không?"
     ],
     [
-      "Đang gửi tin nhắn……"
+      "Tin nhắn gửi đi..."
     ],
     [
       "Tin nhắn gửi đi thành công (đã lưu trữ trò chơi)"
@@ -1637,7 +1637,7 @@
       "Mỗi hiệp khôi phục trị số sinh mạng nhất định, duy trì liên tục 3 hiệp."
     ],
     [
-      "Tỷ lệ thương tổn gia tăng khá cao."
+      "Thương tổn tương đối cao."
     ],
     [
       "Thương tổn ở mức độ trung bình, cũng có thể khôi phục trị số sinh mạng nhất định."
@@ -1697,7 +1697,7 @@
       "50% xác suất gây thương tổn cho kẻ địch bị giảm phân nửa, duy trì liên tục 3 hiệp."
     ],
     [
-      "Tỷ lệ thương tổn gia tăng khá cao."
+      "Thương tổn tương đối cao."
     ],
     [
       "Thương tổn thấp cũng làm giảm tỉ lệ đánh trúng mục tiêu, duy trì liên tục 3 hiệp."
@@ -1727,7 +1727,7 @@
       "Linh Xảo gia tăng 50%, phòng ngự giảm xuống 50%, duy trì liên tục 3 hiệp."
     ],
     [
-      "Tỷ lệ thương tổn gia tăng khá cao."
+      "Thương tổn tương đối cao."
     ],
     [
       "Thương tổn ở mức độ trung bình cũng giảm 10% xác suất làm kẻ địch Tê Liệt 3 hiệp."
@@ -1757,7 +1757,7 @@
       "Không bị khống chế, có thể tự do hành động."
     ],
     [
-      "Tỷ lệ thương tổn gia tăng khá cao."
+      "Thương tổn tương đối cao."
     ],
     [
       "Thương tổn ở mức độ trung bình cũng làm giảm hiệu quả công kích kẻ địch 20% phòng ngự, duy trì liên tục 3 hiệp."
@@ -1787,7 +1787,7 @@
       "Mỗi hiệp công kích hai lần, duy trì liên tục 2 hiệp."
     ],
     [
-      "Tỷ lệ thương tổn gia tăng khá cao."
+      "Thương tổn tương đối cao."
     ],
     [
       "Thương tổn ở mức độ trung bình cũng làm giảm hiệu quả công kích kẻ địch 5% nhanh nhẹn, duy trì liên tục 3 hiệp."
@@ -1850,7 +1850,7 @@
       "Mọi thứ với bạn vẫn tốt chứ, Huấn luyện sư xuất sắc, chúc bạn có một hành trình vui vẻ tại Vương Quốc Sủng Vật."
     ],
     [
-      "Bến tàu phía nam"
+      "Bến tàu phía Nam"
     ],
     [
       "Bến tàu phía Đông"
@@ -1910,6 +1910,6 @@
       "..."
     ]
   ],
-  "bytes_consumed": 39856,
-  "bytes_total": 39856
+  "bytes_consumed": 39764,
+  "bytes_total": 39764
 }

@@ -2,7 +2,11 @@ final class VqsvSkillSmokeSupport {
     private static final Skill[] LANES = {
             FireSkill.INSTANCE,
             WoodSkill.INSTANCE,
-            EarthSkill.INSTANCE
+            EarthSkill.INSTANCE,
+            WaterSkill.INSTANCE,
+            ElectricSkill.INSTANCE,
+            ShadowSkill.INSTANCE,
+            WindSkill.INSTANCE
     };
 
     private VqsvSkillSmokeSupport() {

@@ -1,2 +1,8 @@
-original,decoded,kind,note
-,modules/reports/decoded/*,reports_and_tools,"Global reports, inventories, call graph, and decoding scripts."
+﻿"original","decoded","kind","note"
+"","reports/decoded/analyze_jar.py","decoded","Candidate decoded/decompiled output"
+"","reports/decoded/cfr.log","decoded","Candidate decoded/decompiled output"
+"","reports/decoded/code_resource_references.csv","decoded","Candidate decoded/decompiled output"
+"","reports/decoded/decoded_images.csv","decoded","Candidate decoded/decompiled output"
+"","reports/decoded/decoded_tables_index.csv","decoded","Candidate decoded/decompiled output"
+"","reports/decoded/file_inventory.csv","decoded","Candidate decoded/decompiled output"
+"","reports/decoded/reverse_engineering_summary.md","decoded","Candidate decoded/decompiled output"

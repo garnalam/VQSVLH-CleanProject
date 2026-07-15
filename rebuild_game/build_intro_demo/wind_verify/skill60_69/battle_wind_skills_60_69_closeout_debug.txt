@@ -1,0 +1,15 @@
+checkpoint=battle_wind_skills_60_69_closeout
+source=aq.c[1][60..69] + effect.mid[60..69] from S60 merged tables
+status=PORTED/PARTIAL runtime source row/effect/HP/PP/status/follow-up verified; pixel-perfect pending
+skill=60 name=Phong nhan hpPlayer=134->134 hpEnemy=109->86 pp=45->44 damage=23 playerBuff=-1:false/0 enemyDebuff=-1:false/0 copiedBuff2=false k12=-2147483648 followUp=false effect.mid=[0, 0, 26, 0, -1, -1, 0]
+skill=61 name=Phong ap hpPlayer=134->134 hpEnemy=109->89 pp=45->44 damage=20 playerBuff=-1:false/0 enemyDebuff=5:true/2 copiedBuff2=false k12=-2147483648 followUp=false effect.mid=[0, 0, 26, 1, -1, -1, 0, 0, 1, 11, 0, -1, -1, 0]
+skill=62 name=Thuan phong hpPlayer=134->134 hpEnemy=109->86 pp=45->44 damage=23 playerBuff=10:true/3 enemyDebuff=-1:false/0 copiedBuff2=false k12=-2147483648 followUp=false effect.mid=[0, 0, 26, 2, 0, -1, 0, 0, 1, 0, 0, -1, -1, 0, 1, 1, 15, 0, -1, -1, 0]
+skill=63 name=Long quyen hpPlayer=134->134 hpEnemy=109->84 pp=30->29 damage=25 playerBuff=-1:false/0 enemyDebuff=-1:false/0 copiedBuff2=false k12=-2147483648 followUp=false effect.mid=[0, 0, 26, 3, -1, -1, 0]
+skill=64 name=Nghich Phong Doat hpPlayer=134->134 hpEnemy=109->109 pp=10->9 damage=0 playerBuff=11:true/3 enemyDebuff=-1:false/0 copiedBuff2=true k12=-2147483648 followUp=false effect.mid=[0, 0, 34, 0, 0, -1, 0, 1, 1, 18, 0, -1, -1, 0, 1, 1, 15, 0, -1, -1, 0]
+skill=65 name=Vo Liet Thuat hpPlayer=134->134 hpEnemy=109->109 pp=10->9 damage=0 playerBuff=12:true/2 enemyDebuff=-1:false/0 copiedBuff2=false k12=1 followUp=false effect.mid=[0, 0, 32, 0, 0, -1, 0, 1, 1, 16, 0, -1, -1, 0, 1, 1, 15, 0, -1, -1, 0]
+skill=66 name=Yen Hoi Thiem hpPlayer=134->134 hpEnemy=109->72 pp=30->29 damage=37 playerBuff=-1:false/0 enemyDebuff=-1:false/0 copiedBuff2=false k12=-2147483648 followUp=false effect.mid=[0, 0, 26, 4, -1, -1, 0]
+skill=67 name=Phong Chi Tuyen Qua hpPlayer=134->134 hpEnemy=109->84 pp=30->29 damage=25 playerBuff=-1:false/0 enemyDebuff=-1:false/0 copiedBuff2=false k12=-2147483648 followUp=false effect.mid=[0, 0, 26, 5, -1, -1, 0, 0, 1, 11, 0, -1, -1, 0]
+skill=68 name=Phong Chi Tu Hau hpPlayer=134->134 hpEnemy=109->84 pp=15->14 damage=25 playerBuff=10:true/3 enemyDebuff=-1:false/0 copiedBuff2=false k12=-2147483648 followUp=false effect.mid=[0, 0, 26, 6, -1, -1, 0, 0, 1, 0, 0, -1, -1, 0, 1, 1, 15, 0, -1, -1, 0]
+skill=69 name=Phi Yen Hoan Sao hpPlayer=134->134 hpEnemy=109->72 pp=15->14 damage=37 playerBuff=-1:false/0 enemyDebuff=-1:false/0 copiedBuff2=false k12=-2147483648 followUp=false effect.mid=[0, 0, 26, 7, -1, -1, 0]
+followup skill=63 pp=30->29 followUp=true
+followup skill=69 pp=15->14 followUp=true

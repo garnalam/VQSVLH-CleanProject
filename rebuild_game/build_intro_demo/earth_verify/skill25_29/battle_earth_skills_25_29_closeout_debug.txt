@@ -1,0 +1,8 @@
+checkpoint=battle_earth_skills_25_29_closeout
+source=aq.c[1][25..29] + effect.mid[25..29] from S60 merged tables
+status=PORTED/PARTIAL runtime source row/effect/HP/PP/status verified; pixel-perfect pending
+skill=25 name=Thạch phu thuật hpPlayer=134->134 hpEnemy=109->109 pp=10->9 damage=0 playerBuff=14:true/3 enemyDebuff=-1:false/0 preloadedDebuff1=false effect.mid=[0, 1, 4, 0, -1, -1, 0, 0, 1, 17, 0, -1, -1, 0]
+skill=26 name=Nham bạo hpPlayer=134->134 hpEnemy=109->72 pp=30->29 damage=37 playerBuff=-1:false/0 enemyDebuff=-1:false/0 preloadedDebuff1=false effect.mid=[0, 0, 22, 6, -1, -1, 0, 0, 1, 6, 0, -1, -1, 0]
+skill=27 name=Hàng rào cát đá hpPlayer=134->134 hpEnemy=109->86 pp=30->29 damage=23 playerBuff=4:true/2 enemyDebuff=-1:false/0 preloadedDebuff1=false effect.mid=[0, 0, 22, 7, -1, -1, 0, 1, 0, 32, 0, 0, -1, 0, 1, 1, 7, 0, -1, -1, 0]
+skill=28 name=Bão cát hpPlayer=134->134 hpEnemy=109->72 pp=15->14 damage=37 playerBuff=-1:false/0 enemyDebuff=1:true/2 preloadedDebuff1=false effect.mid=[0, 0, 22, 5, -1, -1, 0, 0, 0, 22, 4, -1, -1, 1]
+skill=29 name=Thổ Chi Loạn Vũ hpPlayer=134->134 hpEnemy=109->37 pp=15->14 damage=72 playerBuff=-1:false/0 enemyDebuff=-1:false/0 preloadedDebuff1=true effect.mid=[0, 0, 22, 8, -1, -1, 0]

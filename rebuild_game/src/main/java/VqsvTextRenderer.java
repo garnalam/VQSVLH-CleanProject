@@ -277,7 +277,10 @@ final class TextBox {
     final int sourceUiKind;
     final String speaker;
     final int dialogMode;
+    final int dialogPortraitIndex;
     final SpriteAnim sourceUiAnim;
+    final SpriteAnim dialogUiAnim;
+    final SpriteAnim dialogPortraitAnim;
     int pageIndex;
     int visibleChars;
     int doneTicks;
@@ -310,8 +313,11 @@ final class TextBox {
         this.sourceUiKind = openBoxBackdrop ? SOURCE_OPENBOX : SOURCE_NONE;
         this.speaker = decodeMojibake(speaker);
         this.dialogMode = dialogMode;
+        this.dialogPortraitIndex = -1;
         this.sourcePrompt = "";
         this.sourceUiAnim = sourceUiKind == SOURCE_NONE ? null : SpriteAnim.load(257);
+        this.dialogUiAnim = null;
+        this.dialogPortraitAnim = null;
         if (this.sourceUiAnim != null) {
             this.sourceUiAnim.setState(sourceUiKind == SOURCE_TASKTIP ? 10 : 9);
         }
@@ -336,8 +342,36 @@ final class TextBox {
         this.sourceUiKind = sourceUiKind;
         this.speaker = "";
         this.dialogMode = -1;
+        this.dialogPortraitIndex = -1;
         this.sourceUiAnim = SpriteAnim.load(257);
+        this.dialogUiAnim = null;
+        this.dialogPortraitAnim = null;
         this.sourceUiAnim.setState(sourceUiKind == SOURCE_TASKTIP ? 10 : 9);
+    }
+
+    TextBox(int x, int y, int w, int h, String text, List<String> pages, boolean waitKey,
+                    String speaker, int dialogMode, int dialogPortraitIndex) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.text = decodeMojibake(text);
+        this.pages = normalizePages(pages);
+        this.waitKey = waitKey;
+        this.fullBackdrop = false;
+        this.boxBackdrop = false;
+        this.dialogBackdrop = true;
+        this.sourceUiKind = SOURCE_NONE;
+        this.speaker = decodeMojibake(speaker);
+        this.dialogMode = dialogMode;
+        this.dialogPortraitIndex = dialogPortraitIndex;
+        this.sourcePrompt = "";
+        this.sourceUiAnim = null;
+        this.dialogUiAnim = SpriteAnim.load(257);
+        this.dialogPortraitAnim = dialogPortraitIndex < 0 ? null : SpriteAnim.load(323);
+        if (this.dialogPortraitAnim != null) {
+            this.dialogPortraitAnim.setState(Math.max(0, dialogMode) + (dialogPortraitIndex << 1));
+        }
     }
 
     static TextBox full(int x, int y, String text, boolean waitKey) {
@@ -356,7 +390,10 @@ final class TextBox {
     }
 
     static TextBox taskTip(String text) {
-        return new TextBox(TASKTIP_TEXT_X, TASKTIP_TEXT_Y, TASKTIP_TEXT_W, TASKTIP_TEXT_H, text, SOURCE_TASKTIP);
+        VqsvUiLayout layout = VqsvUiLayout.load("taskTip.ui");
+        return new TextBox(layout.x(2, TASKTIP_TEXT_X), layout.y(2, TASKTIP_TEXT_Y),
+                layout.w(2, TASKTIP_TEXT_W), layout.h(2, TASKTIP_TEXT_H),
+                text, SOURCE_TASKTIP);
     }
 
     static TextBox msgWarm(String text, String prompt) {
@@ -368,10 +405,19 @@ final class TextBox {
     }
 
     static TextBox dialog(FontBitmap font, String speaker, String text, int mode) {
+        return dialog(font, speaker, text, mode, -1);
+    }
+
+    static TextBox dialog(FontBitmap font, String speaker, String text, int mode, int portraitIndex) {
+        VqsvUiLayout layout = VqsvUiLayout.load("dialog.ui");
+        int textX = layout.x(14, 6);
+        int textY = layout.y(14, 264);
+        int textW = layout.w(14, 230);
+        int textH = layout.h(14, 52);
         String tagged = "#000000" + decodeMojibake(text);
-        List<String> pages = paginateTagged(font, tagged, 230, 4);
-        return new TextBox(6, 264, 230, 52, tagged, pages, true,
-                false, false, true, false, decodeMojibake(speaker), mode);
+        List<String> pages = paginateTagged(font, tagged, textW, 4);
+        return new TextBox(textX, textY, textW, textH, tagged, pages, true,
+                decodeMojibake(speaker), mode, portraitIndex);
     }
 
     static List<String> normalizePages(List<String> source) {
@@ -432,6 +478,9 @@ final class TextBox {
     void tick(FontBitmap font) {
         if (sourceUiKind != SOURCE_NONE && sourceUiAnim != null) {
             sourceUiAnim.tickHoldLast();
+        }
+        if (dialogBackdrop && dialogPortraitAnim != null) {
+            dialogPortraitAnim.tickHoldLast();
         }
         if (sourceUiKind != SOURCE_NONE) {
             if (!sourceUiTextReady()) {
@@ -535,8 +584,20 @@ final class TextBox {
             return;
         }
         if (sourceUiKind == SOURCE_TASKTIP) {
-            sourceUiAnim.drawAligned(g, TASKTIP_FRAME_X, TASKTIP_FRAME_Y, TASKTIP_FRAME_W,
-                    TASKTIP_FRAME_H_SOURCE, TASKTIP_FRAME_ALIGN, 0);
+            VqsvUiLayout layout = VqsvUiLayout.load("taskTip.ui");
+            VqsvUiLayout.UiWidget frame = layout.widget(1);
+            sourceUiAnim.drawAligned(g, layout.x(1, TASKTIP_FRAME_X), layout.y(1, TASKTIP_FRAME_Y),
+                    layout.w(1, TASKTIP_FRAME_W),
+                    frame == null ? TASKTIP_FRAME_H_SOURCE : frame.h,
+                    frame == null ? TASKTIP_FRAME_ALIGN : frame.b, 0);
+            VqsvUiLayout.UiWidget prompt = layout.widget(3);
+            if (prompt != null && prompt.altId >= 0) {
+                int[] bounds = sourceUiAnim.cellBounds(prompt.altId);
+                if (bounds != null) {
+                    sourceUiAnim.drawCell(g, prompt.altId,
+                            prompt.x - bounds[0], prompt.y - bounds[1], 0);
+                }
+            }
         }
     }
 
@@ -744,7 +805,19 @@ final class TextBox {
             return false;
         }
         int readyCursor = sourceUiKind == SOURCE_TASKTIP ? 4 : 3;
-        return sourceUiAnim.cursor >= readyCursor;
+        int lastCursor = sourceUiLastCursor();
+        return sourceUiAnim.cursor >= Math.min(readyCursor, lastCursor);
+    }
+
+    private int sourceUiLastCursor() {
+        if (sourceUiAnim == null || sourceUiAnim.data == null
+                || sourceUiAnim.data.anim == null
+                || sourceUiAnim.state < 0
+                || sourceUiAnim.state >= sourceUiAnim.data.anim.length) {
+            return 0;
+        }
+        short[] frames = sourceUiAnim.data.anim[sourceUiAnim.state];
+        return Math.max(0, frames.length / 2 - 1);
     }
 
     static String visibleTaggedPrefix(String s, int visible) {
@@ -790,26 +863,54 @@ final class TextBox {
     }
 
     void renderDialogFrame(Graphics2D g, FontBitmap font) {
-        Color border = new Color(0, 174, 205);
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 256, 240, 64);
-        g.setColor(border);
-        g.drawRect(0, 256, 239, 63);
-        g.drawLine(1, 257, 238, 257);
+        VqsvUiLayout layout = VqsvUiLayout.load("dialog.ui");
+        SpriteAnim ui = dialogUiAnim == null ? SpriteAnim.load(257) : dialogUiAnim;
+        renderDialogPortrait(g, layout);
+        drawDialogCell(ui, g, layout, 1, 129, 0, 256);
 
         if (dialogMode == 0 || dialogMode == 1) {
-            int tabX = dialogMode == 0 ? 1 : 178;
-            g.setColor(Color.WHITE);
-            g.fillRect(tabX, 231, 62, 25);
-            g.setColor(border);
-            g.drawRect(tabX, 231, 62, 25);
-            g.drawLine(tabX + 1, 255, tabX + 61, 255);
+            int widgetId = dialogMode == 0 ? 12 : 13;
+            VqsvUiLayout.UiWidget tab = layout.widget(widgetId);
+            int tabX = layout.x(widgetId, dialogMode == 0 ? 1 : 178);
+            int tabY = layout.y(widgetId, 231);
+            int tabW = layout.w(widgetId, 62);
+            drawDialogCell(ui, g, layout, widgetId, 130, tabX, tabY);
             if (speaker != null && speaker.length() > 0 && !"??".equals(speaker)) {
-                font.drawTagged(g, "#000000" + speaker, tabX + 5, 239, 54, speaker.length());
+                int textWidth = font.taggedWidth(speaker);
+                int drawX = tabX + Math.max(0, (tabW - textWidth) / 2);
+                font.drawTaggedLine(g, speaker, drawX, tabY + 8, speaker.length(), 0x1c6c91);
             } else if ("??".equals(speaker)) {
-                font.drawTagged(g, "#000000??", tabX + 22, 239, 54, 2);
+                font.drawTaggedLine(g, "??", tabX + Math.max(0, (tabW - font.width("??")) / 2),
+                        tabY + 8, 2, 0x1c6c91);
             }
         }
+    }
+
+    private void renderDialogPortrait(Graphics2D g, VqsvUiLayout layout) {
+        if (dialogPortraitAnim == null || dialogMode < 0) {
+            return;
+        }
+        int widgetId = dialogMode == 0 ? 11 : 8;
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        int x = layout.x(widgetId, dialogMode == 0 ? -149 : 93);
+        int y = layout.y(widgetId, dialogMode == 0 ? 114 : 120);
+        int w = layout.w(widgetId, 311);
+        int h = widget == null || widget.h <= 0 ? 142 : widget.h;
+        int align = widget == null ? 8 : widget.b;
+        dialogPortraitAnim.drawAligned(g, x, y, w, h, align, 0);
+    }
+
+    private static void drawDialogCell(SpriteAnim ui, Graphics2D g, VqsvUiLayout layout,
+                                       int widgetId, int fallbackCell, int fallbackX, int fallbackY) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        int cellId = widget != null && widget.altId >= 0 ? widget.altId : fallbackCell;
+        int[] bounds = ui.cellBounds(cellId);
+        if (bounds == null) {
+            return;
+        }
+        int x = widget == null ? fallbackX : widget.x;
+        int y = widget == null ? fallbackY : widget.y;
+        ui.drawCell(g, cellId, x - bounds[0], y - bounds[1], 0);
     }
 
     static int visibleLength(String s) {

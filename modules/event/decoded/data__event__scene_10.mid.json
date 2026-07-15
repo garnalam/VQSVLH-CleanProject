@@ -7,15 +7,15 @@
     954,
     662,
     794,
-    2431,
+    2485,
     623,
     373,
-    1433,
-    2506,
+    1491,
+    2576,
     596,
     357,
-    2290,
-    4362,
+    2589,
+    4456,
     1863,
     3808
   ],
@@ -71,9 +71,9 @@
             3,
             243,
             0,
-            265,
-            351,
-            0,
+            272,
+            356,
+            1,
             0,
             1,
             10,
@@ -109,7 +109,7 @@
             223,
             1,
             48,
-            350,
+            352,
             1,
             1,
             2,
@@ -2210,8 +2210,8 @@
             0,
             282,
             11,
-            33,
-            90,
+            30,
+            73,
             1,
             0,
             1,
@@ -2636,7 +2636,7 @@
     },
     {
       "room_index": 4,
-      "block_size": 2431,
+      "block_size": 2485,
       "room_start": 4935,
       "room_name": "Lôi Kỳ Lân 4",
       "string_pool_count": 30,
@@ -2660,9 +2660,9 @@
         "Hô ... đánh cho ta chết đi sống lại, cuối cùng cũng hoàn thành.",
         "Trở lại [Vĩnh Hằng Đích Kinh Phiên] Thánh Điện tìm Tomas.",
         "Neil",
-        "Hay là.., thôi cầu thử một lần.",
+        "Hay là thử dùng Tất Trung Cầu một lần nữa.",
         "Neil",
-        "Cuối cùng đã hoàn thành điều tâm niệm",
+        "Cuối cùng cũng hoàn thành điều tâm niệm này",
         "10",
         "0",
         "0",
@@ -2670,7 +2670,7 @@
         "4",
         "4",
         "Neil",
-        "Lần sau dùng Tất Trung Cầu thử xem."
+        "Có lẽ lần sau dùng thử Tất Trung Cầu xem sao."
       ],
       "unknown_ab": 36,
       "unknown_skip": 0,
@@ -2816,8 +2816,8 @@
             0,
             241,
             0,
-            280,
-            304,
+            279,
+            305,
             1,
             11,
             2,
@@ -2835,8 +2835,8 @@
             0,
             241,
             0,
-            9,
-            272,
+            8,
+            257,
             1,
             11,
             2,
@@ -2909,7 +2909,7 @@
             0,
             241,
             0,
-            137,
+            135,
             32,
             1,
             11,
@@ -3533,7 +3533,7 @@
                 },
                 {
                   "string_index": 19,
-                  "text": "Hay là.., thôi cầu thử một lần."
+                  "text": "Hay là thử dùng Tất Trung Cầu một lần nữa."
                 }
               ]
             },
@@ -3588,7 +3588,7 @@
                 },
                 {
                   "string_index": 21,
-                  "text": "Cuối cùng đã hoàn thành điều tâm niệm"
+                  "text": "Cuối cùng cũng hoàn thành điều tâm niệm này"
                 }
               ]
             },
@@ -3655,7 +3655,7 @@
                 },
                 {
                   "string_index": 29,
-                  "text": "Lần sau dùng Tất Trung Cầu thử xem."
+                  "text": "Có lẽ lần sau dùng thử Tất Trung Cầu xem sao."
                 }
               ]
             },
@@ -3668,13 +3668,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 2431,
-      "declared_block_size": 2431
+      "bytes_consumed_in_room": 2485,
+      "declared_block_size": 2485
     },
     {
       "room_index": 5,
       "block_size": 623,
-      "room_start": 7366,
+      "room_start": 7420,
       "room_name": "Tinh Vân Hạc 1",
       "string_pool_count": 3,
       "string_pool": [
@@ -3935,7 +3935,7 @@
     {
       "room_index": 6,
       "block_size": 373,
-      "room_start": 7989,
+      "room_start": 8043,
       "room_name": "Tinh Vân Hạc 2",
       "string_pool_count": 0,
       "string_pool": [],
@@ -4248,8 +4248,8 @@
     },
     {
       "room_index": 7,
-      "block_size": 1433,
-      "room_start": 8362,
+      "block_size": 1491,
+      "room_start": 8416,
       "room_name": "Tinh Vân Hạc 3",
       "string_pool_count": 26,
       "string_pool": [
@@ -4268,9 +4268,9 @@
         "Hoàn thành!",
         "Trở lại [Vĩnh Hằng Đích Kinh Phiên] Thánh Điện tìm Tomas.",
         "Neil",
-        "Hay là.., thôi cầu thử một lần.",
+        "Hay là ...dùng Tất Trung Cầu lại một lần nữa.",
         "Neil",
-        "Cuối cùng đã hoàn thành điều tâm niệm",
+        "Cuối cùng đã hoàn thành điều tâm niệm này",
         "6",
         "0",
         "0",
@@ -4278,7 +4278,7 @@
         "4",
         "4",
         "Neil",
-        "Lần sau dùng Tất Trung Cầu thử xem."
+        "Lần sau hay là dùng Tất Trung Cầu thử xem sao."
       ],
       "unknown_ab": 41,
       "unknown_skip": 0,
@@ -4811,7 +4811,7 @@
                 },
                 {
                   "string_index": 15,
-                  "text": "Hay là.., thôi cầu thử một lần."
+                  "text": "Hay là ...dùng Tất Trung Cầu lại một lần nữa."
                 }
               ]
             },
@@ -4866,7 +4866,7 @@
                 },
                 {
                   "string_index": 17,
-                  "text": "Cuối cùng đã hoàn thành điều tâm niệm"
+                  "text": "Cuối cùng đã hoàn thành điều tâm niệm này"
                 }
               ]
             },
@@ -4933,7 +4933,7 @@
                 },
                 {
                   "string_index": 25,
-                  "text": "Lần sau dùng Tất Trung Cầu thử xem."
+                  "text": "Lần sau hay là dùng Tất Trung Cầu thử xem sao."
                 }
               ]
             },
@@ -4946,13 +4946,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 1433,
-      "declared_block_size": 1433
+      "bytes_consumed_in_room": 1491,
+      "declared_block_size": 1491
     },
     {
       "room_index": 8,
-      "block_size": 2506,
-      "room_start": 9795,
+      "block_size": 2576,
+      "room_start": 9907,
       "room_name": "Minh Vương Long",
       "string_pool_count": 45,
       "string_pool": [
@@ -4984,15 +4984,15 @@
         "4",
         "4",
         "Neil",
-        "Thực là... người cuối cùng vui nhất lại là Tinh Vân Hạc.",
+        "Sau cùng người thực sự vui nhất lại là Tinh Vân Hạc.",
         "Đến [Chòm sao Ân Diệu] thức tỉnh Tinh Vân Hạc.",
         "Neil",
         "Thắp sáng ngọn đuốc trên tường! Có lẽ Minh Vương Long sẽ không xuất hiện!",
         "Bạn có muốn lưu trữ không?",
         "Neil",
-        "Hay là.., thôi cầu thử một lần.",
+        "Hay là dùng Tất Trung Cầu một lần nữa.",
         "Neil",
-        "Cuối cùng đã hoàn thành điều tâm niệm",
+        "Cuối cùng đã hoàn thành điều tâm niệm này",
         "6",
         "0",
         "0",
@@ -5000,7 +5000,7 @@
         "4",
         "4",
         "Neil",
-        "Lần sau dùng Tất Trung Cầu thử xem."
+        "Thất chi giao ... có lẽ lần sau dùng thử Tất Trung Cầu xem sao."
       ],
       "unknown_ab": 42,
       "unknown_skip": 0,
@@ -5661,7 +5661,7 @@
                 },
                 {
                   "string_index": 28,
-                  "text": "Thực là... người cuối cùng vui nhất lại là Tinh Vân Hạc."
+                  "text": "Sau cùng người thực sự vui nhất lại là Tinh Vân Hạc."
                 }
               ]
             },
@@ -5808,7 +5808,7 @@
                 },
                 {
                   "string_index": 34,
-                  "text": "Hay là.., thôi cầu thử một lần."
+                  "text": "Hay là dùng Tất Trung Cầu một lần nữa."
                 }
               ]
             },
@@ -5863,7 +5863,7 @@
                 },
                 {
                   "string_index": 36,
-                  "text": "Cuối cùng đã hoàn thành điều tâm niệm"
+                  "text": "Cuối cùng đã hoàn thành điều tâm niệm này"
                 }
               ]
             },
@@ -5930,7 +5930,7 @@
                 },
                 {
                   "string_index": 44,
-                  "text": "Lần sau dùng Tất Trung Cầu thử xem."
+                  "text": "Thất chi giao ... có lẽ lần sau dùng thử Tất Trung Cầu xem sao."
                 }
               ]
             },
@@ -5943,13 +5943,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 2506,
-      "declared_block_size": 2506
+      "bytes_consumed_in_room": 2576,
+      "declared_block_size": 2576
     },
     {
       "room_index": 9,
       "block_size": 596,
-      "room_start": 12301,
+      "room_start": 12483,
       "room_name": "Cửu Sắc Lộc Nhất",
       "string_pool_count": 10,
       "string_pool": [
@@ -6011,7 +6011,7 @@
             1,
             280,
             0,
-            162,
+            159,
             49,
             1,
             3,
@@ -6494,7 +6494,7 @@
     {
       "room_index": 10,
       "block_size": 357,
-      "room_start": 12897,
+      "room_start": 13079,
       "room_name": "Cửu Sắc Lộc Nhị",
       "string_pool_count": 5,
       "string_pool": [
@@ -6802,8 +6802,8 @@
     },
     {
       "room_index": 11,
-      "block_size": 2290,
-      "room_start": 13254,
+      "block_size": 2589,
+      "room_start": 13436,
       "room_name": "Cửu Sắc Lộc 3",
       "string_pool_count": 36,
       "string_pool": [
@@ -6816,7 +6816,7 @@
         "Neil",
         "Ông ấy là thần, ta chỉ là một con người bé nhỏ, làm sao có thể gây tổn hại được cho ông ấy? Ta chỉ muốn bảo vệ một người rất quan trọng với ta mà thôi.",
         "Linh Quang Lộc",
-        "Không ngờ ngươi nghĩ đơn giản vậy. Thôi ta đáp ứng ngươi!",
+        "Ngươi nghĩ đơn giản vậy sao? Thôi được, ta sẽ đáp ứng yêu cầu của ngươi, xoay chuyển Thiên Địa chi sơ.",
         "0",
         "0",
         "Đi Niêm Thổ Thành [Lối vào di tích] đánh thức Chiến Thần Đà.",
@@ -6825,16 +6825,16 @@
         "4",
         "4",
         "Linh Quang Lộc",
-        "Ngươi...sẽ gây tổn hại đến Hắc Long đại nhân?",
+        "Ngươi sẽ gây tổn hại đến Hắc Long đại nhân sao?",
         "Neil",
         "Ông ấy là thần, ta chỉ là một con người bé nhỏ, làm sao có thể gây tổn hại được cho ông ấy? Ta chỉ muốn bảo vệ một người rất quan trọng với ta mà thôi.",
         "Linh Quang Lộc",
-        "Không ngờ ngươi nghĩ đơn giản vậy. Thôi ta đáp ứng ngươi!",
+        "Ngươi nghĩ đơn giản vậy sao? Thôi được, ta sẽ đáp ứng yêu cầu của ngươi, xoay chuyển Thiên Địa chi sơ.",
         "Đi Niêm Thổ Thành [Lối vào di tích] đánh thức Chiến Thần Đà.",
         "Neil",
-        "Hay là.., thôi cầu thử một lần.",
+        "Hay là thử dùng Tất Trung Cầu lần nữa xem sao.",
         "Neil",
-        "Cuối cùng đã hoàn thành điều tâm niệm",
+        "Cuối cùng đã hoàn thành được điều tâm niệm này.",
         "0",
         "0",
         "0",
@@ -6842,11 +6842,11 @@
         "4",
         "4",
         "Neil",
-        "Lần sau dùng Tất Trung Cầu thử xem."
+        "Thất chi giao... có lẽ lần sau thử dùng Tất Trung Cầu vậy"
       ],
       "unknown_ab": 46,
       "unknown_skip": 0,
-      "actor_count": 2,
+      "actor_count": 3,
       "actors": [
         {
           "kind": 0,
@@ -6882,6 +6882,25 @@
             10,
             10,
             0
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            288,
+            0,
+            214,
+            67,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1
           ]
         }
       ],
@@ -7029,7 +7048,7 @@
                 },
                 {
                   "string_index": 9,
-                  "text": "Không ngờ ngươi nghĩ đơn giản vậy. Thôi ta đáp ứng ngươi!"
+                  "text": "Ngươi nghĩ đơn giản vậy sao? Thôi được, ta sẽ đáp ứng yêu cầu của ngươi, xoay chuyển Thiên Địa chi sơ."
                 }
               ]
             },
@@ -7119,7 +7138,7 @@
                 },
                 {
                   "string_index": 18,
-                  "text": "Ngươi...sẽ gây tổn hại đến Hắc Long đại nhân?"
+                  "text": "Ngươi sẽ gây tổn hại đến Hắc Long đại nhân sao?"
                 }
               ]
             },
@@ -7155,7 +7174,7 @@
                 },
                 {
                   "string_index": 22,
-                  "text": "Không ngờ ngươi nghĩ đơn giản vậy. Thôi ta đáp ứng ngươi!"
+                  "text": "Ngươi nghĩ đơn giản vậy sao? Thôi được, ta sẽ đáp ứng yêu cầu của ngươi, xoay chuyển Thiên Địa chi sơ."
                 }
               ]
             },
@@ -7222,7 +7241,7 @@
                 },
                 {
                   "string_index": 25,
-                  "text": "Hay là.., thôi cầu thử một lần."
+                  "text": "Hay là thử dùng Tất Trung Cầu lần nữa xem sao."
                 }
               ]
             },
@@ -7277,7 +7296,7 @@
                 },
                 {
                   "string_index": 27,
-                  "text": "Cuối cùng đã hoàn thành điều tâm niệm"
+                  "text": "Cuối cùng đã hoàn thành được điều tâm niệm này."
                 }
               ]
             },
@@ -7344,7 +7363,7 @@
                 },
                 {
                   "string_index": 35,
-                  "text": "Lần sau dùng Tất Trung Cầu thử xem."
+                  "text": "Thất chi giao... có lẽ lần sau thử dùng Tất Trung Cầu vậy"
                 }
               ]
             },
@@ -7357,13 +7376,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 2290,
-      "declared_block_size": 2290
+      "bytes_consumed_in_room": 2589,
+      "declared_block_size": 2589
     },
     {
       "room_index": 12,
-      "block_size": 4362,
-      "room_start": 15544,
+      "block_size": 4456,
+      "room_start": 16025,
       "room_name": "Chiến Thần Đà",
       "string_pool_count": 46,
       "string_pool": [
@@ -7402,9 +7421,9 @@
         "Những khối hình khiến cho mặt đất với đá trắng tạo thành hình hài những loài sủng vật? Thử phá vỡ nó xem có gì?",
         "Bạn có muốn lưu trữ không?",
         "Neil",
-        "Hay là.., thôi cầu thử một lần.",
+        "Hay là thử dùng Tất Trung Cầu lần nữa xem sao.",
         "Neil",
-        "Cuối cùng đã hoàn thành điều tâm niệm",
+        "Cuối cùng đã hoàn thành được điều tâm niệm này.",
         "29",
         "0",
         "0",
@@ -7412,7 +7431,7 @@
         "4",
         "8",
         "Neil",
-        "Lần sau dùng Tất Trung Cầu thử xem."
+        "Thất chi giao... có lẽ lần sau thử dùng Tất Trung Cầu vậy"
       ],
       "unknown_ab": 47,
       "unknown_skip": 0,
@@ -7672,26 +7691,7 @@
             0,
             242,
             0,
-            184,
-            240,
-            1,
-            6,
-            1,
-            0,
-            1,
-            0,
-            0,
-            -1
-          ]
-        },
-        {
-          "kind": 0,
-          "param_len": 13,
-          "values": [
-            0,
-            242,
-            0,
-            217,
+            181,
             238,
             1,
             6,
@@ -7710,7 +7710,26 @@
             0,
             242,
             0,
-            217,
+            212,
+            238,
+            1,
+            6,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "kind": 0,
+          "param_len": 13,
+          "values": [
+            0,
+            242,
+            0,
+            212,
             256,
             1,
             6,
@@ -7729,8 +7748,8 @@
             0,
             242,
             0,
-            202,
-            265,
+            196,
+            274,
             1,
             6,
             1,
@@ -7748,8 +7767,8 @@
             0,
             242,
             0,
-            201,
-            287,
+            187,
+            300,
             1,
             6,
             1,
@@ -7767,7 +7786,7 @@
             0,
             242,
             0,
-            201,
+            187,
             319,
             1,
             6,
@@ -7786,8 +7805,8 @@
             0,
             242,
             0,
-            169,
-            320,
+            155,
+            321,
             1,
             6,
             1,
@@ -7805,8 +7824,8 @@
             0,
             242,
             0,
-            201,
-            304,
+            154,
+            302,
             1,
             6,
             1,
@@ -7824,7 +7843,7 @@
             0,
             242,
             0,
-            168,
+            98,
             301,
             1,
             6,
@@ -7843,8 +7862,8 @@
             0,
             242,
             0,
-            104,
-            301,
+            74,
+            300,
             1,
             6,
             1,
@@ -7862,7 +7881,7 @@
             0,
             242,
             0,
-            104,
+            98,
             319,
             1,
             6,
@@ -7881,7 +7900,7 @@
             0,
             242,
             0,
-            71,
+            74,
             318,
             1,
             6,
@@ -7957,7 +7976,7 @@
             1,
             223,
             1,
-            136,
+            129,
             336,
             1,
             1,
@@ -8709,7 +8728,7 @@
                 },
                 {
                   "string_index": 35,
-                  "text": "Hay là.., thôi cầu thử một lần."
+                  "text": "Hay là thử dùng Tất Trung Cầu lần nữa xem sao."
                 }
               ]
             },
@@ -8764,7 +8783,7 @@
                 },
                 {
                   "string_index": 37,
-                  "text": "Cuối cùng đã hoàn thành điều tâm niệm"
+                  "text": "Cuối cùng đã hoàn thành được điều tâm niệm này."
                 }
               ]
             },
@@ -8831,7 +8850,7 @@
                 },
                 {
                   "string_index": 45,
-                  "text": "Lần sau dùng Tất Trung Cầu thử xem."
+                  "text": "Thất chi giao... có lẽ lần sau thử dùng Tất Trung Cầu vậy"
                 }
               ]
             },
@@ -8844,13 +8863,13 @@
           ]
         }
       ],
-      "bytes_consumed_in_room": 4362,
-      "declared_block_size": 4362
+      "bytes_consumed_in_room": 4456,
+      "declared_block_size": 4456
     },
     {
       "room_index": 13,
       "block_size": 1863,
-      "room_start": 19906,
+      "room_start": 20481,
       "room_name": "Hỏa Phượng Hoàng 1",
       "string_pool_count": 51,
       "string_pool": [
@@ -9653,7 +9672,7 @@
     {
       "room_index": 14,
       "block_size": 3808,
-      "room_start": 21769,
+      "room_start": 22344,
       "room_name": "Hỏa Phượng Hoàng 2",
       "string_pool_count": 84,
       "string_pool": [

@@ -1,27 +1,31 @@
-original,decoded,kind,note
-modules/event/original/scene_0.mid,,original,Original file from JAR path data/event/scene_0.mid
-modules/event/original/scene_1.mid,,original,Original file from JAR path data/event/scene_1.mid
-modules/event/original/scene_10.mid,,original,Original file from JAR path data/event/scene_10.mid
-modules/event/original/scene_11.mid,,original,Original file from JAR path data/event/scene_11.mid
-modules/event/original/scene_12.mid,,original,Original file from JAR path data/event/scene_12.mid
-modules/event/original/scene_13.mib,,original,Original file from JAR path data/event/scene_13.mib
-modules/event/original/scene_2.mid,,original,Original file from JAR path data/event/scene_2.mid
-modules/event/original/scene_3.mid,,original,Original file from JAR path data/event/scene_3.mid
-modules/event/original/scene_4.mid,,original,Original file from JAR path data/event/scene_4.mid
-modules/event/original/scene_5.mid,,original,Original file from JAR path data/event/scene_5.mid
-modules/event/original/scene_6.mid,,original,Original file from JAR path data/event/scene_6.mid
-modules/event/original/scene_7.mid,,original,Original file from JAR path data/event/scene_7.mid
-modules/event/original/scene_9.mid,,original,Original file from JAR path data/event/scene_9.mid
-modules/event/original/scene_0.mid,modules/event/decoded/data__event__scene_0.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_1.mid,modules/event/decoded/data__event__scene_1.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_10.mid,modules/event/decoded/data__event__scene_10.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_11.mid,modules/event/decoded/data__event__scene_11.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_12.mid,modules/event/decoded/data__event__scene_12.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_2.mid,modules/event/decoded/data__event__scene_2.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_3.mid,modules/event/decoded/data__event__scene_3.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_4.mid,modules/event/decoded/data__event__scene_4.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_5.mid,modules/event/decoded/data__event__scene_5.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_6.mid,modules/event/decoded/data__event__scene_6.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_7.mid,modules/event/decoded/data__event__scene_7.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_9.mid,modules/event/decoded/data__event__scene_9.mid.json,event_scene,Decoded JSON generated from the original binary format.
-modules/event/original/scene_13.mib,modules/event/decoded/data__event__scene_13.mib.json,vm_bytecode_tree,Decoded JSON generated from the original binary format.
+﻿"original","decoded","kind","note"
+"event/original/minimap.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_0.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_1.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_10.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_11.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_12.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_13.mib","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_2.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_3.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_4.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_5.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_6.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_7.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_8.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/scene_9.mid","","original","Candidate original file from extracted AowVN JAR"
+"event/original/worldEvt.mid","","original","Candidate original file from extracted AowVN JAR"
+"","event/decoded/data__event__scene_0.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_1.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_10.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_11.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_12.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_13.mib.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_2.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_3.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_4.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_5.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_6.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_7.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_8.mid.json","decoded_json","Candidate decoded/decompiled output"
+"","event/decoded/data__event__scene_9.mid.json","decoded_json","Candidate decoded/decompiled output"
