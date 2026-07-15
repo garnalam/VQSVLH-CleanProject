@@ -83,6 +83,9 @@ final class VqsvSceneView {
             for (TempSprite sprite : s.tempSprites) {
                 sprite.render(g, s);
             }
+            for (SourceQuestMarker marker : s.sourceQuestMarkers) {
+                marker.render(g, s);
+            }
         }
         if (s.useMap) {
             renderMapLayer(s, g, 3);

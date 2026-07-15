@@ -88,13 +88,25 @@ final class VqsvSourceEvolutionRuntime {
             return;
         }
         SourcePetState pet = s.sourcePets.get(petIndex);
+        int oldHeld = pet.sourcePayload != null && pet.sourcePayload.length > 2 ? pet.sourcePayload[2] : -1;
+        int oldSide = pet.sourcePayload != null && pet.sourcePayload.length > 3 ? pet.sourcePayload[3] : -1;
+        int oldQuality = pet.sourcePayload != null && pet.sourcePayload.length > 4 ? pet.sourcePayload[4] : pet.arg3;
+        int oldNature = pet.sourcePayload != null && pet.sourcePayload.length > 5 ? pet.sourcePayload[5] : pet.arg4;
         int oldExp = pet.sourcePayload != null && pet.sourcePayload.length > 7 ? pet.sourcePayload[7] : 0;
+        if (oldQuality > 0) {
+            pet.arg3 = oldQuality;
+        }
+        pet.arg4 = oldNature;
         pet.speciesId = notice.targetSpeciesId;
         BattleSpeciesRow target = VqsvBattleTables.instance().species(notice.targetSpeciesId);
         int visual = target == null ? -1 : VqsvBattleTables.get(target.raw, 17, -1);
         BattleUnit targetUnit = BattleUnit.fromSourcePet(pet, (byte) 0);
         pet.sourcePayload = pet.toSourcePayload();
         pet.sourcePayload[0] = notice.targetSpeciesId;
+        pet.sourcePayload[2] = oldHeld;
+        pet.sourcePayload[3] = oldSide;
+        pet.sourcePayload[4] = pet.arg3;
+        pet.sourcePayload[5] = pet.arg4;
         pet.sourcePayload[6] = targetUnit.maxHp();
         pet.sourcePayload[7] = oldExp;
         pet.sourcePayload[8] = visual;

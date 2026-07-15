@@ -10,7 +10,10 @@ final class VqsvScripts {
             Scene1Room1BunnyScript.INFO,
             Scene1Room0Group2ElderScript.INFO,
             Scene1Room0Group3PetScript.INFO,
-            Scene1Room0Group6ElderBattleScript.INFO
+            Scene1Room0Group6ElderBattleScript.INFO,
+            Scene1Room0Group7DodoScript.INFO,
+            Scene1Room0Group9DodoScript.INFO,
+            Scene2Room1Group6ElizaScript.INFO
     ));
 
     private VqsvScripts() {

@@ -1,0 +1,3623 @@
+{
+  "width": 240,
+  "height": 320,
+  "bounds": [
+    0,
+    0,
+    240,
+    320
+  ],
+  "image_path": null,
+  "provenance": [
+    {
+      "bounds": [
+        87,
+        1,
+        61,
+        13
+      ],
+      "asset_id": "sprite:257",
+      "source_ref": {
+        "path": "script/original/sprite.mid",
+        "authority": "ORIGINAL",
+        "parser": "UiRenderer/m.java",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:57 sprite-cell:158 anchor-mode:2"
+      },
+      "metadata": {
+        "widget_id": 57,
+        "cell_id": 158,
+        "mode": 2,
+        "sprite_id": 257
+      }
+    },
+    {
+      "bounds": [
+        136,
+        1,
+        12,
+        12
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 158,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        129,
+        6,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        136,
+        13,
+        3,
+        1
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 160,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        129,
+        1,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 4,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        122,
+        1,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 4,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        122,
+        6,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        115,
+        1,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 4,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        115,
+        6,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        108,
+        1,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 4,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        108,
+        6,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        101,
+        6,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        101,
+        1,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 4,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        94,
+        6,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        94,
+        1,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 4,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        98,
+        2,
+        5,
+        11
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 154,
+        "transform": 0,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        103,
+        2,
+        5,
+        11
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 154,
+        "transform": 4,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        87,
+        6,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 2,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        87,
+        1,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 4,
+        "ui_widget_id": 57,
+        "ui_cell_id": 158
+      }
+    },
+    {
+      "bounds": [
+        -6,
+        0,
+        109,
+        24
+      ],
+      "asset_id": "sprite:257",
+      "source_ref": {
+        "path": "script/original/sprite.mid",
+        "authority": "ORIGINAL",
+        "parser": "UiRenderer/m.java",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:1 sprite-cell:92 anchor-mode:2"
+      },
+      "metadata": {
+        "widget_id": 1,
+        "cell_id": 92,
+        "mode": 2,
+        "sprite_id": 257
+      }
+    },
+    {
+      "bounds": [
+        74,
+        0,
+        17,
+        24
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 113,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        58,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        42,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        50,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        18,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        26,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        34,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        -6,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        2,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        10,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        91,
+        0,
+        12,
+        16
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 139,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        66,
+        0,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 2,
+        "ui_widget_id": 1,
+        "ui_cell_id": 92
+      }
+    },
+    {
+      "bounds": [
+        0,
+        235,
+        240,
+        85
+      ],
+      "asset_id": "sprite:257",
+      "source_ref": {
+        "path": "script/original/sprite.mid",
+        "authority": "ORIGINAL",
+        "parser": "UiRenderer/m.java",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:2 sprite-cell:93 anchor-mode:2"
+      },
+      "metadata": {
+        "widget_id": 2,
+        "cell_id": 93,
+        "mode": 2,
+        "sprite_id": 257
+      }
+    },
+    {
+      "bounds": [
+        143,
+        235,
+        17,
+        24
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 113,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        168,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        184,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        176,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        208,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        200,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        192,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        232,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        224,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        216,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        0,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        0,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        10,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        10,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        20,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        20,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        30,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        30,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        40,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        40,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        50,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        50,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        60,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        60,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        70,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        70,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        80,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        80,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        90,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        90,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        100,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        100,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        110,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        110,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        120,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        120,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        130,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        130,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        140,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        140,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        150,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        150,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        160,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        160,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        170,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        170,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        180,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        180,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        190,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        190,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        200,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        200,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        210,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        210,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        220,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        220,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        230,
+        259,
+        10,
+        40
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 114,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        230,
+        299,
+        10,
+        21
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 115,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        1,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        19,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 4,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        41,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        60,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 4,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        81,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        180,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 4,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        121,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        161,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        100,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 4,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        201,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        140,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 4,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        220,
+        275,
+        19,
+        37
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 89,
+        "transform": 4,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        3,
+        277,
+        33,
+        27
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 90,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        42,
+        277,
+        28,
+        28
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 92,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        85,
+        277,
+        33,
+        29
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 93,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        122,
+        277,
+        35,
+        26
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 87,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        163,
+        277,
+        17,
+        26
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 88,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        205,
+        277,
+        31,
+        26
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 91,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        0,
+        259,
+        7,
+        9
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 141,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        7,
+        259,
+        7,
+        9
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 141,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        13,
+        259,
+        7,
+        9
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 141,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        3,
+        260,
+        17,
+        7
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 111,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        131,
+        247,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        131,
+        251,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 6,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        180,
+        277,
+        17,
+        26
+      ],
+      "asset_id": "image:802",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_802.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 88,
+        "transform": 4,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        131,
+        243,
+        12,
+        16
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 139,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        160,
+        236,
+        8,
+        23
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 123,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        20,
+        259,
+        6,
+        9
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 140,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        84,
+        247,
+        12,
+        12
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 158,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        93,
+        247,
+        3,
+        1
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 160,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        96,
+        247,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        96,
+        251,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 6,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        103,
+        251,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 6,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        103,
+        247,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        110,
+        247,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        110,
+        251,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 6,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        117,
+        251,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 6,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        117,
+        247,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        91,
+        248,
+        5,
+        11
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 154,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        96,
+        248,
+        5,
+        11
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 154,
+        "transform": 4,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        124,
+        251,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 6,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        124,
+        247,
+        7,
+        8
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 159,
+        "transform": 0,
+        "ui_widget_id": 2,
+        "ui_cell_id": 93
+      }
+    },
+    {
+      "bounds": [
+        -2,
+        300,
+        42,
+        10
+      ],
+      "asset_id": "ui:battle",
+      "source_ref": {
+        "path": "ui/original/battle.ui",
+        "authority": "ORIGINAL",
+        "parser": "UiBinaryParser/BitmapFont",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:3 text:'Chiến đấu'"
+      },
+      "metadata": {
+        "widget_id": 3,
+        "text": "Chiến đấu",
+        "selected": false
+      }
+    },
+    {
+      "bounds": [
+        42,
+        300,
+        36,
+        10
+      ],
+      "asset_id": "ui:battle",
+      "source_ref": {
+        "path": "ui/original/battle.ui",
+        "authority": "ORIGINAL",
+        "parser": "UiBinaryParser/BitmapFont",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:4 text:'Bắt được'"
+      },
+      "metadata": {
+        "widget_id": 4,
+        "text": "Bắt được",
+        "selected": false
+      }
+    },
+    {
+      "bounds": [
+        85,
+        300,
+        29,
+        10
+      ],
+      "asset_id": "ui:battle",
+      "source_ref": {
+        "path": "ui/original/battle.ui",
+        "authority": "ORIGINAL",
+        "parser": "UiBinaryParser/BitmapFont",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:5 text:'Đạo cụ'"
+      },
+      "metadata": {
+        "widget_id": 5,
+        "text": "Đạo cụ",
+        "selected": false
+      }
+    },
+    {
+      "bounds": [
+        121,
+        300,
+        38,
+        10
+      ],
+      "asset_id": "ui:battle",
+      "source_ref": {
+        "path": "ui/original/battle.ui",
+        "authority": "ORIGINAL",
+        "parser": "UiBinaryParser/BitmapFont",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:6 text:'Sủng vật'"
+      },
+      "metadata": {
+        "widget_id": 6,
+        "text": "Sủng vật",
+        "selected": false
+      }
+    },
+    {
+      "bounds": [
+        153,
+        300,
+        54,
+        10
+      ],
+      "asset_id": "ui:battle",
+      "source_ref": {
+        "path": "ui/original/battle.ui",
+        "authority": "ORIGINAL",
+        "parser": "UiBinaryParser/BitmapFont",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:7 text:'Thương điếm'"
+      },
+      "metadata": {
+        "widget_id": 7,
+        "text": "Thương điếm",
+        "selected": false
+      }
+    },
+    {
+      "bounds": [
+        199,
+        300,
+        42,
+        10
+      ],
+      "asset_id": "ui:battle",
+      "source_ref": {
+        "path": "ui/original/battle.ui",
+        "authority": "ORIGINAL",
+        "parser": "UiBinaryParser/BitmapFont",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:8 text:'Chạy trốn'"
+      },
+      "metadata": {
+        "widget_id": 8,
+        "text": "Chạy trốn",
+        "selected": false
+      }
+    },
+    {
+      "bounds": [
+        139,
+        249,
+        10,
+        9
+      ],
+      "asset_id": "sprite:257",
+      "source_ref": {
+        "path": "script/original/sprite.mid",
+        "authority": "ORIGINAL",
+        "parser": "UiRenderer/m.java",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:17 sprite-cell:94 anchor-mode:2"
+      },
+      "metadata": {
+        "widget_id": 17,
+        "cell_id": 94,
+        "mode": 2,
+        "sprite_id": 257
+      }
+    },
+    {
+      "bounds": [
+        139,
+        249,
+        10,
+        9
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 117,
+        "transform": 0,
+        "ui_widget_id": 17,
+        "ui_cell_id": 94
+      }
+    },
+    {
+      "bounds": [
+        92,
+        2,
+        10,
+        9
+      ],
+      "asset_id": "sprite:257",
+      "source_ref": {
+        "path": "script/original/sprite.mid",
+        "authority": "ORIGINAL",
+        "parser": "UiRenderer/m.java",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:18 sprite-cell:94 anchor-mode:2"
+      },
+      "metadata": {
+        "widget_id": 18,
+        "cell_id": 94,
+        "mode": 2,
+        "sprite_id": 257
+      }
+    },
+    {
+      "bounds": [
+        92,
+        2,
+        10,
+        9
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 117,
+        "transform": 0,
+        "ui_widget_id": 18,
+        "ui_cell_id": 94
+      }
+    },
+    {
+      "bounds": [
+        97,
+        14,
+        13,
+        13
+      ],
+      "asset_id": "sprite:257",
+      "source_ref": {
+        "path": "script/original/sprite.mid",
+        "authority": "ORIGINAL",
+        "parser": "UiRenderer/m.java",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:19 sprite-cell:101 anchor-mode:2"
+      },
+      "metadata": {
+        "widget_id": 19,
+        "cell_id": 101,
+        "mode": 2,
+        "sprite_id": 257
+      }
+    },
+    {
+      "bounds": [
+        97,
+        14,
+        13,
+        13
+      ],
+      "asset_id": "image:803",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_803.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 112,
+        "transform": 0,
+        "ui_widget_id": 19,
+        "ui_cell_id": 101
+      }
+    },
+    {
+      "bounds": [
+        20,
+        304,
+        8,
+        8
+      ],
+      "asset_id": "sprite:257",
+      "source_ref": {
+        "path": "script/original/sprite.mid",
+        "authority": "ORIGINAL",
+        "parser": "UiRenderer/m.java",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "widget:20 sprite-cell:2 anchor-mode:3"
+      },
+      "metadata": {
+        "widget_id": 20,
+        "cell_id": 2,
+        "mode": 3,
+        "sprite_id": 257
+      }
+    },
+    {
+      "bounds": [
+        20,
+        304,
+        8,
+        8
+      ],
+      "asset_id": "image:800",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_800.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 1,
+        "transform": 0,
+        "ui_widget_id": 20,
+        "ui_cell_id": 2
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "severity": "WARNING",
+      "code": "UI_RUNTIME_BINDING_PARTIAL",
+      "message": "Original binary layout and sprite cells are composed; live game bindings remain PARTIAL",
+      "asset_id": "ui:battle",
+      "path": null,
+      "location": null,
+      "quick_action": null
+    },
+    {
+      "severity": "WARNING",
+      "code": "UI_WIDGET_OUT_OF_BOUNDS",
+      "message": "Widget 2 bounds (0, 235, 240, 87) exceed 240x320",
+      "asset_id": "ui:battle",
+      "path": null,
+      "location": null,
+      "quick_action": null
+    },
+    {
+      "severity": "WARNING",
+      "code": "UI_WIDGET_OUT_OF_BOUNDS",
+      "message": "Widget 20 bounds (20, 293, 26, 30) exceed 240x320",
+      "asset_id": "ui:battle",
+      "path": null,
+      "location": null,
+      "quick_action": null
+    },
+    {
+      "severity": "WARNING",
+      "code": "UI_WIDGET_OUT_OF_BOUNDS",
+      "message": "Widget 21 bounds (56, 293, 26, 30) exceed 240x320",
+      "asset_id": "ui:battle",
+      "path": null,
+      "location": null,
+      "quick_action": null
+    },
+    {
+      "severity": "WARNING",
+      "code": "UI_WIDGET_OUT_OF_BOUNDS",
+      "message": "Widget 22 bounds (98, 293, 26, 30) exceed 240x320",
+      "asset_id": "ui:battle",
+      "path": null,
+      "location": null,
+      "quick_action": null
+    },
+    {
+      "severity": "WARNING",
+      "code": "UI_WIDGET_OUT_OF_BOUNDS",
+      "message": "Widget 23 bounds (137, 293, 26, 30) exceed 240x320",
+      "asset_id": "ui:battle",
+      "path": null,
+      "location": null,
+      "quick_action": null
+    },
+    {
+      "severity": "WARNING",
+      "code": "UI_WIDGET_OUT_OF_BOUNDS",
+      "message": "Widget 24 bounds (176, 293, 26, 30) exceed 240x320",
+      "asset_id": "ui:battle",
+      "path": null,
+      "location": null,
+      "quick_action": null
+    },
+    {
+      "severity": "WARNING",
+      "code": "UI_WIDGET_OUT_OF_BOUNDS",
+      "message": "Widget 25 bounds (218, 293, 26, 30) exceed 240x320",
+      "asset_id": "ui:battle",
+      "path": null,
+      "location": null,
+      "quick_action": null
+    }
+  ],
+  "metadata": {
+    "ui": "battle",
+    "status": "PARTIAL",
+    "header": {
+      "magic_or_flags": -1,
+      "version": 1
+    },
+    "layout_authority": "ORIGINAL",
+    "runtime_sprite_id": 257,
+    "selected_container_ids": [
+      20
+    ],
+    "binding_source": "STATIC"
+  }
+}

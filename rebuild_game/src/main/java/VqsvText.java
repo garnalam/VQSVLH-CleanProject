@@ -319,4 +319,37 @@ final class VqsvText {
         static final String TASK_BICH_THUY = "\u0110\u1ebfn B\u00edch Th\u1ee7y Th\u00e0nh.";
         static final String FREE_WORLD = "Gi\u1edd c\u00f3 th\u1ec3 t\u1ef1 do di chuy\u1ec3n.";
     }
+
+    static final class Scene1Room0Group7 {
+        private Scene1Room0Group7() {
+        }
+
+        static final String DODO = "Dodo";
+        static final String NEIL = Scene1Room0Group0.NEIL;
+        static final String DODO_CALL = "Neil ~ ca ~ ca ~";
+        static final String NEIL_ASK = "Chuy\u1ec7n g\u00ec?";
+        static final String DODO_REQUEST = "Ta nghe n\u00f3i b\u00ean n\u00e0y c\u00f3 M\u1ed9c Linh l\u00e0 s\u1ee7ng v\u1eadt hay kh\u00f3c nh\u01b0ng c\u00f3 n\u0103ng l\u1ef1c phi th\u01b0\u1eddng, r\u1ea5t \u0111\u00e1ng y\u00eau. Ng\u01b0\u01a1i gi\u00fap ta b\u1eaft s\u1ee7ng v\u1eadt \u0111\u00f3 v\u1ec1 \u0111\u01b0\u1ee3c kh\u00f4ng?";
+        static final String DODO_ACCEPT = "Niall t\u1ed1t nh\u1ea5t! M\u1ed9c Linh \u1edf ph\u00eda \u0111\u00f4ng r\u1eebng r\u1eadm. Nh\u1ea5n #1 #0 \u0111\u1ec3 \u0111i nhanh h\u01a1n";
+        static final String TASK_MOC_LINH = "B\u1eaft M\u1ed9c Linh #2 #1";
+        static final String TASK_UPDATED = "Nhi\u1ec7m v\u1ee5 ph\u1ee5 \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt, Nh\u1ea5n n\u00fat 1 \u0111\u1ec3 ki\u1ec3m tra nhi\u1ec7m v\u1ee5 th\u1ef1c thi.";
+        static final String DODO_REJECT = "Th\u1eadt \u0111\u00e1ng ti\u1ebfc...";
+        static final String DODO_COMPLETE_TASK0 = "D\u1ec5 th\u01b0\u01a1ng l\u1eafm! C\u00e1m \u01a1n, Neil! Nh\u1eefng v\u1eadt n\u00e0y t\u1eb7ng cho ng\u01b0\u01a1i";
+        static final String DODO_TASK1_CALL = "Nepal ~ Seoul ~ ... ~ ... ~";
+        static final String DODO_TASK1_ASK = "C\u00f3 h\u1ee9ng th\u00fa gi\u00fap ta m\u1ed9t chuy\u1ec7n nho nh\u1ecf kh\u00f4ng?";
+        static final String DODO_TASK1_REQUEST_1 = "B\u1eb1ng h\u1eefu c\u1ee7a ta t\u1ea1i B\u00edch Th\u1ee7y Th\u00e0nh r\u1ea5t mu\u1ed1n c\u00f3 \u0111\u01b0\u1ee3c \u0110i\u1ec7n Mi\u00eau.";
+        static final String DODO_TASK1_REQUEST_2 = "Ng\u01b0\u01a1i gi\u00fap ta mang n\u00f3 v\u1ec1 cho n\u00e0ng";
+        static final String DODO_TASK1_ACCEPT = "\u0110i\u1ec7n Mi\u00eau \u1edf ph\u00eda \u0111\u01b0\u1eddng \u0111i B\u00edch Th\u1ee7y Th\u00e0nh";
+        static final String TASK_DIEN_MIEU = "B\u1eaft #2\u0110i\u1ec7n Mi\u00eau#1 \u1edf B\u00edch Th\u1ee7y Th\u00e0nh cho Eliza.";
+        static final String DODO_TASK1_REJECT = "H\u1eeb, Neil ng\u01b0\u01a1i \u0111\u00fang l\u00e0 \u0111\u1ea1i ngu ng\u1ed1c!";
+    }
+
+    static final class Scene2Room1Group6 {
+        private Scene2Room1Group6() {
+        }
+
+        static final String ELIZA = "Eliza";
+        static final String ELIZA_ASK = "Xin h\u1ecfi t\u00ecm ta c\u00f3 chuy\u1ec7n g\u00ec?";
+        static final String ELIZA_DODO = "A, Dodo cho ng\u01b0\u01a1i mang \u0111\u1ed3 t\u1edbi cho ta sao?";
+        static final String ELIZA_THANKS = "\u0110\u00e1ng y\u00eau qu\u00e1! C\u00e1m \u01a1n c\u00e1c ng\u01b0\u01a1i!";
+    }
 }

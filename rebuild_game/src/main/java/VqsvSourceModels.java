@@ -45,6 +45,16 @@ final class SourceEquipmentItem {
     }
 }
 
+final class SourceMaterialItem {
+    final int id;
+    int count;
+
+    SourceMaterialItem(int id, int count) {
+        this.id = id;
+        this.count = count;
+    }
+}
+
 final class SourceSpecialReward {
     final int id;
     final int textId;
@@ -85,6 +95,47 @@ final class SourceSpecialReward {
         } else {
             gameGPath = "game.g.d -> game.g.i(id) unlock vector entry";
         }
+    }
+}
+
+final class SourceBranchTask {
+    final int taskId;
+    int status;
+
+    SourceBranchTask(int taskId, int status) {
+        this.taskId = taskId;
+        this.status = status;
+    }
+}
+
+final class SourceQuestMarker {
+    final int actorId;
+    final int animation;
+    final String source;
+    final SpriteAnim anim = SpriteAnim.load(259);
+
+    SourceQuestMarker(int actorId, int animation, String source) {
+        this.actorId = actorId;
+        this.animation = animation;
+        this.source = source;
+        this.anim.setState(animation);
+    }
+
+    boolean tick(VqsvIntroDemo.Scene scene) {
+        Actor actor = actorId >= 0 && actorId < scene.actors.length ? scene.actors[actorId] : null;
+        if (actor == null || !actor.visible) {
+            return true;
+        }
+        anim.tick();
+        return false;
+    }
+
+    void render(java.awt.Graphics2D g, VqsvIntroDemo.Scene scene) {
+        Actor actor = actorId >= 0 && actorId < scene.actors.length ? scene.actors[actorId] : null;
+        if (actor == null || !actor.visible) {
+            return;
+        }
+        anim.draw(g, actor.x - scene.cameraX, actor.y - scene.cameraY - 40, 0);
     }
 }
 
@@ -297,7 +348,7 @@ final class SourcePetState {
     int slot;
     int arg3;
     int arg4;
-    final int[] skillIds = new int[]{-1, -1, -1, -1};
+    final int[] skillIds = new int[]{-1, -1, -1, -1, -1};
     final int[] skillCooldowns = new int[skillIds.length];
     final short[][] sourceBuffSlots = new short[16][5];
     final short[][] sourceDebuffSlots = new short[11][5];

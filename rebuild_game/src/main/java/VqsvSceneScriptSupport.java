@@ -53,10 +53,21 @@ final class VqsvSceneScriptSupport {
 
     static Event taskNoticeOp45(int taskFlag, String text, String routeLabel) {
         return s -> {
+            s.sourceSetMainTaskProgress(taskFlag, "op45 taskTip.ui route=" + routeLabel);
             s.sourceStateTrace.add("PORTED op45 taskTip.ui route=" + routeLabel
                     + " taskFlag=" + taskFlag + " text=\"" + text + "\"");
             s.text = TextBox.taskTip(text);
             return waitForText();
+        };
+    }
+
+    static Event branchTaskAcceptOp49(int taskId, String routeLabel) {
+        return s -> {
+            s.panelRuntime.openBranchTaskAcceptOption(s, taskId, false);
+            s.sourceStateTrace.add("PORTED/PARTIAL op49 branch task option route="
+                    + routeLabel + " taskId=" + taskId);
+            return sc -> !sc.panelRuntime.visible
+                    || !"TASK_OPTION".equals(sc.panelRuntime.modeName());
         };
     }
 

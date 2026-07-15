@@ -88,6 +88,10 @@ final class VqsvSourceOps {
         return new java.util.ArrayList<>();
     }
 
+    static java.util.List<SourceMaterialItem> initialSourceMaterialItems() {
+        return new java.util.ArrayList<>();
+    }
+
     private static TextBox sourceInventoryPopup(String message, int qty) {
         String suffix = qty > 0 ? " x " + qty : "";
         return TextBox.openBox(message + suffix);
@@ -130,7 +134,7 @@ final class VqsvSourceOps {
     static SourceSpecialReward sourceStackSpecialReward(VqsvIntroDemo.Scene s, int rewardId, int qty) {
         SourceSpecialReward reward = s.sourceSpecialRewards.computeIfAbsent(rewardId, SourceSpecialReward::fromSourceDb);
         reward.stackCount = Math.min(99, Math.max(0, reward.stackCount + qty));
-        reward.gameGPath = "game.g.c(id,qty) stack q.N special row";
+        reward.gameGPath = "game.g.c(id,qty) stack q.O special row";
         return reward;
     }
 
@@ -183,6 +187,24 @@ final class VqsvSourceOps {
 
     static String sourceEquipmentDescription(int equipmentId) {
         BattleHeldItemRow row = VqsvBattleTables.instance().heldItem(equipmentId);
+        return row == null ? "" : row.description("");
+    }
+
+    static int sourceMaterialIconCell(int materialId) {
+        BattleHeldItemRow row = VqsvBattleTables.instance().heldItem(materialId);
+        return row == null ? materialId : row.iconCell;
+    }
+
+    static String sourceMaterialName(int materialId) {
+        if (materialId == 17) {
+            return "Ch\u00eca kh\u00f3a v\u00e0ng";
+        }
+        BattleHeldItemRow row = VqsvBattleTables.instance().heldItem(materialId);
+        return row == null ? "T\u00e0i li\u1ec7u " + materialId : row.name("T\u00e0i li\u1ec7u " + materialId);
+    }
+
+    static String sourceMaterialDescription(int materialId) {
+        BattleHeldItemRow row = VqsvBattleTables.instance().heldItem(materialId);
         return row == null ? "" : row.description("");
     }
 }

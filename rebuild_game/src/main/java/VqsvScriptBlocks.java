@@ -8,6 +8,9 @@ interface Blocking {
     boolean tick(VqsvIntroDemo.Scene s);
 }
 
+interface SourceWorldPanelOpen {
+}
+
 final class Delay implements Blocking {
     private int left;
 
@@ -298,7 +301,7 @@ final class CameraPanPoint implements Blocking {
     }
 }
 
-final class Op13FreeWorldTrigger implements Blocking {
+final class Op13FreeWorldTrigger implements Blocking, SourceWorldPanelOpen {
     private final int sceneId;
     private final int roomIndex;
     private final int groupIndex;
@@ -345,7 +348,7 @@ final class Op13FreeWorldTrigger implements Blocking {
     }
 }
 
-final class ActorTransitionFreeWorldTrigger implements Blocking {
+final class ActorTransitionFreeWorldTrigger implements Blocking, SourceWorldPanelOpen {
     private final int sceneId;
     private final int roomIndex;
     private final int actorId;
@@ -408,7 +411,7 @@ final class ActorTransitionFreeWorldTrigger implements Blocking {
     }
 }
 
-final class ActorInteractionFreeWorldTrigger implements Blocking {
+final class ActorInteractionFreeWorldTrigger implements Blocking, SourceWorldPanelOpen {
     private final int sceneId;
     private final int roomIndex;
     private final int groupIndex;

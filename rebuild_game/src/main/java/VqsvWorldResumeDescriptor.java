@@ -86,7 +86,7 @@ final class VqsvWorldResumeDescriptor {
                 + " trace-only no eventIndex mutation");
     }
 
-    private static final class WorldResumeTraceBlocking implements Blocking {
+    private static final class WorldResumeTraceBlocking implements Blocking, SourceWorldPanelOpen {
         private final VqsvWorldResumeDescriptor descriptor;
         private final Blocking next;
         private boolean traced;

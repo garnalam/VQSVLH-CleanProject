@@ -470,4 +470,29 @@ final class VqsvSceneLoaders {
         }
         s.setCameraCenter(cameraCenterX, cameraCenterY);
     }
+
+    static void loadScene2Room1(VqsvIntroDemo.Scene s, int cameraCenterX, int cameraCenterY) {
+        s.currentSceneId = 2;
+        s.currentRoomIndex = 1;
+        s.useMap = true;
+        s.mapRenderer = loadMapRenderer(49);
+        s.followActorId = -1;
+        s.tempSprites.clear();
+        s.worldUi.visible = true;
+        int[][] rows = {
+                // source scene_2 room1 actor73: [0,22,0,289,412,1,1,1,...]
+                {73, 22, 0, 289, 412, 1, 1, 1}
+        };
+        for (int i = 0; i < s.actors.length; i++) {
+            s.actors[i] = null;
+        }
+        for (int[] row : rows) {
+            Actor actor = new Actor(row[0], row[1], row[2], row[3], row[4], row[6], row[7]);
+            actor.visible = row[5] == 1;
+            s.actors[row[0]] = actor;
+        }
+        s.setCameraCenter(cameraCenterX, cameraCenterY);
+        s.sourceStateTrace.add("PORTED/PARTIAL load scene2 room1 Bich Thuy center"
+                + " map49 + actor73 Eliza only; full room actor/map parity pending");
+    }
 }

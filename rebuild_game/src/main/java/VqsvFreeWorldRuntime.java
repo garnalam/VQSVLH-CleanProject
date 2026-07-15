@@ -70,6 +70,14 @@ final class VqsvFreeWorldRuntime {
                     + targetActorId + " player=[" + s.player.x + "," + s.player.y + "]");
             return true;
         }
+        if (targetSceneId == 2 && targetRoomIndex == 1) {
+            s.loadScene2Room1(s.player.x, s.player.y);
+            placePlayerAtTransitionActorApprox(s, targetActorId, 16);
+            s.current = new Scene2Room1FreeWorld();
+            s.sourceStateTrace.add("PORTED/PARTIAL loaded scene=2 room=1 targetActor="
+                    + targetActorId + " player=[" + s.player.x + "," + s.player.y + "]");
+            return true;
+        }
         return false;
     }
 

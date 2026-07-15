@@ -88,11 +88,12 @@ final class Room0Group6Start implements Blocking {
     }
 }
 
-final class Room0PostGroup6FreeWorld implements Blocking {
+final class Room0PostGroup6FreeWorld implements Blocking, SourceWorldPanelOpen {
     private boolean started;
     private boolean room2Group3Started;
     private boolean dodoPendingLogged;
     private boolean doorPendingLogged;
+    private Blocking dodoEvent;
 
     @Override
     public boolean tick(VqsvIntroDemo.Scene s) {
@@ -111,6 +112,12 @@ final class Room0PostGroup6FreeWorld implements Blocking {
     }
 
     private boolean tickRoom0(VqsvIntroDemo.Scene s) {
+        if (dodoEvent != null) {
+            if (dodoEvent.tick(s)) {
+                dodoEvent = null;
+            }
+            return false;
+        }
         if (s.trySourceTransition(31, 2, 1, 2, 2)) {
             room2Group3Started = false;
             return false;
@@ -118,9 +125,36 @@ final class Room0PostGroup6FreeWorld implements Blocking {
         if (s.trySourceTransition(30, 3, 1, 1, 37)) {
             return false;
         }
-        if (s.key0 && s.playerInteractsActorSourceMask(35) && !dodoPendingLogged) {
-            dodoPendingLogged = true;
-            s.sourceStateTrace.add("PENDING room0 post-group6 Dodo actor35 side quest groups 7/8/9 not ported yet");
+        if (s.key0 && s.playerInteractsActorSourceMask(35)) {
+            if (!s.sourceEventStateComplete(1, 0, 7)
+                    && s.sourceBranchTaskStatus(0) < 0) {
+                dodoEvent = Scene1Room0Group7DodoScript.startFreeWorldInteraction(s);
+                return false;
+            }
+            if (s.sourceBranchTaskStatus(0) == 1) {
+                if (s.sourcePetRecordObtained(1, 23)) {
+                    dodoEvent = new DodoGroup8CompletionFlow();
+                    return false;
+                }
+                s.sourceRefreshBqTaskMarkers();
+                s.sourceStateTrace.add("PORTED/PARTIAL scene1 room0 group8 opcode44 objective missing"
+                        + " task0Status=1 source game.j.a(1,23)!=2");
+                s.key0 = false;
+                return false;
+            }
+            if (s.sourceBranchTaskStatus(0) == 3
+                    && s.sourceEventStateComplete(1, 0, 8)
+                    && !s.sourceEventStateComplete(1, 0, 9)
+                    && s.sourceBranchTaskStatus(1) < 0) {
+                dodoEvent = Scene1Room0Group9DodoScript.startFreeWorldInteraction(s);
+                return false;
+            }
+            if (!dodoPendingLogged) {
+                dodoPendingLogged = true;
+                s.sourceStateTrace.add("PENDING room0 post-group6 Dodo actor35 side quest completion not ported yet"
+                        + " task0Status=" + s.sourceBranchTaskStatus(0)
+                        + " task1Status=" + s.sourceBranchTaskStatus(1));
+            }
         }
         if (!doorPendingLogged) {
             if (s.playerIntersectsActorSourceMask(3, true)
@@ -139,6 +173,49 @@ final class Room0PostGroup6FreeWorld implements Blocking {
             return false;
         }
         return false;
+    }
+
+    private static final class DodoGroup8CompletionFlow implements Blocking {
+        private int phase;
+        private Blocking wait;
+
+        @Override
+        public boolean tick(VqsvIntroDemo.Scene s) {
+            if (wait != null) {
+                if (!wait.tick(s)) {
+                    return false;
+                }
+                wait = null;
+                phase++;
+            }
+            switch (phase) {
+                case 0:
+                    s.stopPlayerForSourceEvent();
+                    s.worldEventActor = 35;
+                    s.sourceStateTrace.add("PORTED scene1 room0 group8 opcode44 start"
+                            + " short=[0,1,1,0,35,1,0,7,0,1,23,0]");
+                    s.text = TextBox.dialog(s.font, VqsvText.Scene1Room0Group7.DODO,
+                            VqsvText.Scene1Room0Group7.DODO_COMPLETE_TASK0, -1, 0);
+                    s.sourceStateTrace.add("PORTED op4 dialog.ui speaker=\"Dodo\""
+                            + " group8 task0 complete thanks");
+                    wait = VqsvSceneScriptSupport.waitForText();
+                    return false;
+                case 1:
+                    wait = s.op17Item(0, 1, 3);
+                    s.sourceStateTrace.add("PORTED scene1 room0 group8 op17 reward [0,1,3]");
+                    return false;
+                case 2:
+                    s.sourceCompleteBranchTask(0);
+                    s.op14CompleteEvent(1, 0, 8);
+                    s.sourceRefreshBqTaskMarkers();
+                    s.sourceStateTrace.add("PORTED scene1 room0 group8 op14 complete"
+                            + " and source game.e.m(0) status=3");
+                    phase = 99;
+                    return true;
+                default:
+                    return true;
+            }
+        }
     }
 
     private boolean tickRoom2(VqsvIntroDemo.Scene s) {

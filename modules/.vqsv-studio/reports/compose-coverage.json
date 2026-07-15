@@ -1,0 +1,22 @@
+{
+  "workspace": "C:\\Users\\Dell\\Downloads\\ResourcesVQSV\\modules",
+  "sprites": {
+    "FULL": 322,
+    "PARTIAL": 3,
+    "NOT_RENDERABLE": 20,
+    "FAILED": 0,
+    "failures": []
+  },
+  "maps": {
+    "FULL": 102,
+    "PARTIAL": 0,
+    "FAILED": 0,
+    "failures": []
+  },
+  "ui": {
+    "FULL": 0,
+    "PARTIAL": 42,
+    "FAILED": 0,
+    "failures": []
+  }
+}

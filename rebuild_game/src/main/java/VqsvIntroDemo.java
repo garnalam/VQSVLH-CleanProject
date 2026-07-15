@@ -220,6 +220,13 @@ public final class VqsvIntroDemo extends JPanel {
         int cameraY = 0;
         int playerX = 0;
         int playerY = 0;
+        boolean sourceTransmitConfirmed = false;
+        int sourceTransmitScene = -1;
+        int sourceTransmitRoom = -1;
+        int sourceTransmitX = -1;
+        int sourceTransmitY = -1;
+        int sourceTransmitG = -1;
+        int sourceTransmitT = 0;
         boolean useMap;
         boolean key0;
         boolean keyUp;
@@ -420,7 +427,14 @@ public final class VqsvIntroDemo extends JPanel {
         final Map<Integer, SourceSpecialReward> sourceSpecialRewards = VqsvSourceOps.initialSourceSpecialRewards();
         final java.util.List<SourceEquipmentItem> sourceEquipmentItems =
                 VqsvSourceOps.initialSourceEquipmentItems();
+        final java.util.List<SourceMaterialItem> sourceMaterialItems =
+                VqsvSourceOps.initialSourceMaterialItems();
         final VqsvEventState eventState = new VqsvEventState();
+        int sourceMainTaskProgress;
+        boolean sourcePremiumUiPercent;
+        final VqsvBranchQuestRuntime sourceBranchQuests = new VqsvBranchQuestRuntime();
+        final List<SourceBranchTask> sourceBranchTasks = sourceBranchQuests.tasks();
+        final List<SourceQuestMarker> sourceQuestMarkers = sourceBranchQuests.markers();
         final List<SourcePetState> sourcePets = new ArrayList<>();
         final List<SourcePetState> sourcePetBank = new ArrayList<>();
         final byte[][] sourceGlobalState = new byte[8][2];
@@ -545,16 +559,24 @@ public final class VqsvIntroDemo extends JPanel {
                 key0 = true;
                 return;
             }
-            if (worldUi.visible && useMap && canOpenSourcePanel()) {
+            if (worldUi.visible && useMap) {
                 int worldButton = worldUi.buttonAt(x, y);
-                if (worldButton == WorldUi.BUTTON_SYSTEM) {
-                    panelRuntime.openGameSystemFromWorld(this);
-                    return;
-                }
-                if (worldButton == WorldUi.BUTTON_MENU) {
-                    panelRuntime.open(this);
-                    sourceStateTrace.add("PORTED/PARTIAL world.ui right softkey"
-                            + " source game.k P=0 key=262144 -> P=6 game.h.k gamemenu.ui open");
+                if (worldButton != WorldUi.BUTTON_NONE) {
+                    if (canOpenSourcePanel()) {
+                        if (worldButton == WorldUi.BUTTON_SYSTEM) {
+                            panelRuntime.openGameSystemFromWorld(this);
+                            return;
+                        }
+                        if (worldButton == WorldUi.BUTTON_MENU) {
+                            panelRuntime.open(this);
+                            sourceStateTrace.add("PORTED/PARTIAL world.ui right softkey"
+                                    + " source game.k P=0 key=262144 -> P=6 game.h.k gamemenu.ui open");
+                            return;
+                        }
+                    }
+                    sourceStateTrace.add("PARTIAL world.ui softkey click blocked"
+                            + " button=" + worldButton
+                            + " snapshot=" + debugSnapshotForRelease());
                     return;
                 }
             }
@@ -881,6 +903,11 @@ public final class VqsvIntroDemo extends JPanel {
                     tempSprites.remove(i);
                 }
             }
+            for (int i = sourceQuestMarkers.size() - 1; i >= 0; i--) {
+                if (sourceQuestMarkers.get(i).tick(this)) {
+                    sourceQuestMarkers.remove(i);
+                }
+            }
             resumeRoom1BunnyOp13IfStranded();
             if (current != null) {
                 if (!current.tick(this)) {
@@ -946,10 +973,7 @@ public final class VqsvIntroDemo extends JPanel {
                 return false;
             }
             return current == null
-                    || current instanceof Op13FreeWorldTrigger
-                    || current instanceof ActorTransitionFreeWorldTrigger
-                    || current instanceof ActorInteractionFreeWorldTrigger
-                    || current instanceof Room0PostGroup6FreeWorld;
+                    || current instanceof SourceWorldPanelOpen;
         }
 
         private void resumeRoom1BunnyOp13IfStranded() {
@@ -1107,7 +1131,7 @@ public final class VqsvIntroDemo extends JPanel {
             panelBagSpecialUseId = specialId;
             openWorldPetstateInternal();
             battleMenuAction = VqsvText.Battle.PETSTATE_USE;
-            sourceStateTrace.add("PORTED/PARTIAL panel game.h.ac bagTab=3 q.N case" + specialId
+            sourceStateTrace.add("PORTED/PARTIAL panel game.h.ac bagTab=3 q.O case" + specialId
                     + " this.s=specialId o.a(19) close bag.ui -> game.h.W petstate.ui"
                     + " c=" + battleMenuIndex);
         }
@@ -1579,7 +1603,7 @@ public final class VqsvIntroDemo extends JPanel {
                     + " -> msgconfirm.ui f=2 close petsetting.ui"
                     + " message=Ban muon phong sinh sung vat nay?"
                     + " selectedPet=" + battleMenuIndex
-                    + " mutation=PENDING");
+                    + " mutation=confirm-path-ported");
         }
 
         private void tickSourceReleaseConfirm() {
@@ -2134,8 +2158,18 @@ public final class VqsvIntroDemo extends JPanel {
 
         private void mouseWheelSourceItemChoice(int steps) {
             int size = sourceItemChoiceSize();
+            if (size <= 0) {
+                return;
+            }
             int maxScroll = Math.max(0, size - 5);
             if (maxScroll <= 0) {
+                int before = sourceItemChoiceIndex;
+                int direction = steps < 0 ? -1 : 1;
+                sourceItemChoiceIndex = Math.max(0, Math.min(size - 1, sourceItemChoiceIndex + direction));
+                if (sourceItemChoiceIndex != before) {
+                    sourceStateTrace.add("PC_QOL mouse wheel choice.ui item selection"
+                            + " r=" + sourceItemChoiceIndex + " size=" + size);
+                }
                 return;
             }
             sourceItemChoiceScroll = Math.max(0, Math.min(maxScroll, sourceItemChoiceScroll + steps));
@@ -2146,8 +2180,19 @@ public final class VqsvIntroDemo extends JPanel {
 
         private void mouseWheelSourceEquipmentChoice(int steps) {
             int size = sourceEquipmentChoiceSize();
+            if (size <= 0) {
+                return;
+            }
             int maxScroll = Math.max(0, size - 5);
             if (maxScroll <= 0) {
+                int before = sourceEquipmentChoiceIndex;
+                int direction = steps < 0 ? -1 : 1;
+                sourceEquipmentChoiceIndex = Math.max(0,
+                        Math.min(size - 1, sourceEquipmentChoiceIndex + direction));
+                if (sourceEquipmentChoiceIndex != before) {
+                    sourceStateTrace.add("PC_QOL mouse wheel choice.ui equipment selection"
+                            + " h=" + sourceEquipmentChoiceIndex + " size=" + size);
+                }
                 return;
             }
             sourceEquipmentChoiceScroll = Math.max(0,
@@ -2161,6 +2206,15 @@ public final class VqsvIntroDemo extends JPanel {
         private void mouseWheelSourceSkill(int steps) {
             int maxScroll = Math.max(0, sourceSkillCount - 5);
             if (maxScroll <= 0) {
+                int before = sourceSkillIndex;
+                int direction = steps < 0 ? -1 : 1;
+                sourceSkillIndex = Math.max(0,
+                        Math.min(sourceSkillCount - 1, sourceSkillIndex + direction));
+                if (sourceSkillIndex != before) {
+                    sourceStateTrace.add("PC_QOL mouse wheel skill.ui selection"
+                            + " index=" + sourceSkillIndex
+                            + " rows=" + sourceSkillCount);
+                }
                 return;
             }
             int before = sourceSkillIndex;
@@ -2215,8 +2269,8 @@ public final class VqsvIntroDemo extends JPanel {
                 sourceStateTrace.add("PORTED/PARTIAL panel game.h.X skill.ui key=262144"
                         + " e(b) refresh petstate.ui close skill.ui selectedPet=" + battleMenuIndex);
             } else if (key0) {
-                sourceStateTrace.add("PENDING panel game.h.X skill.ui confirm"
-                        + " no source mutation in read-only slice r=" + sourceSkillIndex
+                sourceStateTrace.add("PORTED panel game.h.X skill.ui confirm ignored"
+                        + " source bo() has no confirm mutation r=" + sourceSkillIndex
                         + " skillId=" + sourceSkillIdAt(sourceSkillIndex));
             }
         }
@@ -2461,6 +2515,12 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         private void clickWorldPetstate(int x, int y) {
+            if (x >= 30 && x <= 54 && y >= 55 && y <= 78) {
+                keyBack = true;
+                sourceStateTrace.add("PC_QOL petstate.ui header back arrow click"
+                        + " -> game.h.X back close petstate.ui");
+                return;
+            }
             int index = worldPetstateIndexAt(x, y);
             if (index >= 0 && index < battleMenuIds.length) {
                 battleMenuIndex = index;
@@ -2648,6 +2708,10 @@ public final class VqsvIntroDemo extends JPanel {
             VqsvSceneLoaders.loadScene1Room2(this, cameraCenterX, cameraCenterY);
         }
 
+        void loadScene2Room1(int cameraCenterX, int cameraCenterY) {
+            VqsvSceneLoaders.loadScene2Room1(this, cameraCenterX, cameraCenterY);
+        }
+
         void spawnActorEffect(int actorId, int animation) {
             if (actorId == -1 || actorId >= 0 && actorId < actors.length && actors[actorId] != null) {
                 tempSprites.add(new TempSprite(actorId, animation, 120));
@@ -2748,6 +2812,54 @@ public final class VqsvIntroDemo extends JPanel {
 
         void op14CompleteEvent(int sceneId, int roomIndex, int groupIndex) {
             eventState.op14CompleteEvent(sceneId, roomIndex, groupIndex);
+        }
+
+        void sourceSetMainTaskProgress(int progress, String source) {
+            sourceMainTaskProgress = Math.max(0, progress);
+            sourceStateTrace.add("PORTED source game.e.G main task progress="
+                    + sourceMainTaskProgress + " via " + source);
+        }
+
+        void sourceAcceptBranchTask(int taskId) {
+            sourceBranchQuests.accept(this, taskId);
+        }
+
+        void sourceUnlockBranchTask(int taskId, int status) {
+            sourceBranchQuests.unlockOrUpdate(this, taskId, status);
+        }
+
+        void sourceCompleteBranchTask(int taskId) {
+            sourceBranchQuests.complete(this, taskId);
+        }
+
+        void sourceRefreshBqTaskMarkers() {
+            sourceBranchQuests.refreshBqTaskMarkers(this);
+        }
+
+        int sourceBranchTaskStatus(int taskId) {
+            return sourceBranchQuests.status(taskId);
+        }
+
+        boolean sourcePetRecordObtained(int category, int speciesId) {
+            for (SourcePetState pet : sourcePets) {
+                if (pet.speciesId == speciesId) {
+                    sourceStateTrace.add("PORTED/PARTIAL source game.j.a(category,species)==2"
+                            + " category=" + category + " species=" + speciesId
+                            + " location=party");
+                    return true;
+                }
+            }
+            for (SourcePetState pet : sourcePetBank) {
+                if (pet.speciesId == speciesId) {
+                    sourceStateTrace.add("PORTED/PARTIAL source game.j.a(category,species)==2"
+                            + " category=" + category + " species=" + speciesId
+                            + " location=bank");
+                    return true;
+                }
+            }
+            sourceStateTrace.add("PORTED/PARTIAL source game.j.a(category,species)!=2"
+                    + " category=" + category + " species=" + speciesId);
+            return false;
         }
 
         Blocking op10PlayerTimedAction(int dir, int speed, int duration) {

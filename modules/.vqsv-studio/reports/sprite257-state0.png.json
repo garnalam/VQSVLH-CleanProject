@@ -1,0 +1,46 @@
+{
+  "width": 9,
+  "height": 7,
+  "bounds": [
+    0,
+    2,
+    9,
+    7
+  ],
+  "image_path": null,
+  "provenance": [
+    {
+      "bounds": [
+        0,
+        0,
+        9,
+        7
+      ],
+      "asset_id": "image:800",
+      "source_ref": {
+        "path": "img/decoded/data__img__img_800.mid.png",
+        "authority": "DECODED",
+        "parser": "SpriteRenderer",
+        "byte_offset": null,
+        "row": null,
+        "line": null,
+        "evidence": "script/sprite.mid + spr binary region/cell"
+      },
+      "metadata": {
+        "region_id": 7,
+        "transform": 0
+      }
+    }
+  ],
+  "diagnostics": [],
+  "metadata": {
+    "logical_id": 257,
+    "sprite_binary_id": 257,
+    "state": 0,
+    "frame": 0,
+    "cell_id": 11,
+    "duration": 2,
+    "animation_count": 19,
+    "special_runtime_override": false
+  }
+}

@@ -86,7 +86,7 @@ Implemented/verified behavior:
 | Gamemenu task row -> `task.ui` | `PORTED/PARTIAL` | Opens task tabs and navigation. Fixed title/status overlap; exact source marquee/crop is still not fully ported. |
 | Gamemenu record row -> `record.ui` | `FIXED/PORTED/PARTIAL` | Opens record stats, c=0 petmap branch, back path. Rebuilt lower option buttons from source widget positions so only one cursor is visible. |
 | `record.ui` c=0 -> `petmap.ui` | `PORTED/PARTIAL` | Opens petmap list, tab navigation, wheel/hover/click viewport mapping. Entry details remain pending. |
-| `record.ui` c=1 badge branch | `PENDING` | Source maps this to badge UI; rebuild currently traces pending and does not open badge page yet. |
+| `record.ui` c=1 badge branch | `PORTED/PARTIAL` | Opens/renders/navigates/backs from `badge.ui`; per-badge `q.C` storage is still proxied from `sourceBadges`. |
 | `gamesystem.ui` help/settings/option | `PORTED/PARTIAL` | Open/navigate/back/confirm-no verified. Confirm-yes reset remains guarded by separate source audit. |
 | Keyboard softkey parity | `PARTIAL` | ESC/back remains PC convenience for gamemenu; exact phone key mapping is not fully claimed. |
 
@@ -146,9 +146,9 @@ Latest verification:
 
 ## Next Recommended Step
 
-After this slice, the next small panel route is `record.ui` c=1 -> `badge.ui`
-open/render/back, because the source branch is known and the current rebuild
-still marks it `PENDING`. If staying in route-order story polish instead,
-continue with `op35 option.ui` starter confirm, then `npcEnemy.ui` Elder battle
-entry timeline. Do not broaden the panel VM unless a concrete source route
-requires it.
+After this slice, `record.ui` c=1 -> `badge.ui` now opens/renders/backs. The
+next small panel route should be `task.ui` confirm -> `taskOption.ui`
+open/render/back, because task row confirm is still explicitly pending. If
+staying in route-order story polish instead, continue with `op35 option.ui`
+starter confirm, then `npcEnemy.ui` Elder battle entry timeline. Do not broaden
+the panel VM unless a concrete source route requires it.

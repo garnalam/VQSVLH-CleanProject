@@ -1,0 +1,35 @@
+﻿{
+    "status":  "PASS",
+    "gui_launched":  false,
+    "cli":  "C:\\Users\\Dell\\Downloads\\ResourcesVQSV\\vqsv_studio\\dist\\VQSV-Nexus\\VQSV-Nexus-CLI.exe",
+    "original_files_checked":  1025,
+    "original_files_changed":  [
+
+                               ],
+    "png":  [
+                {
+                    "path":  "C:\\Users\\Dell\\Downloads\\ResourcesVQSV\\modules\\.vqsv-studio\\reports\\portable-smoke\\ui-answer.png",
+                    "width":  240,
+                    "height":  320,
+                    "bytes":  2679
+                },
+                {
+                    "path":  "C:\\Users\\Dell\\Downloads\\ResourcesVQSV\\modules\\.vqsv-studio\\reports\\portable-smoke\\world-room-1-0.png",
+                    "width":  416,
+                    "height":  320,
+                    "bytes":  81604
+                },
+                {
+                    "path":  "C:\\Users\\Dell\\Downloads\\ResourcesVQSV\\modules\\.vqsv-studio\\reports\\portable-smoke\\battle-skill-0.png",
+                    "width":  640,
+                    "height":  360,
+                    "bytes":  17782
+                },
+                {
+                    "path":  "C:\\Users\\Dell\\Downloads\\ResourcesVQSV\\modules\\.vqsv-studio\\reports\\portable-smoke\\sprite-0-contact-sheet.png",
+                    "width":  112,
+                    "height":  74,
+                    "bytes":  2808
+                }
+            ]
+}

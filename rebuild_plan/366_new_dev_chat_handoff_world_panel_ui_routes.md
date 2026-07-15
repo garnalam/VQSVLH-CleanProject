@@ -88,7 +88,7 @@ Status matrix:
 | `gamemenu.ui` task -> `task.ui` | `PORTED/PARTIAL` | Fixed title/status overlap. Exact source marquee/crop is still not full. |
 | `gamemenu.ui` record -> `record.ui` | `FIXED/PORTED/PARTIAL` | Fixed double-cursor visual issue in lower options. |
 | `record.ui` c=0 -> `petmap.ui` | `PORTED/PARTIAL` | Open/navigate/tab/wheel/back verified. Entry details pending. |
-| `record.ui` c=1 -> `badge.ui` | `PENDING` | This is the recommended next small slice. |
+| `record.ui` c=1 -> `badge.ui` | `PORTED/PARTIAL` | Open/render/navigation/back is done; per-badge `q.C` state is still proxied from `sourceBadges`. |
 | Save row -> panel save prompt | `PORTED/PARTIAL` | Opens prompt and completes save flow through rebuild save runtime. |
 
 ## Current Visual Caveats
@@ -139,26 +139,28 @@ Key PNG outputs to inspect:
 
 ## Next Concrete Slice
 
-Recommended next slice: `record.ui` c=1 -> `badge.ui` open/render/back.
+Recommended next slice: `task.ui` confirm -> `taskOption.ui` open/render/back.
 
 Why this slice:
 
-- Source branch exists in `game.k.java`: record page has c=0 petmap and c=1
-  badge.
-- Rebuild currently handles c=0 petmap and traces c=1 as pending.
+- Source branch exists in `game.k.java`: task page confirm opens task detail /
+  option-style UI.
+- Rebuild currently opens task list/tab/back but task row confirm still traces
+  pending.
 - It is a small UI route branch and does not require battle logic.
 
 Expected work:
 
-1. Audit source methods around `game.k.Q()`, `R()`, `W()`, `X()`.
-2. Read `badge.ui` layout.
-3. Create a small audit doc, likely `367_world_panel_badge_ui_route_audit.md`.
+1. Audit source methods around `game.k.U()`, `V()`, and task option/detail
+   helpers.
+2. Read `taskOption.ui` layout.
+3. Create a small audit doc.
 4. Implement only open/render/navigate/back first.
 5. Add PNG smoke checkpoints:
-   - `panel_badge_open_from_record`
-   - `panel_badge_navigation`
-   - `panel_badge_back_returns_record`
-   - `panel_badge_record_back_returns_gamemenu`
+   - `panel_task_option_open_from_task`
+   - `panel_task_option_navigation`
+   - `panel_task_option_back_returns_task`
+   - `panel_task_option_task_back_returns_gamemenu`
 6. Run verification:
    - build
    - `world_panel_full` or a new focused `world_badge` suite

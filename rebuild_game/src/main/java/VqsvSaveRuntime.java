@@ -42,8 +42,10 @@ final class VqsvSaveRuntime {
         p.setProperty("sourceRideBlocked", join(s.sourceRideBlocked));
         p.setProperty("sourceRideActiveIndex", String.valueOf(s.sourceRideActiveIndex));
         p.setProperty("sourcePlayerMoveSpeed", String.valueOf(s.sourcePlayerMoveSpeed));
+        p.setProperty("sourceMainTaskProgress", String.valueOf(s.sourceMainTaskProgress));
         writeActors(p, s);
         writeEventStates(p, s);
+        writeBranchTasks(p, s);
         writeBag(p, s);
         writeEquipment(p, s);
         writeSpecialRewards(p, s);
@@ -100,7 +102,9 @@ final class VqsvSaveRuntime {
         copyInto(ints(p.getProperty("sourceRideBlocked", "")), s.sourceRideBlocked);
         s.sourceRideActiveIndex = intProp(p, "sourceRideActiveIndex", -1);
         s.sourcePlayerMoveSpeed = intProp(p, "sourcePlayerMoveSpeed", 4);
+        s.sourceMainTaskProgress = intProp(p, "sourceMainTaskProgress", 0);
         restoreEventStates(s, p);
+        restoreBranchTasks(s, p);
         restoreBag(s, p);
         restoreEquipment(s, p);
         restoreSpecialRewards(s, p);
@@ -223,6 +227,28 @@ final class VqsvSaveRuntime {
             snapshot.put(row.substring(0, at), (byte) parseInt(row.substring(at + 1), 0));
         }
         s.eventState.restoreStates(snapshot);
+    }
+
+    private static void writeBranchTasks(Properties p, VqsvIntroDemo.Scene s) {
+        p.setProperty("branchTask.count", String.valueOf(s.sourceBranchQuests.size()));
+        for (int i = 0; i < s.sourceBranchQuests.size(); i++) {
+            SourceBranchTask task = s.sourceBranchQuests.taskAt(i);
+            p.setProperty("branchTask." + i, task.taskId + "," + task.status);
+        }
+    }
+
+    private static void restoreBranchTasks(VqsvIntroDemo.Scene s, Properties p) {
+        s.sourceBranchQuests.clearTasks();
+        int count = intProp(p, "branchTask.count", 0);
+        for (int i = 0; i < count; i++) {
+            int[] row = ints(p.getProperty("branchTask." + i, ""));
+            if (row.length >= 2) {
+                s.sourceBranchQuests.addRawTask(row[0], row[1]);
+            }
+        }
+        s.sourceStateTrace.add("PORTED save restore game.e.G/H/F"
+                + " G=" + s.sourceMainTaskProgress
+                + " H=" + s.sourceBranchQuests.size());
     }
 
     private static void writeBag(Properties p, VqsvIntroDemo.Scene s) {

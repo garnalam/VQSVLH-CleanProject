@@ -526,6 +526,15 @@ final class VqsvBattleRenderer {
     }
 
     private static void drawShopConfirmOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
+        drawShopConfirmOverlay(g, font,
+                s.battleShopConfirmQuantity,
+                s.battleShopConfirmTotal,
+                s.battleShopConfirmCurrency,
+                s.battleAnimationTick);
+    }
+
+    static void drawShopConfirmOverlay(Graphics2D g, FontBitmap font,
+                                       int quantity, int total, int currency, int tick) {
         VqsvUiLayout layout = VqsvUiLayout.load("msgyn.ui");
         drawSourceWidgetFill(g, layout, 1, 96, 0xc6f3ff);
         drawSourceWidgetFill(g, layout, 2, 7, 0xc6f3ff);
@@ -533,19 +542,19 @@ final class VqsvBattleRenderer {
         drawSourceWidgetFill(g, layout, 4, 10, 0x82d0fb);
         drawSourceWidgetFill(g, layout, 5, 72, 0x51d8e9);
         drawSourceWidgetCell(g, layout, 1, false, false);
-        drawShopWidgetText(g, font, layout, 8, "S\u1ed1 l\u01b0\u1ee3ng", 48, SOURCE_UI_TEXT, s.battleAnimationTick);
-        drawChoiceText(g, font, layout, 9, String.valueOf(s.battleShopConfirmQuantity),
-                SOURCE_UI_TEXT, s.battleAnimationTick);
-        drawShopWidgetText(g, font, layout, 10, "Ti\u00eau hao", 44, SOURCE_UI_TEXT, s.battleAnimationTick);
-        drawChoiceText(g, font, layout, 11, String.valueOf(s.battleShopConfirmTotal),
-                SOURCE_UI_TEXT, s.battleAnimationTick);
-        drawBattleUiCellTopLeft(g, shopCurrencyCell(s.battleShopConfirmCurrency),
+        drawShopWidgetText(g, font, layout, 8, "S\u1ed1 l\u01b0\u1ee3ng", 48, SOURCE_UI_TEXT, tick);
+        drawChoiceText(g, font, layout, 9, String.valueOf(quantity),
+                SOURCE_UI_TEXT, tick);
+        drawShopWidgetText(g, font, layout, 10, "Ti\u00eau hao", 44, SOURCE_UI_TEXT, tick);
+        drawChoiceText(g, font, layout, 11, String.valueOf(total),
+                SOURCE_UI_TEXT, tick);
+        drawBattleUiCellTopLeft(g, shopCurrencyCell(currency),
                 layout.x(12, 142), layout.y(12, 142));
         drawSourceWidgetCell(g, layout, 13, false, false);
         drawSourceWidgetCell(g, layout, 14, false, false);
         drawSourceWidgetCell(g, layout, 15, false, false);
-        drawMsgynOptionText(g, font, layout, 6, "X\u00e1c nh\u1eadn", s.battleAnimationTick);
-        drawMsgynOptionText(g, font, layout, 7, "Kh\u00f4ng", s.battleAnimationTick);
+        drawMsgynOptionText(g, font, layout, 6, "X\u00e1c nh\u1eadn", tick);
+        drawMsgynOptionText(g, font, layout, 7, "Kh\u00f4ng", tick);
     }
 
     private static int shopCurrencyCell(int currency) {
@@ -896,9 +905,23 @@ final class VqsvBattleRenderer {
         drawPetStateWidgetCell(g, layout, 10, false);
         drawPetStateWidgetCell(g, layout, 11, false);
         drawPetStateWidgetCell(g, layout, 12, false);
+        drawPetStateHeaderBackArrow(g);
         drawTinyBattleText(g, font, layout.text(2, VqsvText.Battle.PETSTATE_TITLE),
                 layout.x(2, 70), layout.y(2, 58), layout.w(2, 100),
                 widgetTextColor(layout.widget(2), false, Color.WHITE));
+    }
+
+    private static void drawPetStateHeaderBackArrow(Graphics2D g) {
+        int[] xs = {36, 43, 43, 50, 50, 43, 43};
+        int[] ys = {66, 59, 63, 63, 69, 69, 73};
+        g.setColor(new Color(0x135972));
+        g.fillPolygon(xs, ys, xs.length);
+        g.setColor(new Color(0xffe16a));
+        int[] innerX = {37, 43, 43, 48, 48, 43, 43};
+        int[] innerY = {66, 61, 64, 64, 68, 68, 71};
+        g.fillPolygon(innerX, innerY, innerX.length);
+        g.setColor(new Color(0xffffff));
+        g.drawLine(39, 66, 47, 66);
     }
 
     private static void drawPetStateColorBand(Graphics2D g, VqsvUiLayout layout,
@@ -1080,7 +1103,12 @@ final class VqsvBattleRenderer {
         for (int i = 0; i < visible; i++) {
             VqsvUiLayout.UiWidget widget = layout.widget(70 + i);
             if (widget != null) {
-                drawBattleUiCellTopLeft(g, i < count ? 14 : Math.max(0, widget.altId), widget.x, widget.y);
+                int state = i < count ? 14 : Math.max(0, widget.altId);
+                if (widget.altMode == 3) {
+                    drawBattleUiStateTopLeft(g, state, widget.x, widget.y);
+                } else {
+                    drawBattleUiCellTopLeft(g, state, widget.x, widget.y);
+                }
             }
         }
     }
@@ -2079,14 +2107,18 @@ final class VqsvBattleRenderer {
                 SOURCE_UI_TEXT, s.battleAnimationTick);
     }
 
-    private static void drawSmsInfoOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
+    static void drawSmsInfoOverlay(Graphics2D g, FontBitmap font, VqsvIntroDemo.Scene s) {
+        drawSmsInfoOverlay(g, font, s.battleWarningTitle, s.battleWarningPrompt);
+    }
+
+    static void drawSmsInfoOverlay(Graphics2D g, FontBitmap font, String title, String prompt) {
         VqsvUiLayout layout = VqsvUiLayout.load("smsInfo.ui");
         drawSourceWidgetFill(g, layout, 3, 9, 0xc6f1ff);
         drawSourceWidgetFill(g, layout, 1, 159, 0xbde4ef);
         drawSourceWidgetFill(g, layout, 2, 11, 0x82d0fb);
         drawSourceWidgetCell(g, layout, 4, false, false);
-        drawSmsInfoWrappedText(g, font, layout, 8, s.battleWarningTitle, SOURCE_UI_TEXT);
-        drawSmsInfoCenteredText(g, font, layout, 5, s.battleWarningPrompt, SOURCE_UI_TEXT);
+        drawSmsInfoWrappedText(g, font, layout, 8, title, SOURCE_UI_TEXT);
+        drawSmsInfoCenteredText(g, font, layout, 5, prompt, SOURCE_UI_TEXT);
         drawCenteredTinyText(g, font, "X\u00e1c nh\u1eadn", layout.x(10, 52), layout.y(10, 240),
                 Math.max(54, layout.w(10, 24)), Color.WHITE);
         drawCenteredTinyText(g, font, "Ph\u1ea3n h\u1ed3i", Math.max(130, layout.x(11, 167) - 36),
@@ -2102,7 +2134,8 @@ final class VqsvBattleRenderer {
         int h = widget == null ? 68 : Math.max(1, widget.h);
         Shape oldClip = g.getClip();
         g.clipRect(x, y - 1, w, h + 2);
-        String decoded = TextBox.decodeMojibake(text);
+        String decoded = String.format("#%06x%s", color.getRGB() & 0xffffff,
+                TextBox.decodeMojibake(text));
         font.drawTagged(g, decoded, x, y, w, TextBox.visibleLength(decoded));
         g.setClip(oldClip);
     }
@@ -2177,7 +2210,7 @@ final class VqsvBattleRenderer {
         ball.setState(Math.max(0, s.battleCatchPhase));
         ball.cursor = Math.max(0, s.battleCatchAnimCursor);
         if (s.battleCatchPhase == 3) {
-            int[] target = enemyCaptureBallPoint(s, ball);
+            int[] target = enemyCatchSuccessGroundPoint(s);
             drawCatchBallVisibleCenterAt(g, ball, target[0], target[1]);
         } else if (s.battleCatchPhase == 0) {
             int[] target = catchThrowPoint(s, ball);
@@ -2462,6 +2495,13 @@ final class VqsvBattleRenderer {
         int ballHeight = catchBallVisibleHeight(ball);
         int x = marker[0] + marker[2] / 2;
         int y = rect[1] - Math.max(3, ballHeight / 2) + 1;
+        return new int[]{x, y};
+    }
+
+    private static int[] enemyCatchSuccessGroundPoint(VqsvIntroDemo.Scene s) {
+        int[] marker = enemyGroundMarkerRect(s);
+        int x = marker[0] + marker[2] / 2;
+        int y = marker[1] + marker[3] / 2;
         return new int[]{x, y};
     }
 
