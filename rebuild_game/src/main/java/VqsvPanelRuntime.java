@@ -48,6 +48,7 @@ final class VqsvPanelRuntime {
     private static final int[] BAG_ROW_ICONS = {18, 23, 28, 33, 38};
     private static final int[] BAG_ROW_NAMES = {19, 24, 29, 34, 39};
     private static final int[] BAG_ROW_COUNTS = {20, 25, 30, 35, 40};
+    private static final int[] BAG_TAB_WIDGETS = {9, 10, 11, 12};
     private static final int[] BAG_EQUIP_ROW_BACKGROUNDS = {58, 63, 68, 73, 78};
     private static final int[] BAG_EQUIP_ROW_ICONS = {59, 64, 69, 74, 79};
     private static final int[] BAG_EQUIP_ROW_NAMES = {60, 65, 70, 75, 80};
@@ -138,6 +139,7 @@ final class VqsvPanelRuntime {
     private TaskOptionData taskOptionData = TaskOptionData.smokeDefault();
     private String taskSelectedLabelCache = "Nhi\u1ec7m v\u1ee5";
     private int recordSelected;
+    private int recordMessageMode;
     private int petmapTab;
     private int savePhase;
     private int helpPage;
@@ -156,6 +158,8 @@ final class VqsvPanelRuntime {
     private int shopConfirmQuantity = 1;
     private int shopConfirmTotal;
     private int shopConfirmCurrency;
+    private int shopTable = 4;
+    private byte shopBucket = 0;
     private int serviceProductId = -1;
     private String serviceConfirmTitle = "";
     private String serviceConfirmPrompt = "";
@@ -227,6 +231,12 @@ final class VqsvPanelRuntime {
                 + " source game.k P=0 key=131072 -> P=13 game.h.m gamesystem.ui open");
     }
 
+    void openSourceMaterialShopForSmoke(VqsvIntroDemo.Scene s) {
+        visible = true;
+        openPortableShopBuy(s, 3, (byte)2,
+                "SMOKE source actor type20/state32 -> game.k.a(3,(byte)2) shopbuy.ui");
+    }
+
     void close(VqsvIntroDemo.Scene s) {
         if (!visible) {
             return;
@@ -241,6 +251,17 @@ final class VqsvPanelRuntime {
             return;
         }
         openedTicks++;
+        if (s.text != null
+                && !(mode == Mode.BAG && bagMessageMode != 0)
+                && !(mode == Mode.RECORD && recordMessageMode != 0)) {
+            if (s.key0 || s.keyBack) {
+                if (s.text.confirm() || s.text.disposed) {
+                    s.text = null;
+                }
+            }
+            consumeKeys(s);
+            return;
+        }
         if (mode == Mode.SAVE) {
             tickSave(s);
             consumeKeys(s);
@@ -533,12 +554,16 @@ final class VqsvPanelRuntime {
         if (!visible) {
             return false;
         }
+        if (s.text != null) {
+            s.key0 = true;
+            return true;
+        }
         if (mode == Mode.SAVE) {
-            if (x <= 48 && y >= 288) {
+            if (leftSoftkeyHit(x, y)) {
                 s.key0 = true;
                 return true;
             }
-            if (x >= 188 && y >= 288) {
+            if (rightSoftkeyHit(x, y)) {
                 s.keyBack = true;
                 return true;
             }
@@ -546,6 +571,17 @@ final class VqsvPanelRuntime {
         }
         if (mode == Mode.BAG) {
             VqsvUiLayout layout = VqsvUiLayout.load("bag.ui");
+            int clickedTab = bagTabAt(layout, x, y);
+            if (clickedTab >= 0) {
+                int before = bagTab;
+                bagTab = clickedTab;
+                selected = 0;
+                listScroll = 0;
+                s.sourceStateTrace.add("PC_QOL panel bag.ui tab click"
+                        + " b=" + before + "->" + bagTab
+                        + " title=" + bagTabTitle(bagTab));
+                return true;
+            }
             int size = bagRows(s, bagTab).size();
             int start = visibleListStart(size);
             int[] rowBackgrounds = bagRowBackgrounds(bagTab);
@@ -558,11 +594,11 @@ final class VqsvPanelRuntime {
                     return true;
                 }
             }
-            if (x <= 48 && y >= 288) {
+            if (bagLeftSoftkeyHit(x, y) || leftSoftkeyHit(x, y)) {
                 s.key0 = true;
                 return true;
             }
-            if (x >= 188 && y >= 288) {
+            if (bagRightSoftkeyHit(x, y) || rightSoftkeyHit(x, y)) {
                 s.keyBack = true;
                 return true;
             }
@@ -593,11 +629,11 @@ final class VqsvPanelRuntime {
                     return true;
                 }
             }
-            if (x <= 48 && y >= 288) {
+            if (leftSoftkeyHit(x, y)) {
                 s.key0 = true;
                 return true;
             }
-            if (x >= 188 && y >= 288) {
+            if (rightSoftkeyHit(x, y)) {
                 s.keyBack = true;
                 return true;
             }
@@ -615,11 +651,11 @@ final class VqsvPanelRuntime {
                     return true;
                 }
             }
-            if (x <= 48 && y >= 288) {
+            if (leftSoftkeyHit(x, y)) {
                 s.key0 = true;
                 return true;
             }
-            if (x >= 188 && y >= 288) {
+            if (rightSoftkeyHit(x, y)) {
                 s.keyBack = true;
                 return true;
             }
@@ -636,7 +672,7 @@ final class VqsvPanelRuntime {
                 s.key0 = true;
                 return true;
             }
-            if (x >= 188 && y >= 288) {
+            if (rightSoftkeyHit(x, y)) {
                 s.keyBack = true;
                 return true;
             }
@@ -655,7 +691,7 @@ final class VqsvPanelRuntime {
                     return true;
                 }
             }
-            if (x >= 188 && y >= 288) {
+            if (rightSoftkeyHit(x, y)) {
                 s.keyBack = true;
                 return true;
             }
@@ -672,11 +708,55 @@ final class VqsvPanelRuntime {
                     return true;
                 }
             }
-            if (x <= 48 && y >= 288) {
+            if (leftSoftkeyHit(x, y)) {
                 s.key0 = true;
                 return true;
             }
-            if (x >= 188 && y >= 288) {
+            if (rightSoftkeyHit(x, y)) {
+                s.keyBack = true;
+                return true;
+            }
+            return true;
+        }
+        if (mode == Mode.HELP) {
+            VqsvUiLayout layout = VqsvUiLayout.load("help1.ui");
+            VqsvUiLayout.UiWidget back = layout.widget(6);
+            if (back != null && x >= back.x - 10 && x <= back.x + Math.max(48, back.w) + 12
+                    && y >= back.y - 8 && y <= back.y + 22) {
+                s.keyBack = true;
+                return true;
+            }
+            VqsvUiLayout.UiWidget prev = layout.widget(37);
+            if (prev != null && x >= prev.x - 12 && x <= prev.x + 24
+                    && y >= prev.y - 12 && y <= prev.y + 24) {
+                s.keyLeft = true;
+                return true;
+            }
+            VqsvUiLayout.UiWidget next = layout.widget(38);
+            if (next != null && x >= next.x - 12 && x <= next.x + 24
+                    && y >= next.y - 12 && y <= next.y + 24) {
+                s.keyRight = true;
+                return true;
+            }
+            if (rightSoftkeyHit(x, y)) {
+                s.keyBack = true;
+                return true;
+            }
+            return true;
+        }
+        if (mode == Mode.PORTABLE_SHOP_BUY) {
+            int size = portableShopItemCount();
+            int row = shopbuyRowAt(x, y);
+            if (row >= 0) {
+                selected = clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1));
+                s.key0 = true;
+                return true;
+            }
+            if (leftSoftkeyHit(x, y)) {
+                s.key0 = true;
+                return true;
+            }
+            if (rightSoftkeyHit(x, y)) {
                 s.keyBack = true;
                 return true;
             }
@@ -694,11 +774,49 @@ final class VqsvPanelRuntime {
                     return true;
                 }
             }
-            if (x <= 48 && y >= 288) {
+            if (leftSoftkeyHit(x, y)) {
                 s.key0 = true;
                 return true;
             }
-            if (x >= 188 && y >= 288) {
+            if (rightSoftkeyHit(x, y)) {
+                s.keyBack = true;
+                return true;
+            }
+            return true;
+        }
+        if (mode == Mode.PORTABLE_SHOP_CONFIRM) {
+            if (msgynQuantityLeftHit(x, y)) {
+                s.keyLeft = true;
+                return true;
+            }
+            if (msgynQuantityRightHit(x, y)) {
+                s.keyRight = true;
+                return true;
+            }
+            if (msgynConfirmHit(x, y)) {
+                s.key0 = true;
+                return true;
+            }
+            if (msgynCancelHit(x, y)) {
+                s.keyBack = true;
+                return true;
+            }
+            if (leftSoftkeyHit(x, y)) {
+                s.key0 = true;
+                return true;
+            }
+            if (rightSoftkeyHit(x, y)) {
+                s.keyBack = true;
+                return true;
+            }
+            return true;
+        }
+        if (mode == Mode.PORTABLE_SHOP_SERVICE_CONFIRM) {
+            if (x <= 100 && y >= 228) {
+                s.key0 = true;
+                return true;
+            }
+            if (x >= 140 && y >= 228) {
                 s.keyBack = true;
                 return true;
             }
@@ -715,15 +833,58 @@ final class VqsvPanelRuntime {
                 return true;
             }
         }
-        if (x <= 48 && y >= 288) {
+        if (leftSoftkeyHit(x, y)) {
             s.key0 = true;
             return true;
         }
-        if (x >= 188 && y >= 288) {
+        if (rightSoftkeyHit(x, y)) {
             s.keyBack = true;
             return true;
         }
         return true;
+    }
+
+    private static boolean leftSoftkeyHit(int x, int y) {
+        return x <= 90 && y >= 280;
+    }
+
+    private static boolean rightSoftkeyHit(int x, int y) {
+        return x >= 145 && y >= 280;
+    }
+
+    private static boolean bagLeftSoftkeyHit(int x, int y) {
+        return x >= 0 && x <= 78 && y >= 286;
+    }
+
+    private static boolean bagRightSoftkeyHit(int x, int y) {
+        return x >= 162 && x <= VqsvIntroDemo.W && y >= 286;
+    }
+
+    private static boolean msgynConfirmHit(int x, int y) {
+        return x >= 74 && x <= 160 && y >= 158 && y <= 184;
+    }
+
+    private static boolean msgynCancelHit(int x, int y) {
+        return x >= 74 && x <= 160 && y >= 184 && y <= 210;
+    }
+
+    private static boolean msgynQuantityLeftHit(int x, int y) {
+        return x >= 74 && x <= 115 && y >= 116 && y <= 154;
+    }
+
+    private static boolean msgynQuantityRightHit(int x, int y) {
+        return x >= 116 && x <= 160 && y >= 116 && y <= 154;
+    }
+
+    private static int bagTabAt(VqsvUiLayout layout, int x, int y) {
+        for (int i = 0; i < BAG_TAB_WIDGETS.length; i++) {
+            VqsvUiLayout.UiWidget tab = layout.widget(BAG_TAB_WIDGETS[i]);
+            if (tab != null && x >= tab.x - 6 && x <= tab.x + Math.max(32, tab.w) + 8
+                    && y >= tab.y - 6 && y <= tab.y + 30) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     boolean hover(VqsvIntroDemo.Scene s, int x, int y) {
@@ -734,7 +895,7 @@ final class VqsvPanelRuntime {
             int row = widgetRowAt("bag.ui", bagRowBackgrounds(bagTab), x, y, 136);
             if (row >= 0) {
                 int size = bagRows(s, bagTab).size();
-                selected = clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1));
+                selectFromHover(s, clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1)));
             }
             return true;
         }
@@ -742,14 +903,14 @@ final class VqsvPanelRuntime {
             int row = widgetRowAt("task.ui", TASK_ROW_BACKGROUNDS, x, y, 136);
             if (row >= 0) {
                 int size = taskRowsForRender(s, taskTab).size();
-                selected = clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1));
+                selectFromHover(s, clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1)));
             }
             return true;
         }
         if (mode == Mode.TASK_OPTION) {
             int row = widgetRowAt("taskOption.ui", new int[]{10, 11}, x, y, 84);
             if (row >= 0) {
-                selected = clamp(row, 0, Math.max(0, taskOptionData.options.length - 1));
+                selectFromHover(s, clamp(row, 0, Math.max(0, taskOptionData.options.length - 1)));
             }
             return true;
         }
@@ -757,7 +918,7 @@ final class VqsvPanelRuntime {
             int row = widgetRowAt("petmap.ui", PETMAP_ROW_BACKGROUNDS, x, y, 136);
             if (row >= 0) {
                 int size = petmapRowsForRender(s, petmapTab).size();
-                selected = clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1));
+                selectFromHover(s, clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1)));
             }
             return true;
         }
@@ -776,35 +937,28 @@ final class VqsvPanelRuntime {
         if (mode == Mode.TRANSMIT) {
             int row = widgetRowAt("transmit.ui", TRANSMIT_ROW_WIDGETS, x, y, 59);
             if (row >= 0) {
-                selected = clamp(visibleListStart(TRANSMIT_DESTINATIONS.length) + row,
-                        0, TRANSMIT_DESTINATIONS.length - 1);
+                selectFromHover(s, clamp(visibleListStart(TRANSMIT_DESTINATIONS.length) + row,
+                        0, TRANSMIT_DESTINATIONS.length - 1));
             }
             return true;
         }
         if (mode == Mode.PORTABLE_SHOP) {
             int row = widgetRowAt("bodyShop.ui", PORTABLE_SHOP_ROW_WIDGETS, x, y, 108);
             if (row >= 0) {
-                selected = clamp(row, 0, PORTABLE_SHOP_LABELS.length - 1);
+                selectFromHover(s, clamp(row, 0, PORTABLE_SHOP_LABELS.length - 1));
             }
             return true;
         }
         if (mode == Mode.PORTABLE_SHOP_BUY) {
-            int row = widgetRowAt("shopbuy.ui", SHOPBUY_ROW_BACKGROUNDS, x, y, 136);
+            int size = portableShopItemCount();
+            int row = shopbuyRowAt(x, y);
             if (row >= 0) {
-                int size = portableShopItemCount();
-                selected = clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1));
+                selectFromHover(s, clamp(visibleListStart(size) + row, 0, Math.max(0, size - 1)));
+                return true;
             }
             return true;
         }
         if (mode == Mode.PORTABLE_SHOP_CONFIRM) {
-            if (x >= 122 && x <= 158 && y >= 162 && y <= 183) {
-                s.key0 = true;
-                return true;
-            }
-            if (x >= 96 && x <= 158 && y >= 184 && y <= 207) {
-                s.keyBack = true;
-                return true;
-            }
             return true;
         }
         if (mode == Mode.PORTABLE_SHOP_SERVICE_CONFIRM) {
@@ -820,9 +974,23 @@ final class VqsvPanelRuntime {
         }
         int row = widgetRowAt(uiName(), rowWidgets(), x, y, 59);
         if (row >= 0) {
-            selected = clamp(row, 0, labels().length - 1);
+            selectFromHover(s, clamp(row, 0, labels().length - 1));
         }
         return true;
+    }
+
+    private void selectFromHover(VqsvIntroDemo.Scene s, int newSelected) {
+        int before = selected;
+        selected = newSelected;
+        if (selected != before) {
+            openedTicks = 0;
+            if (mode == Mode.TASK) {
+                updateTaskSelectedLabel(s);
+            }
+            s.sourceStateTrace.add("PC_QOL panel hover preview"
+                    + " mode=" + mode
+                    + " selected=" + selected);
+        }
     }
 
     private static int widgetRowAt(String uiName, int[] rowWidgets, int x, int y, int fallbackWidth) {
@@ -831,6 +999,18 @@ final class VqsvPanelRuntime {
             VqsvUiLayout.UiWidget row = layout.widget(rowWidgets[i]);
             if (row != null && x >= row.x - 4 && x <= row.x + Math.max(fallbackWidth, row.w) + 12
                     && y >= row.y - 2 && y <= row.y + 14) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static int shopbuyRowAt(int x, int y) {
+        VqsvUiLayout layout = VqsvUiLayout.load("shopbuy.ui");
+        for (int i = 0; i < SHOPBUY_ROW_BACKGROUNDS.length; i++) {
+            VqsvUiLayout.UiWidget row = layout.widget(SHOPBUY_ROW_BACKGROUNDS[i]);
+            if (row != null && x >= row.x - 8 && x <= row.x + 146
+                    && y >= row.y - 5 && y <= row.y + 23) {
                 return i;
             }
         }
@@ -861,7 +1041,7 @@ final class VqsvPanelRuntime {
             return "T\u00f9y ch\u1ecdn " + settingsLevel + "/3";
         }
         if (mode == Mode.OPTION_CONFIRM) {
-            return selected == 1 ? "Kh\u00f4ng" : "PENDING reset";
+            return selected == 1 ? "Kh\u00f4ng" : "C\u00f3";
         }
         if (mode == Mode.RIDE) {
             return RIDE_LABELS[rideSelected];
@@ -873,12 +1053,12 @@ final class VqsvPanelRuntime {
             return PORTABLE_SHOP_LABELS[selected];
         }
         if (mode == Mode.PORTABLE_SHOP_BUY) {
-            BattleItemRow row = VqsvBattleTables.instance().item(selected);
-            return row == null ? "Mua" : row.name("Item " + selected);
+            SourceItem row = portableShopSourceItem(selected);
+            return row == null ? "Mua" : row.name;
         }
         if (mode == Mode.PORTABLE_SHOP_CONFIRM) {
-            BattleItemRow row = VqsvBattleTables.instance().item(shopConfirmItemId);
-            return row == null ? "X\u00e1c nh\u1eadn" : row.name("Item " + shopConfirmItemId)
+            SourceItem row = portableShopSourceItem(shopConfirmItemId);
+            return row == null ? "X\u00e1c nh\u1eadn" : row.name
                     + " * " + shopConfirmQuantity;
         }
         if (mode == Mode.PORTABLE_SHOP_SERVICE_CONFIRM) {
@@ -926,6 +1106,7 @@ final class VqsvPanelRuntime {
                 mode = Mode.RECORD;
                 selected = 0;
                 recordSelected = 0;
+                recordMessageMode = 0;
                 openedTicks = 0;
                 s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.l confirm selected=3"
                         + " c=0 o.a(9) -> game.h.N record.ui open");
@@ -989,7 +1170,7 @@ final class VqsvPanelRuntime {
             selected = 1;
             openedTicks = 0;
             s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.n confirm selected=3"
-                    + " f=0 open option.ui c=1 widget12='' widget13=Khong");
+                    + " f=0 open option.ui c=1 widget12=Co widget13=Khong");
             return;
         }
         s.sourceStateTrace.add("PENDING panel game.h.n confirm selected=" + selected
@@ -1558,6 +1739,20 @@ final class VqsvPanelRuntime {
     }
 
     private void tickRecord(VqsvIntroDemo.Scene s) {
+        if (recordMessageMode != 0) {
+            if (s.text != null && s.text.readyForKey && s.key0) {
+                s.text.confirm();
+                if (s.text.disposed) {
+                    s.text = null;
+                    int closedMode = recordMessageMode;
+                    recordMessageMode = 0;
+                    s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.O record msgwarm"
+                            + " key=196640 close msgwarm.ui f=" + closedMode + "->0"
+                            + " stay record.ui selected=" + recordSelected);
+                }
+            }
+            return;
+        }
         if (s.keyLeft) {
             if (recordSelected != 0) {
                 recordSelected = 0;
@@ -1576,6 +1771,15 @@ final class VqsvPanelRuntime {
                     + " b=3 o.a(6) close record.ui -> gamemenu.ui selected=3");
         } else if (s.key0) {
             if (recordSelected == 0) {
+                if (VqsvSourceOps.sourceItemCount(s, 5) <= 0) {
+                    s.text = TextBox.msgWarm("Kh\u00f4ng \u0111\u1ea1t \u0111\u01b0\u1ee3c s\u1ee7ng v\u1eadt s\u00e1ch tranh \u0111\u1ea1o c\u1ee5",
+                            VqsvText.Evolution.CONTINUE_PROMPT_5);
+                    recordMessageMode = 1;
+                    s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.O confirm c=0"
+                            + " game.j.p().l(5)=false -> msgwarm.ui f=1"
+                            + " stay record.ui selected=0");
+                    return;
+                }
                 mode = Mode.PETMAP;
                 selected = 0;
                 petmapTab = 0;
@@ -1620,6 +1824,7 @@ final class VqsvPanelRuntime {
             mode = Mode.RECORD;
             selected = 0;
             recordSelected = 1;
+            recordMessageMode = 0;
             openedTicks = 0;
             s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.X back"
                     + " close badge.ui -> P=9 record.ui selected=1");
@@ -1675,6 +1880,7 @@ final class VqsvPanelRuntime {
             mode = Mode.RECORD;
             selected = 0;
             recordSelected = 0;
+            recordMessageMode = 0;
             openedTicks = 0;
             s.sourceStateTrace.add("PORTED/PARTIAL panel game.h.Q back"
                     + " close petmap.ui -> P=9 record.ui selected=0");
@@ -1937,6 +2143,7 @@ final class VqsvPanelRuntime {
                 color(layout.widget(6), 0xffffff));
         drawText(g, font, layout, 39, (helpPage + 1) + "/3",
                 color(layout.widget(39), 0x1c6c91));
+        drawHelpPageArrows(g, font, layout, ui);
         if (helpPage == 0) {
             drawMultilineText(g, font, layout, 8,
                     "Nh\u1ea5n n\u00fat 2, 4, 6, 8 \u0111\u1ec3 di chuy\u1ec3n"
@@ -1962,6 +2169,15 @@ final class VqsvPanelRuntime {
             }
             drawTextWide(g, font, layout, textWidget, helpEffectText(entry), 0, 44,
                     color(layout.widget(textWidget), 0x1c6c91));
+        }
+    }
+
+    private void drawHelpPageArrows(Graphics2D g, FontBitmap font, VqsvUiLayout layout, SpriteAnim ui) {
+        if (helpPage > 0) {
+            drawCell(layout, ui, g, 37);
+        }
+        if (helpPage < 2) {
+            drawCell(layout, ui, g, 38);
         }
     }
 
@@ -1993,7 +2209,7 @@ final class VqsvPanelRuntime {
     private void renderOptionConfirm(Graphics2D g, FontBitmap font) {
         VqsvUiLayout layout = VqsvUiLayout.load("option.ui");
         SpriteAnim ui = SpriteAnim.load(257);
-        drawOptionRow(g, font, layout, ui, 0, 10, 12, 8, "");
+        drawOptionRow(g, font, layout, ui, 0, 10, 12, 8, "C\u00f3");
         drawOptionRow(g, font, layout, ui, 1, 11, 13, 9, "Kh\u00f4ng");
     }
 
@@ -2015,10 +2231,10 @@ final class VqsvPanelRuntime {
         drawBagFrame(g, layout, ui);
         drawText(g, font, layout, 5, layout.text(5, "Lung bao"),
                 color(layout.widget(5), 0xd0010e));
-        drawText(g, font, layout, 6, layout.text(6, "Roi di"),
-                color(layout.widget(6), 0xffffff));
-        drawText(g, font, layout, 7, bagActionLabel(s),
-                color(layout.widget(7), 0xffffff));
+        drawBagBottomActionText(g, font, layout, ui, 6, "Rời đi",
+                color(layout.widget(6), 0xffffff), false);
+        drawBagBottomActionText(g, font, layout, ui, 7, bagActionLabel(s),
+                color(layout.widget(7), 0xffffff), true);
         drawText(g, font, layout, 9, layout.text(9, "Tieu hao"),
                 bagTab == 0 ? colorSelected(layout.widget(9)) : color(layout.widget(9), 0x00009a));
         drawText(g, font, layout, 10, layout.text(10, "Trang suc"),
@@ -2079,8 +2295,9 @@ final class VqsvPanelRuntime {
             description = rows.get(clamp(selected, 0, rows.size() - 1)).item.description;
         }
         int descriptionWidget = bagDescriptionWidget(bagTab);
-        drawText(g, font, layout, descriptionWidget, description,
-                color(layout.widget(descriptionWidget), 0xd0010e));
+        drawWrappedTextBoxScrolled(g, font, layout, descriptionWidget, description,
+                layout.w(descriptionWidget, 125), 48,
+                color(layout.widget(descriptionWidget), 0xd0010e), openedTicks);
         drawBagScrollbar(g, layout, rows.size(), first, selected, bagTab);
     }
 
@@ -2166,28 +2383,28 @@ final class VqsvPanelRuntime {
             if (rowIndex >= size) {
                 continue;
             }
-            BattleItemRow row = VqsvBattleTables.instance().item(rowIndex);
+            SourceItem row = portableShopSourceItem(rowIndex);
             if (row == null) {
                 continue;
             }
-            drawCellTopLeft(itemIcons, g, row.iconId,
+            drawCellTopLeft(itemIcons, g, row.iconCell,
                     layout.x(SHOPBUY_ROW_ICONS[i], 56),
                     layout.y(SHOPBUY_ROW_ICONS[i], 100 + i * 18));
             int rowColor = rowIndex == selected ? 0xffa500 : color(layout.widget(SHOPBUY_ROW_NAMES[i]), 0x1c6c91);
-            drawTextMarquee(g, font, layout, SHOPBUY_ROW_NAMES[i], row.name("Item " + rowIndex),
+            drawTextMarquee(g, font, layout, SHOPBUY_ROW_NAMES[i], row.name,
                     layout.w(SHOPBUY_ROW_NAMES[i], 48), rowColor, openedTicks);
             drawTextWide(g, font, layout, SHOPBUY_ROW_PRICES[i],
-                    String.valueOf(portableShopPrice(row)), 0,
+                    String.valueOf(portableShopPrice(rowIndex)), 0,
                     layout.w(SHOPBUY_ROW_PRICES[i], 36), rowColor);
-            drawCellTopLeft(ui, g, shopCurrencyCell(row.currencyOrType),
+            drawCellTopLeft(ui, g, shopCurrencyCell(portableShopCurrency(rowIndex)),
                     layout.x(SHOPBUY_ROW_CURRENCIES[i], 170),
                     layout.y(SHOPBUY_ROW_CURRENCIES[i], 101 + i * 18));
         }
 
-        BattleItemRow selectedRow = VqsvBattleTables.instance().item(selected);
-        String description = selectedRow == null ? "" : selectedRow.description("");
-        drawTextMarquee(g, font, layout, 56, description,
-                layout.w(56, 125), color(layout.widget(56), 0x1c6c91), openedTicks);
+        SourceItem selectedRow = portableShopSourceItem(selected);
+        String description = selectedRow == null ? "" : selectedRow.description;
+        drawWrappedTextBoxScrolled(g, font, layout, 56, description,
+                layout.w(56, 125), 44, color(layout.widget(56), 0x1c6c91), openedTicks);
         drawCell(layout, ui, g, 41);
         drawCell(layout, ui, g, 42);
         drawText(g, font, layout, 43, String.valueOf(s.sourceBadges),
@@ -2285,12 +2502,9 @@ final class VqsvPanelRuntime {
             return;
         } else if (s.key0) {
             if (selected == 0) {
-                mode = Mode.PORTABLE_SHOP_BUY;
-                selected = 0;
-                listScroll = 0;
-                openedTicks = 0;
-                s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.aD bodyShop.ui confirm c=0"
-                        + " -> P=26 game.k.a(4,0) shopbuy.ui rows=" + portableShopItemCount());
+                openPortableShopBuy(s, 4, (byte)0,
+                        "PORTED/PARTIAL panel game.k.aD bodyShop.ui confirm c=0"
+                                + " -> P=26 game.k.a(4,0) shopbuy.ui");
                 return;
             }
             if (selected == 1) {
@@ -2326,7 +2540,8 @@ final class VqsvPanelRuntime {
             selected = clamp(selected - 1, 0, Math.max(0, size - 1));
             keepSelectedVisible(size);
             if (selected != before) {
-                s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(byte4,0) shopbuy.ui key=4100"
+                s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(" + sourceShopTraceContext()
+                        + ") shopbuy.ui key=4100"
                         + " selected=" + selected);
             }
         } else if (s.keyDown) {
@@ -2334,7 +2549,8 @@ final class VqsvPanelRuntime {
             selected = clamp(selected + 1, 0, Math.max(0, size - 1));
             keepSelectedVisible(size);
             if (selected != before) {
-                s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(byte4,0) shopbuy.ui key=8448"
+                s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(" + sourceShopTraceContext()
+                        + ") shopbuy.ui key=8448"
                         + " selected=" + selected);
             }
         } else if (s.keyBack) {
@@ -2342,7 +2558,8 @@ final class VqsvPanelRuntime {
             selected = 0;
             listScroll = 0;
             openedTicks = 0;
-            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(byte4,0) shopbuy.ui back"
+            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(" + sourceShopTraceContext()
+                    + ") shopbuy.ui back"
                     + " -> P=14 bodyShop.ui");
         } else if (s.key0) {
             openPortableShopConfirm(s);
@@ -2350,7 +2567,7 @@ final class VqsvPanelRuntime {
     }
 
     private void tickPortableShopConfirm(VqsvIntroDemo.Scene s) {
-        BattleItemRow row = VqsvBattleTables.instance().item(shopConfirmItemId);
+        SourceItem row = portableShopSourceItem(shopConfirmItemId);
         if (row == null) {
             closePortableShopConfirm(s, "missing row");
             return;
@@ -2362,7 +2579,8 @@ final class VqsvPanelRuntime {
                 shopConfirmQuantity = Math.max(1, maxQty);
             }
             syncPortableShopConfirm(s);
-            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(byte4,0) msgyn.ui key=16400"
+            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(" + sourceShopTraceContext()
+                    + ") msgyn.ui key=16400"
                     + " item=" + shopConfirmItemId
                     + " qty=" + shopConfirmQuantity
                     + " total=" + shopConfirmTotal);
@@ -2374,7 +2592,8 @@ final class VqsvPanelRuntime {
                 shopConfirmQuantity = 1;
             }
             syncPortableShopConfirm(s);
-            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(byte4,0) msgyn.ui key=32832"
+            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(" + sourceShopTraceContext()
+                    + ") msgyn.ui key=32832"
                     + " item=" + shopConfirmItemId
                     + " qty=" + shopConfirmQuantity
                     + " total=" + shopConfirmTotal);
@@ -2752,7 +2971,7 @@ final class VqsvPanelRuntime {
             }
         }
         VqsvUiLayout.UiWidget icon = layout.widget(iconWidget);
-        if (icon != null && icon.imageId >= 0) {
+        if (row == selected && icon != null && icon.imageId >= 0) {
             drawCellTopLeft(ui, g, icon.imageId, icon.x, icon.y);
         }
         drawText(g, font, layout, textWidget, text, row == selected
@@ -3177,6 +3396,28 @@ final class VqsvPanelRuntime {
         g.setClip(oldClip);
     }
 
+    private static void drawBagBottomActionText(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
+                                                SpriteAnim ui, int widgetId, String text, int color, boolean left) {
+        VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
+        if (widget == null || text == null || text.isEmpty()) {
+            return;
+        }
+        String decoded = TextBox.decodeMojibake(text);
+        int cell = widget.altId >= 0 ? widget.altId : widget.imageId;
+        int[] bounds = ui == null || cell < 0 ? null : ui.cellBounds(cell);
+        int x = widget.x;
+        int width = bounds == null ? Math.max(1, layout.w(widgetId, 43)) : bounds[2];
+        int height = bounds == null ? Math.max(14, layout.h(widgetId, 22)) : bounds[3];
+        int y = widget.y + Math.max(0, (height - font.height) / 2) + 1;
+        Shape oldClip = g.getClip();
+        g.clipRect(x, widget.y, width, Math.max(12, height));
+        int textWidth = font.taggedWidth(decoded);
+        int drawX = x + Math.max(0, (width - textWidth) / 2);
+        font.drawTaggedLine(g, decoded, drawX, y,
+                TextBox.visibleLength(decoded), color);
+        g.setClip(oldClip);
+    }
+
     private static void drawSoftkey(Graphics2D g, FontBitmap font, VqsvUiLayout layout,
                                     SpriteAnim ui, int widgetId, String text, int fallbackColor) {
         VqsvUiLayout.UiWidget widget = layout.widget(widgetId);
@@ -3313,7 +3554,7 @@ final class VqsvPanelRuntime {
             return "";
         }
         if (bagTab != 3) {
-            return "Su dung";
+            return "Sử dụng";
         }
         List<BagRow> rows = bagRows(s, bagTab);
         if (rows.isEmpty()) {
@@ -3376,10 +3617,10 @@ final class VqsvPanelRuntime {
             return "game.k.aD";
         }
         if (mode == Mode.PORTABLE_SHOP_BUY) {
-            return "game.k.a(byte4,0)";
+            return "game.k.a(" + sourceShopTraceContext() + ")";
         }
         if (mode == Mode.PORTABLE_SHOP_CONFIRM) {
-            return "game.k.a(byte4,0).msgyn";
+            return "game.k.a(" + sourceShopTraceContext() + ").msgyn";
         }
         if (mode == Mode.PORTABLE_SHOP_SERVICE_CONFIRM) {
             return "game.k.aD.product" + serviceProductId + ".smsInfo";
@@ -3509,7 +3750,7 @@ final class VqsvPanelRuntime {
             return new String[]{"T\u00f9y ch\u1ecdn"};
         }
         if (mode == Mode.OPTION_CONFIRM) {
-            return new String[]{"", "Kh\u00f4ng"};
+            return new String[]{"C\u00f3", "Kh\u00f4ng"};
         }
         if (mode == Mode.RIDE) {
             return RIDE_LABELS;
@@ -3604,10 +3845,10 @@ final class VqsvPanelRuntime {
             return "game.k.aD close bodyShop.ui -> P=6";
         }
         if (mode == Mode.PORTABLE_SHOP_BUY) {
-            return "game.k.a(byte4,0) close shopbuy.ui -> P=14";
+            return "game.k.a(" + sourceShopTraceContext() + ") close shopbuy.ui -> P=14";
         }
         if (mode == Mode.PORTABLE_SHOP_CONFIRM) {
-            return "game.k.a(byte4,0) close msgyn.ui -> shopbuy.ui";
+            return "game.k.a(" + sourceShopTraceContext() + ") close msgyn.ui -> shopbuy.ui";
         }
         if (mode == Mode.PORTABLE_SHOP_SERVICE_CONFIRM) {
             return "game.k.aD close smsInfo.ui -> bodyShop.ui";
@@ -3654,20 +3895,81 @@ final class VqsvPanelRuntime {
         return 0;
     }
 
-    private static int portableShopItemCount() {
-        VqsvBattleTables tables = VqsvBattleTables.instance();
+    private void openPortableShopBuy(VqsvIntroDemo.Scene s, int table, byte bucket, String sourceTrace) {
+        shopTable = table;
+        shopBucket = bucket;
+        mode = Mode.PORTABLE_SHOP_BUY;
+        selected = 0;
+        listScroll = 0;
+        openedTicks = 0;
+        s.sourceStateTrace.add(sourceTrace
+                + " rows=" + portableShopItemCount()
+                + " table=" + shopTable
+                + " bucket=" + shopBucket);
+    }
+
+    private int portableShopItemCount() {
         int count = 0;
-        while (tables.item(count) != null) {
+        while (portableShopSourceItem(count) != null) {
             count++;
         }
         return count;
     }
 
-    private static int portableShopPrice(BattleItemRow row) {
-        if (row == null) {
+    private String sourceShopTraceContext() {
+        if (shopTable == 4 && shopBucket == 0) {
+            return "byte4,0";
+        }
+        if (shopTable == 3 && shopBucket == 2) {
+            return "3,2";
+        }
+        return shopTable + "," + shopBucket;
+    }
+
+    private SourceItem portableShopSourceItem(int itemId) {
+        if (itemId < 0) {
+            return null;
+        }
+        if (shopTable == 3 && shopBucket == 2) {
+            return VqsvBattleTables.instance().heldItem(itemId) == null
+                    ? null
+                    : VqsvSourceOps.sourceMaterialItem(itemId);
+        }
+        if (shopTable == 4 && shopBucket == 0) {
+            BattleItemRow row = VqsvBattleTables.instance().item(itemId);
+            return row == null ? null : VqsvSourceOps.sourceItem(itemId);
+        }
+        return null;
+    }
+
+    private int portableShopOriginalPrice(int itemId) {
+        short[] row = VqsvBattleTables.instance().row(shopTable, itemId);
+        if (row == null || row.length <= 3) {
             return 0;
         }
-        return row.currencyOrType == 0 ? row.priceOrValue * 3 / 2 : row.priceOrValue;
+        int sourcePrice = row[3];
+        int currency = portableShopCurrency(itemId);
+        if (shopTable == 4 && shopBucket == 0 && currency == 0) {
+            return sourcePrice * 3 / 2;
+        }
+        return sourcePrice;
+    }
+
+    private int portableShopPrice(int itemId) {
+        if (portableShopSourceItem(itemId) == null) {
+            return 0;
+        }
+        // PC rebuild policy: all bodyShop/shopbuy purchases are free after SMS removal.
+        // Original source-derived display price is preserved by portableShopOriginalPrice().
+        return 0;
+    }
+
+    private int portableShopCurrency(int itemId) {
+        short[] row = VqsvBattleTables.instance().row(shopTable, itemId);
+        if (row == null || row.length <= 4) {
+            return 0;
+        }
+        return row[4];
     }
 
     private static int shopCurrencyCell(int currency) {
@@ -3681,15 +3983,16 @@ final class VqsvPanelRuntime {
     }
 
     private void openPortableShopConfirm(VqsvIntroDemo.Scene s) {
-        BattleItemRow row = VqsvBattleTables.instance().item(selected);
+        SourceItem row = portableShopSourceItem(selected);
         if (row == null) {
             s.text = TextBox.msgWarm(VqsvText.Battle.NO_SHOP_ITEMS, VqsvText.Evolution.CONTINUE_PROMPT_5);
             return;
         }
-        int count = VqsvSourceOps.sourceItemCount(s, selected);
+        int count = portableShopCurrentCount(s, selected);
         if (count >= 99) {
             s.text = TextBox.msgWarm(VqsvText.Battle.SHOP_ITEM_FULL, VqsvText.Evolution.CONTINUE_PROMPT_5);
-            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(byte4,0) shop full"
+            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a("
+                    + sourceShopTraceContext() + ") shop full"
                     + " item=" + selected + " count=" + count);
             return;
         }
@@ -3698,7 +4001,8 @@ final class VqsvPanelRuntime {
         syncPortableShopConfirm(s);
         mode = Mode.PORTABLE_SHOP_CONFIRM;
         openedTicks = 0;
-        s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(byte4,0) open msgyn.ui"
+        s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a("
+                + sourceShopTraceContext() + ") open msgyn.ui"
                 + " item=" + shopConfirmItemId
                 + " qty=" + shopConfirmQuantity
                 + " total=" + shopConfirmTotal
@@ -3712,31 +4016,38 @@ final class VqsvPanelRuntime {
         shopConfirmTotal = 0;
         shopConfirmCurrency = 0;
         openedTicks = 0;
-        s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a(byte4,0) close msgyn.ui"
+        s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.a("
+                + sourceShopTraceContext() + ") close msgyn.ui"
                 + " return shopbuy.ui reason=" + reason);
     }
 
     private void syncPortableShopConfirm(VqsvIntroDemo.Scene s) {
         int maxQty = portableShopMaxQuantity(s, shopConfirmItemId);
-        BattleItemRow row = VqsvBattleTables.instance().item(shopConfirmItemId);
         shopConfirmQuantity = Math.max(1, Math.min(shopConfirmQuantity, Math.max(1, maxQty)));
-        shopConfirmCurrency = row == null ? 0 : row.currencyOrType;
-        shopConfirmTotal = portableShopConfirmTotal(row, shopConfirmQuantity);
+        shopConfirmCurrency = portableShopCurrency(shopConfirmItemId);
+        shopConfirmTotal = portableShopConfirmTotal(shopConfirmItemId, shopConfirmQuantity);
     }
 
-    private static int portableShopMaxQuantity(VqsvIntroDemo.Scene s, int itemId) {
-        return Math.max(0, 99 - VqsvSourceOps.sourceItemCount(s, itemId));
+    private int portableShopCurrentCount(VqsvIntroDemo.Scene s, int itemId) {
+        if (shopTable == 3 && shopBucket == 2) {
+            return VqsvSourceOps.sourceMaterialCount(s, itemId);
+        }
+        return VqsvSourceOps.sourceItemCount(s, itemId);
     }
 
-    private static int portableShopConfirmTotal(BattleItemRow row, int qty) {
-        if (row == null || row.currencyOrType == 2) {
+    private int portableShopMaxQuantity(VqsvIntroDemo.Scene s, int itemId) {
+        return Math.max(0, 99 - portableShopCurrentCount(s, itemId));
+    }
+
+    private int portableShopConfirmTotal(int itemId, int qty) {
+        if (portableShopSourceItem(itemId) == null || portableShopCurrency(itemId) == 2) {
             return 0;
         }
-        return portableShopPrice(row) * Math.max(1, qty);
+        return portableShopPrice(itemId) * Math.max(1, qty);
     }
 
     private void commitPortableShopItem(VqsvIntroDemo.Scene s) {
-        BattleItemRow row = VqsvBattleTables.instance().item(shopConfirmItemId);
+        SourceItem row = portableShopSourceItem(shopConfirmItemId);
         if (row == null) {
             s.text = TextBox.msgWarm(VqsvText.Battle.NO_SHOP_ITEMS, VqsvText.Evolution.CONTINUE_PROMPT_5);
             closePortableShopConfirm(s, "missing row on commit");
@@ -3744,55 +4055,45 @@ final class VqsvPanelRuntime {
         }
         int maxQty = portableShopMaxQuantity(s, shopConfirmItemId);
         int qty = Math.max(1, Math.min(shopConfirmQuantity, Math.max(1, maxQty)));
-        int total = portableShopConfirmTotal(row, qty);
+        int total = portableShopConfirmTotal(shopConfirmItemId, qty);
         if (maxQty <= 0) {
             s.text = TextBox.msgWarm(VqsvText.Battle.SHOP_ITEM_FULL, VqsvText.Evolution.CONTINUE_PROMPT_5);
             closePortableShopConfirm(s, "full on commit");
             return;
         }
-        if (row.currencyOrType == 0 && s.sourceMoney < total) {
-            s.text = TextBox.msgWarm("Kim ti\u1ec1n ch\u01b0a \u0111\u1ee7", VqsvText.Evolution.CONTINUE_PROMPT_5);
-            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.b(byte4,0) shop not-enough money"
-                    + " item=" + shopConfirmItemId + " qty=" + qty
-                    + " total=" + total + " money=" + s.sourceMoney);
-            closePortableShopConfirm(s, "not enough money");
-            return;
+        int storedQty = shopTable == 3 && shopBucket == 2 && shopConfirmItemId == 17 ? qty * 5 : qty;
+        if (shopTable == 3 && shopBucket == 2) {
+            VqsvSourceOps.sourceAddMaterial(s, shopConfirmItemId, storedQty);
+        } else {
+            VqsvSourceOps.sourceAddItem(s, shopConfirmItemId, qty);
         }
-        if (row.currencyOrType == 1 && s.sourceBadges < total) {
-            s.text = TextBox.msgWarm("S\u1ed1 l\u01b0\u1ee3ng Huy hi\u1ec7u ch\u01b0a \u0111\u1ee7",
-                    VqsvText.Evolution.CONTINUE_PROMPT_5);
-            s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.b(byte4,0) shop not-enough badge"
-                    + " item=" + shopConfirmItemId + " qty=" + qty
-                    + " total=" + total + " badges=" + s.sourceBadges);
-            closePortableShopConfirm(s, "not enough badge");
-            return;
-        }
-        if (row.currencyOrType == 0) {
-            s.sourceMoney -= total;
-        } else if (row.currencyOrType == 1) {
-            s.sourceBadges -= total;
-        }
-        VqsvSourceOps.sourceAddItem(s, shopConfirmItemId, qty);
         s.text = TextBox.msgWarm(VqsvText.Battle.SHOP_BUY_SUCCESS_PREFIX
-                + row.name("Item " + shopConfirmItemId)
+                + row.name
                 + VqsvText.Battle.SHOP_BUY_SUCCESS_MIDDLE
-                + qty, VqsvText.Evolution.CONTINUE_PROMPT_5);
-        s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.b(byte4,0) shop buy"
+                + storedQty, VqsvText.Evolution.CONTINUE_PROMPT_5);
+        s.sourceStateTrace.add("PORTED/PARTIAL panel game.k.b("
+                + sourceShopTraceContext() + ") shop buy"
                 + " item=" + shopConfirmItemId
                 + " qty=" + qty
+                + " storedQty=" + storedQty
                 + " total=" + total
-                + " currency=" + row.currencyOrType
+                + " currency=" + portableShopCurrency(shopConfirmItemId)
+                + " originalPrice=" + portableShopOriginalPrice(shopConfirmItemId)
                 + " money=" + s.sourceMoney
                 + " badges=" + s.sourceBadges
-                + " count=" + VqsvSourceOps.sourceItemCount(s, shopConfirmItemId)
-                + (row.currencyOrType == 2 ? " SMS_FREE" : ""));
+                + " count=" + portableShopCurrentCount(s, shopConfirmItemId)
+                + " table=" + shopTable
+                + " bucket=" + shopBucket
+                + " PC_FREE_ALL");
         closePortableShopConfirm(s, "success");
     }
 
     private static List<BagRow> bagRows(VqsvIntroDemo.Scene s, int bagTab) {
         List<BagRow> rows = new ArrayList<>();
         if (bagTab == 3) {
-            rows.add(sourceEggSpecialRow(s));
+            if (s.sourceEggActive) {
+                rows.add(sourceEggSpecialRow(s));
+            }
             for (SourceSpecialReward reward : s.sourceSpecialRewards.values()) {
                 if (reward.id == 0 || !sourceSpecialVisible(reward)) {
                     continue;
@@ -4294,7 +4595,8 @@ final class VqsvPanelRuntime {
     }
 
     private static boolean sourceBadgeAchieved(VqsvIntroDemo.Scene s, int badgeId) {
-        return s != null && badgeId >= 0 && badgeId < Math.max(0, s.sourceBadges);
+        return s != null && badgeId >= 0 && badgeId < s.sourceBadgeAchieved.length
+                && s.sourceBadgeAchieved[badgeId] > 0;
     }
 
     private static String badgeName(int badgeId) {

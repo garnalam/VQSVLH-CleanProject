@@ -6481,11 +6481,7 @@ final class SourceBattleRuntime implements Blocking {
     }
 
     private static int sourceEvolutionMaterialCount(VqsvIntroDemo.Scene s, int materialId) {
-        if (materialId < 0) {
-            return 0;
-        }
-        SourceSpecialReward reward = s.sourceSpecialRewards.get(materialId);
-        return reward == null ? 0 : Math.max(0, reward.stackCount);
+        return VqsvSourceEvolutionRuntime.materialCount(s, materialId);
     }
 
     private VqsvBattleLevelUpView levelUpView(VqsvIntroDemo.Scene s, BattleUnit unit, boolean leveled) {

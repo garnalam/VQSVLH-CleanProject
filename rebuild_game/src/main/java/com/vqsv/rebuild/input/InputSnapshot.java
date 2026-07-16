@@ -7,19 +7,28 @@ public final class InputSnapshot {
     private final Set<Integer> down;
     private final Set<Integer> pressed;
     private final boolean pointerPressed;
+    private final boolean pointerMoved;
     private final int pointerX;
     private final int pointerY;
+    private final int wheelRotation;
 
     public InputSnapshot(Set<Integer> down, Set<Integer> pressed) {
-        this(down, pressed, false, -1, -1);
+        this(down, pressed, false, false, -1, -1, 0);
     }
 
     public InputSnapshot(Set<Integer> down, Set<Integer> pressed, boolean pointerPressed, int pointerX, int pointerY) {
+        this(down, pressed, pointerPressed, false, pointerX, pointerY, 0);
+    }
+
+    public InputSnapshot(Set<Integer> down, Set<Integer> pressed, boolean pointerPressed,
+                         boolean pointerMoved, int pointerX, int pointerY, int wheelRotation) {
         this.down = Set.copyOf(down);
         this.pressed = Set.copyOf(pressed);
         this.pointerPressed = pointerPressed;
+        this.pointerMoved = pointerMoved;
         this.pointerX = pointerX;
         this.pointerY = pointerY;
+        this.wheelRotation = wheelRotation;
     }
 
     public boolean isDown(int keyCode) {
@@ -52,11 +61,19 @@ public final class InputSnapshot {
         return pointerPressed;
     }
 
+    public boolean pointerMoved() {
+        return pointerMoved;
+    }
+
     public int pointerX() {
         return pointerX;
     }
 
     public int pointerY() {
         return pointerY;
+    }
+
+    public int wheelRotation() {
+        return wheelRotation;
     }
 }

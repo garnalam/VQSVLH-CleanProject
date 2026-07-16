@@ -71,16 +71,24 @@ final class VqsvSourceEvolutionRuntime {
         if (materialId < 0) {
             return 0;
         }
-        SourceSpecialReward reward = s.sourceSpecialRewards.get(materialId);
-        return reward == null ? 0 : Math.max(0, reward.stackCount);
+        for (SourceMaterialItem material : s.sourceMaterialItems) {
+            if (material.id == materialId) {
+                return Math.max(0, material.count);
+            }
+        }
+        return 0;
     }
 
     static void consumeMaterial(VqsvIntroDemo.Scene s, int materialId, int amount) {
         if (materialId < 0 || amount <= 0) {
             return;
         }
-        SourceSpecialReward reward = s.sourceSpecialRewards.computeIfAbsent(materialId, SourceSpecialReward::fromSourceDb);
-        reward.stackCount = Math.max(0, reward.stackCount - amount);
+        for (SourceMaterialItem material : s.sourceMaterialItems) {
+            if (material.id == materialId) {
+                material.count = Math.max(0, material.count - amount);
+                return;
+            }
+        }
     }
 
     static void mutatePet(VqsvIntroDemo.Scene s, int petIndex, SourceEvolutionNotice notice) {

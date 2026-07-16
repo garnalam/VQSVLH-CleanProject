@@ -152,17 +152,17 @@ public final class VqsvIntroDemo extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 requestFocusInWindow();
-                scene.click(e.getX(), e.getY());
+                scene.clickGame(toGameX(e.getX()), toGameY(e.getY()));
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                scene.hover(e.getX(), e.getY());
+                scene.hoverGame(toGameX(e.getX()), toGameY(e.getY()));
             }
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                scene.hover(e.getX(), e.getY());
+                scene.hoverGame(toGameX(e.getX()), toGameY(e.getY()));
             }
 
             @Override
@@ -174,6 +174,14 @@ public final class VqsvIntroDemo extends JPanel {
         addMouseListener(pointer);
         addMouseMotionListener(pointer);
         addMouseWheelListener(pointer);
+    }
+
+    private int toGameX(int componentX) {
+        return Math.max(0, Math.min(W - 1, componentX * W / Math.max(1, getWidth())));
+    }
+
+    private int toGameY(int componentY) {
+        return Math.max(0, Math.min(H - 1, componentY * H / Math.max(1, getHeight())));
     }
 
     private void start() {
@@ -412,6 +420,7 @@ public final class VqsvIntroDemo extends JPanel {
         VqsvBattleLevelUpView battleLevelUpView = VqsvBattleLevelUpView.EMPTY;
         int sourceMoney;
         int sourceBadges;
+        final int[] sourceBadgeAchieved = new int[8];
         int sourceAvoidMonsterTicks;
         int sourceAvoidMonsterElapsed;
         boolean sourceBattleLoseReviveArmed;
@@ -498,6 +507,10 @@ public final class VqsvIntroDemo extends JPanel {
         void click(int screenX, int screenY) {
             int x = screenX / SCALE;
             int y = screenY / SCALE;
+            clickGame(x, y);
+        }
+
+        void clickGame(int x, int y) {
             if (battleOverlayTicks > 0) {
                 battleClickX = x;
                 battleClickY = y;
@@ -590,6 +603,10 @@ public final class VqsvIntroDemo extends JPanel {
         void hover(int screenX, int screenY) {
             int x = screenX / SCALE;
             int y = screenY / SCALE;
+            hoverGame(x, y);
+        }
+
+        void hoverGame(int x, int y) {
             if (battleOverlayTicks > 0) {
                 battleHoverX = x;
                 battleHoverY = y;
@@ -708,6 +725,8 @@ public final class VqsvIntroDemo extends JPanel {
             choice = null;
             battleOverlayTicks = 0;
             eventIndex = tenYearsEventIndex;
+            VqsvSourceStoryState.ensureInitialDienMieu(this,
+                    "release skip intro ten-years-after");
             sourceStateTrace.add("REBUILD_POLICY new-game skip intro -> source transition scene1 room0"
                     + " center=[199,218] group0 ten-years eventIndex=" + eventIndex);
         }
@@ -1137,6 +1156,8 @@ public final class VqsvIntroDemo extends JPanel {
         }
 
         private void openWorldPetstateInternal() {
+            VqsvSourceStoryState.ensureInitialDienMieu(this,
+                    "repair before world petstate open when party is empty");
             worldPetstateVisible = true;
             battleUiModeStartTick = battleAnimationTick;
             battleMenuTitle = VqsvText.Battle.PETSTATE_TITLE;
@@ -2776,6 +2797,10 @@ public final class VqsvIntroDemo extends JPanel {
 
         Blocking op17Item(int mode, int itemId, int qty) {
             return VqsvSourceOps.op17Item(this, mode, itemId, qty);
+        }
+
+        Blocking op18Material(int mode, int materialId, int qty) {
+            return VqsvSourceOps.op18Material(this, mode, materialId, qty);
         }
 
         void op39RefreshPets() {

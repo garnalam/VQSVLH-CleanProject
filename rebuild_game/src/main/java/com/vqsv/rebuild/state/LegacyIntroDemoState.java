@@ -16,7 +16,9 @@ public final class LegacyIntroDemoState implements GameState {
     private final Method render;
     private final Method press0;
     private final Method setMoveKey;
-    private final Method click;
+    private final Method clickGame;
+    private final Method hoverGame;
+    private final Method mouseWheel;
     private final Method debugSnapshot;
     private final Method consumePanelTitleResetRequest;
     private int debugTickCounter;
@@ -52,14 +54,18 @@ public final class LegacyIntroDemoState implements GameState {
             this.render = sceneClass.getDeclaredMethod("render", Graphics2D.class);
             this.press0 = sceneClass.getDeclaredMethod("press0");
             this.setMoveKey = sceneClass.getDeclaredMethod("setMoveKey", int.class, boolean.class);
-            this.click = sceneClass.getDeclaredMethod("click", int.class, int.class);
+            this.clickGame = sceneClass.getDeclaredMethod("clickGame", int.class, int.class);
+            this.hoverGame = sceneClass.getDeclaredMethod("hoverGame", int.class, int.class);
+            this.mouseWheel = sceneClass.getDeclaredMethod("mouseWheel", int.class);
             this.debugSnapshot = sceneClass.getDeclaredMethod("debugSnapshotForRelease");
             this.consumePanelTitleResetRequest = sceneClass.getDeclaredMethod("consumePanelTitleResetRequestForRelease");
             this.tick.setAccessible(true);
             this.render.setAccessible(true);
             this.press0.setAccessible(true);
             this.setMoveKey.setAccessible(true);
-            this.click.setAccessible(true);
+            this.clickGame.setAccessible(true);
+            this.hoverGame.setAccessible(true);
+            this.mouseWheel.setAccessible(true);
             this.debugSnapshot.setAccessible(true);
             this.consumePanelTitleResetRequest.setAccessible(true);
         } catch (ReflectiveOperationException exception) {
@@ -111,6 +117,31 @@ public final class LegacyIntroDemoState implements GameState {
         }
     }
 
+    public int sceneSourcePetCountForSmoke() {
+        try {
+            java.lang.reflect.Field pets = scene.getClass().getDeclaredField("sourcePets");
+            pets.setAccessible(true);
+            java.util.List<?> list = (java.util.List<?>) pets.get(scene);
+            return list.size();
+        } catch (ReflectiveOperationException exception) {
+            throw new IllegalStateException("Cannot inspect legacy scene source pet count", exception);
+        }
+    }
+
+    public int sceneSourcePetSpeciesForSmoke(int index) {
+        try {
+            java.lang.reflect.Field pets = scene.getClass().getDeclaredField("sourcePets");
+            pets.setAccessible(true);
+            java.util.List<?> list = (java.util.List<?>) pets.get(scene);
+            Object pet = list.get(index);
+            java.lang.reflect.Field species = pet.getClass().getDeclaredField("speciesId");
+            species.setAccessible(true);
+            return species.getInt(pet);
+        } catch (ReflectiveOperationException exception) {
+            throw new IllegalStateException("Cannot inspect legacy scene source pet species", exception);
+        }
+    }
+
     public Object sceneForSmoke() {
         return scene;
     }
@@ -125,7 +156,8 @@ public final class LegacyIntroDemoState implements GameState {
                     || input.isDown(KeyEvent.VK_S) || input.isDown(KeyEvent.VK_D)
                     || input.isDown(KeyEvent.VK_NUMPAD8) || input.isDown(KeyEvent.VK_NUMPAD2)
                     || input.isDown(KeyEvent.VK_NUMPAD4) || input.isDown(KeyEvent.VK_NUMPAD6)
-                    || input.confirmPressed() || input.backPressed() || input.pointerPressed();
+                    || input.confirmPressed() || input.backPressed() || input.pointerPressed()
+                    || input.pointerMoved() || input.wheelRotation() != 0;
             if (hasInput || debugTickCounter % 30 == 0) {
                 VqsvDebugLog.log("legacy tick input="
                         + " U:" + (input.isDown(KeyEvent.VK_UP) || input.isDown(KeyEvent.VK_W)
@@ -139,6 +171,8 @@ public final class LegacyIntroDemoState implements GameState {
                         + " confirm:" + input.confirmPressed()
                         + " back:" + input.backPressed()
                         + " pointer:" + input.pointerPressed()
+                        + " hover:" + input.pointerMoved()
+                        + " wheel:" + input.wheelRotation()
                         + " before=" + debugSnapshot.invoke(scene));
             }
             setMoveKey.invoke(scene, KeyEvent.VK_UP,
@@ -155,9 +189,14 @@ public final class LegacyIntroDemoState implements GameState {
                             || input.isDown(KeyEvent.VK_NUMPAD6));
             setMoveKey.invoke(scene, KeyEvent.VK_ESCAPE,
                     input.isDown(KeyEvent.VK_ESCAPE) || input.isDown(KeyEvent.VK_BACK_SPACE));
+            if (input.pointerMoved()) {
+                hoverGame.invoke(scene, input.pointerX(), input.pointerY());
+            }
+            if (input.wheelRotation() != 0) {
+                mouseWheel.invoke(scene, input.wheelRotation());
+            }
             if (input.pointerPressed()) {
-                click.invoke(scene, input.pointerX() * VqsvIntroDemoScale.SCALE,
-                        input.pointerY() * VqsvIntroDemoScale.SCALE);
+                clickGame.invoke(scene, input.pointerX(), input.pointerY());
             } else if (input.confirmPressed() || input.wasPressed(KeyEvent.VK_5)
                     || input.wasPressed(KeyEvent.VK_NUMPAD5)) {
                 press0.invoke(scene);
@@ -184,9 +223,5 @@ public final class LegacyIntroDemoState implements GameState {
         } catch (ReflectiveOperationException exception) {
             throw new IllegalStateException("Legacy scene_0 render failed", exception);
         }
-    }
-
-    private static final class VqsvIntroDemoScale {
-        static final int SCALE = 2;
     }
 }

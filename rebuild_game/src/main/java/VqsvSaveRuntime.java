@@ -31,6 +31,7 @@ final class VqsvSaveRuntime {
         p.setProperty("player", s.playerX + "," + s.playerY + "," + s.player.direction + "," + bool(s.player.visible));
         p.setProperty("sourceMoney", String.valueOf(s.sourceMoney));
         p.setProperty("sourceBadges", String.valueOf(s.sourceBadges));
+        p.setProperty("sourceBadgeAchieved", join(s.sourceBadgeAchieved));
         p.setProperty("sourceGameCF", bool(s.sourceGameCF));
         p.setProperty("sourcePetRefreshOps", String.valueOf(s.sourcePetRefreshOps));
         p.setProperty("sourceAvoidMonsterTicks", String.valueOf(s.sourceAvoidMonsterTicks));
@@ -48,6 +49,7 @@ final class VqsvSaveRuntime {
         writeBranchTasks(p, s);
         writeBag(p, s);
         writeEquipment(p, s);
+        writeMaterials(p, s);
         writeSpecialRewards(p, s);
         writePets(p, "pet", s.sourcePets);
         writePets(p, "bankPet", s.sourcePetBank);
@@ -91,6 +93,7 @@ final class VqsvSaveRuntime {
         restoreActors(s, p);
         s.sourceMoney = intProp(p, "sourceMoney", 0);
         s.sourceBadges = intProp(p, "sourceBadges", 0);
+        copyInto(ints(p.getProperty("sourceBadgeAchieved", "")), s.sourceBadgeAchieved);
         s.sourceGameCF = boolProp(p, "sourceGameCF", false);
         s.sourcePetRefreshOps = intProp(p, "sourcePetRefreshOps", 0);
         s.sourceAvoidMonsterTicks = intProp(p, "sourceAvoidMonsterTicks", 0);
@@ -107,6 +110,7 @@ final class VqsvSaveRuntime {
         restoreBranchTasks(s, p);
         restoreBag(s, p);
         restoreEquipment(s, p);
+        restoreMaterials(s, p);
         restoreSpecialRewards(s, p);
         restorePets(p, "pet", s.sourcePets);
         restorePets(p, "bankPet", s.sourcePetBank);
@@ -287,6 +291,25 @@ final class VqsvSaveRuntime {
             int[] row = ints(p.getProperty("equipment." + i, ""));
             if (row.length >= 2) {
                 s.sourceEquipmentItems.add(new SourceEquipmentItem(row[0], row[1] != 0));
+            }
+        }
+    }
+
+    private static void writeMaterials(Properties p, VqsvIntroDemo.Scene s) {
+        p.setProperty("material.count", String.valueOf(s.sourceMaterialItems.size()));
+        for (int i = 0; i < s.sourceMaterialItems.size(); i++) {
+            SourceMaterialItem item = s.sourceMaterialItems.get(i);
+            p.setProperty("material." + i, item.id + "," + item.count);
+        }
+    }
+
+    private static void restoreMaterials(VqsvIntroDemo.Scene s, Properties p) {
+        s.sourceMaterialItems.clear();
+        int count = intProp(p, "material.count", 0);
+        for (int i = 0; i < count; i++) {
+            int[] row = ints(p.getProperty("material." + i, ""));
+            if (row.length >= 2) {
+                s.sourceMaterialItems.add(new SourceMaterialItem(row[0], row[1]));
             }
         }
     }

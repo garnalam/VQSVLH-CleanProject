@@ -271,6 +271,8 @@ final class VqsvSmokeHarness {
             "panel_bodyshop_hover_preview_no_confirm",
             "panel_bodyshop_mouse_wheel_selection_no_confirm",
             "panel_shopbuy_hover_preview_no_confirm",
+            "panel_shopbuy_mouse_wheel_scrollbar_no_confirm",
+            "panel_shopbuy_mouse_wheel_hover_click_viewport",
             "world_petstate_mouse_wheel_scrollbar_no_confirm",
             "world_petstate_mouse_wheel_hover_click_viewport"
     };
@@ -295,6 +297,10 @@ final class VqsvSmokeHarness {
             "panel_bag_open_from_gamemenu",
             "panel_bag_navigation",
             "panel_bag_hover_preview_no_confirm",
+            "panel_bag_tab_click_switch",
+            "panel_bag_softkey_click_use_warning",
+            "panel_bag_softkey_click_back",
+            "panel_bag_softkey_click_game_coords",
             "panel_bag_back_returns_gamemenu",
             "panel_bag_tab1_trang_suc_open",
             "panel_bag_tab1_trang_suc_navigation",
@@ -318,8 +324,10 @@ final class VqsvSmokeHarness {
             "panel_portable_shop_item_detail",
             "panel_portable_shop_msgyn_open",
             "panel_portable_shop_msgyn_qty2_buy",
+            "panel_portable_shop_msgyn_mouse_qty2_buy",
             "panel_portable_shop_msgyn_back",
             "panel_portable_shop_buy_success",
+            "panel_material_shop_buy_tinh_nguyen_evolve_bucket",
             "panel_portable_shop_buy_not_enough_money",
             "panel_portable_shop_back",
             "panel_bodyshop_row1_open_description",
@@ -447,6 +455,7 @@ final class VqsvSmokeHarness {
             "panel_portable_shop_msgyn_qty2_buy",
             "panel_portable_shop_msgyn_back",
             "panel_portable_shop_buy_success",
+            "panel_material_shop_buy_tinh_nguyen_evolve_bucket",
             "panel_portable_shop_buy_not_enough_money",
             "panel_portable_shop_back",
             "panel_bodyshop_row1_open_description",
@@ -470,6 +479,7 @@ final class VqsvSmokeHarness {
             "panel_gamesystem_help_open",
             "panel_gamesystem_help_page_right",
             "panel_gamesystem_help_back_returns_gamesystem",
+            "panel_gamesystem_help_mouse_page_and_back",
             "panel_gamesystem_settings_open",
             "panel_gamesystem_settings_adjust_right",
             "panel_gamesystem_settings_confirm_returns_gamesystem",
@@ -518,6 +528,7 @@ final class VqsvSmokeHarness {
             "panel_task_back_returns_gamemenu",
             "panel_petmap_record_open_from_gamemenu",
             "panel_petmap_open_from_record",
+            "panel_petmap_missing_item_warning_from_record",
             "panel_petmap_navigation",
             "panel_petmap_tab_navigation",
             "panel_petmap_back_returns_record",
@@ -527,9 +538,11 @@ final class VqsvSmokeHarness {
             "panel_badge_back_returns_record",
             "panel_badge_record_back_returns_gamemenu",
             "panel_save_prompt_from_gamemenu",
+            "panel_save_back_cancel_returns_gamemenu",
             "panel_save_saving_status",
             "panel_save_success_status",
-            "panel_save_success_closes_world"
+            "panel_save_success_closes_world",
+            "boot_title_continue_after_panel_save"
     };
     private static final String[] BATTLE_BUFF5_VISUAL_TIMELINE_SUITE = {
             "battle_phase10b_p7_type7_skill34_start",
@@ -667,9 +680,7 @@ final class VqsvSmokeHarness {
         SourcePetState pet = new SourcePetState(0, speciesId, level, 3, 2, 0, -1);
         s.sourcePets.add(pet);
         if (materialId >= 0) {
-            SourceSpecialReward material = s.sourceSpecialRewards.computeIfAbsent(materialId,
-                    SourceSpecialReward::fromSourceDb);
-            material.stackCount = materialCount;
+            VqsvSourceOps.sourceAddMaterial(s, materialId, materialCount);
         }
         s.sourceEvolutionL[0] = level;
         s.sourceEvolutionL[1] = speciesId;
@@ -1922,6 +1933,7 @@ final class VqsvSmokeHarness {
                 || checkpoint.startsWith("panel_petstate_")
                 || checkpoint.startsWith("panel_petsetting_")
                 || checkpoint.startsWith("panel_bag_")
+                || checkpoint.startsWith("panel_material_shop_")
                 || checkpoint.startsWith("panel_portable_shop_")
                 || checkpoint.startsWith("panel_bodyshop_")
                 || checkpoint.startsWith("panel_shopbuy_")
@@ -2356,11 +2368,12 @@ final class VqsvSmokeHarness {
         }
         if ("panel_shopbuy_hover_preview_no_confirm".equals(checkpoint)) {
             openPortableShopBuyForSmoke(s);
-            s.hover(60 * VqsvIntroDemo.SCALE, 118 * VqsvIntroDemo.SCALE);
+            s.hover(60 * VqsvIntroDemo.SCALE, 127 * VqsvIntroDemo.SCALE);
             s.tick();
             if (!s.panelRuntime.visible || !"PORTABLE_SHOP_BUY".equals(s.panelRuntime.modeName())
                     || s.panelRuntime.selected != 1
-                    || s.text != null) {
+                    || s.text != null
+                    || !traceContains(s, "PC_QOL panel hover preview mode=PORTABLE_SHOP_BUY selected=1")) {
                 throw new IllegalStateException("Expected shopbuy hover to preview viewport row 1 without msgyn"
                         + " visible=" + s.panelRuntime.visible
                         + " mode=" + s.panelRuntime.modeName()
@@ -2370,11 +2383,61 @@ final class VqsvSmokeHarness {
             }
             return;
         }
+        if ("panel_shopbuy_mouse_wheel_scrollbar_no_confirm".equals(checkpoint)) {
+            openPortableShopBuyForSmoke(s);
+            int initialSelected = s.panelRuntime.selected;
+            s.mouseWheel(3);
+            s.tick();
+            if (!s.panelRuntime.visible || !"PORTABLE_SHOP_BUY".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != initialSelected
+                    || s.text != null
+                    || !traceContains(s, "PC_QOL mouse wheel panel list scrollbar mode=PORTABLE_SHOP_BUY scroll=3 selected=0")) {
+                throw new IllegalStateException("Expected shopbuy wheel to move scrollbar only"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " initial=" + initialSelected
+                        + " text=" + (s.text == null ? "none" : "present")
+                        + " trace=" + tailTrace(s, 44));
+            }
+            return;
+        }
+        if ("panel_shopbuy_mouse_wheel_hover_click_viewport".equals(checkpoint)) {
+            openPortableShopBuyForSmoke(s);
+            s.mouseWheel(3);
+            s.tick();
+            s.hover(60 * VqsvIntroDemo.SCALE, 127 * VqsvIntroDemo.SCALE);
+            s.tick();
+            if (!s.panelRuntime.visible || !"PORTABLE_SHOP_BUY".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 4
+                    || s.text != null
+                    || !"B\u00e1nh Sandwich".equals(s.panelRuntime.selectedLabel())) {
+                throw new IllegalStateException("Expected shopbuy hover after wheel to preview viewport item4"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " label=" + s.panelRuntime.selectedLabel()
+                        + " text=" + (s.text == null ? "none" : "present")
+                        + " trace=" + tailTrace(s, 52));
+            }
+            s.click(60 * VqsvIntroDemo.SCALE, 127 * VqsvIntroDemo.SCALE);
+            s.tick();
+            if (!s.panelRuntime.visible || !"PORTABLE_SHOP_CONFIRM".equals(s.panelRuntime.modeName())
+                    || !"B\u00e1nh Sandwich * 1".equals(s.panelRuntime.selectedLabel())
+                    || !traceContains(s, "open msgyn.ui item=4")) {
+                throw new IllegalStateException("Expected shopbuy click after wheel to open msgyn item4"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " label=" + s.panelRuntime.selectedLabel()
+                        + " trace=" + tailTrace(s, 60));
+            }
+            return;
+        }
         if ("panel_portable_shop_msgyn_open".equals(checkpoint)) {
             openPortableShopConfirmForSmoke(s, 4);
             if (!"B\u00e1nh Sandwich * 1".equals(s.panelRuntime.selectedLabel())
-                    || !traceContains(s, "open msgyn.ui item=4 qty=1 total=150 currency=0")) {
-                throw new IllegalStateException("Expected portable shop msgyn open for qty1 item4"
+                    || !traceContains(s, "open msgyn.ui item=4 qty=1 total=0 currency=0")) {
+                throw new IllegalStateException("Expected portable shop msgyn open for free qty1 item4"
                         + " label=" + s.panelRuntime.selectedLabel()
                         + " trace=" + tailTrace(s, 40));
             }
@@ -2391,8 +2454,8 @@ final class VqsvSmokeHarness {
             s.keyRight = true;
             s.tick();
             if (!"B\u00e1nh Sandwich * 2".equals(s.panelRuntime.selectedLabel())
-                    || !traceContains(s, "msgyn.ui key=32832 item=4 qty=2 total=300")) {
-                throw new IllegalStateException("Expected portable shop msgyn qty2"
+                    || !traceContains(s, "msgyn.ui key=32832 item=4 qty=2 total=0")) {
+                throw new IllegalStateException("Expected portable shop msgyn free qty2"
                         + " label=" + s.panelRuntime.selectedLabel()
                         + " trace=" + tailTrace(s, 40));
             }
@@ -2405,9 +2468,9 @@ final class VqsvSmokeHarness {
                     || !s.text.currentText().startsWith(VqsvText.Battle.SHOP_BUY_SUCCESS_PREFIX)
                     || !s.text.currentText().endsWith("2")
                     || VqsvSourceOps.sourceItemCount(s, 4) != beforeCount + 2
-                    || s.sourceMoney != beforeMoney - 300
+                    || s.sourceMoney != beforeMoney
                     || !"PORTABLE_SHOP_BUY".equals(s.panelRuntime.modeName())) {
-                throw new IllegalStateException("Expected portable shop qty2 buy success"
+                throw new IllegalStateException("Expected portable shop qty2 free buy success"
                         + " text=" + (s.text == null ? "none" : s.text.currentText())
                         + " count=" + VqsvSourceOps.sourceItemCount(s, 4)
                         + " beforeCount=" + beforeCount
@@ -2420,11 +2483,59 @@ final class VqsvSmokeHarness {
                     44, 145, 154, 70, 600);
             return;
         }
+        if ("panel_portable_shop_msgyn_mouse_qty2_buy".equals(checkpoint)) {
+            openPortableShopConfirmForSmoke(s, 4);
+            int beforeCount = VqsvSourceOps.sourceItemCount(s, 4);
+            int beforeMoney = s.sourceMoney;
+            s.hoverGame(116, 176);
+            s.tick();
+            if (!s.panelRuntime.visible || !"PORTABLE_SHOP_CONFIRM".equals(s.panelRuntime.modeName())
+                    || s.text != null
+                    || !"B\u00e1nh Sandwich * 1".equals(s.panelRuntime.selectedLabel())) {
+                throw new IllegalStateException("Expected msgyn hover to be preview-only/no confirm"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " label=" + s.panelRuntime.selectedLabel()
+                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                        + " trace=" + tailTrace(s, 40));
+            }
+            s.clickGame(138, 130);
+            s.tick();
+            if (!"B\u00e1nh Sandwich * 2".equals(s.panelRuntime.selectedLabel())
+                    || !traceContains(s, "msgyn.ui key=32832 item=4 qty=2 total=0")) {
+                throw new IllegalStateException("Expected msgyn mouse right half to increase quantity"
+                        + " label=" + s.panelRuntime.selectedLabel()
+                        + " trace=" + tailTrace(s, 48));
+            }
+            s.clickGame(116, 176);
+            s.tick();
+            for (int i = 0; i < 28; i++) {
+                s.tick();
+            }
+            if (s.text == null || s.text.sourceUiKind != TextBox.SOURCE_MSGWARM
+                    || !s.text.currentText().startsWith(VqsvText.Battle.SHOP_BUY_SUCCESS_PREFIX)
+                    || !s.text.currentText().endsWith("2")
+                    || VqsvSourceOps.sourceItemCount(s, 4) != beforeCount + 2
+                    || s.sourceMoney != beforeMoney
+                    || !"PORTABLE_SHOP_BUY".equals(s.panelRuntime.modeName())) {
+                throw new IllegalStateException("Expected msgyn mouse confirm to buy qty2 free"
+                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, 4)
+                        + " beforeCount=" + beforeCount
+                        + " money=" + s.sourceMoney
+                        + " beforeMoney=" + beforeMoney
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " trace=" + tailTrace(s, 52));
+            }
+            assertRenderedVisiblePixels(s, "shopbuy.ui mouse qty2 success msgwarm",
+                    44, 145, 154, 70, 600);
+            return;
+        }
         if ("panel_portable_shop_msgyn_back".equals(checkpoint)) {
             openPortableShopConfirmForSmoke(s, 4);
             int beforeCount = VqsvSourceOps.sourceItemCount(s, 4);
             int beforeMoney = s.sourceMoney;
-            s.keyBack = true;
+            s.click(124 * VqsvIntroDemo.SCALE, 196 * VqsvIntroDemo.SCALE);
             s.tick();
             if (!s.panelRuntime.visible || !"PORTABLE_SHOP_BUY".equals(s.panelRuntime.modeName())
                     || VqsvSourceOps.sourceItemCount(s, 4) != beforeCount
@@ -2454,8 +2565,8 @@ final class VqsvSmokeHarness {
             if (s.text == null || s.text.sourceUiKind != TextBox.SOURCE_MSGWARM
                     || !s.text.currentText().startsWith(VqsvText.Battle.SHOP_BUY_SUCCESS_PREFIX)
                     || VqsvSourceOps.sourceItemCount(s, 4) != beforeCount + 1
-                    || s.sourceMoney != beforeMoney - 150) {
-                throw new IllegalStateException("Expected portable shop success item4 price150"
+                    || s.sourceMoney != beforeMoney) {
+                throw new IllegalStateException("Expected portable shop success item4 free"
                         + " text=" + (s.text == null ? "none" : s.text.currentText())
                         + " count=" + VqsvSourceOps.sourceItemCount(s, 4)
                         + " beforeCount=" + beforeCount
@@ -2464,6 +2575,53 @@ final class VqsvSmokeHarness {
                         + " trace=" + tailTrace(s, 40));
             }
             assertRenderedVisiblePixels(s, "shopbuy.ui success msgwarm",
+                    44, 145, 154, 70, 600);
+            return;
+        }
+        if ("panel_material_shop_buy_tinh_nguyen_evolve_bucket".equals(checkpoint)) {
+            setupPanelSmokeWorld(s);
+            s.sourcePets.clear();
+            s.sourcePets.add(new SourcePetState(0, 6, 12, 3, 2, 0, -1));
+            s.sourceMaterialItems.clear();
+            s.panelRuntime.openSourceMaterialShopForSmoke(s);
+            selectPortableShopItem(s, 12);
+            s.key0 = true;
+            s.tick();
+            if (!s.panelRuntime.visible || !"PORTABLE_SHOP_CONFIRM".equals(s.panelRuntime.modeName())
+                    || !traceContains(s, "game.k.a(3,2) open msgyn.ui item=12")) {
+                throw new IllegalStateException("Expected material shop msgyn for aq.c[3] id12"
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " label=" + s.panelRuntime.selectedLabel()
+                        + " trace=" + tailTrace(s, 44));
+            }
+            s.key0 = true;
+            s.tick();
+            for (int i = 0; i < 28; i++) {
+                s.tick();
+            }
+            SourceEvolutionNotice notice = VqsvSourceEvolutionRuntime.noticeForPet(s, 0);
+            if (s.text == null || s.text.sourceUiKind != TextBox.SOURCE_MSGWARM
+                    || !s.text.currentText().startsWith(VqsvText.Battle.SHOP_BUY_SUCCESS_PREFIX)
+                    || VqsvSourceOps.sourceMaterialCount(s, 12) != 1
+                    || VqsvSourceOps.sourceItemCount(s, 12) != 0
+                    || notice == null
+                    || notice.materialId != 12
+                    || notice.materialNeed != 1
+                    || notice.materialCount != 1
+                    || !notice.materialEnough
+                    || !traceContains(s, "game.k.b(3,2) shop buy item=12")) {
+                throw new IllegalStateException("Expected material shop id12 to feed evolve bucket"
+                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                        + " material12=" + VqsvSourceOps.sourceMaterialCount(s, 12)
+                        + " bag12=" + VqsvSourceOps.sourceItemCount(s, 12)
+                        + " notice=" + (notice == null ? "null"
+                        : notice.materialId + " " + notice.materialCount + "/" + notice.materialNeed
+                        + " enough=" + notice.materialEnough)
+                        + " trace=" + tailTrace(s, 72));
+            }
+            s.sourceStateTrace.add("SMOKE verified material shop game.k.a(3,(byte)2)"
+                    + " buys aq.c[3][12] into sourceMaterialItems and evolve sees 1/1");
+            assertRenderedVisiblePixels(s, "shopbuy.ui material success msgwarm",
                     44, 145, 154, 70, 600);
             return;
         }
@@ -2477,18 +2635,34 @@ final class VqsvSmokeHarness {
                 s.tick();
             }
             if (s.text == null || s.text.sourceUiKind != TextBox.SOURCE_MSGWARM
-                    || !"Kim ti\u1ec1n ch\u01b0a \u0111\u1ee7".equals(s.text.currentText())
-                    || VqsvSourceOps.sourceItemCount(s, 4) != beforeCount
+                    || !s.text.currentText().startsWith(VqsvText.Battle.SHOP_BUY_SUCCESS_PREFIX)
+                    || VqsvSourceOps.sourceItemCount(s, 4) != beforeCount + 1
                     || s.sourceMoney != 10) {
-                throw new IllegalStateException("Expected portable shop not enough money warning"
+                throw new IllegalStateException("Expected portable shop low money still buys free"
                         + " text=" + (s.text == null ? "none" : s.text.currentText())
                         + " count=" + VqsvSourceOps.sourceItemCount(s, 4)
                         + " beforeCount=" + beforeCount
                         + " money=" + s.sourceMoney
                         + " trace=" + tailTrace(s, 40));
             }
+            int afterBuyCount = VqsvSourceOps.sourceItemCount(s, 4);
+            for (int i = 0; i < 24 && s.text != null && !s.text.readyForKey; i++) {
+                s.tick();
+            }
+            s.click(120 * VqsvIntroDemo.SCALE, 170 * VqsvIntroDemo.SCALE);
+            s.tick();
+            s.tick();
+            if (s.text != null || VqsvSourceOps.sourceItemCount(s, 4) != afterBuyCount
+                    || !"PORTABLE_SHOP_BUY".equals(s.panelRuntime.modeName())) {
+                throw new IllegalStateException("Expected click on shop msgwarm to close without rebuy"
+                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                        + " count=" + VqsvSourceOps.sourceItemCount(s, 4)
+                        + " afterBuyCount=" + afterBuyCount
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " trace=" + tailTrace(s, 44));
+            }
             assertRenderedVisiblePixels(s, "shopbuy.ui not enough msgwarm",
-                    44, 145, 154, 70, 600);
+                    54, 99, 130, 92, 900);
             return;
         }
         if ("panel_portable_shop_back".equals(checkpoint)) {
@@ -3242,7 +3416,7 @@ final class VqsvSmokeHarness {
                         + " label=" + s.panelRuntime.selectedLabel()
                         + " trace=" + tailTrace(s, 34));
             }
-            if (!traceContains(s, "open option.ui c=1 widget12='' widget13=Khong")) {
+            if (!traceContains(s, "open option.ui c=1 widget12=Co widget13=Khong")) {
                 throw new IllegalStateException("Expected option open source trace, trace="
                         + tailTrace(s, 34));
             }
@@ -3253,7 +3427,8 @@ final class VqsvSmokeHarness {
             s.keyUp = true;
             s.tick();
             if (!s.panelRuntime.visible || !"OPTION_CONFIRM".equals(s.panelRuntime.modeName())
-                    || s.panelRuntime.selected != 0) {
+                    || s.panelRuntime.selected != 0
+                    || !"C\u00f3".equals(s.panelRuntime.selectedLabel())) {
                 throw new IllegalStateException("Expected option.ui selected c=0 visible="
                         + s.panelRuntime.visible
                         + " mode=" + s.panelRuntime.modeName()
@@ -3616,6 +3791,10 @@ final class VqsvSmokeHarness {
         }
         if ("panel_petstate_petsetting_evolve_no_material_warning".equals(checkpoint)) {
             openPanelEvolveFromPetSettingForSmoke(s, 12, 0);
+            VqsvSourceOps.sourceAddItem(s, 12, 1);
+            SourceSpecialReward wrongBucketMaterial = s.sourceSpecialRewards.computeIfAbsent(12,
+                    SourceSpecialReward::fromSourceDb);
+            wrongBucketMaterial.stackCount = 1;
             s.key0 = true;
             s.tick();
             forceReadyText(s);
@@ -3630,8 +3809,11 @@ final class VqsvSmokeHarness {
                         + " text=" + (s.text == null ? "null" : s.text.currentText())
                         + " species=" + s.sourcePets.get(0).speciesId
                         + " material=" + VqsvSourceEvolutionRuntime.materialCount(s, 12)
+                        + " normalBag12=" + VqsvSourceOps.sourceItemCount(s, 12)
+                        + " special12=" + wrongBucketMaterial.stackCount
                         + " trace=" + tailTrace(s, 72));
             }
+            s.sourceStateTrace.add("SMOKE verified evolution ignores normal bag/special id12; requires material bucket");
             s.text.sourceTextOffset = 70;
             return;
         }
@@ -4401,6 +4583,10 @@ final class VqsvSmokeHarness {
                 throw new IllegalStateException("Expected bag source path trace, trace="
                         + tailTrace(s, 24));
             }
+            assertRenderedVisiblePixels(s, "bag.ui left softkey text",
+                    1, 294, 76, 18, 20);
+            assertRenderedVisiblePixels(s, "bag.ui right softkey text",
+                    162, 294, 76, 18, 16);
             return;
         }
         if ("panel_bag_item5_12_metadata_source_backed".equals(checkpoint)) {
@@ -4529,6 +4715,118 @@ final class VqsvSmokeHarness {
                         + " worldPet=" + s.worldPetstateVisible
                         + " text=" + (s.text == null ? "none" : "present")
                         + " trace=" + tailTrace(s, 28));
+            }
+            return;
+        }
+        if ("panel_gamesystem_help_mouse_page_and_back".equals(checkpoint)) {
+            openGameSystemHelpForSmoke(s);
+            s.clickGame(140, 246);
+            s.tick();
+            if (!s.panelRuntime.visible || !"HELP".equals(s.panelRuntime.modeName())
+                    || !"Tr\u1ee3 gi\u00fap 2/3".equals(s.panelRuntime.selectedLabel())) {
+                throw new IllegalStateException("Expected mouse click next arrow to help page 2 visible="
+                        + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " label=" + s.panelRuntime.selectedLabel()
+                        + " trace=" + tailTrace(s, 32));
+            }
+            s.clickGame(218, 300);
+            s.tick();
+            if (!s.panelRuntime.visible || !"GAMESYSTEM".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 1) {
+                throw new IllegalStateException("Expected mouse click back widget to gamesystem visible="
+                        + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 32));
+            }
+            return;
+        }
+        if ("panel_bag_tab_click_switch".equals(checkpoint)) {
+            openPanelBagForSmoke(s);
+            s.click(132 * VqsvIntroDemo.SCALE, 92 * VqsvIntroDemo.SCALE);
+            s.tick();
+            if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.bagTabForSmoke() != 2
+                    || s.panelRuntime.selected != 0
+                    || !traceContains(s, "PC_QOL panel bag.ui tab click b=0->2")) {
+                throw new IllegalStateException("Expected bag.ui tab click to switch to Tai lieu"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " tab=" + s.panelRuntime.bagTabForSmoke()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 32));
+            }
+            assertRenderedVisiblePixels(s, "bag.ui tab click selected tab2",
+                    122, 80, 40, 20, 20);
+            return;
+        }
+        if ("panel_bag_softkey_click_use_warning".equals(checkpoint)) {
+            openPanelBagForSmoke(s);
+            s.click(34 * VqsvIntroDemo.SCALE, 305 * VqsvIntroDemo.SCALE);
+            s.tick();
+            if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
+                    || s.text == null
+                    || s.text.sourceUiKind != TextBox.SOURCE_MSGWARM
+                    || !VqsvText.Battle.PANEL_BAG_CANNOT_USE.equals(s.text.currentText())
+                    || !traceContains(s, "case 0..3 -> msgwarm.ui")) {
+                throw new IllegalStateException("Expected bag.ui left softkey click to use selected item0 warning"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                        + " trace=" + tailTrace(s, 40));
+            }
+            assertRenderedVisiblePixels(s, "bag.ui softkey use warning msgwarm",
+                    76, 106, 90, 80, 300);
+            return;
+        }
+        if ("panel_bag_softkey_click_back".equals(checkpoint)) {
+            openPanelBagForSmoke(s);
+            s.click(210 * VqsvIntroDemo.SCALE, 305 * VqsvIntroDemo.SCALE);
+            s.tick();
+            if (!s.panelRuntime.visible || !"GAMEMENU".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 2
+                    || !traceContains(s, "close bag.ui -> gamemenu.ui selected=2")) {
+                throw new IllegalStateException("Expected bag.ui right softkey click to return gamemenu"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 32));
+            }
+            return;
+        }
+        if ("panel_bag_softkey_click_game_coords".equals(checkpoint)) {
+            openPanelBagForSmoke(s);
+            s.clickGame(24, 306);
+            s.tick();
+            if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
+                    || s.text == null
+                    || s.text.sourceUiKind != TextBox.SOURCE_MSGWARM
+                    || !VqsvText.Battle.PANEL_BAG_CANNOT_USE.equals(s.text.currentText())) {
+                throw new IllegalStateException("Expected game-coordinate bag left softkey to use item0 warning"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                        + " trace=" + tailTrace(s, 40));
+            }
+            for (int i = 0; i < 40 && s.text != null; i++) {
+                s.key0 = true;
+                s.tick();
+            }
+            if (s.text != null) {
+                throw new IllegalStateException("Could not close bag warning before right softkey check"
+                        + " text=" + s.text.currentText()
+                        + " trace=" + tailTrace(s, 48));
+            }
+            s.clickGame(218, 306);
+            s.tick();
+            if (!s.panelRuntime.visible || !"GAMEMENU".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 2) {
+                throw new IllegalStateException("Expected game-coordinate bag right softkey to return gamemenu"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 48));
             }
             return;
         }
@@ -5741,7 +6039,7 @@ final class VqsvSmokeHarness {
             reward = s.sourceSpecialRewards.get(6);
             if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
                     || s.panelRuntime.bagTabForSmoke() != 3
-                    || s.panelRuntime.selected != 1
+                    || s.panelRuntime.selected != 0
                     || reward == null
                     || reward.stackCount != beforeStack
                     || s.sourceBadges != beforeBadges) {
@@ -5756,7 +6054,7 @@ final class VqsvSmokeHarness {
                         + " beforeBadges=" + beforeBadges
                         + " trace=" + tailTrace(s, 112));
             }
-            if (!traceContains(s, "o.b=8 close badge.ui -> P=8 bag.ui tab=3 selected=1")) {
+            if (!traceContains(s, "o.b=8 close badge.ui -> P=8 bag.ui tab=3 selected=0")) {
                 throw new IllegalStateException("Expected q.O case6 badge back source trace, trace="
                         + tailTrace(s, 112));
             }
@@ -5845,7 +6143,7 @@ final class VqsvSmokeHarness {
             reward = s.sourceSpecialRewards.get(10);
             if (!s.panelRuntime.visible || !"BAG".equals(s.panelRuntime.modeName())
                     || s.panelRuntime.bagTabForSmoke() != 3
-                    || s.panelRuntime.selected != 1
+                    || s.panelRuntime.selected != 0
                     || reward == null
                     || reward.stackCount != beforeStack
                     || s.sourceTransmitConfirmed) {
@@ -5859,7 +6157,7 @@ final class VqsvSmokeHarness {
                         + " confirmed=" + s.sourceTransmitConfirmed
                         + " trace=" + tailTrace(s, 112));
             }
-            if (!traceContains(s, "transmit back o.a(8) close transmit.ui -> P=8 bag.ui tab=3 selected=1")) {
+            if (!traceContains(s, "transmit back o.a(8) close transmit.ui -> P=8 bag.ui tab=3 selected=0")) {
                 throw new IllegalStateException("Expected transmit back source trace, trace="
                         + tailTrace(s, 112));
             }
@@ -6649,6 +6947,35 @@ final class VqsvSmokeHarness {
             }
             return;
         }
+        if ("panel_petmap_missing_item_warning_from_record".equals(checkpoint)) {
+            openPanelRecordForSmoke(s);
+            s.key0 = true;
+            s.tick();
+            String expected = "Kh\u00f4ng \u0111\u1ea1t \u0111\u01b0\u1ee3c s\u1ee7ng v\u1eadt s\u00e1ch tranh \u0111\u1ea1o c\u1ee5";
+            if (!s.panelRuntime.visible || !"RECORD".equals(s.panelRuntime.modeName())
+                    || s.text == null
+                    || !expected.equals(s.text.currentText())
+                    || !traceContains(s, "game.j.p().l(5)=false -> msgwarm.ui f=1")) {
+                throw new IllegalStateException("Expected record option0 missing item5 warning"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                        + " item5=" + VqsvSourceOps.sourceItemCount(s, 5)
+                        + " trace=" + tailTrace(s, 34));
+            }
+            assertRenderedVisiblePixels(s, "record missing petmap item msgwarm",
+                    82, 116, 76, 54, 180);
+            revealCheckpointText(s, 80);
+            s.key0 = true;
+            s.tick();
+            if (s.text != null || !s.panelRuntime.visible || !"RECORD".equals(s.panelRuntime.modeName())) {
+                throw new IllegalStateException("Expected record warning close to stay in record"
+                        + " text=" + (s.text == null ? "none" : s.text.currentText())
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " trace=" + tailTrace(s, 40));
+            }
+            return;
+        }
         if ("panel_petmap_navigation".equals(checkpoint)) {
             openPanelPetmapForSmoke(s);
             s.keyDown = true;
@@ -6917,6 +7244,31 @@ final class VqsvSmokeHarness {
                 throw new IllegalStateException("Expected save prompt source trace, trace="
                         + tailTrace(s, 24));
             }
+            assertRenderedVisiblePixels(s, "msgtip.ui prompt frame",
+                    51, 134, 150, 42, 900);
+            assertRenderedVisiblePixels(s, "msgtip.ui confirm icon widget3",
+                    218, 298, 22, 20, 8);
+            assertRenderedVisiblePixels(s, "msgtip.ui back icon widget4",
+                    1, 298, 22, 20, 8);
+            return;
+        }
+        if ("panel_save_back_cancel_returns_gamemenu".equals(checkpoint)) {
+            openPanelSavePromptForSmoke(s);
+            s.keyBack = true;
+            s.tick();
+            if (!s.panelRuntime.visible || !"GAMEMENU".equals(s.panelRuntime.modeName())
+                    || s.panelRuntime.selected != 5
+                    || traceContains(s, "game.k.k save success")) {
+                throw new IllegalStateException("Expected save prompt back to gamemenu row 5 without saving"
+                        + " visible=" + s.panelRuntime.visible
+                        + " mode=" + s.panelRuntime.modeName()
+                        + " selected=" + s.panelRuntime.selected
+                        + " trace=" + tailTrace(s, 30));
+            }
+            if (!traceContains(s, "game.h.K f=0 back close msgtip.ui -> P=6 gamemenu selected=5")) {
+                throw new IllegalStateException("Expected save back source trace, trace="
+                        + tailTrace(s, 30));
+            }
             return;
         }
         if ("panel_save_saving_status".equals(checkpoint)) {
@@ -6930,6 +7282,10 @@ final class VqsvSmokeHarness {
                         + " visible=" + s.panelRuntime.visible
                         + " trace=" + tailTrace(s, 24));
             }
+            assertRenderedVisiblePixels(s, "msgtip.ui saving frame",
+                    51, 134, 150, 42, 900);
+            assertRenderedVisiblePixels(s, "msgtip.ui saving text",
+                    56, 137, 138, 16, 20);
             return;
         }
         if ("panel_save_success_status".equals(checkpoint)) {
@@ -6946,6 +7302,10 @@ final class VqsvSmokeHarness {
                         + " mode=" + s.panelRuntime.modeName()
                         + " trace=" + tailTrace(s, 28));
             }
+            assertRenderedVisiblePixels(s, "msgtip.ui success frame",
+                    51, 134, 150, 42, 900);
+            assertRenderedVisiblePixels(s, "msgtip.ui success text",
+                    56, 137, 138, 16, 20);
             return;
         }
         if ("panel_save_success_closes_world".equals(checkpoint)) {
@@ -7370,8 +7730,7 @@ final class VqsvSmokeHarness {
         setupPanelSmokeWorld(s);
         SourcePetState pet = new SourcePetState(0, 6, level, 3, 2, 0, -1);
         s.sourcePets.add(pet);
-        SourceSpecialReward material = s.sourceSpecialRewards.computeIfAbsent(12, SourceSpecialReward::fromSourceDb);
-        material.stackCount = materialCount;
+        VqsvSourceOps.sourceAddMaterial(s, 12, materialCount);
         s.battleMenuIndex = 0;
         s.openWorldPetstate();
         s.key0 = true;
@@ -8511,6 +8870,9 @@ final class VqsvSmokeHarness {
 
     private static void openPanelPetmapForSmoke(VqsvIntroDemo.Scene s) {
         openPanelRecordForSmoke(s);
+        SourceItem petmapItem = VqsvSourceOps.sourceItem(5);
+        s.sourceBagItems.put(5, new BagItem(5, 1, petmapItem.bagChannel, false));
+        s.sourceStateTrace.add("SMOKE seed game.j.p().l(5)=true petmap item count=1");
         s.key0 = true;
         s.tick();
     }
@@ -8518,6 +8880,8 @@ final class VqsvSmokeHarness {
     private static void openPanelBadgeForSmoke(VqsvIntroDemo.Scene s) {
         openPanelRecordForSmoke(s);
         s.sourceBadges = 2;
+        s.sourceBadgeAchieved[0] = 2;
+        s.sourceBadgeAchieved[1] = 2;
         s.keyRight = true;
         s.tick();
         if (!s.panelRuntime.visible || !"RECORD".equals(s.panelRuntime.modeName())) {
@@ -8666,6 +9030,19 @@ final class VqsvSmokeHarness {
         s.tick();
     }
 
+    private static void completePanelSaveForSmoke(VqsvIntroDemo.Scene s) {
+        if (!s.panelRuntime.visible || !"SAVE".equals(s.panelRuntime.modeName())) {
+            throw new IllegalStateException("Expected save prompt before completing panel save"
+                    + " visible=" + s.panelRuntime.visible
+                    + " mode=" + s.panelRuntime.modeName()
+                    + " trace=" + tailTrace(s, 24));
+        }
+        s.key0 = true;
+        s.tick();
+        s.tick();
+        s.tick();
+    }
+
     static void runSmoke(String outPath, int ticks) {
         try {
             VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
@@ -8711,6 +9088,9 @@ final class VqsvSmokeHarness {
     }
 
     static void runSmokeCheckpoint(String checkpoint, String outPath) {
+        if (runBootContinueAfterPanelSaveSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
         if (runBattleEntryNpcSmokeIfNeeded(checkpoint, outPath)) {
             return;
         }
@@ -8721,6 +9101,9 @@ final class VqsvSmokeHarness {
             return;
         }
         if (runRouteItemOwnershipSmokeIfNeeded(checkpoint, outPath)) {
+            return;
+        }
+        if (runSourceMaterialOpsSmokeIfNeeded(checkpoint, outPath)) {
             return;
         }
         if (runItemValidationWarningSmokeIfNeeded(checkpoint, outPath)) {
@@ -9312,6 +9695,14 @@ final class VqsvSmokeHarness {
                     throw new IllegalStateException("Skip intro event index mismatch expected="
                             + VqsvIntroDemo.Scene.tenYearsEventIndex
                             + " actual=" + legacy.sceneEventIndexForSmoke());
+                }
+                if (legacy.sceneSourcePetCountForSmoke() <= 0
+                        || legacy.sceneSourcePetSpeciesForSmoke(0) != 68) {
+                    throw new IllegalStateException("Skip intro must seed initial Dien Mieu species 68"
+                            + " count=" + legacy.sceneSourcePetCountForSmoke()
+                            + " species0=" + (legacy.sceneSourcePetCountForSmoke() <= 0
+                            ? -1 : legacy.sceneSourcePetSpeciesForSmoke(0))
+                            + " snapshot=" + legacy.sceneDebugSnapshotForSmoke());
                 }
                 for (int i = 0; i < 40; i++) {
                     states.tick(emptyBootInput());
@@ -11862,8 +12253,7 @@ final class VqsvSmokeHarness {
                 s.sourcePets.add(pet);
                 if ("world_evolution_confirm_success_mutate".equals(checkpoint)
                         || "world_evolution_after_success_continue".equals(checkpoint)) {
-                    SourceSpecialReward material = s.sourceSpecialRewards.computeIfAbsent(12, SourceSpecialReward::fromSourceDb);
-                    material.stackCount = 1;
+                    VqsvSourceOps.sourceAddMaterial(s, 12, 1);
                 }
                 SourceBattleRuntime runtime = new SourceBattleRuntime(52, new int[]{0, 1, 1},
                         new int[0], new int[]{0, 2}, new int[]{10, 10, 0}, 0, true);
@@ -12039,8 +12429,7 @@ final class VqsvSmokeHarness {
                 s.eventIndex = s.events.size();
                 SourcePetState pet = new SourcePetState(0, 6, 11, 3, 2, 0, -1);
                 s.sourcePets.add(pet);
-                SourceSpecialReward material = s.sourceSpecialRewards.computeIfAbsent(12, SourceSpecialReward::fromSourceDb);
-                material.stackCount = 1;
+                VqsvSourceOps.sourceAddMaterial(s, 12, 1);
                 s.sourceEvolutionL[0] = 11;
                 s.sourceEvolutionL[1] = 6;
                 s.sourceEvolutionTutorialPending = true;
@@ -15446,6 +15835,53 @@ final class VqsvSmokeHarness {
         }
     }
 
+    private static boolean runSourceMaterialOpsSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"source_op18_material_add_remove_bucket".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            s.sourceBagItems.clear();
+            s.sourceSpecialRewards.clear();
+            s.sourceMaterialItems.clear();
+            s.op18Material(0, 12, 2);
+            s.text = null;
+            s.op18Material(0, 17, 1);
+            s.text = null;
+            s.op18Material(1, 12, 1);
+            if (VqsvSourceOps.sourceMaterialCount(s, 12) != 1
+                    || VqsvSourceOps.sourceMaterialCount(s, 17) != 5
+                    || VqsvSourceOps.sourceItemCount(s, 12) != 0
+                    || s.sourceSpecialRewards.containsKey(12)
+                    || !traceContains(s, "op18 aq.c[3] add [0,12,2]")
+                    || !traceContains(s, "op18 aq.c[3] add [0,17,1] storedQty=5")
+                    || !traceContains(s, "op18 aq.c[3] remove [1,12,1]")) {
+                throw new IllegalStateException("Expected op18 material bucket add/remove"
+                        + " material12=" + VqsvSourceOps.sourceMaterialCount(s, 12)
+                        + " material17=" + VqsvSourceOps.sourceMaterialCount(s, 17)
+                        + " bag12=" + VqsvSourceOps.sourceItemCount(s, 12)
+                        + " special12=" + s.sourceSpecialRewards.get(12)
+                        + " trace=" + tailTrace(s, 48));
+            }
+            s.text = TextBox.taskTip("SMOKE op18 aq.c[3] material 12=1 key17=5");
+            revealCheckpointText(s, 80);
+            BufferedImage img = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = img.createGraphics();
+            s.render(g);
+            g.dispose();
+            ImageIO.write(img, "png", new java.io.File(outPath));
+            System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                    + " material12=" + VqsvSourceOps.sourceMaterialCount(s, 12)
+                    + " material17=" + VqsvSourceOps.sourceMaterialCount(s, 17)
+                    + " bag12=" + VqsvSourceOps.sourceItemCount(s, 12));
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
+        }
+    }
+
     private static void runRouteItemOwnershipSaveLoadSmoke(String checkpoint, String outPath)
             throws java.io.IOException {
         Path savePath = Paths.get("build", "save", "vqsv_autosave.properties");
@@ -16328,6 +16764,67 @@ final class VqsvSmokeHarness {
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(1);
+        }
+    }
+
+    private static boolean runBootContinueAfterPanelSaveSmokeIfNeeded(String checkpoint, String outPath) {
+        if (!"boot_title_continue_after_panel_save".equals(checkpoint)) {
+            return false;
+        }
+        try {
+            VqsvIntroDemo.Scene s = new VqsvIntroDemo.Scene();
+            openPanelSavePromptForSmoke(s);
+            completePanelSaveForSmoke(s);
+            if (!VqsvSaveRuntime.hasSave()
+                    || !traceContains(s, "game.k.k save success text=Luu thanh cong")
+                    || !traceContains(s, "game.h.K f=2 close msgtip.ui and gamemenu.ui -> P=0")) {
+                throw new IllegalStateException("Expected panel save to create title-continue save"
+                        + " hasSave=" + VqsvSaveRuntime.hasSave()
+                        + " visible=" + s.panelRuntime.visible
+                        + " trace=" + tailTrace(s, 36));
+            }
+            AssetPaths assets = AssetPaths.fromWorkingTree(GameConfig.defaultConfig());
+            BootFlowState boot = new BootFlowState(assets);
+            GameStateMachine states = new GameStateMachine();
+            states.replace(boot);
+            tickBoot(boot, states, 20, emptyBootInput());
+            tickBoot(boot, states, 20, emptyBootInput());
+            boot.tick(bootInput(KeyEvent.VK_RIGHT), states);
+            if (!"TITLE_MENU".equals(boot.phaseName()) || !boot.saveAvailableForSmoke()
+                    || !"Ch\u01a1i ti\u1ebfp".equals(boot.selectedMenuLabelForSmoke())) {
+                throw new IllegalStateException("Boot continue after panel save menu mismatch phase="
+                        + boot.phaseName()
+                        + " save=" + boot.saveAvailableForSmoke()
+                        + " label=" + boot.selectedMenuLabelForSmoke()
+                        + " panelTrace=" + tailTrace(s, 36));
+            }
+            BufferedImage menu = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D menuGraphics = menu.createGraphics();
+            boot.render(menuGraphics);
+            menuGraphics.dispose();
+            ImageIO.write(menu, "png", new java.io.File(outPath));
+            boot.tick(bootInput(KeyEvent.VK_SPACE), states);
+            if (!"LegacyIntroDemoState".equals(states.currentStateNameForSmoke())
+                    || !(states.currentStateForSmoke() instanceof LegacyIntroDemoState)) {
+                throw new IllegalStateException("Boot continue after panel save did not load legacy state="
+                        + states.currentStateNameForSmoke());
+            }
+            LegacyIntroDemoState legacy = (LegacyIntroDemoState) states.currentStateForSmoke();
+            String snapshot = legacy.sceneDebugSnapshotForSmoke();
+            if (!snapshot.contains("scene=[1,0]") || !snapshot.contains("player=[200,218")) {
+                throw new IllegalStateException("Boot continue after panel save loaded wrong snapshot="
+                        + snapshot
+                        + " panelTrace=" + tailTrace(s, 36));
+            }
+            System.out.println("smoke-checkpoint-ok " + checkpoint + " " + outPath
+                    + " label=" + boot.selectedMenuLabelForSmoke()
+                    + " routed=" + states.currentStateNameForSmoke()
+                    + " snapshot=" + snapshot);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+            return true;
         }
     }
 

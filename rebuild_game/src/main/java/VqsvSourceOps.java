@@ -74,6 +74,36 @@ final class VqsvSourceOps {
         return VqsvSceneScriptSupport.waitForText();
     }
 
+    static Blocking op18Material(VqsvIntroDemo.Scene s, int mode, int materialId, int qty) {
+        SourceItem material = sourceMaterialItem(materialId);
+        if (mode == 0) {
+            if (sourceCanAddMaterial(s, materialId, qty)) {
+                int addQty = sourceMaterialStoredQuantity(materialId, qty);
+                sourceAddMaterial(s, materialId, addQty);
+                s.sourceStateTrace.add("PORTED op18 aq.c[3] add [" + mode + "," + materialId + "," + qty
+                        + "] storedQty=" + addQty
+                        + " count=" + sourceMaterialCount(s, materialId)
+                        + " bucket=sourceMaterialItems");
+                s.text = sourceInventoryPopup(VqsvText.Common.ITEM_REWARD_PREFIX + material.name, addQty);
+            } else {
+                s.sourceStateTrace.add("PORTED op18 aq.c[3] add-full [" + mode + "," + materialId + "," + qty
+                        + "] count=" + sourceMaterialCount(s, materialId));
+                s.text = sourceInventoryPopup(VqsvText.Common.ITEM_BAG_FULL, 0);
+            }
+        } else if (mode == 1) {
+            int removeQty = Math.max(0, qty);
+            sourceRemoveMaterial(s, materialId, removeQty);
+            s.sourceStateTrace.add("PORTED op18 aq.c[3] remove [" + mode + "," + materialId + "," + qty
+                    + "] count=" + sourceMaterialCount(s, materialId)
+                    + " bucket=sourceMaterialItems");
+            s.text = sourceInventoryPopup(VqsvText.Common.ITEM_LOST_PREFIX + material.name, removeQty);
+        } else {
+            s.sourceStateTrace.add("UNKNOWN op18 aq.c[3] args=[" + mode + "," + materialId + "," + qty + "]");
+            s.text = null;
+        }
+        return s.text == null ? null : VqsvSceneScriptSupport.waitForText();
+    }
+
     static Map<Integer, BagItem> initialSourceBagItems() {
         Map<Integer, BagItem> items = new HashMap<>();
         items.put(0, new BagItem(0, 0, 0, true));
@@ -90,6 +120,56 @@ final class VqsvSourceOps {
 
     static java.util.List<SourceMaterialItem> initialSourceMaterialItems() {
         return new java.util.ArrayList<>();
+    }
+
+    static void sourceAddMaterial(VqsvIntroDemo.Scene s, int materialId, int qty) {
+        if (materialId < 0 || qty <= 0) {
+            return;
+        }
+        for (SourceMaterialItem item : s.sourceMaterialItems) {
+            if (item.id == materialId) {
+                item.count = Math.min(99, Math.max(0, item.count + qty));
+                return;
+            }
+        }
+        s.sourceMaterialItems.add(new SourceMaterialItem(materialId, Math.min(99, qty)));
+    }
+
+    static void sourceRemoveMaterial(VqsvIntroDemo.Scene s, int materialId, int qty) {
+        if (materialId < 0 || qty <= 0) {
+            return;
+        }
+        for (SourceMaterialItem item : s.sourceMaterialItems) {
+            if (item.id == materialId) {
+                item.count = Math.max(0, item.count - qty);
+                return;
+            }
+        }
+    }
+
+    static int sourceMaterialCount(VqsvIntroDemo.Scene s, int materialId) {
+        if (materialId < 0) {
+            return 0;
+        }
+        for (SourceMaterialItem item : s.sourceMaterialItems) {
+            if (item.id == materialId) {
+                return Math.max(0, item.count);
+            }
+        }
+        return 0;
+    }
+
+    static boolean sourceCanAddMaterial(VqsvIntroDemo.Scene s, int materialId, int qty) {
+        if (materialId < 0 || qty <= 0) {
+            return false;
+        }
+        int addQty = sourceMaterialStoredQuantity(materialId, qty);
+        int current = sourceMaterialCount(s, materialId);
+        return current > 0 ? current < 99 : addQty <= 99;
+    }
+
+    private static int sourceMaterialStoredQuantity(int materialId, int qty) {
+        return materialId == 17 ? qty * 5 : qty;
     }
 
     private static TextBox sourceInventoryPopup(String message, int qty) {
@@ -146,6 +226,16 @@ final class VqsvSourceOps {
     static SourceItem sourceItem(int itemId) {
         // Source data: aq.c[4][itemId] -> name/icon/description/behavior.
         return sourceTableItem(itemId, fallbackItemName(itemId), itemId, 0);
+    }
+
+    static SourceItem sourceMaterialItem(int materialId) {
+        BattleHeldItemRow row = VqsvBattleTables.instance().heldItem(materialId);
+        if (row == null) {
+            return new SourceItem(materialId, 0, materialId, 0,
+                    "T\u00e0i li\u1ec7u " + materialId, "", 2);
+        }
+        return new SourceItem(materialId, row.nameTextId, row.iconCell, row.descriptionTextId,
+                sourceMaterialName(materialId), row.description(""), 2);
     }
 
     private static SourceItem sourceTableItem(int itemId, String fallbackName,

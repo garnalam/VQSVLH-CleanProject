@@ -15,6 +15,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 
 public final class GamePanel extends JPanel implements Runnable {
@@ -55,8 +56,8 @@ public final class GamePanel extends JPanel implements Runnable {
             @Override
             public void mousePressed(MouseEvent event) {
                 requestFocusInWindow();
-                int logicalX = event.getX() * GameConfig.LOGICAL_WIDTH / Math.max(1, getWidth());
-                int logicalY = event.getY() * GameConfig.LOGICAL_HEIGHT / Math.max(1, getHeight());
+                int logicalX = logicalX(event.getX());
+                int logicalY = logicalY(event.getY());
                 VqsvDebugLog.log("input mousePressed screen=[" + event.getX() + "," + event.getY()
                         + "] logical=[" + logicalX + "," + logicalY + "] focusOwner=" + isFocusOwner());
                 input.pressPointer(
@@ -64,6 +65,30 @@ public final class GamePanel extends JPanel implements Runnable {
                         clamp(logicalY, 0, GameConfig.LOGICAL_HEIGHT - 1));
             }
         });
+        MouseAdapter pointerMotion = new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent event) {
+                input.movePointer(
+                        clamp(logicalX(event.getX()), 0, GameConfig.LOGICAL_WIDTH - 1),
+                        clamp(logicalY(event.getY()), 0, GameConfig.LOGICAL_HEIGHT - 1));
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent event) {
+                mouseMoved(event);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent event) {
+                requestFocusInWindow();
+                input.rotateWheel(event.getWheelRotation());
+                VqsvDebugLog.log("input mouseWheel rotation=" + event.getWheelRotation()
+                        + " screen=[" + event.getX() + "," + event.getY()
+                        + "] logical=[" + logicalX(event.getX()) + "," + logicalY(event.getY()) + "]");
+            }
+        };
+        addMouseMotionListener(pointerMotion);
+        addMouseWheelListener(pointerMotion);
     }
 
     public void startLoop() {
@@ -114,6 +139,14 @@ public final class GamePanel extends JPanel implements Runnable {
 
     private static int clamp(int value, int min, int max) {
         return Math.max(min, Math.min(max, value));
+    }
+
+    private int logicalX(int componentX) {
+        return componentX * GameConfig.LOGICAL_WIDTH / Math.max(1, getWidth());
+    }
+
+    private int logicalY(int componentY) {
+        return componentY * GameConfig.LOGICAL_HEIGHT / Math.max(1, getHeight());
     }
 
     @Override

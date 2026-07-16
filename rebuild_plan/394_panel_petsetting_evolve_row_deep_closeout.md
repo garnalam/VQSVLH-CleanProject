@@ -25,7 +25,7 @@ Luat lam viec: audit source truoc, chi smoke/headless PNG. Khong mo live client.
 | --- | --- | --- | --- |
 | Open row 5 | `f=2`, `r=0`, open `evolve.ui`, close `petsetting.ui` + `petstate.ui` | `sourceEvolveVisible=true`, parent overlays closed | PORTED |
 | Header/current pet | widget `10` sprite, `38` name, `40` level | Uses selected `SourcePetState` and species row | PORTED/PARTIAL |
-| Material | widget `45` material name, `46` count/need from q inventory family | Uses `sourceSpecialRewards` count and `BattleItemRow` name | PORTED/PARTIAL |
+| Material | widget `45` material name, `46` count/need from q inventory family | Updated by `409`: uses source material bucket `sourceMaterialItems` / `(byte)2` / aq.c[3], not `sourceSpecialRewards` or normal bag | PORTED |
 | Stats | widgets `19..22` current stats, `31..34` target stats | Uses `BattleUnit.sourceVisibleStats()` for current and target clone | PORTED/PARTIAL |
 | No target | `s8 == -1` -> warning `Khong the lai tien hoa hoac di hoa` | Warning shown, no mutate, continue returns `evolve.ui` | PORTED |
 | Level low | pet level < required level -> warning | Warning shown, no material consume, no mutate, continue returns `evolve.ui` | PORTED |
