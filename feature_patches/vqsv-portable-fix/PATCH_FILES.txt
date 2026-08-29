@@ -13,6 +13,7 @@ data/unified/liet-hoa-mutations/LH-064-EVO-01/action.png
 data/unified/liet-hoa-mutations/LH-064-EVO-01/idle.png
 game/HoaDiemEvolutionSmokeTest.java
 game/TanNguyetLongMaBattleStartSmokeTest.java
+game/TanNguyetLongMaChallengeGateSmokeTest.java
 game/TanNguyetLongMaBossRuntime.java
 game/TanNguyetLongMaBossSmokeTest.java
 game/TanNguyetLongMaRoomRenderTest.java

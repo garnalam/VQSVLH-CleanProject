@@ -8,19 +8,20 @@ This directory contains the active `vqsv.*` source and resource files changed fo
 - LH-004 Hỏa Diễm Hồ -> Thiên Viêm Hồ evolution.
 - Selectable animated world pet companion with save/load support.
 - Tàn Nguyệt Long Ma boss, world placement, shadow/nameplate, exact battle stats, interaction fix, and left-facing battle presentation.
+- Tàn Nguyệt Long Ma challenge gate: the active party must contain six level-50 pets.
 - Headless smoke tests for evolution, companion persistence, boss presence, and battle start.
 
 ## Test build
 
-The matching Windows build is attached to GitHub Release `vqsv-portable-fix-v1`:
+The latest matching Windows build is attached to GitHub Release `vqsv-portable-fix-v2`:
 
-`VQSV-PORTABLE-Java26-Boss-Quay-Trai-Windows.zip`
+`VQSV-Boss-6-Pet-Lv50-PORTABLE-Windows.zip`
 
 Extract it and run `Chay-VQSV-PORTABLE.bat`. The archive includes its own Java 26 runtime.
 
 SHA-256:
 
-`9D6A361C0F01A01672091B5311C1F732E6BD27C9351FB8FF230A6B0D92F7C494`
+`99BE61D3042ED004CC8CA626C1309A7CFDDA6E799896D20D7113045D6765F2B4`
 
 ## Review and merge policy
 

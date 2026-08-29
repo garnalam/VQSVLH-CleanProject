@@ -7,8 +7,10 @@ public final class TanNguyetLongMaBattleStartSmokeTest {
    public static void main(String[] args) {
       VqsvGameRuntime.Scene scene = new VqsvGameRuntime.Scene();
       VqsvSceneLoaders.loadWorldRoomWithoutMapLoading(scene, 5, 3, 337, 368);
-      PetState pet = PetSourceAdapter.create(3, 4, 50, 5, 2, -1, -1);
-      scene.session.pets.roster.add(pet);
+      for (int slot = 0; slot < 6; slot++) {
+         PetState pet = PetSourceAdapter.create(slot, 4, 50, 5, 2, -1, -1);
+         scene.session.pets.roster.add(pet);
+      }
       scene.player.visible = true;
       scene.player.x = 337;
       scene.player.y = 390;

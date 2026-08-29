@@ -2,13 +2,17 @@ package vqsv.game;
 
 import vqsv.battle.BattleRequest;
 import vqsv.battle.ai.BattleAiProfile;
+import vqsv.pet.PetState;
 import vqsv.pet.data.TanNguyetLongMaCatalog;
+import vqsv.ui.text.TextBox;
 
 final class TanNguyetLongMaBossRuntime {
    static final int SCENE_ID = 5;
    static final int ROOM_INDEX = 3;
    static final int X = 337;
    static final int Y = 368;
+   static final int REQUIRED_PARTY_SIZE = 6;
+   static final int REQUIRED_PET_LEVEL = 50;
    private static final int INTERACTION_DISTANCE = 34;
 
    private TanNguyetLongMaBossRuntime() {}
@@ -34,10 +38,32 @@ final class TanNguyetLongMaBossRuntime {
       int dy = scene.player.y - boss.y;
       if (scene.key0 && dx * dx + dy * dy <= INTERACTION_DISTANCE * INTERACTION_DISTANCE
          && scene.text == null && scene.choice == null) {
-         startBattle(scene);
+         String blockReason = challengeBlockReason(scene);
+         if (blockReason == null) {
+            startBattle(scene);
+         } else {
+            scene.text = TextBox.msgWarm(blockReason, "Nhấn nút 5 để tiếp tục");
+            scene.session.story.trace().add("CUSTOM-BOSS blocked Tàn Nguyệt Long Ma reason=" + blockReason);
+         }
          scene.key0 = false;
          scene.keyUp = scene.keyDown = scene.keyLeft = scene.keyRight = false;
       }
+   }
+
+   static String challengeBlockReason(VqsvGameRuntime.Scene scene) {
+      int partySize = scene.session.pets.roster.size();
+      if (partySize < REQUIRED_PARTY_SIZE) {
+         return "Cần đủ 6 sủng vật trong đội hình để khiêu chiến Tàn Nguyệt Long Ma. Hiện có: "
+            + partySize + "/6.";
+      }
+      int belowLevel = 0;
+      for (int i = 0; i < REQUIRED_PARTY_SIZE; i++) {
+         PetState pet = scene.session.pets.roster.get(i);
+         if (pet == null || pet.level < REQUIRED_PET_LEVEL) belowLevel++;
+      }
+      return belowLevel == 0 ? null
+         : "Cả 6 sủng vật phải đạt cấp 50 mới có thể khiêu chiến Tàn Nguyệt Long Ma. Chưa đạt: "
+            + belowLevel + " pet.";
    }
 
    static boolean isBossRoom(VqsvGameRuntime.Scene scene) {
